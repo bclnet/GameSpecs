@@ -1,0 +1,1 @@
+﻿# GameSpecs.AC

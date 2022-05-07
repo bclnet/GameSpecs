@@ -1,0 +1,60 @@
+﻿{
+  "id": "AC",
+  "name": "Asheron's Call",
+  "studio": "",
+  "description": "The file formats used in Asheron's Call",
+  "familyType": "GameSpec.AC.ACFamily, GameSpec.AC",
+  "pakFileType": "GameSpec.AC.ACPakFile, GameSpec.AC",
+  "games": {
+    "AC": {
+      "name": "Asheron's Call",
+      "pak": "game:/client_portal.dat#AC"
+      //"pak": "game:/*.dat#AC"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "AC": {
+          "key": "Thwargle Games/ThwargLauncher",
+          "Thwargle Games/ThwargLauncher": {
+            "xml": "%LocalAppData%/Thwargle_Games/ThwargLauncher.exe_Url_211rsqwjx2ebkbzvsbzaeuk2kg5jvfdw/6.8.2.0/user.config",
+            "xmlPath": "//setting[@name='ACLocation']/value"
+          }
+        }
+      }
+    },
+    "filters": {
+      "AC": {
+        "Landblock": "0xFFFF",
+        "LandblockInfo": "0xFFFE",
+        "EnvCell": "0x100",
+        "GfxObj": "0x01",
+        "Setup": "0x02",
+        "Animation": "0x03",
+        "Palette": "0x04",
+        "SurfaceTexture": "0x05",
+        "Textures": "0x06",
+        "Surface": "0x08",
+        "MotionTable": "0x09",
+        "Sound": "0x0A",
+        "Environment": "0x0D",
+        "CharGen": "0xE000002",
+        "BadData": "0xE00001A",
+        "PaletteSet": "0x0F",
+        "Clothing": "0x10",
+        "DegradeInfo": "0x11",
+        "Scene": "0x12",
+        "SoundTable": "0x20",
+        "Enums": "0x22",
+        "StringTable": "0x23",
+        "DIDs": "0x25",
+        "DualDIDs": "0x27",
+        "CombatTable": "0x30",
+        "EmitterInfo": "0x32",
+        "PhysicsScript": "0x33",
+        "PhysicsScriptTable": "0x34"
+      }
+    }
+  }
+}

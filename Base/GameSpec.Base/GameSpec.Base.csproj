@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
+    <Content Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
+    <Content Include="..\..\Aurora\AuroraFamily.json" Link="Families\AuroraFamily.json" />
+    <Content Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
+    <Content Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
+    <Content Include="..\..\Origin\OriginFamily.json" Link="Families\OriginFamily.json" />
+    <Content Include="..\..\Red\RedFamily.json" Link="Families\RedFamily.json" />
+    <Content Include="..\..\Rsi\RsiFamily.json" Link="Families\RsiFamily.json" />
+    <Content Include="..\..\Tes\TesFamily.json" Link="Families\TesFamily.json" />
+    <Content Include="..\..\Unity\UnityFamily.json" Link="Families\UnityFamily.json" />
+    <Content Include="..\..\Unknown\UnknownFamily.json" Link="Families\UnknownFamily.json" />
+    <Content Include="..\..\Unreal\UnrealFamily.json" Link="Families\UnrealFamily.json" />
+    <Content Include="..\..\Valve\ValveFamily.json" Link="Families\ValveFamily.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Native\x64\oo2ext_7_win64.dll" Link="oo2ext_7_win64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.2.16" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="SharpZipLib" Version="1.3.3" />
+    <PackageReference Include="System.Text.Json" Version="6.0.3" />
+    <PackageReference Include="ZstdNet" Version="1.4.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj" />
+    <ProjectReference Include="..\..\..\OpenStack\Graphics\OpenStack.Graphics\OpenStack.Graphics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Families\" />
+  </ItemGroup>
+
+</Project>

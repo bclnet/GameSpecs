@@ -1,0 +1,27 @@
+﻿{
+  "id": "Rsi",
+  "name": "Roberts Space Industries",
+  "studio": "Cloud Imperium Games",
+  "description": "RSI formats used in StarCitizen",
+  "familyType": "GameSpec.Rsi.RsiFamily, GameSpec.Rsi",
+  "pakFileType": "GameSpec.Rsi.RsiPakFile, GameSpec.Rsi",
+  "games": {
+    "StarCitizen": {
+      "name": "Star Citizen",
+      "pak": "game:/Data.p4k#StarCitizen",
+      "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "StarCitizen": {
+          "key": "81bfc699-f883-50c7-b674-2483b6baae23",
+          "81bfc699-f883-50c7-b674-2483b6baae23": {
+            "path": "%path%/../StarCitizen/LIVE"
+          }
+        }
+      }
+    }
+  }
+}

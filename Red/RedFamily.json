@@ -1,0 +1,71 @@
+﻿{
+  // Project RED, REDKit
+  // https://witcher.fandom.com/wiki/File_format
+  // http://jlouisb.users.sourceforge.net/
+  "id": "Red",
+  "name": "REDengine",
+  "studio": "CD Projekt Red",
+  "description": "REDengine file formats including the Witcher Series",
+  "familyType": "GameSpec.Red.RedFamily, GameSpec.Red",
+  "pakFileType": "GameSpec.Red.RedPakFile, GameSpec.Red",
+  "games": {
+    "Witcher": {
+      "name": "The Witcher Enhanced Edition",
+      //"pak": "game:/*.key#Witcher"
+      "pak": "game:/main.key#Witcher"
+      //"pakZ": "game:/attackeffects.2da#Witcher",
+      //"pak": "game:/dialog_3.tlk#Witcher",
+    },
+    "Witcher2": {
+      "name": "The Witcher 2",
+      "pak": "game:/*#Witcher2",
+      "pak_": "game:/base_scripts.dzip#Witcher2",
+      "pak2": "game:/br0.w2strings#Witcher2"
+    },
+    "Witcher3": {
+      "name": "The Witcher 3: Wild Hunt",
+      "pak": "game:/content0/texture.cache#Witcher3",
+      "pak0": "game:/content0/bundles/xml.bundle#Witcher3",
+      "pak1": "game:/content0/ar.w3strings#Witcher3"
+    },
+    "CP77": {
+      "name": "Cyberpunk 2077",
+      "pak": "game:/basegame_2_mainmenu.archive#CP77",
+      "pak1": "game:/lang_en_text.archive#CP77"
+      //"pak": "game:/lang_en_voice.archive#CP77"
+      //"pak": "game:/*.archive#CP77"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "Witcher": {
+          "key": [
+            "CD Projekt RED/The Witcher",
+            "GOG.com/Games/1207658924"
+          ],
+          "path": "Data"
+        },
+        "Witcher2": {
+          "key": [
+            "CD Projekt RED/The Witcher 2",
+            "GOG.com/Games/1207658930"
+          ],
+          "path": "CookedPC"
+        },
+        "Witcher3": {
+          "key": [
+            "GOG.com/Games/1207664643",
+            //"GOG.com/Games/1430742867",
+            "GOG.com/Games/1495134320"
+          ],
+          "path": "content"
+        },
+        "CP77": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1091500",
+          "path": "archive/pc/content"
+        }
+      }
+    }
+  }
+}

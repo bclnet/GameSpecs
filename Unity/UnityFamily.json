@@ -1,0 +1,27 @@
+﻿{
+  "id": "Unity",
+  "name": "Unity",
+  "studio": "Unity",
+  "description": "Unity formats",
+  "familyType": "GameSpec.Unity.UnityFamily, GameSpec.Unity",
+  "pakFileType": "GameSpec.Unity.UnityPakFile, GameSpec.Unity",
+  "games": {
+    "StarCitizen": {
+      "name": "Star Citizen",
+      "pak": "game:/Data.p4k#StarCitizen",
+      "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "StarCitizen": {
+          "key": "81bfc699-f883-50c7-b674-2483b6baae23",
+          "81bfc699-f883-50c7-b674-2483b6baae23": {
+            "path": "%path%/../StarCitizen/LIVE"
+          }
+        }
+      }
+    }
+  }
+}

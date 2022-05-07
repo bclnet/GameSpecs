@@ -1,0 +1,34 @@
+﻿{
+  "id": "Unreal",
+  "name": "Unreal",
+  "studio": "Epic Games",
+  "description": "Unreal formats",
+  "familyType": "GameSpec.Unreal.UnrealFamily, GameSpec.Unreal",
+  "pakFileType": "GameSpec.Unreal.UnrealPakFile, GameSpec.Unreal",
+  "games": {
+    "BioShock": {
+      "name": "BioShock",
+      "pak": "game:/Data.p4k#BioShock"
+    },
+    "BioShock2": {
+      "name": "BioShock 2",
+      "pak": "game:/Data.p4k#BioShock2"
+    },
+    "BioShockInfinite": {
+      "name": "BioShock Infinite",
+      "pak": "game:/Data.p4k#BioShockInfinite"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "BioShock": {
+        },
+        "BioShock2": {
+        },
+        "BioShockInfinite": {
+        }
+      }
+    }
+  }
+}

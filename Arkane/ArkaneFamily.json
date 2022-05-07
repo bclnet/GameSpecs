@@ -1,0 +1,30 @@
+﻿{
+  "id": "Arkane",
+  "name": "Arkane Studios",
+  "studio": "Arkane Studios",
+  "description": "The file formats used in the Void engine",
+  "familyType": "GameSpec.Arkane.ArkaneFamily, GameSpec.Arkane",
+  "pakFileType": "GameSpec.Arkane.ArkanePakFile, GameSpec.Arkane",
+  "games": {
+    "Dishonored2": {
+      "name": "Dishonored 2",
+      "pak": "game:/game1.index#Dishonored2",
+      "pak_": "game:/*.index#Dishonored2"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "Dishonored2": {
+          "key": "GOG.com/Games/1431426311",
+          "path": "base"
+        }
+      }
+    },
+    "ignores": {
+      "Dishonored2": {
+        "path": "master.index"
+      }
+    }
+  }
+}
