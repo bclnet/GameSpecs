@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are basically pre-fab regions for things like the interior of a dungeon.
     /// </summary>
     [PakFileType(PakFileType.Environment)]
-    public class Environment : FileType, IGetExplorerInfo
+    public class Environment : FileType, IGetMetadataInfo
     {
         public readonly Dictionary<uint, CellStruct> Cells;
 
@@ -23,10 +23,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.Environment
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(Environment)}: {Id:X8}", items: Cells.Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(Environment)}: {Id:X8}", items: Cells.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
             };
             return nodes;
         }

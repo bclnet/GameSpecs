@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class AmbientSTBDesc : IGetExplorerInfo
+    public class AmbientSTBDesc : IGetMetadataInfo
     {
         public readonly uint STBId;
         public readonly AmbientSoundDesc[] AmbientSounds;
@@ -18,12 +18,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.AmbientSoundTableDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Ambient Sound Table ID: {STBId:X8}", clickable: true),
-                new ExplorerInfoNode($"Ambient Sounds", items: AmbientSounds.Select((x, i)
-                    => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Ambient Sound Table ID: {STBId:X8}", clickable: true),
+                new MetadataInfo($"Ambient Sounds", items: AmbientSounds.Select((x, i)
+                    => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
             };
             return nodes;
         }

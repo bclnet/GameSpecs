@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.SpellComponentTable)]
-    public class SpellComponentTable : FileType, IGetExplorerInfo
+    public class SpellComponentTable : FileType, IGetMetadataInfo
     {
         public enum Type
         {
@@ -35,11 +35,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.SpellComponentTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(SpellComponentTable)}: {Id:X8}", items: SpellComponents.Select(
-                    x => new ExplorerInfoNode($"{x.Key} - {x.Value.Name}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(tag: tag))
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(SpellComponentTable)}: {Id:X8}", items: SpellComponents.Select(
+                    x => new MetadataInfo($"{x.Key} - {x.Value.Name}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag))
                 ))
             };
             return nodes;

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// They contain, as the name may imply, a set of palettes (0x04 files)
     /// </summary>
     [PakFileType(PakFileType.PaletteSet)]
-    public class PaletteSet : FileType, IGetExplorerInfo
+    public class PaletteSet : FileType, IGetMetadataInfo
     {
         public uint[] PaletteList;
 
@@ -41,11 +41,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.Palette
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(PaletteSet)}: {Id:X8}", items: PaletteList.Select(
-                    x => new ExplorerInfoNode($"{x:X8}", clickable: true)
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(PaletteSet)}: {Id:X8}", items: PaletteList.Select(
+                    x => new MetadataInfo($"{x:X8}", clickable: true)
                 )),
             };
             return nodes;

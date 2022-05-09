@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class DayGroup : IGetExplorerInfo
+    public class DayGroup : IGetMetadataInfo
     {
         public readonly float ChanceOfOccur;
         public readonly string DayName;
@@ -23,13 +23,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.DayGroup
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"ChanceOfOccur: {ChanceOfOccur}"),
-                new ExplorerInfoNode($"Weather: {DayName}"),
-                new ExplorerInfoNode("SkyObjects", items: SkyObjects.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("SkyTimesOfDay", items: SkyTime.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"ChanceOfOccur: {ChanceOfOccur}"),
+                new MetadataInfo($"Weather: {DayName}"),
+                new MetadataInfo("SkyObjects", items: SkyObjects.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("SkyTimesOfDay", items: SkyTime.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
             };
             return nodes;
         }

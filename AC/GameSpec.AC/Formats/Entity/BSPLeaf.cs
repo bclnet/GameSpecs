@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPLeaf : BSPNode, IGetExplorerInfo
+    public class BSPLeaf : BSPNode, IGetMetadataInfo
     {
         public readonly int LeafIndex;
         public readonly int Solid;
@@ -28,17 +28,17 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.BSPLeaf
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Type: {Type}"),
-                new ExplorerInfoNode($"LeafIndex: {LeafIndex}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Type: {Type}"),
+                new MetadataInfo($"LeafIndex: {LeafIndex}"),
             };
             if ((BSPType)tag == BSPType.Physics)
                 nodes.AddRange(new[] {
-                    new ExplorerInfoNode($"Solid: {Solid}"),
-                    new ExplorerInfoNode($"Sphere: {Sphere}"),
-                    new ExplorerInfoNode($"InPolys: {string.Join(", ", InPolys)}"),
+                    new MetadataInfo($"Solid: {Solid}"),
+                    new MetadataInfo($"Sphere: {Sphere}"),
+                    new MetadataInfo($"InPolys: {string.Join(", ", InPolys)}"),
                 });
             return nodes;
         }

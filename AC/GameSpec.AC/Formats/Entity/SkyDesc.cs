@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkyDesc : IGetExplorerInfo
+    public class SkyDesc : IGetMetadataInfo
     {
         public readonly double TickSize;
         public readonly double LightTickSize;
@@ -20,12 +20,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkyDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"TickSize: {TickSize}"),
-                new ExplorerInfoNode($"LightTickSize: {LightTickSize}"),
-                new ExplorerInfoNode("DayGroups", items: DayGroups.Select((x, i) => new ExplorerInfoNode($"{i:D2}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"TickSize: {TickSize}"),
+                new MetadataInfo($"LightTickSize: {LightTickSize}"),
+                new MetadataInfo("DayGroups", items: DayGroups.Select((x, i) => new MetadataInfo($"{i:D2}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
             };
             return nodes;
         }

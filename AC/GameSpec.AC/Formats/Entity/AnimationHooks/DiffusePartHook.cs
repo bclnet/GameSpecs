@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity.AnimationHooks
 {
-    public class DiffusePartHook : AnimationHook, IGetExplorerInfo
+    public class DiffusePartHook : AnimationHook, IGetMetadataInfo
     {
         public readonly uint Part;
         public readonly float Start;
@@ -22,15 +22,15 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         }
 
         //: Entity.DiffusePartHook
-        public override List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode>();
+            var nodes = new List<MetadataInfo>();
             if (Base is DiffusePartHook s)
             {
-                nodes.Add(new ExplorerInfoNode($"Part: {s.Part}"));
-                nodes.Add(new ExplorerInfoNode($"Start: {s.Start}"));
-                nodes.Add(new ExplorerInfoNode($"End: {s.End}"));
-                nodes.Add(new ExplorerInfoNode($"Time: {s.Time}"));
+                nodes.Add(new MetadataInfo($"Part: {s.Part}"));
+                nodes.Add(new MetadataInfo($"Start: {s.Start}"));
+                nodes.Add(new MetadataInfo($"End: {s.End}"));
+                nodes.Add(new MetadataInfo($"Time: {s.Time}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

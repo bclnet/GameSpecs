@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkyTimeOfDay : IGetExplorerInfo
+    public class SkyTimeOfDay : IGetMetadataInfo
     {
         public readonly float Begin;
 
@@ -46,25 +46,25 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkyTimeOfDay
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Begin: {Begin}"),
-                new ExplorerInfoNode($"DirBright: {DirBright}"),
-                new ExplorerInfoNode($"DirHeading: {DirHeading}"),
-                new ExplorerInfoNode($"DirPitch: {DirPitch}"),
-                new ExplorerInfoNode($"DirColor: {DirColor:X8}"),
-                new ExplorerInfoNode($"AmbientBrightness: {AmbBright}"),
-                new ExplorerInfoNode($"AmbientColor: {AmbColor:X8}"),
-                new ExplorerInfoNode($"MinFog: {MinWorldFog}"),
-                new ExplorerInfoNode($"MaxFog: {MaxWorldFog}"),
-                new ExplorerInfoNode($"FogColor: {WorldFogColor:X8}"),
-                new ExplorerInfoNode($"Fog: {WorldFog}"),
-                new ExplorerInfoNode("SkyObjectReplace", items: SkyObjReplace.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Begin: {Begin}"),
+                new MetadataInfo($"DirBright: {DirBright}"),
+                new MetadataInfo($"DirHeading: {DirHeading}"),
+                new MetadataInfo($"DirPitch: {DirPitch}"),
+                new MetadataInfo($"DirColor: {DirColor:X8}"),
+                new MetadataInfo($"AmbientBrightness: {AmbBright}"),
+                new MetadataInfo($"AmbientColor: {AmbColor:X8}"),
+                new MetadataInfo($"MinFog: {MinWorldFog}"),
+                new MetadataInfo($"MaxFog: {MaxWorldFog}"),
+                new MetadataInfo($"FogColor: {WorldFogColor:X8}"),
+                new MetadataInfo($"Fog: {WorldFog}"),
+                new MetadataInfo("SkyObjectReplace", items: SkyObjReplace.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("ObjIdx: ", "");
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })),
             };
             return nodes;

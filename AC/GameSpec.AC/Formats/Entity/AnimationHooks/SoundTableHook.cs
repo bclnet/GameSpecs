@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity.AnimationHooks
 {
-    public class SoundTableHook : AnimationHook, IGetExplorerInfo
+    public class SoundTableHook : AnimationHook, IGetMetadataInfo
     {
         public readonly uint SoundType;
 
@@ -15,12 +15,12 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
             => SoundType = r.ReadUInt32();
 
         //: Entity.SoundTableHook
-        public override List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode>();
+            var nodes = new List<MetadataInfo>();
             if (Base is SoundTableHook s)
             {
-                nodes.Add(new ExplorerInfoNode($"SoundType: {(Sound)s.SoundType}"));
+                nodes.Add(new MetadataInfo($"SoundType: {(Sound)s.SoundType}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

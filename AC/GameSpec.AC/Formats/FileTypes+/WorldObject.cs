@@ -1,13 +1,13 @@
-﻿//using GameSpecs.AC.Formats.Props;
-//using GameSpecs.Explorer;
-//using GameSpecs.Formats;
+﻿//using GameSpec.AC.Formats.Props;
+//using GameSpec.Metadata;
+//using GameSpec.Formats;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 
-//namespace GameSpecs.AC.Formats.FileTypes
+//namespace GameSpec.AC.Formats.FileTypes
 //{
-//    public class WorldObject : IGetExplorerInfo
+//    public class WorldObject : IGetMetadataInfo
 //    {
 //        public uint Id { get; set; }
 
@@ -116,10 +116,10 @@
 //        };
 
 //        //: FileTypes.ChatPoseTable
-//        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+//        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
 //        {
-//            var nodes = new List<ExplorerInfoNode> {
-//                new ExplorerInfoNode($"{nameof(WorldObject)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+//            var nodes = new List<MetadataInfo> {
+//                new MetadataInfo($"{nameof(WorldObject)}: {Id:X8}", items: new List<MetadataInfo> {
 //                })
 //            };
 //            return nodes;

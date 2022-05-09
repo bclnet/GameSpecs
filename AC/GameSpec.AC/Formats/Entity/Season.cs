@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class Season : IGetExplorerInfo
+    public class Season : IGetMetadataInfo
     {
         public readonly uint StartDate;
         public readonly string Name;
@@ -18,11 +18,11 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.Season
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"StartDate: {StartDate}"),
-                new ExplorerInfoNode($"Name: {Name}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"StartDate: {StartDate}"),
+                new MetadataInfo($"Name: {Name}"),
             };
             return nodes;
         }

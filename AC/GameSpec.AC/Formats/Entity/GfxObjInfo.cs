@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class GfxObjInfo : IGetExplorerInfo
+    public class GfxObjInfo : IGetMetadataInfo
     {
         public readonly uint Id;
         public readonly uint DegradeMode;
@@ -23,14 +23,14 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.GfxObjInfo
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"ID: {Id:X8}", clickable: true),
-                new ExplorerInfoNode($"DegradeMode: {DegradeMode}"),
-                new ExplorerInfoNode($"MinDist: {MinDist}"),
-                new ExplorerInfoNode($"IdealDist: {IdealDist}"),
-                new ExplorerInfoNode($"MaxDist: {MaxDist}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"ID: {Id:X8}", clickable: true),
+                new MetadataInfo($"DegradeMode: {DegradeMode}"),
+                new MetadataInfo($"MinDist: {MinDist}"),
+                new MetadataInfo($"IdealDist: {IdealDist}"),
+                new MetadataInfo($"MaxDist: {MaxDist}"),
             };
             return nodes;
         }

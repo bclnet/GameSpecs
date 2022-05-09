@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +21,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Very special thanks to David Simpson for his early work on reading the cell.dat. Even bigger thanks for his documentation of it!
     /// </remarks>
     [PakFileType(PakFileType.LandBlock)]
-    public class Landblock : FileType, IGetExplorerInfo
+    public class Landblock : FileType, IGetMetadataInfo
     {
         /// <summary>
         /// Places in the inland sea, for example, are false. Should denote presence of xxxxFFFE (where xxxx is the cell).
@@ -55,14 +55,14 @@ namespace GameSpec.AC.Formats.FileTypes
         public static ushort GetTerrain(ushort terrain, ushort mask, byte shift) => (ushort)((terrain & mask) >> shift);
 
         //: FileTypes.CellLandblock
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var terrainTypes = DatabaseManager.Portal.RegionDesc.TerrainInfo.TerrainTypes;
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(Landblock)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"HasObjects: {HasObjects}"),
-                    new ExplorerInfoNode("Terrain", items: Terrain.Select((x, i) => new ExplorerInfoNode($"{i}: Road: {GetRoad(x)}, Type: {terrainTypes[GetType(x)].TerrainName}, Scenery: {GetScenery(x)}"))),
-                    new ExplorerInfoNode("Heights", items: Height.Select((x, i) => new ExplorerInfoNode($"{i}: {x}"))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(Landblock)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"HasObjects: {HasObjects}"),
+                    new MetadataInfo("Terrain", items: Terrain.Select((x, i) => new MetadataInfo($"{i}: Road: {GetRoad(x)}, Type: {terrainTypes[GetType(x)].TerrainName}, Scenery: {GetScenery(x)}"))),
+                    new MetadataInfo("Heights", items: Height.Select((x, i) => new MetadataInfo($"{i}: {x}"))),
                 })
             };
             return nodes;

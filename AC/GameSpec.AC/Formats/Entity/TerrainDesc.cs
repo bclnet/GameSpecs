@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class TerrainDesc : IGetExplorerInfo
+    public class TerrainDesc : IGetMetadataInfo
     {
         public readonly TerrainType[] TerrainTypes;
         public readonly LandSurf LandSurfaces;
@@ -18,16 +18,16 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TerrainDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode("TerrainTypes", items: TerrainTypes.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo("TerrainTypes", items: TerrainTypes.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("TerrainName: ", "");
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })),
-                new ExplorerInfoNode($"LandSurf", items: (LandSurfaces as IGetExplorerInfo).GetInfoNodes()),
+                new MetadataInfo($"LandSurf", items: (LandSurfaces as IGetMetadataInfo).GetInfoNodes()),
             };
             return nodes;
         }

@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="GameSpec.Metadata.View.FileContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GameSpec.Metadata.View"
+             xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
+             xmlns:control="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="Content_Null" DataType="{x:Type model:MetadataContent}">
+                <TextBlock Text="Null" Margin="5,5,5,5" FontFamily="GenericMonospace" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Hex" DataType="{x:Type model:MetadataContent}">
+                <control:HexEditor Margin="5,5,5,5" Stream="{Binding Path=Value}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Text" DataType="{x:Type model:MetadataContent}">
+                <ScrollViewer>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=Value}" Margin="5,5,5,5" FontFamily="Courier New" />
+                </ScrollViewer>
+            </DataTemplate>
+            <DataTemplate x:Key="Content_DataGrid" DataType="{x:Type model:MetadataContent}">
+                <DataGrid VerticalAlignment="Top" ItemsSource="{Binding Path=Value}" Margin="5,5,5,5" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_AudioPlayer" DataType="{x:Type model:MetadataContent}">
+                <local:AudioPlayer Stream="{Binding Path=Value}" Format="{Binding Path=Tag}" Margin="5,5,5,5" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Image" DataType="{x:Type model:MetadataContent}">
+                <Image MaxWidth="{Binding Path=MaxWidth}" MaxHeight="{Binding Path=MaxHeight}" Margin="5,5,5,5" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Material" DataType="{x:Type model:MetadataContent}">
+                <local:GLMaterialViewer Source="{Binding Path=Value}" Graphic="{Binding Path=Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Particle" DataType="{x:Type model:MetadataContent}">
+                <local:GLParticleViewer Source="{Binding Path=Value}" Graphic="{Binding Path=Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Texture" DataType="{x:Type model:MetadataContent}">
+                <local:GLTextureViewer Source="{Binding Path=Value}" Graphic="{Binding Path=Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Model" DataType="{x:Type model:MetadataContent}">
+                <local:GLModelViewer Source="{Binding Path=Value}" Graphic="{Binding Path=Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_World" DataType="{x:Type model:MetadataContent}">
+                <local:GLModelViewer Source="{Binding Path=Value}" Graphic="{Binding Path=Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <TabControl x:Name="ContentTab" Grid.Row="1" Margin="0,0,0,0" ItemsSource="{Binding Path=ContentTabs}">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type model:MetadataContent}">
+                    <TextBlock Text="{Binding Path=Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type model:MetadataContent}">
+                    <ContentControl Content="{Binding}">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Content_Text}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Hex">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Hex}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Text">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Text}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="DataGrid">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_DataGrid}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="AudioPlayer">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_AudioPlayer}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Image">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Image}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Material">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Material}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Particle">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Particle}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Texture">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Texture}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="Model">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Model}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Type}" Value="World">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_World}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Value}" Value="{x:Null}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Content_Null}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+</UserControl>

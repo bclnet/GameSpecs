@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using OpenStack.Graphics;
 using OpenStack.Graphics.DirectX;
 using System;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class BinaryDds : ITextureInfo, IGetExplorerInfo
+    public class BinaryDds : ITextureInfo, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDds(r));
 
@@ -71,12 +71,12 @@ namespace GameSpec.Formats
         }
         public void MoveToData() { }
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => new List<ExplorerInfoNode> {
-            new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new ExplorerInfoNode("DDS Texture", items: new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Width: {Header.dwWidth}"),
-                new ExplorerInfoNode($"Height: {Header.dwHeight}"),
-                new ExplorerInfoNode($"Mipmaps: {Header.dwMipMapCount}"),
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetadataInfo("DDS Texture", items: new List<MetadataInfo> {
+                new MetadataInfo($"Width: {Header.dwWidth}"),
+                new MetadataInfo($"Height: {Header.dwHeight}"),
+                new MetadataInfo($"Mipmaps: {Header.dwMipMapCount}"),
             }),
         };
     }

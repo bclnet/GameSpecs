@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.FileTypes;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SpellBase : IGetExplorerInfo
+    public class SpellBase : IGetMetadataInfo
     {
         public readonly string Name;
         public readonly string Desc;
@@ -132,37 +132,37 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SpellBase
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var componentTable = DatabaseManager.Portal.SpellComponentTable;
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Description: {Desc}"),
-                new ExplorerInfoNode($"School: {School}"),
-                new ExplorerInfoNode($"Icon: {Icon:X8}", clickable: true),
-                new ExplorerInfoNode($"Category: {Category}"),
-                new ExplorerInfoNode($"Flags: {(SpellFlags)Bitfield}"),
-                new ExplorerInfoNode($"BaseMana: {BaseMana}"),
-                new ExplorerInfoNode($"BaseRangeConstant: {BaseRangeConstant}"),
-                new ExplorerInfoNode($"BaseRangeMod: {BaseRangeMod}"),
-                new ExplorerInfoNode($"Power: {Power}"),
-                new ExplorerInfoNode($"SpellEconomyMod: {SpellEconomyMod}"),
-                new ExplorerInfoNode($"FormulaVersion: {FormulaVersion}"),
-                new ExplorerInfoNode($"ComponentLoss: {ComponentLoss}"),
-                new ExplorerInfoNode($"MetaSpellType: {MetaSpellType}"),
-                new ExplorerInfoNode($"MetaSpellId: {MetaSpellId}"),
-                new ExplorerInfoNode($"Duration: {Duration}"),
-                new ExplorerInfoNode($"DegradeModifier: {DegradeModifier}"),
-                new ExplorerInfoNode($"DegradeLimit: {DegradeLimit}"),
-                new ExplorerInfoNode("Formula", items: Formula.Select(x => new ExplorerInfoNode($"{x}: {componentTable.SpellComponents[x].Name}"))),
-                new ExplorerInfoNode($"CasterEffect: {(PlayScript)CasterEffect}"),
-                new ExplorerInfoNode($"TargetEffect: {(PlayScript)TargetEffect}"),
-                new ExplorerInfoNode($"FizzleEffect: {(PlayScript)FizzleEffect}"),
-                new ExplorerInfoNode($"RecoveryInterval: {RecoveryInterval}"),
-                new ExplorerInfoNode($"RecoveryAmount: {RecoveryAmount}"),
-                new ExplorerInfoNode($"DisplayOrder: {DisplayOrder}"),
-                new ExplorerInfoNode($"NonComponentTargetType: {(ItemType)NonComponentTargetType}"),
-                new ExplorerInfoNode($"ManaMod: {ManaMod}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Description: {Desc}"),
+                new MetadataInfo($"School: {School}"),
+                new MetadataInfo($"Icon: {Icon:X8}", clickable: true),
+                new MetadataInfo($"Category: {Category}"),
+                new MetadataInfo($"Flags: {(SpellFlags)Bitfield}"),
+                new MetadataInfo($"BaseMana: {BaseMana}"),
+                new MetadataInfo($"BaseRangeConstant: {BaseRangeConstant}"),
+                new MetadataInfo($"BaseRangeMod: {BaseRangeMod}"),
+                new MetadataInfo($"Power: {Power}"),
+                new MetadataInfo($"SpellEconomyMod: {SpellEconomyMod}"),
+                new MetadataInfo($"FormulaVersion: {FormulaVersion}"),
+                new MetadataInfo($"ComponentLoss: {ComponentLoss}"),
+                new MetadataInfo($"MetaSpellType: {MetaSpellType}"),
+                new MetadataInfo($"MetaSpellId: {MetaSpellId}"),
+                new MetadataInfo($"Duration: {Duration}"),
+                new MetadataInfo($"DegradeModifier: {DegradeModifier}"),
+                new MetadataInfo($"DegradeLimit: {DegradeLimit}"),
+                new MetadataInfo("Formula", items: Formula.Select(x => new MetadataInfo($"{x}: {componentTable.SpellComponents[x].Name}"))),
+                new MetadataInfo($"CasterEffect: {(PlayScript)CasterEffect}"),
+                new MetadataInfo($"TargetEffect: {(PlayScript)TargetEffect}"),
+                new MetadataInfo($"FizzleEffect: {(PlayScript)FizzleEffect}"),
+                new MetadataInfo($"RecoveryInterval: {RecoveryInterval}"),
+                new MetadataInfo($"RecoveryAmount: {RecoveryAmount}"),
+                new MetadataInfo($"DisplayOrder: {DisplayOrder}"),
+                new MetadataInfo($"NonComponentTargetType: {(ItemType)NonComponentTargetType}"),
+                new MetadataInfo($"ManaMod: {ManaMod}"),
             };
             return nodes;
         }

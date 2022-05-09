@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SoundTableData : IGetExplorerInfo
+    public class SoundTableData : IGetMetadataInfo
     {
         public readonly uint SoundId; // Corresponds to the DatFileType.Wave
         public readonly float Priority;
@@ -21,13 +21,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SoundTableData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Sound ID: {SoundId:X8}", clickable: true),
-                new ExplorerInfoNode($"Priority: {Priority}"),
-                new ExplorerInfoNode($"Probability: {Probability}"),
-                new ExplorerInfoNode($"Volume: {Volume}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Sound ID: {SoundId:X8}", clickable: true),
+                new MetadataInfo($"Priority: {Priority}"),
+                new MetadataInfo($"Probability: {Probability}"),
+                new MetadataInfo($"Volume: {Volume}"),
             };
             return nodes;
         }

@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\agrp.png" />
+    <None Remove="Icons\anim.png" />
+    <None Remove="Icons\bsp.png" />
+    <None Remove="Icons\css.png" />
+    <None Remove="Icons\dds.png" />
+    <None Remove="Icons\dmx.png" />
+    <None Remove="Icons\ents.png" />
+    <None Remove="Icons\fbx.png" />
+    <None Remove="Icons\gnv.png" />
+    <None Remove="Icons\grass.png" />
+    <None Remove="Icons\hcg.png" />
+    <None Remove="Icons\html.png" />
+    <None Remove="Icons\jpg.png" />
+    <None Remove="Icons\map.png" />
+    <None Remove="Icons\mat.png" />
+    <None Remove="Icons\mdl.png" />
+    <None Remove="Icons\mesh.png" />
+    <None Remove="Icons\morf.png" />
+    <None Remove="Icons\mp3.png" />
+    <None Remove="Icons\pcf.png" />
+    <None Remove="Icons\pdf.png" />
+    <None Remove="Icons\pdi.png" />
+    <None Remove="Icons\phy.png" />
+    <None Remove="Icons\phys.png" />
+    <None Remove="Icons\png.png" />
+    <None Remove="Icons\post.png" />
+    <None Remove="Icons\psd.png" />
+    <None Remove="Icons\rman.png" />
+    <None Remove="Icons\snd.png" />
+    <None Remove="Icons\surf.png" />
+    <None Remove="Icons\tex.png" />
+    <None Remove="Icons\ttf.png" />
+    <None Remove="Icons\txt.png" />
+    <None Remove="Icons\vis.png" />
+    <None Remove="Icons\vmt.png" />
+    <None Remove="Icons\vtf.png" />
+    <None Remove="Icons\vtx.png" />
+    <None Remove="Icons\vvd.png" />
+    <None Remove="Icons\wav.png" />
+    <None Remove="Icons\wnod.png" />
+    <None Remove="Icons\wrld.png" />
+    <None Remove="Icons\xml.png" />
+    <None Remove="Icons\_default.png" />
+    <None Remove="Icons\_folder.png" />
+    <None Remove="Icons\_openFile.png" />
+    <None Remove="Icons\_package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\agrp.png" />
+    <EmbeddedResource Include="Icons\anim.png" />
+    <EmbeddedResource Include="Icons\bsp.png" />
+    <EmbeddedResource Include="Icons\css.png" />
+    <EmbeddedResource Include="Icons\dds.png" />
+    <EmbeddedResource Include="Icons\dmx.png" />
+    <EmbeddedResource Include="Icons\ents.png" />
+    <EmbeddedResource Include="Icons\fbx.png" />
+    <EmbeddedResource Include="Icons\gnv.png" />
+    <EmbeddedResource Include="Icons\grass.png" />
+    <EmbeddedResource Include="Icons\hcg.png" />
+    <EmbeddedResource Include="Icons\html.png" />
+    <EmbeddedResource Include="Icons\jpg.png" />
+    <EmbeddedResource Include="Icons\map.png" />
+    <EmbeddedResource Include="Icons\mat.png" />
+    <EmbeddedResource Include="Icons\mdl.png" />
+    <EmbeddedResource Include="Icons\mesh.png" />
+    <EmbeddedResource Include="Icons\morf.png" />
+    <EmbeddedResource Include="Icons\mp3.png" />
+    <EmbeddedResource Include="Icons\pcf.png" />
+    <EmbeddedResource Include="Icons\pdf.png" />
+    <EmbeddedResource Include="Icons\pdi.png" />
+    <EmbeddedResource Include="Icons\phy.png" />
+    <EmbeddedResource Include="Icons\phys.png" />
+    <EmbeddedResource Include="Icons\png.png" />
+    <EmbeddedResource Include="Icons\post.png" />
+    <EmbeddedResource Include="Icons\psd.png" />
+    <EmbeddedResource Include="Icons\rman.png" />
+    <EmbeddedResource Include="Icons\snd.png" />
+    <EmbeddedResource Include="Icons\surf.png" />
+    <EmbeddedResource Include="Icons\tex.png" />
+    <EmbeddedResource Include="Icons\ttf.png" />
+    <EmbeddedResource Include="Icons\txt.png" />
+    <EmbeddedResource Include="Icons\vis.png" />
+    <EmbeddedResource Include="Icons\vmt.png" />
+    <EmbeddedResource Include="Icons\vtf.png" />
+    <EmbeddedResource Include="Icons\vtx.png" />
+    <EmbeddedResource Include="Icons\vvd.png" />
+    <EmbeddedResource Include="Icons\wav.png" />
+    <EmbeddedResource Include="Icons\wnod.png" />
+    <EmbeddedResource Include="Icons\wrld.png" />
+    <EmbeddedResource Include="Icons\xml.png" />
+    <EmbeddedResource Include="Icons\_default.png" />
+    <EmbeddedResource Include="Icons\_folder.png" />
+    <EmbeddedResource Include="Icons\_openFile.png" />
+    <EmbeddedResource Include="Icons\_package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
+    <PackageReference Include="WPFHexaEditor" Version="2.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Base\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics.GLControl\OpenStack.Graphics.GLControl.csproj" />
+    <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,6 @@
 ﻿using GameSpec.Arkane.Formats;
 using GameSpec.Arkane.Transforms;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
@@ -25,7 +25,7 @@ namespace GameSpec.Arkane
             : base(family, game, filePath, PakBinaryArkane.Instance, tag)
         {
             Options = PakManyOptions.FilesById;
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }

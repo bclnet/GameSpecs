@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.BadData)]
-    public class BadData : FileType, IGetExplorerInfo
+    public class BadData : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E00001A;
 
@@ -21,11 +21,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.BadData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = "Bad Data", Value = string.Join(", ", Bad.Keys.OrderBy(x => x)) }),
-                new ExplorerInfoNode($"{nameof(TabooTable)}: {Id:X8}")
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Bad Data", Value = string.Join(", ", Bad.Keys.OrderBy(x => x)) }),
+                new MetadataInfo($"{nameof(TabooTable)}: {Id:X8}")
             };
             return nodes;
         }

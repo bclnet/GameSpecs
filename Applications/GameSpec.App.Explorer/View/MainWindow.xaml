@@ -1,0 +1,67 @@
+﻿<Window x:Class="GameSpec.Metadata.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameSpec.Metadata.View"
+        mc:Ignorable="d"
+        Title="GameEstate Explorer" Width="1342" Height="798">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height=".1*" />
+            <RowDefinition Height="63" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="250" Width="250" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width=".1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <DataTemplate x:Key="FileExplorer" DataType="{x:Type local:ExplorerMainTab}">
+                <local:FileExplorer x:Name="PakFileExplorer" OpenPath="{Binding Path=Content.OpenPath, RelativeSource={x:Static RelativeSource.TemplatedParent}}" PakFile="{Binding Path=Content.PakFile, RelativeSource={x:Static RelativeSource.TemplatedParent}}" Margin="0,0,10,10" />
+            </DataTemplate>
+            <DataTemplate x:Key="TextBlock" DataType="{x:Type local:ExplorerMainTab}">
+                <ScrollViewer>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=Text}" Margin="5,5,5,5" />
+                </ScrollViewer>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <local:MainMenu x:Name="MainMenu" Grid.Row="0" Grid.ColumnSpan="3"/>
+
+        <TabControl x:Name="MainTabControl" Grid.Row="1" Margin="0,0,0,10" ItemsSource="{Binding Path=MainTabs}">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:ExplorerMainTab}" >
+                    <TextBlock Text="{Binding Path=Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type local:ExplorerMainTab}">
+                    <ContentControl Content="{Binding}">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="ContentTemplate" Value="{StaticResource FileExplorer}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=PakFile}" Value="{x:Null}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource TextBlock}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Center" />
+
+        <local:FileContent x:Name="FileContent" Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" />
+
+        <TextBox Name="Status" Grid.Row="2" Grid.ColumnSpan="3" Margin="7.5,0,7.5,7.5" Padding="3"
+                 TextWrapping="Wrap" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+    </Grid>
+</Window>

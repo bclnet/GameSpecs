@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.Entity
 {
     //: Entity+AnimData
-    public class AnimData : IGetExplorerInfo
+    public class AnimData : IGetMetadataInfo
     {
         public readonly uint AnimId;
         public readonly int LowFrame;
@@ -33,13 +33,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.AnimData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Anim ID: {AnimId:X8}", clickable: true),
-                new ExplorerInfoNode($"Low frame: {LowFrame}"),
-                new ExplorerInfoNode($"High frame: {HighFrame}"),
-                new ExplorerInfoNode($"Framerate: {Framerate}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Anim ID: {AnimId:X8}", clickable: true),
+                new MetadataInfo($"Low frame: {LowFrame}"),
+                new MetadataInfo($"High frame: {HighFrame}"),
+                new MetadataInfo($"Framerate: {Framerate}"),
             };
             return nodes;
         }

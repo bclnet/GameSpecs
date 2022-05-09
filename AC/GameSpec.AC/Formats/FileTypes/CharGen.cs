@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.AC.Formats.Entity;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using GameSpec.Formats;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.CharacterGenerator)]
-    public class CharGen : FileType, IGetExplorerInfo
+    public class CharGen : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E000002;
 
@@ -26,21 +26,21 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.CharGen
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(CharGen)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Starter Areas", items: StarterAreas.Select(x => {
-                        var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(CharGen)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Starter Areas", items: StarterAreas.Select(x => {
+                        var items = (x as IGetMetadataInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Name: ", "");
                         items.RemoveAt(0);
-                        return new ExplorerInfoNode(name, items: items);
+                        return new MetadataInfo(name, items: items);
                     })),
-                    new ExplorerInfoNode("Heritage Groups", items: HeritageGroups.Select(x => {
-                        var items = (x.Value as IGetExplorerInfo).GetInfoNodes();
+                    new MetadataInfo("Heritage Groups", items: HeritageGroups.Select(x => {
+                        var items = (x.Value as IGetMetadataInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Name: ", "");
                         items.RemoveAt(0);
-                        return new ExplorerInfoNode(name, items: items);
+                        return new MetadataInfo(name, items: items);
                     })),
                 })
             };

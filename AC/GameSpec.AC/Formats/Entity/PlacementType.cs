@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class PlacementType : IGetExplorerInfo
+    public class PlacementType : IGetMetadataInfo
     {
         public readonly AnimationFrame AnimFrame;
 
@@ -13,6 +13,6 @@ namespace GameSpec.AC.Formats.Entity
            =>  AnimFrame = new AnimationFrame(r, numParts);
 
         //: Entity.PlacementType
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => (AnimFrame as IGetExplorerInfo).GetInfoNodes(resource, file, tag);
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => (AnimFrame as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
     }
 }

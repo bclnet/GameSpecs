@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class CBldPortal : IGetExplorerInfo
+    public class CBldPortal : IGetMetadataInfo
     {
         public readonly PortalFlags Flags;
 
@@ -32,12 +32,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.BldPortal
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                Flags != 0 ? new ExplorerInfoNode($"Flags: {Flags}") : null,
-                OtherCellId != 0 ? new ExplorerInfoNode($"OtherCell ID: {OtherCellId:X}") : null,
-                OtherPortalId != 0 ? new ExplorerInfoNode($"OtherPortal ID: {OtherPortalId:X}") : null,
+            var nodes = new List<MetadataInfo> {
+                Flags != 0 ? new MetadataInfo($"Flags: {Flags}") : null,
+                OtherCellId != 0 ? new MetadataInfo($"OtherCell ID: {OtherCellId:X}") : null,
+                OtherPortalId != 0 ? new MetadataInfo($"OtherPortal ID: {OtherPortalId:X}") : null,
             };
             return nodes;
         }

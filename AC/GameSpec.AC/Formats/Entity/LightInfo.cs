@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class LightInfo : IGetExplorerInfo
+    public class LightInfo : IGetMetadataInfo
     {
         public readonly Frame ViewerSpaceLocation;
         public readonly uint Color; // _RGB Color. Red is bytes 3-4, Green is bytes 5-6, Blue is bytes 7-8. Bytes 1-2 are always FF (?)
@@ -24,14 +24,14 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.LightInfo
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Viewer space location: {ViewerSpaceLocation}"),
-                new ExplorerInfoNode($"Color: {ColorX.ToRGBA(Color)}"),
-                new ExplorerInfoNode($"Intensity: {Intensity}"),
-                new ExplorerInfoNode($"Falloff: {Falloff}"),
-                new ExplorerInfoNode($"ConeAngle: {ConeAngle}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Viewer space location: {ViewerSpaceLocation}"),
+                new MetadataInfo($"Color: {ColorX.ToRGBA(Color)}"),
+                new MetadataInfo($"Intensity: {Intensity}"),
+                new MetadataInfo($"Falloff: {Falloff}"),
+                new MetadataInfo($"ConeAngle: {ConeAngle}"),
             };
             return nodes;
         }

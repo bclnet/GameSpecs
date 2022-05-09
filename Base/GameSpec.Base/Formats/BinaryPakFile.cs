@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -27,9 +27,9 @@ namespace GameSpec.Formats
         public uint Version;
         public object DecryptKey;
 
-        // explorer
-        protected Func<ExplorerManager, BinaryPakFile, Task<List<ExplorerItemNode>>> GetExplorerItems;
-        protected Dictionary<string, Func<ExplorerManager, BinaryPakFile, FileMetadata, Task<List<ExplorerInfoNode>>>> ExplorerInfos = new Dictionary<string, Func<ExplorerManager, BinaryPakFile, FileMetadata, Task<List<ExplorerInfoNode>>>>();
+        // metadata
+        protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
+        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>>();
 
         // object-factory
         protected Func<FileMetadata, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
@@ -246,11 +246,7 @@ namespace GameSpec.Formats
                     : value is IRedirected<T> y ? y.Value
                     : throw new InvalidCastException();
             }
-            catch (Exception e)
-            {
-                Log(e.Message);
-                throw e;
-            }
+            catch (Exception e) { Log(e.Message); throw e; }
             finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
         }
 
@@ -296,7 +292,7 @@ namespace GameSpec.Formats
         /// </summary>
         public virtual void Process() => PakBinary.Process(this);
 
-        #region Explorer
+        #region Metadata
 
         /// <summary>
         /// Gets the explorer item nodes.
@@ -304,7 +300,7 @@ namespace GameSpec.Formats
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<ExplorerItemNode>> GetExplorerItemNodesAsync(ExplorerManager manager) => Valid && GetExplorerItems != null ? await GetExplorerItems(manager, this) : null;
+        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager) => Valid && GetMetadataItems != null ? await GetMetadataItems(manager, this) : null;
 
         /// <summary>
         /// Gets the explorer information nodes.
@@ -313,38 +309,38 @@ namespace GameSpec.Formats
         /// <param name="item">The item.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<ExplorerInfoNode>> GetExplorerInfoNodesAsync(ExplorerManager manager, ExplorerItemNode item)
+        public override async Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
         {
             if (!(item.Tag is FileMetadata file)) return null;
-            List<ExplorerInfoNode> nodes = null;
+            List<MetadataInfo> nodes = null;
             var obj = await LoadFileObjectAsync<object>(file);
-            if (obj is IGetExplorerInfo info) nodes = info.GetInfoNodes(manager, file);
+            if (obj is IGetMetadataInfo info) nodes = info.GetInfoNodes(manager, file);
             else if (obj is Stream stream)
             {
                 var value = GetStringOrBytes(stream);
-                nodes = value is string text ? new List<ExplorerInfoNode> {
-                        new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = "Text", Value = text }),
-                        new ExplorerInfoNode("Text", items: new List<ExplorerInfoNode> {
-                            new ExplorerInfoNode($"Length: {text.Length}"),
+                nodes = value is string text ? new List<MetadataInfo> {
+                        new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = text }),
+                        new MetadataInfo("Text", items: new List<MetadataInfo> {
+                            new MetadataInfo($"Length: {text.Length}"),
                         }) }
-                    : value is byte[] bytes ? new List<ExplorerInfoNode> {
-                        new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Hex", Name = "Hex", Value = new MemoryStream(bytes) }),
-                        new ExplorerInfoNode("Bytes", items: new List<ExplorerInfoNode> {
-                            new ExplorerInfoNode($"Length: {bytes.Length}"),
+                    : value is byte[] bytes ? new List<MetadataInfo> {
+                        new MetadataInfo(null, new MetadataContent { Type = "Hex", Name = "Hex", Value = new MemoryStream(bytes) }),
+                        new MetadataInfo("Bytes", items: new List<MetadataInfo> {
+                            new MetadataInfo($"Length: {bytes.Length}"),
                         }) }
                     : throw new ArgumentOutOfRangeException(nameof(value), value.GetType().Name);
             }
             else if (obj is IDisposable disposable) disposable.Dispose();
             if (nodes == null) return null;
-            nodes.Add(new ExplorerInfoNode("File", items: new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Path: {file.Path}"),
-                new ExplorerInfoNode($"FileSize: {file.FileSize}"),
+            nodes.Add(new MetadataInfo("File", items: new List<MetadataInfo> {
+                new MetadataInfo($"Path: {file.Path}"),
+                new MetadataInfo($"FileSize: {file.FileSize}"),
                 file.Parts != null
-                    ? new ExplorerInfoNode("Parts", items: file.Parts.Select(part => new ExplorerInfoNode($"{part.FileSize}@{part.Path}")))
+                    ? new MetadataInfo("Parts", items: file.Parts.Select(part => new MetadataInfo($"{part.FileSize}@{part.Path}")))
                     : null
             }));
-            //nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Hex", Name = "TEST", Value = new MemoryStream() }));
-            //nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Image", Name = "TEST", MaxWidth = 500, MaxHeight = 500, Value = null }));
+            //nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Hex", Name = "TEST", Value = new MemoryStream() }));
+            //nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Image", Name = "TEST", MaxWidth = 500, MaxHeight = 500, Value = null }));
             return nodes;
         }
 

@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +20,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// 27000004 - TradeNotes
     /// </summary>
     [PakFileType(PakFileType.DualDidMapper)]
-    public class DualDidMapper : FileType, IGetExplorerInfo
+    public class DualDidMapper : FileType, IGetMetadataInfo
     {
         // The client/server designation is guessed based on the content in each list.
         // The keys in these two Dictionaries are common. So ClientEnumToId[key] = ClientEnumToName[key].
@@ -48,18 +48,18 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.DualDidMapper
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(DualDidMapper)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    ClientEnumToID.Count > 0 ? new ExplorerInfoNode($"ClientIDNumberingType: {ClientIDNumberingType}") : null,
-                    ClientEnumToID.Count > 0 ? new ExplorerInfoNode("ClientEnumToID", items: ClientEnumToID.OrderBy(x => x.Key).Select(x => new ExplorerInfoNode($"{x.Key}: {x.Value::X8}"))) : null,
-                    ClientEnumToName.Count > 0 ? new ExplorerInfoNode($"ClientNameNumberingType: {ClientNameNumberingType}") : null,
-                    ClientEnumToName.Count > 0 ? new ExplorerInfoNode("ClientEnumToName", items: ClientEnumToName.OrderBy(x => x.Key).Select(x => new ExplorerInfoNode($"{x.Key}: {x.Value::X8}"))) : null,
-                    ServerEnumToID.Count > 0 ? new ExplorerInfoNode($"ServerIDNumberingType: {ServerIDNumberingType}") : null,
-                    ServerEnumToID.Count > 0 ? new ExplorerInfoNode("ServerEnumToID", items: ServerEnumToID.OrderBy(x => x.Key).Select(x => new ExplorerInfoNode($"{x.Key}: {x.Value::X8}"))) : null,
-                    ServerEnumToName.Count > 0 ? new ExplorerInfoNode($"ServerNameNumberingType: {ClientIDNumberingType}") : null,
-                    ServerEnumToName.Count > 0 ? new ExplorerInfoNode("ServerEnumToName", items: ServerEnumToName.OrderBy(x => x.Key).Select(x => new ExplorerInfoNode($"{x.Key}: {x.Value::X8}"))) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(DualDidMapper)}: {Id:X8}", items: new List<MetadataInfo> {
+                    ClientEnumToID.Count > 0 ? new MetadataInfo($"ClientIDNumberingType: {ClientIDNumberingType}") : null,
+                    ClientEnumToID.Count > 0 ? new MetadataInfo("ClientEnumToID", items: ClientEnumToID.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
+                    ClientEnumToName.Count > 0 ? new MetadataInfo($"ClientNameNumberingType: {ClientNameNumberingType}") : null,
+                    ClientEnumToName.Count > 0 ? new MetadataInfo("ClientEnumToName", items: ClientEnumToName.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
+                    ServerEnumToID.Count > 0 ? new MetadataInfo($"ServerIDNumberingType: {ServerIDNumberingType}") : null,
+                    ServerEnumToID.Count > 0 ? new MetadataInfo("ServerEnumToID", items: ServerEnumToID.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
+                    ServerEnumToName.Count > 0 ? new MetadataInfo($"ServerNameNumberingType: {ClientIDNumberingType}") : null,
+                    ServerEnumToName.Count > 0 ? new MetadataInfo("ServerEnumToName", items: ServerEnumToName.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
                 })
             };
             return nodes;

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SpellSetTiers : IGetExplorerInfo
+    public class SpellSetTiers : IGetMetadataInfo
     {
         /// <summary>
         /// A list of spell ids that are active in the spell set tier
@@ -17,10 +17,10 @@ namespace GameSpec.AC.Formats.Entity
             => Spells = r.ReadL32Array<uint>(sizeof(uint));
 
         //: Entity.SpellSetTier
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var spells = DatabaseManager.Portal.SpellTable.Spells;
-            var nodes = Spells.Select(x => new ExplorerInfoNode($"{x} - {spells[x].Name}")).ToList();
+            var nodes = Spells.Select(x => new MetadataInfo($"{x} - {spells[x].Name}")).ToList();
             return nodes;
         }
     }

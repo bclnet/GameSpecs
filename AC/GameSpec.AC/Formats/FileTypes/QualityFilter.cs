@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.QualityFilter)]
-    public class QualityFilter : FileType, IGetExplorerInfo
+    public class QualityFilter : FileType, IGetMetadataInfo
     {
         public readonly uint[] IntStatFilter;
         public readonly uint[] Int64StatFilter;
@@ -48,10 +48,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: New
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(QualityFilter)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(QualityFilter)}: {Id:X8}", items: new List<MetadataInfo> {
                 })
             };
             return nodes;

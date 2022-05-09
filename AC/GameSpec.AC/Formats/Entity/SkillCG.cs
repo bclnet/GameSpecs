@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkillCG : IGetExplorerInfo
+    public class SkillCG : IGetMetadataInfo
     {
         public readonly Skill SkillNum;
         public readonly int NormalCost;
@@ -20,12 +20,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkillCG
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Skill: {SkillNum}"),
-                new ExplorerInfoNode($"Normal Cost: {NormalCost}"),
-                new ExplorerInfoNode($"Primary Cost: {PrimaryCost}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Skill: {SkillNum}"),
+                new MetadataInfo($"Normal Cost: {NormalCost}"),
+                new MetadataInfo($"Primary Cost: {PrimaryCost}"),
             };
             return nodes;
         }

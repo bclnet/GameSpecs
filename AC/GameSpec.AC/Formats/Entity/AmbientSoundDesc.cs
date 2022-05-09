@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class AmbientSoundDesc : IGetExplorerInfo
+    public class AmbientSoundDesc : IGetMetadataInfo
     {
         public readonly Sound SType;
         public readonly float Volume;
@@ -26,14 +26,14 @@ namespace GameSpec.AC.Formats.Entity
         public bool IsContinuous => BaseChance == 0;
 
         //: Entity.AmbientSoundDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"SoundType: {SType}"),
-                new ExplorerInfoNode($"Volume: {Volume}"),
-                new ExplorerInfoNode($"BaseChance: {BaseChance}"),
-                new ExplorerInfoNode($"MinRate: {MinRate}"),
-                new ExplorerInfoNode($"MaxRate: {MaxRate}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"SoundType: {SType}"),
+                new MetadataInfo($"Volume: {Volume}"),
+                new MetadataInfo($"BaseChance: {BaseChance}"),
+                new MetadataInfo($"MinRate: {MinRate}"),
+                new MetadataInfo($"MaxRate: {MaxRate}"),
             };
             return nodes;
         }

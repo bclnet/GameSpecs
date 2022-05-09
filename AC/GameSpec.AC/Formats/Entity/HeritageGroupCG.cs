@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class HeritageGroupCG : IGetExplorerInfo
+    public class HeritageGroupCG : IGetMetadataInfo
     {
         public readonly string Name;
         public readonly uint IconImage;
@@ -38,34 +38,34 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.HeritageGroupCG
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Icon: {IconImage:X8}", clickable: true),
-                new ExplorerInfoNode($"Setup: {SetupID:X8}", clickable: true),
-                new ExplorerInfoNode($"Environment: {EnvironmentSetupID:X8}", clickable: true),
-                new ExplorerInfoNode($"Attribute Credits: {AttributeCredits}"),
-                new ExplorerInfoNode($"Skill Credits: {SkillCredits}"),
-                new ExplorerInfoNode($"Primary Start Areas: {string.Join(",", PrimaryStartAreas)}"),
-                new ExplorerInfoNode($"Secondary Start Areas: {string.Join(",", SecondaryStartAreas)}"),
-                new ExplorerInfoNode("Skills", items: Skills.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Icon: {IconImage:X8}", clickable: true),
+                new MetadataInfo($"Setup: {SetupID:X8}", clickable: true),
+                new MetadataInfo($"Environment: {EnvironmentSetupID:X8}", clickable: true),
+                new MetadataInfo($"Attribute Credits: {AttributeCredits}"),
+                new MetadataInfo($"Skill Credits: {SkillCredits}"),
+                new MetadataInfo($"Primary Start Areas: {string.Join(",", PrimaryStartAreas)}"),
+                new MetadataInfo($"Secondary Start Areas: {string.Join(",", SecondaryStartAreas)}"),
+                new MetadataInfo("Skills", items: Skills.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("Skill: ", "");
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })),
-                new ExplorerInfoNode("Templates", items: Templates.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+                new MetadataInfo("Templates", items: Templates.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("Name: ", "");
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })),
-                new ExplorerInfoNode("Genders", items: Genders.Select(x => {
+                new MetadataInfo("Genders", items: Genders.Select(x => {
                     var name = $"{(Gender)x.Key}";
-                    var items = (x.Value as IGetExplorerInfo).GetInfoNodes();
+                    var items = (x.Value as IGetMetadataInfo).GetInfoNodes();
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })),
             };
             return nodes;

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Rsi.Formats
 {
-    public class ForgeFile : IDisposable, IGetExplorerInfo
+    public class ForgeFile : IDisposable, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata m, PakFile s)
         {
@@ -25,11 +25,11 @@ namespace GameSpec.Rsi.Formats
             Reader = null;
         }
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode("DatabasePak", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"FileSize: [FileSize]"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo("DatabasePak", items: new List<MetadataInfo> {
+                    new MetadataInfo($"FileSize: [FileSize]"),
                 })
             };
             return nodes;

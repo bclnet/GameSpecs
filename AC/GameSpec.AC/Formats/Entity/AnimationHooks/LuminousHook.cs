@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity.AnimationHooks
 {
-    public class LuminousHook : AnimationHook, IGetExplorerInfo
+    public class LuminousHook : AnimationHook, IGetMetadataInfo
     {
         public readonly float Start;
         public readonly float End;
@@ -20,14 +20,14 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         }
 
         //: Entity.LuminousHook
-        public override List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode>();
+            var nodes = new List<MetadataInfo>();
             if (Base is LuminousHook s)
             {
-                nodes.Add(new ExplorerInfoNode($"Start: {s.Start}"));
-                nodes.Add(new ExplorerInfoNode($"End: {s.End}"));
-                nodes.Add(new ExplorerInfoNode($"Time: {s.Time}"));
+                nodes.Add(new MetadataInfo($"Start: {s.Start}"));
+                nodes.Add(new MetadataInfo($"End: {s.End}"));
+                nodes.Add(new MetadataInfo($"Time: {s.Time}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

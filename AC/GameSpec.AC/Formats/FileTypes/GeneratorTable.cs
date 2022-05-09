@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// And thanks alot to Pea as well whos hard work surely helped in the creation of those Tools too.
     /// </summary>
     [PakFileType(PakFileType.ObjectHierarchy)]
-    public class GeneratorTable : FileType, IGetExplorerInfo
+    public class GeneratorTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E00000D;
 
@@ -36,13 +36,13 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.GeneratorTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(GeneratorTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Generators", items: (Generators as IGetExplorerInfo).GetInfoNodes(tag: tag)),
-                    new ExplorerInfoNode("PlayDayItems", items: PlayDayItems.Select(x => new ExplorerInfoNode(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IGetExplorerInfo).GetInfoNodes(tag: tag)))),
-                    new ExplorerInfoNode("WeenieObjectsItems", items: WeenieObjectsItems.Select(x => new ExplorerInfoNode(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IGetExplorerInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(GeneratorTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Generators", items: (Generators as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+                    new MetadataInfo("PlayDayItems", items: PlayDayItems.Select(x => new MetadataInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
+                    new MetadataInfo("WeenieObjectsItems", items: WeenieObjectsItems.Select(x => new MetadataInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

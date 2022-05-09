@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPPortal : BSPNode, IGetExplorerInfo
+    public class BSPPortal : BSPNode, IGetMetadataInfo
     {
         public readonly PortalPoly[] InPortals;
 
@@ -30,18 +30,18 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.BSPPortal
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Type: {Type:X8}"),
-                new ExplorerInfoNode($"Splitting Plane: {SplittingPlane}"),
-                PosNode != null ? new ExplorerInfoNode("PosNode", items: (PosNode as IGetExplorerInfo).GetInfoNodes(tag: tag)) : null,
-                NegNode != null ? new ExplorerInfoNode("NegNode", items: (NegNode as IGetExplorerInfo).GetInfoNodes(tag: tag)) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Type: {Type:X8}"),
+                new MetadataInfo($"Splitting Plane: {SplittingPlane}"),
+                PosNode != null ? new MetadataInfo("PosNode", items: (PosNode as IGetMetadataInfo).GetInfoNodes(tag: tag)) : null,
+                NegNode != null ? new MetadataInfo("NegNode", items: (NegNode as IGetMetadataInfo).GetInfoNodes(tag: tag)) : null,
             };
             if ((BSPType)tag != BSPType.Drawing) return nodes;
-            nodes.Add(new ExplorerInfoNode($"Sphere: {Sphere}"));
-            nodes.Add(new ExplorerInfoNode($"InPolys: {string.Join(", ", InPolys)}"));
-            nodes.Add(new ExplorerInfoNode("InPortals", items: InPortals.Select(x => new ExplorerInfoNode($"{x}"))));
+            nodes.Add(new MetadataInfo($"Sphere: {Sphere}"));
+            nodes.Add(new MetadataInfo($"InPolys: {string.Join(", ", InPolys)}"));
+            nodes.Add(new MetadataInfo("InPortals", items: InPortals.Select(x => new MetadataInfo($"{x}"))));
             return nodes;
         }
     }

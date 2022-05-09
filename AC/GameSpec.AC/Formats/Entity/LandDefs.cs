@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class LandDefs : IGetExplorerInfo
+    public class LandDefs : IGetMetadataInfo
     {
         public readonly int NumBlockLength;
         public readonly int NumBlockWidth;
@@ -32,18 +32,18 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.LandDefs
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"NumBlockLength: {NumBlockLength}"),
-                new ExplorerInfoNode($"NumBlockWidth: {NumBlockWidth}"),
-                new ExplorerInfoNode($"SquareLength: {SquareLength}"),
-                new ExplorerInfoNode($"LBlockLength: {LBlockLength}"),
-                new ExplorerInfoNode($"VertexPerCell: {VertexPerCell}"),
-                new ExplorerInfoNode($"MaxObjHeight: {MaxObjHeight}"),
-                new ExplorerInfoNode($"SkyHeight: {SkyHeight}"),
-                new ExplorerInfoNode($"RoadWidth: {RoadWidth}"),
-                new ExplorerInfoNode("LandHeightTable", items: LandHeightTable.Select((x, i) => new ExplorerInfoNode($"{i}: {x}"))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"NumBlockLength: {NumBlockLength}"),
+                new MetadataInfo($"NumBlockWidth: {NumBlockWidth}"),
+                new MetadataInfo($"SquareLength: {SquareLength}"),
+                new MetadataInfo($"LBlockLength: {LBlockLength}"),
+                new MetadataInfo($"VertexPerCell: {VertexPerCell}"),
+                new MetadataInfo($"MaxObjHeight: {MaxObjHeight}"),
+                new MetadataInfo($"SkyHeight: {SkyHeight}"),
+                new MetadataInfo($"RoadWidth: {RoadWidth}"),
+                new MetadataInfo("LandHeightTable", items: LandHeightTable.Select((x, i) => new MetadataInfo($"{i}: {x}"))),
             };
             return nodes;
         }

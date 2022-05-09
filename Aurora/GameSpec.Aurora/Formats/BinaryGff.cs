@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Aurora.Formats
 {
-    public class BinaryGff : IGetExplorerInfo
+    public class BinaryGff : IGetMetadataInfo
     {
         public BinaryGff() { }
         public BinaryGff(BinaryReader r) => Read(r);
@@ -22,11 +22,11 @@ namespace GameSpec.Aurora.Formats
             QST = 0x20545351,
         }
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode("BinaryGFF", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"Type: {Type}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo("BinaryGFF", items: new List<MetadataInfo> {
+                    new MetadataInfo($"Type: {Type}"),
                 })
             };
             return nodes;

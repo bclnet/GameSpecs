@@ -4,3 +4,6 @@
 [submodule "Tes/kfmxml"]
 	path = Tes/kfmxml
 	url = git@github.com:niftools/kfmxml.git
+[submodule "OpenStack"]
+	path = OpenStack
+	url = git@github.com:bclnet/OpenStack.git

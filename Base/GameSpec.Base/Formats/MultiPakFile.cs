@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -130,19 +130,19 @@ namespace GameSpec.Formats
         /// <exception cref="FileNotFoundException">Could not find file \"{filePath}\".</exception>
         public override Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception) => throw new NotSupportedException();
 
-        #region Explorer
+        #region Metadata
 
         /// <summary>
-        /// Gets the explorer item nodes.
+        /// Gets the metadata items.
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<ExplorerItemNode>> GetExplorerItemNodesAsync(ExplorerManager manager)
+        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
         {
-            var root = new List<ExplorerItemNode>();
+            var root = new List<MetadataItem>();
             foreach (var pakFile in PakFiles.Where(x => x.Valid))
-                root.Add(new ExplorerItemNode(pakFile.Name, manager.PackageIcon, children: await pakFile.GetExplorerItemNodesAsync(manager)) { PakFile = pakFile });
+                root.Add(new MetadataItem(pakFile.Name, manager.PackageIcon, children: await pakFile.GetMetadataItemsAsync(manager)) { PakFile = pakFile });
             return root;
         }
 

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.Entity
 {
     // TODO: refactor to use existing PaletteOverride object
-    public class SubPalette : IGetExplorerInfo
+    public class SubPalette : IGetMetadataInfo
     {
         public uint SubID;
         public uint Offset;
@@ -24,12 +24,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SubPalette
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"SubID: {SubID:X8}", clickable: true),
-                new ExplorerInfoNode($"Offset: {Offset}"),
-                new ExplorerInfoNode($"NumColors: {NumColors}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"SubID: {SubID:X8}", clickable: true),
+                new MetadataInfo($"Offset: {Offset}"),
+                new MetadataInfo($"NumColors: {NumColors}"),
             };
             return nodes;
         }

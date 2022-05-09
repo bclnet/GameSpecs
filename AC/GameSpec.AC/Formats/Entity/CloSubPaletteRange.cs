@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class CloSubPaletteRange : IGetExplorerInfo
+    public class CloSubPaletteRange : IGetMetadataInfo
     {
         public readonly uint Offset;
         public readonly uint NumColors;
@@ -17,11 +17,11 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.ClothingSubPaletteRange
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Offset: {Offset}"),
-                new ExplorerInfoNode($"NumColors: {NumColors}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Offset: {Offset}"),
+                new MetadataInfo($"NumColors: {NumColors}"),
             };
             return nodes;
         }

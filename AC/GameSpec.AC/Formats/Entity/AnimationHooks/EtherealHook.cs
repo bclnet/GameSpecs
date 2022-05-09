@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity.AnimationHooks
 {
-    public class EtherealHook : AnimationHook, IGetExplorerInfo
+    public class EtherealHook : AnimationHook, IGetMetadataInfo
     {
         public readonly int Ethereal;
 
@@ -14,12 +14,12 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
             => Ethereal = r.ReadInt32();
 
         //: Entity.EtherealHook
-        public override List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode>();
+            var nodes = new List<MetadataInfo>();
             if (Base is EtherealHook s)
             {
-                nodes.Add(new ExplorerInfoNode($"Ethereal: {s.Ethereal}"));
+                nodes.Add(new MetadataInfo($"Ethereal: {s.Ethereal}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

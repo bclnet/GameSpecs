@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Thanks to Steven Nygard and his work on the Mac program ACDataTools that were used to help debug & verify some of this data.
     /// </remarks>
     [PakFileType(PakFileType.Clothing)]
-    public class ClothingTable : FileType, IGetExplorerInfo
+    public class ClothingTable : FileType, IGetMetadataInfo
     {
         /// <summary>
         /// Key is the setup model id
@@ -35,12 +35,12 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.ClothingTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(ClothingTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Base Effects", items: ClothingBaseEffects.Select(x => new ExplorerInfoNode($"{x.Key:X8}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(), clickable: true))),
-                    new ExplorerInfoNode("SubPalette Effects", items: ClothingSubPalEffects.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode($"{x.Key} - {(PaletteTemplate)x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(ClothingTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Base Effects", items: ClothingBaseEffects.Select(x => new MetadataInfo($"{x.Key:X8}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(), clickable: true))),
+                    new MetadataInfo("SubPalette Effects", items: ClothingSubPalEffects.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key} - {(PaletteTemplate)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

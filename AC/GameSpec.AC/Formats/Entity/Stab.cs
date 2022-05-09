@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ namespace GameSpec.AC.Formats.Entity
     /// It is an object and a corresponding position. 
     /// Note that since these are referenced by either a landblock or a cellblock, the corresponding Landblock and Cell should come from the parent.
     /// </summary>
-    public class Stab : IGetExplorerInfo
+    public class Stab : IGetMetadataInfo
     {
         public readonly uint Id;
         public readonly Frame Frame;
@@ -22,11 +22,11 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.Stab
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"ID: {Id:X8}", clickable: true),
-                new ExplorerInfoNode($"Frame: {Frame}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"ID: {Id:X8}", clickable: true),
+                new MetadataInfo($"Frame: {Frame}"),
             };
             return nodes;
         }

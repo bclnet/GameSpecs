@@ -18,7 +18,7 @@ namespace GameSpec.Red.Resource
         static CP77()
         {
             var assembly = typeof(CP77).Assembly;
-            using var stream = assembly.GetManifestResourceStream("GameEstate.Red.Resource.CP77.zip");
+            using var stream = assembly.GetManifestResourceStream("GameSpec.Red.Resource.CP77.zip");
             var pak = new ZipArchive(stream, ZipArchiveMode.Read);
             var fs = pak.GetEntry("CP77/hashes.csv")?.Open();
             using var sr = new StreamReader(fs);

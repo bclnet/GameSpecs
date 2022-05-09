@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Numerics;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class MotionData : IGetExplorerInfo
+    public class MotionData : IGetMetadataInfo
     {
         public readonly byte Bitfield;
         public readonly MotionDataFlags Flags;
@@ -27,15 +27,15 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.MotionData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                Bitfield != 0 ? new ExplorerInfoNode($"Bitfield: {Bitfield:X8}") : null,
+            var nodes = new List<MetadataInfo> {
+                Bitfield != 0 ? new MetadataInfo($"Bitfield: {Bitfield:X8}") : null,
                 Anims.Length == 0 ? null : Anims.Length == 1
-                    ? new ExplorerInfoNode("Animation", items: (Anims[0] as IGetExplorerInfo).GetInfoNodes())
-                    : new ExplorerInfoNode("Animations", items: Anims.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                Flags.HasFlag(MotionDataFlags.HasVelocity) ? new ExplorerInfoNode($"Velocity: {Velocity}") : null,
-                Flags.HasFlag(MotionDataFlags.HasOmega) ? new ExplorerInfoNode($"Omega: {Omega}") : null,
+                    ? new MetadataInfo("Animation", items: (Anims[0] as IGetMetadataInfo).GetInfoNodes())
+                    : new MetadataInfo("Animations", items: Anims.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                Flags.HasFlag(MotionDataFlags.HasVelocity) ? new MetadataInfo($"Velocity: {Velocity}") : null,
+                Flags.HasFlag(MotionDataFlags.HasOmega) ? new MetadataInfo($"Omega: {Omega}") : null,
             };
             return nodes;
         }

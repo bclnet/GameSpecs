@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using K4os.Compression.LZ4;
 using System;
@@ -7,7 +7,7 @@ using System.IO;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
-    public class DATABinaryKV3 : DATA, IGetExplorerInfo
+    public class DATABinaryKV3 : DATA, IGetMetadataInfo
     {
         public enum KVFlag
         {
@@ -46,12 +46,12 @@ namespace GameSpec.Valve.Formats.Blocks
         public const int MAGIC = 0x03564B56; // VKV3 (3 isn't ascii, its 0x03)
         public const int MAGIC2 = 0x4B563301; // KV3\x01
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => new List<ExplorerInfoNode> {
-            new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = "BinaryKV3", Value = ToString() }),
-            new ExplorerInfoNode("BinaryKV3", items: new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Data: {Data.Count}"),
-                new ExplorerInfoNode($"Encoding: {Encoding}"),
-                new ExplorerInfoNode($"Format: {Format}"),
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "BinaryKV3", Value = ToString() }),
+            new MetadataInfo("BinaryKV3", items: new List<MetadataInfo> {
+                new MetadataInfo($"Data: {Data.Count}"),
+                new MetadataInfo($"Encoding: {Encoding}"),
+                new MetadataInfo($"Format: {Format}"),
             }),
         };
 

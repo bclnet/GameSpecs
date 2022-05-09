@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class TexMerge : IGetExplorerInfo
+    public class TexMerge : IGetMetadataInfo
     {
         public readonly uint BaseTexSize;
         public readonly TerrainAlphaMap[] CornerTerrainMaps;
@@ -24,18 +24,18 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TexMerge
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"BaseTextureSize: {BaseTexSize}"),
-                new ExplorerInfoNode("CornerTerrainMaps", items: CornerTerrainMaps.Select(x => new ExplorerInfoNode($"{x}", clickable: true))),
-                new ExplorerInfoNode("SideTerrainMap", items: SideTerrainMaps.Select(x => new ExplorerInfoNode($"{x}", clickable: true))),
-                new ExplorerInfoNode("RoadAlphaMap", items: RoadMaps.Select(x => new ExplorerInfoNode($"{x}", clickable: true))),
-                new ExplorerInfoNode("TMTerrainDesc", items: TerrainDesc.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"BaseTextureSize: {BaseTexSize}"),
+                new MetadataInfo("CornerTerrainMaps", items: CornerTerrainMaps.Select(x => new MetadataInfo($"{x}", clickable: true))),
+                new MetadataInfo("SideTerrainMap", items: SideTerrainMaps.Select(x => new MetadataInfo($"{x}", clickable: true))),
+                new MetadataInfo("RoadAlphaMap", items: RoadMaps.Select(x => new MetadataInfo($"{x}", clickable: true))),
+                new MetadataInfo("TMTerrainDesc", items: TerrainDesc.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("TerrainType: ", "");
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })),
             };
             return nodes;

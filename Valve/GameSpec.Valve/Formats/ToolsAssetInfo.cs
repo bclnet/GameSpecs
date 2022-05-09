@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.Valve.Formats
 {
-    public class ToolsAssetInfo : IGetExplorerInfo
+    public class ToolsAssetInfo : IGetMetadataInfo
     {
         public const uint MAGIC = 0xC4CCACE8;
         public const uint GUARD = 0x049A48B2;
@@ -14,16 +14,16 @@ namespace GameSpec.Valve.Formats
         public ToolsAssetInfo() { }
         public ToolsAssetInfo(BinaryReader r) => Read(r);
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => new List<ExplorerInfoNode> {
-            new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = "Text", Value = ToString() }),
-            new ExplorerInfoNode("ToolsAssetInfo", items: new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Mods: {Mods.Count}"),
-                new ExplorerInfoNode($"Directories: {Directories.Count}"),
-                new ExplorerInfoNode($"Filenames: {Filenames.Count}"),
-                new ExplorerInfoNode($"Extensions: {Extensions.Count}"),
-                new ExplorerInfoNode($"EditInfoKeys: {EditInfoKeys.Count}"),
-                new ExplorerInfoNode($"MiscStrings: {MiscStrings.Count}"),
-                new ExplorerInfoNode($"ConstructedFilepaths: {ConstructedFilepaths.Count}"),
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = ToString() }),
+            new MetadataInfo("ToolsAssetInfo", items: new List<MetadataInfo> {
+                new MetadataInfo($"Mods: {Mods.Count}"),
+                new MetadataInfo($"Directories: {Directories.Count}"),
+                new MetadataInfo($"Filenames: {Filenames.Count}"),
+                new MetadataInfo($"Extensions: {Extensions.Count}"),
+                new MetadataInfo($"EditInfoKeys: {EditInfoKeys.Count}"),
+                new MetadataInfo($"MiscStrings: {MiscStrings.Count}"),
+                new MetadataInfo($"ConstructedFilepaths: {ConstructedFilepaths.Count}"),
             }),
         };
 

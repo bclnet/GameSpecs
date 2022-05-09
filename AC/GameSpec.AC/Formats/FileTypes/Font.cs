@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// It is essentially a map to a specific texture file (spritemap) that contains all the characters in this font.
     /// </summary>
     [PakFileType(PakFileType.Font)]
-    public class Font : FileType, IGetExplorerInfo
+    public class Font : FileType, IGetMetadataInfo
     {
         public readonly uint MaxCharHeight;
         public readonly uint MaxCharWidth;
@@ -37,10 +37,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: New
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(Font)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(Font)}: {Id:X8}", items: new List<MetadataInfo> {
                 })
             };
             return nodes;

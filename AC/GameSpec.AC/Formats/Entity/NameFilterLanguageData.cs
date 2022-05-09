@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class NameFilterLanguageData : IGetExplorerInfo
+    public class NameFilterLanguageData : IGetMetadataInfo
     {
         public readonly uint MaximumVowelsInARow; 
         public readonly uint FirstNCharactersMustHaveAVowel;
@@ -26,15 +26,15 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.NameFilterLanguageData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"MaximumVowelsInARow: {MaximumVowelsInARow}"),
-                new ExplorerInfoNode($"FirstNCharactersMustHaveAVowel: {FirstNCharactersMustHaveAVowel}"),
-                new ExplorerInfoNode($"VowelContainingSubstringLength: {VowelContainingSubstringLength}"),
-                new ExplorerInfoNode($"ExtraAllowedCharacters: {ExtraAllowedCharacters}"),
-                new ExplorerInfoNode($"Unknown: {Unknown}"),
-                new ExplorerInfoNode($"CompoundLetterGrounds", items: CompoundLetterGroups.Select(x => new ExplorerInfoNode($"{x}"))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"MaximumVowelsInARow: {MaximumVowelsInARow}"),
+                new MetadataInfo($"FirstNCharactersMustHaveAVowel: {FirstNCharactersMustHaveAVowel}"),
+                new MetadataInfo($"VowelContainingSubstringLength: {VowelContainingSubstringLength}"),
+                new MetadataInfo($"ExtraAllowedCharacters: {ExtraAllowedCharacters}"),
+                new MetadataInfo($"Unknown: {Unknown}"),
+                new MetadataInfo($"CompoundLetterGrounds", items: CompoundLetterGroups.Select(x => new MetadataInfo($"{x}"))),
             };
             return nodes;
         }

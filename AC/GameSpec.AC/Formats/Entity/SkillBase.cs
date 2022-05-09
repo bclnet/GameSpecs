@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkillBase : IGetExplorerInfo
+    public class SkillBase : IGetMetadataInfo
     {
         public readonly string Description;
         public readonly string Name;
@@ -50,21 +50,21 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkillBase
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Description: {Description}"),
-                new ExplorerInfoNode($"Icon: {IconId:X8}", clickable: true),
-                new ExplorerInfoNode($"TrainedCost: {TrainedCost}"),
-                new ExplorerInfoNode($"SpecializedCost: {SpecializedCost}"),
-                new ExplorerInfoNode($"Category: {(SpellCategory)Category}"),
-                new ExplorerInfoNode($"CharGenUse: {ChargenUse}"),
-                new ExplorerInfoNode($"MinLevel: {MinLevel}"),
-                new ExplorerInfoNode("SkillFormula", items: (Formula as IGetExplorerInfo).GetInfoNodes()),
-                new ExplorerInfoNode($"UpperBound: {UpperBound}"),
-                new ExplorerInfoNode($"LowerBound: {LowerBound}"),
-                new ExplorerInfoNode($"LearnMod: {LearnMod}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Description: {Description}"),
+                new MetadataInfo($"Icon: {IconId:X8}", clickable: true),
+                new MetadataInfo($"TrainedCost: {TrainedCost}"),
+                new MetadataInfo($"SpecializedCost: {SpecializedCost}"),
+                new MetadataInfo($"Category: {(SpellCategory)Category}"),
+                new MetadataInfo($"CharGenUse: {ChargenUse}"),
+                new MetadataInfo($"MinLevel: {MinLevel}"),
+                new MetadataInfo("SkillFormula", items: (Formula as IGetMetadataInfo).GetInfoNodes()),
+                new MetadataInfo($"UpperBound: {UpperBound}"),
+                new MetadataInfo($"LowerBound: {LowerBound}"),
+                new MetadataInfo($"LearnMod: {LearnMod}"),
             };
             return nodes;
         }

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class TimeOfDay : IGetExplorerInfo
+    public class TimeOfDay : IGetMetadataInfo
     {
         public readonly float Start;
         public readonly bool IsNight;
@@ -20,12 +20,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TimeOfDay
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Start: {Start}"),
-                new ExplorerInfoNode($"IsNight: {IsNight}"),
-                new ExplorerInfoNode($"Name: {Name}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Start: {Start}"),
+                new MetadataInfo($"IsNight: {IsNight}"),
+                new MetadataInfo($"Name: {Name}"),
             };
             return nodes;
         }

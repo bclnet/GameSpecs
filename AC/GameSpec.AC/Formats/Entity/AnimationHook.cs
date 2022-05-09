@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity.AnimationHooks;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class AnimationHook : IGetExplorerInfo
+    public class AnimationHook : IGetMetadataInfo
     {
         public static readonly AnimationHook AnimDoneHook = new AnimationHook();
         protected readonly AnimationHook Base;
@@ -102,10 +102,10 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.AnimationHook
-        public virtual List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public virtual List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Dir: {Direction}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Dir: {Direction}"),
             };
             return nodes;
         }

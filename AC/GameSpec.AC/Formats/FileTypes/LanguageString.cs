@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// This is called a "String" in the client; It has been renamed to avoid conflicts with the generic "String" class.
     /// </summary>
     [PakFileType(PakFileType.String)]
-    public class LanguageString : FileType, IGetExplorerInfo
+    public class LanguageString : FileType, IGetMetadataInfo
     {
         public string CharBuffer;
 
@@ -22,10 +22,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: New
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(LanguageString)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(LanguageString)}: {Id:X8}", items: new List<MetadataInfo> {
                 })
             };
             return nodes;

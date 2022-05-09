@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Tes.Formats;
@@ -27,7 +27,7 @@ namespace GameSpec.Tes
         public TesPakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, Path.GetExtension(filePath) != ".esm" ? PakBinaryTes.Instance : PakBinaryTesEsm.Instance, tag)
         {
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             PathFinders.Add(typeof(ITextureInfo), FindTexture);
             Open();

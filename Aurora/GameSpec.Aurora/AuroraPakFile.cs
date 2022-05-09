@@ -1,6 +1,6 @@
 ﻿using GameSpec.Aurora.Formats;
 using GameSpec.Aurora.Transforms;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
@@ -27,7 +27,7 @@ namespace GameSpec.Aurora
         public AuroraPakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryAurora.Instance, tag)
         {
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }

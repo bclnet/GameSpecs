@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkyObjectReplace : IGetExplorerInfo
+    public class SkyObjectReplace : IGetMetadataInfo
     {
         public readonly uint ObjectIndex;
         public readonly uint GFXObjId;
@@ -25,15 +25,15 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkyObjectReplace
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Obj Idx: {ObjectIndex}"),
-                GFXObjId != 0 ? new ExplorerInfoNode($"GfxObj ID: {GFXObjId:X8}", clickable: true) : null,
-                Rotate != 0 ? new ExplorerInfoNode($"Rotate: {Rotate}") : null,
-                Transparent != 0 ? new ExplorerInfoNode($"Transparent: {Transparent}") : null,
-                Luminosity != 0 ? new ExplorerInfoNode($"Luminosity: {Luminosity}") : null,
-                MaxBright != 0 ? new ExplorerInfoNode($"MaxBright: {MaxBright}") : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Obj Idx: {ObjectIndex}"),
+                GFXObjId != 0 ? new MetadataInfo($"GfxObj ID: {GFXObjId:X8}", clickable: true) : null,
+                Rotate != 0 ? new MetadataInfo($"Rotate: {Rotate}") : null,
+                Transparent != 0 ? new MetadataInfo($"Transparent: {Transparent}") : null,
+                Luminosity != 0 ? new MetadataInfo($"Luminosity: {Luminosity}") : null,
+                MaxBright != 0 ? new MetadataInfo($"MaxBright: {MaxBright}") : null,
             };
             return nodes;
         }

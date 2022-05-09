@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x30. 
     /// </summary>
     [PakFileType(PakFileType.CombatTable)]
-    public class CombatManeuverTable : FileType, IGetExplorerInfo
+    public class CombatManeuverTable : FileType, IGetMetadataInfo
     {
         public readonly CombatManeuver[] CMT;
         public readonly Dictionary<MotionStance, AttackHeights> Stances;
@@ -33,11 +33,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.CombatTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(CombatManeuverTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Maneuvers", items: CMT.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(CombatManeuverTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Maneuvers", items: CMT.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class ObjDesc : IGetExplorerInfo
+    public class ObjDesc : IGetMetadataInfo
     {
         public readonly uint PaletteID;
         public readonly List<SubPalette> SubPalettes;
@@ -34,18 +34,18 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.ObjDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                PaletteID != 0 ? new ExplorerInfoNode($"Palette ID: {PaletteID:X8}", clickable: true) : null,
-                SubPalettes.Count > 0 ? new ExplorerInfoNode("SubPalettes", items: SubPalettes.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                PaletteID != 0 ? new MetadataInfo($"Palette ID: {PaletteID:X8}", clickable: true) : null,
+                SubPalettes.Count > 0 ? new MetadataInfo("SubPalettes", items: SubPalettes.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name;
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items);
+                    return new MetadataInfo(name, items: items);
                 })) : null,
-                TextureChanges.Count > 0 ? new ExplorerInfoNode("Texture Changes", items: TextureChanges.Select(x => new ExplorerInfoNode($"{x}", clickable: true))) : null,
-                AnimPartChanges.Count > 0 ? new ExplorerInfoNode("AnimPart Changes", items: AnimPartChanges.Select(x => new ExplorerInfoNode($"{x}", clickable: true))) : null,
+                TextureChanges.Count > 0 ? new MetadataInfo("Texture Changes", items: TextureChanges.Select(x => new MetadataInfo($"{x}", clickable: true))) : null,
+                AnimPartChanges.Count > 0 ? new MetadataInfo("AnimPart Changes", items: AnimPartChanges.Select(x => new MetadataInfo($"{x}", clickable: true))) : null,
             };
             return nodes;
         }

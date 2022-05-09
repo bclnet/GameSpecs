@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x34. 
     /// </summary>
     [PakFileType(PakFileType.PhysicsScriptTable)]
-    public class PhysicsScriptTable : FileType, IGetExplorerInfo
+    public class PhysicsScriptTable : FileType, IGetMetadataInfo
     {
         public readonly Dictionary<uint, PhysicsScriptTableData> ScriptTable;
 
@@ -22,11 +22,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.PhysicsScriptTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(PhysicsScriptTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("ScriptTable", items: ScriptTable.Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(PhysicsScriptTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("ScriptTable", items: ScriptTable.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

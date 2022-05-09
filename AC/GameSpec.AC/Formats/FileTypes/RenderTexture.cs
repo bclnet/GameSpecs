@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// 0x15000001 = ConsoleInputBackgroundTexture
     /// </summary>
     [PakFileType(PakFileType.RenderTexture)]
-    public class RenderTexture : FileType, IGetExplorerInfo
+    public class RenderTexture : FileType, IGetMetadataInfo
     {
         public readonly int Unknown;
         public readonly byte UnknownByte;
@@ -31,10 +31,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: New
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(RenderTexture)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(RenderTexture)}: {Id:X8}", items: new List<MetadataInfo> {
                 })
             };
             return nodes;

@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Very special thanks again to David Simpson for his early work on reading the cell.dat. Even bigger thanks for his documentation of it!
     /// </remarks>
     [PakFileType(PakFileType.EnvCell)]
-    public class EnvCell : FileType, IGetExplorerInfo
+    public class EnvCell : FileType, IGetMetadataInfo
     {
         public readonly EnvCellFlags Flags;
         public readonly uint[] Surfaces; // 0x08000000 surfaces (which contains degrade/quality info to reference the specific 0x06000000 graphics)
@@ -51,18 +51,18 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.EnvCell
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(EnvCell)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    Flags != 0 ? new ExplorerInfoNode($"Flags: {Flags}") : null,
-                    new ExplorerInfoNode("Surfaces", items: Surfaces.Select(x => new ExplorerInfoNode($"{x:X8}", clickable: true))),
-                    new ExplorerInfoNode($"Environment: {EnvironmentId:X8}", clickable: true),
-                    CellStructure != 0 ? new ExplorerInfoNode($"CellStructure: {CellStructure}") : null,
-                    new ExplorerInfoNode($"Position: {Position}"),
-                    CellPortals.Length > 0 ? new ExplorerInfoNode("CellPortals", items: CellPortals.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))) : null,
-                    StaticObjects.Length > 0 ? new ExplorerInfoNode("StaticObjects", items: StaticObjects.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))) : null,
-                    RestrictionObj != 0 ? new ExplorerInfoNode($"RestrictionObj: {RestrictionObj:X8}", clickable: true) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(EnvCell)}: {Id:X8}", items: new List<MetadataInfo> {
+                    Flags != 0 ? new MetadataInfo($"Flags: {Flags}") : null,
+                    new MetadataInfo("Surfaces", items: Surfaces.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
+                    new MetadataInfo($"Environment: {EnvironmentId:X8}", clickable: true),
+                    CellStructure != 0 ? new MetadataInfo($"CellStructure: {CellStructure}") : null,
+                    new MetadataInfo($"Position: {Position}"),
+                    CellPortals.Length > 0 ? new MetadataInfo("CellPortals", items: CellPortals.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))) : null,
+                    StaticObjects.Length > 0 ? new MetadataInfo("StaticObjects", items: StaticObjects.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))) : null,
+                    RestrictionObj != 0 ? new MetadataInfo($"RestrictionObj: {RestrictionObj:X8}", clickable: true) : null,
                 })
             };
             return nodes;

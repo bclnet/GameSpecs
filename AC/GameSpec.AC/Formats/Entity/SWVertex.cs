@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ namespace GameSpec.AC.Formats.Entity
     /// <summary>
     /// A vertex position, normal, and texture coords
     /// </summary>
-    public class SWVertex : IGetExplorerInfo
+    public class SWVertex : IGetMetadataInfo
     {
         public readonly Vector3 Origin;
         public readonly Vector3 Normal;
@@ -31,12 +31,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.Vertex
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Origin: {Origin}"),
-                new ExplorerInfoNode($"Normal: {Normal}"),
-                new ExplorerInfoNode($"UVs", items: UVs.SelectMany(x => (x as IGetExplorerInfo).GetInfoNodes(resource, file))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Origin: {Origin}"),
+                new MetadataInfo($"Normal: {Normal}"),
+                new MetadataInfo($"UVs", items: UVs.SelectMany(x => (x as IGetMetadataInfo).GetInfoNodes(resource, file))),
             };
             return nodes;
         }

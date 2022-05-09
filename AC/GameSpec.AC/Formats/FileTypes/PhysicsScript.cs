@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x33. 
     /// </summary>
     [PakFileType(PakFileType.PhysicsScript)]
-    public class PhysicsScript : FileType, IGetExplorerInfo
+    public class PhysicsScript : FileType, IGetMetadataInfo
     {
         public readonly PhysicsScriptData[] ScriptData;
 
@@ -22,11 +22,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.PhysicsScript
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(PhysicsScript)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Scripts", items: ScriptData.Select(x => new ExplorerInfoNode($"HookType: {x.Hook.HookType}, StartTime: {x.StartTime}", items: (AnimationHook.Factory(x.Hook) as IGetExplorerInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(PhysicsScript)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Scripts", items: ScriptData.Select(x => new MetadataInfo($"HookType: {x.Hook.HookType}, StartTime: {x.StartTime}", items: (AnimationHook.Factory(x.Hook) as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

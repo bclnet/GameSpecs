@@ -1,13 +1,13 @@
 using GameSpec.AC.Formats.FileTypes;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SpellComponentBase : IGetExplorerInfo
+    public class SpellComponentBase : IGetMetadataInfo
     {
         public readonly string Name;
         public readonly uint Category;
@@ -31,17 +31,17 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SpellComponentBase
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Category: {Category}"),
-                new ExplorerInfoNode($"Icon: {Icon:X8}", clickable: true),
-                new ExplorerInfoNode($"Type: {(SpellComponentTable.Type)Type}"),
-                Gesture != 0x80000000 ? new ExplorerInfoNode($"Gesture: {(MotionCommand)Gesture}") : null,
-                new ExplorerInfoNode($"Time: {Time}"),
-                !string.IsNullOrEmpty(Text) ? new ExplorerInfoNode($"Text: {Text}") : null,
-                new ExplorerInfoNode($"CDM: {CDM}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Category: {Category}"),
+                new MetadataInfo($"Icon: {Icon:X8}", clickable: true),
+                new MetadataInfo($"Type: {(SpellComponentTable.Type)Type}"),
+                Gesture != 0x80000000 ? new MetadataInfo($"Gesture: {(MotionCommand)Gesture}") : null,
+                new MetadataInfo($"Time: {Time}"),
+                !string.IsNullOrEmpty(Text) ? new MetadataInfo($"Text: {Text}") : null,
+                new MetadataInfo($"CDM: {CDM}"),
             };
             return nodes;
         }

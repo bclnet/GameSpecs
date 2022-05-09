@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.SecondaryAttributeTable)]
-    public class SecondaryAttributeTable : FileType, IGetExplorerInfo
+    public class SecondaryAttributeTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E000003;
 
@@ -24,13 +24,13 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.SecondaryAttributeTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(SecondaryAttributeTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Health", items: (MaxHealth.Formula as IGetExplorerInfo).GetInfoNodes(tag: tag)),
-                    new ExplorerInfoNode("Stamina", items: (MaxStamina.Formula as IGetExplorerInfo).GetInfoNodes(tag: tag)),
-                    new ExplorerInfoNode("Mana", items: (MaxMana.Formula as IGetExplorerInfo).GetInfoNodes(tag: tag)),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(SecondaryAttributeTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Health", items: (MaxHealth.Formula as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+                    new MetadataInfo("Stamina", items: (MaxStamina.Formula as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+                    new MetadataInfo("Mana", items: (MaxMana.Formula as IGetMetadataInfo).GetInfoNodes(tag: tag)),
                 })
             };
             return nodes;

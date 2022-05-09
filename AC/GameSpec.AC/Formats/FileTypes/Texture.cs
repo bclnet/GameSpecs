@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.Texture)]
-    public class Texture : FileType, IGetExplorerInfo //, ITextureInfo
+    public class Texture : FileType, IGetMetadataInfo //, ITextureInfo
     {
         public readonly int Unknown;
         public readonly int Width;
@@ -49,17 +49,17 @@ namespace GameSpec.AC.Formats.FileTypes
         //void ITextureInfo.MoveToData() { throw new System.NotImplementedException(); }
 
         //: FileTypes.Texture
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }),
-                //new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
-                new ExplorerInfoNode($"{nameof(Texture)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"Unknown: {Unknown}"),
-                    new ExplorerInfoNode($"Width: {Width}"),
-                    new ExplorerInfoNode($"Height: {Height}"),
-                    new ExplorerInfoNode($"Type: {Format}"),
-                    new ExplorerInfoNode($"Size: {Length} bytes"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }),
+                //new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
+                new MetadataInfo($"{nameof(Texture)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"Unknown: {Unknown}"),
+                    new MetadataInfo($"Width: {Width}"),
+                    new MetadataInfo($"Height: {Height}"),
+                    new MetadataInfo($"Type: {Format}"),
+                    new MetadataInfo($"Size: {Length} bytes"),
                 })
             };
             return nodes;

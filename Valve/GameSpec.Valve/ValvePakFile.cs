@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
@@ -26,7 +26,7 @@ namespace GameSpec.Valve
         public ValvePakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryValve.Instance, tag)
         {
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             PathFinders.Add(typeof(object), FindBinary);
             Open();

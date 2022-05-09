@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class CellStruct : IGetExplorerInfo
+    public class CellStruct : IGetMetadataInfo
     {
         public readonly CVertexArray VertexArray;
         public readonly Dictionary<ushort, Polygon> Polygons;
@@ -34,16 +34,16 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.CellStruct
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"VertexArray", items: (VertexArray as IGetExplorerInfo).GetInfoNodes()),
-                new ExplorerInfoNode($"Polygons", items: Polygons.Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode($"Portals", items: Portals.Select(x => new ExplorerInfoNode($"{x:X8}"))),
-                new ExplorerInfoNode($"CellBSP", items: (CellBSP as IGetExplorerInfo).GetInfoNodes(tag: BSPType.Cell).First().Items),
-                new ExplorerInfoNode($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode($"PhysicsBSP", items: (PhysicsBSP as IGetExplorerInfo).GetInfoNodes(tag: BSPType.Physics).First().Items),
-                DrawingBSP != null ? new ExplorerInfoNode($"DrawingBSP", items: (DrawingBSP as IGetExplorerInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"VertexArray", items: (VertexArray as IGetMetadataInfo).GetInfoNodes()),
+                new MetadataInfo($"Polygons", items: Polygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo($"Portals", items: Portals.Select(x => new MetadataInfo($"{x:X8}"))),
+                new MetadataInfo($"CellBSP", items: (CellBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Cell).First().Items),
+                new MetadataInfo($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo($"PhysicsBSP", items: (PhysicsBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Physics).First().Items),
+                DrawingBSP != null ? new MetadataInfo($"DrawingBSP", items: (DrawingBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
             };
             return nodes;
         }

@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class PhysicsScriptData : IGetExplorerInfo
+    public class PhysicsScriptData : IGetMetadataInfo
     {
         public readonly double StartTime;
         public readonly AnimationHook Hook;
@@ -17,11 +17,11 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.PhysicsScriptData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"StartTime: {StartTime}"),
-                new ExplorerInfoNode($"Hook:", items: (Hook as IGetExplorerInfo).GetInfoNodes(tag:tag)),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"StartTime: {StartTime}"),
+                new MetadataInfo($"Hook:", items: (Hook as IGetMetadataInfo).GetInfoNodes(tag:tag)),
             };
             return nodes;
         }

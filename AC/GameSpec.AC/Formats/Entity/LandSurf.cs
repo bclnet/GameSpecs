@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class LandSurf : IGetExplorerInfo
+    public class LandSurf : IGetMetadataInfo
     {
         public readonly uint Type;
         //public readonly PalShift PalShift; // This is used if Type == 1 (which we haven't seen yet)
@@ -20,6 +20,6 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.LandSurf
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => (TexMerge as IGetExplorerInfo).GetInfoNodes(resource, file, tag);
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => (TexMerge as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
     }
 }

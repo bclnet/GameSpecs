@@ -99,71 +99,78 @@ namespace GameSpec.Cry.Formats
 
         public async Task LoadAsync(PakFile pak, IEnumerable<(string, Stream)> files, Func<PakFile, string, string, string, string> getMaterialPath, Func<string, Task<(string, Stream)>> getFileAsync)
         {
-            Models = new List<Model> { };
-            foreach (var file in files)
+            try
             {
-                // Each file (.cga and .cgam if applicable) will have its own RootNode.  This can cause problems.  .cga files with a .cgam files won't have geometry for the one root node.
-                var model = new Model(file);
-                if (RootNode == null) RootNode = model.RootNode; // This makes the assumption that we read the .cga file before the .cgam file.
-                Bones ??= model.Bones;
-                Models.Add(model);
+                Models = new List<Model> { };
+                foreach (var file in files)
+                {
+                    // Each file (.cga and .cgam if applicable) will have its own RootNode.  This can cause problems.  .cga files with a .cgam files won't have geometry for the one root node.
+                    var model = new Model(file);
+                    if (RootNode == null) RootNode = model.RootNode; // This makes the assumption that we read the .cga file before the .cgam file.
+                    Bones ??= model.Bones;
+                    Models.Add(model);
+                }
+                SkinningInfo = ConsolidateSkinningInfo();
+                // For eanch node with geometry info, populate that node's Mesh Chunk GeometryInfo with the geometry data.
+                ConsolidateGeometryInfo();
+                // Get the material file name
+                var fileName = files.First().Item1;
+                foreach (ChunkMtlName mtlChunk in Models.SelectMany(a => a.ChunkMap.Values).Where(c => c.ChunkType == ChunkType.MtlName))
+                {
+                    // Don't process child or collision materials for now
+                    if (mtlChunk.MatType == MtlNameType.Child || mtlChunk.MatType == MtlNameType.Unknown1) continue;
+                    // The Replace part is for SC files that point to a _core material file that doesn't exist.
+                    var cleanName = mtlChunk.Name.Replace("_core", string.Empty);
+                    //
+                    string materialFilePath;
+                    if (mtlChunk.Name.Contains("default_body"))
+                    {
+                        // New MWO models for some crazy reason don't put the actual mtl file name in the mtlchunk.  They just have /objects/mechs/default_body
+                        // have to assume that it's /objects/mechs/<mechname>/body/<mechname>_body.mtl.  There is also a <mechname>.mtl that contains mtl 
+                        // info for hitboxes, but not needed.
+                        // TODO:  This isn't right.  Fix it.
+                        var charsToClean = cleanName.ToCharArray().Intersect(Path.GetInvalidFileNameChars()).ToArray();
+                        if (charsToClean.Length > 0) foreach (char character in charsToClean) cleanName = cleanName.Replace(character.ToString(), string.Empty);
+                        materialFilePath = Path.Combine(Path.GetDirectoryName(fileName), cleanName);
+                    }
+                    else if (mtlChunk.Name.Contains("/") || mtlChunk.Name.Contains("\\"))
+                    {
+                        // The mtlname has a path.  Most likely starts at the Objects directory.
+                        var stringSeparators = new[] { "/", "\\" };
+                        // if objectdir is provided, check objectdir + mtlchunk.name
+                        materialFilePath = Path.Combine("Data", mtlChunk.Name);
+                        //else // object dir not provided, but we have a path.  Just grab the last part of the name and check the dir of the cga file
+                        //{
+                        //    var r = mtlChunk.Name.Split(stringSeparators, StringSplitOptions.None);
+                        //    materialFilePath = r[r.Length - 1];
+                        //}
+                    }
+                    else
+                    {
+                        var charsToClean = cleanName.ToCharArray().Intersect(Path.GetInvalidFileNameChars()).ToArray();
+                        if (charsToClean.Length > 0) foreach (var character in charsToClean) cleanName = cleanName.Replace(character.ToString(), string.Empty);
+                        materialFilePath = Path.Combine(Path.GetDirectoryName(fileName), cleanName);
+                    }
+                    // Populate CryEngine_Core.Material
+                    var materialPath = getMaterialPath(pak, materialFilePath, fileName, cleanName);
+                    var material = materialPath != null ? Material.FromFile(await getFileAsync(materialPath)) : null;
+                    if (material != null)
+                    {
+                        Log($"Located material file {Path.GetFileName(materialPath)}");
+                        Materials = FlattenMaterials(material).Where(m => m.Textures != null).ToArray();
+                        // only one material, so it's a material file with no submaterials.  Check and set the name
+                        if (Materials.Length == 1) Materials[0].Name = RootNode.Name;
+                        return; // Early return - we have the material map
+                    }
+                    else Log($"Unable to locate material file {mtlChunk.Name}.mtl");
+                }
+                Log("Unable to locate any material file");
+                Materials = new Material[0];
             }
-            SkinningInfo = ConsolidateSkinningInfo();
-            // For eanch node with geometry info, populate that node's Mesh Chunk GeometryInfo with the geometry data.
-            ConsolidateGeometryInfo();
-            // Get the material file name
-            var fileName = files.First().Item1;
-            foreach (ChunkMtlName mtlChunk in Models.SelectMany(a => a.ChunkMap.Values).Where(c => c.ChunkType == ChunkType.MtlName))
+            catch (Exception e)
             {
-                // Don't process child or collision materials for now
-                if (mtlChunk.MatType == MtlNameType.Child || mtlChunk.MatType == MtlNameType.Unknown1) continue;
-                // The Replace part is for SC files that point to a _core material file that doesn't exist.
-                var cleanName = mtlChunk.Name.Replace("_core", string.Empty);
-                //
-                string materialFilePath;
-                if (mtlChunk.Name.Contains("default_body"))
-                {
-                    // New MWO models for some crazy reason don't put the actual mtl file name in the mtlchunk.  They just have /objects/mechs/default_body
-                    // have to assume that it's /objects/mechs/<mechname>/body/<mechname>_body.mtl.  There is also a <mechname>.mtl that contains mtl 
-                    // info for hitboxes, but not needed.
-                    // TODO:  This isn't right.  Fix it.
-                    var charsToClean = cleanName.ToCharArray().Intersect(Path.GetInvalidFileNameChars()).ToArray();
-                    if (charsToClean.Length > 0) foreach (char character in charsToClean) cleanName = cleanName.Replace(character.ToString(), string.Empty);
-                    materialFilePath = Path.Combine(Path.GetDirectoryName(fileName), cleanName);
-                }
-                else if (mtlChunk.Name.Contains("/") || mtlChunk.Name.Contains("\\"))
-                {
-                    // The mtlname has a path.  Most likely starts at the Objects directory.
-                    var stringSeparators = new[] { "/", "\\" };
-                    // if objectdir is provided, check objectdir + mtlchunk.name
-                    materialFilePath = Path.Combine("Data", mtlChunk.Name);
-                    //else // object dir not provided, but we have a path.  Just grab the last part of the name and check the dir of the cga file
-                    //{
-                    //    var r = mtlChunk.Name.Split(stringSeparators, StringSplitOptions.None);
-                    //    materialFilePath = r[r.Length - 1];
-                    //}
-                }
-                else
-                {
-                    var charsToClean = cleanName.ToCharArray().Intersect(Path.GetInvalidFileNameChars()).ToArray();
-                    if (charsToClean.Length > 0) foreach (var character in charsToClean) cleanName = cleanName.Replace(character.ToString(), string.Empty);
-                    materialFilePath = Path.Combine(Path.GetDirectoryName(fileName), cleanName);
-                }
-                // Populate CryEngine_Core.Material
-                var materialPath = getMaterialPath(pak, materialFilePath, fileName, cleanName);
-                var material = materialPath != null ? Material.FromFile(await getFileAsync(materialPath)) : null;
-                if (material != null)
-                {
-                    Log($"Located material file {Path.GetFileName(materialPath)}");
-                    Materials = FlattenMaterials(material).Where(m => m.Textures != null).ToArray();
-                    // only one material, so it's a material file with no submaterials.  Check and set the name
-                    if (Materials.Length == 1) Materials[0].Name = RootNode.Name;
-                    return; // Early return - we have the material map
-                }
-                else Log($"Unable to locate material file {mtlChunk.Name}.mtl");
+                throw e;
             }
-            Log("Unable to locate any material file");
-            Materials = new Material[0];
         }
 
         void ConsolidateGeometryInfo()

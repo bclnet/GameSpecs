@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Text;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.SpellTable)]
-    public class SpellTable : FileType, IGetExplorerInfo
+    public class SpellTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E00000E;
 
@@ -28,12 +28,12 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.SpellTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(SpellTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Spells", items: Spells.Select(x => new ExplorerInfoNode($"{x.Key}: {x.Value.Name}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(tag: tag)))),
-                    new ExplorerInfoNode("Spell Sets", items: SpellSet.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode($"{x.Key}: {(EquipmentSet)x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(SpellTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Spells", items: Spells.Select(x => new MetadataInfo($"{x.Key}: {x.Value.Name}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
+                    new MetadataInfo("Spell Sets", items: SpellSet.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key}: {(EquipmentSet)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

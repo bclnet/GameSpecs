@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +17,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Very special thanks again to David Simpson for his early work on reading the cell.dat. Even bigger thanks for his documentation of it!
     /// </remarks>
     [PakFileType(PakFileType.LandBlockInfo)]
-    public class LandblockInfo : FileType, IGetExplorerInfo
+    public class LandblockInfo : FileType, IGetMetadataInfo
     {
         /// <summary>
         /// number of EnvCells in the landblock. This should match up to the unique items in the building stab lists.
@@ -52,22 +52,22 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.LandblockInfo
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var landblock = Id & 0xFFFF0000;
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(LandblockInfo)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"NumCells: {NumCells}"),
-                    NumCells > 0 ? new ExplorerInfoNode("Objects", items: Enumerable.Range(0, (int)NumCells).Select(i => new ExplorerInfoNode($"{landblock + 0x100 + i:X8}", clickable: true))) : null,
-                    Objects.Length > 0 ? new ExplorerInfoNode("Objects", items: Objects.Select(x => {
-                        var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(LandblockInfo)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"NumCells: {NumCells}"),
+                    NumCells > 0 ? new MetadataInfo("Objects", items: Enumerable.Range(0, (int)NumCells).Select(i => new MetadataInfo($"{landblock + 0x100 + i:X8}", clickable: true))) : null,
+                    Objects.Length > 0 ? new MetadataInfo("Objects", items: Objects.Select(x => {
+                        var items = (x as IGetMetadataInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("ID: ", "");
                         items.RemoveAt(0);
-                        return new ExplorerInfoNode(name, items: items, clickable: true);
+                        return new MetadataInfo(name, items: items, clickable: true);
                     })) : null,
-                    //PackMask != 0 ? new ExplorerInfoNode($"PackMask: {PackMask}") : null,
-                    Buildings.Length > 0 ? new ExplorerInfoNode("Buildings", items: Buildings.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))) : null,
-                    RestrictionTables.Count > 0 ? new ExplorerInfoNode("Restrictions", items: RestrictionTables.Select(x => new ExplorerInfoNode($"{x.Key:X8}: {x.Value:X8}"))) : null,
+                    //PackMask != 0 ? new MetadataInfo($"PackMask: {PackMask}") : null,
+                    Buildings.Length > 0 ? new MetadataInfo("Buildings", items: Buildings.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))) : null,
+                    RestrictionTables.Count > 0 ? new MetadataInfo("Restrictions", items: RestrictionTables.Select(x => new MetadataInfo($"{x.Key:X8}: {x.Value:X8}"))) : null,
                 })
             };
             return nodes;

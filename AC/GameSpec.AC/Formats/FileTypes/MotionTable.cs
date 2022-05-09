@@ -1,7 +1,7 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Entity.AnimationHooks;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Concurrent;
@@ -13,7 +13,7 @@ using System.Numerics;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.MotionTable)]
-    public class MotionTable : FileType, IGetExplorerInfo
+    public class MotionTable : FileType, IGetMetadataInfo
     {
         public static Dictionary<ushort, MotionCommand> RawToInterpreted = Enum.GetValues(typeof(MotionCommand)).Cast<object>().ToDictionary(x => (ushort)(uint)x, x => (MotionCommand)x);
         public readonly uint DefaultStyle;
@@ -33,7 +33,7 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.MotionTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             static string GetLabel(uint combined)
             {
@@ -44,13 +44,13 @@ namespace GameSpec.AC.Formats.FileTypes
                 else return $"{combined:X8}";
             }
 
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(MotionTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"Default style: {(MotionCommand)DefaultStyle}"),
-                    new ExplorerInfoNode("Style defaults", items: StyleDefaults.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode($"{(MotionCommand)x.Key}: {(MotionCommand)x.Value}"))),
-                    new ExplorerInfoNode("Cycles", items: Cycles.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode(GetLabel(x.Key), items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
-                    new ExplorerInfoNode("Modifiers", items: Modifiers.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode(GetLabel(x.Key), items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
-                    new ExplorerInfoNode("Links", items: Links.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode(GetLabel(x.Key), items: x.Value.OrderBy(i => i.Key).Select(y => new ExplorerInfoNode(GetLabel(y.Key), items: (y.Value as IGetExplorerInfo).GetInfoNodes()))))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(MotionTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"Default style: {(MotionCommand)DefaultStyle}"),
+                    new MetadataInfo("Style defaults", items: StyleDefaults.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{(MotionCommand)x.Key}: {(MotionCommand)x.Value}"))),
+                    new MetadataInfo("Cycles", items: Cycles.OrderBy(i => i.Key).Select(x => new MetadataInfo(GetLabel(x.Key), items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+                    new MetadataInfo("Modifiers", items: Modifiers.OrderBy(i => i.Key).Select(x => new MetadataInfo(GetLabel(x.Key), items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+                    new MetadataInfo("Links", items: Links.OrderBy(i => i.Key).Select(x => new MetadataInfo(GetLabel(x.Key), items: x.Value.OrderBy(i => i.Key).Select(y => new MetadataInfo(GetLabel(y.Key), items: (y.Value as IGetMetadataInfo).GetInfoNodes()))))),
                 })
             };
             return nodes;

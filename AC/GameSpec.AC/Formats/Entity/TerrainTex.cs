@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class TerrainTex : IGetExplorerInfo
+    public class TerrainTex : IGetMetadataInfo
     {
         public readonly uint TexGID;
         public readonly uint TexTiling;
@@ -33,19 +33,19 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TerrainTex
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"TexGID: {TexGID:X8}", clickable: true),
-                new ExplorerInfoNode($"TexTiling: {TexTiling}"),
-                new ExplorerInfoNode($"MaxVertBrightness: {MaxVertBright}"),
-                new ExplorerInfoNode($"MinVertBrightness: {MinVertBright}"),
-                new ExplorerInfoNode($"MaxVertSaturate: {MaxVertSaturate}"),
-                new ExplorerInfoNode($"MinVertSaturate: {MinVertSaturate}"),
-                new ExplorerInfoNode($"MaxVertHue: {MaxVertHue}"),
-                new ExplorerInfoNode($"MinVertHue: {MinVertHue}"),
-                new ExplorerInfoNode($"DetailTexTiling: {DetailTexTiling}"),
-                new ExplorerInfoNode($"DetailTexGID: {DetailTexGID:X8}", clickable: true),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"TexGID: {TexGID:X8}", clickable: true),
+                new MetadataInfo($"TexTiling: {TexTiling}"),
+                new MetadataInfo($"MaxVertBrightness: {MaxVertBright}"),
+                new MetadataInfo($"MinVertBrightness: {MinVertBright}"),
+                new MetadataInfo($"MaxVertSaturate: {MaxVertSaturate}"),
+                new MetadataInfo($"MinVertSaturate: {MinVertSaturate}"),
+                new MetadataInfo($"MaxVertHue: {MaxVertHue}"),
+                new MetadataInfo($"MinVertHue: {MinVertHue}"),
+                new MetadataInfo($"DetailTexTiling: {DetailTexTiling}"),
+                new MetadataInfo($"DetailTexGID: {DetailTexGID:X8}", clickable: true),
             };
             return nodes;
         }

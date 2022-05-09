@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.Entity
 {
     //: Entity+AnimationPartChange
-    public class AnimationPartChange : IGetExplorerInfo
+    public class AnimationPartChange : IGetMetadataInfo
     {
         public readonly byte PartIndex;
         public readonly uint PartID;
@@ -23,11 +23,11 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.AnimPartChange
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Part Idx: {PartIndex}"),
-                new ExplorerInfoNode($"Part ID: {PartID:X8}", clickable: true),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Part Idx: {PartIndex}"),
+                new MetadataInfo($"Part ID: {PartID:X8}", clickable: true),
             };
             return nodes;
         }

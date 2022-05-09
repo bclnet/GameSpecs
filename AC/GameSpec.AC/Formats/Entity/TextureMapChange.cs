@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.Entity
 {
     // TODO: refactor to merge with existing TextureMapOverride object
-    public class TextureMapChange : IGetExplorerInfo
+    public class TextureMapChange : IGetMetadataInfo
     {
         public readonly byte PartIndex;
         public readonly uint OldTexture;
@@ -20,12 +20,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TextureMapChange
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"PartIdx: {PartIndex}"),
-                new ExplorerInfoNode($"Old Texture: {OldTexture:X8}", clickable: true),
-                new ExplorerInfoNode($"New Texture: {NewTexture:X8}", clickable: true),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"PartIdx: {PartIndex}"),
+                new MetadataInfo($"Old Texture: {OldTexture:X8}", clickable: true),
+                new MetadataInfo($"New Texture: {NewTexture:X8}", clickable: true),
             };
             return nodes;
         }

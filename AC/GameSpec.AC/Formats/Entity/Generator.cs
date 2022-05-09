@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class Generator : IGetExplorerInfo
+    public class Generator : IGetMetadataInfo
     {
         public readonly string Name;
         public readonly uint Id;
@@ -20,13 +20,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.Generator
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                Id != 0 ? new ExplorerInfoNode($"Id: {Id}") : null,
-                !string.IsNullOrEmpty(Name) ? new ExplorerInfoNode($"Name: {Name}") : null,
+            var nodes = new List<MetadataInfo> {
+                Id != 0 ? new MetadataInfo($"Id: {Id}") : null,
+                !string.IsNullOrEmpty(Name) ? new MetadataInfo($"Name: {Name}") : null,
             };
-            if (Items.Length > 0) nodes.AddRange(Items.Select(x => new ExplorerInfoNode(x.Id != 0 ? $"{x.Id} - {x.Name}" : x.Name, items: (x as IGetExplorerInfo).GetInfoNodes())));
+            if (Items.Length > 0) nodes.AddRange(Items.Select(x => new MetadataInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : x.Name, items: (x as IGetMetadataInfo).GetInfoNodes())));
             return nodes;
         }
     }

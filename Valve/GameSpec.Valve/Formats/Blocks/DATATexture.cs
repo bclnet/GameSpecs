@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using static OpenStack.Debug;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
@@ -48,6 +49,8 @@ namespace GameSpec.Valve.Formats.Blocks
         bool IsActuallyCompressedMips;
         long DataOffset;
 
+        #region ITextureInfo
+
         IDictionary<string, object> ITextureInfo.Data => null;
         int ITextureInfo.Width => Width;
         int ITextureInfo.Height => Height;
@@ -72,8 +75,63 @@ namespace GameSpec.Valve.Formats.Blocks
             set => throw new NotImplementedException();
         }
 
+        #endregion
+
+        public enum ValveTextureFormat : byte
+        {
+#pragma warning disable 1591
+            UNKNOWN = 0,
+            DXT1 = 1,
+            DXT5 = 2,
+            I8 = 3,
+            RGBA8888 = 4,
+            R16 = 5,
+            RG1616 = 6,
+            RGBA16161616 = 7,
+            R16F = 8,
+            RG1616F = 9,
+            RGBA16161616F = 10,
+            R32F = 11,
+            RG3232F = 12,
+            RGB323232F = 13,
+            RGBA32323232F = 14,
+            JPEG_RGBA8888 = 15,
+            PNG_RGBA8888 = 16,
+            JPEG_DXT5 = 17,
+            PNG_DXT5 = 18,
+            BC6H = 19,
+            BC7 = 20,
+            ATI2N = 21,
+            IA88 = 22,
+            ETC2 = 23,
+            ETC2_EAC = 24,
+            R11_EAC = 25,
+            RG11_EAC = 26,
+            ATI1N = 27,
+            BGRA8888 = 28,
+#pragma warning restore 1591
+        }
+
         public override void Read(BinaryPak parent, BinaryReader r)
         {
+            static TextureGLFormat MapFormat(byte format)
+                => (ValveTextureFormat)format switch
+                {
+                    ValveTextureFormat.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
+                    //TextureFormat.DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
+                    ValveTextureFormat.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
+                    ValveTextureFormat.ETC2 => TextureGLFormat.CompressedRgb8Etc2,
+                    ValveTextureFormat.ETC2_EAC => TextureGLFormat.CompressedRgba8Etc2Eac,
+                    ValveTextureFormat.ATI1N => TextureGLFormat.CompressedRedRgtc1,
+                    ValveTextureFormat.ATI2N => TextureGLFormat.CompressedRgRgtc2,
+                    ValveTextureFormat.BC6H => TextureGLFormat.CompressedRgbBptcUnsignedFloat,
+                    ValveTextureFormat.BC7 => TextureGLFormat.CompressedRgbaBptcUnorm,
+                    ValveTextureFormat.RGBA8888 => TextureGLFormat.Rgba8,
+                    ValveTextureFormat.RGBA16161616F => TextureGLFormat.Rgba16f,
+                    ValveTextureFormat.I8 => TextureGLFormat.Intensity8,
+                    _ => 0,
+                };
+
             r.Position(Offset);
             Reader = r;
             Version = r.ReadUInt16();
@@ -85,7 +143,7 @@ namespace GameSpec.Valve.Formats.Blocks
             Depth = r.ReadUInt16();
             NonPow2Width = 0;
             NonPow2Height = 0;
-            Format = (TextureGLFormat)r.ReadByte();
+            var format = r.ReadByte(); Format = MapFormat(format); if (Format == 0) Log($"Unsupported texture format: {format}");
             NumMipMaps = r.ReadByte();
             Picmip0Res = r.ReadUInt32();
             var extraDataOffset = r.ReadUInt32();

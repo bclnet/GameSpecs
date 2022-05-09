@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class StringTableData : IGetExplorerInfo
+    public class StringTableData : IGetMetadataInfo
     {
         public readonly uint Id;
         public readonly string[] VarNames;
@@ -26,14 +26,14 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.StringTableData
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{Id:X8}"),
-                VarNames.Length > 0 ? new ExplorerInfoNode("Variable Names", items: VarNames.Select(x => new ExplorerInfoNode($"{x}"))) : null,
-                Vars.Length > 0 ? new ExplorerInfoNode("Variables", items: Vars.Select(x => new ExplorerInfoNode($"{x}"))) : null,
-                Strings.Length > 0 ? new ExplorerInfoNode("Strings", items: Strings.Select(x => new ExplorerInfoNode($"{x}"))) : null,
-                Comments.Length > 0 ? new ExplorerInfoNode("Comments", items: Comments.Select(x => new ExplorerInfoNode($"{x:X8}"))) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{Id:X8}"),
+                VarNames.Length > 0 ? new MetadataInfo("Variable Names", items: VarNames.Select(x => new MetadataInfo($"{x}"))) : null,
+                Vars.Length > 0 ? new MetadataInfo("Variables", items: Vars.Select(x => new MetadataInfo($"{x}"))) : null,
+                Strings.Length > 0 ? new MetadataInfo("Strings", items: Strings.Select(x => new MetadataInfo($"{x}"))) : null,
+                Comments.Length > 0 ? new MetadataInfo("Comments", items: Comments.Select(x => new MetadataInfo($"{x:X8}"))) : null,
             };
             return nodes;
         }

@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class ObjectDesc : IGetExplorerInfo
+    public class ObjectDesc : IGetMetadataInfo
     {
         public readonly uint ObjId;
         public readonly Frame BaseLoc;
@@ -31,19 +31,19 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.ObjectDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Object ID: {ObjId:X8}", clickable: true),
-                new ExplorerInfoNode($"BaseLoc: {BaseLoc}"),
-                new ExplorerInfoNode($"Frequency: {Freq}"),
-                new ExplorerInfoNode($"DisplaceX: {DisplaceX} DisplaceY: {DisplaceY}"),
-                new ExplorerInfoNode($"MinScale: {MinScale} MaxScale: {MaxScale}"),
-                new ExplorerInfoNode($"MaxRotation: {MaxRotation}"),
-                new ExplorerInfoNode($"MinSlope: {MinSlope} MaxSlope: {MaxSlope}"),
-                Align != 0 ? new ExplorerInfoNode($"Align: {Align}") : null,
-                Orient != 0 ? new ExplorerInfoNode($"Orient: {Orient}") : null,
-                WeenieObj != 0 ? new ExplorerInfoNode($"WeenieObj: {WeenieObj}") : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Object ID: {ObjId:X8}", clickable: true),
+                new MetadataInfo($"BaseLoc: {BaseLoc}"),
+                new MetadataInfo($"Frequency: {Freq}"),
+                new MetadataInfo($"DisplaceX: {DisplaceX} DisplaceY: {DisplaceY}"),
+                new MetadataInfo($"MinScale: {MinScale} MaxScale: {MaxScale}"),
+                new MetadataInfo($"MaxRotation: {MaxRotation}"),
+                new MetadataInfo($"MinSlope: {MinSlope} MaxSlope: {MaxSlope}"),
+                Align != 0 ? new MetadataInfo($"Align: {Align}") : null,
+                Orient != 0 ? new MetadataInfo($"Orient: {Orient}") : null,
+                WeenieObj != 0 ? new MetadataInfo($"WeenieObj: {WeenieObj}") : null,
             };
             return nodes;
         }

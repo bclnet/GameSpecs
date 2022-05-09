@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Contains some very basic language and formatting rules.
     /// </summary>
     [PakFileType(PakFileType.StringState)]
-    public class LanguageInfo : FileType, IGetExplorerInfo
+    public class LanguageInfo : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x41000000;
 
@@ -107,10 +107,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: New
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(LanguageInfo)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(LanguageInfo)}: {Id:X8}", items: new List<MetadataInfo> {
                 })
             };
             return nodes;

@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkyObject : IGetExplorerInfo
+    public class SkyObject : IGetMetadataInfo
     {
         public readonly float BeginTime;
         public readonly float EndTime;
@@ -32,18 +32,18 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkyObject
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                BeginTime != 0 ? new ExplorerInfoNode($"BeginTime: {BeginTime}") : null,
-                EndTime != 0 ? new ExplorerInfoNode($"EndTime: {EndTime}") : null,
-                BeginAngle != 0 ? new ExplorerInfoNode($"BeginAngle: {BeginAngle}") : null,
-                EndAngle != 0 ? new ExplorerInfoNode($"EndAngle: {EndAngle}") : null,
-                TexVelocityX != 0 ? new ExplorerInfoNode($"TexVelocityX: {TexVelocityX}") : null,
-                TexVelocityY != 0 ? new ExplorerInfoNode($"TexVelocityY: {TexVelocityY}") : null,
-                DefaultGFXObjectId != 0 ? new ExplorerInfoNode($"DefaultGFXObjectId: {DefaultGFXObjectId:X8}", clickable: true) : null,
-                DefaultPESObjectId != 0 ? new ExplorerInfoNode($"DefaultPESObjectId: {DefaultPESObjectId:X8}", clickable: true) : null,
-                Properties != 0 ? new ExplorerInfoNode($"Properties: {Properties:X}") : null,
+            var nodes = new List<MetadataInfo> {
+                BeginTime != 0 ? new MetadataInfo($"BeginTime: {BeginTime}") : null,
+                EndTime != 0 ? new MetadataInfo($"EndTime: {EndTime}") : null,
+                BeginAngle != 0 ? new MetadataInfo($"BeginAngle: {BeginAngle}") : null,
+                EndAngle != 0 ? new MetadataInfo($"EndAngle: {EndAngle}") : null,
+                TexVelocityX != 0 ? new MetadataInfo($"TexVelocityX: {TexVelocityX}") : null,
+                TexVelocityY != 0 ? new MetadataInfo($"TexVelocityY: {TexVelocityY}") : null,
+                DefaultGFXObjectId != 0 ? new MetadataInfo($"DefaultGFXObjectId: {DefaultGFXObjectId:X8}", clickable: true) : null,
+                DefaultPESObjectId != 0 ? new MetadataInfo($"DefaultPESObjectId: {DefaultPESObjectId:X8}", clickable: true) : null,
+                Properties != 0 ? new MetadataInfo($"Properties: {Properties:X}") : null,
             };
             return nodes;
         }

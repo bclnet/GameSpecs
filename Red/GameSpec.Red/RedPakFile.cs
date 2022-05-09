@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Red.Formats;
@@ -24,7 +24,7 @@ namespace GameSpec.Red
         public RedPakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryRed.Instance, tag)
         {
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }

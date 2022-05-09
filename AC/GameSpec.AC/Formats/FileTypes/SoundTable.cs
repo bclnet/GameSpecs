@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// They are located in the client_portal.dat and are files starting with 0x20
     /// </summary>
     [PakFileType(PakFileType.SoundTable)]
-    public class SoundTable : FileType, IGetExplorerInfo
+    public class SoundTable : FileType, IGetMetadataInfo
     {
         public readonly uint Unknown; // As the name implies, not sure what this is
         // Not quite sure what this is for, but it's the same in every file.
@@ -30,17 +30,17 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.SoundTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(SoundTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("SoundHash", items: SoundHash.Select(x => {
-                        var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(SoundTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("SoundHash", items: SoundHash.Select(x => {
+                        var items = (x as IGetMetadataInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Sound ID: ", "");
                         items.RemoveAt(0);
-                        return new ExplorerInfoNode(name, items: items);
+                        return new MetadataInfo(name, items: items);
                     })),
-                    new ExplorerInfoNode($"Sounds", items: Data.Select(x => new ExplorerInfoNode($"{(Sound)x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))),
+                    new MetadataInfo($"Sounds", items: Data.Select(x => new MetadataInfo($"{(Sound)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SexCG : IGetExplorerInfo
+    public class SexCG : IGetMetadataInfo
     {
         public string Name;
         public uint Scale;
@@ -108,31 +108,31 @@ namespace GameSpec.AC.Formats.Entity
         public uint GetFootwearClothingTable(uint footwearStyle) => FootwearList[Convert.ToInt32(footwearStyle)].ClothingTable;
 
         //: Entity.SexCG
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Scale: {Scale}%"),
-                new ExplorerInfoNode($"Setup: {SetupID:X8}", clickable: true),
-                new ExplorerInfoNode($"Sound Table: {SoundTable:X8}", clickable: true),
-                new ExplorerInfoNode($"Icon: {IconImage:X8}", clickable: true),
-                new ExplorerInfoNode($"Base Palette: {BasePalette:X8}", clickable: true),
-                new ExplorerInfoNode($"Skin Palette Set: {SkinPalSet:X8}", clickable: true),
-                new ExplorerInfoNode($"Physics Table: {PhysicsTable:X8}", clickable: true),
-                new ExplorerInfoNode($"Motion Table: {MotionTable:X8}", clickable: true),
-                new ExplorerInfoNode($"Combat Table: {CombatTable:X8}", clickable: true),
-                new ExplorerInfoNode("ObjDesc", items: (BaseObjDesc as IGetExplorerInfo).GetInfoNodes()),
-                new ExplorerInfoNode("Hair Colors", items: HairColorList.Select(x => new ExplorerInfoNode($"{x:X8}", clickable: true))),
-                new ExplorerInfoNode("Hair Styles", items: HairStyleList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Eye Colors", items: EyeColorList.Select(x => new ExplorerInfoNode($"{x:X8}", clickable: true))),
-                new ExplorerInfoNode("Eye Strips", items: EyeStripList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Nose Strips", items: NoseStripList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Mouth Strips", items: MouthStripList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Headgear", items: HeadgearList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Shirt", items: ShirtList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Pants", items: PantsList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Footwear", items: FootwearList.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
-                new ExplorerInfoNode("Clothing Colors", items: ClothingColorsList.OrderBy(i => i).Select(x => new ExplorerInfoNode($"{x} - {(PaletteTemplate)x}"))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Scale: {Scale}%"),
+                new MetadataInfo($"Setup: {SetupID:X8}", clickable: true),
+                new MetadataInfo($"Sound Table: {SoundTable:X8}", clickable: true),
+                new MetadataInfo($"Icon: {IconImage:X8}", clickable: true),
+                new MetadataInfo($"Base Palette: {BasePalette:X8}", clickable: true),
+                new MetadataInfo($"Skin Palette Set: {SkinPalSet:X8}", clickable: true),
+                new MetadataInfo($"Physics Table: {PhysicsTable:X8}", clickable: true),
+                new MetadataInfo($"Motion Table: {MotionTable:X8}", clickable: true),
+                new MetadataInfo($"Combat Table: {CombatTable:X8}", clickable: true),
+                new MetadataInfo("ObjDesc", items: (BaseObjDesc as IGetMetadataInfo).GetInfoNodes()),
+                new MetadataInfo("Hair Colors", items: HairColorList.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
+                new MetadataInfo("Hair Styles", items: HairStyleList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Eye Colors", items: EyeColorList.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
+                new MetadataInfo("Eye Strips", items: EyeStripList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Nose Strips", items: NoseStripList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Mouth Strips", items: MouthStripList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Headgear", items: HeadgearList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Shirt", items: ShirtList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Pants", items: PantsList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Footwear", items: FootwearList.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+                new MetadataInfo("Clothing Colors", items: ClothingColorsList.OrderBy(i => i).Select(x => new MetadataInfo($"{x} - {(PaletteTemplate)x}"))),
             };
             return nodes;
         }

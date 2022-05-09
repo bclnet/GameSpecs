@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity.AnimationHooks
 {
-    public class SoundTweakedHook : AnimationHook, IGetExplorerInfo
+    public class SoundTweakedHook : AnimationHook, IGetMetadataInfo
     {
         public readonly uint SoundID;
         public readonly float Priority;
@@ -22,15 +22,15 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         }
 
         //: Entity.SoundTweakedHook
-        public override List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode>();
+            var nodes = new List<MetadataInfo>();
             if (Base is SoundTweakedHook s)
             {
-                nodes.Add(new ExplorerInfoNode($"SoundID: {s.SoundID:X8}"));
-                nodes.Add(new ExplorerInfoNode($"Priority: {s.Priority}"));
-                nodes.Add(new ExplorerInfoNode($"Probability: {s.Probability}"));
-                nodes.Add(new ExplorerInfoNode($"Volume: {s.Volume}"));
+                nodes.Add(new MetadataInfo($"SoundID: {s.SoundID:X8}"));
+                nodes.Add(new MetadataInfo($"Priority: {s.Priority}"));
+                nodes.Add(new MetadataInfo($"Probability: {s.Probability}"));
+                nodes.Add(new MetadataInfo($"Volume: {s.Volume}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

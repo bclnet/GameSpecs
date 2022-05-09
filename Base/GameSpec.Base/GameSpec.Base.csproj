@@ -12,19 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
-    <Content Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
-    <Content Include="..\..\Aurora\AuroraFamily.json" Link="Families\AuroraFamily.json" />
-    <Content Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
-    <Content Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
-    <Content Include="..\..\Origin\OriginFamily.json" Link="Families\OriginFamily.json" />
-    <Content Include="..\..\Red\RedFamily.json" Link="Families\RedFamily.json" />
-    <Content Include="..\..\Rsi\RsiFamily.json" Link="Families\RsiFamily.json" />
-    <Content Include="..\..\Tes\TesFamily.json" Link="Families\TesFamily.json" />
-    <Content Include="..\..\Unity\UnityFamily.json" Link="Families\UnityFamily.json" />
-    <Content Include="..\..\Unknown\UnknownFamily.json" Link="Families\UnknownFamily.json" />
-    <Content Include="..\..\Unreal\UnrealFamily.json" Link="Families\UnrealFamily.json" />
-    <Content Include="..\..\Valve\ValveFamily.json" Link="Families\ValveFamily.json" />
+    <EmbeddedResource Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
+    <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
+    <EmbeddedResource Include="..\..\Aurora\AuroraFamily.json" Link="Families\AuroraFamily.json" />
+    <EmbeddedResource Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
+    <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
+    <EmbeddedResource Include="..\..\Origin\OriginFamily.json" Link="Families\OriginFamily.json" />
+    <EmbeddedResource Include="..\..\Red\RedFamily.json" Link="Families\RedFamily.json" />
+    <EmbeddedResource Include="..\..\Rsi\RsiFamily.json" Link="Families\RsiFamily.json" />
+    <EmbeddedResource Include="..\..\Tes\TesFamily.json" Link="Families\TesFamily.json" />
+    <EmbeddedResource Include="..\..\Unity\UnityFamily.json" Link="Families\UnityFamily.json" />
+    <EmbeddedResource Include="..\..\Unknown\UnknownFamily.json" Link="Families\UnknownFamily.json" />
+    <EmbeddedResource Include="..\..\Unreal\UnrealFamily.json" Link="Families\UnrealFamily.json" />
+    <EmbeddedResource Include="..\..\Valve\ValveFamily.json" Link="Families\ValveFamily.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,12 +43,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj" />
-    <ProjectReference Include="..\..\..\OpenStack\Graphics\OpenStack.Graphics\OpenStack.Graphics.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Families\" />
+    <ProjectReference Include="..\..\OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj" />
+    <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics\OpenStack.Graphics.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class SkillFormula : IGetExplorerInfo
+    public class SkillFormula : IGetMetadataInfo
     {
         public readonly uint W;
         public readonly uint X;
@@ -34,15 +34,15 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.SkillFormula
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Attr1: {(PropertyAttribute)Attr1}"),
-                new ExplorerInfoNode($"Attr2: {(PropertyAttribute)Attr2}"),
-                new ExplorerInfoNode($"W: {W}"),
-                new ExplorerInfoNode($"X: {X}"),
-                new ExplorerInfoNode($"Y: {Y}"),
-                new ExplorerInfoNode($"Z (divisor): {Z}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Attr1: {(PropertyAttribute)Attr1}"),
+                new MetadataInfo($"Attr2: {(PropertyAttribute)Attr2}"),
+                new MetadataInfo($"W: {W}"),
+                new MetadataInfo($"X: {X}"),
+                new MetadataInfo($"Y: {Y}"),
+                new MetadataInfo($"Z (divisor): {Z}"),
             };
             return nodes;
         }

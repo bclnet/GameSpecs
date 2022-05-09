@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class EyeStripCG : IGetExplorerInfo
+    public class EyeStripCG : IGetMetadataInfo
     {
         public readonly uint IconImage;
         public readonly uint IconImageBald;
@@ -21,13 +21,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.EyeStripCG
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                IconImage != 0 ? new ExplorerInfoNode($"Icon: {IconImage:X8}", clickable: true) : null,
-                IconImageBald != 0 ? new ExplorerInfoNode($"Bald Icon: {IconImageBald:X8}", clickable: true) : null,
-                new ExplorerInfoNode("ObjDesc", items: (ObjDesc as IGetExplorerInfo).GetInfoNodes()),
-                new ExplorerInfoNode("ObjDescBald", items: (ObjDescBald as IGetExplorerInfo).GetInfoNodes()),
+            var nodes = new List<MetadataInfo> {
+                IconImage != 0 ? new MetadataInfo($"Icon: {IconImage:X8}", clickable: true) : null,
+                IconImageBald != 0 ? new MetadataInfo($"Bald Icon: {IconImageBald:X8}", clickable: true) : null,
+                new MetadataInfo("ObjDesc", items: (ObjDesc as IGetMetadataInfo).GetInfoNodes()),
+                new MetadataInfo("ObjDescBald", items: (ObjDescBald as IGetMetadataInfo).GetInfoNodes()),
             };
             return nodes;
         }

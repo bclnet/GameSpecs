@@ -7,7 +7,7 @@ namespace GameSpec.Formats
 {
     public static class BinaryPakExtensions
     {
-        const int MaxDegreeOfParallelism = 1; //8;
+        const int MaxDegreeOfParallelism = 8; //1;
 
         #region Export
 

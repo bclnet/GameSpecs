@@ -1,6 +1,6 @@
 ﻿using GameSpec.AC.Formats;
 using GameSpec.AC.Transforms;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
@@ -28,7 +28,7 @@ namespace GameSpec.AC
             : base(family, game, filePath, PakBinaryAC.Instance, tag)
         {
             Options = PakManyOptions.FilesById;
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }

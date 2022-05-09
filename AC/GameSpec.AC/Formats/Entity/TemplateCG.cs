@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class TemplateCG : IGetExplorerInfo
+    public class TemplateCG : IGetMetadataInfo
     {
         public string Name;
         public uint IconImage;
@@ -39,20 +39,20 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TemplateCG
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Icon: {IconImage:X8}", clickable: true),
-                new ExplorerInfoNode($"Title: {Title}"),
-                new ExplorerInfoNode($"Strength: {Strength}"),
-                new ExplorerInfoNode($"Endurance: {Endurance}"),
-                new ExplorerInfoNode($"Coordination: {Coordination}"),
-                new ExplorerInfoNode($"Quickness: {Quickness}"),
-                new ExplorerInfoNode($"Focus: {Focus}"),
-                new ExplorerInfoNode($"Self: {Self}"),
-                NormalSkillsList.Length > 0 ? new ExplorerInfoNode("Normal Skills", items: NormalSkillsList.Select(x => new ExplorerInfoNode($"{x}"))) : null,
-                PrimarySkillsList.Length > 0 ? new ExplorerInfoNode("Primary Skills", items: PrimarySkillsList.Select(x => new ExplorerInfoNode($"{x}"))) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Icon: {IconImage:X8}", clickable: true),
+                new MetadataInfo($"Title: {Title}"),
+                new MetadataInfo($"Strength: {Strength}"),
+                new MetadataInfo($"Endurance: {Endurance}"),
+                new MetadataInfo($"Coordination: {Coordination}"),
+                new MetadataInfo($"Quickness: {Quickness}"),
+                new MetadataInfo($"Focus: {Focus}"),
+                new MetadataInfo($"Self: {Self}"),
+                NormalSkillsList.Length > 0 ? new MetadataInfo("Normal Skills", items: NormalSkillsList.Select(x => new MetadataInfo($"{x}"))) : null,
+                PrimarySkillsList.Length > 0 ? new MetadataInfo("Primary Skills", items: PrimarySkillsList.Select(x => new MetadataInfo($"{x}"))) : null,
             };
             return nodes;
         }

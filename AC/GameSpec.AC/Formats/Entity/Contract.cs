@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class Contract : IGetExplorerInfo
+    public class Contract : IGetMetadataInfo
     {
         public readonly uint Version;
         public readonly uint ContractId;
@@ -54,25 +54,25 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.Contract
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"ContractId: {ContractId}"),
-                new ExplorerInfoNode($"ContractName: {ContractName}"),
-                new ExplorerInfoNode($"Version: {Version}"),
-                new ExplorerInfoNode($"Description: {Description}"),
-                new ExplorerInfoNode($"DescriptionProgress: {DescriptionProgress}"),
-                new ExplorerInfoNode($"NameNPCStart: {NameNPCStart}"),
-                new ExplorerInfoNode($"NameNPCEnd: {NameNPCEnd}"),
-                new ExplorerInfoNode($"QuestflagStamped: {QuestflagStamped}"),
-                new ExplorerInfoNode($"QuestflagStarted: {QuestflagStarted}"),
-                new ExplorerInfoNode($"QuestflagFinished: {QuestflagFinished}"),
-                new ExplorerInfoNode($"QuestflagProgress: {QuestflagProgress}"),
-                new ExplorerInfoNode($"QuestflagTimer: {QuestflagTimer}"),
-                new ExplorerInfoNode($"QuestflagRepeatTime: {QuestflagRepeatTime}"),
-                new ExplorerInfoNode("LocationNPCStart", items: (LocationNPCStart as IGetExplorerInfo).GetInfoNodes(tag: tag)),
-                new ExplorerInfoNode("LocationNPCEnd", items: (LocationNPCEnd as IGetExplorerInfo).GetInfoNodes(tag: tag)),
-                new ExplorerInfoNode("LocationQuestArea", items: (LocationQuestArea as IGetExplorerInfo).GetInfoNodes(tag: tag)),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"ContractId: {ContractId}"),
+                new MetadataInfo($"ContractName: {ContractName}"),
+                new MetadataInfo($"Version: {Version}"),
+                new MetadataInfo($"Description: {Description}"),
+                new MetadataInfo($"DescriptionProgress: {DescriptionProgress}"),
+                new MetadataInfo($"NameNPCStart: {NameNPCStart}"),
+                new MetadataInfo($"NameNPCEnd: {NameNPCEnd}"),
+                new MetadataInfo($"QuestflagStamped: {QuestflagStamped}"),
+                new MetadataInfo($"QuestflagStarted: {QuestflagStarted}"),
+                new MetadataInfo($"QuestflagFinished: {QuestflagFinished}"),
+                new MetadataInfo($"QuestflagProgress: {QuestflagProgress}"),
+                new MetadataInfo($"QuestflagTimer: {QuestflagTimer}"),
+                new MetadataInfo($"QuestflagRepeatTime: {QuestflagRepeatTime}"),
+                new MetadataInfo("LocationNPCStart", items: (LocationNPCStart as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+                new MetadataInfo("LocationNPCEnd", items: (LocationNPCEnd as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+                new MetadataInfo("LocationQuestArea", items: (LocationQuestArea as IGetMetadataInfo).GetInfoNodes(tag: tag)),
             };
             return nodes;
         }

@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Text;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.ChatPoseTable)]
-    public class ChatPoseTable : FileType, IGetExplorerInfo
+    public class ChatPoseTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E000007;
 
@@ -26,12 +26,12 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.ChatPoseTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(ChatPoseTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("ChatPoseHash", items: ChatPoseHash.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode($"{x.Key}: {x.Value}"))),
-                    new ExplorerInfoNode("ChatEmoteHash", items: ChatEmoteHash.OrderBy(i => i.Key).Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(ChatPoseTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("ChatPoseHash", items: ChatPoseHash.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value}"))),
+                    new MetadataInfo("ChatEmoteHash", items: ChatEmoteHash.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class Polygon : IGetExplorerInfo
+    public class Polygon : IGetMetadataInfo
     {
         public byte NumPts;
         public StipplingType Stippling; // Whether it has that textured/bumpiness to it
@@ -35,17 +35,17 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.Polygon
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                //new ExplorerInfoNode($"NumPoints: {NumPts}"),
-                new ExplorerInfoNode($"Stippling: {Stippling}"),
-                new ExplorerInfoNode($"CullMode: {SidesType}"),
-                new ExplorerInfoNode($"PosSurface: {PosSurface}"),
-                new ExplorerInfoNode($"NegSurface: {NegSurface}"),
-                new ExplorerInfoNode($"Vertex IDs: {string.Join(", ", VertexIds)}"),
-                new ExplorerInfoNode($"PosUVIndices: {string.Join(", ", PosUVIndices)}"),
-                new ExplorerInfoNode($"NegUVIndices: {string.Join(", ", NegUVIndices)}"),
+            var nodes = new List<MetadataInfo> {
+                //new MetadataInfo($"NumPoints: {NumPts}"),
+                new MetadataInfo($"Stippling: {Stippling}"),
+                new MetadataInfo($"CullMode: {SidesType}"),
+                new MetadataInfo($"PosSurface: {PosSurface}"),
+                new MetadataInfo($"NegSurface: {NegSurface}"),
+                new MetadataInfo($"Vertex IDs: {string.Join(", ", VertexIds)}"),
+                new MetadataInfo($"PosUVIndices: {string.Join(", ", PosUVIndices)}"),
+                new MetadataInfo($"NegUVIndices: {string.Join(", ", NegUVIndices)}"),
             };
             return nodes;
         }

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameSpec.Base\GameSpec.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Base\Native\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Base.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)GameSpec.Platform.Unity.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+  </Target>
+
+  <Target Name="Plugins">
+    <Exec Command="xcopy /Y &quot;..\..\Base\Native\Unity\Plugins\x64\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\x64\&quot;" />
+    <Exec Command="xcopy /Y &quot;..\..\Base\Native\Unity\Plugins\x86\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\x86\&quot;" />
+    <Exec Command="xcopy /Y &quot;..\..\Base\Native\Unity\Plugins\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+  </Target>
+  
+</Project>

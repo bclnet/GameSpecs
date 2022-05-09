@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BuildInfo : IGetExplorerInfo
+    public class BuildInfo : IGetMetadataInfo
     {
         /// <summary>
         /// 0x01 or 0x02 model of the building
@@ -34,13 +34,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.BuildInfo
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Model ID: {ModelId:X8}", clickable: true),
-                new ExplorerInfoNode($"Frame: {Frame}"),
-                new ExplorerInfoNode($"NumLeaves: {NumLeaves}"),
-                new ExplorerInfoNode($"Portals", items: Portals.Select((x, i) => new ExplorerInfoNode($"{i}", items: (x as IGetExplorerInfo).GetInfoNodes()))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Model ID: {ModelId:X8}", clickable: true),
+                new MetadataInfo($"Frame: {Frame}"),
+                new MetadataInfo($"NumLeaves: {NumLeaves}"),
+                new MetadataInfo($"Portals", items: Portals.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
             };
             return nodes;
         }

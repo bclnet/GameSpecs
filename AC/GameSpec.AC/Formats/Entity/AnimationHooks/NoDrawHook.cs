@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity.AnimationHooks
 {
-    public class NoDrawHook : AnimationHook, IGetExplorerInfo
+    public class NoDrawHook : AnimationHook, IGetMetadataInfo
     {
         public readonly uint NoDraw;
 
@@ -14,12 +14,12 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
             => NoDraw = r.ReadUInt32();
 
         //: Entity.NoDrawHook
-        public override List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode>();
+            var nodes = new List<MetadataInfo>();
             if (Base is NoDrawHook s)
             {
-                nodes.Add(new ExplorerInfoNode($"NoDraw: {s.NoDraw}"));
+                nodes.Add(new MetadataInfo($"NoDraw: {s.NoDraw}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

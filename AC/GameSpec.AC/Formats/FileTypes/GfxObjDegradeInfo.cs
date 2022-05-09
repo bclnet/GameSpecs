@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Contains info on what objects to display at what distance to help with render performance (e.g. low-poly very far away, but high-poly when close)
     /// </summary>
     [PakFileType(PakFileType.DegradeInfo)]
-    public class GfxObjDegradeInfo : FileType, IGetExplorerInfo
+    public class GfxObjDegradeInfo : FileType, IGetMetadataInfo
     {
         public readonly GfxObjInfo[] Degrades;
 
@@ -23,15 +23,15 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.DegradeInfo
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(GfxObjDegradeInfo)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("Starter Areas", items: Degrades.Select(x => {
-                        var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(GfxObjDegradeInfo)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("Starter Areas", items: Degrades.Select(x => {
+                        var items = (x as IGetMetadataInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Id: ", "");
                         items.RemoveAt(0);
-                        return new ExplorerInfoNode(name, items: items, clickable: true);
+                        return new MetadataInfo(name, items: items, clickable: true);
                     })),
                 })
             };

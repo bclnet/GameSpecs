@@ -25,23 +25,32 @@ namespace GameSpec
             public bool ForceOpen { get; set; }
         }
 
+        /* Sample: Data
+         * OK - Family = "AC", GameId = "AC", ForcePath = "TabooTable/0E00001E.taboo", ForceOpen = true,
+         */
+
+        /* Sample: Texture
+         * BAD - Family = "AC", GameId = "AC", ForcePath = "Texture060043BE", ForceOpen = true,
+         * BAD - Family = "Cry", GameId = "Hunt", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
+         * BAD - Family = "Rsi", GameId = "StarCitizen", ForcePath = "Data/Textures/references/color.dds", ForceOpen = true,
+         * BAD - Family = "Rsi", GameId = "StarCitizen", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
+         * BAD - Family = "Tes", GameId = "Morrowind", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
+         * BAD - Family = "Tes", GameId = "StarCitizen", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
+         * OK - Family = "Valve", GameId = "Dota2", ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", ForceOpen = true,
+         */
+
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForceOpen = true,
-            //Family = "AC", ForcePath = "TabooTable/0E00001E.taboo",
-            //Family = "Cry", // GameId = "Hunt",
-            //Family = "Rsi",
-            //GameId = "StarCitizen",
-            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds"
-            //Estate = "Valve", GameId = "Dota2", ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c"
+            Family = "Tes",
         };
 
         static FamilyManager()
         {
             Family.Bootstrap();
             var assembly = Assembly.GetExecutingAssembly();
+
             foreach (var id in FamilyKeys)
-                using (var r = new StreamReader(assembly.GetManifestResourceStream($"GameSpec.Families.{id}Family.json")))
+                using (var r = new StreamReader(assembly.GetManifestResourceStream($"GameSpec.Base.Families.{id}Family.json")))
                 {
                     var family = ParseFamily(r.ReadToEnd());
                     if (family != null) Families.Add(family.Id, family);

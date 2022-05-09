@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPTree : IGetExplorerInfo
+    public class BSPTree : IGetMetadataInfo
     {
         public readonly BSPNode RootNode;
 
@@ -14,10 +14,10 @@ namespace GameSpec.AC.Formats.Entity
             => RootNode = BSPNode.Factory(r, treeType);
 
         //: Entity.BSPTree
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Root", items: (RootNode as IGetExplorerInfo).GetInfoNodes(tag: tag)),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Root", items: (RootNode as IGetMetadataInfo).GetInfoNodes(tag: tag)),
             };
             return nodes;
         }

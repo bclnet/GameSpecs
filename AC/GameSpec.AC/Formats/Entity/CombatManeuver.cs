@@ -1,12 +1,12 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class CombatManeuver : IGetExplorerInfo
+    public class CombatManeuver : IGetMetadataInfo
     {
         public readonly MotionStance Style;
         public readonly AttackHeight AttackHeight;
@@ -24,14 +24,14 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.CombatManeuver
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Stance: {Style}"),
-                new ExplorerInfoNode($"Attack Height: {AttackHeight}"),
-                new ExplorerInfoNode($"Attack Type: {AttackType}"),
-                MinSkillLevel != 0 ? new ExplorerInfoNode($"Min Skill: {MinSkillLevel}") : null,
-                new ExplorerInfoNode($"Motion: {Motion}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Stance: {Style}"),
+                new MetadataInfo($"Attack Height: {AttackHeight}"),
+                new MetadataInfo($"Attack Type: {AttackType}"),
+                MinSkillLevel != 0 ? new MetadataInfo($"Min Skill: {MinSkillLevel}") : null,
+                new MetadataInfo($"Motion: {Motion}"),
             };
             return nodes;
         }

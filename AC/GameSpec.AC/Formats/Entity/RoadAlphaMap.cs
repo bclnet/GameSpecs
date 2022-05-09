@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class RoadAlphaMap : IGetExplorerInfo
+    public class RoadAlphaMap : IGetMetadataInfo
     {
         public readonly uint RCode;
         public readonly uint RoadTexGID;
@@ -17,11 +17,11 @@ namespace GameSpec.AC.Formats.Entity
         }
         
         //: Entity.RoadAlphaMap
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"RoadCode: {RCode}"),
-                new ExplorerInfoNode($"RoadTexGID: {RoadTexGID:X8}", clickable: true),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"RoadCode: {RCode}"),
+                new MetadataInfo($"RoadTexGID: {RoadTexGID:X8}", clickable: true),
             };
             return nodes;
         }

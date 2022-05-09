@@ -1,6 +1,6 @@
 ﻿using GameSpec.Cry.Formats;
 using GameSpec.Cry.Transforms;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
@@ -29,7 +29,7 @@ namespace GameSpec.Cry
         public CryPakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, GetPackBinary(family, game), tag)
         {
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }

@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -122,14 +122,14 @@ namespace GameSpec.Tes.Formats
         public static Matrix4x4 Read3x3RotationMatrix(BinaryReader r) => r.ReadRowMajorMatrix3x3();
     }
 
-    public class NiFile : IGetExplorerInfo
+    public class NiFile : IGetMetadataInfo
     {
         public NiFile(string name) => Name = name;
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => new List<ExplorerInfoNode> {
-            new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Engine", Name = Name, Value = this }),
-            new ExplorerInfoNode("Nif", items: new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"NumBlocks: {Header.NumBlocks}"),
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+            new MetadataInfo(null, new MetadataContent { Type = "Engine", Name = Name, Value = this }),
+            new MetadataInfo("Nif", items: new List<MetadataInfo> {
+                new MetadataInfo($"NumBlocks: {Header.NumBlocks}"),
             }),
         };
 

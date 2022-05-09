@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.StringTable)]
-    public class StringTable : FileType, IGetExplorerInfo
+    public class StringTable : FileType, IGetMetadataInfo
     {
         public static uint CharacterTitle_FileID = 0x2300000E;
 
@@ -25,17 +25,17 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.StringTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(StringTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"Language: {Language}"),
-                    new ExplorerInfoNode($"Unknown: {Unknown}"),
-                    new ExplorerInfoNode("String Tables", items: StringTableData.Select(x => {
-                        var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(StringTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"Language: {Language}"),
+                    new MetadataInfo($"Unknown: {Unknown}"),
+                    new MetadataInfo("String Tables", items: StringTableData.Select(x => {
+                        var items = (x as IGetMetadataInfo).GetInfoNodes();
                         var name = items[0].Name;
                         items.RemoveAt(0);
-                        return new ExplorerInfoNode(name, items: items);
+                        return new MetadataInfo(name, items: items);
                     })),
                 })
             };

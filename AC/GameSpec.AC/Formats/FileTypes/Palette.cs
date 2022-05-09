@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x04. 
     /// </summary>
     [PakFileType(PakFileType.Palette)]
-    public class Palette : FileType, IGetExplorerInfo
+    public class Palette : FileType, IGetMetadataInfo
     {
         /// <summary>
         /// Color data is stored in ARGB format
@@ -25,11 +25,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.Palette
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(Palette)}: {Id:X8}", items: Colors.Select(
-                    x => new ExplorerInfoNode(ColorX.ToRGBA(x))
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(Palette)}: {Id:X8}", items: Colors.Select(
+                    x => new MetadataInfo(ColorX.ToRGBA(x))
                 )),
             };
             return nodes;

@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class GearCG : IGetExplorerInfo
+    public class GearCG : IGetMetadataInfo
     {
         public readonly string Name;
         public readonly uint ClothingTable;
@@ -19,12 +19,12 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.GearCG
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode($"Clothing Table: {ClothingTable:X8}", clickable: true),
-                new ExplorerInfoNode($"Weenie Default: {WeenieDefault}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo($"Clothing Table: {ClothingTable:X8}", clickable: true),
+                new MetadataInfo($"Weenie Default: {WeenieDefault}"),
             };
             return nodes;
         }

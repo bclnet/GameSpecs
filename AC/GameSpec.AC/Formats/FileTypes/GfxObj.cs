@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are used both on their own for some pre-populated structures in the world (trees, buildings, etc) or make up SetupModel (0x02) objects.
     /// </summary>
     [PakFileType(PakFileType.GraphicsObject)]
-    public class GfxObj : FileType, IGetExplorerInfo
+    public class GfxObj : FileType, IGetMetadataInfo
     {
         public readonly GfxObjFlags Flags;
         public readonly uint[] Surfaces; // also referred to as m_rgSurfaces in the client
@@ -49,19 +49,19 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.GfxObj
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Model", Name = "Model", Value = this }),
-                new ExplorerInfoNode($"{nameof(GfxObj)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"Surfaces", items: Surfaces.Select(x => new ExplorerInfoNode($"{x:X8}", clickable: true))),
-                    new ExplorerInfoNode($"VertexArray", items: (VertexArray as IGetExplorerInfo).GetInfoNodes(resource, file)),
-                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new ExplorerInfoNode($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))) : null,
-                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new ExplorerInfoNode($"PhysicsBSP", items: (PhysicsBSP as IGetExplorerInfo).GetInfoNodes(tag: BSPType.Physics).First().Items) : null,
-                    new ExplorerInfoNode($"SortCenter: {SortCenter}"),
-                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new ExplorerInfoNode($"Polygons", items: Polygons.Select(x => new ExplorerInfoNode($"{x.Key}", items: (x.Value as IGetExplorerInfo).GetInfoNodes()))) : null,
-                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new ExplorerInfoNode($"DrawingBSP", items: (DrawingBSP as IGetExplorerInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
-                    Flags.HasFlag(GfxObjFlags.HasDIDDegrade) ? new ExplorerInfoNode($"DIDDegrade: {DIDDegrade:X8}", clickable: true) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this }),
+                new MetadataInfo($"{nameof(GfxObj)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"Surfaces", items: Surfaces.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
+                    new MetadataInfo($"VertexArray", items: (VertexArray as IGetMetadataInfo).GetInfoNodes(resource, file)),
+                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new MetadataInfo($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))) : null,
+                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new MetadataInfo($"PhysicsBSP", items: (PhysicsBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Physics).First().Items) : null,
+                    new MetadataInfo($"SortCenter: {SortCenter}"),
+                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new MetadataInfo($"Polygons", items: Polygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))) : null,
+                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new MetadataInfo($"DrawingBSP", items: (DrawingBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
+                    Flags.HasFlag(GfxObjFlags.HasDIDDegrade) ? new MetadataInfo($"DIDDegrade: {DIDDegrade:X8}", clickable: true) : null,
                 })
             };
             return nodes;

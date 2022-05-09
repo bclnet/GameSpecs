@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// Reads and stores the XP Tables from the client_portal.dat (file 0x0E000018).
     /// </summary>
     [PakFileType(PakFileType.XpTable)]
-    public class XpTable : FileType, IGetExplorerInfo
+    public class XpTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E000018;
 
@@ -45,16 +45,16 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.XpTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(XpTable)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode("AttributeXpList", items: AttributeXpList.Select((x, i) => new ExplorerInfoNode($"{i}: {x:N0}"))),
-                    new ExplorerInfoNode("VitalXpList", items: VitalXpList.Select((x, i) => new ExplorerInfoNode($"{i}: {x:N0}"))),
-                    new ExplorerInfoNode("TrainedSkillXpList", items: TrainedSkillXpList.Select((x, i) => new ExplorerInfoNode($"{i}: {x:N0}"))),
-                    new ExplorerInfoNode("SpecializedSkillXpList", items: SpecializedSkillXpList.Select((x, i) => new ExplorerInfoNode($"{i}: {x:N0}"))),
-                    new ExplorerInfoNode("CharacterLevelXpList", items: CharacterLevelXPList.Select((x, i) => new ExplorerInfoNode($"{i}: {x:N0}"))),
-                    new ExplorerInfoNode("CharacterLevelSkillCreditList", items: CharacterLevelSkillCreditList.Select((x, i) => new ExplorerInfoNode($"{i}: {x:N0}"))),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(XpTable)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo("AttributeXpList", items: AttributeXpList.Select((x, i) => new MetadataInfo($"{i}: {x:N0}"))),
+                    new MetadataInfo("VitalXpList", items: VitalXpList.Select((x, i) => new MetadataInfo($"{i}: {x:N0}"))),
+                    new MetadataInfo("TrainedSkillXpList", items: TrainedSkillXpList.Select((x, i) => new MetadataInfo($"{i}: {x:N0}"))),
+                    new MetadataInfo("SpecializedSkillXpList", items: SpecializedSkillXpList.Select((x, i) => new MetadataInfo($"{i}: {x:N0}"))),
+                    new MetadataInfo("CharacterLevelXpList", items: CharacterLevelXPList.Select((x, i) => new MetadataInfo($"{i}: {x:N0}"))),
+                    new MetadataInfo("CharacterLevelSkillCreditList", items: CharacterLevelSkillCreditList.Select((x, i) => new MetadataInfo($"{i}: {x:N0}"))),
                 })
             };
             return nodes;

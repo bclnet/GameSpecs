@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class StarterArea : IGetExplorerInfo
+    public class StarterArea : IGetMetadataInfo
     {
         public readonly string Name;
         public readonly Position[] Locations;
@@ -18,15 +18,15 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.StarterArea
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Name: {Name}"),
-                new ExplorerInfoNode("Locations", items: Locations.Select(x => {
-                    var items = (x as IGetExplorerInfo).GetInfoNodes();
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Name: {Name}"),
+                new MetadataInfo("Locations", items: Locations.Select(x => {
+                    var items = (x as IGetMetadataInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("ObjCellID: ", "");
                     items.RemoveAt(0);
-                    return new ExplorerInfoNode(name, items: items, clickable: true);
+                    return new MetadataInfo(name, items: items, clickable: true);
                 })),
             };
             return nodes;

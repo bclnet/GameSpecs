@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// This is the client_portal.dat file starting with 0x13 -- There is only one of these, which is why REGION_ID is a constant.
     /// </summary>
     [PakFileType(PakFileType.Region)]
-    public class RegionDesc : FileType, IGetExplorerInfo
+    public class RegionDesc : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x13000000;
 
@@ -45,21 +45,21 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.Region
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(RegionDesc)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"RegionNum: {RegionNumber}"),
-                    new ExplorerInfoNode($"Version: {Version}"),
-                    new ExplorerInfoNode($"Name: {RegionName}"),
-                    new ExplorerInfoNode("LandDefs", items: (LandDefs as IGetExplorerInfo).GetInfoNodes()),
-                    new ExplorerInfoNode("GameTime", items: (GameTime as IGetExplorerInfo).GetInfoNodes()),
-                    new ExplorerInfoNode($"PartsMask: {PartsMask:X8}"),
-                    (PartsMask & 0x10) != 0 ? new ExplorerInfoNode("SkyInfo", items: (SkyInfo as IGetExplorerInfo).GetInfoNodes()) : null,
-                    (PartsMask & 0x01) != 0 ? new ExplorerInfoNode("SoundInfo", items: (SoundInfo as IGetExplorerInfo).GetInfoNodes()) : null,
-                    (PartsMask & 0x02) != 0 ? new ExplorerInfoNode("SceneInfo", items: (SceneInfo as IGetExplorerInfo).GetInfoNodes()) : null,
-                    new ExplorerInfoNode("TerrainInfo", items: (TerrainInfo as IGetExplorerInfo).GetInfoNodes()),
-                    (PartsMask & 0x200) != 0 ? new ExplorerInfoNode("RegionMisc", items: (RegionMisc as IGetExplorerInfo).GetInfoNodes()) : null,
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(RegionDesc)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"RegionNum: {RegionNumber}"),
+                    new MetadataInfo($"Version: {Version}"),
+                    new MetadataInfo($"Name: {RegionName}"),
+                    new MetadataInfo("LandDefs", items: (LandDefs as IGetMetadataInfo).GetInfoNodes()),
+                    new MetadataInfo("GameTime", items: (GameTime as IGetMetadataInfo).GetInfoNodes()),
+                    new MetadataInfo($"PartsMask: {PartsMask:X8}"),
+                    (PartsMask & 0x10) != 0 ? new MetadataInfo("SkyInfo", items: (SkyInfo as IGetMetadataInfo).GetInfoNodes()) : null,
+                    (PartsMask & 0x01) != 0 ? new MetadataInfo("SoundInfo", items: (SoundInfo as IGetMetadataInfo).GetInfoNodes()) : null,
+                    (PartsMask & 0x02) != 0 ? new MetadataInfo("SceneInfo", items: (SceneInfo as IGetMetadataInfo).GetInfoNodes()) : null,
+                    new MetadataInfo("TerrainInfo", items: (TerrainInfo as IGetMetadataInfo).GetInfoNodes()),
+                    (PartsMask & 0x200) != 0 ? new MetadataInfo("RegionMisc", items: (RegionMisc as IGetMetadataInfo).GetInfoNodes()) : null,
                 })
             };
             return nodes;

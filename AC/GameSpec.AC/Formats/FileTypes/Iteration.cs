@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// 
     /// Special thanks to the GDLE team for pointing me the right direction on how/where to find this info in the dat files- OptimShi
     /// </summary>
-    public class Iteration : FileType, IGetExplorerInfo
+    public class Iteration : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0xFFFF0001;
 
@@ -36,10 +36,10 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: New
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(Iteration)}: {Id:X8}", items: new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(Iteration)}: {Id:X8}", items: new List<MetadataInfo> {
                 })
             };
             return nodes;

@@ -1,6 +1,6 @@
 using GameSpec.AC.Formats.Entity;
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Linq;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.SkillTable)]
-    public class SkillTable : FileType, IGetExplorerInfo
+    public class SkillTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E000004;
 
@@ -23,11 +23,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.SkillTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(SkillTable)}: {Id:X8}", items: SkillBaseHash.OrderBy(i => i.Key).Where(x => !string.IsNullOrEmpty(x.Value.Name)).Select(
-                    x => new ExplorerInfoNode($"{x.Key}: {x.Value.Name}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(tag: tag))
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(SkillTable)}: {Id:X8}", items: SkillBaseHash.OrderBy(i => i.Key).Where(x => !string.IsNullOrEmpty(x.Value.Name)).Select(
+                    x => new MetadataInfo($"{x.Key}: {x.Value.Name}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag))
                 ))
             };
             return nodes;

@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Entity;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// This is the client_portal.dat file 0x0E00001D
     /// </summary>
     [PakFileType(PakFileType.ContractTable)]
-    public class ContractTable : FileType, IGetExplorerInfo
+    public class ContractTable : FileType, IGetMetadataInfo
     {
         public const uint FILE_ID = 0x0E00001D;
 
@@ -24,11 +24,11 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.ContractTable
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(ContractTable)}: {Id:X8}", items: Contracts.Select(
-                    x => new ExplorerInfoNode($"{x.Key} - {x.Value.ContractName}", items: (x.Value as IGetExplorerInfo).GetInfoNodes(tag: tag))
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(ContractTable)}: {Id:X8}", items: Contracts.Select(
+                    x => new MetadataInfo($"{x.Key} - {x.Value.ContractName}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag))
                 ))
             };
             return nodes;

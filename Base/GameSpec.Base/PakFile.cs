@@ -1,4 +1,4 @@
-﻿using GameSpec.Explorer;
+﻿using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Transforms;
 using OpenStack.Graphics;
@@ -191,31 +191,31 @@ namespace GameSpec
         /// </value>
         public IOpenGraphic Graphic { get; internal set; }
 
-        #region Explorer
+        #region Metadata
 
         /// <summary>
-        /// Gets the explorer item nodes.
+        /// Gets the metadata items.
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<ExplorerItemNode>> GetExplorerItemNodesAsync(ExplorerManager manager)
+        public virtual Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
             => throw new NotImplementedException();
 
         /// <summary>
-        /// Gets the explorer item filters.
+        /// Gets the metadata item filters.
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<ExplorerItemNode.Filter>> GetExplorerItemFiltersAsync(ExplorerManager manager)
-            => Task.FromResult(Family.FileFilters.TryGetValue(Game, out var z) ? z.Select(x => new ExplorerItemNode.Filter(x.Key, x.Value)).ToList() : null);
+        public virtual Task<List<MetadataItem.Filter>> GetMetadataItemFiltersAsync(MetadataManager manager)
+            => Task.FromResult(Family.FileFilters.TryGetValue(Game, out var z) ? z.Select(x => new MetadataItem.Filter(x.Key, x.Value)).ToList() : null);
 
         /// <summary>
-        /// Gets the explorer information nodes.
+        /// Gets the metadata infos.
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public virtual Task<List<ExplorerInfoNode>> GetExplorerInfoNodesAsync(ExplorerManager manager, ExplorerItemNode item)
+        public virtual Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
             => throw new NotImplementedException();
 
         #endregion

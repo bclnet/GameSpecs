@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class CloSubPalette : IGetExplorerInfo
+    public class CloSubPalette : IGetMetadataInfo
     {
         /// <summary>
         /// Contains a list of valid offsets & color values
@@ -24,13 +24,13 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.ClothingSubPalette
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
+            var nodes = new List<MetadataInfo> {
                 Ranges.Length == 1
-                    ? new ExplorerInfoNode($"Range: {Ranges[0]}")
-                    : new ExplorerInfoNode($"SubPalette Ranges", items: Ranges.Select(x => new ExplorerInfoNode($"{x}"))),
-                new ExplorerInfoNode($"Palette Set: {PaletteSet:X8}", clickable: true),
+                    ? new MetadataInfo($"Range: {Ranges[0]}")
+                    : new MetadataInfo($"SubPalette Ranges", items: Ranges.Select(x => new MetadataInfo($"{x}"))),
+                new MetadataInfo($"Palette Set: {PaletteSet:X8}", clickable: true),
             };
             return nodes;
         }

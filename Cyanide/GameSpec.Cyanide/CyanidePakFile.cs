@@ -1,6 +1,6 @@
 ﻿using GameSpec.Cyanide.Formats;
 using GameSpec.Cyanide.Transforms;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
@@ -24,7 +24,7 @@ namespace GameSpec.Cyanide
         public CyanidePakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryCyanide.Instance, tag)
         {
-            GetExplorerItems = StandardExplorerItem.GetPakFilesAsync;
+            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }

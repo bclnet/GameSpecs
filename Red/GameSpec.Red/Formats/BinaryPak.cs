@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -6,16 +6,16 @@ using System.IO;
 
 namespace GameSpec.Red.Formats
 {
-    public class BinaryPak : IGetExplorerInfo
+    public class BinaryPak : IGetMetadataInfo
     {
         public BinaryPak() { }
         public BinaryPak(BinaryReader r) => Read(r);
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode("BinaryPak", items: new List<ExplorerInfoNode> {
-                    //new ExplorerInfoNode($"Type: {Type}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo("BinaryPak", items: new List<MetadataInfo> {
+                    //new MetadataInfo($"Type: {Type}"),
                 })
             };
             return nodes;

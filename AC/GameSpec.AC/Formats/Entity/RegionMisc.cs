@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class RegionMisc : IGetExplorerInfo
+    public class RegionMisc : IGetMetadataInfo
     {
         public readonly uint Version;
         public readonly uint GameMapID;
@@ -25,15 +25,15 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.RegionMisc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"Version: {Version}"),
-                new ExplorerInfoNode($"GameMap ID: {GameMapID:X8}", clickable: true),
-                new ExplorerInfoNode($"AutoTest Map ID: {AutotestMapId:X8}", clickable: true),
-                new ExplorerInfoNode($"AutoTest Map Size: {AutotestMapSize}"),
-                new ExplorerInfoNode($"ClearCell ID: {ClearCellId:X8}", clickable: true),
-                new ExplorerInfoNode($"ClearMonster ID: {ClearMonsterId:X8}", clickable: true),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"Version: {Version}"),
+                new MetadataInfo($"GameMap ID: {GameMapID:X8}", clickable: true),
+                new MetadataInfo($"AutoTest Map ID: {AutotestMapId:X8}", clickable: true),
+                new MetadataInfo($"AutoTest Map Size: {AutotestMapSize}"),
+                new MetadataInfo($"ClearCell ID: {ClearCellId:X8}", clickable: true),
+                new MetadataInfo($"ClearMonster ID: {ClearMonsterId:X8}", clickable: true),
             };
             return nodes;
         }

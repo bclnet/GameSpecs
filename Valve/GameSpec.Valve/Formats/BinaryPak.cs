@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Valve.Formats.Blocks;
 using OpenStack.Graphics;
@@ -11,7 +11,7 @@ using System.Text;
 
 namespace GameSpec.Valve.Formats
 {
-    public class BinaryPak : IDisposable, IGetExplorerInfo, IRedirected<ITextureInfo>, IRedirected<IMaterialInfo>, IRedirected<IMeshInfo>, IRedirected<IModelInfo>, IRedirected<IParticleSystemInfo>
+    public class BinaryPak : IDisposable, IGetMetadataInfo, IRedirected<ITextureInfo>, IRedirected<IMaterialInfo>, IRedirected<IMeshInfo>, IRedirected<IModelInfo>, IRedirected<IParticleSystemInfo>
     {
         public const ushort KnownHeaderVersion = 12;
 
@@ -30,14 +30,14 @@ namespace GameSpec.Valve.Formats
         IModelInfo IRedirected<IModelInfo>.Value => DATA as IModelInfo;
         IParticleSystemInfo IRedirected<IParticleSystemInfo>.Value => DATA as IParticleSystemInfo;
 
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode("BinaryPak", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"FileSize: {FileSize}"),
-                    new ExplorerInfoNode($"Version: {Version}"),
-                    new ExplorerInfoNode($"Blocks: {Blocks.Count}"),
-                    new ExplorerInfoNode($"DataType: {DataType}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo("BinaryPak", items: new List<MetadataInfo> {
+                    new MetadataInfo($"FileSize: {FileSize}"),
+                    new MetadataInfo($"Version: {Version}"),
+                    new MetadataInfo($"Blocks: {Blocks.Count}"),
+                    new MetadataInfo($"DataType: {DataType}"),
                 })
             };
             switch (DataType)
@@ -47,29 +47,29 @@ namespace GameSpec.Valve.Formats
                         var data = (DATATexture)DATA;
                         try
                         {
-                            nodes.AddRange(new List<ExplorerInfoNode> {
-                                //new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }), //(tex.GenerateBitmap().ToBitmap(), tex.Width, tex.Height)
-                                new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
-                                new ExplorerInfoNode("Texture", items: new List<ExplorerInfoNode> {
-                                    new ExplorerInfoNode($"Width: {data.Width}"),
-                                    new ExplorerInfoNode($"Height: {data.Height}"),
-                                    new ExplorerInfoNode($"NumMipMaps: {data.NumMipMaps}"),
+                            nodes.AddRange(new List<MetadataInfo> {
+                                //new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }), //(tex.GenerateBitmap().ToBitmap(), tex.Width, tex.Height)
+                                new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
+                                new MetadataInfo("Texture", items: new List<MetadataInfo> {
+                                    new MetadataInfo($"Width: {data.Width}"),
+                                    new MetadataInfo($"Height: {data.Height}"),
+                                    new MetadataInfo($"NumMipMaps: {data.NumMipMaps}"),
                                 })
                             });
                         }
                         catch (Exception e)
                         {
-                            nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Text", Name = "Exception", Value = e.Message }));
+                            nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Exception", Value = e.Message }));
                         }
                     }
                     break;
                 case DATA.DataType.Panorama:
                     {
                         var data = (DATAPanorama)DATA;
-                        nodes.AddRange(new List<ExplorerInfoNode> {
-                            new ExplorerInfoNode(null, new ExplorerContentTab { Type = "DataGrid", Name = "Panorama Names", Value = data.Names }),
-                            new ExplorerInfoNode("Panorama", items: new List<ExplorerInfoNode> {
-                                new ExplorerInfoNode($"Names: {data.Names.Count}"),
+                        nodes.AddRange(new List<MetadataInfo> {
+                            new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Panorama Names", Value = data.Names }),
+                            new MetadataInfo("Panorama", items: new List<MetadataInfo> {
+                                new MetadataInfo($"Names: {data.Names.Count}"),
                             })
                         });
                     }
@@ -77,30 +77,30 @@ namespace GameSpec.Valve.Formats
                 case DATA.DataType.PanoramaLayout: break;
                 case DATA.DataType.PanoramaScript: break;
                 case DATA.DataType.PanoramaStyle: break;
-                case DATA.DataType.Particle: nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
+                case DATA.DataType.Particle: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
                 case DATA.DataType.Sound:
                     {
                         var sound = (DATASound)DATA;
                         var stream = sound.GetSoundStream();
-                        nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = sound.SoundType.ToString(), Dispose = this }));
+                        nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = sound.SoundType.ToString(), Dispose = this }));
                     }
                     break;
-                case DATA.DataType.World: nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
-                case DATA.DataType.WorldNode: nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
-                case DATA.DataType.Model: nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
-                case DATA.DataType.Mesh: nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
-                case DATA.DataType.Material: nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
+                case DATA.DataType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
+                case DATA.DataType.WorldNode: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
+                case DATA.DataType.Model: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
+                case DATA.DataType.Mesh: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
+                case DATA.DataType.Material: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
             }
             foreach (var block in Blocks)
             {
-                if (block is RERL repl) { nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "DataGrid", Name = "External Refs", Value = repl.RERLInfos })); continue; }
+                if (block is RERL repl) { nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "External Refs", Value = repl.RERLInfos })); continue; }
                 else if (block is NTRO ntro)
                 {
-                    if (ntro.ReferencedStructs.Count > 0) nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "DataGrid", Name = "Introspection Manifest: Structs", Value = ntro.ReferencedStructs }));
-                    if (ntro.ReferencedEnums.Count > 0) nodes.Add(new ExplorerInfoNode(null, new ExplorerContentTab { Type = "DataGrid", Name = "Introspection Manifest: Enums", Value = ntro.ReferencedEnums }));
+                    if (ntro.ReferencedStructs.Count > 0) nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Introspection Manifest: Structs", Value = ntro.ReferencedStructs }));
+                    if (ntro.ReferencedEnums.Count > 0) nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Introspection Manifest: Enums", Value = ntro.ReferencedEnums }));
                 }
-                var tab = new ExplorerContentTab { Type = "Text", Name = block.GetType().Name };
-                nodes.Add(new ExplorerInfoNode(null, tab));
+                var tab = new MetadataContent { Type = "Text", Name = block.GetType().Name };
+                nodes.Add(new MetadataInfo(null, tab));
                 if (block is DATA)
                     switch (DataType)
                     {
@@ -114,7 +114,7 @@ namespace GameSpec.Valve.Formats
                     }
                 else tab.Value = block.ToString();
             }
-            if (!nodes.Any(x => (x.Tag as ExplorerContentTab)?.Dispose != null)) Dispose();
+            if (!nodes.Any(x => (x.Tag as MetadataContent)?.Dispose != null)) Dispose();
             return nodes;
         }
 

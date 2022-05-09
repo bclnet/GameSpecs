@@ -1,11 +1,11 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class TMTerrainDesc : IGetExplorerInfo
+    public class TMTerrainDesc : IGetMetadataInfo
     {
         public readonly uint TerrainType;
         public readonly TerrainTex TerrainTex;
@@ -17,11 +17,11 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         //: Entity.TMTerrainDesc
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"TerrainType: {TerrainType}"),
-                new ExplorerInfoNode("TerrainTexture", items: (TerrainTex as IGetExplorerInfo).GetInfoNodes()),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"TerrainType: {TerrainType}"),
+                new MetadataInfo("TerrainTexture", items: (TerrainTex as IGetMetadataInfo).GetInfoNodes()),
             };
             return nodes;
         }

@@ -1,4 +1,4 @@
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Graphics;
 using OpenStack.Graphics.Renderer;
@@ -8,7 +8,7 @@ using System.Numerics;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
-    public class DATAMesh : IMeshInfo, IGetExplorerInfo
+    public class DATAMesh : IMeshInfo, IGetMetadataInfo
     {
         readonly BinaryPak _source;
         readonly DATA _data;
@@ -27,7 +27,7 @@ namespace GameSpec.Valve.Formats.Blocks
             GetBounds();
         }
 
-        public List<ExplorerInfoNode> GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag) => (_source as IGetExplorerInfo).GetInfoNodes(resource, file, tag);
+        public List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => (_source as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
 
         public IVBIB VBIB { get; }
 

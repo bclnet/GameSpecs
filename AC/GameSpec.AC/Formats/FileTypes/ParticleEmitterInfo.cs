@@ -1,5 +1,5 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Explorer;
+using GameSpec.Metadata;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,7 @@ namespace GameSpec.AC.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x32. 
     /// </summary>
     [PakFileType(PakFileType.ParticleEmitter)]
-    public class ParticleEmitterInfo : FileType, IGetExplorerInfo
+    public class ParticleEmitterInfo : FileType, IGetMetadataInfo
     {
         public readonly uint Unknown;
         public readonly EmitterType EmitterType;
@@ -51,25 +51,25 @@ namespace GameSpec.AC.Formats.FileTypes
         }
 
         //: FileTypes.ParticleEmitterInfo
-        List<ExplorerInfoNode> IGetExplorerInfo.GetInfoNodes(ExplorerManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var nodes = new List<ExplorerInfoNode> {
-                new ExplorerInfoNode($"{nameof(ParticleEmitterInfo)}: {Id:X8}", items: new List<ExplorerInfoNode> {
-                    new ExplorerInfoNode($"EmitterType: {EmitterType}"),
-                    new ExplorerInfoNode($"ParticleType: {ParticleType}"),
-                    new ExplorerInfoNode($"GfxObjId: {GfxObjId:X8}", clickable: true),
-                    new ExplorerInfoNode($"HWGfxObjId: {HwGfxObjId:X8}", clickable: true),
-                    new ExplorerInfoNode($"Birthrate: {Birthrate}"),
-                    new ExplorerInfoNode($"MaxParticles: {MaxParticles} InitialParticles: {InitialParticles} TotalParticles: {TotalParticles}"),
-                    new ExplorerInfoNode($"TotalSeconds: {TotalSeconds}"),
-                    new ExplorerInfoNode($"Lifespan: {Lifespan} LifespanRand: {LifespanRand}"),
-                    new ExplorerInfoNode($"OffsetDir: {OffsetDir} MinOffset: {MinOffset} MaxOffset: {MaxOffset}"),
-                    new ExplorerInfoNode($"A: {A} MinA: {MinA}: MaxA: {MaxA}"),
-                    new ExplorerInfoNode($"B: {B} MinB: {MinB}: MaxB: {MaxB}"),
-                    new ExplorerInfoNode($"C: {C} MinC: {MinC}: MaxC: {MaxC}"),
-                    new ExplorerInfoNode($"StartScale: {StartScale} FinalScale: {FinalScale}: ScaleRand: {ScaleRand}"),
-                    new ExplorerInfoNode($"StartTrans: {StartTrans} FinalTrans: {FinalTrans}: TransRand: {TransRand}"),
-                    new ExplorerInfoNode($"IsParentLocal: {IsParentLocal}"),
+            var nodes = new List<MetadataInfo> {
+                new MetadataInfo($"{nameof(ParticleEmitterInfo)}: {Id:X8}", items: new List<MetadataInfo> {
+                    new MetadataInfo($"EmitterType: {EmitterType}"),
+                    new MetadataInfo($"ParticleType: {ParticleType}"),
+                    new MetadataInfo($"GfxObjId: {GfxObjId:X8}", clickable: true),
+                    new MetadataInfo($"HWGfxObjId: {HwGfxObjId:X8}", clickable: true),
+                    new MetadataInfo($"Birthrate: {Birthrate}"),
+                    new MetadataInfo($"MaxParticles: {MaxParticles} InitialParticles: {InitialParticles} TotalParticles: {TotalParticles}"),
+                    new MetadataInfo($"TotalSeconds: {TotalSeconds}"),
+                    new MetadataInfo($"Lifespan: {Lifespan} LifespanRand: {LifespanRand}"),
+                    new MetadataInfo($"OffsetDir: {OffsetDir} MinOffset: {MinOffset} MaxOffset: {MaxOffset}"),
+                    new MetadataInfo($"A: {A} MinA: {MinA}: MaxA: {MaxA}"),
+                    new MetadataInfo($"B: {B} MinB: {MinB}: MaxB: {MaxB}"),
+                    new MetadataInfo($"C: {C} MinC: {MinC}: MaxC: {MaxC}"),
+                    new MetadataInfo($"StartScale: {StartScale} FinalScale: {FinalScale}: ScaleRand: {ScaleRand}"),
+                    new MetadataInfo($"StartTrans: {StartTrans} FinalTrans: {FinalTrans}: TransRand: {TransRand}"),
+                    new MetadataInfo($"IsParentLocal: {IsParentLocal}"),
                 })
             };
             return nodes;
