@@ -1,0 +1,9 @@
+# Folder to exclude
+Build/
+Binaries/
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+DerivedDataCache/
+Intermediate/
+Saved/
+
