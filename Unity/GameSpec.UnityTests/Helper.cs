@@ -9,7 +9,7 @@ namespace GameSpec.Unity
 
         public static readonly Dictionary<string, Lazy<PakFile>> Paks = new()
         {
-            { "Rsi:StarCitizen", new Lazy<PakFile>(() => familyUnity.OpenPakFile(new Uri("game:/Data.p4k#StarCitizen"))) },
+            { "Unity:AmongUs", new Lazy<PakFile>(() => familyUnity.OpenPakFile(new Uri("game:/resources.assets#AmongUs"))) },
         };
     }
 }

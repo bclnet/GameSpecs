@@ -20,7 +20,7 @@ namespace GameSpec.AC.Formats.Entity
         {
             var numAnims = r.ReadByte();
             Bitfield = r.ReadByte();
-            Flags = (MotionDataFlags)r.ReadByte(); r.AlignBoundary();
+            Flags = (MotionDataFlags)r.ReadByte(); r.Align();
             Anims = r.ReadTArray(x => new AnimData(x), numAnims);
             if ((Flags & MotionDataFlags.HasVelocity) != 0) Velocity = r.ReadVector3();
             if ((Flags & MotionDataFlags.HasOmega) != 0) Omega = r.ReadVector3();

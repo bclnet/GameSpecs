@@ -32,7 +32,7 @@ namespace GameSpec.AC.Formats.FileTypes
             Id = r.ReadUInt32();
             RegionNumber = r.ReadUInt32();
             Version = r.ReadUInt32();
-            RegionName = r.ReadL16String(Encoding.Default); r.AlignBoundary(); // "Dereth"
+            RegionName = r.ReadL16String(Encoding.Default); r.Align(); // "Dereth"
 
             LandDefs = new LandDefs(r);
             GameTime = new GameTime(r);

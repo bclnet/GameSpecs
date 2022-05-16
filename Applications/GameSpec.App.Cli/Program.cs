@@ -64,6 +64,17 @@ namespace GameSpec.App.Cli
         static string[] args02 = new[] { "list", "-f", "Tes", "-u", "game:/Oblivion*.bsa#Oblivion" };
         static string[] args03 = new[] { "list", "-f", "Tes", "-u", "file:///D:/T_/Oblivion/Oblivion*.bsa#Oblivion" };
 
+        static string[] dev00 = new[] { "list", "-f", "Unity", "-u", "game:/resources.assets#Cities" };
+
+        static string[] dev01a = new[] { "list", "-f", "Unity", "-u", @"game:/StreamingAssets\aa\Steam\StandaloneWindows\initialmaps_assets_all.bundle#AmongUs" };
+        static string[] dev01b = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#AmongUs" };
+        static string[] dev01c = new[] { "list", "-f", "Unity", "-u", @"game:/globalgamemanagers.assets#AmongUs" };
+
+        static string[] dev02a = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#Cities" };
+        static string[] dev02b = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#Cities" };
+        static string[] dev02c = new[] { "list", "-f", "Unity", "-u", @"game:/globalgamemanagers.assets#Cities" };
+
+
         static string[] argsRsi1 = new[] { "export", "-f", "Rsi", "-u", "game:/Data.p4k#StarCitizen", "--path", @"D:\T_\StarCitizen" };
 
         static string[] argsTes1 = new[] { "export", "-f", "Tes", "-u", "game:/Oblivion*.bsa#Oblivion", "--path", @"D:\T_\Oblivion" };
@@ -82,7 +93,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsRsi1)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(dev01c)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),

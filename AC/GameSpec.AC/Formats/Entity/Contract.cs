@@ -33,20 +33,20 @@ namespace GameSpec.AC.Formats.Entity
         {
             Version = r.ReadUInt32();
             ContractId = r.ReadUInt32();
-            ContractName = r.ReadL16String(Encoding.Default); r.AlignBoundary();
+            ContractName = r.ReadL16String(Encoding.Default); r.Align();
 
-            Description = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            DescriptionProgress = r.ReadL16String(Encoding.Default); r.AlignBoundary();
+            Description = r.ReadL16String(Encoding.Default); r.Align();
+            DescriptionProgress = r.ReadL16String(Encoding.Default); r.Align();
 
-            NameNPCStart = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            NameNPCEnd = r.ReadL16String(Encoding.Default); r.AlignBoundary();
+            NameNPCStart = r.ReadL16String(Encoding.Default); r.Align();
+            NameNPCEnd = r.ReadL16String(Encoding.Default); r.Align();
 
-            QuestflagStamped = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            QuestflagStarted = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            QuestflagFinished = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            QuestflagProgress = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            QuestflagTimer = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            QuestflagRepeatTime = r.ReadL16String(Encoding.Default); r.AlignBoundary();
+            QuestflagStamped = r.ReadL16String(Encoding.Default); r.Align();
+            QuestflagStarted = r.ReadL16String(Encoding.Default); r.Align();
+            QuestflagFinished = r.ReadL16String(Encoding.Default); r.Align();
+            QuestflagProgress = r.ReadL16String(Encoding.Default); r.Align();
+            QuestflagTimer = r.ReadL16String(Encoding.Default); r.Align();
+            QuestflagRepeatTime = r.ReadL16String(Encoding.Default); r.Align();
 
             LocationNPCStart = new Position(r);
             LocationNPCEnd = new Position(r);

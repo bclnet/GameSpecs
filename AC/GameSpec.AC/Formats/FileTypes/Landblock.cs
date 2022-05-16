@@ -46,7 +46,7 @@ namespace GameSpec.AC.Formats.FileTypes
             // Read in the terrain. 9x9 so 81 records.
             Terrain = r.ReadTArray<ushort>(sizeof(ushort), 81);
             Height = r.ReadTArray<byte>(sizeof(byte), 81);
-            r.AlignBoundary();
+            r.Align();
         }
 
         public static ushort GetRoad(ushort terrain) => GetTerrain(terrain, TerrainMask_Road, TerrainShift_Road);

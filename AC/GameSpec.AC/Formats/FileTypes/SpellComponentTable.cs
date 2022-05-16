@@ -30,7 +30,7 @@ namespace GameSpec.AC.Formats.FileTypes
         public SpellComponentTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            var numComps = r.ReadUInt16(); r.AlignBoundary(); // Should be 163 or 0xA3
+            var numComps = r.ReadUInt16(); r.Align(); // Should be 163 or 0xA3
             SpellComponents = r.ReadTMany<uint, SpellComponentBase>(sizeof(uint), x => new SpellComponentBase(r), numComps);
         }
 

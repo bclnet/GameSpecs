@@ -24,7 +24,7 @@ namespace GameSpec.AC.Formats.FileTypes
         public Iteration(BinaryReader r)
         {
             Ints = new[] { r.ReadInt32(), r.ReadInt32() };
-            Sorted = r.ReadBoolean(); r.AlignBoundary();
+            Sorted = r.ReadBoolean(); r.Align();
         }
 
         public override string ToString()

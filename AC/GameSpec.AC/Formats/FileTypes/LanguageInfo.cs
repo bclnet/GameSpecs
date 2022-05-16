@@ -75,7 +75,7 @@ namespace GameSpec.AC.Formats.FileTypes
             IsOneSingular = r.ReadBoolean();
             IsNegativeOneSingular = r.ReadBoolean();
             IsTwoOrMoreSingular = r.ReadBoolean();
-            IsNegativeTwoOrLessSingular = r.ReadBoolean(); r.AlignBoundary();
+            IsNegativeTwoOrLessSingular = r.ReadBoolean(); r.Align();
 
             TreasurePrefixLetters = UnpackList(r);
             TreasureMiddleLetters = UnpackList(r);

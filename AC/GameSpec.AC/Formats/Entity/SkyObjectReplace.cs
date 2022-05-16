@@ -21,7 +21,7 @@ namespace GameSpec.AC.Formats.Entity
             Rotate = r.ReadSingle();
             Transparent = r.ReadSingle();
             Luminosity = r.ReadSingle();
-            MaxBright = r.ReadSingle(); r.AlignBoundary();
+            MaxBright = r.ReadSingle(); r.Align();
         }
 
         //: Entity.SkyObjectReplace

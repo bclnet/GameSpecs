@@ -28,7 +28,7 @@ namespace GameSpec.AC.Formats.Entity
             TexVelocityY = r.ReadSingle();
             DefaultGFXObjectId = r.ReadUInt32();
             DefaultPESObjectId = r.ReadUInt32();
-            Properties = r.ReadUInt32(); r.AlignBoundary();
+            Properties = r.ReadUInt32(); r.Align();
         }
 
         //: Entity.SkyObject

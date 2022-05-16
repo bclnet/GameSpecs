@@ -22,7 +22,7 @@ namespace GameSpec.AC.Formats.Entity
         }
         public ObjDesc(BinaryReader r)
         {
-            r.AlignBoundary();
+            r.Align();
             r.ReadByte(); // ObjDesc always starts with 11.
             var numPalettes = r.ReadByte();
             var numTextureMapChanges = r.ReadByte();
@@ -30,7 +30,7 @@ namespace GameSpec.AC.Formats.Entity
             if (numPalettes > 0) PaletteID = r.ReadAsDataIDOfKnownType(0x04000000);
             SubPalettes = r.ReadTArray(x => new SubPalette(x), numPalettes).ToList();
             TextureChanges = r.ReadTArray(x => new TextureMapChange(x), numTextureMapChanges).ToList();
-            AnimPartChanges = r.ReadTArray(x => new AnimationPartChange(x), numAnimPartChanges).ToList(); r.AlignBoundary();
+            AnimPartChanges = r.ReadTArray(x => new AnimationPartChange(x), numAnimPartChanges).ToList(); r.Align();
         }
 
         //: Entity.ObjDesc

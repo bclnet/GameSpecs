@@ -6,6 +6,7 @@ using K4os.Compression.LZ4;
 using System;
 using System.IO;
 using System.Linq;
+using Decoder = SevenZip.Compression.LZMA.Decoder;
 
 namespace GameSpec.Formats
 {
@@ -91,9 +92,21 @@ namespace GameSpec.Formats
         {
             var fileData = r.ReadBytes(length);
             var newFileData = new byte[newLength];
-            using (var s = new MemoryStream(fileData))
-            using (var gs = new InflaterInputStream(s)) gs.Read(newFileData, 0, newFileData.Length);
+            using var s = new MemoryStream(fileData);
+            using var gs = new InflaterInputStream(s);
+            gs.Read(newFileData, 0, newFileData.Length);
             return newFileData;
+        }
+
+        public static byte[] DecompressLzma(this BinaryReader r, int length, int newLength)
+        {
+            var decoder = new Decoder();
+            decoder.SetDecoderProperties(r.ReadBytes(5));
+            var fileData = r.ReadBytes(length);
+            using var s = new MemoryStream(fileData);
+            using var os = new MemoryStream(newLength);
+            decoder.Code(s, os, fileData.Length, newLength, null);
+            return os.ToArray();
         }
     }
 }

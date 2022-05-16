@@ -24,13 +24,13 @@ namespace GameSpec.AC.Formats.Entity
             var numPortals = r.ReadUInt32();
             VertexArray = new CVertexArray(r);
             Polygons = r.ReadTMany<ushort, Polygon>(sizeof(ushort), x => new Polygon(x), (int)numPolygons);
-            Portals = r.ReadTArray<ushort>(sizeof(ushort), (int)numPortals); r.AlignBoundary();
+            Portals = r.ReadTArray<ushort>(sizeof(ushort), (int)numPortals); r.Align();
             CellBSP = new BSPTree(r, BSPType.Cell);
             PhysicsPolygons = r.ReadTMany<ushort, Polygon>(sizeof(ushort), x => new Polygon(x), (int)numPhysicsPolygons);
             PhysicsBSP = new BSPTree(r, BSPType.Physics);
             var hasDrawingBSP = r.ReadUInt32();
             if (hasDrawingBSP != 0) DrawingBSP = new BSPTree(r, BSPType.Drawing);
-            r.AlignBoundary();
+            r.Align();
         }
 
         //: Entity.CellStruct

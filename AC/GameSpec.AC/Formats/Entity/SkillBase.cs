@@ -35,8 +35,8 @@ namespace GameSpec.AC.Formats.Entity
         public SkillBase(SkillFormula formula) => Formula = formula;
         public SkillBase(BinaryReader r)
         {
-            Description = r.ReadL16String(Encoding.Default); r.AlignBoundary();
-            Name = r.ReadL16String(Encoding.Default); r.AlignBoundary();
+            Description = r.ReadL16String(Encoding.Default); r.Align();
+            Name = r.ReadL16String(Encoding.Default); r.Align();
             IconId = r.ReadUInt32();
             TrainedCost = r.ReadInt32();
             SpecializedCost = r.ReadInt32();

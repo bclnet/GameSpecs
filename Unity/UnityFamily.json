@@ -6,20 +6,41 @@
   "familyType": "GameSpec.Unity.UnityFamily, GameSpec.Unity",
   "pakFileType": "GameSpec.Unity.UnityPakFile, GameSpec.Unity",
   "games": {
-    "StarCitizen": {
-      "name": "Star Citizen",
-      "pak": "game:/Data.p4k#StarCitizen",
-      "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47"
+    "AmongUs": {
+      "name": "Among Us",
+      "pak": "game:/*.assets#AmongUs"
+    },
+    "Cities": {
+      "name": "Cities: Skylines",
+      "pak": "game:/*.assets#Cities"
+    },
+    "Tabletop": {
+      "name": "Tabletop Simulator",
+      "pak": "game:/*.assets#Tabletop"
+    },
+    "UBoat": {
+      "name": "Destroyer: The U-Boat Hunter",
+      "pak": "game:/*.assets#UBoat"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
-        "StarCitizen": {
-          "key": "81bfc699-f883-50c7-b674-2483b6baae23",
-          "81bfc699-f883-50c7-b674-2483b6baae23": {
-            "path": "%path%/../StarCitizen/LIVE"
-          }
+        "AmongUs": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 945360",
+          "path": "Among Us_Data"
+        },
+        "Cities": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 255710",
+          "path": "Cities_Data"
+        },
+        "Tabletop": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 286160",
+          "path": "Tabletop Simulator_Data"
+        },
+        "UBoat": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1659440",
+          "path": "Destroyer The U-Boat Hunter_Data"
         }
       }
     }

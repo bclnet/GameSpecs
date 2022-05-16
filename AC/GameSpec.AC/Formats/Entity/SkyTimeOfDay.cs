@@ -40,7 +40,7 @@ namespace GameSpec.AC.Formats.Entity
             MinWorldFog = r.ReadSingle();
             MaxWorldFog = r.ReadSingle();
             WorldFogColor = r.ReadUInt32();
-            WorldFog = r.ReadUInt32(); r.AlignBoundary();
+            WorldFog = r.ReadUInt32(); r.Align();
 
             SkyObjReplace = r.ReadL32Array(x => new SkyObjectReplace(x));
         }

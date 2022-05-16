@@ -21,8 +21,8 @@ namespace GameSpec.AC.Formats.FileTypes
         public ChatPoseTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            ChatPoseHash = r.ReadL16Many(x => { var v = x.ReadL16String(Encoding.Default); x.AlignBoundary(); return v; }, x => { var v = x.ReadL16String(Encoding.Default); x.AlignBoundary(); return v; }, offset: 2);
-            ChatEmoteHash = r.ReadL16Many(x => { var v = x.ReadL16String(Encoding.Default); x.AlignBoundary(); return v; }, x => new ChatEmoteData(x), offset: 2);
+            ChatPoseHash = r.ReadL16Many(x => { var v = x.ReadL16String(Encoding.Default); x.Align(); return v; }, x => { var v = x.ReadL16String(Encoding.Default); x.Align(); return v; }, offset: 2);
+            ChatEmoteHash = r.ReadL16Many(x => { var v = x.ReadL16String(Encoding.Default); x.Align(); return v; }, x => new ChatEmoteData(x), offset: 2);
         }
 
         //: FileTypes.ChatPoseTable

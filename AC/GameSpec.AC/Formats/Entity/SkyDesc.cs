@@ -15,7 +15,7 @@ namespace GameSpec.AC.Formats.Entity
         public SkyDesc(BinaryReader r)
         {
             TickSize = r.ReadDouble();
-            LightTickSize = r.ReadDouble(); r.AlignBoundary();
+            LightTickSize = r.ReadDouble(); r.Align();
             DayGroups = r.ReadL32Array(x => new DayGroup(x));
         }
 

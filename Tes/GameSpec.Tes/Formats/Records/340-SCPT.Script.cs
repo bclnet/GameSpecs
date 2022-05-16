@@ -78,7 +78,7 @@ namespace GameSpec.Tes.Formats.Records
                 // SCVRField
                 Variables = null;
             }
-            public void SCVRField(BinaryReader r, int dataSize) => Variables = r.ReadZASCIIArray(dataSize);
+            public void SCVRField(BinaryReader r, int dataSize) => Variables = r.ReadZASCIIList(dataSize).ToArray();
         }
 
         // TES4

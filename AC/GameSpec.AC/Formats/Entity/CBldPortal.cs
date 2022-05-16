@@ -28,7 +28,7 @@ namespace GameSpec.AC.Formats.Entity
             Flags = (PortalFlags)r.ReadUInt16();
             OtherCellId = r.ReadUInt16();
             OtherPortalId = r.ReadUInt16();
-            StabList = r.ReadL16Array<ushort>(sizeof(ushort)); r.AlignBoundary();
+            StabList = r.ReadL16Array<ushort>(sizeof(ushort)); r.Align();
         }
 
         //: Entity.BldPortal
