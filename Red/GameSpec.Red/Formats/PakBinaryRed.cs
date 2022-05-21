@@ -877,7 +877,7 @@ namespace GameSpec.Red.Formats
                                 var packedSize = r.ReadUInt32();
                                 var fileSize = r.ReadUInt32();
                                 var part = r.ReadByte();
-                                w.WriteBytes(r.DecompressZlib((int)packedSize, -1));
+                                w.Write(r.DecompressZlib((int)packedSize, -1));
                             }
 
                             // write primary

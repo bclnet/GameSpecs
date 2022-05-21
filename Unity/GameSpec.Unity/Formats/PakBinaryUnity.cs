@@ -642,11 +642,14 @@ namespace GameSpec.Unity.Formats
                             hasCompression = true;
                             try
                             {
+                                var decompressSuccess = false;
                                 switch (compressionType)
                                 {
-                                    case 1: ds = new MemoryStream(r.DecompressLzma((int)CompressedSize, (int)DecompressedSize)); break;
-                                    case 2: case 3: ds = new MemoryStream(r.DecompressLz4((int)CompressedSize, (int)DecompressedSize)); break;
+                                    case 0: if (CompressedSize == DecompressedSize) decompressSuccess = true; break;
+                                    case 1: ds = new MemoryStream(r.DecompressLzma((int)CompressedSize, (int)DecompressedSize)); decompressSuccess = true; break;
+                                    case 2: case 3: ds = new MemoryStream(r.DecompressLz4((int)CompressedSize, (int)DecompressedSize)); decompressSuccess = true; break;
                                 }
+                                if (!decompressSuccess || ds.Length != DecompressedSize) return;
                             }
                             catch
                             {
@@ -668,8 +671,8 @@ namespace GameSpec.Unity.Formats
                     NumberOfAssetsToDownload = r.ReadUInt32E();
                     Blocks3 = r.ReadL32EArray((_, b) => new Block
                     {
-                        CompressedSize = r.ReadUInt32E(),
-                        DecompressedSize = r.ReadUInt32E(),
+                        CompressedSize = _.ReadUInt32E(),
+                        DecompressedSize = _.ReadUInt32E(),
                     });
                     if (FileVersion >= 2) FileSize = r.ReadUInt32E();
                     if (FileVersion >= 3) Unknown2 = r.ReadUInt32E();
@@ -680,9 +683,9 @@ namespace GameSpec.Unity.Formats
                         r.Position(DataOffs);
                         Directories3 = r.ReadL32EArray((_, b) => new Directory
                         {
-                            Name = r.ReadZASCII(400),
-                            Offset = r.ReadUInt32E(),
-                            DecompressedSize = r.ReadUInt32E(),
+                            Name = _.ReadZASCII(400),
+                            Offset = _.ReadUInt32E(),
+                            DecompressedSize = _.ReadUInt32E(),
                         });
                     }
                     else return;
@@ -691,6 +694,36 @@ namespace GameSpec.Unity.Formats
 
                 // verify
                 Success = Verify();
+            }
+
+            void Write(BinaryWriter w)
+            {
+                w.WriteZASCII(Signature);
+                w.WriteE(FileVersion);
+                w.WriteZASCII(MinPlayerVersion);
+                w.WriteZASCII(FileEngineVersion);
+                if (FileVersion >= 6)
+                {
+                    w.WriteE(FileSize);
+                    w.WriteE(CompressedSize);
+                    w.WriteE(DecompressedSize);
+                    w.WriteE((uint)Flags);
+                    if (Signature == "UnityWeb" || Signature == "UnityRaw") w.Write((byte)0);
+                    if (FileVersion >= 7) w.WriteAlign(16);
+                }
+                else if (FileVersion == 3)
+                {
+                    w.WriteE(DataOffs);
+                    w.WriteE(NumberOfAssetsToDownload);
+                    w.WriteL32EArray(Blocks3, (_, b, v) =>
+                    {
+                        _.WriteE(v.CompressedSize);
+                        _.WriteE(v.DecompressedSize);
+                    });
+                    if (FileVersion >= 2) w.WriteE((uint)FileSize);
+                    if (FileVersion >= 3) w.WriteE(Unknown2);
+                    w.WriteE(Unknown3);
+                }
             }
 
             bool Verify()
@@ -718,12 +751,56 @@ namespace GameSpec.Unity.Formats
                 Log("Open as bundle: [ERROR] Unknown bundle file version.");
                 return false;
             }
+
+            bool Unpack()
+            {
+                using var w = new BinaryWriter(File.OpenWrite(@"C:\T_\temp"));
+                if (FileVersion >= 6)
+                {
+                    var compressionType = (byte)((int)Flags & 0x3F);
+                    if (compressionType >= 4) return false;
+                    if ((Flags & HeaderFlag.Unknown) != 0) Signature = "UnityWeb";
+                    Write(w);
+                    if ((Flags & HeaderFlag.Unknown) != 0) Signature = "UnityFS";
+                    var curFilePos = GetU6InfoOffset();
+                    var curUpFilePos = curFilePos;
+                    try
+                    {
+                        //var decompressSuccess = false;
+                        //switch (compressionType)
+                        //{
+                        //    case 0: if (compressedSize == bundleHeader6.decompressedSize) decompressSuccess = true; break;
+                        //    case 1: ds = new MemoryStream(r.DecompressLzma((int)CompressedSize, (int)DecompressedSize)); decompressSuccess = true; break;
+                        //    case 2: case 3: ds = new MemoryStream(r.DecompressLz4((int)CompressedSize, (int)DecompressedSize)); decompressSuccess = true; break;
+                        //}
+                    }
+                    catch
+                    {
+                        Log("AssetBundleFile.Read : Failed to decompress the directory!");
+                        throw;
+                    }
+                }
+                else if (FileVersion == 3)
+                {
+                    if (Signature != "UnityWeb") return false;
+                }
+                return false;
+            }
+
+            public BundleTable CreateTable(BinaryReader r) => new BundleTable(this, r);
         }
 
         internal class BundleTable
         {
-            //if (BundleHeader3.fileVersion >= 6)
+            BundleFile File;
 
+            public BundleTable(BundleFile file, BinaryReader r)
+            {
+                File = file;
+                //var format = file.Header.Format; var bigEndian = file.Header.BigEndian;
+                //r.Position(file.AssetTablePos);
+                //FileInfos = r.ReadL32EArray((_, b) => new FileInfo(file, _, format, bigEndian), bigEndian);
+            }
         }
 
         #endregion
