@@ -8,25 +8,47 @@
   "games": {
     "BioShock": {
       "name": "BioShock",
-      "pak": "game:/Data.p4k#BioShock"
+      "pak": "game:/Data.x#BioShock"
+    },
+    "BioShock:R": {
+      "name": "BioShock Remastered",
+      "pak": "game:/Data.x#BioShock:R"
     },
     "BioShock2": {
       "name": "BioShock 2",
-      "pak": "game:/Data.p4k#BioShock2"
+      "pak": "game:/Data.x#BioShock2"
     },
-    "BioShockInfinite": {
+    "BioShock2:R": {
+      "name": "BioShock 2 Remastered",
+      "pak": "game:/Data.x#BioShock2:R"
+    },
+    "BioShock:Inf": {
       "name": "BioShock Infinite",
-      "pak": "game:/Data.p4k#BioShockInfinite"
+      "pak": "game:/Data.x#BioShock:Inf"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
         "BioShock": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",
+          "path": "Content"
+        },
+        "BioShock:R": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409710",
+          "path": "ContentBaked/pc"
         },
         "BioShock2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8850",
+          "path": "SP/Content"
         },
-        "BioShockInfinite": {
+        "BioShock2:R": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409720",
+          "path": "ContentBaked/pc"
+        },
+        "BioShock:Inf": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8870",
+          "path": "XGame/CookedPCConsole_FR"
         }
       }
     }

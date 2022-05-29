@@ -67,12 +67,13 @@ namespace GameSpec.App.Cli
         static string[] dev00 = new[] { "list", "-f", "Unity", "-u", "game:/resources.assets#Cities" };
 
 
-        static string[] dev0za = new[] { "list", "-f", "Unity", "-u", @"file:///C:/T_/Unity/Assets/myscene.unity#AmongUs" };
+        static string[] dev0zb = new[] { "list", "-f", "Unity", "-u", @"file:///C:/T_/Unity/Assets/myscene.unity#AmongUs" };
 
         static string[] dev01a = new[] { "list", "-f", "Unity", "-u", @"game:/StreamingAssets\aa\Steam\StandaloneWindows\6fcbc56bf87ce16ef93cf7950ec3d7c9_unitybuiltinshaders_e998f854a714e8c70679af5d74e29f20.bundle#AmongUs" };
         static string[] dev01aa = new[] { "list", "-f", "Unity", "-u", @"game:/StreamingAssets\aa\Steam\StandaloneWindows\initialmaps_assets_all.bundle#AmongUs" };
         static string[] dev01b = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#AmongUs" }; // asset.v22
-        static string[] dev01c = new[] { "list", "-f", "Unity", "-u", @"game:/globalgamemanagers.assets#AmongUs" }; // asset.v22
+        static string[] dev01c = new[] { "list", "-f", "Unity", "-u", @"game:/sharedassets2.assets#AmongUs" }; // asset.v22
+        static string[] dev01d = new[] { "list", "-f", "Unity", "-u", @"game:/globalgamemanagers.assets#AmongUs" }; // asset.v22
 
         static string[] dev02a = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#Cities" }; // asset.v17
         static string[] dev02b = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#Cities" }; // asset.v17
@@ -99,7 +100,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(dev01a)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(dev01b)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),

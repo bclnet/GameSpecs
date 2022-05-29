@@ -13,6 +13,7 @@ namespace GameSpec.Formats
     public static class Compression
     {
         const int BufferSize = 4096 * 10;
+        public const int LZMAPropsSize = 5;
 
         public static byte[] DecompressDoboz(this BinaryReader r, int length, int newLength)
         {

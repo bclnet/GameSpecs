@@ -21,6 +21,10 @@
     "UBoat": {
       "name": "Destroyer: The U-Boat Hunter",
       "pak": "game:/*.assets#UBoat"
+    },
+    "7D2D": {
+      "name": "7 Days to Die",
+      "pak": "game:/*.assets#7D2D"
     }
   },
   "fileManager": {
@@ -41,6 +45,10 @@
         "UBoat": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1659440",
           "path": "Destroyer The U-Boat Hunter_Data"
+        },
+        "7D2D": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 251570",
+          "path": "7DaysToDie_Data"
         }
       }
     }

@@ -9,6 +9,10 @@
     "TheCouncil": {
       "name": "The Council",
       "pak": "game:/*.bsa#TheCouncil"
+    },
+    "ACO": {
+      "name": "Assassin's Creed Origins",
+      "pak": "game:/*#ACO"
     }
   },
   "fileManager": {

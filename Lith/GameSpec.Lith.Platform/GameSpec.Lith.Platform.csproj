@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Base\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Base\GameSpec.Platform.Unity\GameSpec.Platform.Unity.csproj" />
+    <ProjectReference Include="..\..\Base\GameSpec.Platform.Unreal\GameSpec.Platform.Unreal.csproj" />
+    <ProjectReference Include="..\GameSpec.Lith\GameSpec.Lith.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+	  <HintPath>..\..\Base\Native\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

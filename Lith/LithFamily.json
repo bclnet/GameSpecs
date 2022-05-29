@@ -1,0 +1,51 @@
+﻿{
+  "id": "Lith",
+  "name": "LithTech",
+  "studio": "Monolith",
+  "description": "LithTech is a game engine developed by Monolith Productions and comparable with the Quake and Unreal engines",
+  "familyType": "GameSpec.Lith.LithFamily, GameSpec.Lith",
+  "pakFileType": "GameSpec.Lith.LithPakFile, GameSpec.Lith",
+  "games": {
+    "FEAR": {
+      "name": "F.E.A.R.",
+      "pak": "game:/*.Arch1#FEAR"
+    },
+    "FEAR:EP": {
+      "name": "F.E.A.R.: Extraction Point",
+      "pak": "game:/*.Arch1#FEAR:EP"
+    },
+    "FEAR:PM": {
+      "name": "F.E.A.R.: Perseus Mandate",
+      "pak": "game:/*.Arch1#FEAR:PM"
+    },
+    "FEAR2": {
+      "name": "F.E.A.R. 2: Project Origin",
+      "pak": "game:/*.Arch1#FEAR2"
+    },
+    "FEAR3": {
+      "name": "F.E.A.R. 3",
+      "pak": "game:/*.Arch1#FEAR3"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "FEAR": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21090"
+        },
+        "FEAR:EP": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21110"
+        },
+        "FEAR:PM": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21120"
+        },
+        "FEAR2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 16450"
+        },
+        "FEAR3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21100"
+        }
+      }
+    }
+  }
+}

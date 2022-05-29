@@ -209,6 +209,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Valve.Platform", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ValveTests", "Valve\GameSpec.ValveTests\GameSpec.ValveTests.csproj", "{328865E1-04C0-49CB-8CB5-72FFA966C273}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lith", "Lith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
+	ProjectSection(SolutionItems) = preProject
+		Lith\LithFamily.json = Lith\LithFamily.json
+		Lith\Readme.md = Lith\Readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith", "Lith\GameSpec.Lith\GameSpec.Lith.csproj", "{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith.Platform", "Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj", "{F27DA894-E285-4829-AB0D-3E9C9E7FD763}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.LithTests", "Lith\GameSpec.LithTests\GameSpec.LithTests.csproj", "{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -445,6 +457,18 @@ Global
 		{328865E1-04C0-49CB-8CB5-72FFA966C273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{328865E1-04C0-49CB-8CB5-72FFA966C273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{328865E1-04C0-49CB-8CB5-72FFA966C273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F27DA894-E285-4829-AB0D-3E9C9E7FD763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F27DA894-E285-4829-AB0D-3E9C9E7FD763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F27DA894-E285-4829-AB0D-3E9C9E7FD763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F27DA894-E285-4829-AB0D-3E9C9E7FD763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -511,6 +535,9 @@ Global
 		{A3A79249-0820-4E28-ABDE-5DF97F23BCF1} = {B9CFB3F1-EFD8-4107-8E96-343726BBC9DC}
 		{D2AF35FE-B250-4E5E-BC86-7EC7ECDE0432} = {B9CFB3F1-EFD8-4107-8E96-343726BBC9DC}
 		{328865E1-04C0-49CB-8CB5-72FFA966C273} = {B9CFB3F1-EFD8-4107-8E96-343726BBC9DC}
+		{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D} = {126CF77A-F7E7-40D8-B91E-826AFBE7C971}
+		{F27DA894-E285-4829-AB0D-3E9C9E7FD763} = {126CF77A-F7E7-40D8-B91E-826AFBE7C971}
+		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF} = {126CF77A-F7E7-40D8-B91E-826AFBE7C971}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

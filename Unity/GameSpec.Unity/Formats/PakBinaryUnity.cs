@@ -1,8 +1,11 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
@@ -131,39 +134,163 @@ namespace GameSpec.Unity.Formats
 
             public class TypeField_0D
             {
-                ushort Version;         // 0x00
-                byte Depth;             // 0x02 //specifies the amount of parents
-                                        // 0x01 : IsArray
-                                        // 0x02 : IsRef
-                                        // 0x04 : IsRegistry
-                                        // 0x08 : IsArrayOfRefs
-                byte IsArray;           // 0x03 //actually a bool for format <= 0x12, uint8_t since format 0x13
-                uint TypeStringOffset;  // 0x04
-                uint NameStringOffset;  // 0x08
-                uint Size;              // 0x0C //size in bytes; if not static (if it contains an array), set to -1
-                uint Index;             // 0x10
-                                        // 0x0001 : is invisible(?), set for m_FileID and m_PathID; ignored if no parent field exists or the type is neither ColorRGBA, PPtr nor string
-                                        // 0x0100 : ? is bool
-                                        // 0x1000 : ?
-                                        // 0x4000 : align bytes
-                                        // 0x8000 : any child has the align bytes flag
-                                        //=> if flags & 0xC000 and size != 0xFFFFFFFF, the size field matches the total length of this field plus its children.
-                                        // 0x400000 : ?
-                                        // 0x800000 : ? is non-primitive type
-                                        // 0x02000000 : ? is UInt16 (called char)
-                                        // 0x08000000 : has fixed buffer size? related to Array (i.e. this field or its only child or its father is an array), should be set for vector, Array and the size and data fields.
-                uint Flags;             // 0x14 
-                byte[] Unknown1;        // 0x18 //since format 0x12
+                public ushort Version;         // 0x00
+                public byte Depth;             // 0x02 //specifies the amount of parents
+                                               // 0x01 : IsArray
+                                               // 0x02 : IsRef
+                                               // 0x04 : IsRegistry
+                                               // 0x08 : IsArrayOfRefs
+                public byte IsArray;           // 0x03 //actually a bool for format <= 0x12, uint8_t since format 0x13
+                public uint TypeStringOffset;  // 0x04
+                public uint NameStringOffset;  // 0x08
+                public uint Size;              // 0x0C //size in bytes; if not static (if it contains an array), set to -1
+                public uint Index;             // 0x10
+                                               // 0x0001 : is invisible(?), set for m_FileID and m_PathID; ignored if no parent field exists or the type is neither ColorRGBA, PPtr nor string
+                                               // 0x0100 : ? is bool
+                                               // 0x1000 : ?
+                                               // 0x4000 : align bytes
+                                               // 0x8000 : any child has the align bytes flag
+                                               //=> if flags & 0xC000 and size != 0xFFFFFFFF, the size field matches the total length of this field plus its children.
+                                               // 0x400000 : ?
+                                               // 0x800000 : ? is non-primitive type
+                                               // 0x02000000 : ? is UInt16 (called char)
+                                               // 0x08000000 : has fixed buffer size? related to Array (i.e. this field or its only child or its father is an array), should be set for vector, Array and the size and data fields.
+                public uint Flags;             // 0x14 
+                public byte[] Unknown1;        // 0x18 //since format 0x12
 
                 public TypeField_0D(BinaryReader r, uint format, bool bigEndian)
                 {
-
+                    Version = r.ReadUInt16E(bigEndian);
+                    Depth = r.ReadByte();
+                    var isArrayTemp = r.ReadByte();
+                    IsArray = format >= 0x13 ? isArrayTemp : isArrayTemp != 0 ? (byte)1 : (byte)0;
+                    TypeStringOffset = r.ReadUInt32E(bigEndian);
+                    NameStringOffset = r.ReadUInt32E(bigEndian);
+                    Size = r.ReadUInt32E(bigEndian);
+                    Index = r.ReadUInt32E(bigEndian);
+                    Flags = r.ReadUInt32E(bigEndian);
+                    if (format >= 0x12) Unknown1 = r.ReadBytes(8);
                 }
-                //string GetTypeString(const char* stringTable, int stringTableLen);
-                //string GetNameString(const char* stringTable, int stringTableLen);
+
+                public unsafe string GetString(string[] strings)
+                {
+                    if ((TypeStringOffset & 0x80000000) != 0)
+                    {
+                        if ((TypeStringOffset & 0x7FFFFFFF) < GlobalTypeTreeStrings.Length - 1) fixed (byte* _ = &GlobalTypeTreeStrings[(byte)(TypeStringOffset & 0x7FFFFFFF)]) return new string((sbyte*)_);
+                        return null;
+                    }
+                    else if (TypeStringOffset < strings.Length - 1) return strings[TypeStringOffset];
+                    return null;
+                }
+
+                readonly static byte[] GlobalTypeTreeStrings = {
+                    0x41, 0x41, 0x42, 0x42, 0x00,
+                    0x41, 0x6E, 0x69, 0x6D, 0x61, 0x74, 0x69, 0x6F, 0x6E, 0x43, 0x6C, 0x69, 0x70, 0x00,
+                    0x41, 0x6E, 0x69, 0x6D, 0x61, 0x74, 0x69, 0x6F, 0x6E, 0x43, 0x75, 0x72, 0x76, 0x65, 0x00,
+                    0x41, 0x6E, 0x69, 0x6D, 0x61, 0x74, 0x69, 0x6F, 0x6E, 0x53, 0x74, 0x61, 0x74, 0x65, 0x00,
+                    0x41, 0x72, 0x72, 0x61, 0x79, 0x00,
+                    0x42, 0x61, 0x73, 0x65, 0x00, 0x42, 0x69, 0x74, 0x46, 0x69, 0x65, 0x6C, 0x64, 0x00,
+                    0x62, 0x69, 0x74, 0x73, 0x65, 0x74, 0x00,
+                    0x62, 0x6F, 0x6F, 0x6C, 0x00,
+                    0x63, 0x68, 0x61, 0x72, 0x00,
+                    0x43, 0x6F, 0x6C, 0x6F, 0x72, 0x52, 0x47, 0x42, 0x41, 0x00,
+                    0x43, 0x6F, 0x6D, 0x70, 0x6F, 0x6E, 0x65, 0x6E, 0x74, 0x00,
+                    0x64, 0x61, 0x74, 0x61, 0x00,
+                    0x64, 0x65, 0x71, 0x75, 0x65, 0x00,
+                    0x64, 0x6F, 0x75, 0x62, 0x6C, 0x65, 0x00,
+                    0x64, 0x79, 0x6E, 0x61, 0x6D, 0x69, 0x63, 0x5F, 0x61, 0x72, 0x72, 0x61, 0x79, 0x00,
+                    0x46, 0x61, 0x73, 0x74, 0x50, 0x72, 0x6F, 0x70, 0x65, 0x72, 0x74, 0x79, 0x4E, 0x61, 0x6D, 0x65, 0x00,
+                    0x66, 0x69, 0x72, 0x73, 0x74, 0x00,
+                    0x66, 0x6C, 0x6F, 0x61, 0x74, 0x00,
+                    0x46, 0x6F, 0x6E, 0x74, 0x00,
+                    0x47, 0x61, 0x6D, 0x65, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x00,
+                    0x47, 0x65, 0x6E, 0x65, 0x72, 0x69, 0x63, 0x20, 0x4D, 0x6F, 0x6E, 0x6F, 0x00,
+                    0x47, 0x72, 0x61, 0x64, 0x69, 0x65, 0x6E, 0x74, 0x4E, 0x45, 0x57, 0x00,
+                    0x47, 0x55, 0x49, 0x44, 0x00,
+                    0x47, 0x55, 0x49, 0x53, 0x74, 0x79, 0x6C, 0x65, 0x00,
+                    0x69, 0x6E, 0x74, 0x00,
+                    0x6C, 0x69, 0x73, 0x74, 0x00,
+                    0x6C, 0x6F, 0x6E, 0x67, 0x20, 0x6C, 0x6F, 0x6E, 0x67, 0x00,
+                    0x6D, 0x61, 0x70, 0x00,
+                    0x4D, 0x61, 0x74, 0x72, 0x69, 0x78, 0x34, 0x78, 0x34, 0x66, 0x00,
+                    0x4D, 0x64, 0x46, 0x6F, 0x75, 0x72, 0x00,
+                    0x4D, 0x6F, 0x6E, 0x6F, 0x42, 0x65, 0x68, 0x61, 0x76, 0x69, 0x6F, 0x75, 0x72, 0x00,
+                    0x4D, 0x6F, 0x6E, 0x6F, 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x00,
+                    0x6D, 0x5F, 0x42, 0x79, 0x74, 0x65, 0x53, 0x69, 0x7A, 0x65, 0x00,
+                    0x6D, 0x5F, 0x43, 0x75, 0x72, 0x76, 0x65, 0x00,
+                    0x6D, 0x5F, 0x45, 0x64, 0x69, 0x74, 0x6F, 0x72, 0x43, 0x6C, 0x61, 0x73, 0x73, 0x49, 0x64, 0x65, 0x6E, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x00,
+                    0x6D, 0x5F, 0x45, 0x64, 0x69, 0x74, 0x6F, 0x72, 0x48, 0x69, 0x64, 0x65, 0x46, 0x6C, 0x61, 0x67, 0x73, 0x00,
+                    0x6D, 0x5F, 0x45, 0x6E, 0x61, 0x62, 0x6C, 0x65, 0x64, 0x00,
+                    0x6D, 0x5F, 0x45, 0x78, 0x74, 0x65, 0x6E, 0x73, 0x69, 0x6F, 0x6E, 0x50, 0x74, 0x72, 0x00,
+                    0x6D, 0x5F, 0x47, 0x61, 0x6D, 0x65, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x00,
+                    0x6D, 0x5F, 0x49, 0x6E, 0x64, 0x65, 0x78, 0x00,
+                    0x6D, 0x5F, 0x49, 0x73, 0x41, 0x72, 0x72, 0x61, 0x79, 0x00,
+                    0x6D, 0x5F, 0x49, 0x73, 0x53, 0x74, 0x61, 0x74, 0x69, 0x63, 0x00,
+                    0x6D, 0x5F, 0x4D, 0x65, 0x74, 0x61, 0x46, 0x6C, 0x61, 0x67, 0x00,
+                    0x6D, 0x5F, 0x4E, 0x61, 0x6D, 0x65, 0x00,
+                    0x6D, 0x5F, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x48, 0x69, 0x64, 0x65, 0x46, 0x6C, 0x61, 0x67, 0x73, 0x00,
+                    0x6D, 0x5F, 0x50, 0x72, 0x65, 0x66, 0x61, 0x62, 0x49, 0x6E, 0x74, 0x65, 0x72, 0x6E, 0x61, 0x6C, 0x00,
+                    0x6D, 0x5F, 0x50, 0x72, 0x65, 0x66, 0x61, 0x62, 0x50, 0x61, 0x72, 0x65, 0x6E, 0x74, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x00,
+                    0x6D, 0x5F, 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x00,
+                    0x6D, 0x5F, 0x53, 0x74, 0x61, 0x74, 0x69, 0x63, 0x45, 0x64, 0x69, 0x74, 0x6F, 0x72, 0x46, 0x6C, 0x61, 0x67, 0x73, 0x00,
+                    0x6D, 0x5F, 0x54, 0x79, 0x70, 0x65, 0x00, 0x6D, 0x5F, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6F, 0x6E, 0x00,
+                    0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x00, 0x70, 0x61, 0x69, 0x72, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x43, 0x6F, 0x6D, 0x70, 0x6F, 0x6E, 0x65, 0x6E, 0x74, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x47, 0x61, 0x6D, 0x65, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x4D, 0x61, 0x74, 0x65, 0x72, 0x69, 0x61, 0x6C, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x4D, 0x6F, 0x6E, 0x6F, 0x42, 0x65, 0x68, 0x61, 0x76, 0x69, 0x6F, 0x75, 0x72, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x4D, 0x6F, 0x6E, 0x6F, 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x50, 0x72, 0x65, 0x66, 0x61, 0x62, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x53, 0x70, 0x72, 0x69, 0x74, 0x65, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x54, 0x65, 0x78, 0x74, 0x41, 0x73, 0x73, 0x65, 0x74, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x54, 0x65, 0x78, 0x74, 0x75, 0x72, 0x65, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x54, 0x65, 0x78, 0x74, 0x75, 0x72, 0x65, 0x32, 0x44, 0x3E, 0x00,
+                    0x50, 0x50, 0x74, 0x72, 0x3C, 0x54, 0x72, 0x61, 0x6E, 0x73, 0x66, 0x6F, 0x72, 0x6D, 0x3E, 0x00,
+                    0x50, 0x72, 0x65, 0x66, 0x61, 0x62, 0x00,
+                    0x51, 0x75, 0x61, 0x74, 0x65, 0x72, 0x6E, 0x69, 0x6F, 0x6E, 0x66, 0x00,
+                    0x52, 0x65, 0x63, 0x74, 0x66, 0x00,
+                    0x52, 0x65, 0x63, 0x74, 0x49, 0x6E, 0x74, 0x00,
+                    0x52, 0x65, 0x63, 0x74, 0x4F, 0x66, 0x66, 0x73, 0x65, 0x74, 0x00,
+                    0x73, 0x65, 0x63, 0x6F, 0x6E, 0x64, 0x00, 0x73, 0x65, 0x74, 0x00,
+                    0x73, 0x68, 0x6F, 0x72, 0x74, 0x00,
+                    0x73, 0x69, 0x7A, 0x65, 0x00,
+                    0x53, 0x49, 0x6E, 0x74, 0x31, 0x36, 0x00,
+                    0x53, 0x49, 0x6E, 0x74, 0x33, 0x32, 0x00,
+                    0x53, 0x49, 0x6E, 0x74, 0x36, 0x34, 0x00,
+                    0x53, 0x49, 0x6E, 0x74, 0x38, 0x00,
+                    0x73, 0x74, 0x61, 0x74, 0x69, 0x63, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x00,
+                    0x73, 0x74, 0x72, 0x69, 0x6E, 0x67, 0x00,
+                    0x54, 0x65, 0x78, 0x74, 0x41, 0x73, 0x73, 0x65, 0x74, 0x00,
+                    0x54, 0x65, 0x78, 0x74, 0x4D, 0x65, 0x73, 0x68, 0x00,
+                    0x54, 0x65, 0x78, 0x74, 0x75, 0x72, 0x65, 0x00, 0x54, 0x65, 0x78, 0x74, 0x75, 0x72, 0x65, 0x32, 0x44, 0x00,
+                    0x54, 0x72, 0x61, 0x6E, 0x73, 0x66, 0x6F, 0x72, 0x6D, 0x00,
+                    0x54, 0x79, 0x70, 0x65, 0x6C, 0x65, 0x73, 0x73, 0x44, 0x61, 0x74, 0x61, 0x00,
+                    0x55, 0x49, 0x6E, 0x74, 0x31, 0x36, 0x00, 0x55, 0x49, 0x6E, 0x74, 0x33, 0x32, 0x00,
+                    0x55, 0x49, 0x6E, 0x74, 0x36, 0x34, 0x00, 0x55, 0x49, 0x6E, 0x74, 0x38, 0x00,
+                    0x75, 0x6E, 0x73, 0x69, 0x67, 0x6E, 0x65, 0x64, 0x20, 0x69, 0x6E, 0x74, 0x00,
+                    0x75, 0x6E, 0x73, 0x69, 0x67, 0x6E, 0x65, 0x64, 0x20, 0x6C, 0x6F, 0x6E, 0x67, 0x20, 0x6C, 0x6F, 0x6E, 0x67, 0x00,
+                    0x75, 0x6E, 0x73, 0x69, 0x67, 0x6E, 0x65, 0x64, 0x20, 0x73, 0x68, 0x6F, 0x72, 0x74, 0x00,
+                    0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x00,
+                    0x56, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x32, 0x66, 0x00,
+                    0x56, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x33, 0x66, 0x00,
+                    0x56, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x34, 0x66, 0x00,
+                    0x6D, 0x5F, 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6E, 0x67, 0x43, 0x6C, 0x61, 0x73, 0x73, 0x49, 0x64, 0x65, 0x6E, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x00,
+                    0x47, 0x72, 0x61, 0x64, 0x69, 0x65, 0x6E, 0x74, 0x00,
+                    0x54, 0x79, 0x70, 0x65, 0x2A, 0x00,
+                    0x69, 0x6E, 0x74, 0x32, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x61, 0x67, 0x65, 0x00,
+                    0x69, 0x6E, 0x74, 0x33, 0x5F, 0x73, 0x74, 0x6F, 0x72, 0x61, 0x67, 0x65, 0x00,
+                    0x42, 0x6F, 0x75, 0x6E, 0x64, 0x73, 0x49, 0x6E, 0x74, 0x00,
+                    0x6D, 0x5F, 0x43, 0x6F, 0x72, 0x72, 0x65, 0x73, 0x70, 0x6F, 0x6E, 0x64, 0x69, 0x6E, 0x67, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65, 0x4F, 0x62, 0x6A, 0x65, 0x63, 0x74, 0x00,
+                    0x6D, 0x5F, 0x50, 0x72, 0x65, 0x66, 0x61, 0x62, 0x49, 0x6E, 0x73, 0x74, 0x61, 0x6E, 0x63, 0x65, 0x00,
+                    0x6D, 0x5F, 0x50, 0x72, 0x65, 0x66, 0x61, 0x62, 0x41, 0x73, 0x73, 0x65, 0x74, 0x00,
+                    0x46, 0x69, 0x6C, 0x65, 0x53, 0x69, 0x7A, 0x65, 0x00,
+                    0x48, 0x61, 0x73, 0x68, 0x31, 0x32, 0x38, 0x00,
+                    0x00
+                };
             } // 0x18
 
-            public class Type_0D //everything big endian
+            public class Type_0D // everything big endian
             {
                 // Starting with U5.5, all MonoBehaviour types have MonoBehaviour's classId (114)
                 // Before, the different MonoBehaviours had different negative classIds, starting with -1
@@ -496,6 +623,822 @@ namespace GameSpec.Unity.Formats
                 var format = file.Header.Format; var bigEndian = file.Header.BigEndian;
                 r.Position(file.AssetTablePos);
                 FileInfos = r.ReadL32EArray((_, b) => new FileInfo(file, _, format, bigEndian), bigEndian);
+            }
+        }
+
+        internal class AssetType
+        {
+            enum ValueType
+            {
+                None,
+                Bool,
+                Int8,
+                UInt8,
+                Int16,
+                UInt16,
+                Int32,
+                UInt32,
+                Int64,
+                UInt64,
+                Float,
+                Double,
+                String,
+                Array,
+                ByteArray
+            }
+
+            class TypeArray
+            {
+                public int Size;
+            }
+
+            class TypeValue
+            {
+                [StructLayout(LayoutKind.Explicit)]
+                public struct UValue
+                {
+                    [FieldOffset(0)] public TypeArray asArray;
+                    [FieldOffset(0)] public byte[] asByteArray;
+                    [FieldOffset(0)] public bool asBool;
+                    [FieldOffset(0)] public sbyte asInt8;
+                    [FieldOffset(0)] public byte asUInt8;
+                    [FieldOffset(0)] public short asInt16;
+                    [FieldOffset(0)] public ushort asUInt16;
+                    [FieldOffset(0)] public int asInt32;
+                    [FieldOffset(0)] public uint asUInt32;
+                    [FieldOffset(0)] public long asInt64;
+                    [FieldOffset(0)] public ulong asUInt64;
+                    [FieldOffset(0)] public float asFloat;
+                    [FieldOffset(0)] public double asDouble;
+                    [FieldOffset(0)] public string asString;
+                }
+
+                public const int SizeOf = 8;
+                public ValueType Type;
+                public UValue Value;
+
+                public TypeValue(ValueType type, object value)
+                {
+                    Type = type;
+                    Set(value);
+                }
+                public TypeValue(ValueType type, UValue value)
+                {
+                    Type = type;
+                    Value = value;
+                }
+                void Set(object valueContainer, ValueType contType = ValueType.None)
+                {
+                    var mismatch = false;
+                    Value = new UValue();
+                    switch (Type)
+                    {
+                        case ValueType.None: break;
+                        case ValueType.Bool: if (contType >= ValueType.None && contType <= ValueType.UInt64) Value.asBool = (bool)valueContainer; else mismatch = true; break;
+                        case ValueType.Int8:
+                        case ValueType.UInt8: if (contType >= ValueType.None && contType <= ValueType.UInt64) Value.asInt8 = (sbyte)valueContainer; else mismatch = true; break;
+                        case ValueType.Int16:
+                        case ValueType.UInt16: if (contType == ValueType.None || (contType >= ValueType.Int16 && contType <= ValueType.UInt64)) Value.asInt16 = (short)valueContainer; else mismatch = true; break;
+                        case ValueType.Int32:
+                        case ValueType.UInt32: if (contType == ValueType.None || (contType >= ValueType.Int32 && contType <= ValueType.UInt64)) Value.asInt32 = (int)valueContainer; else mismatch = true; break;
+                        case ValueType.Int64:
+                        case ValueType.UInt64: if (contType == ValueType.None || (contType >= ValueType.Int64 && contType <= ValueType.UInt64)) Value.asInt64 = (long)valueContainer; else mismatch = true; break;
+                        case ValueType.Float: if (contType == ValueType.None || contType == ValueType.Float) Value.asFloat = (float)valueContainer; else mismatch = true; break;
+                        case ValueType.Double: if (contType == ValueType.None || contType == ValueType.Double) Value.asDouble = (double)valueContainer; else mismatch = true; break;
+                        case ValueType.String: if (contType == ValueType.None || contType == ValueType.String) Value.asString = (string)valueContainer; else mismatch = true; break;
+                        case ValueType.Array: if (contType == ValueType.None || contType == ValueType.Array) Value.asArray = (TypeArray)valueContainer; else mismatch = true; break;
+                        case ValueType.ByteArray: if (contType == ValueType.None || contType == ValueType.ByteArray) Value.asByteArray = (byte[])valueContainer; else mismatch = true; break;
+                    }
+                    if (mismatch) throw new ArgumentOutOfRangeException(nameof(valueContainer), "TypeValue::Set: Mismatching value type supplied.");
+                }
+                public TypeArray AsArray() => Type == ValueType.Array ? Value.asArray : null;
+                public byte[] AsByteArray() => Type == ValueType.ByteArray ? Value.asByteArray : null;
+                public string AsString() => Type == ValueType.String ? Value.asString : null;
+                public bool AsBool()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float:
+                        case ValueType.Double:
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return false;
+                        default: return Value.asBool;
+                    }
+                }
+                public int AsInt()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float: return (int)Value.asFloat;
+                        case ValueType.Double: return (int)Value.asDouble;
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return 0;
+                        case ValueType.Int8: return (int)Value.asInt8;
+                        case ValueType.Int16: return (int)Value.asInt16;
+                        case ValueType.Int64: return (int)Value.asInt64;
+                        default: return Value.asInt32;
+                    }
+                }
+                public uint AsUInt()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float: return (uint)Value.asFloat;
+                        case ValueType.Double: return (uint)Value.asDouble;
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return 0;
+                        default: return Value.asUInt32;
+                    }
+                }
+                public long AsInt64()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float: return (long)Value.asFloat;
+                        case ValueType.Double: return (long)Value.asDouble;
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return 0;
+                        case ValueType.Int8: return (long)Value.asInt8;
+                        case ValueType.Int16: return (long)Value.asInt16;
+                        case ValueType.Int32: return (long)Value.asInt32;
+                        default: return Value.asInt64;
+                    }
+                }
+                public ulong AsUInt64()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float: return (ulong)Value.asFloat;
+                        case ValueType.Double: return (ulong)Value.asDouble;
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return 0;
+                        default: return Value.asUInt64;
+                    }
+                }
+                public float AsFloat()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float: return Value.asFloat;
+                        case ValueType.Double: return (float)Value.asDouble;
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return 0;
+                        case ValueType.Int8: return (float)Value.asInt8;
+                        case ValueType.Int16: return (float)Value.asInt16;
+                        case ValueType.Int32: return (float)Value.asInt32;
+                        case ValueType.Int64: return (float)Value.asInt64;
+                        default: return (float)Value.asUInt64;
+                    }
+                }
+                public double AsDouble()
+                {
+                    switch (Type)
+                    {
+                        case ValueType.Float: return (double)Value.asFloat;
+                        case ValueType.Double: return Value.asDouble;
+                        case ValueType.String:
+                        case ValueType.ByteArray:
+                        case ValueType.Array: return 0;
+                        case ValueType.Int8: return (double)Value.asInt8;
+                        case ValueType.Int16: return (double)Value.asInt16;
+                        case ValueType.Int32: return (double)Value.asInt32;
+                        case ValueType.Int64: return (double)Value.asInt64;
+                        default: return (double)Value.asUInt64;
+                    }
+                }
+            }
+
+            class TypeTemplateField
+            {
+                public string Name;
+                public string Type;
+                public ValueType ValueType;
+                public bool IsArray;
+                public bool Align;
+                public bool HasValue;
+                public TypeTemplateField[] Children;
+
+                //static int _RecursiveGetValueFieldCount(TypeTemplateField child, BinaryReader r, long maxFilePos, ref long pFilePos, ref int pValueByteLen, ref int pChildListLen, ref int pRawDataLen, ref bool pReadFailed, bool bigEndian)
+                //{
+                //    var filePos = pFilePos;
+                //    var valueByteLen = pValueByteLen;
+                //    var childListLen = pChildListLen;
+                //    var rawDataLen = pRawDataLen;
+                //    if (pReadFailed) return 0;
+
+                //    var ret = 1;
+                //    if (child.IsArray && child.Children.Length == 2)
+                //    {
+                //        valueByteLen += TypeValue.SizeOf;
+                //        int arrayLen;
+                //        if (child.Children[0].ValueType == ValueType.Int32 || child.Children[0].ValueType == ValueType.UInt32)
+                //        {
+                //            r.Position(filePos);
+                //            arrayLen = (int)r.ReadUInt32E(bigEndian); filePos += 4;
+                //            if (string.Equals(child.Type, "TypelessData", StringComparison.OrdinalIgnoreCase))
+                //            {
+                //                rawDataLen += arrayLen;
+                //                filePos += arrayLen;
+                //                if (filePos > maxFilePos) pReadFailed = true;
+                //            }
+                //            else
+                //            {
+                //                childListLen += TypeValueField.SizeOf * arrayLen;
+                //                for (var i = 0; i < arrayLen; i++)
+                //                {
+                //                    ret += _RecursiveGetValueFieldCount(child.Children[1], r, maxFilePos, ref filePos, ref valueByteLen, ref childListLen, ref rawDataLen, ref pReadFailed, bigEndian);
+                //                    if (pReadFailed || filePos > maxFilePos) { pReadFailed = true; break; }
+                //                }
+                //            }
+                //            if (child.Align) filePos = (filePos + 3) & (~3);
+                //        }
+                //        else Debug.Assert(false);
+                //    }
+                //    else if (child.ValueType == ValueType.String)
+                //    {
+                //        r.Position(filePos);
+                //        var stringLen = (int)r.ReadUInt32E(bigEndian); filePos += 4;
+                //        if ((filePos + stringLen) > maxFilePos) pReadFailed = true;
+                //        else
+                //        {
+                //            filePos += stringLen;
+                //            if (child.Align || (child.Children.Length > 0 && child.Children[0].Align)) filePos = (filePos + 3) & (~3);
+                //            valueByteLen += TypeValue.SizeOf + stringLen + 1;
+                //        }
+                //    }
+                //    else if (child.Children.Length == 0)
+                //    {
+                //        switch (child.ValueType)
+                //        {
+                //            case ValueType.Bool:
+                //            case ValueType.Int8:
+                //            case ValueType.UInt8: filePos++; break;
+                //            case ValueType.Int16:
+                //            case ValueType.UInt16: filePos += 2; break;
+                //            case ValueType.Int32:
+                //            case ValueType.UInt32:
+                //            case ValueType.Float: filePos += 4; break;
+                //            case ValueType.Int64:
+                //            case ValueType.UInt64:
+                //            case ValueType.Double: filePos += 8; break;
+                //        }
+                //        valueByteLen += TypeValue.SizeOf;
+                //        if (child.Align) filePos = (filePos + 3) & (~3);
+                //        if (filePos > maxFilePos) pReadFailed = true;
+                //    }
+                //    else
+                //    {
+                //        childListLen += TypeValueField.SizeOf * child.Children.Length;
+                //        for (var i = 0; i < child.Children.Length; i++)
+                //            ret += _RecursiveGetValueFieldCount(child.Children[i], r, maxFilePos, ref filePos, ref valueByteLen, ref childListLen, ref rawDataLen, ref pReadFailed, bigEndian);
+                //        if (child.Align) filePos = (filePos + 3) & (~3);
+                //    }
+                //    pRawDataLen = rawDataLen;
+                //    pChildListLen = childListLen;
+                //    pValueByteLen = valueByteLen;
+                //    pFilePos = filePos;
+                //    return ret;
+                //}
+
+                static void _RecursiveMakeValues(TypeTemplateField template, BinaryReader r, long maxFilePos, List<TypeValueField> valueFields, bool bigEndian)
+                {
+                    TypeValue curValue;
+                    if (template.IsArray)
+                    {
+                        if (template.Children.Length != 2) Debug.Assert(false);
+                        if (template.Children[0].ValueType == ValueType.Int32 || template.Children[0].ValueType == ValueType.UInt32) Debug.Assert(false);
+                        var arrayLen = (int)r.ReadUInt32E(bigEndian);
+                        if (string.Equals(template.Type, "TypelessData", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var curRawData = r.ReadBytes(arrayLen);
+                            if (r.Position() <= maxFilePos)
+                            {
+                                curValue = new TypeValue(ValueType.ByteArray, curRawData);
+                                valueFields.Add(new TypeValueField(curValue, template, 0, null));
+                            }
+                        }
+                        else
+                        {
+                            curValue = new TypeValue(ValueType.Array, new TypeArray { Size = arrayLen });
+                            var arrayItemList = new TypeValueField[arrayLen];
+                            valueFields.Add(new TypeValueField(curValue, template, arrayLen, arrayItemList));
+                            for (var i = 0; i < arrayLen; i++)
+                            {
+                                arrayItemList[i] = valueFields[^1];
+                                _RecursiveMakeValues(template.Children[1], r, maxFilePos, valueFields, bigEndian);
+                                if (r.Position() > maxFilePos) break;
+                            }
+                        }
+                        if (template.Align) r.Align();
+                    }
+                    else if (template.ValueType == ValueType.String)
+                    {
+                        var stringLen = (int)r.ReadUInt32E(bigEndian);
+                        if ((r.Position() + stringLen) > maxFilePos) stringLen = (int)(maxFilePos - r.Position());
+                        var bytes = r.ReadBytes(stringLen);
+                        curValue = new TypeValue(ValueType.String, Encoding.ASCII.GetString(bytes));
+                        valueFields.Add(new TypeValueField(curValue, template, 0, null));
+                        if (template.Align || (template.Children.Length > 0 && template.Children[0].Align)) r.Align();
+                    }
+                    else if (template.Children.Length == 0)
+                    {
+                        object valueContainer = null;
+                        switch (template.ValueType)
+                        {
+                            case ValueType.Bool:
+                            case ValueType.Int8:
+                            case ValueType.UInt8: valueContainer = r.ReadByte(); break;
+                            case ValueType.Int16:
+                            case ValueType.UInt16: valueContainer = r.ReadUInt16E(bigEndian); break;
+                            case ValueType.Int32:
+                            case ValueType.UInt32: valueContainer = r.ReadUInt32E(bigEndian); break;
+                            case ValueType.Float: valueContainer = r.ReadSingleE(bigEndian); break;
+                            case ValueType.Int64:
+                            case ValueType.UInt64: valueContainer = r.ReadUInt64E(bigEndian); break;
+                            case ValueType.Double: valueContainer = r.ReadDoubleE(bigEndian); break;
+                            case ValueType.String: break;
+                        }
+                        if (template.Align) r.Align();
+                        if (r.Position() <= maxFilePos)
+                        {
+                            curValue = new TypeValue(template.ValueType, valueContainer);
+                            valueFields.Add(new TypeValueField(curValue, template, 0, null));
+                        }
+                    }
+                }
+
+                void MakeValue(BinaryReader r, long fileLen, List<TypeValueField> ppValueField, bool bigEndian)
+                {
+                    //TypeValue newValue = null;
+                    //int newValueByteLen = 0; int childListByteLen = 0; int rawDataByteLen = 0;
+                    ////Set to true if it goes EOF while reading an array; This allows parsing empty files and having them filled with zeros without risking crashes on invalid files. 
+                    //var readFailed = false;
+                    var firstPosition = r.Position();
+                    //var position = 0L;
+                    //var newChildrenCount = _RecursiveGetValueFieldCount(this, r, firstPosition + fileLen, ref position, ref newValueByteLen, ref childListByteLen, ref rawDataByteLen, ref readFailed, bigEndian);
+                    ////ppValueField will be set to pValueFieldMemory so the caller knows which pointer to free
+                    //if (readFailed) { ppValueField = null; return; }
+                    //void* pValueFieldMemory = malloc((newChildrenCount * sizeof(AssetTypeValueField)) + newValueByteLen + childListByteLen + rawDataByteLen);
+                    //if (pValueFieldMemory == NULL)
+                    //{
+                    //    *ppValueField = NULL;
+                    //    return filePos;
+                    //}
+                    //AssetTypeValueField* pValueFields = (AssetTypeValueField*)pValueFieldMemory;
+                    //AssetTypeValue* pCurValue = (AssetTypeValue*)(&((uint8_t*)pValueFieldMemory)[newChildrenCount * sizeof(AssetTypeValueField)]);
+
+                    //AssetTypeValueField** pCurValueList = (AssetTypeValueField**)(&((uint8_t*)pValueFieldMemory)[newChildrenCount * sizeof(AssetTypeValueField) + newValueByteLen]);
+                    //uint8_t* pCurRawByte = (uint8_t*)(&((uint8_t*)pValueFieldMemory)[newChildrenCount * sizeof(AssetTypeValueField) + newValueByteLen + childListByteLen]);
+
+                    TypeValueField[] curValueList = null;
+                    var valueFields = new List<TypeValueField>();
+                    _RecursiveMakeValues(this, r, firstPosition + fileLen, valueFields, bigEndian);
+                    //_RecursiveDumpValues(pValueFields, 0);
+                    ppValueField = valueFields;
+                    return;
+                }
+
+                bool From0D(AssetsFile.Type_0D type, uint fieldIndex)
+                {
+                    if (type.TypeFields.Length <= fieldIndex) return false;
+                    var typeField = type.TypeFields[fieldIndex];
+                    Type = typeField.GetString(type.Strings);
+                    Name = typeField.GetString(type.Strings);
+                    ValueType = !string.IsNullOrEmpty(Type) ? GetValueTypeByTypeName(Type) : ValueType.None;
+                    IsArray = (typeField.IsArray & 1) != 0;
+                    if (IsArray) ValueType = ValueType.Array;
+                    Align = (typeField.Flags & 0x4000) != 0;
+
+                    int newChildCount = 0; byte directChildDepth = 0;
+                    for (var i = fieldIndex + 1; i < type.TypeFields.Length; i++)
+                    {
+                        if (type.TypeFields[i].Depth <= typeField.Depth) break;
+                        if (directChildDepth == 0) { directChildDepth = type.TypeFields[i].Depth; newChildCount++; }
+                        else if (type.TypeFields[i].Depth == directChildDepth) newChildCount++;
+                    }
+                    HasValue = newChildCount == 0;
+                    Array.Resize(ref Children, newChildCount);
+                    var childIndex = 0; var ret = true;
+                    for (var i = fieldIndex + 1; i < type.TypeFields.Length; i++)
+                    {
+                        if (type.TypeFields[i].Depth <= typeField.Depth) break;
+                        if (type.TypeFields[i].Depth == directChildDepth)
+                        {
+                            if (!Children[childIndex].From0D(type, i)) ret = false;
+                            childIndex++;
+                        }
+                    }
+                    return ret;
+                }
+
+                bool FromClassDatabase(ClassDatabaseFile file, ClassDatabaseFile.Type type, int fieldIndex)
+                {
+                    if (type.Fields.Count <= fieldIndex) return false;
+                    var typeField = type.Fields[fieldIndex];
+                    IsArray = (typeField.IsArray & 1) != 0;
+                    Name = typeField.FieldName.GetString(file);
+                    Type = typeField.TypeName.GetString(file);
+                    ValueType = !string.IsNullOrEmpty(Type) ? GetValueTypeByTypeName(Type) : ValueType.None;
+                    Align = (typeField.Flags2 & 0x4000) != 0;
+
+                    var newChildCount = 0;
+                    var directChildDepth = (byte)0;
+                    for (var i = fieldIndex + 1; i < type.Fields.Count; i++)
+                    {
+                        if (type.Fields[i].Depth <= typeField.Depth) break;
+                        if (directChildDepth == 0) { directChildDepth = type.Fields[i].Depth; newChildCount++; }
+                        else if (type.Fields[i].Depth == directChildDepth) newChildCount++;
+                    }
+                    HasValue = type.Fields.Count <= fieldIndex + 1 || newChildCount == 0;
+                    Array.Resize(ref Children, newChildCount);
+                    var childIndex = 0; var ret = true;
+                    for (var i = fieldIndex + 1; i < type.Fields.Count; i++)
+                    {
+                        if (type.Fields[i].Depth <= typeField.Depth) break;
+                        if (type.Fields[i].Depth == directChildDepth)
+                        {
+                            if (!Children[childIndex].FromClassDatabase(file, type, i)) ret = false;
+                            childIndex++;
+                        }
+                    }
+                    return ret;
+                }
+
+                bool From07(AssetsFile.TypeField_07 typeField)
+                {
+                    IsArray = typeField.ArrayFlag != 0;
+                    Align = (typeField.Flags2 & 0x4000) != 0;
+                    Name = typeField.Name;
+                    Type = typeField.Type;
+                    ValueType = Type.Length != 0 ? GetValueTypeByTypeName(Type) : ValueType.None;
+                    HasValue = typeField.Children.Length == 0;
+                    Array.Resize(ref Children, typeField.Children.Length);
+                    for (var i = 0; i < typeField.Children.Length; i++)
+                        if (!Children[i].From07(typeField.Children[i])) return false;
+                    return true;
+                }
+
+                static ValueType GetValueTypeByTypeName(string type)
+                {
+                    if (string.Equals(type, "string", StringComparison.OrdinalIgnoreCase)) return ValueType.String;
+                    else if (string.Equals(type, "SInt8", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "char", StringComparison.OrdinalIgnoreCase)) return ValueType.Int8;
+                    else if (string.Equals(type, "UInt8", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "unsigned char", StringComparison.OrdinalIgnoreCase)) return ValueType.UInt8;
+                    else if (string.Equals(type, "SInt16", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "short", StringComparison.OrdinalIgnoreCase)) return ValueType.Int16;
+                    else if (string.Equals(type, "UInt16", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "unsigned short", StringComparison.OrdinalIgnoreCase)) return ValueType.UInt16;
+                    else if (string.Equals(type, "SInt32", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "int", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "Type*", StringComparison.OrdinalIgnoreCase)) return ValueType.Int32;
+                    else if (string.Equals(type, "UInt32", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "unsigned int", StringComparison.OrdinalIgnoreCase)) return ValueType.UInt32;
+                    else if (string.Equals(type, "SInt64", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "long", StringComparison.OrdinalIgnoreCase)) return ValueType.Int64;
+                    else if (string.Equals(type, "UInt64", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "FileSize", StringComparison.OrdinalIgnoreCase) || string.Equals(type, "unsigned long", StringComparison.OrdinalIgnoreCase)) return ValueType.UInt64;
+                    else if (string.Equals(type, "float", StringComparison.OrdinalIgnoreCase)) return ValueType.Float;
+                    else if (string.Equals(type, "double", StringComparison.OrdinalIgnoreCase)) return ValueType.Double;
+                    else if (string.Equals(type, "bool", StringComparison.OrdinalIgnoreCase)) return ValueType.Bool;
+                    else return ValueType.None;
+                }
+            }
+
+            class TypeValueField
+            {
+                public const int SizeOf = 0;
+                public static TypeValueField Empty = new TypeValueField();
+
+                TypeTemplateField TemplateField;
+                TypeValueField[] Children;
+                TypeValue Value; //pointer so it may also have no value (NULL)
+
+                public TypeValueField this[string name]
+                {
+                    get
+                    {
+                        if (Children.Length >= 0)
+                            foreach (var child in Children) if (child.TemplateField != null && child.TemplateField.Name == name) return child;
+                        return Empty;
+                    }
+                }
+
+                public TypeValueField this[int index]
+                {
+                    get
+                    {
+                        if (Children.Length == 0 || index >= Children.Length) return Empty;
+                        return Children[index];
+                    }
+                }
+
+                TypeValueField() { }
+                public TypeValueField(TypeValue value, TypeTemplateField template, int childrenCount, TypeValueField[] children)
+                {
+                    Value = value;
+                    TemplateField = template;
+                    Children = children;
+                }
+
+                void Write(BinaryWriter w, bool bigEndian)
+                {
+                    var doPadding = TemplateField.Align;
+                    if (TemplateField.Children.Length == 0 && Value != null && Value.Type != ValueType.ByteArray)
+                        switch (TemplateField.ValueType)
+                        {
+                            case ValueType.Bool:
+                            case ValueType.Int8:
+                            case ValueType.UInt8: w.Write((byte)(Value.AsInt() & 0xff)); break;
+                            case ValueType.Int16:
+                            case ValueType.UInt16: w.Write((ushort)MathX.SwapEndian((uint)(Value.AsInt() & 0xffff << 16), bigEndian)); break;
+                            case ValueType.Int32:
+                            case ValueType.UInt32: w.WriteE((uint)Value.AsInt(), bigEndian); break;
+                            case ValueType.Int64:
+                            case ValueType.UInt64: w.WriteE((ulong)Value.AsInt64(), bigEndian); break;
+                            case ValueType.Float: w.WriteE(Value.AsFloat(), bigEndian); break;
+                            case ValueType.Double: w.WriteE(Value.AsDouble(), bigEndian); break;
+                        }
+                    else if (Value != null && Value.Type == ValueType.String)
+                    {
+                        var strVal = Encoding.ASCII.GetBytes(Value.AsString() ?? string.Empty);
+                        w.WriteE((uint)strVal.Length);
+                        w.Write(strVal);
+                        if (TemplateField.Children.Length == 1 && TemplateField.Children[0].Align) doPadding = true;
+                    }
+                    else if (Value != null && (Value.Type == ValueType.Array || Value.Type == ValueType.ByteArray))
+                    {
+                        if (Value.Type == ValueType.ByteArray)
+                        {
+                            var bytes = Value.AsByteArray();
+                            w.WriteE(bytes.Length, bigEndian);
+                            w.Write(bytes);
+                        }
+                        else
+                        {
+                            var curArrLen = Value.AsArray().Size;
+                            w.WriteE(curArrLen, bigEndian);
+                            for (var i = 0; i < curArrLen; i++) Children[i].Write(w, bigEndian);
+                        }
+                        if (TemplateField.Children.Length == 1 && TemplateField.Children[0].Align) doPadding = true; //For special case: String overwritten with ByteArray value.
+                    }
+                    else if (Children.Length > 0)
+                    {
+                        for (var i = 0; i < Children.Length; i++) Children[i].Write(w, bigEndian);
+                    }
+                    if (doPadding)
+                    {
+                        var paddingLen = 3 - (((int)(w.Position() & 3) - 1) & 3);
+                        //if (paddingLen > 0)
+                        //{
+                        //    dwValueTmp = 0;
+                        //    w.Write(paddingLen, &dwValueTmp);
+                        //}
+                    }
+                }
+
+                int GetByteSize(int filePos)
+                {
+                    var doPadding = TemplateField.Align;
+                    if (TemplateField.Children.Length == 0 && Value != null)
+                    {
+                        switch (TemplateField.ValueType)
+                        {
+                            case ValueType.Bool:
+                            case ValueType.Int8:
+                            case ValueType.UInt8: filePos++; break;
+                            case ValueType.Int16:
+                            case ValueType.UInt16: filePos += 2; break;
+                            case ValueType.Int32:
+                            case ValueType.UInt32:
+                            case ValueType.Float: filePos += 4; break;
+                            case ValueType.Int64:
+                            case ValueType.UInt64:
+                            case ValueType.Double: filePos += 8; break;
+                        }
+                    }
+                    else if (TemplateField.ValueType == ValueType.String && Value != null)
+                    {
+                        filePos += 4 + Value.AsString().Length;
+                        if (TemplateField.Children.Length > 0 && TemplateField.Children[0].Align) doPadding = true;
+                    }
+                    else if (TemplateField.IsArray && Value != null)
+                    {
+                        filePos += 4;
+                        if (string.Equals(TemplateField.Type, "TypelessData", StringComparison.OrdinalIgnoreCase)) filePos += Value.AsByteArray().Length;
+                        else for (var i = 0; i < Value.AsArray().Size; i++) filePos = Children[i].GetByteSize(filePos);
+                    }
+                    else if (Children.Length > 0)
+                    {
+                        for (var i = 0; i < Children.Length; i++) filePos = Children[i].GetByteSize(filePos);
+                    }
+                    if (doPadding) filePos = (filePos + 3) & (~3);
+                    return filePos;
+                }
+            }
+        }
+
+        #endregion
+
+        // File : CLASSDATABASE
+        #region File : CLASSDATABASE
+
+        internal class ClassDatabaseFile
+        {
+            public struct FileString //:was ClassDatabaseFileString
+            {
+                public static readonly FileString Empty = new FileString { };
+                bool FromStringTable;
+                public uint StringTableOffset; // Don't trust this offset! GetString makes sure no out-of-bounds offset is used.
+                public string String;
+
+                public string GetString(ClassDatabaseFile file)
+                {
+                    if (!FromStringTable) return String;
+                    if (StringTableOffset >= file.Header.StringTableLen) return String.Empty;
+                    return file.Strings[StringTableOffset];
+                }
+
+                public FileString(BinaryReader r)
+                {
+                    FromStringTable = true;
+                    StringTableOffset = r.ReadUInt32();
+                    String = null;
+                }
+            }
+
+            public struct TypeField //:was ClassDatabaseTypeField
+            {
+                public FileString TypeName;
+                public FileString FieldName;
+                public byte Depth;
+                public byte IsArray;
+                public uint Size;
+                public ushort Version;
+                public uint Flags2;               // Flag 0x4000 : align to 4 bytes after this field.
+
+                public TypeField(BinaryReader r, int version) // reads version 0,1,2,3
+                {
+                    TypeName = new FileString(r);
+                    FieldName = new FileString(r);
+                    Depth = r.ReadByte();
+                    IsArray = r.ReadByte();
+                    Size = r.ReadUInt32();
+                    Version = 1;
+                    if (version < 1)
+                    {
+                        var index = r.ReadUInt32();
+                        if ((index & 0x80000000) != 0) Version = r.ReadUInt16();
+                    }
+                    else if (version >= 3) Version = r.ReadUInt16();
+                    Flags2 = r.ReadUInt32();
+                }
+            }
+
+            public class Type //:was ClassDatabaseType
+            {
+                public uint ClassId;
+                public uint BaseClass;
+                public FileString Name;
+                public FileString AssemblyFileName; // set if (header.flags & 1)
+                public List<TypeField> Fields;
+
+                public Type(BinaryReader r, int version, byte flags)
+                {
+                    ClassId = r.ReadUInt32();
+                    BaseClass = r.ReadUInt32();
+                    Name = new FileString(r);
+                    AssemblyFileName = (flags & 1) != 0 ? new FileString(r) : FileString.Empty;
+                    Fields = new List<TypeField>();
+                    var fieldCount = r.ReadUInt32();
+                    Fields.Capacity = (int)fieldCount;
+                    for (var i = 0; i < fieldCount; i++) Fields.Add(new TypeField(r, version));
+                }
+
+                public byte[] MakeTypeHash(ClassDatabaseFile file)
+                {
+                    using var md5 = MD5.Create();
+                    foreach (var field in Fields)
+                    {
+                        md5.TransformBlock(field.TypeName.GetString(file));
+                        md5.TransformBlock(field.FieldName.GetString(file));
+                        md5.TransformBlock(BitConverter.GetBytes(field.Size));
+                        md5.TransformBlock(BitConverter.GetBytes((uint)field.IsArray));
+                        md5.TransformBlock(BitConverter.GetBytes((uint)field.Version));
+                        md5.TransformBlock(BitConverter.GetBytes(field.Flags2 & 0x4000));
+                    }
+                    return md5.ToFinalHash();
+                }
+
+                public static byte[] MakeScriptId(string scriptName, string scriptNamespace, string scriptAssembly)
+                {
+                    using var md5 = MD5.Create();
+                    md5.TransformBlock(scriptName);
+                    md5.TransformBlock(scriptNamespace);
+                    md5.TransformBlock(scriptAssembly);
+                    return md5.ToFinalHash();
+                }
+            }
+
+            public struct FileHeader //:was ClassDatabaseFileHeader
+            {
+                const uint Header_CLDB = 'c' << 24 | 'l' << 16 | 'd' << 8 | 'b';
+                public uint Header;
+                public byte FileVersion;
+                public byte Flags;                  // 1 : Describes MonoBehaviour classes (contains assembly and full class names, base field is to be ignored)
+                public byte CompressionType;        // version 2; 0 = none, 1 = LZ4
+                public uint CompressedSize;         // version 2
+                public uint UncompressedSize;       // version 2
+
+                public string[] UnityVersions;
+
+                public uint StringTableLen;
+                public uint StringTablePos;
+
+                public FileHeader(BinaryReader r)
+                {
+                    Header = r.ReadUInt32();
+                    if (Header != Header_CLDB) throw new FormatException("Bad Header");
+                    FileVersion = r.ReadByte();
+                    Flags = FileVersion >= 4 ? r.ReadByte() : (byte)0;
+                    if (FileVersion >= 2)
+                    {
+                        CompressionType = r.ReadByte();
+                        CompressedSize = r.ReadUInt32();
+                        UncompressedSize = r.ReadUInt32();
+                    }
+                    else
+                    {
+                        CompressionType = 0;
+                        CompressedSize = UncompressedSize = 0;
+                    }
+                    if (FileVersion == 0) { r.Skip(r.ReadByte()); UnityVersions = new string[0]; }
+                    else UnityVersions = r.ReadL8Array(_ => Encoding.ASCII.GetString(_.ReadBytes(_.ReadByte())));
+                    StringTableLen = r.ReadUInt32();
+                    StringTablePos = r.ReadUInt32();
+                }
+            }
+
+            public struct FileRef
+            {
+                public uint Offset;
+                public uint Length;
+                public string Name;
+            }
+
+            public struct PackageHeader
+            {
+                public uint Magic;                  // "CLPK"
+                public byte FileVersion;            // 0 or 1
+                public byte CompressionType;        // Version 1 flags : 0x80 compressed all files in one block; 0x40 string table uncompressed; 0x20 file block uncompressed;
+                public uint StringTableOffset;
+                public uint StringTableLenUncompressed;
+                public uint StringTableLenCompressed;
+                public uint FileBlockSize;
+                public uint FileCount;
+                public List<FileRef> Files;
+                public PackageHeader(BinaryReader r)
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public class DatabasePackage
+            {
+                public bool Valid;
+                public PackageHeader Header;
+                public ClassDatabaseFile[] Files;
+                public string[] Strings;
+
+                public DatabasePackage(BinaryReader r)
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public bool Valid;
+            public bool DontFreeStringTable; // Only for internal use, otherwise this could create a memory leak!
+            public FileHeader Header;
+            public List<Type> Classes;
+            public string[] Strings;
+
+            public ClassDatabaseFile(BinaryReader r)
+            {
+                Header = new FileHeader(r);
+                long compressedFilePos = r.Position(), postHeaderPos = r.Position();
+                var ds = r.BaseStream;
+                if (Header.CompressionType != 0 && Header.CompressionType < 3)
+                {
+                    try
+                    {
+                        switch (Header.CompressionType)
+                        {
+                            case 1: ds = new MemoryStream(r.DecompressLz4((int)Header.CompressedSize, (int)Header.UncompressedSize)); break;
+                            case 2: ds = new MemoryStream(r.DecompressLzma((int)Header.CompressedSize - GameSpec.Formats.Compression.LZMAPropsSize, (int)Header.UncompressedSize)); break;
+                        }
+                        if (ds.Length != Header.UncompressedSize) return;
+                    }
+                    catch { return; }
+                }
+                var version = Header.FileVersion; var flags = Header.Flags;
+                Classes = r.ReadL32Array(_ => new Type(_, version, flags)).ToList();
             }
         }
 

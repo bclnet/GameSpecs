@@ -15,7 +15,7 @@ namespace GameSpec
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
         public class DefaultOptions
         {
