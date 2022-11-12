@@ -1,28 +1,28 @@
-﻿using GameSpec.Metadata;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Red.Formats;
-using GameSpec.Red.Transforms;
+using GameSpec.IW.Formats;
+using GameSpec.IW.Transforms;
+using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System.Threading.Tasks;
 
-namespace GameSpec.Red
+namespace GameSpec.IW
 {
     /// <summary>
-    /// RedPakFile
+    /// IWPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class RedPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class IWPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RedPakFile" /> class.
+        /// Initializes a new instance of the <see cref="IWPakFile" /> class.
         /// </summary>
         /// <param name="family">The estate.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public RedPakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryRed.Instance, tag)
+        public IWPakFile(Family family, string game, string filePath, object tag = null)
+            : base(family, game, filePath, PakBinaryIW.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

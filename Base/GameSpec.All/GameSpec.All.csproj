@@ -16,6 +16,8 @@
     <ProjectReference Include="..\..\Cry\GameSpec.Cry\GameSpec.Cry.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide\GameSpec.Cyanide.csproj" />
+    <ProjectReference Include="..\..\IW\GameSpec.IW.Platform\GameSpec.IW.Platform.csproj" />
+    <ProjectReference Include="..\..\IW\GameSpec.IW\GameSpec.IW.csproj" />
     <ProjectReference Include="..\..\Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj" />
     <ProjectReference Include="..\..\Lith\GameSpec.Lith\GameSpec.Lith.csproj" />
     <ProjectReference Include="..\..\Origin\GameSpec.Origin.Platform\GameSpec.Origin.Platform.csproj" />

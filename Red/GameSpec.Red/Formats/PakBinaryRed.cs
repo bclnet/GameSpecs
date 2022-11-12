@@ -19,7 +19,7 @@ namespace GameSpec.Red.Formats
     // https://github.com/JLouis-B/RedTools
     // https://github.com/yole/Gibbed.RED
     // https://forums.cdprojektred.com/index.php?threads/tw2-tw3-redkit-tool-3d-models-converter.1043/page-2
-    public class PakBinaryRed : PakBinary
+    public unsafe class PakBinaryRed : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryRed();
         PakBinaryRed() { }
@@ -36,7 +36,7 @@ namespace GameSpec.Red.Formats
         const uint BIFF_VERSION = 0x312e3156;
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_Header
+        struct KEY_Header
         {
             public uint Version;            // Version ("V1.1")
             public uint NumFiles;           // Number of entries in FILETABLE
@@ -58,7 +58,7 @@ namespace GameSpec.Red.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_HeaderKey
+        struct KEY_HeaderKey
         {
             public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
             public ushort ResourceType;     // Resource Type

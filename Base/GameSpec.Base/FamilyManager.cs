@@ -15,7 +15,7 @@ namespace GameSpec
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
         public class DefaultOptions
         {
@@ -41,7 +41,9 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            Family = "Unity",
+            Family = "IW",
+            GameId = "COD4",
+            ForceOpen = true
         };
 
         static FamilyManager()
@@ -157,14 +159,14 @@ namespace GameSpec
                 familyGame.Paks = z.ValueKind switch
                 {
                     JsonValueKind.String => new[] { new Uri(z.GetString()) },
-                    JsonValueKind.Array => z.EnumerateArray().Select(y => new Uri(z.GetString())).ToArray(),
+                    JsonValueKind.Array => z.EnumerateArray().Select(y => new Uri(y.GetString())).ToArray(),
                     _ => throw new ArgumentOutOfRangeException("pak", $"{z}"),
                 };
             if (elem.TryGetProperty("dat", out z))
                 familyGame.Dats = z.ValueKind switch
                 {
                     JsonValueKind.String => new[] { new Uri(z.GetString()) },
-                    JsonValueKind.Array => z.EnumerateArray().Select(y => new Uri(z.GetString())).ToArray(),
+                    JsonValueKind.Array => z.EnumerateArray().Select(y => new Uri(y.GetString())).ToArray(),
                     _ => throw new ArgumentOutOfRangeException("dat", $"{z}"),
                 };
             return familyGame;

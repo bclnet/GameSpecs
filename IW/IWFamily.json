@@ -1,0 +1,115 @@
+﻿{
+  // https://en.wikipedia.org/wiki/IW_(game_engine)
+  "id": "IW",
+  "name": "Infinity Ward",
+  "studio": "Infinity Ward",
+  "description": "Infinity Ward file formats",
+  "familyType": "GameSpec.IW.IWFamily, GameSpec.IW",
+  "pakFileType": "GameSpec.IW.IWPakFile, GameSpec.IW",
+  "games": {
+    "COD2": {
+      "name": "Call of Duty 2",
+      "pak": "game:/*.iwd#COD2"
+    },
+    "COD4": {
+      "name": "Call of Duty 4: Modern Warfare",
+      "pak": "game:/*.iwd#COD4"
+    },
+    "COD:WaW": {
+      "name": "Call of Duty: World at War",
+      "pak": "game:/*.iwd#COD:WaW"
+    },
+    "007:QoS": {
+      "name": "007: Quantum of Solace",
+      "pak": "game:/*.iwd#007:QoS"
+    },
+    "MW2": {
+      "name": "Call of Duty: Modern Warfare 2",
+      "pak": "game:/*.iwd#MW2"
+    },
+    "COD:BO": {
+      "name": "Call of Duty: Black Ops",
+      "pak": "game:/*.iwd#COD:BO"
+    },
+    "MW3": {
+      "name": "Call of Duty: Modern Warfare 3",
+      "pak": "game:/*.iwd#MW3"
+    },
+    "COD:BO2": {
+      "name": "Call of Duty: Black Ops II",
+      "pak": "game:/*.iwd#COD:BO2"
+    },
+    "Ghosts": {
+      "name": "Call of Duty: Ghosts",
+      "pak": "game:/*.iwd#MW2"
+    },
+    "COD:BO3": {
+      "name": "Call of Duty: Black Ops III",
+      "pak": "game:/*.iwd#COD:BO3"
+    },
+    "COD:IW": {
+      "name": "Call of Duty: Infinite Warfare",
+      "pak": "game:/*.iwd#COD:IW"
+    },
+    "COD:BO4": {
+      "name": "Call of Duty: Black Ops 4",
+      "pak": "game:/*.iwd#COD:BO4"
+    },
+    "MW": {
+      "name": "Call of Duty: Modern Warfare",
+      "pak": "game:/*.iwd#MW"
+    },
+    "COD:BOCW": {
+      "name": "Call of Duty: Black Ops Cold War",
+      "pak": "game:/*.iwd#COD:BOCW"
+    },
+    "Vanguard": {
+      "name": "Call of Duty: Vanguard",
+      "pak": "game:/*.iwd#Vanguard"
+    },
+    "COD:MW2": {
+      "name": "Call of Duty: Modern Warfare II",
+      "pak": "game:/*.xpak#COD:MW2",
+      "pak_": [
+        "game:/*.xpak#COD:MW2",
+        "game:/*.ff#COD:MW2"
+      ]
+    },
+    "WWII": {
+      "name": "Call of Duty: WWII",
+      "pak": "game:/*.pak#WWII",
+      "pak_": [
+        "game:/*.pak#WWII",
+        "game:/*.(ff:fd)#WWII"
+      ]
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "COD2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
+          "path": "main"
+        },
+        "COD4": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
+          "path": "main"
+        },
+        "MW2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
+          "path": "main"
+        },
+        "MW3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
+          "path": "main"
+        },
+        "COD:MW2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090"
+        },
+        "WWII": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600"
+        }
+      }
+    }
+  }
+}

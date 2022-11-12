@@ -7,7 +7,7 @@
     public class RedFamily : Family
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RedEstate"/> class.
+        /// Initializes a new instance of the <see cref="RedFamily"/> class.
         /// </summary>
         public RedFamily() : base() { }
     }

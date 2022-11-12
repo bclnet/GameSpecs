@@ -12,7 +12,7 @@
     },
     "UltimaIX": {
       "name": "Ultima IX",
-      "pak": "game:/static/*.flx#UltimaIX"
+      "pak": "game:/*.flx#UltimaIX"
     }
   },
   "fileManager": {
@@ -44,7 +44,8 @@
           "key": [
             "GOG.com/GOGULTIMA9",
             "GOG.com/Games/1207659093"
-          ]
+          ],
+          "path": "static"
         }
       }
     },

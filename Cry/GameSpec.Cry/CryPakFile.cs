@@ -14,7 +14,7 @@ namespace GameSpec.Cry
     /// <summary>
     /// CryPakFile
     /// </summary>
-    /// <seealso cref="GameEstate.Formats.BinaryPakFile" />
+    /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class CryPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
         static ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
