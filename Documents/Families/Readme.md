@@ -17,6 +17,7 @@ The following are the current estates:
 | [Aurora](Aurora/Readme.md)    | BioWare Aurora            | Neverwinter Nights| In Development
 | [Cry](Cry/Readme.md)          | Crytek                    | MechWarrior Online| In Development
 | [Cyanide](Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
+| [IW](IW/Readme.md)            | Infinity Ward             | Call of Duty      | In Development
 | [Origin](Origin/Readme.md)    | Origin Systems            | Ultima Online     | In Development
 | [Red](Red/Readme.md)          | REDengine                 | The Witcher 3: Wild Hunt | In Development
 | [Rsi](Rsi/Readme.md)          | Roberts Space Industries  | Star Citizen      | In Development

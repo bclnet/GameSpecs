@@ -15,6 +15,10 @@ namespace GameSpec.IW.Formats
     // https://github.com/XLabsProject/img-format-helper
     // https://github.com/DentonW/DevIL/blob/master/DevIL/src-IL/src/il_iwi.cpp
     // https://github.com/orgs/XLabsProject/repositories
+    // http://tom-crowley.co.uk/downloads/
+    // https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_Skinning
+    // https://github.com/XLabsProject/img-format-helper
+    // https://github.com/RagdollPhysics/zonebuilder
     public unsafe class PakBinaryIW : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryIW();
@@ -28,6 +32,22 @@ namespace GameSpec.IW.Formats
             XPAK,
             XSUB,
         }
+
+        // Headers : FF
+        #region Headers : FF
+
+        const uint FF_MAGIC = 0x12345678;
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct FF_Header
+        {
+            public uint Magic;
+            public uint Unknown1;
+            public uint Unknown2;
+            public ushort Unknown3;
+        }
+
+        #endregion
 
         // Headers : IPAK (Black Ops 2)
         #region Headers : IPAK
@@ -162,22 +182,24 @@ namespace GameSpec.IW.Formats
 
                     var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));
                     foreach (ZipEntry entry in pak)
-                    {
-                        if (entry.Size == 0) continue;
-                        files.Add(new FileMetadata
-                        {
-                            Path = entry.Name.Replace('\\', '/'),
-                            Crypted = entry.IsCrypted,
-                            PackedSize = entry.CompressedSize,
-                            FileSize = entry.Size,
-                            Tag = entry,
-                        });
-                    }
+                        if (entry.Size != 0)
+                            files.Add(new FileMetadata
+                            {
+                                Path = entry.Name.Replace('\\', '/'),
+                                Crypted = entry.IsCrypted,
+                                PackedSize = entry.CompressedSize,
+                                FileSize = entry.Size,
+                                Tag = entry,
+                            });
                     return Task.CompletedTask;
                 // FF
                 case ".ff":
                     {
                         source.Magic = (int)Magic.FF;
+                        var header = r.ReadT<FF_Header>(sizeof(FF_Header));
+
+
+
                     }
                     return Task.CompletedTask;
                 // PAK

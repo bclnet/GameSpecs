@@ -56,8 +56,8 @@ namespace GameSpec.Valve.Formats.Blocks
         int ITextureInfo.Height => Height;
         int ITextureInfo.Depth => Depth;
         TextureFlags ITextureInfo.Flags => (TextureFlags)Flags;
-        TextureUnityFormat ITextureInfo.UnityFormat => throw new NotImplementedException();
-        TextureGLFormat ITextureInfo.GLFormat => Format;
+        object ITextureInfo.UnityFormat => throw new NotImplementedException();
+        object ITextureInfo.GLFormat => Format;
         int ITextureInfo.NumMipMaps => NumMipMaps;
 
         void ITextureInfo.MoveToData() => Reader.BaseStream.Position = Offset + Size;
@@ -66,7 +66,7 @@ namespace GameSpec.Valve.Formats.Blocks
         {
             get
             {
-                var uncompressedSize = this.GetMipMapTrueDataSize(index);
+                var uncompressedSize = Format.GetMipMapTrueDataSize(this, index);
                 if (!IsActuallyCompressedMips) return Reader.ReadBytes(uncompressedSize);
                 var compressedSize = CompressedMips[index];
                 if (compressedSize >= uncompressedSize) return Reader.ReadBytes(uncompressedSize);
@@ -252,7 +252,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 w.WriteLine($"{0,-12}   [ Entry {entry++}: VTEX_EXTRA_DATA_{b.Key} - {b.Value.Length} bytes ]");
                 if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE) w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
             }
-            for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureInfo.GetMipmapTrueDataSize(Width, Height, Depth, Format, j)}");
+            for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureInfo.GetMipmapTrueDataSize(Format, Width, Height, Depth, j)}");
             return w.ToString();
         }
     }

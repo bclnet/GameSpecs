@@ -4,52 +4,143 @@ using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace GameSpec.IW.Formats
 {
-    // https://github.com/DentonW/DevIL/blob/master/DevIL/src-IL/src/il_iwi.cpp
     public class BinaryIwi : ITextureInfo, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryIwi(r));
 
         BinaryReader _r;
 
+        public enum VERSION : byte
+        {
+            /// <summary>
+            /// COD2
+            /// </summary>
+            COD2 = 0x05,
+            /// <summary>
+            /// COD4
+            /// </summary>
+            COD4 = 0x06,
+            /// <summary>
+            /// COD5
+            /// </summary>
+            COD5 = 0x06,
+            /// <summary>
+            /// CODMW2
+            /// </summary>
+            CODMW2 = 0x08,
+            /// <summary>
+            /// CODMW3
+            /// </summary>
+            CODMW3 = 0x08,
+            /// <summary>
+            /// CODBO1
+            /// </summary>
+            CODBO1 = 0x0D,
+            /// <summary>
+            /// CODBO2
+            /// </summary>
+            CODBO2 = 0x1B,
+        }
+
         public enum FORMAT : byte
         {
             /// <summary>
-            /// ARGB32
+            /// ARGB32 - DDS_Standard_A8R8G8B8
             /// </summary>
             ARGB32 = 0x01,
             /// <summary>
-            /// RGB24
+            /// RGB24 - DDS_Standard_R8G8B8
             /// </summary>
             RGB24 = 0x02,
             /// <summary>
-            /// GA16
+            /// GA16 - DDS_Standard_D16_UNORM
             /// </summary>
             GA16 = 0x03,
             /// <summary>
-            /// A8
+            /// A8 - DDS_Standard_A8_UNORM
             /// </summary>
             A8 = 0x04,
+            /// <summary>
+            /// A8b - DDS_Standard_A8_UNORM
+            /// </summary>
+            A8b = 0x05,
             /// <summary>
             /// JPG
             /// </summary>
             JPG = 0x07,
             /// <summary>
-            /// DXT1
+            /// DXT1 - DDS_BC1_UNORM;
             /// </summary>
             DXT1 = 0x0B,
             /// <summary>
-            /// DXT3
+            /// DXT3 - DDS_BC2_UNORM
             /// </summary>
-            DXT3 = 0x0C,
+            DXT2 = 0x0C,
             /// <summary>
-            /// DXT5
+            /// DXT5 - DDS_BC3_UNORM
             /// </summary>
-            DXT5 = 0x0D,
+            DXT3 = 0x0D,
+            /// <summary>
+            /// DXT5 - DDS_BC5_UNORM
+            /// </summary>
+            DXT5 = 0x0E,
+        }
+
+        [Flags]
+        public enum FLAGS : byte
+        {
+            NOPICMIP = 1 << 0,
+            /// <summary>
+            /// NOMIPMAPS
+            /// </summary>
+            NOMIPMAPS = 1 << 1,
+            /// <summary>
+            /// CUBEMAP
+            /// </summary>
+            CUBEMAP = 1 << 2,
+            /// <summary>
+            /// VOLMAP
+            /// </summary>
+            VOLMAP = 1 << 3,
+            /// <summary>
+            /// STREAMING
+            /// </summary>
+            STREAMING = 1 << 4,
+            /// <summary>
+            /// LEGACY_NORMALS
+            /// </summary>
+            LEGACY_NORMALS = 1 << 5,
+            /// <summary>
+            /// CLAMP_U
+            /// </summary>
+            CLAMP_U = 1 << 6,
+            /// <summary>
+            /// CLAMP_V
+            /// </summary>
+            CLAMP_V = 1 << 7,
+        }
+
+        [Flags]
+        public enum FLAGS_EXT : int
+        {
+            /// <summary>
+            /// DYNAMIC
+            /// </summary>
+            DYNAMIC = 1 << 16,
+            /// <summary>
+            /// RENDER_TARGET
+            /// </summary>
+            RENDER_TARGET = 1 << 17,
+            /// <summary>
+            /// SYSTEMMEM
+            /// </summary>
+            SYSTEMMEM = 1 << 18
         }
 
         /// <summary>
@@ -60,7 +151,7 @@ namespace GameSpec.IW.Formats
         {
             public const int SizeOf = 8;
             /// <summary>
-            /// IWi
+            /// MAGIC (IWi)
             /// </summary>
             public const uint MAGIC = 0x69574900;
             /// <summary>
@@ -70,7 +161,7 @@ namespace GameSpec.IW.Formats
             /// <summary>
             /// Usage
             /// </summary>
-            public byte Usage;
+            [MarshalAs(UnmanagedType.U1)] public FLAGS Flags;
             /// <summary>
             /// Width
             /// </summary>
@@ -91,60 +182,11 @@ namespace GameSpec.IW.Formats
             {
                 if (Width == 0 || Height == 0)
                     throw new FormatException($"Invalid DDS file header");
-                if (Format >= FORMAT.DXT1 && Format <= FORMAT.DXT5 && Width != NextPower2(Width) && Height != NextPower2(Height))
+                if (Format >= FORMAT.DXT1 && Format <= FORMAT.DXT5 && Width != MathX.NextPower(Width) && Height != MathX.NextPower(Height))
                     throw new FormatException($"DXT images must have power-of-2 dimensions..");
+                if (Format > FORMAT.DXT5)
+                    throw new FormatException($"Unknown Format: {Format}");
             }
-
-            static int NextPower2(int n)
-            {
-                var power = 1;
-                while (power < n) power <<= 1;
-                return power;
-            }
-
-            /// <summary>
-            /// ReadAndDecode
-            /// </summary>
-            //public void ReadAndDecode(TextureInfo source, BinaryReader r)
-            //{
-            //    //var hasMipmaps = source.HasMipmaps = dwCaps.HasFlag(DDSCAPS.MIPMAP);
-            //    //source.Mipmaps = hasMipmaps ? (ushort)dwMipMapCount : (ushort)1U;
-            //    source.Width = (int)Width;
-            //    source.Height = (int)Height;
-            //    source.BytesPerPixel = 4;
-            //    // If the DDS file contains uncompressed data.
-            //    //if (ddspf.dwFlags.HasFlag(DDPF.RGB))
-            //    //{
-            //    //    // some permutation of RGB
-            //    //    if (!ddspf.dwFlags.HasFlag(DDPF.ALPHAPIXELS)) throw new NotImplementedException("Unsupported DDS file pixel format.");
-            //    //    else
-            //    //    {
-            //    //        // some permutation of RGBA
-            //    //        if (ddspf.dwRGBBitCount != 32) throw new FormatException("Invalid DDS file pixel format.");
-            //    //        else if (ddspf.dwBBitMask == 0x000000FF && ddspf.dwGBitMask == 0x0000FF00 && ddspf.dwRBitMask == 0x00FF0000 && ddspf.dwABitMask == 0xFF000000) source.UnityFormat = TextureUnityFormat.BGRA32;
-            //    //        else if (ddspf.dwABitMask == 0x000000FF && ddspf.dwRBitMask == 0x0000FF00 && ddspf.dwGBitMask == 0x00FF0000 && ddspf.dwBBitMask == 0xFF000000) source.UnityFormat = TextureUnityFormat.ARGB32;
-            //    //        else throw new NotImplementedException("Unsupported DDS file pixel format.");
-            //    //        source.Data = new byte[!hasMipmaps ? (int)(dwPitchOrLinearSize * dwHeight) : TextureInfo.GetMipmapDataSize(source.Width, source.Height, source.BytesPerPixel)];
-            //    //        r.ReadToEnd(source.Data);
-            //    //    }
-            //    //}
-            //    //else if (ddspf.dwFourCC == DXT1)
-            //    //{
-            //    //    source.UnityFormat = TextureUnityFormat.ARGB32;
-            //    //    source.Data = DecodeDXT1ToARGB(r.ReadToEnd(), dwWidth, dwHeight, ddspf, source.Mipmaps);
-            //    //}
-            //    //else if (ddspf.dwFourCC == DXT3)
-            //    //{
-            //    //    source.UnityFormat = TextureUnityFormat.ARGB32;
-            //    //    source.Data = DecodeDXT3ToARGB(r.ReadToEnd(), dwWidth, dwHeight, ddspf, source.Mipmaps);
-            //    //}
-            //    //else if (ddspf.dwFourCC == DXT5)
-            //    //{
-            //    //    source.UnityFormat = TextureUnityFormat.ARGB32;
-            //    //    source.Data = DecodeDXT5ToARGB(r.ReadToEnd(), dwWidth, dwHeight, ddspf, source.Mipmaps);
-            //    //}
-            //    //else throw new NotImplementedException("Unsupported DDS file pixel format.");
-            //}
         }
 
         public BinaryIwi() { }
@@ -152,45 +194,69 @@ namespace GameSpec.IW.Formats
         {
             _r = r;
             var magic = r.ReadUInt32();
-            Version = (byte)(magic >> 24);
+            Version = (VERSION)(magic >> 24);
             magic <<= 8;
-            if (magic != HEADER.MAGIC) throw new FormatException($"Invalid IWI file magic: \"{magic}\".");
-            if (Version == 0x08) r.Seek(8);
+            if (magic != HEADER.MAGIC) throw new FormatException($"Invalid IWI file magic: {magic}.");
+            if (Version == VERSION.CODMW2) r.Seek(8);
             Header = r.ReadT<HEADER>(HEADER.SizeOf);
             Header.Verify();
+
+            // read mips offsets
+            r.Seek(Version switch
+            {
+                VERSION.COD2 => 0xC,
+                VERSION.COD4 => 0xC,
+                VERSION.CODMW2 => 0x10,
+                VERSION.CODBO1 => 0x10,
+                VERSION.CODBO2 => 0x20,
+                _ => throw new FormatException($"Invalid IWI Version: {Version}."),
+            });
+
+            var mips = r.ReadTArray<int>(sizeof(int), Version < VERSION.CODBO1 ? 4 : 8);
+            var mipsLength = mips[0] == mips[1] || mips[0] == mips[^1] ? 1 : mips.Length - 1;
+            var mipsBase = mipsLength == 1 ? (int)r.Position() : mips[^1];
+            var size = (int)(r.BaseStream.Length - mipsBase);
+            Mips = mipsLength > 1
+                ? Enumerable.Range(0, mipsLength).Select(i => new Range(mips[i + 1] - mipsBase, mips[i] - mipsBase)).ToArray()
+                : new[] { new Range(0, size) };
+            r.Seek(mipsBase);
+            Body = r.ReadBytes(size);
         }
 
-        public HEADER Header;
-        public byte Version;
+        HEADER Header;
+        VERSION Version;
+        Range[] Mips;
+        byte[] Body;
 
         public IDictionary<string, object> Data => null;
         public int Width => (int)Header.Width;
         public int Height => (int)Header.Height;
         public int Depth => 0;
-        public TextureFlags Flags => 0;
-        public TextureUnityFormat UnityFormat => Header.Format switch
+        public TextureFlags Flags => (Header.Flags & FLAGS.CUBEMAP) != 0 ? TextureFlags.CUBE_TEXTURE : 0;
+        public object UnityFormat => Header.Format switch
         {
+            FORMAT.ARGB32 => TextureUnityFormat.RGBA32,
             FORMAT.DXT1 => TextureUnityFormat.DXT1,
             //FORMAT.DXT3 => TextureUnityFormat.DXT3,
             FORMAT.DXT5 => TextureUnityFormat.DXT5,
             _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{Header.Format}"),
         };
-        public TextureGLFormat GLFormat => Header.Format switch
+        public object GLFormat => Header.Format switch
         {
+            FORMAT.ARGB32 => (TextureGLFormat.Rgba, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedInt8888Reversed),
+            FORMAT.RGB24 => TextureGLFormat.Rgb,
             FORMAT.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
+            FORMAT.DXT2 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
             FORMAT.DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
             FORMAT.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
             _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{Header.Format}"),
         };
-        public int NumMipMaps => (int)0;//Header.dwMipMapCount;
+        public int NumMipMaps => Mips.Length;
         public byte[] this[int index]
         {
-            get
-            {
-                //var uncompressedSize = this.GetMipMapTrueDataSize(index);
-                //return _r.ReadBytes(uncompressedSize);
-                return null;
-            }
+            get => Mips.Length > 1
+                ? Body.AsSpan(Mips[index]).ToArray()
+                : Body;
             set => throw new NotImplementedException();
         }
         public void MoveToData() { }
@@ -200,7 +266,7 @@ namespace GameSpec.IW.Formats
             new MetadataInfo("DDS Texture", items: new List<MetadataInfo> {
                 new MetadataInfo($"Width: {Header.Width}"),
                 new MetadataInfo($"Height: {Header.Height}"),
-                new MetadataInfo($"Mipmaps: {0}"),
+                new MetadataInfo($"Mipmaps: {Mips.Length}"),
             }),
         };
     }

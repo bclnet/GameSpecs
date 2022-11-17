@@ -59,7 +59,7 @@ namespace GameSpec.Metadata
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
             var node = Items.FirstOrDefault(x => x.Name == paths[0]);
-            return paths.Length == 1 ? node : node.FindByPath(paths[1]);
+            return node == null || paths.Length == 1 ? node : node.FindByPath(paths[1]);
         }
     }
 }

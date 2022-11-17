@@ -15,7 +15,8 @@ namespace GameSpec
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        //static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "IW", "Unknown" };
 
         public class DefaultOptions
         {
@@ -42,8 +43,42 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             Family = "IW",
+
+            // Call of Duty 2
+            //GameId = "COD2",
+            //ForceOpen = true,
+            //ForcePath = "iw_08.iwd/images/155_cannon.iwi",
+
+            // Call of Duty 4: Modern Warfare
             GameId = "COD4",
-            ForceOpen = true
+            ForceOpen = true,
+            ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
+
+            // Call of Duty: World at War
+            //GameId = "COD:WaW",
+            //ForceOpen = true,
+            ////ForcePath = "iw_00.iwd/images/3_cursor3.iwi",
+            //ForcePath = "default.ff",
+
+            // Call of Duty: Modern Warfare 2
+            //GameId = "MW2",
+            //ForceOpen = true,
+            //ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
+
+            // Call of Duty: Modern Warfare 3
+            //GameId = "MW3",
+            //ForceOpen = true,
+            //ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
+
+            // Call of Duty: Modern Warfare II
+            //GameId = "COD:MW2",
+            //ForceOpen = true,
+            //ForcePath = "iw_00./images/1story_house_01.iwi",
+
+            // Call of Duty: WWII
+            //GameId = "COD:MW2",
+            //ForceOpen = true,
+            //ForcePath = "iw_00./images/1story_house_01.iwi",
         };
 
         static FamilyManager()

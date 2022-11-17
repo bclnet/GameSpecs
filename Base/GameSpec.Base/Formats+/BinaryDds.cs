@@ -35,7 +35,7 @@ namespace GameSpec.Formats
         public int Height => (int)Header.dwHeight;
         public int Depth => 0;
         public TextureFlags Flags => 0;
-        public TextureUnityFormat UnityFormat => Header.ddspf.dwFourCC switch
+        public object UnityFormat => Header.ddspf.dwFourCC switch
         {
             DDS_HEADER.DXT1 => TextureUnityFormat.DXT1,
             DDS_HEADER.DXT5 => TextureUnityFormat.DXT5,
@@ -46,7 +46,7 @@ namespace GameSpec.Formats
             _ => throw new ArgumentOutOfRangeException(nameof(Header.ddspf.dwFourCC), $"{Header.ddspf.dwFourCC}"),
         };
         // https://www.g-truc.net/post-0335.html
-        public TextureGLFormat GLFormat => Header.ddspf.dwFourCC switch
+        public object GLFormat => Header.ddspf.dwFourCC switch
         {
             DDS_HEADER.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
             DDS_HEADER.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,

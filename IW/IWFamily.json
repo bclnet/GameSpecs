@@ -13,11 +13,11 @@
     },
     "COD4": {
       "name": "Call of Duty 4: Modern Warfare",
-      "pak": "game:/*.iwd#COD4"
+      "pak": "game:/*.(iwd:ff)#COD4"
     },
     "COD:WaW": {
       "name": "Call of Duty: World at War",
-      "pak": "game:/*.iwd#COD:WaW"
+      "pak": "game:/*.(iwd:ff)#COD:WaW"
     },
     "007:QoS": {
       "name": "007: Quantum of Solace",
@@ -25,7 +25,7 @@
     },
     "MW2": {
       "name": "Call of Duty: Modern Warfare 2",
-      "pak": "game:/*.iwd#MW2"
+      "pak": "game:/*.(iwd:ff)#MW2"
     },
     "COD:BO": {
       "name": "Call of Duty: Black Ops",
@@ -33,7 +33,7 @@
     },
     "MW3": {
       "name": "Call of Duty: Modern Warfare 3",
-      "pak": "game:/*.iwd#MW3"
+      "pak": "game:/*.(iwd:ff)#MW3"
     },
     "COD:BO2": {
       "name": "Call of Duty: Black Ops II",
@@ -41,7 +41,7 @@
     },
     "Ghosts": {
       "name": "Call of Duty: Ghosts",
-      "pak": "game:/*.iwd#MW2"
+      "pak": "game:/*.iwd#Ghosts"
     },
     "COD:BO3": {
       "name": "Call of Duty: Black Ops III",
@@ -93,15 +93,19 @@
         },
         "COD4": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
-          "path": "main"
+          "path": [ "main", "zone/english" ]
+        },
+        "COD:WaW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10090",
+          "path": [ "main", "zone/english" ]
         },
         "MW2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
-          "path": "main"
+          "path": [ "main", "zone/english" ]
         },
         "MW3": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
-          "path": "main"
+          "path": [ "main", "zone/english" ]
         },
         "COD:MW2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090"
