@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Zip.Compression;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace GameSpec.IW.Zone
 {
@@ -17,7 +17,7 @@ namespace GameSpec.IW.Zone
         INDEX
     }
 
-    public unsafe class ZStream
+    public unsafe class ZStream : IDisposable
     {
         public const uint zero = 0;
         public const uint pad = 0xFFFFFFFF;
@@ -69,6 +69,8 @@ namespace GameSpec.IW.Zone
             write(assets > 0 ? pad : zero, 4, 1);
         }
 
+        public void Dispose() { }
+
         public void resize(int newsize)
         {
             if (newsize == -1) newsize = maxsize;
@@ -84,7 +86,6 @@ namespace GameSpec.IW.Zone
 
         public int getsize() => size;
 
-        //public int write(byte[] str, int size, int count) => write(curStream, str, size, count);
         public int write(string val, int size, int count) => write(curStream, null, size, count);
         public int write(int val, int size, int count) => write(curStream, (byte*)val, size, count);
         public int write(uint val, int size, int count) => write(curStream, (byte*)val, size, count);
@@ -129,29 +130,7 @@ namespace GameSpec.IW.Zone
             //fwrite(origin, size, 1, file);
         }
 
-        //public BUFFER* compressZlib()
-        //{
-        //    z_stream strm;
-        //    int ret;
-
-        //    memset(&strm, 0, sizeof(z_stream));
-        //    char* dest = (char*)malloc(_size * 2); // WHY IS IT BIGGER!!!!!?
-
-        //    if (deflateInit(&strm, Z_BEST_COMPRESSION) != Z_OK) { Com_Error(false, "Failed to compress zlib ZStream!"); free(dest); return NULL; }
-
-        //    strm.next_out = (Bytef*)dest;
-        //    strm.next_in = (Bytef*)_origin;
-        //    strm.avail_out = _size * 2;
-        //    strm.avail_in = _size;
-
-        //    ret = deflate(&strm, Z_FINISH);
-        //    if (ret != Z_STREAM_END) { Com_Error(false, "Failed to compress zlib ZStream!"); return NULL; }
-
-        //    ret = deflateEnd(&strm);
-        //    if (ret != Z_OK) { Com_Error(false, "Failed to compress zlib ZStream!"); return NULL; }
-
-        //    return new BUFFER(dest, strm.total_out);
-        //}
+        public byte[] compressZlib() => GameSpec.Formats.Compression.CompressZlib(origin, size);
 
         public int getStreamOffset(ZSTREAM stream) => streamOffsets[(int)stream];
 

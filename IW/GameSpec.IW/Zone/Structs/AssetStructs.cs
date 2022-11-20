@@ -3,6 +3,24 @@
 namespace GameSpec.IW.Zone
 {
     [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct vec2
+    {
+        public float x, y;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct vec3
+    {
+        public float x, y, z;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct vec4
+    {
+        public float x, y, z, w;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
     public unsafe partial struct PhysPreset
     {
         public char* name;
@@ -72,7 +90,7 @@ namespace GameSpec.IW.Zone
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct GfxLightDef
     {
-        public string name;
+        public char* name;
         public GfxLightImage attenuation;
         public int lmapLookupStart;
     }

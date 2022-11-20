@@ -48,7 +48,6 @@ namespace GameSpec.Metadata.View
             Camera.SetViewportSize((int)ActualWidth, (int)ActualHeight);
             Camera.SetLocation(new Vector3(200));
             Camera.LookAt(new Vector3(0));
-
         }
 
         void OnPaint(object sender, RenderEventArgs e)

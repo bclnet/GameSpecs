@@ -1,8 +1,11 @@
 ﻿using GameSpec.Formats;
 using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Zip.Compression;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
@@ -36,15 +39,16 @@ namespace GameSpec.IW.Formats
         // Headers : FF
         #region Headers : FF
 
-        const uint FF_MAGIC = 0x12345678;
+        const ulong FF_MAGIC = 0x3030317566665749;
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct FF_Header
         {
-            public uint Magic;
-            public uint Unknown1;
-            public uint Unknown2;
-            public ushort Unknown3;
+            public ulong Magic; // IWffu100
+            public uint DesiredVersion;
+            public byte Unknown2;
+            public uint dwHighDateTime;
+            public uint dwLowDateTime;
         }
 
         #endregion
@@ -197,9 +201,27 @@ namespace GameSpec.IW.Formats
                     {
                         source.Magic = (int)Magic.FF;
                         var header = r.ReadT<FF_Header>(sizeof(FF_Header));
+                        if (header.Magic != FF_MAGIC) throw new FormatException("Bad magic");
+                        var fileData = r.ReadBytes((int)(r.BaseStream.Length - r.BaseStream.Position));
+
+                        // find zlib offset
+                        var abc = LibX.CountBytes(fileData, new byte[] { 0x49, 0x57, 0x66, 0x66, 0x73 }, 0);
+                        var xyz = LibX.FindBytes(fileData, new byte[] { 0x49, 0x57, 0x66, 0x66, 0x73 }, 0);
 
 
 
+                        //var length = (int)(r.BaseStream.Length - r.BaseStream.Position);
+                        //var fileData = r.ReadBytes(length);
+                        //var inflater = new Inflater();
+                        //inflater.SetInput(fileData, 0, fileData.Length);
+                        //int count;
+                        //const int BufferSize = 4096 * 10;
+                        //var buffer = new byte[BufferSize];
+                        //using var s = new MemoryStream();
+                        //while ((count = inflater.Inflate(buffer)) > 0) s.Write(buffer, 0, count);
+                        //var buf = s.ToArray();
+                        //using (var fp = File.OpenWrite($"{source.FilePath}_1"))
+                        //    fp.Write(buf, 0, buf.Length);
                     }
                     return Task.CompletedTask;
                 // PAK

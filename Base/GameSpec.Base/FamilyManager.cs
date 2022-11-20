@@ -52,7 +52,7 @@ namespace GameSpec
             // Call of Duty 4: Modern Warfare
             GameId = "COD4",
             ForceOpen = true,
-            ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
+            //ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
 
             // Call of Duty: World at War
             //GameId = "COD:WaW",

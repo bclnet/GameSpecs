@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Text;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 using static GameSpec.IW.Zone.Asset;
 
 namespace GameSpec.IW.Zone
 {
-    public class ZoneInfo
+    public unsafe class ZoneInfo
     {
         const int MAX_ASSET_COUNT = 4096;
         const int MAX_SCRIPT_STRINGS = 2048;
@@ -16,7 +18,7 @@ namespace GameSpec.IW.Zone
         public Asset[] assets = new Asset[MAX_ASSET_COUNT];
         public int index_start;
 
-        public ZoneInfo getZoneInfo(string zoneName)
+        public static ZoneInfo getZoneInfo(string zoneName)
             => new ZoneInfo { name = zoneName };
 
         //public void freeZoneInfo()
@@ -131,185 +133,210 @@ namespace GameSpec.IW.Zone
         }
 #endif
 
-        //public void loadAsset(ASSET_TYPE type, string filename, string name)
-        //{
-        //    if (containsAsset(type, name) > 0) return;
+        // TOOLMAIN
+        // 276 is original
+        // 277 is filepointers
+        public const int desiredFFVersion = 276;
 
-        //    Console.Write($"Loading Asset {name} of type {getAssetStringForType(type)}");
-        //    if (filename != null) Console.Write($" ({filename})");
-        //    Console.WriteLine();
+        public static byte[] Header = { (byte)'I', (byte)'W', (byte)'f', (byte)'f', (byte)'u', (byte)'1', (byte)'0', (byte)'0',
+            (desiredFFVersion & 0xFF), desiredFFVersion >> 8, desiredFFVersion >> 16, desiredFFVersion >> 24,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-        //    char* data;
-        //    int size;
+        [StructLayout(LayoutKind.Sequential)] public struct FILETIME { public uint dwLowDateTime; public uint dwHighDateTime; }
+        [DllImport("kernel32")] public static extern void GetSystemTimeAsFileTime(ref FILETIME lpSystemTimeAsFileTime);
 
-        //    if (filename == null) // stock asset
-        //    {
-        //        data = (char*)DB_FindXAssetHeader(type, name);
-        //        if (DB_IsAssetDefault(type, name))
-        //            Console.WriteLine("Got Default asset! Make sure this is correct\n");
-        //        size = -1;
-        //    }
-        //    else
-        //    {
-        //        size = FS_ReadFile(filename, (void**)&data);
-        //        if (size < 0) // renamed stock asset
-        //        {
-        //            data = (char*)DB_FindXAssetHeader(type, filename);
-        //            if (DB_IsAssetDefault(type, filename))
-        //                Console.WriteLine("Got Default asset! Make sure this is correct\n");
-        //            size = -1;
-        //        }
-        //    }
+        public void loadAsset(ASSET_TYPE type, string filename, string name)
+        {
+            if (containsAsset(type, name) > 0) return;
 
-        //    object asset = null;
-        //    switch (type)
-        //    {
-        //        case ASSET_TYPE.PHYSPRESET:
-        //            asset = addPhysPreset(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.PHYS_COLLMAP:
-        //            asset = addPhysCollmap(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.XANIM:
-        //            asset = addXAnim(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.RAWFILE:
-        //            asset = addRawfile(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.MATERIAL:
-        //            asset = addMaterial(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.PIXELSHADER:
-        //            asset = addPixelShader(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.VERTEXSHADER:
-        //            asset = addVertexShader(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.VERTEXDECL:
-        //            asset = addVertexDecl(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.IMAGE:
-        //            asset = addGfxImage(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.TECHSET:
-        //            asset = addTechset(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.XMODEL:
-        //            asset = addXModel(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.XMODELSURFS:
-        //            throw new Exception("Can't create XModelSurfs directly. Use XModel.");
-        //        case ASSET_TYPE.COL_MAP_MP:
-        //            asset = addColMap(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.MAP_ENTS:
-        //            asset = addMapEnts(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.COM_MAP:
-        //            asset = addComWorld(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.GAME_MAP_MP:
-        //            asset = addGameMap_MP(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.GAME_MAP_SP:
-        //            asset = addGameMap_SP(info, name, data, size);
-        //            type = ASSET_TYPE_GAME_MAP_MP;
-        //            break;
-        //        case ASSET_TYPE.STRINGTABLE:
-        //            asset = addStringTable(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.SOUND:
-        //            asset = addSoundAlias(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.SNDCURVE:
-        //            asset = addSndCurve(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.LOADED_SOUND:
-        //            asset = addLoadedSound(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.LIGHTDEF:
-        //            asset = addGfxLightDef(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.FONT:
-        //            asset = addFont(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.FX:
-        //            asset = addFxEffectDef(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.IMPACTFX:
-        //            asset = addFxImpactTable(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.LOCALIZE:
-        //            addLocalize(info, name, data, size); // this one is weird b/c there's more than 1 asset in each file
-        //            break;
-        //        case ASSET_TYPE.WEAPON:
-        //            {
-        //                // its either already loaded or we need to load it here
-        //                if (size > 0)
-        //                    asset = addWeaponVariantDef(info, name, (char*)filename, strlen(filename));
-        //                else
-        //                    asset = addWeaponVariantDef(info, name, data, -1);
-        //                break;
-        //            }
-        //        case ASSET_TYPE.LEADERBOARDDEF:
-        //            asset = addLeaderboardDef(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.STRUCTUREDDATADEF:
-        //            asset = addStructuredDataDefSet(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.TRACER:
-        //            asset = addTracer(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.VEHICLE:
-        //            asset = addVehicleDef(info, name, data, size);
-        //            break;
-        //        case ASSET_TYPE.MPTYPE:
-        //        case ASSET_TYPE.AITYPE:
-        //        case ASSET_TYPE.CHARACTER:
-        //        case ASSET_TYPE.XMODELALIAS:
-        //        case ASSET_TYPE.SNDDRIVERGLOBALS:
-        //        case ASSET_TYPE.ADDON_MAP_ENTS:
-        //            throw new Exception($"Cannot define a new asset of type {getAssetStringForType(type)}! Ignoring asset and continuing...");
-        //    }
+            Console.Write($"Loading Asset {name} of type {getAssetStringForType(type)}");
+            if (filename != null) Console.Write($" ({filename})");
+            Console.WriteLine();
 
-        //    if (type != ASSET_TYPE.LOCALIZE)
-        //    {
-        //        if (asset == null) throw new Exception($"Failed to add asset {name}!");
-        //        else addAsset(type, name, asset);
-        //    }
+            char* data = null;
+            int size = -1;
+            //if (filename == null) // stock asset
+            //{
+            //    data = (char*)DB_FindXAssetHeader(type, name);
+            //    if (DB_IsAssetDefault(type, name))
+            //        Console.WriteLine("Got Default asset! Make sure this is correct\n");
+            //    size = -1;
+            //}
+            //else
+            //{
+            //    size = FS_ReadFile(filename, (void**)&data);
+            //    if (size < 0) // renamed stock asset
+            //    {
+            //        data = (char*)DB_FindXAssetHeader(type, filename);
+            //        if (DB_IsAssetDefault(type, filename))
+            //            Console.WriteLine("Got Default asset! Make sure this is correct\n");
+            //        size = -1;
+            //    }
+            //}
 
-        //    if (size > 0 && type != ASSET_TYPE.WEAPON) // weapon loading destroys data for some reason
-        //        FS_FreeFile(data);
-        //}
+            object asset = null;
+            switch (type)
+            {
+                case ASSET_TYPE.PHYSPRESET: asset = PhysPreset.addPhysPreset(this, name, data, size); break;
+                case ASSET_TYPE.PHYS_COLLMAP: asset = PhysGeomList.addPhysCollmap(this, name, data, size); break;
+                case ASSET_TYPE.XANIM: asset = XAnim.addXAnim(this, name, data, size); break;
+                    //case ASSET_TYPE.RAWFILE: asset = Rawfile.addRawfile(this, name, data, size); break;
+                    //case ASSET_TYPE.MATERIAL: asset = addMaterial(this, name, data, size); break;
+                    //case ASSET_TYPE.PIXELSHADER: asset = addPixelShader(this, name, data, size); break;
+                    //case ASSET_TYPE.VERTEXSHADER: asset = addVertexShader(this, name, data, size); break;
+                    //case ASSET_TYPE.VERTEXDECL: asset = addVertexDecl(this, name, data, size); break;
+                    //case ASSET_TYPE.IMAGE: asset = addGfxImage(this, name, data, size); break;
+                    //case ASSET_TYPE.TECHSET: asset = addTechset(this, name, data, size); break;
+                    //case ASSET_TYPE.XMODEL: asset = addXModel(this, name, data, size); break;
+                    //case ASSET_TYPE.XMODELSURFS: throw new Exception("Can't create XModelSurfs directly. Use XModel.");
+                    //case ASSET_TYPE.COL_MAP_MP: asset = addColMap(this, name, data, size); break;
+                    //case ASSET_TYPE.MAP_ENTS: asset = addMapEnts(this, name, data, size); break;
+                    //case ASSET_TYPE.COM_MAP: asset = addComWorld(this, name, data, size); break;
+                    //case ASSET_TYPE.GAME_MAP_MP: asset = addGameMap_MP(this, name, data, size); break;
+                    //case ASSET_TYPE.GAME_MAP_SP: asset = addGameMap_SP(this, name, data, size); type = ASSET_TYPE.GAME_MAP_MP; break;
+                    //case ASSET_TYPE.STRINGTABLE: asset = addStringTable(this, name, data, size); break;
+                    //case ASSET_TYPE.SOUND: asset = addSoundAlias(this, name, data, size); break;
+                    //case ASSET_TYPE.SNDCURVE: asset = addSndCurve(this, name, data, size); break;
+                    //case ASSET_TYPE.LOADED_SOUND: asset = addLoadedSound(this, name, data, size); break;
+                    //case ASSET_TYPE.LIGHTDEF: asset = addGfxLightDef(this, name, data, size); break;
+                    //case ASSET_TYPE.FONT: asset = addFont(this, name, data, size); break;
+                    //case ASSET_TYPE.FX: asset = addFxEffectDef(this, name, data, size); break;
+                    //case ASSET_TYPE.IMPACTFX: asset = addFxImpactTable(this, name, data, size); break;
+                    //// this one is weird b/c there's more than 1 asset in each file
+                    //case ASSET_TYPE.LOCALIZE: addLocalize(this, name, data, size); break;
+                    //// its either already loaded or we need to load it here
+                    //case ASSET_TYPE.WEAPON: asset = size > 0 ? addWeaponVariantDef(this, name, (char*)filename, strlen(filename)) : addWeaponVariantDef(this, name, data, -1);
+                    //case ASSET_TYPE.LEADERBOARDDEF: asset = addLeaderboardDef(this, name, data, size); break;
+                    //case ASSET_TYPE.STRUCTUREDDATADEF: asset = addStructuredDataDefSet(this, name, data, size); break;
+                    //case ASSET_TYPE.TRACER: asset = addTracer(this, name, data, size); break;
+                    //case ASSET_TYPE.VEHICLE: asset = addVehicleDef(this, name, data, size); break;
+                    //case ASSET_TYPE.MPTYPE:
+                    //case ASSET_TYPE.AITYPE:
+                    //case ASSET_TYPE.CHARACTER:
+                    //case ASSET_TYPE.XMODELALIAS:
+                    //case ASSET_TYPE.SNDDRIVERGLOBALS:
+                    //case ASSET_TYPE.ADDON_MAP_ENTS:
+                    //    throw new Exception($"Cannot define a new asset of type {getAssetStringForType(type)}! Ignoring asset and continuing...");
+            }
 
-        //void loadAssetsFromFile(string file)
-        //{
-        //    if (GetFileAttributesA(file) == INVALID_FILE_ATTRIBUTES) { throw new Exception($"Input file {file} does not exist!"); return; }
+            if (type != ASSET_TYPE.LOCALIZE)
+            {
+                if (asset == null) throw new Exception($"Failed to add asset {name}!");
+                else addAsset(type, name, asset);
+            }
 
-        //    FILE* fp = fopen(file, "rb");
-        //    int csvLength = flength(fp);
-        //    char* buf = new char[csvLength];
-        //    fread(buf, 1, csvLength, fp);
+            //if (size > 0 && type != ASSET_TYPE.WEAPON) // weapon loading destroys data for some reason
+            //    FS_FreeFile(data);
+        }
 
-        //    CSVFile csv(buf, csvLength);
-        //    int row = 0;
+        void loadAssetsFromFile(string file)
+        {
+            if (!File.Exists(file)) throw new Exception($"Input file {file} does not exist!");
 
-        //    char* typeStr = csv.getData(row, 0);
+            using (var fp = File.OpenRead(file))
+            {
+                var csv = new CsvFile(fp.ReadAllBytes());
+                var row = 0;
+                var typeStr = csv.GetData(row, 0);
+                while (typeStr != null)
+                {
+                    var type = getAssetTypeForString(typeStr);
+                    var realname = csv.GetData(row, 1);
+                    var filename = csv.GetData(row, 2);
+                    loadAsset(type, filename, realname);
+                    row++;
+                    typeStr = csv.GetData(row, 0);
+                }
+            }
+        }
 
-        //    while (typeStr != NULL)
-        //    {
-        //        int type = getAssetTypeForString(typeStr);
-        //        char* realname = csv.getData(row, 1);
-        //        char* filename = csv.getData(row, 2);
-        //        loadAsset(info, type, filename, realname);
+        static void debugChecks()
+        {
+            Debug.Assert(sizeof(PhysGeomList) == 0x48);
+            Debug.Assert(sizeof(PhysGeomInfo) == 0x44);
+            Debug.Assert(sizeof(BrushWrapper) == 0x44);
+            Debug.Assert(sizeof(cPlane) == 0x14);
+            Debug.Assert(sizeof(cBrushSide) == 8);
+            //Debug.Assert(sizeof(XAnim) == DB_GetXAssetTypeSize(ASSET_TYPE.XANIM));
+            //Debug.Assert(sizeof(XModelSurfaces) == DB_GetXAssetTypeSize(ASSET_TYPE.XMODELSURFS));
+            //Debug.Assert(sizeof(XModel) == DB_GetXAssetTypeSize(ASSET_TYPE.XMODEL));
+            Debug.Assert(sizeof(Material) == 0x60);
+            Debug.Assert(sizeof(GfxImage) == 0x20);
+            //Debug.Assert(sizeof(SoundAliasList) == DB_GetXAssetTypeSize(ASSET_TYPE.SOUND));
+            Debug.Assert(sizeof(SoundAlias) == 100);
+            Debug.Assert(sizeof(SpeakerMap) == 408);
+            Debug.Assert(sizeof(SoundFile) == 12);
+            Debug.Assert(sizeof(WeaponVariantDef) == 0x74);
+            Debug.Assert(sizeof(WeaponDef) == 0x684);
+            Debug.Assert(Marshal.SizeOf<ClipMap>() == 256);
+        }
 
-        //        row++;
-        //        typeStr = csv.getData(row, 0);
-        //    }
+        static ZoneInfo currentInfo;
+        public static void ZoneBuild(string building)
+        {
+            debugChecks();
+            var toBuild = building;
+#if DEBUG
+            Console.WriteLine("----ZoneBuilder Startup----");
+#endif
+            var info = currentInfo = getZoneInfo(toBuild);
+            Console.WriteLine($"Building Zone : {toBuild}");
+            Console.WriteLine("Loading Assets...");
+            var sourceFile = $"zone_source/{toBuild}.csv";
+            info.loadAssetsFromFile(sourceFile);
+            info.doLastAsset(toBuild);
+            Console.WriteLine("Writing Zone...");
+            byte[] compressed;
+            using (var buf = ZoneWriter.writeZone(info))
+            {
+#if DEBUG
+                using (var fp = File.OpenWrite("uncompressed_zone"))
+                    buf.writetofile(fp);
+#endif
+                Console.WriteLine("Compressing Zone...");
+                compressed = buf.compressZlib();
+            }
 
-        //    delete[] buf;
+            Console.WriteLine("Writing to Disk...");
+            Directory.CreateDirectory("zone");
+            //var outputdir = ((char*(*)())0x45CBA0)();
+            var outputdir = "alter";
+            using (var o = File.OpenWrite($"zone\\{outputdir}\\{toBuild}.ff"))
+            {
+                var time = new FILETIME();
+                GetSystemTimeAsFileTime(ref time);
+                var header = (byte[])Header.Clone();
+                fixed (byte* _ = header)
+                {
+                    *(uint*)&_[13] = time.dwHighDateTime;
+                    *(uint*)&_[17] = time.dwLowDateTime;
+                }
+                o.Write(header, 0, 21);
+                o.Write(compressed, 0, compressed.Length);
+            }
+            Console.WriteLine("Done!\n");
+        }
 
-        //    fclose(fp);
-        //}
+#if __DEBUG
+        static void buildVerify(ASSET_TYPE type, string name, void* asset)
+        {
+            // images & surfs dont get added
+            if (type == ASSET_TYPE.IMAGE || type == ASSET_TYPE.XMODELSURFS) return;
+
+            if (containsAsset(currentInfo, type, name) < 0)
+                throw new Exception($"Invalid zone created!\nSee asset {name} of type 0x{type:x}");
+            verifyAsset(currentInfo, type, name);
+        }
+
+        static void checkVerified()
+        {
+            asset_t* a = nextUnverifiedAsset(currentInfo);
+            while (a != NULL)
+            {
+                Com_Printf("Asset '%s' unverified\n", a->debugName.c_str());
+                a = nextUnverifiedAsset(currentInfo);
+            }
+        }
+#endif
     }
 }

@@ -89,6 +89,16 @@ namespace GameSpec.Formats
             while ((count = inflater.Inflate(buffer)) > 0) s.Write(buffer, 0, count);
             return s.ToArray();
         }
+        public static byte[] CompressZlib(byte[] source, int length)
+        {
+            var deflater = new Deflater(Deflater.BEST_COMPRESSION);
+            deflater.SetInput(source, 0, length);
+            int count;
+            var buffer = new byte[BufferSize];
+            using var s = new MemoryStream();
+            while ((count = deflater.Deflate(buffer)) > 0) s.Write(buffer, 0, count);
+            return s.ToArray();
+        }
         public static byte[] DecompressZlib_2(this BinaryReader r, int length, int newLength)
         {
             var fileData = r.ReadBytes(length);

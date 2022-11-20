@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace GameSpec.IW.Zone
 {
@@ -127,7 +128,7 @@ namespace GameSpec.IW.Zone
     } // +44
 
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct XModel
+    public unsafe partial struct XModel
     {
         public char* name; // +0
         public char numBones; // +4
@@ -142,6 +143,7 @@ namespace GameSpec.IW.Zone
         public char* partClassification; // +52
         public DObjAnimMat* animMatrix; // +56, element size 32
         public Material** materials; // +60
+        public XSurfaceLod* lods(int idx) => throw new NotImplementedException(); // +64
         public XSurfaceLod lods0; public XSurfaceLod lods1; public XSurfaceLod lods2; public XSurfaceLod lods3; // +64
         public int pad4; // +240
         public XColSurf* colSurf; // +244

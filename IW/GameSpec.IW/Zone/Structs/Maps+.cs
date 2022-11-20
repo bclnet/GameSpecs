@@ -1,4 +1,5 @@
-﻿using static GameSpec.IW.Zone.Asset;
+﻿using System;
+using static GameSpec.IW.Zone.Asset;
 
 namespace GameSpec.IW.Zone
 {
@@ -9,7 +10,7 @@ namespace GameSpec.IW.Zone
             fixed (byte* _ = buf.at)
             {
                 //: WRITE_ASSET_NUM(data, cBrushSide, num);
-                cBrushSide* dest = (cBrushSide*)_;
+                var dest = (cBrushSide*)_;
                 buf.write((byte*)data, sizeof(cBrushSide), num);
 
                 for (var i = 0; i < num; i++)
@@ -47,7 +48,7 @@ namespace GameSpec.IW.Zone
             fixed (byte* _ = buf.at)
             {
                 //: WRITE_ASSET(data, BrushWrapper);
-                BrushWrapper* dest = (BrushWrapper*)_;
+                var dest = (BrushWrapper*)_;
                 buf.write((byte*)data, sizeof(BrushWrapper), 1);
 
                 writeBrush(buf, data, dest);
@@ -70,7 +71,7 @@ namespace GameSpec.IW.Zone
             fixed (byte* _ = buf.at)
             {
                 //: WRITE_ASSET_NUM(data, PhysGeomInfo, num);
-                PhysGeomInfo* dest = (PhysGeomInfo*)_;
+                var dest = (PhysGeomInfo*)_;
                 buf.write((byte*)data, sizeof(PhysGeomInfo), num);
 
                 for (var i = 0; i < num; i++)
@@ -90,7 +91,7 @@ namespace GameSpec.IW.Zone
             fixed (byte* _ = buf.at)
             {
                 //: WRITE_ASSET(data, PhysGeomList);
-                PhysGeomList* dest = (PhysGeomList*)_;
+                var dest = (PhysGeomList*)_;
                 buf.write((byte*)data, sizeof(PhysGeomList), 1);
                 buf.pushStream(ZSTREAM.VIRTUAL);
 
@@ -108,11 +109,11 @@ namespace GameSpec.IW.Zone
             }
         }
 
-        //void* addPhysCollmap(ZoneInfo info, string name, char* data, int dataLen)
-        //{
-        //    if (dataLen < 0) return data;
-        //    throw new Exception("Can't add new PhysCollmap assets!");
-        //    //return null;
-        //}
+        public static object addPhysCollmap(ZoneInfo info, string name, char* data, int dataLen)
+        {
+            if (dataLen < 0) return null;
+            Console.Write("Can't add new PhysCollmap assets!");
+            return null;
+        }
     }
 }

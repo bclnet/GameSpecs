@@ -1,6 +1,5 @@
 ﻿using GameSpec.Algorithms;
 using GameSpec.Formats;
-using GameSpec.Valve.Formats.Blocks;
 using System;
 using System.Collections.Generic;
 using System.IO;

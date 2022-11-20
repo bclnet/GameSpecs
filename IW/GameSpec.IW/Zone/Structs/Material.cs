@@ -196,7 +196,7 @@ namespace GameSpec.IW.Zone
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct Material
+    public unsafe partial struct Material
     {
         public char* name;
         public char gameFlags;
