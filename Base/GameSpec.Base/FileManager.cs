@@ -214,6 +214,7 @@ namespace GameSpec
                 JsonValueKind.Array => z.EnumerateArray().Select(y => Path.Combine(path, y.GetString())),
                 _ => throw new ArgumentOutOfRangeException(),
             } : new[] { path };
+            
             foreach (var path2 in paths)
             {
                 if (!Directory.Exists(path2)) continue;
@@ -241,6 +242,7 @@ namespace GameSpec
 
         protected static string PathWithSpecialFolders(string path, string rootPath = null) =>
             path.StartsWith("%Path%", StringComparison.OrdinalIgnoreCase) ? $"{rootPath}{path[6..]}"
+            : path.StartsWith("%AppPath%", StringComparison.OrdinalIgnoreCase) ? $"{FamilyManager.ApplicationPath}{path[9..]}"
             : path.StartsWith("%AppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}{path[9..]}"
             : path.StartsWith("%LocalAppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{path[14..]}"
             : path;

@@ -1,0 +1,68 @@
+﻿{
+  "id": "HPL",
+  "name": "HPL Engine",
+  "studio": "Frictional Games",
+  "description": "Frictional Games file formats",
+  "familyType": "GameSpec.Hpl.HplFamily, GameSpec.Hpl",
+  "pakFileType": "GameSpec.FG.HplPakFile, GameSpec.Hpl",
+  "games": {
+    "P:O": {
+      "name": "Penumbra: Overture",
+      "date": "2003-10-29",
+      "tags": "Penumbra",
+      "pak": "game:/*.iwd#P:O"
+    },
+    "P:BP": {
+      "name": "Penumbra: Black Plague",
+      "date": "2005-10-25",
+      "tags": "Penumbra",
+      "pak": "game:/*.iwd#P:BP"
+    },
+    "P:R": {
+      "name": "Penumbra: Requiem",
+      "date": "2006-11-07",
+      "tags": "Penumbra",
+      "pak": "game:/*.iwd#P:R"
+    },
+    "A:TDD": {
+      "name": "Amnesia: The Dark Descent",
+      "date": "2007-11-07",
+      "tags": "Amnesia",
+      "pak": "game:/*.iwd#A:TDD"
+    },
+    "A:J": {
+      "name": "Amnesia: Justine",
+      "date": "2008-11-11",
+      "tags": "Amnesia",
+      "pak": "game:/*.iwd#A:J"
+    },
+    "A:AMFP": {
+      "name": "Amnesia: A Machine for Pigs",
+      "date": "2009-11-11",
+      "tags": "Amnesia",
+      "pak": "game:/*.iwd#A:AMFP"
+    },
+    "SOMA": {
+      "name": "SOMA",
+      "date": "2010-11-09",
+      "tags": "SOMA",
+      "pak": "game:/*.iwd#SOMA"
+    },
+    "A:R": {
+      "name": "Amnesia: Rebirth",
+      "date": "2011-11-08",
+      "tags": "Amnesia",
+      "pak": "game:/*.iwd#A:R"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "P:O": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+          "path": "main"
+        }
+      }
+    }
+  }
+}

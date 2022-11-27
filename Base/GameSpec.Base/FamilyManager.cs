@@ -12,10 +12,11 @@ namespace GameSpec
 {
     public class FamilyManager
     {
+        public static readonly string ApplicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        //static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        //static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
         static string[] FamilyKeys = new[] { "IW", "Unknown" };
 
         public class DefaultOptions
@@ -44,41 +45,43 @@ namespace GameSpec
         {
             Family = "IW",
 
-            // Call of Duty 2
-            //GameId = "COD2",
-            //ForceOpen = true,
+            // Call of Duty 2 - IWD
+            //GameId = "COD2", ForceOpen = true,
             //ForcePath = "iw_08.iwd/images/155_cannon.iwi",
 
-            // Call of Duty 4: Modern Warfare
-            GameId = "COD4",
-            ForceOpen = true,
-            //ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
+            // Call of Duty 3 - XBOX only
+            //GameId = "COD3", ForceOpen = true,
+
+            // Call of Duty 4: Modern Warfare - IWD, FF
+            GameId = "COD4", ForceOpen = true,
+            //ForcePath = "mp_farm.ff/images/155_cannon.iwi",
 
             // Call of Duty: World at War
-            //GameId = "COD:WaW",
-            //ForceOpen = true,
-            ////ForcePath = "iw_00.iwd/images/3_cursor3.iwi",
-            //ForcePath = "default.ff",
+            //GameId = "COD:WaW", ForceOpen = true,
 
             // Call of Duty: Modern Warfare 2
-            //GameId = "MW2",
-            //ForceOpen = true,
-            //ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
+            //GameId = "MW2", ForceOpen = true,
+
+            // Call of Duty: Black Ops - IWD, FF
+            //GameId = "COD:BO", ForceOpen = true,
+
+            // Call of Duty: Call of Duty: Modern Warfare 3
+            //GameId = "MW3", ForceOpen = true,
+
+            // Call of Duty: Black Ops 2 - FF
+            //GameId = "COD:BO2", ForceOpen = true,
+
+            // Call of Duty: Advanced Warfare
+            //GameId = "COD:AW", ForceOpen = true,
+
+            // Call of Duty: Black Ops III - XPAC,FF
+            //GameId = "COD:BO3", ForceOpen = true,
 
             // Call of Duty: Modern Warfare 3
-            //GameId = "MW3",
-            //ForceOpen = true,
-            //ForcePath = "iw_00.iwd/images/1story_house_01.iwi",
-
-            // Call of Duty: Modern Warfare II
-            //GameId = "COD:MW2",
-            //ForceOpen = true,
-            //ForcePath = "iw_00./images/1story_house_01.iwi",
+            //GameId = "MW3", ForceOpen = true,
 
             // Call of Duty: WWII
-            //GameId = "COD:MW2",
-            //ForceOpen = true,
-            //ForcePath = "iw_00./images/1story_house_01.iwi",
+            //GameId = "WWII", ForceOpen = true,
         };
 
         static FamilyManager()

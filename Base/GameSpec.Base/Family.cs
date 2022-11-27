@@ -190,6 +190,7 @@ namespace GameSpec
                 string[] paths when (options & PakOption.Paths) != 0 && index == 1 && Pak2FileType != null => (PakFile)Activator.CreateInstance(Pak2FileType, this, game, paths),
                 string[] paths when paths.Length == 1 => CreatePakFile(options, paths[0], index, game, host, throwOnError),
                 string[] paths when paths.Length > 1 => new MultiPakFile(this, game, "Many", paths.Select(path => CreatePakFile(options, path, index, game, host, throwOnError)).ToArray()),
+                string[] paths when paths.Length == 0 => null,
                 null => null,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
             });

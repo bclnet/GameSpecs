@@ -6,6 +6,12 @@
   "familyType": "GameSpec.Aurora.AuroraFamily, GameSpec.Aurora",
   "pakFileType": "GameSpec.Aurora.AuroraPakFile, GameSpec.Aurora",
   "games": {
+    "TOR": {
+      "name": "Star Wars: The Old Republic",
+      "date": "2011-12-20",
+      "tags": "StarWars",
+      "pak": "game:/*.key#TOR"
+    },
     "NWN": {
       "name": "Neverwinter Nights",
       "pak": "game:/*.key#NWN"

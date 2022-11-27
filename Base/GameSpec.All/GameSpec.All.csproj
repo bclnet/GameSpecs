@@ -16,6 +16,8 @@
     <ProjectReference Include="..\..\Cry\GameSpec.Cry\GameSpec.Cry.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide\GameSpec.Cyanide.csproj" />
+    <ProjectReference Include="..\..\Hpl\GameSpec.Hpl.Platform\GameSpec.Hpl.Platform.csproj" />
+    <ProjectReference Include="..\..\Hpl\GameSpec.Hpl\GameSpec.Hpl.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW.Platform\GameSpec.IW.Platform.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW\GameSpec.IW.csproj" />
     <ProjectReference Include="..\..\Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj" />
@@ -32,6 +34,16 @@
     <ProjectReference Include="..\..\Unreal\GameSpec.Unreal\GameSpec.Unreal.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve.Platform\GameSpec.Valve.Platform.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve\GameSpec.Valve.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="catalogs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Unknown\catalogs\main.yaml" Link="catalogs\main.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

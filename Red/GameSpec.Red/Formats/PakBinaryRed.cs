@@ -509,17 +509,17 @@ namespace GameSpec.Red.Formats
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
                         multiSource.Files = files = new FileMetadata[header.NumFiles];
-                        var decryptKey = source.DecryptKey as ulong?;
+                        var cryptKey = source.CryptKey as ulong?;
                         r.Position((long)header.FilesPosition);
                         var hash = 0x00000000FFFFFFFFUL;
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             string path;
-                            if (decryptKey == null) path = r.ReadL16String(true);
+                            if (cryptKey == null) path = r.ReadL16String(true);
                             else
                             {
                                 var pathBytes = r.ReadBytes(r.ReadUInt16());
-                                for (var j = 0; j < pathBytes.Length; j++) { pathBytes[j] ^= (byte)(decryptKey >> j % 8); decryptKey *= 0x00000100000001B3UL; }
+                                for (var j = 0; j < pathBytes.Length; j++) { pathBytes[j] ^= (byte)(cryptKey >> j % 8); cryptKey *= 0x00000100000001B3UL; }
                                 var nameBytesLength = pathBytes.Length - 1;
                                 path = Encoding.ASCII.GetString(pathBytes, 0, pathBytes[nameBytesLength] == 0 ? nameBytesLength : pathBytes.Length);
                             }

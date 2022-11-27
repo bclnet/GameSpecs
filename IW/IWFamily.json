@@ -7,81 +7,137 @@
   "familyType": "GameSpec.IW.IWFamily, GameSpec.IW",
   "pakFileType": "GameSpec.IW.IWPakFile, GameSpec.IW",
   "games": {
+    "COD": {
+      "name": "Call of Duty",
+      "date": "2003-10-29",
+      "tags": "WorldWarII",
+      "pak": "game:/*.iwd#COD"
+    },
     "COD2": {
       "name": "Call of Duty 2",
+      "date": "2005-10-25",
+      "tags": "WorldWarII",
       "pak": "game:/*.iwd#COD2"
+    },
+    "COD3": {
+      "name": "Call of Duty 3",
+      "date": "2006-11-07",
+      "tags": "WorldWarII",
+      "pak": "game:/*.iwd#COD3"
     },
     "COD4": {
       "name": "Call of Duty 4: Modern Warfare",
+      "date": "2007-11-07",
+      "tags": "ModernWarfare",
       "pak": "game:/*.(iwd:ff)#COD4"
     },
     "COD:WaW": {
       "name": "Call of Duty: World at War",
-      "pak": "game:/*.(iwd:ff)#COD:WaW"
-    },
-    "007:QoS": {
-      "name": "007: Quantum of Solace",
-      "pak": "game:/*.iwd#007:QoS"
+      "date": "2008-11-11",
+      "tags": "BlackOps",
+      "pak": "game:/ber3.ff#COD:WaW",
+      "pak_": "game:/*.ff#COD:WaW",
+      "pakx": "game:/*.(iwd:ff)#COD:WaW"
     },
     "MW2": {
       "name": "Call of Duty: Modern Warfare 2",
+      "date": "2009-11-11",
+      "tags": "ModernWarfare",
       "pak": "game:/*.(iwd:ff)#MW2"
     },
     "COD:BO": {
       "name": "Call of Duty: Black Ops",
-      "pak": "game:/*.iwd#COD:BO"
+      "date": "2010-11-09",
+      "tags": "BlackOps",
+      "pak": "game:/*.(iwd:ff)#COD:BO",
+      "key": "aes:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d"
     },
     "MW3": {
       "name": "Call of Duty: Modern Warfare 3",
+      "date": "2011-11-08",
+      "tags": "ModernWarfare",
       "pak": "game:/*.(iwd:ff)#MW3"
     },
     "COD:BO2": {
       "name": "Call of Duty: Black Ops II",
-      "pak": "game:/*.iwd#COD:BO2"
+      "date": "2012-05-01",
+      "tags": "BlackOps",
+      "pak": "game:/*.ff#COD:BO2",
+      "pakx": "game:/karma_gump_checkin.ff#COD:BO2",
+      "key": "aes:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE"
     },
     "Ghosts": {
       "name": "Call of Duty: Ghosts",
+      "date": "2013-11-05",
+      "tags": "Standalone",
       "pak": "game:/*.iwd#Ghosts"
+    },
+    "COD:AW": {
+      "name": "Call of Duty: Advanced Warfare",
+      "date": "2014-11-04",
+      "tags": "Standalone",
+      "pak": "game:/*.(iwd:ff)#COD:AW"
     },
     "COD:BO3": {
       "name": "Call of Duty: Black Ops III",
-      "pak": "game:/*.iwd#COD:BO3"
+      "date": "2015-11-06",
+      "tags": "BlackOps",
+      "pak_": "game:/*.(xpak,ff)#COD:BO3",
+      "pak": "game:/*.xpak#COD:BO3"
     },
     "COD:IW": {
       "name": "Call of Duty: Infinite Warfare",
+      "date": "2016-11-04",
+      "tags": "Standalone",
       "pak": "game:/*.iwd#COD:IW"
+    },
+    "WWII": {
+      "name": "Call of Duty: WWII",
+      "date": "2017-11-03",
+      "tags": "WorldWarII",
+      "pak": "game:/ui.ff#WWII",
+      "pakx": "game:/xpakfile1.pak#WWII",
+      "pak_": "game:/*.(pak:ff)#WWII"
     },
     "COD:BO4": {
       "name": "Call of Duty: Black Ops 4",
+      "date": "2018-10-12",
+      "tags": "BlackOps",
       "pak": "game:/*.iwd#COD:BO4"
     },
     "MW": {
       "name": "Call of Duty: Modern Warfare",
+      "date": "2019-10-25",
+      "tags": "ModernWarfare",
       "pak": "game:/*.iwd#MW"
     },
     "COD:BOCW": {
       "name": "Call of Duty: Black Ops Cold War",
+      "date": "2020-11-13",
+      "tags": "BlackOps",
       "pak": "game:/*.iwd#COD:BOCW"
     },
     "Vanguard": {
       "name": "Call of Duty: Vanguard",
+      "date": "2021-11-05",
+      "tags": "WorldWarII",
       "pak": "game:/*.iwd#Vanguard"
     },
     "COD:MW2": {
       "name": "Call of Duty: Modern Warfare II",
-      "pak": "game:/*.xpak#COD:MW2",
+      "date": "2022-10-28",
+      "tags": "ModernWarfare",
+      "pak": "game:/*.ff#COD:MW2",
       "pak_": [
         "game:/*.xpak#COD:MW2",
         "game:/*.ff#COD:MW2"
       ]
     },
-    "WWII": {
-      "name": "Call of Duty: WWII",
-      "pak": "game:/*.pak#WWII",
-      "pak_": [
-        "game:/*.pak#WWII",
-        "game:/*.(ff:fd)#WWII"
-      ]
+    "007:QoS": {
+      "name": "007: Quantum of Solace",
+      "date": "2008-10-31",
+      "tags": "Other",
+      "pak": "game:/*.iwd#007:QoS"
     }
   },
   "fileManager": {
@@ -112,6 +168,18 @@
         },
         "WWII": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600"
+        },
+        "COD:BO": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
+          "path": [ "main", "zone/Common", "zone/English" ]
+        },
+        "COD:BO2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 202970",
+          "path": [ "sound", "zone/all", "zone/english" ]
+        },
+        "COD:BO3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 311210",
+          "path": [ "zone" ]
         }
       }
     }

@@ -233,6 +233,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.IW.Platform", "IW\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.IWTests", "IW\GameSpec.IWTests\GameSpec.IWTests.csproj", "{D83EFE77-E721-41E6-9BC4-C86C8CA5D9B9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalogs", "catalogs", "{60770ABF-0554-4393-8722-B3C138127B87}"
+	ProjectSection(SolutionItems) = preProject
+		Unknown\catalogs\main.yaml = Unknown\catalogs\main.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hpl", "Hpl", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
+	ProjectSection(SolutionItems) = preProject
+		Hpl\HplFamily.json = Hpl\HplFamily.json
+		Hpl\Readme.md = Hpl\Readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Hpl.Platform", "Hpl\GameSpec.Hpl.Platform\GameSpec.Hpl.Platform.csproj", "{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.HplTests", "Hpl\GameSpec.HplTests\GameSpec.HplTests.csproj", "{33EDA96D-B689-4195-880C-25EF90C8AF83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Hpl", "Hpl\GameSpec.Hpl\GameSpec.Hpl.csproj", "{986869A8-BA1E-4301-94AE-DDFD614E2547}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -493,6 +510,18 @@ Global
 		{D83EFE77-E721-41E6-9BC4-C86C8CA5D9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D83EFE77-E721-41E6-9BC4-C86C8CA5D9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D83EFE77-E721-41E6-9BC4-C86C8CA5D9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33EDA96D-B689-4195-880C-25EF90C8AF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33EDA96D-B689-4195-880C-25EF90C8AF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33EDA96D-B689-4195-880C-25EF90C8AF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33EDA96D-B689-4195-880C-25EF90C8AF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{986869A8-BA1E-4301-94AE-DDFD614E2547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{986869A8-BA1E-4301-94AE-DDFD614E2547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{986869A8-BA1E-4301-94AE-DDFD614E2547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{986869A8-BA1E-4301-94AE-DDFD614E2547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -565,6 +594,10 @@ Global
 		{7A786B50-3EF2-4F4E-B694-8F5123B4E807} = {557FA17D-0D46-42AE-95E1-8B486EA8822A}
 		{6C0D26C6-15BB-4B6D-A562-C74266108ACF} = {557FA17D-0D46-42AE-95E1-8B486EA8822A}
 		{D83EFE77-E721-41E6-9BC4-C86C8CA5D9B9} = {557FA17D-0D46-42AE-95E1-8B486EA8822A}
+		{60770ABF-0554-4393-8722-B3C138127B87} = {991C1B68-70C3-4A86-8906-98914C9CE114}
+		{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F} = {18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}
+		{33EDA96D-B689-4195-880C-25EF90C8AF83} = {18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}
+		{986869A8-BA1E-4301-94AE-DDFD614E2547} = {18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

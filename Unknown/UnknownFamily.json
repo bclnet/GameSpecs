@@ -13,9 +13,18 @@
     "ACO": {
       "name": "Assassin's Creed Origins",
       "pak": "game:/*#ACO"
+    },
+    "CAT": {
+      "name": "Catalog",
+      "pak": "game:/main.yaml#CAT"
     }
   },
   "fileManager": {
+    "direct": {
+      "CAT": {
+        "path": "%AppPath%/catalogs"
+      }
+    },
     "windows": {
       "registry": {
         "TheCouncil": {

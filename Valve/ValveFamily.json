@@ -6,34 +6,174 @@
   "familyType": "GameSpec.Valve.ValveFamily, GameSpec.Valve",
   "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
   "games": {
-    "Dota2": {
-      "name": "Dota 2",
-      //"pak": "game:/(core:dota)/*_dir.vpk#Dota2",
-      //"pak": "game:/core/pak01_dir.vpk#Dota2",
-      "pak": "game:/dota/pak01_dir.vpk#Dota2",
-      "pak0": "game:/dota/shaders_pc_dir.vpk#Dota2"
+    "HL": {
+      "name": "Half-Life",
+      "date": "1998-11-08",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL"
     },
-    "Left4Dead2": {
+    "TF": {
+      "name": "Team Fortress Classic",
+      "date": "1999-04-01",
+      "tags": "TeamFortress",
+      "pak": "game:/*.vpk#TF"
+    },
+    "HL:OF": {
+      "name": "Half-Life: Opposing Force",
+      "date": "1999-11-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:OF"
+    },
+    "CS": {
+      "name": "Counter-Strike",
+      "date": "2000-11-01",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS"
+    },
+    "Ricochet": {
+      "name": "Ricochet",
+      "date": "2000-11-01",
+      "tags": "",
+      "pak": "game:/*.vpk#Ricochet"
+    },
+    "DM": {
+      "name": "Deathmatch Classic",
+      "date": "2001-06-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#DM"
+    },
+    "HL:BS": {
+      "name": "Half-Life: Blue Shift",
+      "date": "2001-06-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:BS"
+    },
+    "DOD": {
+      "name": "Day of Defeat",
+      "date": "2003-05-01",
+      "tags": "DayOfDefeat",
+      "pak": "game:/*.vpk#DOD"
+    },
+    "CS:CZ": {
+      "name": "Counter-Strike: Condition Zero",
+      "date": "2004-05-01",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS:CZ"
+    },
+    "HL:Src": {
+      "name": "Half-Life: Source",
+      "date": "2004-06-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:Src"
+    },
+    "CS:Src": {
+      "name": "Counter-Strike: Source",
+      "date": "2004-11-01",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS:Src"
+    },
+    "HL2": {
+      "name": "Half-Life 2",
+      "date": "2004-11-16",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2"
+    },
+    "HL2:DM": {
+      "name": "Half-Life 2: Deathmatch",
+      "date": "2004-11-01",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2:DM"
+    },
+    "HL:DM:Src": {
+      "name": "Half-Life Deathmatch: Source",
+      "date": "2006-05-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:DM:Src"
+    },
+    "HL2:E1": {
+      "name": "Half-Life 2: Episode One",
+      "date": "2006-06-01",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2:E1"
+    },
+    "Portal": {
+      "name": "Portal",
+      "date": "2007-10-10",
+      "tags": "Portal",
+      "pak": "game:/*.vpk#Portal"
+    },
+    "HL2:E2": {
+      "name": "Half-Life 2: Episode Two",
+      "date": "2007-10-10",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2:E2"
+    },
+    "TF2": {
+      "name": "Team Fortress 2",
+      "date": "2007-10-10",
+      "tags": "TeamFortress",
+      "pak": "game:/*.vpk#TF2"
+    },
+    "L4D": {
+      "name": "Left 4 Dead",
+      "date": "2008-11-17",
+      "tags": "Left4Dead",
+      "pak": "game:/*.vpk#L4D"
+    },
+    "L4D2": {
       "name": "Left 4 Dead 2",
-      "pak": "game:/*.vpk#Left4Dead2"
+      "date": "2009-11-16",
+      "tags": "Left4Dead",
+      "pak": "game:/*.vpk#L4D2"
     },
-    "HL2Alyx": {
-      "name": "Half-Life: Alyx",
-      "pak": "game:/*.vpk#HL2Alyx"
+    "DOD:Src": {
+      "name": "Day of Defeat: Source",
+      "date": "2010-07-12",
+      "tags": "DayOfDefeat",
+      "pak": "game:/*.vpk#DOD:Src"
     },
     "Portal2": {
       "name": "Portal 2",
+      "date": "2011-04-18",
+      "tags": "Portal",
       "pak": "game:/*.vpk#Portal2"
+    },
+    "CS:GO": {
+      "name": "Counter-Strike: Global Offensive",
+      "date": "2012-08-21",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS:GO"
+    },
+    "D2": {
+      "name": "Dota 2",
+      "date": "2013-07-09",
+      "tags": "Dota",
+      //"pak": "game:/(core:dota)/*_dir.vpk#D2",
+      //"pak": "game:/core/pak01_dir.vpk#D2",
+      "pak": "game:/dota/pak01_dir.vpk#D2",
+      "pak0": "game:/dota/shaders_pc_dir.vpk#D2"
+    },
+    "Lab": {
+      "name": "The Lab",
+      "date": "2016-05-05",
+      "tags": "VR",
+      "pak": "game:/*.vpk#Lab"
+    },
+    "HL:Alyx": {
+      "name": "Half-Life: Alyx",
+      "date": "2020-03-23",
+      "tags": "HalfLife VR",
+      "pak": "game:/*.vpk#HL:Alyx"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
-        "Dota2": {
+        "D2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 570",
           "path": "game"
         },
-        "Left4Dead2": {
+        "L4D2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550",
           "path": "left4dead2"
         },
@@ -41,7 +181,7 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 620",
           "path": "portal2"
         },
-        "HL2Alyx": {
+        "HL:Alyx": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 546560",
           "path": "game"
         }
