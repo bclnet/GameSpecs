@@ -21,12 +21,9 @@ namespace GameSpec.IW.Formats
 {
     // https://forum.xentax.com/viewtopic.php?t=12195 - COD:AW
     // https://github.com/Scobalula/Greyhound/tree/master/src/WraithXCOD/WraithXCOD - Hooking
-    // https://github.com/XLabsProject/img-format-helper - IWI
-    // https://github.com/DentonW/DevIL/blob/master/DevIL/src-IL/src/il_iwi.cpp - IWI
     // https://github.com/orgs/XLabsProject/repositories
     // http://tom-crowley.co.uk/downloads/
     // https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_Skinning
-    // https://github.com/XLabsProject/img-format-helper - IWI
     // https://github.com/RagdollPhysics/zonebuilder - Hooking
     // https://gist.github.com/Scobalula/a0fd08197497336f67b7ff551b2db404 - S1ff 0x42|0x72e 
     // https://github.com/SE2Dev/PyCoD - read binaries
@@ -50,10 +47,11 @@ namespace GameSpec.IW.Formats
         const uint FF_MAGIC_IW = 0x66665749; // IWff
         const uint FF_MAGIC_S1 = 0x66663153; // S1ff
         const uint FF_MAGIC_TA = 0x66664154; // TAff
-        //const uint FF_FORMAT_u100 = 0x30303175; // u100
-        //const uint FF_FORMAT_a100 = 0x30303161; // a100
-        //const uint FF_FORMAT_0100 = 0x30303130; // 0100
-        //const uint FF_FORMAT_0000 = 0x30303030; // 0000
+
+        const uint FF_FORMAT_u100 = 0x30303175; // u100
+        const uint FF_FORMAT_a100 = 0x30303161; // a100
+        const uint FF_FORMAT_0100 = 0x30303130; // 0100
+        const uint FF_FORMAT_0000 = 0x30303030; // 0000
 
         [StructLayout(LayoutKind.Explicit)]
         struct FF_Header
@@ -72,6 +70,7 @@ namespace GameSpec.IW.Formats
             [FieldOffset(13)] public byte BO3_FlagsZLIB;
             [FieldOffset(14)] public byte BO3_FlagsPC;
             [FieldOffset(15)] public byte BO3_FlagsEncrypted;
+            [FieldOffset(20)] public uint End;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -119,121 +118,56 @@ namespace GameSpec.IW.Formats
             [FieldOffset(0)] public int BO3_Args;
             [FieldOffset(32)] public int BO3_Assets;
 
-            public (Dictionary<string, long> args, ASSET_TYPE[] assets) GetArgsAndAssets(BinaryReader r, uint version)
-            {
-                var args = new Dictionary<string, long>();
-                ASSET_TYPE[] assets = null;
-                switch (version)
+            (int seek, int argCount, int assetCount, int endSkip) GetArgsAndAssetsOffsets(uint version)
+                => version switch
                 {
-                    // Call of Duty 4: Modern Warfare - 0x5
-                    case 0x5:
-                        {
-                            r.Seek(0x3C);
-                            var argCount = CO_Args;
-                            if (argCount > 0)
-                            {
-                                var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
-                                var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
-                                for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
-                            }
-                            //r.Align();
-                            r.Skip(2);
-                            var assetCount = CO_Assets;
-                            if (assetCount > 0)
-                            {
-                                var assetType = r.ReadTArray<long>(sizeof(long), assetCount);
-                                assets = assetType.Select(x => (ASSET_TYPE)(x >> 32)).ToArray();
-                            }
-                            return (args, assets);
-                        }
-                    // Black Ops Fast File - 0x1d9
-                    case 0x1d9:
-                        {
-                            r.Seek(0x34);
-                            var argCount = BO_Args;
-                            if (argCount > 0)
-                            {
-                                var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
-                                var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
-                                for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
-                            }
-                            //r.Align();
-                            r.Skip(2);
-                            var assetCount = BO_Assets;
-                            if (assetCount > 0)
-                            {
-                                var assetType = r.ReadTArray<long>(sizeof(long), assetCount);
-                                assets = assetType.Select(x => (ASSET_TYPE)(x >> 32)).ToArray();
-                            }
-                            return (args, assets);
-                        }
-                    // Black Ops II Fast File
-                    case 0x93:
-                        {
-                            r.Seek(0x40);
-                            var argCount = BO2_Args;
-                            if (argCount > 0)
-                            {
-                                var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
-                                var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
-                                for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
-                            }
-                            //r.Align();
-                            r.Skip(2);
-                            var assetCount = BO2_Assets;
-                            if (assetCount > 0)
-                            {
-                                var assetType = r.ReadTArray<long>(sizeof(long), assetCount);
-                                assets = assetType.Select(x => (ASSET_TYPE)(x >> 32)).ToArray();
-                            }
-                            return (args, assets);
-                        }
-                    // Call of Duty: Advanced Warfare - 0x183
-                    case 0x183:
-                        {
-                            r.Seek(0x34);
-                            var argCount = AW_Args;
-                            if (argCount > 0)
-                            {
-                                var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
-                                var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
-                                for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
-                            }
-                            //r.Align();
-                            //r.Skip(2);
-                            var assetCount = AW_Assets;
-                            if (assetCount > 0)
-                            {
-                                var assetType = r.ReadTArray<long>(sizeof(long), assetCount);
-                                assets = assetType.Select(x => (ASSET_TYPE)(x << 32)).ToArray();
-                            }
-                            r.Skip(-2);
-                            return (args, assets);
-                        }
-                    // Black Ops III Fast File
-                    case 0x251:
-                        {
-                            r.Seek(0x40);
-                            var argCount = BO3_Args;
-                            if (argCount > 0)
-                            {
-                                var argsValues = r.ReadTArray<long>(sizeof(long), argCount);
-                                var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
-                                for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
-                            }
-                            //r.Align();
-                            r.Skip(5);
-                            var assetCount = BO3_Assets;
-                            if (assetCount > 0)
-                            {
-                                var assetType = r.ReadTArray<long>(sizeof(long), assetCount * 2);
-                                //var newT = assetType.Select(x => (ASSET_TYPE)(x >> 32)).ToArray();
-                            }
-                            return (args, assets);
-                        }
-                    // Unknown
-                    default: throw new Exception();
+                    0x5 => (0x3C, CO_Args, CO_Assets, 0),       // Call of Duty 4: Modern Warfare
+                    0x1d9 => (0x34, BO_Args, BO_Assets, 0),     // Black Ops Fast File
+                    0x93 => (0x40, BO2_Args, BO2_Assets, 0),    // Black Ops II Fast File
+                    0x183 => (0x34, AW_Args, AW_Assets, -2),    // Call of Duty: Advanced Warfare
+                    0x251 => (0x40, BO3_Args, BO3_Assets, 0),   // Black Ops III Fast File
+                    _ => throw new FormatException($"Unknown Version: {version}"),
                 };
+
+            public (Dictionary<string, long> args, ASSET_TYPE[] assetInfos) GetArgsAndAssetInfos(BinaryReader r, ref FF_Header header)
+            {
+                var version = header.Version;
+                var (seek, argCount, assetCount, endSkip) = GetArgsAndAssetsOffsets(version);
+                var args = new Dictionary<string, long>();
+                ASSET_TYPE[] assetInfos = null;
+                r.Seek(seek);
+                if (version >= 0x251)
+                {
+                    if (argCount > 0)
+                    {
+                        var argsValues = r.ReadTArray<long>(sizeof(long), argCount);
+                        var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
+                        if (argsNames[argCount - 1] == "\u0005") { argCount--; r.Skip(-3); }
+                        for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
+                    }
+                    if (assetCount > 0)
+                    {
+                        var assetType = r.ReadTArray<long>(sizeof(long), assetCount * 2);
+                        //assetInfos = assetType.Select(x => (ASSET_TYPE)(x << 32)).ToArray();
+                    }
+                }
+                else
+                {
+                    if (argCount > 0)
+                    {
+                        var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
+                        var argsNames = r.ReadTArray(r => r.ReadCString(), argCount);
+                        if (argsNames[argCount - 1] == "\u0005") { argCount--; r.Skip(-2); }
+                        for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
+                    }
+                    if (assetCount > 0)
+                    {
+                        var assetType = r.ReadTArray<long>(sizeof(long), assetCount);
+                        assetInfos = assetType.Select(x => (ASSET_TYPE)x).ToArray();
+                    }
+                }
+                r.Skip(endSkip);
+                return (args, assetInfos);
             }
         }
 
@@ -632,7 +566,7 @@ namespace GameSpec.IW.Formats
 
                         var header = r.ReadT<FF_Header>(sizeof(FF_Header));
                         if (header.Magic != FF_MAGIC_IW && header.Magic != FF_MAGIC_S1 && header.Magic != FF_MAGIC_TA) throw new FormatException($"Bad magic {header.Magic}");
-                        //if (header.Format != FF_FORMAT_u100 && header.Format != FF_FORMAT_0100 && header.Format != FF_FORMAT_a100 && header.Format != FF_FORMAT_0000) throw new FormatException($"Bad format {header.Format}");
+                        if (header.Format != FF_FORMAT_u100 && header.Format != FF_FORMAT_0100 && header.Format != FF_FORMAT_a100 && header.Format != FF_FORMAT_0000) throw new FormatException($"Bad format {header.Format}");
 
                         var zonePath = GetZoneFile(source.FilePath, cryptKey, r, ref header);
                         if (zonePath == null) return Task.CompletedTask;
@@ -640,25 +574,36 @@ namespace GameSpec.IW.Formats
                         // Create new streams for the zone file.
                         r = new BinaryReader(new FileStream(zonePath, FileMode.Open, FileAccess.Read, FileShare.Read));
                         var zone = r.ReadT<FF_ZoneHeader>(sizeof(FF_ZoneHeader));
-                        var (args, assetTypes) = zone.GetArgsAndAssets(r, header.Version);
-                        var needle = FF_Stop8; // header.Version == 0x251 ? FF_Stop8 : FF_Stop4;
-                        var indexs = r.FindBytes(needle);
-                        for (var i = 0; i < indexs.Length; i++)
+                        var (args, assetInfos) = zone.GetArgsAndAssetInfos(r, ref header);
+
+                        for (var i = 0; i < assetInfos.Length; i++)
                         {
-                            r.Seek(indexs[i] + needle.Length);
-                            var path = r.ReadZASCII(128);
-                            var position = r.Position();
-                            var size = indexs.Length > i + 1 ? indexs[i + 1] - position : 0;
                             files.Add(new FileMetadata
                             {
                                 Id = i,
-                                Path = path,
-                                Position = position,
-                                FileSize = size,
-                                //Tag = assetTypes[i],
+                                Path = $"{i}.{assetInfos[i]}",
+                                Position = 0,
+                                FileSize = 0,
                             });
                         }
 
+                        //var needle = FF_Stop8; // header.Version == 0x251 ? FF_Stop8 : FF_Stop4;
+                        //var indexs = r.FindBytes(needle);
+                        //for (var i = 0; i < indexs.Length; i++)
+                        //{
+                        //    r.Seek(indexs[i] + needle.Length);
+                        //    var path = r.ReadZASCII(128);
+                        //    var position = r.Position();
+                        //    var size = indexs.Length > i + 1 ? indexs[i + 1] - position : 0;
+                        //    files.Add(new FileMetadata
+                        //    {
+                        //        Id = i,
+                        //        Path = path,
+                        //        Position = position,
+                        //        FileSize = size,
+                        //        //Tag = assetTypes[i],
+                        //    });
+                        //}
 
                         //foreach (var index in indexs)
                         //{
@@ -745,6 +690,12 @@ namespace GameSpec.IW.Formats
                         return Task.FromResult((Stream)s);
                     }
                     catch (Exception e) { Log($"{file.Path} - Exception: {e.Message}"); exception?.Invoke(file, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
+                case Magic.FF:
+                    {
+                        var s = new MemoryStream();
+                        s.Position = 0;
+                        return Task.FromResult((Stream)s);
+                    }
                 default: throw new NotImplementedException();
             }
         }
