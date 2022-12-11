@@ -1,12 +1,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace GameSpec.IW
+namespace GameSpec.Blizzard
 {
     [TestClass]
     public class FormatsTests
     {
-        static readonly Family family = FamilyManager.GetFamily("IW");
+        static readonly Family family = FamilyManager.GetFamily("Blizzard");
 
         [DataTestMethod]
         [DataRow(true, "game:/code_post_gfx.ff#COD4")]          // 2007 - Call of Duty 4: Modern Warfare
@@ -18,7 +18,7 @@ namespace GameSpec.IW
         [DataRow(true, "game:/code_post_gfx.ff#Ghosts")]        // 2013 - Call of Duty: Ghosts
         [DataRow(true, "game:/code_post_gfx.ff#AW")]            // 2014 - Call of Duty: Advanced Warfare
         [DataRow(true, "game:/core_post_gfx.ff#BO3")]           // 2015 - Call of Duty: Black Ops III
-        [DataRow(true, "game:/code_post_gfx.ff#IW")]            // 2016 - Call of Duty: Infinite Warfare
+        [DataRow(true, "game:/code_post_gfx.ff#Blizzard")]            // 2016 - Call of Duty: Infinite Warfare
         [DataRow(true, "game:/code_post_gfx.ff#WWII")]          // 2017 - Call of Duty: WWII
         [DataRow(false, "game:/code_post_gfx.ff#BO4")]          // 2018 - Call of Duty: Black Ops 4
         [DataRow(true, "game:/code_post_gfx.ff#MW")]            // 2019 - Call of Duty: Modern Warfare
@@ -41,7 +41,7 @@ namespace GameSpec.IW
         [DataRow(true, "game:/ui_install.ff#Ghosts")]           // 2013 - Call of Duty: Ghosts
         [DataRow(true, "game:/patch_sanfran.ff#AW")]            // 2014 - Call of Duty: Advanced Warfare
         [DataRow(true, "game:/core_post_gfx.ff#BO3")]           // 2015 - Call of Duty: Black Ops III
-        [DataRow(true, "game:/code_pre_gfx.ff#IW")]             // 2016 - Call of Duty: Infinite Warfare
+        [DataRow(true, "game:/code_pre_gfx.ff#Blizzard")]             // 2016 - Call of Duty: Infinite Warfare
         [DataRow(true, "game:/code_post_gfx.ff#WWII")]          // 2017 - Call of Duty: WWII
         //[DataRow(true, "game:/karma_gump_checkin.ff#BO4")]    // 2018 - Call of Duty: Black Ops 4
         //[DataRow(true, "game:/karma_gump_checkin.ff#MW")]     // 2019 - Call of Duty: Modern Warfare

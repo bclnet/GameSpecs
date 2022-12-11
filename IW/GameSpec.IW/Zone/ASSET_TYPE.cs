@@ -2,7 +2,42 @@
 
 namespace GameSpec.IW.Zone
 {
-    public enum ASSET_TYPE : int
+    //public enum CodAssetType : int
+    //{
+    //    xmodelpieces = 0,
+    //    physpreset = 1,
+    //    xanim = 2,
+    //    xmodel = 3,
+    //    material = 4,
+    //    pixelshader = 5,
+    //    techset = 6,
+    //    image = 7,
+    //    sndcurve = 8,
+    //    loaded_sound = 9,
+    //    col_map_sp = 0x0a,
+    //    col_map_mp = 0x0b,
+    //    com_map = 0x0c,
+    //    game_map_sp = 0x0d,
+    //    game_map_mp = 0x0e,
+    //    map_ents = 0x0f,
+    //    gfx_map = 0x10,
+    //    lightdef = 0x11,
+    //    ui_map = 0x12,
+    //    font = 0x13,
+    //    menufile = 0x14,
+    //    menu = 0x15,
+    //    localize = 0x16,
+    //    weapon = 0x17,
+    //    snddriverglobals = 0x18,
+    //    impactfx = 0x19,
+    //    aitype = 0x1a,
+    //    mptype = 0x1b,
+    //    character = 0x1c,
+    //    xmodelalias = 0x1d,
+    //    rawfile = 0x1f,
+    //    stringtable = 0x20,
+    //}
+    public enum UnkAssetType : int
     {
         PHYSPRESET = 0,
         PHYS_COLLMAP = 1,
@@ -98,21 +133,21 @@ namespace GameSpec.IW.Zone
             "addon_map_ents",
         };
 
-        public static ASSET_TYPE getAssetTypeForString(string str)
+        public static UnkAssetType getAssetTypeForString(string str)
         {
             var i = 42;
             while (i > -1)
             {
-                if (assetTypeStrings[i] == str) return (ASSET_TYPE)i;
+                if (assetTypeStrings[i] == str) return (UnkAssetType)i;
                 i--;
             }
-            return (ASSET_TYPE)(-1);
+            return (UnkAssetType)(-1);
         }
 
-        public static string getAssetStringForType(ASSET_TYPE type)
+        public static string getAssetStringForType(UnkAssetType type)
             => assetTypeStrings[(int)type];
 
-        public static string getAssetName(ASSET_TYPE type, object data)
+        public static string getAssetName(UnkAssetType type, object data)
         {
             throw new NotImplementedException();
             //if (type == ASSET_TYPE.LOCALIZE) return ((Localize)data).name;
@@ -120,7 +155,7 @@ namespace GameSpec.IW.Zone
             //return ((Rawfile)data).name;
         }
 
-        public static void setAssetName(ASSET_TYPE type, object data, string name)
+        public static void setAssetName(UnkAssetType type, object data, string name)
         {
             throw new NotImplementedException();
             //if (type == ASSET_TYPE.LOCALIZE) ((Localize)data).name = name;

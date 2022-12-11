@@ -10,123 +10,126 @@
     "COD": {
       "name": "Call of Duty",
       "date": "2003-10-29",
-      "tags": "WorldWarII",
+      "tags": "WorldWarII COD",
       "pak": "game:/*.iwd#COD"
     },
     "COD2": {
       "name": "Call of Duty 2",
       "date": "2005-10-25",
-      "tags": "WorldWarII",
+      "tags": "WorldWarII COD2",
       "pak": "game:/*.iwd#COD2"
     },
     "COD3": {
       "name": "Call of Duty 3",
       "date": "2006-11-07",
-      "tags": "WorldWarII",
+      "tags": "WorldWarII COD3 XBox",
       "pak": "game:/*.iwd#COD3"
     },
     "COD4": {
       "name": "Call of Duty 4: Modern Warfare",
       "date": "2007-11-07",
-      "tags": "ModernWarfare",
-      "pak": "game:/*.(iwd:ff)#COD4"
+      "tags": "ModernWarfare COD4",
+      "pak": "game:/mp_backlot_load.ff#COD4",
+      "pakx": "game:/*.(iwd:ff)#COD4"
     },
-    "COD:WaW": {
+    "WaW": {
       "name": "Call of Duty: World at War",
       "date": "2008-11-11",
-      "tags": "BlackOps",
-      "pak": "game:/ber3.ff#COD:WaW",
-      "pak_": "game:/*.ff#COD:WaW",
-      "pakx": "game:/*.(iwd:ff)#COD:WaW"
+      "tags": "BlackOps COD:WaW",
+      "pak": "game:/mp_makin_day_load.ff#WaW",
+      "pakx": "game:/ber3.ff#WaW",
+      "pak_": "game:/*.ff#WaW",
+      "paky": "game:/*.(iwd:ff)#WaW"
     },
     "MW2": {
       "name": "Call of Duty: Modern Warfare 2",
       "date": "2009-11-11",
-      "tags": "ModernWarfare",
+      "tags": "ModernWarfare MW2",
+      "pakx": "game:/*.(iwd:ff)#MW2",
       "pak": "game:/*.(iwd:ff)#MW2"
     },
-    "COD:BO": {
+    "BO": {
       "name": "Call of Duty: Black Ops",
       "date": "2010-11-09",
-      "tags": "BlackOps",
-      "pak": "game:/*.(iwd:ff)#COD:BO",
+      "tags": "BlackOps COD:BO",
+      "pak": "game:/*.(iwd:ff)#BO",
       "key": "aes:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d"
     },
     "MW3": {
       "name": "Call of Duty: Modern Warfare 3",
       "date": "2011-11-08",
-      "tags": "ModernWarfare",
+      "tags": "ModernWarfare MW3",
       "pak": "game:/*.(iwd:ff)#MW3"
     },
-    "COD:BO2": {
+    "BO2": {
       "name": "Call of Duty: Black Ops II",
       "date": "2012-05-01",
-      "tags": "BlackOps",
+      "tags": "BlackOps COD:BO2",
       "pak": "game:/*.ff#COD:BO2",
-      "pakx": "game:/karma_gump_checkin.ff#COD:BO2",
+      "pakx": "game:/karma_gump_checkin.ff#BO2",
       "key": "aes:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE"
     },
     "Ghosts": {
       "name": "Call of Duty: Ghosts",
       "date": "2013-11-05",
-      "tags": "Standalone",
+      "tags": "Standalone Ghosts",
       "pak": "game:/*.iwd#Ghosts"
     },
-    "COD:AW": {
+    "AW": {
       "name": "Call of Duty: Advanced Warfare",
       "date": "2014-11-04",
-      "tags": "Standalone",
-      "pak": "game:/*.(iwd:ff)#COD:AW"
+      "tags": "Standalone COD:AW",
+      "pak": "game:/*.(iwd:ff)#AW"
     },
-    "COD:BO3": {
+    "BO3": {
       "name": "Call of Duty: Black Ops III",
       "date": "2015-11-06",
-      "tags": "BlackOps",
-      "pak_": "game:/*.(xpak,ff)#COD:BO3",
-      "pak": "game:/*.xpak#COD:BO3"
+      "tags": "BlackOps COD:BO3",
+      "pak_": "game:/*.(xpak,ff)#BO3",
+      "pak": "game:/*.xpak#BO3"
     },
-    "COD:IW": {
+    "IW": {
       "name": "Call of Duty: Infinite Warfare",
       "date": "2016-11-04",
-      "tags": "Standalone",
-      "pak": "game:/*.iwd#COD:IW"
+      "tags": "Standalone COD:IW",
+      "pak": "game:/*.iwd#IW"
     },
     "WWII": {
       "name": "Call of Duty: WWII",
       "date": "2017-11-03",
-      "tags": "WorldWarII",
+      "tags": "WorldWarII WWII",
       "pak": "game:/ui.ff#WWII",
       "pakx": "game:/xpakfile1.pak#WWII",
       "pak_": "game:/*.(pak:ff)#WWII"
     },
-    "COD:BO4": {
+    "BO4": {
       "name": "Call of Duty: Black Ops 4",
       "date": "2018-10-12",
-      "tags": "BlackOps",
-      "pak": "game:/*.iwd#COD:BO4"
+      "tags": "BlackOps COD:BO4",
+      "pak": "game:/*.iwd#BO4"
     },
     "MW": {
       "name": "Call of Duty: Modern Warfare",
       "date": "2019-10-25",
-      "tags": "ModernWarfare",
+      "tags": "ModernWarfare MW",
       "pak": "game:/*.iwd#MW"
     },
-    "COD:BOCW": {
+    "BOCW": {
       "name": "Call of Duty: Black Ops Cold War",
       "date": "2020-11-13",
-      "tags": "BlackOps",
-      "pak": "game:/*.iwd#COD:BOCW"
+      "tags": "BlackOps BOCW",
+      "pak": "game:/*.iwd#BOCW"
     },
     "Vanguard": {
       "name": "Call of Duty: Vanguard",
       "date": "2021-11-05",
-      "tags": "WorldWarII",
+      "tags": "WorldWarII Vanguard",
       "pak": "game:/*.iwd#Vanguard"
     },
     "COD:MW2": {
       "name": "Call of Duty: Modern Warfare II",
       "date": "2022-10-28",
-      "tags": "ModernWarfare",
+      "tags": "ModernWarfare COD:MW2",
       "pak": "game:/*.ff#COD:MW2",
       "pak_": [
         "game:/*.xpak#COD:MW2",
@@ -136,22 +139,32 @@
     "007:QoS": {
       "name": "007: Quantum of Solace",
       "date": "2008-10-31",
-      "tags": "Other",
+      "tags": "Other 007:QoS",
       "pak": "game:/*.iwd#007:QoS"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
+        "COD": {
+          "key": [
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640"
+          ],
+          "path": [ "Main", "uo" ]
+        },
         "COD2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
           "path": "main"
+        },
+        "COD3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xxx"
         },
         "COD4": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
           "path": [ "main", "zone/english" ]
         },
-        "COD:WaW": {
+        "WaW": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10090",
           "path": [ "main", "zone/english" ]
         },
@@ -159,27 +172,55 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
           "path": [ "main", "zone/english" ]
         },
+        "BO": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
+          "path": [ "main", "zone/Common", "zone/English" ]
+        },
         "MW3": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
           "path": [ "main", "zone/english" ]
         },
-        "COD:MW2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090"
-        },
-        "WWII": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600"
-        },
-        "COD:BO": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
-          "path": [ "main", "zone/Common", "zone/English" ]
-        },
-        "COD:BO2": {
+        "BO2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 202970",
           "path": [ "sound", "zone/all", "zone/english" ]
         },
-        "COD:BO3": {
+        "Ghosts": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209160",
+          "path": [ ".", "english" ]
+        },
+        "AW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209650",
+          "path": [ ".", "english" ]
+        },
+        "BO3": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 311210",
           "path": [ "zone" ]
+        },
+        "IW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 292730",
+          "path": [ ".", "english" ]
+        },
+        "WWII": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600",
+          "path": [ ".", "english" ]
+        },
+        "BO4": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4",
+          "path": "Data/data"
+        },
+        "MW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 393080",
+          "path": [ ".", "english" ]
+        },
+        "BOCW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xxx"
+        },
+        "Vanguard": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xxx"
+        },
+        "COD:MW2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090",
+          "path": [ ".", "sp22" ]
         }
       }
     }

@@ -8,7 +8,7 @@ namespace GameSpec.IW.Zone
         {
             var materialOffs = stackalloc int[data->numSurfaces];
             for (var i = 0; i < data->numSurfaces; i++)
-                materialOffs[i] = ZoneWriter.requireAsset(info, ASSET_TYPE.MATERIAL, new string(data->materials[i]->name), buf);
+                materialOffs[i] = ZoneWriter.requireAsset(info, UnkAssetType.MATERIAL, new string(data->materials[i]->name), buf);
 
             fixed (byte* _ = buf.at)
             {

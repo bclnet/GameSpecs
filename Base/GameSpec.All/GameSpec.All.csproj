@@ -12,6 +12,8 @@
     <ProjectReference Include="..\..\Arkane\GameSpec.Arkane\GameSpec.Arkane.csproj" />
     <ProjectReference Include="..\..\Aurora\GameSpec.Aurora.Platform\GameSpec.Aurora.Platform.csproj" />
     <ProjectReference Include="..\..\Aurora\GameSpec.Aurora\GameSpec.Aurora.csproj" />
+    <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard.Platform\GameSpec.Blizzard.Platform.csproj" />
+    <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj" />
     <ProjectReference Include="..\..\Cry\GameSpec.Cry.Platform\GameSpec.Cry.Platform.csproj" />
     <ProjectReference Include="..\..\Cry\GameSpec.Cry\GameSpec.Cry.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj" />

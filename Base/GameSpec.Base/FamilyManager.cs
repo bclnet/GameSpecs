@@ -16,7 +16,7 @@ namespace GameSpec
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        //static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        //static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Blizzard", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
         static string[] FamilyKeys = new[] { "IW", "Unknown" };
 
         public class DefaultOptions
@@ -53,10 +53,10 @@ namespace GameSpec
             //GameId = "COD3", ForceOpen = true,
 
             // Call of Duty 4: Modern Warfare - IWD, FF
-            GameId = "COD4", ForceOpen = true,
+            //GameId = "COD4", ForceOpen = true,
             //ForcePath = "mp_farm.ff/images/155_cannon.iwi",
 
-            // Call of Duty: World at War
+            // Call of Duty: World at War - IWD, FF
             //GameId = "COD:WaW", ForceOpen = true,
 
             // Call of Duty: Modern Warfare 2

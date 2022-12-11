@@ -64,6 +64,7 @@ namespace GameSpec.IW.Zone
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct PixelShader
     {
+        public const int COD4_SizeOf = 115;
         public char* name;
         /*IDirect3DPixelShader9*/
         public void* shader;

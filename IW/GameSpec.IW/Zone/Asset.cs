@@ -3,7 +3,7 @@
     public unsafe partial class Asset
     {
         public uint name;
-        public ASSET_TYPE type;
+        public UnkAssetType type;
         public object data;
         public int offset;
         public bool written;

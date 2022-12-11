@@ -31,7 +31,7 @@ namespace GameSpec.IW.Zone
             fixed (byte* _ = buf.at)
             {
                 // require this asset
-                var techsetOffset = ZoneWriter.requireAsset(info, ASSET_TYPE.TECHSET, new string(data->techniqueSet->name), buf);
+                var techsetOffset = ZoneWriter.requireAsset(info, UnkAssetType.TECHSET, new string(data->techniqueSet->name), buf);
 
                 var dest = (Material*)_;
                 buf.write((byte*)data, sizeof(Material), 1);

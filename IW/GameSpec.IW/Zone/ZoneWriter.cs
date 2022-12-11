@@ -7,7 +7,7 @@ namespace GameSpec.IW.Zone
     public unsafe class ZoneWriter
     {
         // must be called before you write anything in your asset!!!
-        public static int requireAsset(ZoneInfo info, ASSET_TYPE type, string name, ZStream buf)
+        public static int requireAsset(ZoneInfo info, UnkAssetType type, string name, ZStream buf)
         {
             var a = info.containsAsset(type, name);
             if (a >= 0)
@@ -16,8 +16,8 @@ namespace GameSpec.IW.Zone
                 // this will make no sense... just let it we are returning the offset to the pointer in the asset index which isn't generated until load time go figure
                 if (ZoneInfo.desiredFFVersion == 276)
                     return (3 << 28) | ((info.index_start + (8 * a) + 4) & 0x0FFFFFFF) + 1;
-                else if (ZoneInfo.desiredFFVersion == 277)
-                    return (int)(off | 0xF0000000);
+                //else if (ZoneInfo.desiredFFVersion == 277)
+                //    return (int)(off | 0xF0000000);
             }
             else
                 Console.WriteLine($"Missing required asset {name} ({getAssetStringForType(type)}). Export may (and probably will) fail!");
@@ -34,22 +34,22 @@ namespace GameSpec.IW.Zone
             var name = getAssetName(asset.type, asset.data);
 
             // hide the useless assets that we can't change
-            if (asset.type != ASSET_TYPE.TECHSET &&
-                asset.type != ASSET_TYPE.PIXELSHADER &&
-                asset.type != ASSET_TYPE.VERTEXSHADER &&
-                asset.type != ASSET_TYPE.VERTEXDECL)
+            if (asset.type != UnkAssetType.TECHSET &&
+                asset.type != UnkAssetType.PIXELSHADER &&
+                asset.type != UnkAssetType.VERTEXSHADER &&
+                asset.type != UnkAssetType.VERTEXDECL)
                 Console.WriteLine($"\nWriting asset {name}, of type {getAssetStringForType(asset.type)} at offset 0x{asset.offset:x}");
             else
                 Console.WriteLine($"\nWriting asset {name}, of type {getAssetStringForType(asset.type)} at offset 0x{asset.offset:x}");
 
             switch (asset.type)
             {
-                case ASSET_TYPE.PHYSPRESET: { var box = (PhysPreset)asset.data; PhysPreset.writePhysPreset(info, buf, &box); } break;
-                case ASSET_TYPE.PHYS_COLLMAP: { var box = (PhysGeomList)asset.data; PhysGeomList.writePhysCollmap(info, buf, &box); } break;
-                case ASSET_TYPE.XANIM: { var box = (XAnim)asset.data; XAnim.writeXAnim(info, buf, &box); } break;
+                case UnkAssetType.PHYSPRESET: { var box = (PhysPreset)asset.data; PhysPreset.writePhysPreset(info, buf, &box); } break;
+                case UnkAssetType.PHYS_COLLMAP: { var box = (PhysGeomList)asset.data; PhysGeomList.writePhysCollmap(info, buf, &box); } break;
+                case UnkAssetType.XANIM: { var box = (XAnim)asset.data; XAnim.writeXAnim(info, buf, &box); } break;
                 // ASSET_TYPE.XMODELSURFS - handled by xmodel
-                case ASSET_TYPE.XMODEL: { var box = (XModel)asset.data; XModel.writeXModel(info, buf, &box); } break;
-                case ASSET_TYPE.MATERIAL: { var box = (Material)asset.data; Material.writeMaterial(info, buf, &box); } break;
+                case UnkAssetType.XMODEL: { var box = (XModel)asset.data; XModel.writeXModel(info, buf, &box); } break;
+                case UnkAssetType.MATERIAL: { var box = (Material)asset.data; Material.writeMaterial(info, buf, &box); } break;
                 //case ASSET_TYPE.PIXELSHADER: { var box = (PixelShader)asset.data; PixelShader.writePixelShader(info, buf, &box); } break;
                 //case ASSET_TYPE.VERTEXSHADER: { var box = (VertexShader)asset.data; VertexShader.writeVertexShader(info, buf, &box); } break;
                 //case ASSET_TYPE.VERTEXDECL: { var box = (VertexDecl)asset.data; VertexDecl.writeVertexDecl(info, buf, &box); } break;

@@ -1,0 +1,138 @@
+﻿{
+  "id": "Blizzard",
+  "name": "Blizzard",
+  "studio": "Blizzard",
+  "description": "Blizzard file formats",
+  "familyType": "GameSpec.Blizzard.BlizzardFamily, GameSpec.Blizzard",
+  "pakFileType": "GameSpec.Blizzard.BlizzardPakFile, GameSpec.Blizzard",
+  "games": {
+    "TDAROS": {
+      "name": "The Death and Return of Superman",
+      "date": "1994-08-01",
+      "tags": "N/A",
+      "pak": "game:/*.xx#TDAROS"
+    },
+    "Blackthorne": {
+      "name": "Blackthorne",
+      "date": "1994-09-01",
+      "tags": "N/A",
+      "pak": "game:/*.xx#Blackthorne"
+    },
+    "W1": {
+      "name": "Warcraft: Orcs & Humans",
+      "date": "1994-11-23",
+      "tags": "N/A",
+      "pak": "game:/*.xx#W1"
+    },
+    "JLTF": {
+      "name": "Justice League Task Force",
+      "date": "1995-04-01",
+      "tags": "N/A",
+      "pak": "game:/*.xx#JLTF"
+    },
+    "W2": {
+      "name": "Warcraft II: Tides of Darkness",
+      "date": "1995-12-09",
+      "tags": "N/A",
+      "pak": "game:/*.xx#W2"
+    },
+    "D1": {
+      "name": "Diablo",
+      "date": "1997-01-03",
+      "tags": "TBD",
+      "pak": "game:/*.xx#D1"
+    },
+    "TLV2": {
+      "name": "The Lost Vikings 2",
+      "date": "1997-02-27",
+      "tags": "TBD",
+      "pak": "game:/*.xx#TLV2"
+    },
+    "SC": {
+      "name": "StarCraft",
+      "date": "1998-03-31",
+      "tags": "TBD",
+      "pak": "game:/*.iwd#SC"
+    },
+    "D2": {
+      "name": "Diablo II",
+      "date": "2000-06-29",
+      "tags": "TBD",
+      "pak": "game:/*.xx#D2"
+    },
+    "W3": {
+      "name": "Warcraft III: Reign of Chaos",
+      "date": "2002-07-03",
+      "tags": "TBD",
+      "pak": "game:/*.xx#W3"
+    },
+    "WOW": {
+      "name": "World of Warcraft",
+      "date": "2004-11-23",
+      "tags": "TBD",
+      "pak": "game:/*.(iwd:ff)#WOW"
+    },
+    "SC2": {
+      "name": "StarCraft II: Wings of Liberty",
+      "date": "2010-07-27",
+      "tags": "",
+      "pak": "game:/*.xx#SC2"
+    },
+    "D3": {
+      "name": "Diablo III",
+      "date": "2012-05-15",
+      "tags": "",
+      "pak": "game:/*.(iwd:ff)#D3"
+    },
+    "BO2": {
+      "name": "Hearthstone",
+      "date": "2014-03-11",
+      "tags": "",
+      "pak": "game:/*.ff#COD:BO2"
+    },
+    "HOTS": {
+      "name": "Heroes of the Storm",
+      "date": "2013-11-05",
+      "tags": "",
+      "pak": "game:/*.iwd#HOTS"
+    },
+    "OW": {
+      "name": "Overwatch",
+      "date": "2016-05-24",
+      "tags": "",
+      "pak": "game:/*.xx#Overwatch"
+    },
+    "DI": {
+      "name": "Diablo Immortal",
+      "date": "2022-06-02",
+      "tags": "",
+      "pak": "game:/*.xx#DI"
+    },
+    "OW2": {
+      "name": "Overwatch 2",
+      "date": "2022-10-04",
+      "tags": "",
+      "pak": "game:/*.xx#OW2"
+    },
+    "D4": {
+      "name": "Diablo IV",
+      "date": "2023-06-06",
+      "tags": "",
+      "pak": "game:/*.xx#D4"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "SC": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620",
+          "path": [ "Main", "uo" ]
+        },
+        "WOW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
+          "path": "main"
+        }
+      }
+    }
+  }
+}

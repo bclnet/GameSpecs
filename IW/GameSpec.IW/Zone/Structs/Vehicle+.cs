@@ -10,13 +10,13 @@ namespace GameSpec.IW.Zone
             {
                 int physPreset = 0, turretWeapon = 0, compassFriendlyIcon = 0, compassEnemyIcon = 0;
                 if (data->vehiclePhysics.physPreset != null)
-                    physPreset = ZoneWriter.requireAsset(info, ASSET_TYPE.PHYSPRESET, new string(data->vehiclePhysics.physPreset->name), buf);
+                    physPreset = ZoneWriter.requireAsset(info, UnkAssetType.PHYSPRESET, new string(data->vehiclePhysics.physPreset->name), buf);
                 if (data->turretWeapon != null)
-                    turretWeapon = ZoneWriter.requireAsset(info, ASSET_TYPE.WEAPON, new string(data->turretWeapon->name), buf);
+                    turretWeapon = ZoneWriter.requireAsset(info, UnkAssetType.WEAPON, new string(data->turretWeapon->name), buf);
                 if (data->compassFriendlyIcon != null)
-                    compassFriendlyIcon = ZoneWriter.requireAsset(info, ASSET_TYPE.MATERIAL, new string(data->compassFriendlyIcon->name), buf);
+                    compassFriendlyIcon = ZoneWriter.requireAsset(info, UnkAssetType.MATERIAL, new string(data->compassFriendlyIcon->name), buf);
                 if (data->compassEnemyIcon != null)
-                    compassEnemyIcon = ZoneWriter.requireAsset(info, ASSET_TYPE.MATERIAL, new string(data->compassEnemyIcon->name), buf);
+                    compassEnemyIcon = ZoneWriter.requireAsset(info, UnkAssetType.MATERIAL, new string(data->compassEnemyIcon->name), buf);
 
                 //: WRITE_ASSET(data, VehicleDef);
                 var dest = (VehicleDef*)_;

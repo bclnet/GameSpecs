@@ -35,7 +35,7 @@ namespace GameSpec.IW.Zone
             return hash;
         }
 
-        public int containsAsset(ASSET_TYPE type, string name)
+        public int containsAsset(UnkAssetType type, string name)
         {
             var str = R_HashString(name);
             for (var i = 0; i < assetCount; i++)
@@ -53,7 +53,7 @@ namespace GameSpec.IW.Zone
             return -1;
         }
 
-        public int addAsset(ASSET_TYPE type, string name, object data)
+        public int addAsset(UnkAssetType type, string name, object data)
         {
             if (assetCount >= MAX_ASSET_COUNT) throw new Exception("Increase MAX_ASSET_COUNT!");
             var a = containsAsset(type, name);
@@ -100,7 +100,7 @@ namespace GameSpec.IW.Zone
             //addAsset(ASSET_TYPE.RAWFILE, name, data);
         }
 
-        public object getAsset(ASSET_TYPE type, string name)
+        public object getAsset(UnkAssetType type, string name)
         {
             for (var i = 0; i < assetCount; i++)
                 if (assets[i].type == type && assets[i].name == R_HashString(name))
@@ -108,7 +108,7 @@ namespace GameSpec.IW.Zone
             return null;
         }
 
-        public object findAssetEverywhere(ASSET_TYPE type, string name)
+        public object findAssetEverywhere(UnkAssetType type, string name)
         {
             var ret = getAsset(type, name);
             if (ret != null) return ret;
@@ -117,7 +117,7 @@ namespace GameSpec.IW.Zone
         }
 
 #if DEBUG
-        public void verifyAsset(ASSET_TYPE type, string name)
+        public void verifyAsset(UnkAssetType type, string name)
         {
             for (var i = 0; i < assetCount; i++)
                 if (assets[i].type == type && assets[i].name == R_HashString(name))
@@ -145,7 +145,7 @@ namespace GameSpec.IW.Zone
         [StructLayout(LayoutKind.Sequential)] public struct FILETIME { public uint dwLowDateTime; public uint dwHighDateTime; }
         [DllImport("kernel32")] public static extern void GetSystemTimeAsFileTime(ref FILETIME lpSystemTimeAsFileTime);
 
-        public void loadAsset(ASSET_TYPE type, string filename, string name)
+        public void loadAsset(UnkAssetType type, string filename, string name)
         {
             if (containsAsset(type, name) > 0) return;
 
@@ -177,9 +177,9 @@ namespace GameSpec.IW.Zone
             object asset = null;
             switch (type)
             {
-                case ASSET_TYPE.PHYSPRESET: asset = PhysPreset.addPhysPreset(this, name, data, size); break;
-                case ASSET_TYPE.PHYS_COLLMAP: asset = PhysGeomList.addPhysCollmap(this, name, data, size); break;
-                case ASSET_TYPE.XANIM: asset = XAnim.addXAnim(this, name, data, size); break;
+                case UnkAssetType.PHYSPRESET: asset = PhysPreset.addPhysPreset(this, name, data, size); break;
+                case UnkAssetType.PHYS_COLLMAP: asset = PhysGeomList.addPhysCollmap(this, name, data, size); break;
+                case UnkAssetType.XANIM: asset = XAnim.addXAnim(this, name, data, size); break;
                     //case ASSET_TYPE.RAWFILE: asset = Rawfile.addRawfile(this, name, data, size); break;
                     //case ASSET_TYPE.MATERIAL: asset = addMaterial(this, name, data, size); break;
                     //case ASSET_TYPE.PIXELSHADER: asset = addPixelShader(this, name, data, size); break;
@@ -219,7 +219,7 @@ namespace GameSpec.IW.Zone
                     //    throw new Exception($"Cannot define a new asset of type {getAssetStringForType(type)}! Ignoring asset and continuing...");
             }
 
-            if (type != ASSET_TYPE.LOCALIZE)
+            if (type != UnkAssetType.LOCALIZE)
             {
                 if (asset == null) throw new Exception($"Failed to add asset {name}!");
                 else addAsset(type, name, asset);

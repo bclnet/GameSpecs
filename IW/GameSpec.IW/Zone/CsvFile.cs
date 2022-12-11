@@ -4,7 +4,7 @@ namespace GameSpec.IW.Zone
 {
     public unsafe class CsvFile
     {
-        Dictionary<(int, int), string> _data;
+        Dictionary<(int, int), string> _data = new Dictionary<(int, int), string>();
 
         public CsvFile(byte[] data)
         {
