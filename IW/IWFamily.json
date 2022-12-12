@@ -29,8 +29,9 @@
       "name": "Call of Duty 4: Modern Warfare",
       "date": "2007-11-07",
       "tags": "ModernWarfare COD4",
-      "pak": "game:/mp_backlot_load.ff#COD4",
-      "pakx": "game:/*.(iwd:ff)#COD4"
+      "pak": "game:/*.iwd#COD4",
+      "pakx": "game:/mp_backlot_load.ff#COD4",
+      "paky": "game:/*.(iwd:ff)#COD4"
     },
     "WaW": {
       "name": "Call of Duty: World at War",

@@ -4,7 +4,7 @@
   "studio": "Frictional Games",
   "description": "Frictional Games file formats",
   "familyType": "GameSpec.Hpl.HplFamily, GameSpec.Hpl",
-  "pakFileType": "GameSpec.FG.HplPakFile, GameSpec.Hpl",
+  "pakFileType": "GameSpec.Hpl.HplPakFile, GameSpec.Hpl",
   "games": {
     "P:O": {
       "name": "Penumbra: Overture",

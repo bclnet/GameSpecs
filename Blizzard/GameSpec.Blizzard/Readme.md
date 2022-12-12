@@ -1,1 +1,1 @@
-﻿TBD
+﻿https://wowdev.wiki/CASC

@@ -1,14 +1,14 @@
-﻿namespace GameSpec.IW
+﻿namespace GameSpec.Hpl
 {
     /// <summary>
     /// IWFamily
     /// </summary>
     /// <seealso cref="GameSpec.Family" />
-    public class IWFamily : Family
+    public class HplFamily : Family
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IWFamily"/> class.
+        /// Initializes a new instance of the <see cref="HplFamily"/> class.
         /// </summary>
-        public IWFamily() : base() { }
+        public HplFamily() : base() { }
     }
 }
