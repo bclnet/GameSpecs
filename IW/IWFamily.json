@@ -19,12 +19,6 @@
       "tags": "WorldWarII COD2",
       "pak": "game:/*.iwd#COD2"
     },
-    "COD3": {
-      "name": "Call of Duty 3",
-      "date": "2006-11-07",
-      "tags": "WorldWarII COD3 XBox",
-      "pak": "game:/*.iwd#COD3"
-    },
     "COD4": {
       "name": "Call of Duty 4: Modern Warfare",
       "date": "2007-11-07",
@@ -107,7 +101,11 @@
       "name": "Call of Duty: Black Ops 4",
       "date": "2018-10-12",
       "tags": "BlackOps COD:BO4",
-      "pak": "game:/*.iwd#BO4"
+      "pak": "game:/*.ff#BO4",
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
+      "editions": {
+        "viper": { "name": "Call of Duty: Black Ops 4" }
+      }
     },
     "MW": {
       "name": "Call of Duty: Modern Warfare",
@@ -119,13 +117,21 @@
       "name": "Call of Duty: Black Ops Cold War",
       "date": "2020-11-13",
       "tags": "BlackOps BOCW",
-      "pak": "game:/*.iwd#BOCW"
+      "pak": "game:/#BOCW",
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
+      "editions": {
+        "zeus": { "name": "Call of Duty: Black Ops Cold War" }
+      }
     },
     "Vanguard": {
       "name": "Call of Duty: Vanguard",
       "date": "2021-11-05",
       "tags": "WorldWarII Vanguard",
-      "pak": "game:/*.iwd#Vanguard"
+      "pak": "game:/#Vanguard",
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
+      "editions": {
+        "fore": { "name": "Call of Duty: Vanguard" }
+      }
     },
     "COD:MW2": {
       "name": "Call of Duty: Modern Warfare II",
@@ -136,11 +142,18 @@
         "game:/*.xpak#COD:MW2",
         "game:/*.ff#COD:MW2"
       ]
+    }
+  },
+  "other-games": {
+    "COD3": {
+      "name": "Call of Duty 3",
+      "date": "2006-11-07",
+      "tags": "WorldWarII COD3 XBox",
+      "pak": "game:/*.iwd#COD3"
     },
     "007:QoS": {
       "name": "007: Quantum of Solace",
       "date": "2008-10-31",
-      "tags": "Other 007:QoS",
       "pak": "game:/*.iwd#007:QoS"
     }
   },
@@ -206,18 +219,17 @@
           "path": [ ".", "english" ]
         },
         "BO4": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4",
-          "path": "Data/data"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4"
         },
         "MW": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 393080",
           "path": [ ".", "english" ]
         },
         "BOCW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xxx"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops Cold War"
         },
         "Vanguard": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xxx"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Vanguard"
         },
         "COD:MW2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090",

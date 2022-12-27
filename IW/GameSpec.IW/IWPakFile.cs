@@ -26,6 +26,7 @@ namespace GameSpec.IW
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            UseBinaryReader = false;
             Open();
         }
 

@@ -260,6 +260,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.IW.Platform", "IW\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.IWTests", "IW\GameSpec.IWTests\GameSpec.IWTests.csproj", "{045FBF55-059F-44C5-B123-7FC2860C7A0F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CascLib", "..\CascLib\CascLib\CascLib.csproj", "{068EA453-09C0-4EEF-86F3-12CE05C5B3B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -542,6 +544,10 @@ Global
 		{045FBF55-059F-44C5-B123-7FC2860C7A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{045FBF55-059F-44C5-B123-7FC2860C7A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{045FBF55-059F-44C5-B123-7FC2860C7A0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068EA453-09C0-4EEF-86F3-12CE05C5B3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068EA453-09C0-4EEF-86F3-12CE05C5B3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068EA453-09C0-4EEF-86F3-12CE05C5B3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068EA453-09C0-4EEF-86F3-12CE05C5B3B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -620,6 +626,7 @@ Global
 		{5E4C2496-86FF-4E78-AC49-8D75CB16671F} = {557FA17D-0D46-42AE-95E1-8B486EA8822A}
 		{2D813F24-6EC4-4930-ADF3-652CD426CFF4} = {557FA17D-0D46-42AE-95E1-8B486EA8822A}
 		{045FBF55-059F-44C5-B123-7FC2860C7A0F} = {557FA17D-0D46-42AE-95E1-8B486EA8822A}
+		{068EA453-09C0-4EEF-86F3-12CE05C5B3B7} = {389FCD8C-F4E7-4B16-BF62-11B3E075BC4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

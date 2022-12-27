@@ -4,7 +4,7 @@
     /// AuroraFamily
     /// </summary>
     /// <seealso cref="GameSpec.Family" />
-    public class AuroraFamily: Family
+    public class AuroraFamily : Family
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuroraFamily"/> class.

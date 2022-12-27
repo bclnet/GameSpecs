@@ -1,7 +1,7 @@
-﻿using GameSpec.Formats;
-using GameSpec.Formats.Unknown;
-using GameSpec.Blizzard.Formats;
+﻿using GameSpec.Blizzard.Formats;
 using GameSpec.Blizzard.Transforms;
+using GameSpec.Formats;
+using GameSpec.Formats.Unknown;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System.Threading.Tasks;
@@ -26,6 +26,7 @@ namespace GameSpec.Blizzard
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            UseBinaryReader = false;
             Open();
         }
 

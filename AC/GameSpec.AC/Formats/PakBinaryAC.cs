@@ -91,7 +91,7 @@ namespace GameSpec.AC.Formats
                         Id = (int)entry.ObjectId,
                         Position = entry.FileOffset,
                         FileSize = entry.FileSize,
-                        Digest = blockSize,
+                        Digest = (ulong)blockSize,
                         Tag = entry,
                     };
                     metadata.Path = Path.Combine(path, metadata.GetPath(r, pakType, out var type));

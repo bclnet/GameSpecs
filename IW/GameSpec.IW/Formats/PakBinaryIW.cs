@@ -1,4 +1,6 @@
-﻿using GameSpec.Formats;
+﻿using CASCLib;
+using GameSpec.Blizzard.Formats.Casc;
+using GameSpec.Formats;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
@@ -15,9 +17,11 @@ namespace GameSpec.IW.Formats
     {
         public static readonly PakBinary Instance = new PakBinaryIW();
         PakBinaryIW() { }
+        CascContext casc;
 
         enum Magic
         {
+            CASC,
             IWD,
             FF,
             PAK,
@@ -46,7 +50,7 @@ namespace GameSpec.IW.Formats
 
         internal enum FF_VERSION : uint
         {
-                                // IW X.0 : 2017 - Call of Duty: WWII
+            // IW X.0 : 2017 - Call of Duty: WWII
             CO4_WWII = 0x0005,  // IW 3.0 : 2007 - Call of Duty 4: Modern Warfare
             WaW = 0x0183,       // IW 3.0+: 2008 - Call of Duty: World at War
             MW2 = 0x0114,       // IW 4.0 : 2009 - Call of Duty: Modern Warfare 2
@@ -238,6 +242,19 @@ namespace GameSpec.IW.Formats
             var files = multiSource.Files = new List<FileMetadata>();
             var cryptKey = source.Family.Games[source.Game].Key is Family.AesKey aes ? aes.Key : null;
 
+            switch (source.Game)
+            {
+                case "BO4":
+                case "BOCW":
+                case "Vanguard":
+                    source.Magic = (int)Magic.CASC;
+                    var editions = source.Family.Games[source.Game].Editions;
+                    var product = editions.First().Key;
+                    casc = new CascContext();
+                    casc.Read(source.FilePath, product, files);
+                    return Task.CompletedTask;
+            }
+
             switch (extension)
             {
                 // IWD
@@ -342,6 +359,8 @@ namespace GameSpec.IW.Formats
         {
             switch ((Magic)source.Magic)
             {
+                case Magic.CASC:
+                    return Task.FromResult(casc.ReadData(file));
                 case Magic.IWD:
                     var pak = (ZipFile)source.Tag;
                     var entry = (ZipEntry)file.Tag;

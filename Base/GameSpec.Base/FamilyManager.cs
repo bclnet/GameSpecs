@@ -10,14 +10,13 @@ using static GameSpec.Resource;
 
 namespace GameSpec
 {
-    public class FamilyManager
+    public partial class FamilyManager
     {
         public static readonly string ApplicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Blizzard", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
-        //static string[] FamilyKeys = new[] { "IW", "Unknown" };
+        //static string[] FamilyKeys;
 
         public class DefaultOptions
         {
@@ -27,62 +26,7 @@ namespace GameSpec
             public bool ForceOpen { get; set; }
         }
 
-        /* Sample: Data
-         * OK - Family = "AC", GameId = "AC", ForcePath = "TabooTable/0E00001E.taboo", ForceOpen = true,
-         */
-
-        /* Sample: Texture
-         * BAD - Family = "AC", GameId = "AC", ForcePath = "Texture060043BE", ForceOpen = true,
-         * BAD - Family = "Cry", GameId = "Hunt", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * BAD - Family = "Rsi", GameId = "StarCitizen", ForcePath = "Data/Textures/references/color.dds", ForceOpen = true,
-         * BAD - Family = "Rsi", GameId = "StarCitizen", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * BAD - Family = "Tes", GameId = "Morrowind", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * BAD - Family = "Tes", GameId = "StarCitizen", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * OK - Family = "Valve", GameId = "Dota2", ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", ForceOpen = true,
-         */
-
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
-        {
-            Family = "IW",
-
-            // Call of Duty 2 - IWD
-            //GameId = "COD2", ForceOpen = true,
-            //ForcePath = "iw_08.iwd/images/155_cannon.iwi",
-
-            // Call of Duty 3 - XBOX only
-            //GameId = "COD3", ForceOpen = true,
-
-            // Call of Duty 4: Modern Warfare - IWD, FF
-            //GameId = "COD4", ForceOpen = true,
-            //ForcePath = "mp_farm.ff/images/155_cannon.iwi",
-
-            // Call of Duty: World at War - IWD, FF
-            //GameId = "COD:WaW", ForceOpen = true,
-
-            // Call of Duty: Modern Warfare 2
-            //GameId = "MW2", ForceOpen = true,
-
-            // Call of Duty: Black Ops - IWD, FF
-            //GameId = "COD:BO", ForceOpen = true,
-
-            // Call of Duty: Call of Duty: Modern Warfare 3
-            //GameId = "MW3", ForceOpen = true,
-
-            // Call of Duty: Black Ops 2 - FF
-            //GameId = "COD:BO2", ForceOpen = true,
-
-            // Call of Duty: Advanced Warfare
-            //GameId = "COD:AW", ForceOpen = true,
-
-            // Call of Duty: Black Ops III - XPAC,FF
-            //GameId = "COD:BO3", ForceOpen = true,
-
-            // Call of Duty: Modern Warfare 3
-            //GameId = "MW3", ForceOpen = true,
-
-            // Call of Duty: WWII
-            //GameId = "WWII", ForceOpen = true,
-        };
+        //public static DefaultOptions AppDefaultOptions;
 
         static FamilyManager()
         {
@@ -160,6 +104,7 @@ namespace GameSpec
                 family.Pak2Options = elem.TryGetProperty("pak2Options", out z) ? Enum.TryParse<PakOption>(z.GetString(), true, out var z2) ? z2 : throw new ArgumentOutOfRangeException("pak2Options", z.GetString()) : 0;
                 family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(locations, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
                 family.FileManager = fileManager;
+                family.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : null;
                 return family;
             }
             catch (Exception e)
@@ -191,6 +136,8 @@ namespace GameSpec
                 Game = game,
                 Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
                 Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
+                FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : null,
+                Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameEdition(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
                 Found = locations.ContainsKey(game),
             };
             if (elem.TryGetProperty("pak", out z))
@@ -210,6 +157,13 @@ namespace GameSpec
             return familyGame;
         }
 
+        static FamilyGame.Edition ParseGameEdition(string edition, JsonElement elem)
+            => new FamilyGame.Edition
+            {
+                Id = edition,
+                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+                Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
+            };
         #endregion
     }
 }

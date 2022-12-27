@@ -72,7 +72,7 @@ namespace GameSpec.Metadata.View
         public Task OnOpenedAsync(string path = null)
         {
             MainTabControl.SelectedIndex = 0;
-            var tabs = PakFiles.Select(pakFile => new ExplorerMainTab
+            var tabs = PakFiles.Where(x => x != null).Select(pakFile => new ExplorerMainTab
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,

@@ -64,7 +64,7 @@ namespace GameSpec.Formats
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        protected void Open()
+        protected virtual void Open()
         {
             var watch = new Stopwatch();
             watch.Start();
