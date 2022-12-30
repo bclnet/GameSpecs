@@ -18,7 +18,7 @@ namespace GameSpec.AC.Formats.FileTypes
         public LanguageString(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            CharBuffer = r.ReadC32String(Encoding.Default); //:TODO ?FALLBACK
+            CharBuffer = r.ReadC32Encoding(Encoding.Default); //:TODO ?FALLBACK
         }
 
         //: New

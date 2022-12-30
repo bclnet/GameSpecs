@@ -221,6 +221,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith.Platform", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.LithTests", "Lith\GameSpec.LithTests\GameSpec.LithTests.csproj", "{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyIO", "OpenStack\Base\OpenStack.PolyIO\OpenStack.PolyIO.csproj", "{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -469,6 +471,10 @@ Global
 		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -538,6 +544,7 @@ Global
 		{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D} = {126CF77A-F7E7-40D8-B91E-826AFBE7C971}
 		{F27DA894-E285-4829-AB0D-3E9C9E7FD763} = {126CF77A-F7E7-40D8-B91E-826AFBE7C971}
 		{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF} = {126CF77A-F7E7-40D8-B91E-826AFBE7C971}
+		{C9E0A904-D76C-45C9-B1B2-D2DCE789177A} = {D2430DDB-CF76-4570-8F9F-D8EAC21C9D95}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

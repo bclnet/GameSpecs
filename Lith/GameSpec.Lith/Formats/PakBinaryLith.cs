@@ -8,284 +8,205 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Lith.Formats
 {
-    public class PakBinaryLith : PakBinary
+    public unsafe class PakBinaryLith : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryLith();
         PakBinaryLith() { }
 
-        // https://nwn2.fandom.com/wiki/File_formats
+        // Headers
+        #region X_Headers
 
-        // Headers : KEY/BIF
-        #region Headers : KEY/BIF
-
-        const uint KEY_MAGIC = 0x2059454b;
-        const uint KEY_VERSION = 0x20203156;
-
-        const uint BIFF_MAGIC = 0x46464942;
-        const uint BIFF_VERSION = 0x20203156;
+        const uint CRLF = 0x0d0a;
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_Header
+        struct X_FileMainHeader
         {
-            public uint Version;            // Version ("V1  ")
-            public uint NumFiles;           // Number of entries in FILETABLE
-            public uint NumKeys;            // Number of entries in KEYTABLE.
-            public uint FilesOffset;        // Offset to FILETABLE (0x440000).
-            public uint KeysOffset;         // Offset to KEYTABLE.
-            public uint BuildYear;          // Build year (less 1900).
-            public uint BuildDay;           // Build day
-            public fixed byte NotUsed02[32]; // Not used
+            public ushort CrLf1;            // \r\n
+            public fixed byte FileType[60]; // FileType
+            public ushort CrLf2;            // \r\n
+            public fixed byte UserTitle[60];// FileType
+            public ushort CrLf3;            // \r\n
+            public byte Eof1;               // Eof
+            public uint FileFormatVersion;  // The file format version number only 1 is possible here right now
+            public uint RootDirPos;         // Position of the root directory structure in the file
+            public uint RootDirSize;        // Size of root directory
+            public uint RootDirTime;        // Time Root dir was last updated
+            public uint NextWritePos;       // Position of first directory in the file
+            public uint Time;               // Time resource file was last updated
+            public uint LargestKeyAry;      // Size of the largest key array in the resource file
+            public uint LargestDirNameSize; // Size of the largest directory name in the resource file (including 0 terminator)
+            public uint LargestRezNameSize; // Size of the largest resource name in the resource file (including 0 terminator)
+            public uint LargestCommentSize; // Size of the largest comment in the resource file (including 0 terminator)
+            public byte IsSorted;           // If 0 then data is not sorted if 1 then it is sorted
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct KEY_HeaderFile
+        enum FileDirEntryType
         {
-            public uint FileSize;           // BIF Filesize
-            public uint FileNameOffset;     // Offset To BIF name
-            public ushort FileNameSize;     // Size of BIF name
-            public ushort Drives;           // A number that represents which drives the BIF file is located in
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_HeaderFileName
-        {
-            public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
+            ResourceEntry = 0,
+            DirectoryEntry = 1
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_HeaderKey
+        struct X_FileDirEntryDirHeader
         {
-            public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
-            public ushort ResourceType;     // Resource Type
-            public uint Id;                 // Resource ID
-        }
-
-        class SubPakFile : BinaryPakManyFile
-        {
-            public SubPakFile(Family estate, string game, string filePath, object tag = null) : base(estate, game, filePath, Instance, tag) { Open(); }
+            public uint Pos;                // File positon of dir entry
+            public uint Size;               // Size of directory data
+            public uint Time;               // Last time anything in directory was modified
+            //public string Name;           // Name of this directory
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct BIFF_Header
+        struct X_FileDirEntryRezHeader
         {
-            public uint Version;            // Version ("V1  ")
-            public uint NumFiles;           // File Count
-            public uint NotUsed01;          // Not used
-            public uint FilesOffset;        // Offset to FILETABLE
+            public uint Pos;                // File positon of dir entry
+            public uint Size;               // Size of directory data
+            public uint Time;               // Last time this resource was modified
+            public uint ID;                 // Resource ID number
+            public uint Type;               // Type of resource this is
+            public uint NumKeys;            // The number of keys to read in for this resource
+            //public string Name;           // The name of this resource
+            //public string Comment;        // The comment data for this resource
+            //public int[] Keys;            // The key values for this resource
+        }
+
+        struct X_FileDirEntryHeader
+        {
+            uint Type;
+            X_FileDirEntryRezHeader Rez;
+            X_FileDirEntryDirHeader Dir;
+        }
+
+        #endregion
+
+
+        // Headers
+        #region Headers
+
+        const uint MAGIC = 0x5241544c;
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct Header
+        {
+            public const int SizeOf = 0x30;
+            public uint Magic;                      // Magic
+            public byte Version;                    // Version
+            fixed byte Unknown1[3];                 // Unknown
+            public int StringsLength;               // DescriptionLength
+            public int DirectoryCount;              // Directorys
+            public int FileCount;                   // Files
+            fixed byte Unknown2[0x1c];              // Unknown
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct BIFF_HeaderFile
+        struct HeaderFile
         {
-            public uint FileId;             // File ID
-            public uint Offset;             // Offset to File Data.
-            public uint FileSize;           // Size of File Data.
-            public uint FileType;           // File Type
-            public uint Id => (FileId & 0xFFF00000) >> 20; // BIF index
+            public int StringAt;                    // StringAt
+            public uint Position;                   // Position
+            public int Unknown1;                    // Unknown
+            public int FileSize;                    // FileSize
+            fixed byte Unknown2[0x10];              // Unknown
         }
 
-        static readonly Dictionary<int, string> BIFF_FileTypes = new Dictionary<int, string> {
-            {0x0000, "res"}, // Misc. GFF resources
-            {0x0001, "bmp"}, // Microsoft Windows Bitmap
-            {0x0002, "mve"},
-            {0x0003, "tga"}, // Targa Graphics Format
-            {0x0004, "wav"}, // Wave
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct HeaderDirectory
+        {
+            public int StringAt;                    // StringAt
+            public int NextChild;                   // NextChild
+            public int NextBrother;                 // NextBrother
+            public int Count;                       // Count
+        }
 
-            {0x0006, "plt"}, // Bioware Packed Layer Texture
-            {0x0007, "ini"}, // Windows INI
-            {0x0008, "mp3"}, // MP3
-            {0x0009, "mpg"}, // MPEG
-            {0x000A, "txt"}, // Text file
-            {0x000B, "xml"},
+        class ArchBase
+        {
+            public ArchDirectory Parent;
+            public string Path;
+        }
 
-            {0x07D0, "plh"},
-            {0x07D1, "tex"},
-            {0x07D2, "mdl"}, // Model
-            {0x07D3, "thg"},
+        class ArchFile : ArchBase
+        {
+            public int FileSize;
+            public uint Position;
+        }
 
-            {0x07D5, "fnt"}, // Font
-
-            {0x07D7, "lua"}, // Lua script source code
-            {0x07D8, "slt"},
-            {0x07D9, "nss"}, // NWScript source code
-            {0x07DA, "ncs"}, // NWScript bytecode
-            {0x07DB, "mod"}, // Module
-            {0x07DC, "are"}, // Area (GFF)
-            {0x07DD, "set"}, // Tileset (unused in KOTOR?)
-            {0x07DE, "ifo"}, // Module information
-            {0x07DF, "bic"}, // Character sheet (unused)
-            {0x07E0, "wok"}, // Walk-mesh
-            {0x07E1, "2da"}, // 2-dimensional array
-            {0x07E2, "tlk"}, // conversation file
-
-            {0x07E6, "txi"}, // Texture information
-            {0x07E7, "git"}, // Dynamic area information, game instance file, all area and objects that are scriptable
-            {0x07E8, "bti"},
-            {0x07E9, "uti"}, // item blueprint
-            {0x07EA, "btc"},
-            {0x07EB, "utc"}, // Creature blueprint
-
-            {0x07ED, "dlg"}, // Dialogue
-            {0x07EE, "itp"}, // tile blueprint pallet file
-            {0x07EF, "btt"},
-            {0x07F0, "utt"}, // trigger blueprint
-            {0x07F1, "dds"}, // compressed texture file
-            {0x07F2, "bts"},
-            {0x07F3, "uts"}, // sound blueprint
-            {0x07F4, "ltr"}, // letter combo probability info
-            {0x07F5, "gff"}, // Generic File Format
-            {0x07F6, "fac"}, // faction file
-            {0x07F7, "bte"},
-            {0x07F8, "ute"}, // encounter blueprint
-            {0x07F9, "btd"},
-            {0x07FA, "utd"}, // door blueprint
-            {0x07FB, "btp"},
-            {0x07FC, "utp"}, // placeable object blueprint
-            {0x07FD, "dft"}, // default values file (text-ini)
-            {0x07FE, "gic"}, // game instance comments
-            {0x07FF, "gui"}, // GUI definition (GFF)
-            {0x0800, "css"},
-            {0x0801, "ccs"},
-            {0x0802, "btm"},
-            {0x0803, "utm"}, // store merchant blueprint
-            {0x0804, "dwk"}, // door walkmesh
-            {0x0805, "pwk"}, // placeable object walkmesh
-            {0x0806, "btg"},
-
-            {0x0808, "jrl"}, // Journal
-            {0x0809, "sav"}, // Saved game (ERF)
-            {0x080A, "utw"}, // waypoint blueprint
-            {0x080B, "4pc"},
-            {0x080C, "ssf"}, // sound set file
-
-            {0x080F, "bik"}, // movie file (bik format)
-            {0x0810, "ndb"}, // script debugger file
-            {0x0811, "ptm"}, // plot manager/plot instance
-            {0x0812, "ptt"}, // plot wizard blueprint
-            {0x0813, "ncm"},
-            {0x0814, "mfx"},
-            {0x0815, "mat"},
-            {0x0816, "mdb"}, // not the standard MDB, multiple file formats present despite same type
-            {0x0817, "say"},
-            {0x0818, "ttf"}, // standard .ttf font files
-            {0x0819, "ttc"},
-            {0x081A, "cut"}, // cutscene? (GFF)
-            {0x081B, "ka"},  // karma file (XML)
-            {0x081C, "jpg"}, // jpg image
-            {0x081D, "ico"}, // standard windows .ico files
-            {0x081E, "ogg"}, // ogg vorbis sound file
-            {0x081F, "spt"},
-            {0x0820, "spw"},
-            {0x0821, "wfx"}, // woot effect class (XML)
-            {0x0822, "ugm"}, // 2082 ?? [textures00.bif]
-            {0x0823, "qdb"}, // quest database (GFF v3.38)
-            {0x0824, "qst"}, // quest (GFF)
-            {0x0825, "npc"}, // spawn point? (GFF)
-            {0x0826, "spn"},
-            {0x0827, "utx"},
-            {0x0828, "mmd"},
-            {0x0829, "smm"},
-            {0x082A, "uta"}, // uta (GFF)
-            {0x082B, "mde"},
-            {0x082C, "mdv"},
-            {0x082D, "mda"},
-            {0x082E, "mba"},
-            {0x082F, "oct"},
-            {0x0830, "bfx"},
-            {0x0831, "pdb"},
-            {0x0832, "TheWitcherSave"},
-            {0x0833, "pvs"},
-            {0x0834, "cfx"},
-            {0x0835, "luc"}, // compiled lua script
-
-            {0x0837, "prb"},
-            {0x0838, "cam"},
-            {0x0839, "vds"},
-            {0x083A, "bin"},
-            {0x083B, "wob"},
-            {0x083C, "api"},
-            {0x083D, "properties"},
-            {0x083E, "png"},
-
-            {0x270B, "big"},
-
-            {0x270D, "erf"}, // Encapsulated Resource Format
-            {0x270E, "bif"},
-            {0x270F, "key"},
-        };
+        class ArchDirectory : ArchBase
+        {
+            public List<ArchBase> Files;
+            public int Count;
+        }
 
         #endregion
 
         public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource))
-                throw new NotSupportedException();
-            if (stage != ReadStage.File)
-                throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
+            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
-            FileMetadata[] files; List<FileMetadata> files2;
-            var magic = source.Magic = r.ReadUInt32();
-            // KEY
-            if (magic == KEY_MAGIC) // Signature("KEY ")
+            // read file
+            var header = r.ReadT<Header>(sizeof(Header));
+            if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
+            if (header.Version != 3) throw new FormatException("BAD VERSION");
+            source.Version = header.Version;
+            var files = new ArchFile[header.FileCount];
+            var directories = new ArchDirectory[header.DirectoryCount];
+            var strings = r.ReadBytes(header.StringsLength);
+            fixed (byte* stringsB = strings)
             {
-                var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
-                if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
-                source.Version = header.Version;
-                multiSource.Files = files = new FileMetadata[header.NumFiles];
-
-                // parts
-                r.Position(header.FilesOffset);
-                var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x =>
+                // files
+                var headerFiles = r.ReadTArray<HeaderFile>(sizeof(HeaderFile), header.FileCount);
+                for (var i = 0; i < headerFiles.Length; i++)
                 {
-                    r.Position(x.FileNameOffset);
-                    return (file: x, path: r.ReadStringAsChars(x.FileNameSize - 1));
-                }).ToArray();
-                r.Position(header.KeysOffset);
-                var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => x.Id, x => UnsafeX.ReadZASCII(x.Name, 0x10));
-
-                // combine
-                var subPathFormat = Path.Combine(Path.GetDirectoryName(source.FilePath), "{0}");
-                for (var i = 0; i < header.NumFiles; i++)
-                {
-                    var (file, path) = headerFiles[i];
-                    var subPath = string.Format(subPathFormat, path);
-                    if (!File.Exists(subPath)) continue;
-                    files[i] = new FileMetadata
+                    var headerFile = headerFiles[i];
+                    files[i] = new ArchFile
                     {
-                        Path = path,
-                        FileSize = file.FileSize,
-                        Pak = new SubPakFile(source.Family, source.Game, subPath, (headerKeys, (uint)i)),
+                        Path = new string((sbyte*)&stringsB[headerFile.StringAt]),
+                        FileSize = headerFile.FileSize,
+                        Position = headerFile.Position,
+                    };
+                }
+
+                // directories
+                var headerDirectories = r.ReadTArray<HeaderDirectory>(sizeof(HeaderDirectory), header.DirectoryCount);
+                for (var i = 0; i < headerDirectories.Length; i++)
+                {
+                    var headerDirectory = headerDirectories[i];
+                    directories[i] = new ArchDirectory
+                    {
+                        Files = new List<ArchBase>(),
+                        Path = new string((sbyte*)&stringsB[headerDirectory.StringAt]).Replace('\\', '/'),
+                        Count = headerDirectory.Count,
                     };
                 }
             }
-            // BIFF
-            else if (magic == BIFF_MAGIC) // Signature("BIFF")
-            {
-                if (source.Tag == null) throw new FormatException("BIFF files can only be processed through KEY files");
-                var (keys, bifId) = ((Dictionary<uint, string> keys, uint bifId))source.Tag;
-                var header = r.ReadT<BIFF_Header>(sizeof(BIFF_Header));
-                if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
-                source.Version = header.Version;
-                multiSource.Files = files2 = new List<FileMetadata>();
 
-                // files
-                r.Position(header.FilesOffset);
-                var headerFiles = r.ReadTArray<BIFF_HeaderFile>(sizeof(BIFF_HeaderFile), (int)header.NumFiles);
-                for (var i = 0; i < header.NumFiles; i++)
+            // build tree
+            int fileIndex = 0, directoryIdx = 0;
+            while (directoryIdx < directories.Length)
+            {
+                var directory = directories[directoryIdx];
+                directory.Files.Clear();
+                var countIdx = 0;
+                while (true)
                 {
-                    var headerFile = headerFiles[i];
-                    if (headerFile.Id > i) continue;
-                    var path = $"{(keys.TryGetValue(headerFile.Id, out var key) ? key : $"{i}")}{(BIFF_FileTypes.TryGetValue((int)headerFile.FileType, out var z) ? $".{z}" : string.Empty)}".Replace('\\', '/');
-                    files2.Add(new FileMetadata
+                    if (countIdx >= directory.Count)
                     {
-                        Id = (int)headerFile.Id,
-                        Path = path,
-                        FileSize = headerFile.FileSize,
-                        Position = headerFile.Offset,
-                    });
+                        if (directory.Parent != null) directory.Parent.Files.Add(directory);
+                        directoryIdx++;
+                        break;
+                    }
+                    var file = files[fileIndex++];
+                    file.Parent = directory;
+                    directory.Files.Add(file);
+                    countIdx++;
                 }
             }
-            else throw new FormatException($"Unknown File Type {magic}");
+
+            multiSource.Files = directories.SelectMany(x => x.Files.Cast<ArchFile>(), (a, b) => new FileMetadata
+            {
+                Path = $"{a.Path}/{b.Path}",
+                FileSize = b.FileSize,
+                Position = b.Position,
+            }).ToArray();
+
             return Task.CompletedTask;
         }
 
@@ -293,8 +214,7 @@ namespace GameSpec.Lith.Formats
         {
             Stream fileData;
             r.Position(file.Position);
-            if (source.Version == BIFF_VERSION) fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
-            else throw new ArgumentOutOfRangeException(nameof(source.Version), $"{source.Version}");
+            fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             return Task.FromResult(fileData);
         }
     }

@@ -40,7 +40,7 @@ namespace GameSpec.Arkane.Formats
                     var nameSize = r.ReadUInt32();
                     if (nameSize == SubMarker) { state++; nameSize = r.ReadUInt32(); }
                     else if (nameSize == EndMarker) break;
-                    var path = r.ReadStringAsChars((int)nameSize).Replace('\\', '/');
+                    var path = r.ReadString((int)nameSize).Replace('\\', '/');
                     var packId = state > 0 ? r.ReadUInt16() : 0;
                     files2.Add(new FileMetadata
                     {
@@ -74,9 +74,9 @@ namespace GameSpec.Arkane.Formats
             for (var i = 0; i < numFiles; i++)
             {
                 var id = MathX.Reverse(r.ReadUInt32());
-                var tag1 = r.ReadL32String();
-                var tag2 = r.ReadL32String();
-                var path = r.ReadL32String().Replace('\\', '/');
+                var tag1 = r.ReadL32Encoding();
+                var tag2 = r.ReadL32Encoding();
+                var path = r.ReadL32Encoding().Replace('\\', '/');
                 var position = MathX.Reverse(r.ReadUInt64());
                 var fileSize = MathX.Reverse(r.ReadUInt32());
                 var packedSize = MathX.Reverse(r.ReadUInt32());

@@ -52,7 +52,7 @@ namespace GameSpec.Tes.Formats.Records
             {
                 if (format == TesFormat.TES3)
                 {
-                    EffectId = r.ReadStringAsChars(2);
+                    EffectId = r.ReadString(2);
                     SkillId = r.ReadByte();
                     AttributeId = r.ReadByte();
                     Type = r.ReadInt32();
@@ -62,7 +62,7 @@ namespace GameSpec.Tes.Formats.Records
                     MagnitudeMax = r.ReadInt32();
                     return;
                 }
-                EffectId = r.ReadStringAsChars(4);
+                EffectId = r.ReadString(4);
                 MagnitudeMin = r.ReadInt32();
                 Area = r.ReadInt32();
                 Duration = r.ReadInt32();
@@ -87,10 +87,10 @@ namespace GameSpec.Tes.Formats.Records
                 if (dataSize == 4)
                     return;
                 School = r.ReadInt32();
-                VisualEffect = r.ReadStringAsChars(4);
+                VisualEffect = r.ReadString(4);
                 Flags = dataSize > 12 ? r.ReadUInt32() : 0;
             }
-            public void FULLField(BinaryReader r, int dataSize) => Name = r.ReadZOptionedString(dataSize);
+            public void FULLField(BinaryReader r, int dataSize) => Name = r.ReadYEncoding(dataSize);
         }
 
         public override string ToString() => $"ENCH: {EDID.Value}";

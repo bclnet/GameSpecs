@@ -34,11 +34,11 @@ namespace GameSpec.AC.Formats.FileTypes
             ClientIDNumberingType = (NumberingType)r.ReadByte();
             ClientEnumToID = r.ReadC32Many<uint, uint>(sizeof(uint), x => x.ReadUInt32());
             ClientNameNumberingType = (NumberingType)r.ReadByte();
-            ClientEnumToName = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8String(Encoding.Default));
+            ClientEnumToName = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
             ServerIDNumberingType = (NumberingType)r.ReadByte();
             ServerEnumToID = r.ReadC32Many<uint, uint>(sizeof(uint), x => x.ReadUInt32());
             ServerNameNumberingType = (NumberingType)r.ReadByte();
-            ServerEnumToName = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8String(Encoding.Default));
+            ServerEnumToName = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
         }
 
         //: FileTypes.DidMapper

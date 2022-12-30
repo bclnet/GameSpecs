@@ -22,7 +22,7 @@ namespace GameSpec.AC.Formats.Entity
             VowelContainingSubstringLength = r.ReadUInt32();
             ExtraAllowedCharacters = r.ReadUInt32();
             Unknown = r.ReadByte();
-            CompoundLetterGroups = r.ReadL32Array(x => x.ReadUnicodeString());
+            CompoundLetterGroups = r.ReadL32Array(x => x.ReadC32Unicode());
         }
 
         //: Entity.NameFilterLanguageData

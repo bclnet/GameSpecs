@@ -82,6 +82,11 @@ namespace GameSpec.App.Cli
         static string[] dev03b = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#Tabletop" }; // asset.v21
         static string[] dev03c = new[] { "list", "-f", "Unity", "-u", @"game:/globalgamemanagers.assets#Tabletop" }; // asset.v21
 
+
+        static string[] dev04a = new[] { "list", "-f", "Lith", "-u", @"game:/FEAR_1.Arch00#FEAR" };
+
+
+
         static string[] argsRsi1 = new[] { "export", "-f", "Rsi", "-u", "game:/Data.p4k#StarCitizen", "--path", @"D:\T_\StarCitizen" };
 
         static string[] argsTes1 = new[] { "export", "-f", "Tes", "-u", "game:/Oblivion*.bsa#Oblivion", "--path", @"D:\T_\Oblivion" };
@@ -100,7 +105,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(dev01b)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(dev04a)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),

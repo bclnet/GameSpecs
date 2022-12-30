@@ -10,7 +10,7 @@ namespace GameSpec.Formats
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryText(r, (int)f.FileSize));
 
         public BinaryText() { }
-        public BinaryText(BinaryReader r, int fileSize) => Data = r.ReadStringAsBytes(fileSize);
+        public BinaryText(BinaryReader r, int fileSize) => Data = r.ReadEncoding(fileSize);
 
         public string Data;
 

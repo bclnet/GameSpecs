@@ -16,7 +16,7 @@ namespace GameSpec.AC.Formats.Entity
         {
             Start = r.ReadSingle();
             IsNight = r.ReadUInt32() == 1;
-            Name = r.ReadL16String(Encoding.Default); r.Align();
+            Name = r.ReadL16Encoding(Encoding.Default); r.Align();
         }
 
         //: Entity.TimeOfDay

@@ -55,7 +55,7 @@ namespace GameSpec.Tes.Formats
         {
             if (typeof(T) == typeof(float)) { return (T)(object)r.ReadSingle(); }
             else if (typeof(T) == typeof(byte)) { return (T)(object)r.ReadByte(); }
-            else if (typeof(T) == typeof(string)) { return (T)(object)r.ReadL32String(); }
+            else if (typeof(T) == typeof(string)) { return (T)(object)r.ReadL32Encoding(); }
             else if (typeof(T) == typeof(Vector3)) { return (T)(object)r.ReadVector3(); }
             else if (typeof(T) == typeof(Quaternion)) { return (T)(object)r.ReadQuaternionWFirst(); }
             else if (typeof(T) == typeof(Color4)) { var color = new Color4(); color.Deserialize(r); return (T)(object)color; }
@@ -569,7 +569,7 @@ namespace GameSpec.Tes.Formats
         public override void Deserialize(BinaryReader r)
         {
             base.Deserialize(r);
-            Name = r.ReadL32String();
+            Name = r.ReadL32Encoding();
             ExtraData = NiReaderUtils.ReadRef<NiExtraData>(r);
             Controller = NiReaderUtils.ReadRef<NiTimeController>(r);
         }
@@ -982,7 +982,7 @@ namespace GameSpec.Tes.Formats
         {
             base.Deserialize(reader);
             BytesRemaining = reader.ReadUInt32();
-            Str = reader.ReadL32String();
+            Str = reader.ReadL32Encoding();
         }
     }
 
@@ -1412,7 +1412,7 @@ namespace GameSpec.Tes.Formats
         {
             base.Deserialize(r);
             UseExternal = r.ReadByte();
-            FileName = r.ReadL32String();
+            FileName = r.ReadL32Encoding();
             PixelLayout = (PixelLayout)r.ReadUInt32();
             UseMipMaps = (MipMapFormat)r.ReadUInt32();
             AlphaFormat = (AlphaFormat)r.ReadUInt32();

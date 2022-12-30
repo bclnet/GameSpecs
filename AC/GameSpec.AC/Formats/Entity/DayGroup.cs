@@ -17,7 +17,7 @@ namespace GameSpec.AC.Formats.Entity
         public DayGroup(BinaryReader r)
         {
             ChanceOfOccur = r.ReadSingle();
-            DayName = r.ReadL16String(Encoding.Default); r.Align();
+            DayName = r.ReadL16Encoding(Encoding.Default); r.Align();
             SkyObjects = r.ReadL32Array(x => new SkyObject(x));
             SkyTime = r.ReadL32Array(x => new SkyTimeOfDay(x));
         }

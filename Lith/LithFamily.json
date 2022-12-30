@@ -8,7 +8,7 @@
   "games": {
     "FEAR": {
       "name": "F.E.A.R.",
-      "pak": "game:/*.Arch1#FEAR"
+      "pak": "game:/*.Arch00#FEAR"
     },
     "FEAR:EP": {
       "name": "F.E.A.R.: Extraction Point",

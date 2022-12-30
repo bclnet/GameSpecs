@@ -52,7 +52,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
             RotCtrlID = r.ReadInt32();
             SclCtrlID = r.ReadInt32();
 
-            Properties = r.ReadPString();
+            Properties = r.ReadLString();
         }
     }
 }

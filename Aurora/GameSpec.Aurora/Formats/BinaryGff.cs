@@ -145,13 +145,13 @@ namespace GameSpec.Aurora.Formats
                     case 6: return (x.LabelIndex, r.ReadUInt64());              //: DWord64
                     case 7: return (x.LabelIndex, r.ReadInt64());               //: Int64
                     case 9: return (x.LabelIndex, r.ReadDouble());              //: Double
-                    case 10: return (x.LabelIndex, r.ReadL32String());           //: CExoString
-                    case 11: return (x.LabelIndex, new ResourceRef { Name = r.ReadL8String() }); //: ResRef
+                    case 10: return (x.LabelIndex, r.ReadL32Encoding());           //: CExoString
+                    case 11: return (x.LabelIndex, new ResourceRef { Name = r.ReadL8Encoding() }); //: ResRef
                     case 12: //: CExoLocString
                         r.Skip(4);
                         var dialogID = r.ReadUInt32();
                         var values = new (uint id, string value)[r.ReadUInt32()];
-                        for (var i = 0; i < values.Length; i++) values[i] = (r.ReadUInt32(), r.ReadL32String());
+                        for (var i = 0; i < values.Length; i++) values[i] = (r.ReadUInt32(), r.ReadL32Encoding());
                         return (x.LabelIndex, new LocalizedRef { DialogID = dialogID, Values = values });
                     case 13: return (x.LabelIndex, r.ReadBytes((int)r.ReadUInt32()));
                 }

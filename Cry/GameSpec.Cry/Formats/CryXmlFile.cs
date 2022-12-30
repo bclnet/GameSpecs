@@ -37,7 +37,7 @@ namespace GameSpec.Cry.Formats
             else if (peek != 'C') throw new Exception("Unknown File Format"); // Unknown file format
 
             var header = r.ReadFString(7);
-            if (header == "CryXml" || header == "CryXmlB") r.ReadCString();
+            if (header == "CryXml" || header == "CryXmlB") r.ReadZString();
             else if (header == "CRY3SDK") r.ReadBytes(2);
             else throw new FormatException("Unknown File Format");
 
@@ -130,7 +130,7 @@ namespace GameSpec.Cry.Formats
             while (r.BaseStream.Position < r.BaseStream.Length)
             {
                 var position = r.BaseStream.Position;
-                var value = (Offset: (int)position - stringTableOffset, Value: r.ReadCString());
+                var value = (Offset: (int)position - stringTableOffset, Value: r.ReadZString());
                 dataTable.Add(value);
                 if (writeLog) Console.WriteLine($"0x{position:X6}: {value.Offset:X8} {value.Value}");
             }

@@ -54,8 +54,8 @@ namespace GameSpec.AC.Formats.Entity
         }
         public SpellBase(BinaryReader r)
         {
-            Name = r.ReadObfuscatedString(); r.Align();
-            Desc = r.ReadObfuscatedString(); r.Align();
+            Name = r.ReadL16StringObfuscated(); r.Align();
+            Desc = r.ReadL16StringObfuscated(); r.Align();
             School = (MagicSchool)r.ReadUInt32();
             Icon = r.ReadUInt32();
             Category = (SpellCategory)r.ReadUInt32();

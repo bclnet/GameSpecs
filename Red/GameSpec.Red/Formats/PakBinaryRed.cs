@@ -451,7 +451,7 @@ namespace GameSpec.Red.Formats
 
                         // parts
                         r.Position(header.FilesOffset);
-                        var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Position(x.FileNameOffset); return (file: x, path: r.ReadStringAsChars((int)x.FileNameSize)); }).ToArray();
+                        var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Position(x.FileNameOffset); return (file: x, path: r.ReadString((int)x.FileNameSize)); }).ToArray();
                         r.Position(header.KeysOffset);
                         var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => (x.Id, x.ResourceId), x => UnsafeX.ReadZASCII(x.Name, 0x10));
 
@@ -515,7 +515,7 @@ namespace GameSpec.Red.Formats
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             string path;
-                            if (decryptKey == null) path = r.ReadL16String(true);
+                            if (decryptKey == null) path = r.ReadL16YEncoding();
                             else
                             {
                                 var pathBytes = r.ReadBytes(r.ReadUInt16());
@@ -625,8 +625,7 @@ namespace GameSpec.Red.Formats
 
                             // name block
                             var filePaths = new string[header.NumFiles];
-                            var buf = new MemoryStream();
-                            for (var i = 0; i < header.NumFiles; i++) filePaths[i] = r.ReadZASCII(1000, buf);
+                            for (var i = 0; i < header.NumFiles; i++) filePaths[i] = r.ReadZASCII(1000);
 
                             // file block
                             var headerFiles = r.ReadTArray<CACHE_TEX_HeaderFile>(sizeof(CACHE_TEX_HeaderFile), (int)header.NumFiles);
@@ -647,7 +646,7 @@ namespace GameSpec.Red.Formats
                                 ? r.ReadT<CACHE_CS3W_Header>(sizeof(CACHE_CS3W_Header))
                                 : r.ReadT<CACHE_CS3W_HeaderV1>(sizeof(CACHE_CS3W_HeaderV1)).ToHeader();
                             r.Position((long)header.NameOffset);
-                            var name = r.ReadStringAsChars((int)header.NameSize);
+                            var name = r.ReadString((int)header.NameSize);
                         }
                         else
                         {

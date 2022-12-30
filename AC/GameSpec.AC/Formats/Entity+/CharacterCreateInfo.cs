@@ -49,7 +49,7 @@ namespace GameSpec.AC.Formats.Entity
             CharacterSlot = r.ReadUInt32();
             ClassId = r.ReadUInt32();
             SkillAdvancementClasses = r.ReadL32Array(x => (SkillAdvancementClass)x.ReadUInt32()).ToList();
-            Name = r.ReadL16String();
+            Name = r.ReadL16Encoding();
             StartArea = r.ReadUInt32();
             IsAdmin = r.ReadUInt32() == 1;
             IsSentinel = r.ReadUInt32() == 1;

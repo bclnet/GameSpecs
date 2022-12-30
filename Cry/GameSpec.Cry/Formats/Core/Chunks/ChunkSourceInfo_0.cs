@@ -29,11 +29,11 @@ namespace GameSpec.Cry.Formats.Core.Chunks
             }
 
             ChunkType = ChunkType.SourceInfo; // this chunk doesn't actually have the chunktype header.
-            SourceFile = r.ReadCString();
-            Date = r.ReadCString().TrimEnd(); // Strip off last 2 Characters, because it contains a return
+            SourceFile = r.ReadZString();
+            Date = r.ReadZString().TrimEnd(); // Strip off last 2 Characters, because it contains a return
             // It is possible that Date has a newline in it instead of a null.  If so, split it based on newline.  Otherwise read Author.
             if (Date.Contains('\n')) { Author = Date.Split('\n')[1]; Date = Date.Split('\n')[0]; }
-            else Author = r.ReadCString();
+            else Author = r.ReadZString();
         }
     }
 }

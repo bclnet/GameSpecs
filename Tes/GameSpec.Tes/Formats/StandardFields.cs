@@ -22,7 +22,7 @@ namespace GameSpec.Tes.Formats
         public float Bound;
         public byte[] Textures; // Texture Files Hashes
         public override string ToString() => $"{Value}";
-        public MODLGroup(BinaryReader r, int dataSize) => Value = r.ReadZOptionedString(dataSize);
+        public MODLGroup(BinaryReader r, int dataSize) => Value = r.ReadYEncoding(dataSize);
         public void MODBField(BinaryReader r, int dataSize) => Bound = r.ReadSingle();
         public void MODTField(BinaryReader r, int dataSize) => Textures = r.ReadBytes(dataSize);
     }
@@ -72,13 +72,13 @@ namespace GameSpec.Tes.Formats
                 'b' => new DATVField { B = r.ReadInt32() != 0 },
                 'i' => new DATVField { I = r.ReadInt32() },
                 'f' => new DATVField { F = r.ReadSingle() },
-                's' => new DATVField { S = r.ReadZOptionedString(length) },
+                's' => new DATVField { S = r.ReadYEncoding(length) },
                 _ => throw new InvalidOperationException($"{type}"),
             };
         }
-        public static STRVField ReadSTRV(this BinaryReader r, int length) => new STRVField { Value = r.ReadZOptionedString(length) };
+        public static STRVField ReadSTRV(this BinaryReader r, int length) => new STRVField { Value = r.ReadYEncoding(length) };
         public static STRVField ReadSTRV_ZPad(this BinaryReader r, int length) => new STRVField { Value = r.ReadZPaddedString(length) };
-        public static FILEField ReadFILE(this BinaryReader r, int length) => new FILEField { Value = r.ReadZOptionedString(length) };
+        public static FILEField ReadFILE(this BinaryReader r, int length) => new FILEField { Value = r.ReadYEncoding(length) };
         public static BYTVField ReadBYTV(this BinaryReader r, int length) => new BYTVField { Value = r.ReadBytes(length) };
         public static UNKNField ReadUNKN(this BinaryReader r, int length) => new UNKNField { Value = r.ReadBytes(length) };
     }

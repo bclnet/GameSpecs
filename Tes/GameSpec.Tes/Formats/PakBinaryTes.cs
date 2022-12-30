@@ -275,7 +275,7 @@ namespace GameSpec.Tes.Formats
                 if (header.NameTableOffset > 0)
                 {
                     r.Position((long)header.NameTableOffset);
-                    var path = r.ReadL16String().Replace('\\', '/');
+                    var path = r.ReadL16Encoding().Replace('\\', '/');
                     foreach (var file in files) file.Path = path;
                 }
             }
@@ -302,7 +302,7 @@ namespace GameSpec.Tes.Formats
                 multiSource.Files = files = new FileMetadata[header.FileCount];
                 for (var i = 0; i < header.FolderCount; i++)
                 {
-                    var folder_name = r.ReadStringAsChars(r.ReadByte() - 1).Replace('\\', '/'); r.Skip(1);
+                    var folder_name = r.ReadString(r.ReadByte() - 1).Replace('\\', '/'); r.Skip(1);
                     var headerFiles = r.ReadTArray<OB_HeaderFile>(sizeof(OB_HeaderFile), (int)foldersFiles[i]);
                     foreach (var headerFile in headerFiles)
                     {
@@ -318,8 +318,7 @@ namespace GameSpec.Tes.Formats
                 }
 
                 // read-all names
-                var b = new StringBuilder();
-                foreach (var file in files) file.Path = $"{file.Path}/{r.ReadZString(builder: b)}";
+                foreach (var file in files) file.Path = $"{file.Path}/{r.ReadZString()}";
             }
 
             // Morrowind
@@ -346,11 +345,10 @@ namespace GameSpec.Tes.Formats
 
                 // Read filenames
                 var filenamesPosition = r.Position();
-                var buf = new MemoryStream();
                 for (var i = 0; i < files.Length; i++)
                 {
                     r.Position(filenamesPosition + filenameOffsets[i]);
-                    files[i].Path = r.ReadZASCII(1000, buf).Replace('\\', '/');
+                    files[i].Path = r.ReadZASCII(1000).Replace('\\', '/');
                 }
             }
 
@@ -368,7 +366,7 @@ namespace GameSpec.Tes.Formats
                 for (var i = 0; i < files.Length; i++)
                     files[i] = new FileMetadata
                     {
-                        Path = r.ReadL32String().TrimStart('\\'),
+                        Path = r.ReadL32Encoding().TrimStart('\\'),
                         Compressed = r.ReadByte(),
                         FileSize = r.ReadUInt32(),
                         PackedSize = r.ReadUInt32(),

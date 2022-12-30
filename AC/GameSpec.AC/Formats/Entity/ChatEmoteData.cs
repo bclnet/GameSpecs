@@ -13,8 +13,8 @@ namespace GameSpec.AC.Formats.Entity
 
         public ChatEmoteData(BinaryReader r)
         {
-            MyEmote = r.ReadL16String(Encoding.Default); r.Align();
-            OtherEmote = r.ReadL16String(Encoding.Default); r.Align();
+            MyEmote = r.ReadL16Encoding(Encoding.Default); r.Align();
+            OtherEmote = r.ReadL16Encoding(Encoding.Default); r.Align();
         }
 
         //: Entity.ChatEmoteData

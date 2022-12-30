@@ -15,7 +15,7 @@ namespace GameSpec.AC.Formats.Entity
 
         public TerrainType(BinaryReader r)
         {
-            TerrainName = r.ReadL16String(Encoding.Default); r.Align();
+            TerrainName = r.ReadL16Encoding(Encoding.Default); r.Align();
             TerrainColor = r.ReadUInt32();
             SceneTypes = r.ReadL32Array<uint>(sizeof(uint));
         }
