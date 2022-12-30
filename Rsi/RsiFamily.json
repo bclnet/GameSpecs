@@ -8,6 +8,7 @@
   "games": {
     "StarCitizen": {
       "name": "Star Citizen",
+      "url": "https://robertsspaceindustries.com/playstarcitizen",
       "pak": "game:/Data.p4k#StarCitizen",
       "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47"
     }

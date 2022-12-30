@@ -1,8 +1,8 @@
 ﻿using GameSpec.Aurora.Formats;
 using GameSpec.Aurora.Transforms;
-using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
 using System.Threading.Tasks;

@@ -8,22 +8,27 @@
   "games": {
     "AmongUs": {
       "name": "Among Us",
+      "url": "https://store.steampowered.com/app/945360",
       "pak": "game:/*.assets#AmongUs"
     },
     "Cities": {
       "name": "Cities: Skylines",
+      "url": "https://store.steampowered.com/app/255710",
       "pak": "game:/*.assets#Cities"
     },
     "Tabletop": {
       "name": "Tabletop Simulator",
+      "url": "https://store.steampowered.com/app/286160",
       "pak": "game:/*.assets#Tabletop"
     },
     "UBoat": {
       "name": "Destroyer: The U-Boat Hunter",
+      "url": "https://store.steampowered.com/app/1272010",
       "pak": "game:/*.assets#UBoat"
     },
     "7D2D": {
       "name": "7 Days to Die",
+      "url": "https://store.steampowered.com/app/251570",
       "pak": "game:/*.assets#7D2D"
     }
   },
@@ -43,7 +48,7 @@
           "path": "Tabletop Simulator_Data"
         },
         "UBoat": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1659440",
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1272010",
           "path": "Destroyer The U-Boat Hunter_Data"
         },
         "7D2D": {

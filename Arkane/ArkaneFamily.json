@@ -8,6 +8,7 @@
   "games": {
     "Dishonored2": {
       "name": "Dishonored 2",
+      "url":  "https://www.gog.com/index.php/game/dishonored_2",
       "pak": "game:/game1.index#Dishonored2",
       "pak_": "game:/*.index#Dishonored2"
     }

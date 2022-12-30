@@ -19,7 +19,7 @@ namespace GameSpec.Red.Formats
     // https://github.com/JLouis-B/RedTools
     // https://github.com/yole/Gibbed.RED
     // https://forums.cdprojektred.com/index.php?threads/tw2-tw3-redkit-tool-3d-models-converter.1043/page-2
-    public class PakBinaryRed : PakBinary
+    public unsafe class PakBinaryRed : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryRed();
         PakBinaryRed() { }
@@ -36,7 +36,7 @@ namespace GameSpec.Red.Formats
         const uint BIFF_VERSION = 0x312e3156;
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_Header
+        struct KEY_Header
         {
             public uint Version;            // Version ("V1.1")
             public uint NumFiles;           // Number of entries in FILETABLE
@@ -58,7 +58,7 @@ namespace GameSpec.Red.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_HeaderKey
+        struct KEY_HeaderKey
         {
             public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
             public ushort ResourceType;     // Resource Type
@@ -451,7 +451,7 @@ namespace GameSpec.Red.Formats
 
                         // parts
                         r.Position(header.FilesOffset);
-                        var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Position(x.FileNameOffset); return (file: x, path: r.ReadString((int)x.FileNameSize)); }).ToArray();
+                        var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Position(x.FileNameOffset); return (file: x, path: r.ReadFString((int)x.FileNameSize)); }).ToArray();
                         r.Position(header.KeysOffset);
                         var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => (x.Id, x.ResourceId), x => UnsafeX.ReadZASCII(x.Name, 0x10));
 
@@ -509,17 +509,17 @@ namespace GameSpec.Red.Formats
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
                         multiSource.Files = files = new FileMetadata[header.NumFiles];
-                        var decryptKey = source.DecryptKey as ulong?;
+                        var cryptKey = source.CryptKey as ulong?;
                         r.Position((long)header.FilesPosition);
                         var hash = 0x00000000FFFFFFFFUL;
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             string path;
-                            if (decryptKey == null) path = r.ReadL16YEncoding();
+                            if (cryptKey == null) path = r.ReadL16YEncoding();
                             else
                             {
                                 var pathBytes = r.ReadBytes(r.ReadUInt16());
-                                for (var j = 0; j < pathBytes.Length; j++) { pathBytes[j] ^= (byte)(decryptKey >> j % 8); decryptKey *= 0x00000100000001B3UL; }
+                                for (var j = 0; j < pathBytes.Length; j++) { pathBytes[j] ^= (byte)(cryptKey >> j % 8); cryptKey *= 0x00000100000001B3UL; }
                                 var nameBytesLength = pathBytes.Length - 1;
                                 path = Encoding.ASCII.GetString(pathBytes, 0, pathBytes[nameBytesLength] == 0 ? nameBytesLength : pathBytes.Length);
                             }
@@ -646,7 +646,7 @@ namespace GameSpec.Red.Formats
                                 ? r.ReadT<CACHE_CS3W_Header>(sizeof(CACHE_CS3W_Header))
                                 : r.ReadT<CACHE_CS3W_HeaderV1>(sizeof(CACHE_CS3W_HeaderV1)).ToHeader();
                             r.Position((long)header.NameOffset);
-                            var name = r.ReadString((int)header.NameSize);
+                            var name = r.ReadFString((int)header.NameSize);
                         }
                         else
                         {

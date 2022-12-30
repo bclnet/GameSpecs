@@ -36,7 +36,7 @@ namespace GameSpec.Cry.Formats
             if (peek == '<') { Load(r.BaseStream); return; } // File is already XML, so return the XML.
             else if (peek != 'C') throw new Exception("Unknown File Format"); // Unknown file format
 
-            var header = r.ReadFString(7);
+            var header = r.ReadFYString(7);
             if (header == "CryXml" || header == "CryXmlB") r.ReadZString();
             else if (header == "CRY3SDK") r.ReadBytes(2);
             else throw new FormatException("Unknown File Format");

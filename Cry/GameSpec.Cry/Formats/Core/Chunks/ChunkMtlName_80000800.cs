@@ -12,7 +12,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
             MatType = (MtlNameType)MathX.SwapEndian(r.ReadUInt32());
             // if 0x01, then material lib. If 0x12, mat name. This is actually a bitstruct.
             NFlags2 = MathX.SwapEndian(r.ReadUInt32()); // NFlags2
-            Name = r.ReadFString(128);
+            Name = r.ReadFYString(128);
             PhysicsType = new[] { (MtlNamePhysicsType)MathX.SwapEndian(r.ReadUInt32()) };
             NumChildren = (int)MathX.SwapEndian(r.ReadUInt32());
             // Now we need to read the Children references. 2 parts; the number of children, and then 66 - numchildren padding

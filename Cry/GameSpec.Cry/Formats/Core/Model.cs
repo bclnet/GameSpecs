@@ -125,7 +125,7 @@ namespace GameSpec.Cry.Formats.Core
         {
             // FILESIGNATURE V3.6+ : Version 3.6 or later
             r.BaseStream.Seek(0, SeekOrigin.Begin);
-            FileSignature = r.ReadFString(4);
+            FileSignature = r.ReadFYString(4);
             if (FileSignature == "CrCh")
             {
                 FileVersion = (FileVersion)r.ReadUInt32(); // 0x746
@@ -144,7 +144,7 @@ namespace GameSpec.Cry.Formats.Core
 
             // FILESIGNATURE V3.5- : Version 3.5 or earlier
             r.BaseStream.Seek(0, SeekOrigin.Begin);
-            FileSignature = r.ReadFString(8);
+            FileSignature = r.ReadFYString(8);
             if (FileSignature == "CryTek")
             {
                 FileType = (FileType)r.ReadUInt32();

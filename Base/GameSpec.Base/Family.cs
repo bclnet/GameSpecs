@@ -2,6 +2,7 @@
 using OpenStack;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static GameSpec.Resource;
 
@@ -59,6 +60,12 @@ namespace GameSpec
         /// </returns>
         public override string ToString() => Name;
 
+        /// <summary>
+        /// Gets the file filters.
+        /// </summary>
+        /// <value>
+        /// The file filters.
+        /// </value>
         public IDictionary<string, IDictionary<string, string>> FileFilters => FileManager.Filters;
 
         /// <summary>
@@ -149,6 +156,14 @@ namespace GameSpec
         public FileManager FileManager { get; set; }
 
         /// <summary>
+        /// Gets the type of the file system.
+        /// </summary>
+        /// <value>
+        /// The type of the file system.
+        /// </value>
+        public Type FileSystemType { get; set; }
+
+        /// <summary>
         /// Parses the estates resource.
         /// </summary>
         /// <param name="uri">The URI.</param>
@@ -171,7 +186,7 @@ namespace GameSpec
         }
 
         /// <summary>
-        /// Paks the file factory.
+        /// Pak file factory.
         /// </summary>
         /// <param name="options">The options.</param>
         /// <param name="value">The value.</param>
@@ -190,6 +205,7 @@ namespace GameSpec
                 string[] paths when (options & PakOption.Paths) != 0 && index == 1 && Pak2FileType != null => (PakFile)Activator.CreateInstance(Pak2FileType, this, game, paths),
                 string[] paths when paths.Length == 1 => CreatePakFile(options, paths[0], index, game, host, throwOnError),
                 string[] paths when paths.Length > 1 => new MultiPakFile(this, game, "Many", paths.Select(path => CreatePakFile(options, path, index, game, host, throwOnError)).ToArray()),
+                string[] paths when paths.Length == 0 => null,
                 null => null,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
             });
@@ -225,6 +241,20 @@ namespace GameSpec
             var resource = FileManager.ParseResource(this, uri);
             return CreatePakFile(resource.Options, resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)), 0, resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.Host, throwOnError);
         }
+
+        #endregion
+
+        #region FileSystem
+
+        /// <summary>
+        /// File system factory.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns></returns>
+        public FileManager.IFileSystem CreateFileSystem(FamilyGame game)
+            => game.FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(game.FileSystemType)
+            : FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(game.FileSystemType)
+            : null;
 
         #endregion
     }

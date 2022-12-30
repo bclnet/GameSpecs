@@ -8,22 +8,27 @@
   "games": {
     "FEAR": {
       "name": "F.E.A.R.",
+      "url": "https://store.steampowered.com/app/21090",
       "pak": "game:/*.Arch00#FEAR"
     },
     "FEAR:EP": {
       "name": "F.E.A.R.: Extraction Point",
+      "url": "https://store.steampowered.com/app/21110",
       "pak": "game:/*.Arch1#FEAR:EP"
     },
     "FEAR:PM": {
       "name": "F.E.A.R.: Perseus Mandate",
+      "url": "https://store.steampowered.com/app/21120",
       "pak": "game:/*.Arch1#FEAR:PM"
     },
     "FEAR2": {
       "name": "F.E.A.R. 2: Project Origin",
+      "url": "https://store.steampowered.com/app/16450",
       "pak": "game:/*.Arch1#FEAR2"
     },
     "FEAR3": {
       "name": "F.E.A.R. 3",
+      "url": "https://store.steampowered.com/app/21100",
       "pak": "game:/*.Arch1#FEAR3"
     }
   },

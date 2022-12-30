@@ -28,7 +28,7 @@ namespace GameSpec
         {
             var fileManager = FamilyManager.GetFamily(familyName).FileManager;
             Assert.IsTrue(fileManager.HasPaths);
-            var abc0 = fileManager.FindGameFilePaths(game, searchPattern);
+            var abc0 = fileManager.FindGameFilePaths(null, game, searchPattern);
             Assert.AreEqual(1, abc0.Length);
         }
     }

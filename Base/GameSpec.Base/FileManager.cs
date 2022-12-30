@@ -16,6 +16,26 @@ namespace GameSpec
     /// </summary>
     public abstract class FileManager
     {
+        public static readonly IFileSystem DefaultSystem = new StandardSystem();
+
+        /// <summary>
+        /// IFileSystem
+        /// </summary>
+        public interface IFileSystem
+        {
+            string[] GetDirectories(string path, string searchPattern);
+            string[] GetFiles(string path, string searchPattern);
+        }
+
+        /// <summary>
+        /// StandardSystem
+        /// </summary>
+        class StandardSystem : IFileSystem
+        {
+            public string[] GetDirectories(string path, string searchPattern) => Directory.GetDirectories(path, searchPattern);
+            public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
+        }
+
         /// <summary>
         /// Gets the host factory.
         /// </summary>
@@ -61,38 +81,42 @@ namespace GameSpec
         {
             if (uri == null) return new Resource { Game = string.Empty };
             var fragment = uri.Fragment?[(uri.Fragment.Length != 0 ? 1 : 0)..];
-            var game = family.GetGame(fragment);
-            var r = new Resource { Game = game.id };
+            var (gameId, game) = family.GetGame(fragment);
+            var fileSystem = family.CreateFileSystem(game);
+            var r = new Resource { Game = gameId };
             // game-scheme
-            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{game.id}: unable to locate game resources") : Array.Empty<string>());
+            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{gameId}: unable to locate game resources") : Array.Empty<string>());
             // file-scheme
-            else if (uri.IsFile) r.Paths = GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.id}: unable to locate file resources") : Array.Empty<string>());
+            else if (uri.IsFile) r.Paths = GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{gameId}: unable to locate file resources") : Array.Empty<string>());
             // network-scheme
-            else r.Paths = GetHttpFilePaths(uri, out r.Host, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.id}: unable to locate network resources") : Array.Empty<string>());
+            else r.Paths = GetHttpFilePaths(uri, out r.Host, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{gameId}: unable to locate network resources") : Array.Empty<string>());
             return r;
         }
 
         /// <summary>
         /// Gets the game file paths.
         /// </summary>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="game">The game.</param>
         /// <param name="pathOrPattern">The path or pattern.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">pathOrPattern</exception>
         /// <exception cref="ArgumentOutOfRangeException">pathOrPattern</exception>
-        public string[] FindGameFilePaths(string game, string pathOrPattern)
+        public string[] FindGameFilePaths(IFileSystem fileSystem, string game, string pathOrPattern)
         {
-            if (pathOrPattern == null) throw new ArgumentNullException(nameof(pathOrPattern));
+            fileSystem ??= DefaultSystem;
+            // root folder
+            if (string.IsNullOrEmpty(pathOrPattern))
+                return Paths.TryGetValue(game, out var z) ? z.ToArray() : null;
+            // search folder
             var searchPattern = Path.GetFileName(pathOrPattern);
-            // folder
             if (string.IsNullOrEmpty(searchPattern)) throw new ArgumentOutOfRangeException(nameof(pathOrPattern), pathOrPattern);
-            // file
             return Paths.TryGetValue(game, out var paths)
-                ? ExpandAndSearchPaths(Ignores.TryGetValue(game, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
+                ? ExpandAndSearchPaths(fileSystem, Ignores.TryGetValue(game, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
                 : null;
         }
 
-        static IEnumerable<string> ExpandAndSearchPaths(HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
+        static IEnumerable<string> ExpandAndSearchPaths(IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
         {
             // expand
             int expandStartIdx, expandMidIdx, expandEndIdx;
@@ -102,7 +126,7 @@ namespace GameSpec
                 expandStartIdx < expandEndIdx)
             {
                 foreach (var expand in pathOrPattern.Substring(expandStartIdx + 1, expandEndIdx - expandStartIdx - 1).Split(':'))
-                    foreach (var found in ExpandAndSearchPaths(ignore, paths, pathOrPattern.Remove(expandStartIdx, expandEndIdx - expandStartIdx + 1).Insert(expandStartIdx, expand)))
+                    foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, paths, pathOrPattern.Remove(expandStartIdx, expandEndIdx - expandStartIdx + 1).Insert(expandStartIdx, expand)))
                         yield return found;
                 yield break;
             }
@@ -112,15 +136,15 @@ namespace GameSpec
                 var searchPattern = Path.GetDirectoryName(pathOrPattern);
                 if (searchPattern.IndexOf('*') != -1)
                 {
-                    foreach (var directory in Directory.GetDirectories(path, searchPattern))
-                        foreach (var found in ExpandAndSearchPaths(ignore, new HashSet<string> { directory }, Path.GetFileName(pathOrPattern)))
+                    foreach (var directory in fileSystem.GetDirectories(path, searchPattern))
+                        foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, Path.GetFileName(pathOrPattern)))
                             yield return found;
                     yield break;
                 }
                 // file
                 var searchIdx = pathOrPattern.IndexOf('*');
                 if (searchIdx == -1) yield return Path.Combine(path, pathOrPattern);
-                else foreach (var file in Directory.GetFiles(path, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
+                else foreach (var file in fileSystem.GetFiles(path, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
             }
         }
 
@@ -214,6 +238,7 @@ namespace GameSpec
                 JsonValueKind.Array => z.EnumerateArray().Select(y => Path.Combine(path, y.GetString())),
                 _ => throw new ArgumentOutOfRangeException(),
             } : new[] { path };
+
             foreach (var path2 in paths)
             {
                 if (!Directory.Exists(path2)) continue;
@@ -241,6 +266,7 @@ namespace GameSpec
 
         protected static string PathWithSpecialFolders(string path, string rootPath = null) =>
             path.StartsWith("%Path%", StringComparison.OrdinalIgnoreCase) ? $"{rootPath}{path[6..]}"
+            : path.StartsWith("%AppPath%", StringComparison.OrdinalIgnoreCase) ? $"{FamilyManager.ApplicationPath}{path[9..]}"
             : path.StartsWith("%AppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}{path[9..]}"
             : path.StartsWith("%LocalAppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{path[14..]}"
             : path;

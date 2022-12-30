@@ -8,6 +8,11 @@
   "games": {
     "AC": {
       "name": "Asheron's Call",
+      "url": [
+        "https://emulator.ac/how-to-play/",
+        "http://content.turbine.com/sites/clientdl/ac1/ac1install.exe",
+        "http://www.thwargle.com/"
+      ],
       "pak": "game:/client_portal.dat#AC"
       //"pak": "game:/*.dat#AC"
     }

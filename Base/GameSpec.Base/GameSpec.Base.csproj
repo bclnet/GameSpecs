@@ -15,8 +15,11 @@
     <EmbeddedResource Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
     <EmbeddedResource Include="..\..\Aurora\AuroraFamily.json" Link="Families\AuroraFamily.json" />
+    <EmbeddedResource Include="..\..\Blizzard\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
     <EmbeddedResource Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
     <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
+    <EmbeddedResource Include="..\..\Hpl\HplFamily.json" Link="Families\HplFamily.json" />
+    <EmbeddedResource Include="..\..\IW\IWFamily.json" Link="Families\IWFamily.json" />
     <EmbeddedResource Include="..\..\Lith\LithFamily.json" Link="Families\LithFamily.json" />
     <EmbeddedResource Include="..\..\Origin\OriginFamily.json" Link="Families\OriginFamily.json" />
     <EmbeddedResource Include="..\..\Red\RedFamily.json" Link="Families\RedFamily.json" />

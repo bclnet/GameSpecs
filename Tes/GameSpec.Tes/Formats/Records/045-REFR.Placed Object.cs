@@ -132,7 +132,7 @@ namespace GameSpec.Tes.Formats.Records
                 case "XHLT": XCHG = r.ReadT<FLTVField>(dataSize); return true;
                 case "XPCI": XPCI = new FMIDField<CELLRecord>(r, dataSize); _nextFull = 1; return true;
                 case "FULL":
-                    if (_nextFull == 1) XPCI.Value.AddName(r.ReadString(dataSize));
+                    if (_nextFull == 1) XPCI.Value.AddName(r.ReadFString(dataSize));
                     else if (_nextFull == 2) XMRKs.Last().FULL = r.ReadSTRV(dataSize);
                     _nextFull = 0;
                     return true;

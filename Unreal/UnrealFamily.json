@@ -8,22 +8,27 @@
   "games": {
     "BioShock": {
       "name": "BioShock",
+      "url": "https://store.steampowered.com/app/7670",
       "pak": "game:/Data.x#BioShock"
     },
-    "BioShock:R": {
+    "BioShockR": {
       "name": "BioShock Remastered",
-      "pak": "game:/Data.x#BioShock:R"
+      "url": "https://store.steampowered.com/app/409710",
+      "pak": "game:/Data.x#BioShockR"
     },
     "BioShock2": {
       "name": "BioShock 2",
+      "url": "https://store.steampowered.com/app/8850",
       "pak": "game:/Data.x#BioShock2"
     },
-    "BioShock2:R": {
+    "BioShock2R": {
       "name": "BioShock 2 Remastered",
-      "pak": "game:/Data.x#BioShock2:R"
+      "url": "https://store.steampowered.com/app/409720",
+      "pak": "game:/Data.x#BioShock2R"
     },
     "BioShock:Inf": {
       "name": "BioShock Infinite",
+      "url": "https://store.steampowered.com/app/8870",
       "pak": "game:/Data.x#BioShock:Inf"
     }
   },
@@ -34,7 +39,7 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",
           "path": "Content"
         },
-        "BioShock:R": {
+        "BioShockR": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409710",
           "path": "ContentBaked/pc"
         },
@@ -42,7 +47,7 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8850",
           "path": "SP/Content"
         },
-        "BioShock2:R": {
+        "BioShock2R": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409720",
           "path": "ContentBaked/pc"
         },

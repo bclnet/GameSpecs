@@ -25,7 +25,7 @@ namespace GameSpec.Formats
         public readonly Dictionary<string, string> Params = new Dictionary<string, string>();
         public uint Magic;
         public uint Version;
-        public object DecryptKey;
+        public object CryptKey;
 
         // metadata
         protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
@@ -64,7 +64,7 @@ namespace GameSpec.Formats
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        protected void Open()
+        protected virtual void Open()
         {
             var watch = new Stopwatch();
             watch.Start();

@@ -6,42 +6,297 @@
   "familyType": "GameSpec.Valve.ValveFamily, GameSpec.Valve",
   "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
   "games": {
-    "Dota2": {
-      "name": "Dota 2",
-      //"pak": "game:/(core:dota)/*_dir.vpk#Dota2",
-      //"pak": "game:/core/pak01_dir.vpk#Dota2",
-      "pak": "game:/dota/pak01_dir.vpk#Dota2",
-      "pak0": "game:/dota/shaders_pc_dir.vpk#Dota2"
+    "HL": {
+      "name": "Half-Life",
+      "url": "https://store.steampowered.com/app/70",
+      "date": "1998-11-08",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL"
     },
-    "Left4Dead2": {
+    "TF": {
+      "name": "Team Fortress Classic",
+      "url": "https://store.steampowered.com/app/20",
+      "date": "1999-04-01",
+      "tags": "TeamFortress",
+      "pak": "game:/*.vpk#TF"
+    },
+    "HL:OF": {
+      "name": "Half-Life: Opposing Force",
+      "url": "https://store.steampowered.com/app/50",
+      "date": "1999-11-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:OF"
+    },
+    "CS": {
+      "name": "Counter-Strike",
+      "url": "https://store.steampowered.com/app/10",
+      "date": "2000-11-01",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS"
+    },
+    "Ricochet": {
+      "name": "Ricochet",
+      "url": "https://store.steampowered.com/app/60",
+      "date": "2000-11-01",
+      "tags": "",
+      "pak": "game:/*.vpk#Ricochet"
+    },
+    "DM": {
+      "name": "Deathmatch Classic",
+      "url": "https://store.steampowered.com/app/40",
+      "date": "2001-06-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#DM"
+    },
+    "HL:BS": {
+      "name": "Half-Life: Blue Shift",
+      "url": "https://store.steampowered.com/app/130",
+      "date": "2001-06-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:BS"
+    },
+    "DOD": {
+      "name": "Day of Defeat",
+      "url": "https://store.steampowered.com/app/30",
+      "date": "2003-05-01",
+      "tags": "DayOfDefeat",
+      "pak": "game:/*.vpk#DOD"
+    },
+    "CS:CZ": {
+      "name": "Counter-Strike: Condition Zero",
+      "url": "https://store.steampowered.com/app/80",
+      "date": "2004-05-01",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS:CZ"
+    },
+    "HL:Src": {
+      "name": "Half-Life: Source",
+      "url": "https://store.steampowered.com/app/280",
+      "date": "2004-06-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:Src"
+    },
+    "CS:Src": {
+      "name": "Counter-Strike: Source",
+      "url": "https://store.steampowered.com/app/240",
+      "date": "2004-11-01",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS:Src"
+    },
+    "HL2": {
+      "name": "Half-Life 2",
+      "url": "https://store.steampowered.com/app/220",
+      "date": "2004-11-16",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2"
+    },
+    "HL2:DM": {
+      "name": "Half-Life 2: Deathmatch",
+      "url": "https://store.steampowered.com/app/320",
+      "date": "2004-11-01",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2:DM"
+    },
+    "HL:DM:Src": {
+      "name": "Half-Life Deathmatch: Source",
+      "url": "https://store.steampowered.com/app/360",
+      "date": "2006-05-01",
+      "tags": "HalfLife",
+      "pak": "game:/*.vpk#HL:DM:Src"
+    },
+    "HL2:E1": {
+      "name": "Half-Life 2: Episode One",
+      "url": "https://store.steampowered.com/app/380",
+      "date": "2006-06-01",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2:E1"
+    },
+    "Portal": {
+      "name": "Portal",
+      "url": "https://store.steampowered.com/app/400",
+      "date": "2007-10-10",
+      "tags": "Portal",
+      "pak": "game:/*.vpk#Portal"
+    },
+    "HL2:E2": {
+      "name": "Half-Life 2: Episode Two",
+      "url": "https://store.steampowered.com/app/420",
+      "date": "2007-10-10",
+      "tags": "HalfLife2",
+      "pak": "game:/*.vpk#HL2:E2"
+    },
+    "TF2": {
+      "name": "Team Fortress 2",
+      "url": "https://store.steampowered.com/app/440",
+      "date": "2007-10-10",
+      "tags": "TeamFortress",
+      "pak": "game:/*.vpk#TF2"
+    },
+    "L4D": {
+      "name": "Left 4 Dead",
+      "url": "https://store.steampowered.com/app/500",
+      "date": "2008-11-17",
+      "tags": "Left4Dead",
+      "pak": "game:/*.vpk#L4D"
+    },
+    "L4D2": {
       "name": "Left 4 Dead 2",
-      "pak": "game:/*.vpk#Left4Dead2"
+      "url": "https://store.steampowered.com/app/550",
+      "date": "2009-11-16",
+      "tags": "Left4Dead",
+      "pak": "game:/*.vpk#L4D2"
     },
-    "HL2Alyx": {
-      "name": "Half-Life: Alyx",
-      "pak": "game:/*.vpk#HL2Alyx"
+    "DOD:Src": {
+      "name": "Day of Defeat: Source",
+      "url": "https://store.steampowered.com/app/300",
+      "date": "2010-07-12",
+      "tags": "DayOfDefeat",
+      "pak": "game:/*.vpk#DOD:Src"
     },
     "Portal2": {
       "name": "Portal 2",
+      "url": "https://store.steampowered.com/app/620",
+      "date": "2011-04-18",
+      "tags": "Portal",
       "pak": "game:/*.vpk#Portal2"
+    },
+    "CS:GO": {
+      "name": "Counter-Strike: Global Offensive",
+      "url": "https://store.steampowered.com/app/730",
+      "date": "2012-08-21",
+      "tags": "CounterStrike",
+      "pak": "game:/*.vpk#CS:GO"
+    },
+    "D2": {
+      "name": "Dota 2",
+      "url": "https://store.steampowered.com/app/570",
+      "date": "2013-07-09",
+      "tags": "Dota",
+      //"pak": "game:/(core:dota)/*_dir.vpk#D2",
+      //"pak": "game:/core/pak01_dir.vpk#D2",
+      "pak": "game:/dota/pak01_dir.vpk#D2",
+      "pak0": "game:/dota/shaders_pc_dir.vpk#D2"
+    },
+    "Lab": {
+      "name": "The Lab",
+      "url": "https://store.steampowered.com/app/450390",
+      "date": "2016-05-05",
+      "tags": "VR",
+      "pak": "game:/*.vpk#Lab"
+    },
+    "HL:Alyx": {
+      "name": "Half-Life: Alyx",
+      "url": "https://store.steampowered.com/app/546560",
+      "date": "2020-03-23",
+      "tags": "HalfLife VR",
+      "pak": "game:/*.vpk#HL:Alyx"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
-        "Dota2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 570",
-          "path": "game"
+        "HL": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 70",
+          "path": "valve"
         },
-        "Left4Dead2": {
+        "TF": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 20",
+          "path": "tfc"
+        },
+        "HL:OF": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50",
+          "path": "gearbox"
+        },
+        "CS": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10",
+          "path": "cstrike"
+        },
+        "Ricochet": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60",
+          "path": "ricochet"
+        },
+        "DM": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 40",
+          "path": "dmc"
+        },
+        "HL:BS": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 130",
+          "path": "bshift"
+        },
+        "DOD": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 30",
+          "path": "dod"
+        },
+        "CS:CZ": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 80",
+          "path": "czero"
+        },
+        "HL:Src": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 280",
+          "path": "hl1"
+        },
+        "CS:Src": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 240",
+          "path": [ "cstrike", "hl2" ]
+        },
+        "HL2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 220",
+          "path": "hl2"
+        },
+        "HL2:DM": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 320",
+          "path": [ "hl2mp", "hl2" ]
+        },
+        "HL:DM:Src": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 360",
+          "path": [ "hl1mp", "hl2" ]
+        },
+        "HL2:E1": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 380",
+          "path": [ "episodic", "hl2" ]
+        },
+        "Portal": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 400",
+          "path": [ "portal", "hl2" ]
+        },
+        "HL2:E2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 420",
+          "path": [ "ep2", "hl2" ]
+        },
+        "TF2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 440",
+          "path": [ "tf", "hl2" ]
+        },
+        "L4D": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 500",
+          "path": "left4dead"
+        },
+        "L4D2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550",
           "path": "left4dead2"
+        },
+        "DOD:Src": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 300",
+          "path": [ "dod", "hl2" ]
         },
         "Portal2": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 620",
           "path": "portal2"
         },
-        "HL2Alyx": {
+        "CS:GO": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730",
+          "path": "csgo"
+        },
+        "D2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 570",
+          "path": "game"
+        },
+        "Lab": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+          "path": [ "RobotRepair/portal2_imported", "RobotRepair/vr" ],
+          "path:unity": [ "SecretShop/win64/SecretShop_Data", "TheLab/win64/SecretShop_Data" ]
+        },
+        "HL:Alyx": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 546560",
           "path": "game"
         }

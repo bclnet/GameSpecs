@@ -1,1 +1,1 @@
-﻿https://blood-wiki.org/index.php/LithTech
+https://blood-wiki.org/index.php/LithTech

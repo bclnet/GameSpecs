@@ -8,11 +8,13 @@
   "games": {
     "UltimaOnline": {
       "name": "Ultima Online",
+      "url": "https://uo.com/client-download/",
       "pak": "game:/*.idx#UltimaOnline"
     },
     "UltimaIX": {
       "name": "Ultima IX",
-      "pak": "game:/static/*.flx#UltimaIX"
+      "url": "https://www.gog.com/en/game/ultima_9_ascension",
+      "pak": "game:/*.flx#UltimaIX"
     }
   },
   "fileManager": {
@@ -44,7 +46,8 @@
           "key": [
             "GOG.com/GOGULTIMA9",
             "GOG.com/Games/1207659093"
-          ]
+          ],
+          "path": "static"
         }
       }
     },

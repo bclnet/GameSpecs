@@ -11,7 +11,7 @@ namespace GameSpec.Red
     /// <summary>
     /// RedPakFile
     /// </summary>
-    /// <seealso cref="GameEstate.Formats.BinaryPakFile" />
+    /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class RedPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>

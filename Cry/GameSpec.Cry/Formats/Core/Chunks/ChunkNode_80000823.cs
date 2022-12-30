@@ -10,7 +10,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
         {
             base.Read(r);
 
-            Name = r.ReadFString(64);
+            Name = r.ReadFYString(64);
             if (string.IsNullOrEmpty(Name)) Name = "unknown";
             ObjectNodeID = MathX.SwapEndian(r.ReadInt32()); // Object reference ID
             ParentNodeID = MathX.SwapEndian(r.ReadInt32());

@@ -6,16 +6,33 @@
   "familyType": "GameSpec.Aurora.AuroraFamily, GameSpec.Aurora",
   "pakFileType": "GameSpec.Aurora.AuroraPakFile, GameSpec.Aurora",
   "games": {
+    "TOR": {
+      "name": "Star Wars: The Old Republic",
+      "url": "https://store.steampowered.com/app/1286830",
+      "date": "2011-12-20",
+      "tags": "StarWars",
+      "pak": "game:/*.key#TOR"
+    },
     "NWN": {
       "name": "Neverwinter Nights",
+      "url": [
+        "https://store.steampowered.com/app/704450",
+        "https://www.gog.com/en/game/neverwinter_nights_enhanced_edition_pack"
+      ],
       "pak": "game:/*.key#NWN"
     },
     "NWN2": {
       "name": "Neverwinter Nights 2",
+      "url": [ "https://www.gog.com/en/game/neverwinter_nights_2_complete" ],
       "pak": "game:/*.zip#NWN2"
     },
     "Kotor": {
-      "name": "Star Wars: Knights of the Old Republic"
+      "name": "Star Wars: Knights of the Old Republic",
+      "url": [
+        "https://store.steampowered.com/app/32370",
+        "https://www.gog.com/en/game/star_wars_knights_of_the_old_republic"
+      ],
+      "pak": "game:/*.zip#Kotor"
     }
   },
   "fileManager": {
@@ -24,6 +41,7 @@
         "NWN": {
           "key": [
             "BioWare/NWN/Neverwinter",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 704450",
             "GOG.com/Games/1207658890"
           ]
         },
@@ -35,7 +53,10 @@
           "path": "Data"
         },
         "Kotor": {
-          "key": "GOG.com/Games/111",
+          "key": [
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
+            "GOG.com/Games/111"
+          ],
           "path": "content"
         }
       }

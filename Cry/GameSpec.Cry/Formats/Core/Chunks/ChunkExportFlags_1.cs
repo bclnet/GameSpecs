@@ -15,7 +15,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
             ID = r.ReadInt32();
             SkipBytes(r, 4);
             RCVersion = r.ReadTArray<uint>(sizeof(uint), 4);
-            RCVersionString = r.ReadFString(16);
+            RCVersionString = r.ReadFYString(16);
             SkipBytesRemaining(r);
         }
     }

@@ -13,7 +13,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
             PropKey = new string[NumProps];
             PropValue = new string[NumProps];
             // Read the array of scene props and their associated values
-            for (var i = 0; i < NumProps; i++) { PropKey[i] = r.ReadFString(32); PropValue[i] = r.ReadFString(64); }
+            for (var i = 0; i < NumProps; i++) { PropKey[i] = r.ReadFYString(32); PropValue[i] = r.ReadFYString(64); }
         }
     }
 }

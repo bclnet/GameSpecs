@@ -6,6 +6,7 @@ using OpenStack.Graphics.Renderer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -46,6 +47,11 @@ namespace GameSpec.Metadata.View
                 : Source is IRedirected<ITextureInfo> y ? y.Value
                 : null;
             if (source == null) return;
+
+            Camera.SetViewportSize(source.Width, source.Height);
+            Camera.SetLocation(new Vector3(200));
+            Camera.LookAt(new Vector3(0));
+
             var texture = graphic.TextureManager.LoadTexture(source, out var _);
             Renderers.Add(new TextureRenderer(graphic, texture));
         }

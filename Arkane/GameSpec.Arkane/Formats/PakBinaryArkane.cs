@@ -40,7 +40,7 @@ namespace GameSpec.Arkane.Formats
                     var nameSize = r.ReadUInt32();
                     if (nameSize == SubMarker) { state++; nameSize = r.ReadUInt32(); }
                     else if (nameSize == EndMarker) break;
-                    var path = r.ReadString((int)nameSize).Replace('\\', '/');
+                    var path = r.ReadFString((int)nameSize).Replace('\\', '/');
                     var packId = state > 0 ? r.ReadUInt16() : 0;
                     files2.Add(new FileMetadata
                     {

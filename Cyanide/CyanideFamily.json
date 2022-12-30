@@ -6,18 +6,27 @@
   "familyType": "GameSpec.Cyanide.CyanideFamily, GameSpec.Cyanide",
   "pakFileType": "GameSpec.Cyanide.CyanidePakFile, GameSpec.Cyanide",
   "games": {
-    "TheCouncil": {
+    "Council": {
       "name": "The Council",
-      "pak": "game:/*.cpk#TheCouncil"
+      "url": "https://store.steampowered.com/app/287630",
+      "date": "2018-03-13",
+      "tags": "",
+      "pak": "game:/*.cpk#Council"
+    },
+    "Werewolf:TA": {
+      "name": "Werewolf: The Apocalypse - Earthblood",
+      "date": "2022-02-07",
+      "tags": "",
+      "pak": "game:/*.cpk#Werewolf:TA"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
-        "TheCouncil": {
+        "Council": {
           "key": [
-            "GOG.com/Games/1207658930",
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630"
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630",
+            "GOG.com/Games/1207658930"
           ],
           "path": "Data/Packages"
         }

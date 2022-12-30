@@ -9,7 +9,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
         {
             base.Read(r);
             
-            Name = r.ReadFString(128);
+            Name = r.ReadFYString(128);
             NumChildren = 0;
         }
     }

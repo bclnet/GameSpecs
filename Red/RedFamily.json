@@ -11,6 +11,7 @@
   "games": {
     "Witcher": {
       "name": "The Witcher Enhanced Edition",
+      "url": "https://www.gog.com/en/game/the_witcher",
       //"pak": "game:/*.key#Witcher"
       "pak": "game:/main.key#Witcher"
       //"pakZ": "game:/attackeffects.2da#Witcher",
@@ -18,18 +19,24 @@
     },
     "Witcher2": {
       "name": "The Witcher 2",
+      "url": "https://www.gog.com/en/game/the_witcher_2",
       "pak": "game:/*#Witcher2",
       "pak_": "game:/base_scripts.dzip#Witcher2",
       "pak2": "game:/br0.w2strings#Witcher2"
     },
     "Witcher3": {
       "name": "The Witcher 3: Wild Hunt",
+      "url": [
+        "https://www.gog.com/en/game/the_witcher_3_wild_hunt",
+        "https://www.gog.com/en/game/the_witcher_3_wild_hunt_game_of_the_year_edition"
+      ],
       "pak": "game:/content0/texture.cache#Witcher3",
       "pak0": "game:/content0/bundles/xml.bundle#Witcher3",
       "pak1": "game:/content0/ar.w3strings#Witcher3"
     },
     "CP77": {
       "name": "Cyberpunk 2077",
+      "url": "https://store.steampowered.com/app/1091500",
       "pak": "game:/basegame_2_mainmenu.archive#CP77",
       "pak1": "game:/lang_en_text.archive#CP77"
       //"pak": "game:/lang_en_voice.archive#CP77"

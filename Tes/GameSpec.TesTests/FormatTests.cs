@@ -14,12 +14,12 @@
 //        const string portalDatLocation = "game:/client_portal.dat#AC"; const int ExpectedPortalDatFileCount = 79694;
 //        const string localEnglishDatLocation = "game:/client_local_English.dat#AC"; const int ExpectedLocalEnglishDatFileCount = 118;
 
-//        Estate estate = EstateManager.GetEstate("Tes");
+//        readonly Family family = FamilyManager.GetFamily("Tes");
 
 //        [TestMethod]
 //        public void LoadCellDat_NoExceptions()
 //        {
-//            var dat = new Database(estate.OpenPakFile(new Uri(cellDatLocation)));
+//            var dat = new Database(family.OpenPakFile(new Uri(cellDatLocation)));
 //            var count = dat.Source.Count;
 //            Assert.IsTrue(ExpectedCellDatFileCount <= count, $"Insufficient files parsed from .dat. Expected: >= {ExpectedCellDatFileCount}, Actual: {count}");
 //        }
@@ -27,7 +27,7 @@
 //        [TestMethod]
 //        public void LoadPortalDat_NoExceptions()
 //        {
-//            var dat = new Database(estate.OpenPakFile(new Uri(portalDatLocation)));
+//            var dat = new Database(family.OpenPakFile(new Uri(portalDatLocation)));
 //            var count = dat.Source.Count;
 //            Assert.IsTrue(ExpectedPortalDatFileCount <= count, $"Insufficient files parsed from .dat. Expected: >= {ExpectedPortalDatFileCount}, Actual: {count}");
 //        }
@@ -35,7 +35,7 @@
 //        [TestMethod]
 //        public void LoadLocalEnglishDat_NoExceptions()
 //        {
-//            var dat = new Database(estate.OpenPakFile(new Uri(localEnglishDatLocation)));
+//            var dat = new Database(family.OpenPakFile(new Uri(localEnglishDatLocation)));
 //            var count = dat.Source.Count;
 //            Assert.IsTrue(ExpectedLocalEnglishDatFileCount <= count, $"Insufficient files parsed from .dat. Expected: >= {ExpectedLocalEnglishDatFileCount}, Actual: {count}");
 //        }
@@ -43,7 +43,7 @@
 //        [TestMethod]
 //        public async Task UnpackCellDatFiles_NoExceptions()
 //        {
-//            var dat = new Database(estate.OpenPakFile(new Uri(cellDatLocation)));
+//            var dat = new Database(family.OpenPakFile(new Uri(cellDatLocation)));
 //            foreach (var (key, value) in dat.Source.FilesById)
 //            {
 //                if ((uint)key == Iteration.FILE_ID) continue;
@@ -64,7 +64,7 @@
 //        [TestMethod]
 //        public async Task UnpackPortalDatFiles_NoExceptions()
 //        {
-//            var dat = new Database(estate.OpenPakFile(new Uri(portalDatLocation)));
+//            var dat = new Database(family.OpenPakFile(new Uri(portalDatLocation)));
 //            foreach (var (key, value) in dat.Source.FilesById)
 //            {
 //                if ((uint)key == Iteration.FILE_ID) continue;
@@ -93,7 +93,7 @@
 //        [TestMethod]
 //        public async Task UnpackLocalEnglishDatFiles_NoExceptions()
 //        {
-//            var dat = new Database(estate.OpenPakFile(new Uri(localEnglishDatLocation)));
+//            var dat = new Database(family.OpenPakFile(new Uri(localEnglishDatLocation)));
 //            foreach (var (key, value) in dat.Source.FilesById)
 //            {
 //                if ((uint)key == Iteration.FILE_ID) continue;
@@ -119,7 +119,7 @@
 //        public void ExtractCellDatByLandblock()
 //        {
 //            var output = @"C:\T_\cell_dat_export_by_landblock";
-//            var dat = new DatabaseCell(estate.OpenPakFile(new Uri(cellDatLocation)));
+//            var dat = new DatabaseCell(family.OpenPakFile(new Uri(cellDatLocation)));
 //            //dat.ExtractLandblockContents(output);
 //        }
 
@@ -128,7 +128,7 @@
 //        public void ExportPortalDatsWithTypeInfo()
 //        {
 //            var output = @"C:\T_\typed_portal_dat_export";
-//            var dat = new DatabasePortal(estate.OpenPakFile(new Uri(portalDatLocation)));
+//            var dat = new DatabasePortal(family.OpenPakFile(new Uri(portalDatLocation)));
 //            //dat.ExtractCategorizedPortalContents(output);
 //        }
 //    }

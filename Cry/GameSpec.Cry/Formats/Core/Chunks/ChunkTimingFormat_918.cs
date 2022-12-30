@@ -11,7 +11,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
 
             SecsPerTick = r.ReadSingle();
             TicksPerFrame = r.ReadInt32();
-            GlobalRange.Name = r.ReadFString(32); // Name is technically a String32, but F those structs
+            GlobalRange.Name = r.ReadFYString(32); // Name is technically a String32, but F those structs
             GlobalRange.Start = r.ReadInt32();
             GlobalRange.End = r.ReadInt32();
         }

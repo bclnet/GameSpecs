@@ -1,0 +1,249 @@
+﻿{
+  "id": "Blizzard",
+  "name": "Blizzard",
+  "studio": "Blizzard",
+  "description": "Blizzard file formats",
+  "familyType": "GameSpec.Blizzard.BlizzardFamily, GameSpec.Blizzard",
+  "pakFileType": "GameSpec.Blizzard.BlizzardPakFile, GameSpec.Blizzard",
+  "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
+  "games": {
+    "SC": {
+      "name": "StarCraft",
+      "url": "https://us.shop.battle.net/en-us/product/starcraft",
+      "date": "1998-03-31",
+      "tags": "TBD",
+      "pak": "game:/#SC",
+      "editions": {
+        "s1": { "name": "Starcraft I" },
+        "s1t": { "name": "Starcraft I PTR" }
+      }
+    },
+    "D2R": {
+      "name": "Diablo II: Resurrected",
+      "url": "https://us.shop.battle.net/en-us/product/diablo_ii_resurrected",
+      "date": "2000-06-29",
+      "tags": "TBD",
+      "pak": "game:/#D2R",
+      "editions": {
+        "osi": { "name": "Diablo 2: Resurrected" },
+        "osib": { "name": "Diablo 2: Resurrected Beta" }
+      }
+    },
+    "W3": {
+      "name": "Warcraft III: Reign of Chaos",
+      "url": "https://us.shop.battle.net/en-us/product/warcraft-iii-reforged",
+      "date": "2002-07-03",
+      "tags": "TBD",
+      "pak": "game:/#W3",
+      "editions": {
+        "w3": { "name": "Warcraft III" },
+        "w3t": { "name": "Warcraft III PTR" },
+        "w3b": { "name": "Warcraft III Beta" }
+      }
+    },
+    "WOW": {
+      "name": "World of Warcraft",
+      "url": "https://us.shop.battle.net/en-us/family/world-of-warcraft",
+      "date": "2004-11-23",
+      "tags": "TBD",
+      "pak": "game:/#WOW",
+      "editions": {
+        "wow": { "name": "WoW Retail" },
+        "wowt": { "name": "WoW Retail PTR" },
+        "wow_beta": { "name": "WoW Retail Beta" },
+        "wowz": { "name": "WoW Submission" },
+        "wowe1": { "name": "WoW Event 1" },
+        "wowdemo": { "name": "WoW Demo" }
+      }
+    },
+    "WOWC": {
+      "name": "World of Warcraft: Classic",
+      "url": "https://us.shop.battle.net/en-us/family/world-of-warcraft-classic",
+      "pak": "game:/#WOWC",
+      "editions": {
+        "wow_classic": { "name": "WoW Classic" },
+        "wow_classic_ptr": { "name": "WoW Classic PTR" },
+        "wow_classic_beta": { "name": "WoW Classic Beta" },
+        "wow_classic_era": { "name": "WoW Classic Era" },
+        "wow_classic_era_ptr": { "name": "WoW Classic Era PTR" },
+        "wow_classic_era_beta": { "name": "WoW Classic Era Beta" }
+      }
+    },
+    "SC2": {
+      "name": "StarCraft II: Wings of Liberty",
+      "url": "https://us.shop.battle.net/en-us/product/starcraft-ii",
+      "date": "2010-07-27",
+      "tags": "",
+      "pak": "game:/#SC2",
+      "editions": {
+        "s2": { "name": "Starcraft II Retail" },
+        "s2t": { "name": "Starcraft II PTR" },
+        "s2b": { "name": "Starcraft II Beta" }
+      }
+    },
+    "D3": {
+      "name": "Diablo III",
+      "url": "https://us.shop.battle.net/en-us/product/diablo-iii",
+      "date": "2012-05-15",
+      "tags": "",
+      "pak": "game:/#D3",
+      "editions": {
+        "d3": { "name": "Diablo III Retail" },
+        "d3t": { "name": "Diablo III PTR" },
+        "d3b": { "name": "Diablo III Beta" }
+      }
+    },
+    "HS": {
+      "name": "Hearthstone",
+      "url": "https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft",
+      "date": "2014-03-11",
+      "tags": "",
+      "pak": "game:/#HS",
+      "editions": {
+        "hsb": { "name": "Hearthstone Retail" }
+      }
+    },
+    "HOTS": {
+      "name": "Heroes of the Storm",
+      "url": "",
+      "date": "2013-11-05",
+      "tags": "",
+      "pak": "game:/#HOTS",
+      "editions": {
+        "hero": { "name": "Heroes of the Storm Retail" },
+        "herot": { "name": "Heroes of the Storm PTR" }
+      }
+    },
+    "OW": {
+      "name": "Overwatch",
+      "url": "https://us.shop.battle.net/en-us/family/overwatch",
+      "date": "2016-05-24",
+      "tags": "",
+      "pak": "game:/#Overwatch",
+      "editions": {
+        "pro": { "name": "Overwatch" }
+      }
+    },
+    "DI": {
+      "name": "Diablo Immortal",
+      "url": "https://diabloimmortal.blizzard.com/en-us/",
+      "date": "2022-06-02",
+      "tags": "",
+      "pak": "game:/#DI",
+      "editions": {
+        "anbs": { "name": "Diablo Immortal" },
+        "anbsdev": { "name": "Diablo Immortal (Dev)" }
+      }
+    },
+    "OW2": {
+      "name": "Overwatch 2",
+      "url": "https://us.shop.battle.net/en-us/product/overwatch",
+      "date": "2022-10-04",
+      "tags": "",
+      "pak": "game:/#OW2",
+      "editions": {
+        "?": { "name": "Overwatch 2" }
+      }
+    },
+    "D4": {
+      "name": "Diablo IV",
+      "url": "https://diablo4.blizzard.com/en-us/",
+      "date": "2023-06-06",
+      "tags": "",
+      "pak": "game:/#D4",
+      "editions": {
+        "?": { "name": "Diablo IV" }
+      }
+    },
+    "Other": {
+      "name": "Other",
+      "editions": {
+        "dst2": { "name": "Destiny 2" },
+        "wlby": { "name": "Crash Bandicoot 4" },
+        "odin": { "name": "Call of Duty: Modern Warfare / Warzone" },
+        "lazr": { "name": "Call of Duty: MW2 Campaign Remastered" },
+        "rtro": { "name": "Blizzard Arcade Collection" },
+        "spot": { "name": "SPOT" },
+        "auks": { "name": "AUKS" },
+        "auksdev": { "name": "AUKS (Dev)" },
+        "moonv20": { "name": "moon" }
+      }
+    }
+  },
+  "other-games": {
+    "TDAROS": {
+      "name": "The Death and Return of Superman",
+      "date": "1994-08-01"
+    },
+    "B": {
+      "name": "Blackthorne",
+      "date": "1994-09-01"
+    },
+    "W1": {
+      "name": "Warcraft: Orcs & Humans",
+      "date": "1994-11-23"
+    },
+    "JLTF": {
+      "name": "Justice League Task Force",
+      "date": "1995-04-01"
+    },
+    "W2": {
+      "name": "Warcraft II: Tides of Darkness",
+      "date": "1995-12-09"
+    },
+    "D1": {
+      "name": "Diablo",
+      "date": "1997-01-03"
+    },
+    "TLV2": {
+      "name": "The Lost Vikings 2",
+      "date": "1997-02-27"
+    },
+    "D2": {
+      "name": "Diablo II",
+      "date": "2000-06-29"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "SC": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft"
+        },
+        "D2R": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo II Resurrected"
+        },
+        "W3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Warcraft III"
+        },
+        "WOW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/World of Warcraft"
+        },
+        "SC2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft II"
+        },
+        "D3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo III"
+        },
+        "HS": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+        },
+        "HOTS": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+        },
+        "OW": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+        },
+        "DI": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+        },
+        "OW2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+        },
+        "D4": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo IV"
+        }
+      }
+    }
+  }
+}

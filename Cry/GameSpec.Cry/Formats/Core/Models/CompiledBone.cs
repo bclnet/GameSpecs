@@ -50,7 +50,7 @@ namespace GameSpec.Cry.Formats.Models
             WorldToBone = r.ReadMatrix3x4();
             BindPoseMatrix = WorldToBone.ConvertToTransformMatrix();
             BoneToWorld = r.ReadMatrix3x4();
-            boneName = r.ReadFString(256);
+            boneName = r.ReadFYString(256);
             limbID = r.ReadInt32();
             offsetParent = r.ReadInt32();
             numChildren = r.ReadUInt32();
@@ -67,7 +67,7 @@ namespace GameSpec.Cry.Formats.Models
             ControllerID = r.ReadUInt32();                 // unique id of bone (generated from bone name)
             limbID = r.ReadInt32();
             r.Seek(208, SeekOrigin.Current);
-            boneName = r.ReadFString(48);
+            boneName = r.ReadFYString(48);
             offsetParent = r.ReadInt32();
             numChildren = r.ReadUInt32();
             offsetChild = r.ReadInt32();

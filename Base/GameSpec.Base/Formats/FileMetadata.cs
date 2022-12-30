@@ -23,7 +23,7 @@ namespace GameSpec.Formats
         public long PackedSize;
         public long FileSize;
         public long Position;
-        public long Digest;
+        public ulong Digest;
         // options
         public IList<FileMetadata> Parts;
         // extra

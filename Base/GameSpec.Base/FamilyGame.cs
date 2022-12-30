@@ -9,12 +9,28 @@ namespace GameSpec
     public class FamilyGame
     {
         /// <summary>
+        /// Edition
+        /// </summary>
+        public class Edition
+        {
+            /// <summary>
+            /// The identifier
+            /// </summary>
+            public string Id { get; set; }
+            /// <summary>
+            /// The name
+            /// </summary>
+            public string Name { get; set; }
+            /// <summary>
+            /// The key
+            /// </summary>
+            public object Key { get; set; }
+        }
+
+        /// <summary>
         /// The identifier
         /// </summary>
         public string Game { get; set; }
-        /// <summary>
-        /// Gets the name of the found.
-        /// </summary>
         /// <summary>
         /// The name
         /// </summary>
@@ -35,6 +51,17 @@ namespace GameSpec
         /// The has location
         /// </summary>
         public bool Found { get; set; }
+        /// <summary>
+        /// Gets the type of the file system.
+        /// </summary>
+        /// <value>
+        /// The type of the file system.
+        /// </value>
+        public Type FileSystemType { get; set; }
+        /// <summary>
+        /// The Editions
+        /// </summary>
+        public IDictionary<string, Edition> Editions { get; set; }
 
         /// <summary>
         /// Gets the name of the displayed.
