@@ -120,29 +120,29 @@
         },
         "Fallout3": {
           "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22370",
-            "Bethesda Softworks/Fallout3"
+            "Bethesda Softworks/Fallout3",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22370"
           ],
           "path": "Data"
         },
         "FalloutNV": {
           "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22380",
-            "Bethesda Softworks/falloutnv"
+            "Bethesda Softworks/falloutnv",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22380"
           ],
           "path": "Data"
         },
         "Fallout4": {
           "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 377160",
-            "Bethesda Softworks/Fallout4"
+            "Bethesda Softworks/Fallout4",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 377160"
           ],
           "path": "Data"
         },
         "Fallout4VR": {
           "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611660",
-            "Bethesda Softworks/Fallout 4 VR"
+            "Bethesda Softworks/Fallout 4 VR",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611660"
           ],
           "path": "Data"
         },

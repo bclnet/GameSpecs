@@ -9,7 +9,7 @@ namespace GameSpec.Unreal.Formats
     /// PakBinaryXyz
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public class PakBinaryXyz : PakBinary
+    public unsafe class PakBinaryXyz : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryXyz();
         

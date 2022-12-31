@@ -160,7 +160,7 @@ namespace GameSpec.Metadata.View
 
         void OnReady()
         {
-            if (Config.ForceOpen) Open_Click(null, null);
+            if (Config.ForceOpen && Config.DefaultGameId != null) Open_Click(null, null);
         }
     }
 }

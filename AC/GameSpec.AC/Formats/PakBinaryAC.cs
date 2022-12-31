@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.AC.Formats
 {
-    public class PakBinaryAC : PakBinary
+    public unsafe class PakBinaryAC : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryAC();
         PakBinaryAC() { }
@@ -16,9 +16,8 @@ namespace GameSpec.AC.Formats
 
         const uint DAT_HEADER_OFFSET = 0x140;
 
-        // was:DatDatabaseHeader
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct Header
+        struct Header
         {
             public uint FileType;
             public uint BlockSize;
@@ -44,9 +43,8 @@ namespace GameSpec.AC.Formats
             public uint VersionMinor;
         }
 
-        // was:DatDirectoryHeader
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct DirectoryHeader
+        struct DirectoryHeader
         {
             public const int SizeOf = (sizeof(uint) * 0x3E) + sizeof(uint) + (File.SizeOf * 0x3D);
             public fixed uint Branches[0x3E];
@@ -54,9 +52,8 @@ namespace GameSpec.AC.Formats
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x3D)] public File[] Entries;
         }
 
-        // was:DatFile
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct File
+        struct File
         {
             public const int SizeOf = sizeof(uint) * 6;
             public uint BitFlags; // not-used
@@ -67,13 +64,12 @@ namespace GameSpec.AC.Formats
             public uint Iteration; // not-used
         }
 
-        // was:DatDirectory
         class Directory
         {
             public readonly DirectoryHeader Header;
             public readonly List<Directory> Directories = new List<Directory>();
 
-            public unsafe Directory(BinaryReader r, long offset, int blockSize)
+            public Directory(BinaryReader r, long offset, int blockSize)
             {
                 Header = ReadT<DirectoryHeader>(r, offset, DirectoryHeader.SizeOf, blockSize);
                 if (Header.Branches[0] != 0) for (var i = 0; i < Header.EntryCount + 1; i++) Directories.Add(new Directory(r, Header.Branches[i], blockSize));
@@ -103,7 +99,7 @@ namespace GameSpec.AC.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());

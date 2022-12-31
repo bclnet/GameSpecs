@@ -114,14 +114,13 @@
         "herot": { "name": "Heroes of the Storm PTR" }
       }
     },
-    "OW": {
-      "name": "Overwatch",
-      "url": "https://us.shop.battle.net/en-us/family/overwatch",
-      "date": "2016-05-24",
-      "tags": "",
-      "pak": "game:/#Overwatch",
+    "CB": {
+      "name": "Crash Bandicoot™ 4: It’s About Time",
+      "url": "https://us.shop.battle.net/en-us/family/crash-bandicoot-4",
+      "date": "2020-10-02",
+      "pak": "game:/#CB",
       "editions": {
-        "pro": { "name": "Overwatch" }
+        "wlby": { "name": "Crash Bandicoot 4" }
       }
     },
     "DI": {
@@ -142,7 +141,7 @@
       "tags": "",
       "pak": "game:/#OW2",
       "editions": {
-        "?": { "name": "Overwatch 2" }
+        "pro": { "name": "Overwatch" }
       }
     },
     "D4": {
@@ -152,21 +151,9 @@
       "tags": "",
       "pak": "game:/#D4",
       "editions": {
-        "?": { "name": "Diablo IV" }
-      }
-    },
-    "Other": {
-      "name": "Other",
-      "editions": {
-        "dst2": { "name": "Destiny 2" },
-        "wlby": { "name": "Crash Bandicoot 4" },
-        "odin": { "name": "Call of Duty: Modern Warfare / Warzone" },
-        "lazr": { "name": "Call of Duty: MW2 Campaign Remastered" },
-        "rtro": { "name": "Blizzard Arcade Collection" },
-        "spot": { "name": "SPOT" },
-        "auks": { "name": "AUKS" },
-        "auksdev": { "name": "AUKS (Dev)" },
-        "moonv20": { "name": "moon" }
+        "d4": { "name": "Diablo IV Retail" },
+        "d4t": { "name": "Diablo IV PTR" },
+        "d4b": { "name": "Diablo IV Beta" }
       }
     }
   },
@@ -199,9 +186,30 @@
       "name": "The Lost Vikings 2",
       "date": "1997-02-27"
     },
+    "OW": {
+      "name": "Overwatch",
+      "url": "https://us.shop.battle.net/en-us/family/overwatch",
+      "date": "2016-05-24",
+      "editions": {
+        "pro": { "name": "Overwatch" }
+      }
+    },
     "D2": {
       "name": "Diablo II",
       "date": "2000-06-29"
+    },
+    "Other": {
+      "name": "Other",
+      "editions": {
+        "dst2": { "name": "Destiny 2" },
+        "odin": { "name": "Call of Duty: Modern Warfare / Warzone" },
+        "lazr": { "name": "Call of Duty: MW2 Campaign Remastered" },
+        "rtro": { "name": "Blizzard Arcade Collection" },
+        "spot": { "name": "SPOT" },
+        "auks": { "name": "AUKS" },
+        "auksdev": { "name": "AUKS (Dev)" },
+        "moonv20": { "name": "moon" }
+      }
     }
   },
   "fileManager": {
@@ -226,19 +234,19 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo III"
         },
         "HS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Hearthstone"
         },
         "HOTS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Heroes of the Storm"
         },
-        "OW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+        "CB": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Crash Bandicoot 4"
         },
         "DI": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo Immortal"
         },
         "OW2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/xx"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Overwatch"
         },
         "D4": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo IV"

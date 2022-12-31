@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Aurora.Formats
 {
-    public class PakBinaryAurora : PakBinary
+    public unsafe class PakBinaryAurora : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryAurora();
         PakBinaryAurora() { }
@@ -25,7 +25,7 @@ namespace GameSpec.Aurora.Formats
         const uint BIFF_VERSION = 0x20203156;
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_Header
+        struct KEY_Header
         {
             public uint Version;            // Version ("V1  ")
             public uint NumFiles;           // Number of entries in FILETABLE
@@ -47,13 +47,13 @@ namespace GameSpec.Aurora.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_HeaderFileName
+        struct KEY_HeaderFileName
         {
             public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct KEY_HeaderKey
+        struct KEY_HeaderKey
         {
             public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
             public ushort ResourceType;     // Resource Type
@@ -216,7 +216,7 @@ namespace GameSpec.Aurora.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource))
                 throw new NotSupportedException();
@@ -271,7 +271,7 @@ namespace GameSpec.Aurora.Formats
                 // files
                 r.Position(header.FilesOffset);
                 var headerFiles = r.ReadTArray<BIFF_HeaderFile>(sizeof(BIFF_HeaderFile), (int)header.NumFiles);
-                for (var i = 0; i < header.NumFiles; i++)
+                for (var i = 0; i < headerFiles.Length; i++)
                 {
                     var headerFile = headerFiles[i];
                     if (headerFile.Id > i) continue;
@@ -289,7 +289,7 @@ namespace GameSpec.Aurora.Formats
             return Task.CompletedTask;
         }
 
-        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData;
             r.Position(file.Position);

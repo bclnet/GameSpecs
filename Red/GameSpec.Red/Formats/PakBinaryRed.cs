@@ -8,7 +8,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-//using static GameSpec.Estate;
 using static OpenStack.Debug;
 
 namespace GameSpec.Red.Formats
@@ -259,7 +258,7 @@ namespace GameSpec.Red.Formats
         const uint BUNDLE_MAGIC = 0x41544f50; const uint BUNDLE_MAGIC2 = 0x30374f54; // POTATO70
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct BUNDLE_Header
+        struct BUNDLE_Header
         {
             public uint FileSize;           // 
             public uint NotUsed01;          // 
@@ -268,7 +267,7 @@ namespace GameSpec.Red.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct BUNDLE_HeaderFile
+        struct BUNDLE_HeaderFile
         {
             public fixed byte Name[0x100];  //
             public fixed byte Hash[16];     //
@@ -403,7 +402,7 @@ namespace GameSpec.Red.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct RDAR_HeaderFile
+        struct RDAR_HeaderFile
         {
             public ulong NameHash64;
             public long DateTime;
@@ -430,7 +429,7 @@ namespace GameSpec.Red.Formats
         // https://forums.cdprojektred.com/index.php?threads/modding-the-witcher-3-a-collection-of-tools-you-need.64557/
         // https://github.com/rfuzzo/CP77Tools
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
@@ -684,7 +683,7 @@ namespace GameSpec.Red.Formats
             BC5 = 7,        // 3DC, ATI2
         }
 
-        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData = null;
             r.Position(file.Position);

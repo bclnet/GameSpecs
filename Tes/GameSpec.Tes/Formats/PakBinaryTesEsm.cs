@@ -27,7 +27,7 @@ namespace GameSpec.Tes.Formats
     /// PakBinaryTesEsm
     /// </summary>
     /// <seealso cref="GameSpec.Formats._Packages.PakBinaryTesEsm" />
-    public class PakBinaryTesEsm : PakBinary
+    public unsafe class PakBinaryTesEsm : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryTesEsm();
         PakBinaryTesEsm() { }

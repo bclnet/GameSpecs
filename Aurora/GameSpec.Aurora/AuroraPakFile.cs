@@ -5,6 +5,7 @@ using GameSpec.Formats.Unknown;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace GameSpec.Aurora
@@ -15,6 +16,7 @@ namespace GameSpec.Aurora
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class AuroraPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
         public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
 
         /// <summary>
@@ -25,12 +27,28 @@ namespace GameSpec.Aurora
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public AuroraPakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryAurora.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(family, game, filePath), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }
+
+        #region GetPackBinary
+
+        static PakBinary PackBinaryFactory(FamilyGame game)
+            => game.Game switch
+            {
+                "TOR" => PakBinaryMyp.Instance,
+                _ => PakBinaryAurora.Instance,
+            };
+
+        static PakBinary GetPackBinary(Family family, string game, string filePath)
+            => !filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
+            ? PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game))
+            : ZipInstance;
+
+        #endregion
 
         #region Transforms
 

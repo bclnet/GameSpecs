@@ -17,7 +17,7 @@ namespace GameSpec.Cry
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class CryPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        static ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CryPakFile" /> class.
@@ -34,6 +34,8 @@ namespace GameSpec.Cry
             Open();
         }
 
+        #region GetPackBinary
+
         static PakBinary PackBinaryFactory(FamilyGame game)
         {
             var key = game.Key is Family.AesKey aes ? aes.Key : null;
@@ -46,6 +48,8 @@ namespace GameSpec.Cry
 
         static PakBinary GetPackBinary(Family family, string game)
             => PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game));
+
+#endregion
 
         #region Transforms
 

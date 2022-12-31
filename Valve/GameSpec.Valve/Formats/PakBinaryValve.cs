@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Valve.Formats
 {
-    public class PakBinaryValve : PakBinary
+    public unsafe class PakBinaryValve : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryValve();
         PakBinaryValve() { }
@@ -132,7 +132,7 @@ namespace GameSpec.Valve.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());

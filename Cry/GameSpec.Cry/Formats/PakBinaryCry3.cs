@@ -3,7 +3,6 @@ using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
 
@@ -13,7 +12,7 @@ namespace GameSpec.Cry.Formats
     /// PakBinaryCry3
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public class PakBinaryCry3 : PakBinary
+    public unsafe class PakBinaryCry3 : PakBinary
     {
         readonly byte[] Key;
 

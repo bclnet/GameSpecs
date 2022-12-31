@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats
 {
-    public class PakBinaryOriginUO : PakBinary
+    public unsafe class PakBinaryOriginUO : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryOriginUO();
         PakBinaryOriginUO() { }
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());

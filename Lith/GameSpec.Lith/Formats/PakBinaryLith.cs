@@ -78,7 +78,6 @@ namespace GameSpec.Lith.Formats
 
         #endregion
 
-
         // Headers
         #region Headers
 
@@ -136,7 +135,7 @@ namespace GameSpec.Lith.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
@@ -210,7 +209,7 @@ namespace GameSpec.Lith.Formats
             return Task.CompletedTask;
         }
 
-        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData;
             r.Position(file.Position);

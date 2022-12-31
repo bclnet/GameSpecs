@@ -105,7 +105,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
     <PackageReference Include="WPFHexaEditor" Version="2.1.7" />
   </ItemGroup>

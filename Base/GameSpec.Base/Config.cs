@@ -1,9 +1,40 @@
-﻿#define X
+﻿#define Aurora
+
 namespace GameSpec
 {
     public partial class FamilyManager
     {
-#if Blizzard
+#if AC
+        static string[] FamilyKeys = new[] { "AC", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "AC",
+            GameId = "AC", // Asheron's Call
+        };
+#elif Arkane
+        static string[] FamilyKeys = new[] { "Arkane", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Arkane",
+            GameId = "Dishonored2", // Dishonored 2
+        };
+#elif Aurora
+        static string[] FamilyKeys = new[] { "Aurora", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Aurora",
+            GameId = "TOR", // Star Wars: The Old Republic
+            //GameId = "NWN", // Neverwinter Nights
+            //GameId = "NWN2", // Neverwinter Nights 2
+            //GameId = "KotOR", // Star Wars: Knights of the Old Republic
+        };
+#elif Blizzard
         static string[] FamilyKeys = new[] { "Blizzard", "Unknown" };
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
@@ -13,16 +44,57 @@ namespace GameSpec
             //GameId = "SC", // StarCraft
             //GameId = "D2R", // Diablo II: Resurrected
             //Missing: GameId = "W3", // Warcraft III: Reign of Chaos
-            //Missing: GameId = "WOW", // World of Warcraft
+            //GameId = "WOW", // World of Warcraft
             //Missing: GameId = "WOWC", // World of Warcraft: Classic
             //GameId = "SC2", // StarCraft II: Wings of Liberty
-            GameId = "D3", // Diablo III
-            //Missing: GameId = "HS", // Hearthstone
-            //Missing: GameId = "HOTS", // Heroes of the Storm
-            //Missing: GameId = "OW", // Overwatch
-            //Missing: GameId = "DI", // Diablo Immortal
-            //Missing: GameId = "OW2", // Overwatch 2
+            //GameId = "D3", // Diablo III
+            //GameId = "HS", // Hearthstone
+            //GameId = "HOTS", // Heroes of the Storm
+            //GameId = "DI", // Diablo Immortal
+            //GameId = "OW2", // Overwatch 2
             //Missing: GameId = "D4", // Diablo IV
+        };
+#elif Cry
+        static string[] FamilyKeys = new[] { "Cry", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Cry",
+            GameId = "ArcheAge", // ArcheAge
+            GameId = "Hunt", // Hunt: Showdown
+            GameId = "MWO", // MechWarrior Online
+            GameId = "Warface", // Warface
+            GameId = "Wolcen", // Wolcen: Lords of Mayhem
+            GameId = "Crysis", // Crysis Remastered
+            GameId = "Ryse", // Ryse: Son of Rome
+            GameId = "Robinson", // Robinson: The Journey
+            GameId = "Snow", // SNOW - The Ultimate Edition
+        };
+#elif Cyanide
+        static string[] FamilyKeys = new[] { "Cyanide", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Cry",
+            GameId = "Council", // Council
+            GameId = "Werewolf:TA", // Werewolf: The Apocalypse - Earthblood
+        };
+#elif Hpl
+        static string[] FamilyKeys = new[] { "Hpl", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Hpl",
+            GameId = "P:O", // Penumbra: Overture
+            GameId = "P:BP", // Penumbra: Black Plague
+            GameId = "P:R", // Penumbra: Requiem
+            GameId = "A:TDD", // Amnesia: The Dark Descent
+            GameId = "A:AMFP", // Amnesia: A Machine for Pigs
+            GameId = "SOMA", // SOMA
+            GameId = "A:R", // Amnesia: Rebirth
         };
 #elif IW
         static string[] FamilyKeys = new[] { "IW", "Unknown" };
@@ -60,6 +132,19 @@ namespace GameSpec
             GameId = "BO4", // Call of Duty Black Ops 4
             //GameId = "BOCW", // Call of Duty Black Ops Cold War
             //GameId = "Vanguard", // Call of Duty Vanguard
+        };
+#elif Lith
+        static string[] FamilyKeys = new[] { "Lith", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Lith",
+            GameId = "FEAR", // F.E.A.R.
+            GameId = "FEAR:EP", // F.E.A.R.: Extraction Point
+            GameId = "FEAR:PM", // F.E.A.R.: Perseus Mandate
+            GameId = "FEAR2", // F.E.A.R. 2: Project Origin
+            GameId = "FEAR3", // F.E.A.R. 3
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Blizzard", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };

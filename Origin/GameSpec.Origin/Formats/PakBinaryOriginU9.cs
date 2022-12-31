@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats
 {
-    public class PakBinaryOriginU9 : PakBinary
+    public unsafe class PakBinaryOriginU9 : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryOriginU9();
         PakBinaryOriginU9() { }
@@ -16,7 +16,7 @@ namespace GameSpec.Origin.Formats
         // http://wiki.ultimacodex.com/wiki/Ultima_IX_Internal_Formats#FLX_Format
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct FLX_HeaderFile
+        struct FLX_HeaderFile
         {
             public uint Position;
             public uint FileSize;
@@ -24,7 +24,7 @@ namespace GameSpec.Origin.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());

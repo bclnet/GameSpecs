@@ -172,7 +172,7 @@ namespace GameSpec.Unity.Formats
                     if (format >= 0x12) Unknown1 = r.ReadBytes(8);
                 }
 
-                public unsafe string GetString(string[] strings)
+                public string GetString(string[] strings)
                 {
                     if ((TypeStringOffset & 0x80000000) != 0)
                     {

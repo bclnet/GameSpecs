@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats
 {
-    public class PakBinaryArkane : PakBinary
+    public unsafe class PakBinaryArkane : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryArkane();
         const uint RES_MAGIC = 0x04534552;
@@ -19,7 +19,7 @@ namespace GameSpec.Arkane.Formats
 
         PakBinaryArkane() { }
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
@@ -76,7 +76,7 @@ namespace GameSpec.Arkane.Formats
                 var id = MathX.Reverse(r.ReadUInt32());
                 var tag1 = r.ReadL32Encoding();
                 var tag2 = r.ReadL32Encoding();
-                var path = r.ReadL32Encoding().Replace('\\', '/');
+                var path = r.ReadL32Encoding()?.Replace('\\', '/');
                 var position = MathX.Reverse(r.ReadUInt64());
                 var fileSize = MathX.Reverse(r.ReadUInt32());
                 var packedSize = MathX.Reverse(r.ReadUInt32());

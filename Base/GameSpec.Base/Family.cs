@@ -253,7 +253,7 @@ namespace GameSpec
         /// <returns></returns>
         public FileManager.IFileSystem CreateFileSystem(FamilyGame game)
             => game.FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(game.FileSystemType)
-            : FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(game.FileSystemType)
+            : FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(FileSystemType)
             : null;
 
         #endregion

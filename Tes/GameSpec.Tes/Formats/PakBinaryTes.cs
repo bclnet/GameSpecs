@@ -4,12 +4,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GameSpec.Tes.Formats
 {
-    public class PakBinaryTes : PakBinary
+    public unsafe class PakBinaryTes : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryTes();
         PakBinaryTes() { }
@@ -149,7 +148,7 @@ namespace GameSpec.Tes.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct F4_HeaderFile
+        struct F4_HeaderFile
         {
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
@@ -162,7 +161,7 @@ namespace GameSpec.Tes.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct F4_HeaderTexture
+        struct F4_HeaderTexture
         {
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
@@ -178,7 +177,7 @@ namespace GameSpec.Tes.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        unsafe struct F4_HeaderGNMF
+        struct F4_HeaderGNMF
         {
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
@@ -207,7 +206,7 @@ namespace GameSpec.Tes.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
@@ -377,10 +376,10 @@ namespace GameSpec.Tes.Formats
             return Task.CompletedTask;
         }
 
-        public unsafe override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
+        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
             => throw new NotImplementedException();
 
-        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             const int GNF_HEADER_MAGIC = 0x20464E47;
             const int GNF_HEADER_CONTENT_SIZE = 248;
