@@ -312,7 +312,7 @@ namespace GameSpec.Tes.Formats
             //Console.WriteLine($"Recd: {record.Header.Type}");
             if (!compressed) { record.Read(r, _filePath, _format); return; }
             var newDataSize = r.ReadUInt32();
-            var newData = r.DecompressZlib_2((int)record.Header.DataSize - 4, (int)newDataSize);
+            var newData = r.DecompressSharpZlib2((int)record.Header.DataSize - 4, (int)newDataSize);
             // read record
             record.Header.Position = 0;
             record.Header.DataSize = newDataSize;

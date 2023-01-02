@@ -118,7 +118,7 @@ namespace GameSpec.Arkane.Formats
             {
                 r2.Position(file.Position);
                 return file.Compressed != 0
-                    ? r2.DecompressZlib((int)file.PackedSize, (int)file.FileSize)
+                    ? r2.DecompressSharpZlib((int)file.PackedSize, (int)file.FileSize)
                     : r2.ReadBytes((int)file.PackedSize);
             })));
         }

@@ -30,6 +30,7 @@ namespace GameSpec
             ForceOpen = true,
             Family = "Aurora",
             GameId = "TOR", // Star Wars: The Old Republic
+            ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe",
             //GameId = "NWN", // Neverwinter Nights
             //GameId = "NWN2", // Neverwinter Nights 2
             //GameId = "KotOR", // Star Wars: Knights of the Old Republic
