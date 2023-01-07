@@ -724,7 +724,7 @@ namespace GameSpec.Red.Formats
                         switch (file.Compressed)
                         {
                             case 0: break; // no compression
-                            case 1: fileData = new MemoryStream(r.DecompressSharpZlib2((int)file.PackedSize, (int)newFileSize)); break;
+                            case 1: fileData = new MemoryStream(r.DecompressZlib2((int)file.PackedSize, (int)newFileSize)); break;
                             case 2: fileData = new MemoryStream(r.DecompressSnappy((int)file.PackedSize, (int)newFileSize)); break;
                             case 3: fileData = new MemoryStream(r.DecompressDoboz((int)file.PackedSize, (int)newFileSize)); break;
                             case 4: case 5: fileData = new MemoryStream(r.DecompressLz4((int)file.PackedSize, (int)newFileSize)); break;
@@ -875,7 +875,7 @@ namespace GameSpec.Red.Formats
                                 var packedSize = r.ReadUInt32();
                                 var fileSize = r.ReadUInt32();
                                 var part = r.ReadByte();
-                                w.Write(r.DecompressSharpZlib((int)packedSize, -1));
+                                w.Write(r.DecompressZlib((int)packedSize, -1));
                             }
 
                             // write primary

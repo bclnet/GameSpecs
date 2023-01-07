@@ -14,7 +14,7 @@ The following are the current estates:
 | ---                           | ---                       | ---               | ---
 | [AC](AC/Readme.md)            | Asheron's Call            | Asheron's Call    | In Development
 | [Arkane](Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
-| [Aurora](Aurora/Readme.md)    | BioWare Aurora            | Neverwinter Nights| In Development
+| [Bioware](Bioware/Readme.md)    | BioWare Bioware            | Neverwinter Nights| In Development
 | [Cry](Cry/Readme.md)          | Crytek                    | MechWarrior Online| In Development
 | [Cyanide](Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
 | [IW](IW/Readme.md)            | Infinity Ward             | Call of Duty      | In Development

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace GameSpec.Aurora.Transforms
+namespace GameSpec.Bioware.Transforms
 {
     /// <summary>
     /// UnknownTransform

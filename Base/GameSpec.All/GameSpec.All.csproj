@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -10,8 +10,8 @@
     <ProjectReference Include="..\..\AC\GameSpec.AC\GameSpec.AC.csproj" />
     <ProjectReference Include="..\..\Arkane\GameSpec.Arkane.Platform\GameSpec.Arkane.Platform.csproj" />
     <ProjectReference Include="..\..\Arkane\GameSpec.Arkane\GameSpec.Arkane.csproj" />
-    <ProjectReference Include="..\..\Aurora\GameSpec.Aurora.Platform\GameSpec.Aurora.Platform.csproj" />
-    <ProjectReference Include="..\..\Aurora\GameSpec.Aurora\GameSpec.Aurora.csproj" />
+    <ProjectReference Include="..\..\Bioware\GameSpec.Bioware.Platform\GameSpec.Bioware.Platform.csproj" />
+    <ProjectReference Include="..\..\Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard.Platform\GameSpec.Blizzard.Platform.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj" />
     <ProjectReference Include="..\..\Cry\GameSpec.Cry.Platform\GameSpec.Cry.Platform.csproj" />

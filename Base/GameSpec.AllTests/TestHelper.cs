@@ -7,7 +7,7 @@ namespace GameSpec
     {
         static readonly Family familyAC = FamilyManager.GetFamily("AC");
         static readonly Family familyArkane = FamilyManager.GetFamily("Arkane");
-        static readonly Family familyAurora = FamilyManager.GetFamily("Aurora");
+        static readonly Family familyBioware = FamilyManager.GetFamily("Bioware");
         static readonly Family familyCry = FamilyManager.GetFamily("Cry");
         static readonly Family familyCyanide = FamilyManager.GetFamily("Cyanide");
         static readonly Family familyOrigin = FamilyManager.GetFamily("Origin");

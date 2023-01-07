@@ -56,8 +56,8 @@ namespace GameSpec.Cry.Formats.Core.Chunks
                                 // This is complicated, as some materials need the green channel more.
                                 byte a = Colors[i].a, g = Colors[i].g; Colors[i].a = g; Colors[i].g = a;
 
-                                UVs[i].X = r.ReadHalf();
-                                UVs[i].Y = r.ReadHalf();
+                                UVs[i].X = (float)r.ReadHalf();
+                                UVs[i].Y = (float)r.ReadHalf();
                             }
                             if (NumElements % 2 == 1) SkipBytes(r, 4);
                             break;

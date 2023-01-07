@@ -3,6 +3,7 @@
   "name": "Unreal",
   "studio": "Epic Games",
   "description": "Unreal formats",
+  "url": "https://wiki.beyondunreal.com/List_of_Unreal_Engine_games",
   "familyType": "GameSpec.Unreal.UnrealFamily, GameSpec.Unreal",
   "pakFileType": "GameSpec.Unreal.UnrealPakFile, GameSpec.Unreal",
   "games": {

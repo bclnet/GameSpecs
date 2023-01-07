@@ -115,8 +115,8 @@ namespace GameSpec.Cry.Formats.Core.Chunks
                                 Normals[i].Y = r.ReadSByte() / 127f;
                                 Normals[i].Z = r.ReadSByte() / 127f;
                                 r.ReadSByte(); // Should be FF.
-                                UVs[i].X = r.ReadHalf();
-                                UVs[i].Y = r.ReadHalf();
+                                UVs[i].X = (float)r.ReadHalf();
+                                UVs[i].Y = (float)r.ReadHalf();
                             }
                             break;
                         // 3 half floats for verts, 3 colors, 2 half floats for UVs
@@ -137,8 +137,8 @@ namespace GameSpec.Cry.Formats.Core.Chunks
                                 byte a = Colors[i].a, g = Colors[i].g; Colors[i].a = g; Colors[i].g = a;
 
                                 // UVs ABSOLUTELY should use the Half structures.
-                                UVs[i].X = r.ReadHalf();
-                                UVs[i].Y = r.ReadHalf();
+                                UVs[i].X = (float)r.ReadHalf();
+                                UVs[i].Y = (float)r.ReadHalf();
                             }
                             break;
                         case 16 when starCitizenFlag != 257:

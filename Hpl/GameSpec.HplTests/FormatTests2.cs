@@ -23,7 +23,7 @@ namespace GameSpec.IW
 
         //[DataTestMethod]
         //[DataRow("meshes00.bif/alpha_dummy.mdb")]
-        //public void MDB(string sampleFile) => LoadObject<AuroraBinaryPak>(main, sampleFile);
+        //public void MDB(string sampleFile) => LoadObject<BiowareBinaryPak>(main, sampleFile);
 
         static void LoadObject<T>(PakFile source, string sampleFile)
         {

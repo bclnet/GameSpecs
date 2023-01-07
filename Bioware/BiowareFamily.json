@@ -1,0 +1,252 @@
+﻿{
+  "id": "Bioware",
+  "name": "BioWare",
+  "studio": "BioWare",
+  "description": "BioWare used the Bioware Engine",
+  "url": "https://en.wikipedia.org/wiki/List_of_BioWare_video_games",
+  "familyType": "GameSpec.Bioware.BiowareFamily, GameSpec.Bioware",
+  "pakFileType": "GameSpec.Bioware.BiowarePakFile, GameSpec.Bioware",
+  "games": {
+    "SS": {
+      "name": "Shattered Steel",
+      "url": "https://www.gog.com/en/game/shattered_steel",
+      "date": "1996-09-30",
+      "pak": "game:/*#SS"
+    },
+    "BG": {
+      "name": "Baldur's Gate",
+      "url": "https://www.gog.com/en/game/baldurs_gate_enhanced_edition",
+      "date": "2013-01-16",
+      "pak": "game:/*.key#BG"
+    },
+    "MDK2": {
+      "name": "MDK2",
+      "url": "https://www.gog.com/en/game/mdk_2",
+      "date": "2000-05-30",
+      "pak": "game:/*.zip#MDK2"
+    },
+    "BG2": {
+      "name": "Baldur's Gate II: Shadows of Amn",
+      "url": "https://www.gog.com/en/game/baldurs_gate_2_enhanced_edition",
+      "date": "2013-11-15",
+      "pak": "game:/*.key#BG2"
+    },
+    "NWN": {
+      "name": "Neverwinter Nights",
+      "url": [
+        "https://store.steampowered.com/app/704450",
+        "https://www.gog.com/en/game/neverwinter_nights_enhanced_edition_pack"
+      ],
+      "date": "2018-03-27",
+      "pak": "game:/*.key#NWN"
+    },
+    "KotOR": {
+      "name": "Star Wars: Knights of the Old Republic",
+      "url": [
+        "https://store.steampowered.com/app/32370",
+        "https://www.gog.com/en/game/star_wars_knights_of_the_old_republic"
+      ],
+      "date": "2003-11-19",
+      "pak": "game:/*.key#KotOR"
+    },
+    "JE": {
+      "name": "Jade Empire",
+      "url": "https://www.gog.com/en/game/jade_empire_special_edition",
+      "date": "2005-05-12",
+      "pak": "game:/*.key#JE"
+    },
+    "ME": {
+      "name": "Mass Effect",
+      "url": "https://store.steampowered.com/app/1328670",
+      "date": "2005-05-12",
+      "pak": "game:/*.key#ME"
+    },
+    "NWN2": {
+      "name": "Neverwinter Nights 2",
+      "url": "https://www.gog.com/en/game/neverwinter_nights_2_complete",
+      "date": "2006-10-31",
+      "tag": "Electron Engine",
+      "pak": "game:/*.zip#NWN2"
+    },
+    "DA:O": {
+      "name": "Dragon Age: Origins",
+      "url": "https://store.steampowered.com/app/47810",
+      "date": "2010-10-26",
+      "pak": "game:/*#DA:O"
+    },
+    "ME2": {
+      "name": "Mass Effect 2",
+      "url": "https://store.steampowered.com/app/24980",
+      "date": "2010-01-26",
+      "pak": "game:/*#ME2"
+    },
+    "DA2": {
+      "name": "Dragon Age II",
+      "url": "https://store.steampowered.com/app/1238040",
+      "date": "2011-03-08",
+      "pak": "game:/*#DA2"
+    },
+    "SWTOR": {
+      "name": "Star Wars: The Old Republic",
+      "url": "https://store.steampowered.com/app/1286830",
+      "date": "2011-12-20",
+      "tags": "StarWars",
+      "pak": "game:/*.tor#SWTOR"
+    },
+    "ME3": {
+      "name": "Mass Effect 3",
+      "url": "https://store.steampowered.com/app/1238020",
+      "date": "2010-01-26",
+      "pak": "game:/*#ME3"
+    },
+    "DA:I": {
+      "name": "Dragon Age: Inquisition",
+      "url": "https://store.steampowered.com/app/1222690",
+      "date": "2014-11-18",
+      "pak": "game:/*#DA:I"
+    },
+    "ME:A": {
+      "name": "Mass Effect: Andromeda",
+      "url": "https://store.steampowered.com/app/1238000",
+      "date": "2017-03-20",
+      "pak": "game:/*#ME:A"
+    },
+    "A": {
+      "name": "Anthem",
+      "url": "https://www.ea.com/games/anthem/buy/pc",
+      "date": "2019-02-21",
+      "pak": "game:/*#A"
+    },
+    "ME:LE": {
+      "name": "Mass Effect: Legendary Edition",
+      "url": "https://store.steampowered.com/app/1328670",
+      "date": "2021-05-14",
+      "pak": "game:/*#ME:LE"
+    },
+    "DA:D": {
+      "name": "Dragon Age: Dreadwolf (future)",
+      "url": "https://www.ea.com/en-gb/games/dragon-age/dragon-age-dreadwolf"
+    },
+    "ME5": {
+      "name": "Mass Effect 5 (future)"
+    }
+  },
+  "other-games": {
+    "SC:TDB": {
+      "name": "Sonic Chronicles: The Dark Brotherhood",
+      "url": "https://en.wikipedia.org/wiki/Sonic_Chronicles:_The_Dark_Brotherhood",
+      "date": "2008-09-25",
+      "tag": "iOS"
+    },
+    "ME:G": {
+      "name": "Mass Effect Galaxy",
+      "url": "https://en.wikipedia.org/wiki/Mass_Effect_Galaxy",
+      "date": "2009-06-23",
+      "tag": "Facebook"
+    },
+    "DA:L": {
+      "name": "Dragon Age Legends",
+      "url": "https://en.wikipedia.org/wiki/Dragon_Age_Legends",
+      "date": "2011-03-16",
+      "tag": "Facebook"
+    },
+    "WO": {
+      "name": "Warhammer Online: Wrath of Heroes (Cancelled)",
+      "url": "https://en.wikipedia.org/wiki/Warhammer_Online:_Wrath_of_Heroes",
+      "date": "2013-03-29",
+      "tags": "Cancelled"
+    },
+    "CC": {
+      "name": "Command & Conquer: Generals 2 (Cancelled)",
+      "url": "https://en.wikipedia.org/wiki/Warhammer_Online:_Wrath_of_Heroes",
+      "date": "2013-10-29",
+      "tags": "Cancelled"
+    },
+    "SR": {
+      "name": "Shadow Realms (Cancelled)",
+      "url": "https://en.wikipedia.org/wiki/Shadow_Realms",
+      "date": "2015-02-09",
+      "tags": "Cancelled"
+    }
+  },
+  "fileManager": {
+    "windows": {
+      "registry": {
+        "SS": {
+          "key": "GOG.com/Games/1207666283"
+        },
+        "BG": {
+          "key": "GOG.com/Games/1207666353"
+        },
+        "MDK2": {
+          "key": "GOG.com/Games/1207658645",
+          "path": "data"
+        },
+        "BG2": {
+          "key": "GOG.com/Games/1207666373"
+        },
+        "NWN": {
+          "key": [
+            "BioWare/NWN/Neverwinter",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 704450",
+            "GOG.com/Games/1097893768",
+            "GOG.com/Games/1207658890"
+          ],
+          "path": "data"
+        },
+        "KotOR": {
+          "key": [
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
+            "GOG.com/Games/1207666283",
+            "GOG.com/Games/111"
+          ],
+          "path": [ ".", "TexturePacks" ]
+        },
+        "JE": {
+          "key": "GOG.com/Games/1207659237"
+        },
+        "ME": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670"
+        },
+        "NWN2": {
+          "key": [
+            "Obsidian/NWN 2/Neverwinter",
+            "GOG.com/Games/1207659162"
+          ],
+          "path": "Data"
+        },
+        "DA:O": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 47810"
+        },
+        "ME2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 24980"
+        },
+        "DA2": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238040"
+        },
+        "SWTOR": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1286830",
+          "path": "Assets"
+        },
+        "ME3": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238020"
+        },
+        "DA:I": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1222690"
+        },
+        "ME:A": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238000",
+          "path": "Data/Win32"
+        },
+        "A": {
+          "key": "BioWare/Anthem",
+          "path": "Data/Win32"
+        },
+        "ME:LE": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670",
+          "path": [ "Game/ME1/BioGame/CookedPCConsole", "Game/ME2/BioGame/CookedPCConsole", "Game/ME3/BioGame/CookedPCConsole" ]
+        }
+      }
+    }
+  }
+}

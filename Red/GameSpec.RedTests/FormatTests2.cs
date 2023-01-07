@@ -1,4 +1,4 @@
-using GameSpec.Aurora.Formats;
+using GameSpec.Bioware.Formats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -24,7 +24,7 @@ namespace GameSpec.Red
 
         //[DataTestMethod]
         //[DataRow("meshes00.bif/alpha_dummy.mdb")]
-        //public void MDB(string sampleFile) => LoadObject<AuroraBinaryPak>(main, sampleFile);
+        //public void MDB(string sampleFile) => LoadObject<BiowareBinaryPak>(main, sampleFile);
 
         static void LoadObject<T>(PakFile source, string sampleFile)
         {

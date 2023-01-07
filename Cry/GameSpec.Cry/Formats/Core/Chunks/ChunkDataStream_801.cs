@@ -111,8 +111,8 @@ namespace GameSpec.Cry.Formats.Core.Chunks
                                 Normals[i].Y = r.ReadSByte() / 127f;
                                 Normals[i].Z = r.ReadSByte() / 127f;
                                 r.ReadSByte();
-                                UVs[i].X = r.ReadHalf();
-                                UVs[i].Y = r.ReadHalf();
+                                UVs[i].X = (float)r.ReadHalf();
+                                UVs[i].Y = (float)r.ReadHalf();
                             }
                             break;
                         // 3 half floats for verts, 3 colors, 2 half floats for UVs
@@ -135,8 +135,8 @@ namespace GameSpec.Cry.Formats.Core.Chunks
                                 Normals[i].Z = (2f * (quat.Z * quat.Z + quat.W * quat.W)) - 1f;
 
                                 // UVs ABSOLUTELY should use the Half structures.
-                                UVs[i].X = r.ReadHalf();
-                                UVs[i].Y = r.ReadHalf();
+                                UVs[i].X = (float)r.ReadHalf();
+                                UVs[i].Y = (float)r.ReadHalf();
                             }
                             break;
                         default:

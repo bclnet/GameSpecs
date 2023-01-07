@@ -3,6 +3,7 @@
   "name": "HPL Engine",
   "studio": "Frictional Games",
   "description": "Frictional Games file formats",
+  "url": "https://en.wikipedia.org/wiki/Frictional_Games",
   "familyType": "GameSpec.Hpl.HplFamily, GameSpec.Hpl",
   "pakFileType": "GameSpec.Hpl.HplPakFile, GameSpec.Hpl",
   "games": {

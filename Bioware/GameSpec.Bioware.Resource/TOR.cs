@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using ZstdNet;
 
-namespace GameSpec.Aurora.Resource
+namespace GameSpec.Bioware.Resource
 {
     public static class TOR
     {
@@ -30,7 +30,7 @@ namespace GameSpec.Aurora.Resource
         static TOR()
         {
             var assembly = typeof(TOR).Assembly;
-            using var stream = assembly.GetManifestResourceStream("GameSpec.Aurora.Resource.TOR.zst");
+            using var stream = assembly.GetManifestResourceStream("GameSpec.Bioware.Resource.TOR.zst");
             var fs = new DecompressionStream(stream);
             using var sr = new StreamReader(fs);
             using var csv = new CsvReader(sr, new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false, Delimiter = "#" });

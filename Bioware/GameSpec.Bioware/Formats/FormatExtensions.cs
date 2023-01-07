@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Aurora.Formats
+namespace GameSpec.Bioware.Formats
 {
     /// <summary>
     /// FormatExtensions

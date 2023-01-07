@@ -1,5 +1,5 @@
-﻿using GameSpec.Aurora.Formats;
-using GameSpec.Aurora.Transforms;
+﻿using GameSpec.Bioware.Formats;
+using GameSpec.Bioware.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Metadata;
@@ -8,25 +8,25 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace GameSpec.Aurora
+namespace GameSpec.Bioware
 {
     /// <summary>
-    /// AuroraPakFile
+    /// BiowarePakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class AuroraPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class BiowarePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
         public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuroraPakFile" /> class.
+        /// Initializes a new instance of the <see cref="BiowarePakFile" /> class.
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public AuroraPakFile(Family family, string game, string filePath, object tag = null)
+        public BiowarePakFile(Family family, string game, string filePath, object tag = null)
             : base(family, game, filePath, GetPackBinary(family, game, filePath), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

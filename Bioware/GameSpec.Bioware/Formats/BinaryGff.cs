@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace GameSpec.Aurora.Formats
+namespace GameSpec.Bioware.Formats
 {
     public class BinaryGff : IGetMetadataInfo
     {

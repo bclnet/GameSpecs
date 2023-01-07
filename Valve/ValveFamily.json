@@ -3,6 +3,7 @@
   "name": "Valve",
   "studio": "",
   "description": "Valve formats used by Source/Source 2",
+  "url": "https://en.wikipedia.org/wiki/List_of_Valve_games",
   "familyType": "GameSpec.Valve.ValveFamily, GameSpec.Valve",
   "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
   "games": {

@@ -1,4 +1,4 @@
-﻿using GameSpec.Aurora.Formats;
+﻿using GameSpec.Bioware.Formats;
 using GameSpec.Formats;
 using System;
 using System.IO;

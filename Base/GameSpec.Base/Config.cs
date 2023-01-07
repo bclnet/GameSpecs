@@ -1,4 +1,4 @@
-﻿#define Aurora
+﻿#define Arkane
 
 namespace GameSpec
 {
@@ -20,17 +20,26 @@ namespace GameSpec
         {
             ForceOpen = true,
             Family = "Arkane",
-            GameId = "Dishonored2", // Dishonored 2
+            GameId = "AF", // Arx Fatalis
+            //GameId = "DOM", // Dark Messiah of Might and Magic
+            //GameId = "D", // Dishonored
+            //GameId = "D2", // Dishonored 2
+            //GameId = "P", // Prey
+            //GameId = "D:DOTO", // Dishonored: Death of the Outsider
+            //GameId = "W:YB", // Wolfenstein: Youngblood
+            //GameId = "W:CP", // Wolfenstein: Cyberpilot
+            //GameId = "DL", // Deathloop
+            //Missing: GameId = "RF", // Redfall (future)
         };
-#elif Aurora
-        static string[] FamilyKeys = new[] { "Aurora", "Unknown" };
+#elif Bioware
+        static string[] FamilyKeys = new[] { "Bioware", "Unknown" };
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            Family = "Aurora",
-            GameId = "TOR", // Star Wars: The Old Republic
-            ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe",
+            Family = "Bioware",
+            //GameId = "SWTOR", // Star Wars: The Old Republic
+            //ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe",
             //GameId = "NWN", // Neverwinter Nights
             //GameId = "NWN2", // Neverwinter Nights 2
             //GameId = "KotOR", // Star Wars: Knights of the Old Republic
@@ -148,7 +157,7 @@ namespace GameSpec
             GameId = "FEAR3", // F.E.A.R. 3
         };
 #else
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Aurora", "Blizzard", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions { };
 #endif

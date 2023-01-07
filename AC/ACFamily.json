@@ -1,7 +1,8 @@
 ﻿{
   "id": "AC",
   "name": "Asheron's Call",
-  "studio": "",
+  "studio": "Turbine, Inc",
+  "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call",
   "description": "The file formats used in Asheron's Call",
   "familyType": "GameSpec.AC.ACFamily, GameSpec.AC",
   "pakFileType": "GameSpec.AC.ACPakFile, GameSpec.AC",

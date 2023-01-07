@@ -49,10 +49,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arkane", "Arkane", "{793BEC
 		Arkane\Readme.md = Arkane\Readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aurora", "Aurora", "{0BE39DA4-4D1C-4FBE-87F5-C6C87F039DF0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bioware", "Bioware", "{0BE39DA4-4D1C-4FBE-87F5-C6C87F039DF0}"
 	ProjectSection(SolutionItems) = preProject
-		Aurora\AuroraFamily.json = Aurora\AuroraFamily.json
-		Aurora\Readme.md = Aurora\Readme.md
+		Bioware\BiowareFamily.json = Bioware\BiowareFamily.json
+		Bioware\Readme.md = Bioware\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cry", "Cry", "{D78C77D6-2696-446A-9D13-7FAE6F3255EE}"
@@ -111,7 +111,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Base", "Base\GameS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Arkane", "Arkane\GameSpec.Arkane\GameSpec.Arkane.csproj", "{F2D4E3F8-7EC0-4BDC-AD85-B442653362DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Aurora", "Aurora\GameSpec.Aurora\GameSpec.Aurora.csproj", "{0073A5EA-A7A8-4A9C-BBA7-0731B37695FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bioware", "Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj", "{0073A5EA-A7A8-4A9C-BBA7-0731B37695FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cry", "Cry\GameSpec.Cry\GameSpec.Cry.csproj", "{2C3C4F52-8899-47E2-B0F4-72C926B9FB1D}"
 EndProject
@@ -137,7 +137,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ACTests", "AC\Game
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ArkaneTests", "Arkane\GameSpec.ArkaneTests\GameSpec.ArkaneTests.csproj", "{7308F32B-705C-4E96-A73C-24782DEB2DBD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.AuroraTests", "Aurora\GameSpec.AuroraTests\GameSpec.AuroraTests.csproj", "{2C995BE9-B275-48FC-95F3-FEEE59EF421C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.BiowareTests", "Bioware\GameSpec.BiowareTests\GameSpec.BiowareTests.csproj", "{2C995BE9-B275-48FC-95F3-FEEE59EF421C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.BaseTests", "Base\GameSpec.BaseTests\GameSpec.BaseTests.csproj", "{A77B276B-CE12-4215-9BBE-7B03CCD55813}"
 EndProject
@@ -161,7 +161,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.AC.Platform", "AC\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Arkane.Platform", "Arkane\GameSpec.Arkane.Platform\GameSpec.Arkane.Platform.csproj", "{0171784C-957E-46A2-B6D9-DA475D86AE85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Aurora.Platform", "Aurora\GameSpec.Aurora.Platform\GameSpec.Aurora.Platform.csproj", "{AC449BA4-7BB7-4363-93E4-F3FBB381B9A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bioware.Platform", "Bioware\GameSpec.Bioware.Platform\GameSpec.Bioware.Platform.csproj", "{AC449BA4-7BB7-4363-93E4-F3FBB381B9A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cry.Platform", "Cry\GameSpec.Cry.Platform\GameSpec.Cry.Platform.csproj", "{EF033256-D6EF-402D-BE2B-87CCDC34A12A}"
 EndProject
@@ -264,7 +264,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.IWTests", "IW\Game
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CascLib", "..\CascLib\CascLib\CascLib.csproj", "{068EA453-09C0-4EEF-86F3-12CE05C5B3B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Aurora.Resource", "Aurora\GameSpec.Aurora.Resource\GameSpec.Aurora.Resource.csproj", "{A4C62743-E379-40A9-AF1D-76B664FA08C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bioware.Resource", "Bioware\GameSpec.Bioware.Resource\GameSpec.Bioware.Resource.csproj", "{A4C62743-E379-40A9-AF1D-76B664FA08C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

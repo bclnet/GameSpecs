@@ -3,6 +3,7 @@
   "name": "Roberts Space Industries",
   "studio": "Cloud Imperium Games",
   "description": "RSI formats used in StarCitizen",
+  "url": "https://en.wikipedia.org/wiki/Star_Citizen",
   "familyType": "GameSpec.Rsi.RsiFamily, GameSpec.Rsi",
   "pakFileType": "GameSpec.Rsi.RsiPakFile, GameSpec.Rsi",
   "games": {

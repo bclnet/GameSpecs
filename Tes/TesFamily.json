@@ -3,120 +3,144 @@
   "name": "The Elder Scrolls",
   "studio": "Bethesda Game Studios",
   "description": "TES formats used by Bethesda",
+  "url": "https://en.wikipedia.org/wiki/Bethesda_Game_Studios",
   "familyType": "GameSpec.Tes.TesFamily, GameSpec.Tes",
   "pakFileType": "GameSpec.Tes.TesPakFile, GameSpec.Tes",
   "games": {
-    // tes
+    "Fallout2": {
+      "name": "Fallout 2",
+      "url": "https://store.steampowered.com/app/38410",
+      "date": "1998-12-01",
+      "pak": "game:/*.dat#Fallout2"
+    },
     "Morrowind": {
-      "name": "Morrowind",
+      "name": "The Elder Scrolls III: Morrowind",
       "url": "https://store.steampowered.com/app/22320",
+      "date": "2002-04-29",
       "pak": "game:/Morrowind.bsa#Morrowind",
       "dat": "game:/Morrowind.esm#Morrowind"
     },
     "Oblivion": {
-      "name": "Oblivion",
+      "name": "The Elder Scrolls IV: Oblivion",
       "url": "https://store.steampowered.com/app/22330",
+      "date": "2007-09-11",
       "pak": "game:/Oblivion - Meshes.bsa#Oblivion",
       "pak_": "game:/Oblivion*.bsa#Oblivion",
       "dat": "game:/Oblivion.esm#Oblivion"
     },
-    "Skyrim": {
-      "name": "Skyrim",
-      "url": "https://store.steampowered.com/app/72850",
-      "pak": "game:/Skyrim*.bsa#Skyrim",
-      "dat": "game:/Skyrim.esm#Skyrim"
-    },
-    "SkyrimSE": {
-      "name": "Skyrim Special Edition",
-      "url": "https://store.steampowered.com/app/489830",
-      "pak": "game:/Skyrim*.bsa#SkyrimSE",
-      "dat": "game:/Skyrim.esm#SkyrimSE"
-    },
-    "SkyrimVR": {
-      "name": "Skyrim VR",
-      "url": "https://store.steampowered.com/app/611670",
-      "pak": "game:/Skyrim*.bsa#SkyrimVR",
-      "dat": "game:/Skyrim.esm#SkyrimVR"
-    },
-    // fallout
-    "Fallout2": {
-      "name": "Fallout 2",
-      "url": "https://store.steampowered.com/app/38410",
-      "pak": "game:/*.dat#Fallout2"
-    },
     "Fallout3": {
       "name": "Fallout 3",
       "url": "https://store.steampowered.com/app/22370",
+      "date": "2009-10-13",
       "pak": "game:/Fallout*.bsa#Fallout3",
       "dat": "game:/Fallout3.esm#Fallout3"
     },
     "FalloutNV": {
       "name": "Fallout New Vegas",
       "url": "https://store.steampowered.com/app/22380",
+      "date": "2010-10-19",
       "pak": "game:/Fallout*.bsa#FalloutNV"
+    },
+    "Skyrim": {
+      "name": "The Elder Scrolls V: Skyrim",
+      "url": "https://store.steampowered.com/app/72850",
+      "date": "2011-11-10",
+      "pak": "game:/Skyrim*.bsa#Skyrim",
+      "dat": "game:/Skyrim.esm#Skyrim"
     },
     "Fallout4": {
       "name": "Fallout 4",
       "url": "https://store.steampowered.com/app/377160",
+      "date": "2015-11-09",
       "pak": "game:/Fallout4*.ba2#Fallout4",
       "dat": "game:/Fallout4.esm#Fallout4"
+    },
+    "SkyrimSE": {
+      "name": "The Elder Scrolls V: Skyrim – Special Edition",
+      "url": "https://store.steampowered.com/app/489830",
+      "date": "2016-10-27",
+      "pak": "game:/Skyrim*.bsa#SkyrimSE",
+      "dat": "game:/Skyrim.esm#SkyrimSE"
+    },
+    "Fallout:S": {
+      "name": "Fallout Shelter",
+      "url": "https://store.steampowered.com/app/588430",
+      "date": "2017-03-29",
+      "pak": "game:/*#Fallout:S"
     },
     "Fallout4VR": {
       "name": "Fallout 4 VR",
       "url": "https://store.steampowered.com/app/611660",
+      "date": "2017-12-11",
       "pak": "game:/Fallout4*.ba2#Fallout4VR",
       "dat": "game:/Fallout4.esm#Fallout4VR"
+    },
+    "SkyrimVR": {
+      "name": "The Elder Scrolls V: Skyrim VR",
+      "url": "https://store.steampowered.com/app/611670",
+      "date": "2018-04-02",
+      "pak": "game:/Skyrim*.bsa#SkyrimVR",
+      "dat": "game:/Skyrim.esm#SkyrimVR"
     },
     "Fallout76": {
       "name": "Fallout 76",
       "url": "https://store.steampowered.com/app/1151340",
+      "date": "2020-04-14",
       "pak": "game:/SeventySix.ba2#Fallout76",
       "dat": "game:/SeventySix.esm#Fallout76"
+    },
+    "Starfield": {
+      "name": "Starfield",
+      "url": "https://store.steampowered.com/app/1716740",
+      "pak": "game:/Starfield*.ba2#Starfield",
+      "dat": "game:/Starfield.esm#Starfield"
+    },
+    "Starfield": {
+      "name": "Starfield (future)",
+      "url": "https://store.steampowered.com/app/1716740",
+      "pak": "game:/Starfield*.ba2#Starfield",
+      "dat": "game:/Starfield.esm#Starfield"
+    },
+    "Unknown1": {
+      "name": "The Elder Scrolls VI (future)",
+      "url": "https://en.wikipedia.org/wiki/The_Elder_Scrolls"
+    },
+    "Fallout5": {
+      "name": "Fallout 5 (future)",
+      "url": "https://en.wikipedia.org/wiki/Fallout_(series)"
+    }
+  },
+  "other-games": {
+    "IHRA": {
+      "name": "IHRA Professional Drag Racing 2005",
+      "url": "https://en.wikipedia.org/wiki/IHRA_Drag_Racing",
+      "date": "2004-11-01"
+    },
+    "Blades": {
+      "name": "The Elder Scrolls: Blades",
+      "url": "https://elderscrolls.bethesda.net/en/blades",
+      "date": "2019-03-27"
     }
   },
   "fileManager": {
     "windows": {
       "registry": {
-        // tes
+        "Fallout2": {
+          "key": [
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410",
+            "GOG.com/Games/1440151285"
+          ]
+        },
+        "Morrowind": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22320",
+          "path": "Data Files"
+        },
         "Oblivion": {
           "key": [
             "Bethesda Softworks/Oblivion",
             "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22330"
           ],
           "path": "Data"
-        },
-        "Morrowind": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22320",
-          "path": "Data Files"
-        },
-        "Skyrim": {
-          "key": [
-            "Bethesda Softworks/skyrim",
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 72850"
-          ],
-          "path": "Data"
-        },
-        "SkyrimSE": {
-          "key": [
-            "Bethesda Softworks/Skyrim SE",
-            "Bethesda Softworks/Skyrim Special Edition",
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 489830"
-          ],
-          "path": "Data"
-        },
-        "SkyrimVR": {
-          "key": [
-            "Bethesda Softworks/Skyrim VR",
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611670"
-          ],
-          "path": "Data"
-        },
-        // fallout
-        "Fallout2": {
-          "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410",
-            "GOG.com/Games/1440151285"
-          ]
         },
         "Fallout3": {
           "key": [
@@ -132,12 +156,30 @@
           ],
           "path": "Data"
         },
+        "Skyrim": {
+          "key": [
+            "Bethesda Softworks/skyrim",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 72850"
+          ],
+          "path": "Data"
+        },
         "Fallout4": {
           "key": [
             "Bethesda Softworks/Fallout4",
             "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 377160"
           ],
           "path": "Data"
+        },
+        "SkyrimSE": {
+          "key": [
+            "Bethesda Softworks/Skyrim SE",
+            "Bethesda Softworks/Skyrim Special Edition",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 489830"
+          ],
+          "path": "Data"
+        },
+        "Fallout:S": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 588430"
         },
         "Fallout4VR": {
           "key": [
@@ -146,17 +188,18 @@
           ],
           "path": "Data"
         },
+        "SkyrimVR": {
+          "key": [
+            "Bethesda Softworks/Skyrim VR",
+            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611670"
+          ],
+          "path": "Data"
+        },
         "Fallout76": {
           "key": [
             "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1151340"
           ],
           "path": "Data"
-        }
-      },
-      "direct_": {
-        "Morrowind": {
-          "path": "D:/Program Files (x86)/Steam/steamapps/common/Morrowind",
-          "path2": "Data Files"
         }
       }
     },

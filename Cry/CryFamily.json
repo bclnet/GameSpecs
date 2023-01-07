@@ -3,6 +3,7 @@
   "name": "Crytek",
   "studio": "Crytek",
   "description": "The file formats used in Cry and Lumberyard",
+  "url": "https://en.wikipedia.org/wiki/Crytek",
   "familyType": "GameSpec.Cry.CryFamily, GameSpec.Cry",
   "pakFileType": "GameSpec.Cry.CryPakFile, GameSpec.Cry",
   "games": {

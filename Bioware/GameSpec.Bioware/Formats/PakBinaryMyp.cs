@@ -1,4 +1,4 @@
-﻿using GameSpec.Aurora.Resource;
+﻿using GameSpec.Bioware.Resource;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace GameSpec.Aurora.Formats
+namespace GameSpec.Bioware.Formats
 {
     public unsafe class PakBinaryMyp : PakBinary
     {
@@ -89,7 +89,7 @@ namespace GameSpec.Aurora.Formats
                         Path = path.StartsWith('/') ? path[1..] : path,
                         FileSize = headerFile.FileSize,
                         PackedSize = headerFile.PackedSize,
-                        Position = (long)headerFile.Offset,
+                        Position = (long)(headerFile.Offset + headerFile.HeaderSize),
                         Digest = hash,
                         Compressed = headerFile.Compressed
                     });
@@ -109,7 +109,7 @@ namespace GameSpec.Aurora.Formats
                 _ => source.Version switch
                 {
                     6 => r.DecompressZstd((int)file.PackedSize, (int)file.FileSize),
-                    _ => r.DecompressSharpZlib((int)file.PackedSize, (int)file.FileSize),
+                    _ => r.DecompressZlib((int)file.PackedSize, (int)file.FileSize),
                 }
             }));
         }

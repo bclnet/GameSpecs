@@ -3,6 +3,7 @@
   "name": "Origin Systems",
   "studio": "Origin Systems",
   "description": "Origin Systems file formats",
+  "url": "https://en.wikipedia.org/wiki/Origin_Systems",
   "familyType": "GameSpec.Origin.OriginFamily, GameSpec.Origin",
   "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin",
   "games": {

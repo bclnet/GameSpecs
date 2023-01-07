@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Aurora\GameSpec.Aurora\GameSpec.Aurora.csproj" />
+    <ProjectReference Include="..\..\Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj" />
     <ProjectReference Include="..\..\Base\GameSpec.Base\GameSpec.Base.csproj" />
     <ProjectReference Include="..\GameSpec.Red.Resource\GameSpec.Red.Resource.csproj" />
   </ItemGroup>

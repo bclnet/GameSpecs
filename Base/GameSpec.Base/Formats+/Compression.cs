@@ -6,7 +6,6 @@ using K4os.Compression.LZ4;
 using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using ZstdNet;
 using Decoder = SevenZip.Compression.LZMA.Decoder;
 
@@ -86,18 +85,7 @@ namespace GameSpec.Formats
             return fs.ReadBytes(newLength);
         }
 
-        //public static byte[] DecompressZlib(this BinaryReader r, int length, int newLength)
-        //{
-        //    var fileData = r.ReadBytes(length);
-        //    var inflater = new ZLibStream(false);
-        //    inflater.SetInput(fileData, 0, fileData.Length);
-        //    int count;
-        //    var buffer = new byte[BufferSize];
-        //    using var s = new MemoryStream();
-        //    while ((count = inflater.Inflate(buffer)) > 0) s.Write(buffer, 0, count);
-        //    return s.ToArray();
-        //}
-        public static byte[] DecompressSharpZlib(this BinaryReader r, int length, int newLength)
+        public static byte[] DecompressZlib(this BinaryReader r, int length, int newLength)
         {
             var fileData = r.ReadBytes(length);
             var inflater = new Inflater(false);
@@ -108,13 +96,12 @@ namespace GameSpec.Formats
             while ((count = inflater.Inflate(buffer)) > 0) s.Write(buffer, 0, count);
             return s.ToArray();
         }
-        public static byte[] DecompressSharpZlib2(this BinaryReader r, int length, int newLength)
+        public static byte[] DecompressZlib2(this BinaryReader r, int length, int newLength)
         {
             var fileData = r.ReadBytes(length);
+            using var s = new InflaterInputStream(new MemoryStream(fileData), new Inflater(false), 4096);
             var newFileData = new byte[newLength];
-            using var s = new MemoryStream(fileData);
-            using var gs = new InflaterInputStream(s, new Inflater(false), 4096);
-            gs.Read(newFileData, 0, newFileData.Length);
+            s.Read(newFileData, 0, newFileData.Length);
             return newFileData;
         }
         public static byte[] CompressZlib(byte[] source, int length)

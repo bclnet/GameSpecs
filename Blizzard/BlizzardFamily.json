@@ -3,6 +3,7 @@
   "name": "Blizzard",
   "studio": "Blizzard",
   "description": "Blizzard file formats",
+  "url": "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games",
   "familyType": "GameSpec.Blizzard.BlizzardFamily, GameSpec.Blizzard",
   "pakFileType": "GameSpec.Blizzard.BlizzardPakFile, GameSpec.Blizzard",
   "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",

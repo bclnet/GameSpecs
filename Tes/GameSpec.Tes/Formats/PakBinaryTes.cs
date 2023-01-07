@@ -394,7 +394,7 @@ namespace GameSpec.Tes.Formats
                 // General BA2 Format
                 if (file.FileInfo == null)
                     fileData = file.Compressed != 0
-                        ? new MemoryStream(r.DecompressSharpZlib2((int)file.PackedSize, (int)file.FileSize))
+                        ? new MemoryStream(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize))
                         : new MemoryStream(r.ReadBytes((int)file.FileSize));
                 // Texture BA2 Format
                 else if (file.FileInfo is F4_HeaderTexture tex)
@@ -506,7 +506,7 @@ namespace GameSpec.Tes.Formats
                         {
                             var chunk = chunks[i];
                             r.Position((long)chunk.Offset);
-                            if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressSharpZlib((int)file.PackedSize, (int)file.FileSize));
+                            if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib((int)file.PackedSize, (int)file.FileSize));
                             else s.WriteBytes(r, (int)file.FileSize);
                         }
                         s.Position = 0;
@@ -536,7 +536,7 @@ namespace GameSpec.Tes.Formats
                         {
                             var chunk = chunks[i];
                             r.Position((long)chunk.Offset);
-                            if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressSharpZlib2((int)file.PackedSize, (int)file.FileSize));
+                            if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize));
                             else s.WriteBytes(r, (int)file.FileSize);
                         }
                         s.Position = 0;
@@ -564,7 +564,7 @@ namespace GameSpec.Tes.Formats
                 // fallout2
                 if (source.Magic == F2_BSAHEADER_FILEID)
                     fileData = r.Peek(z => z.ReadUInt16()) == 0xda78
-                        ? new MemoryStream(r.DecompressSharpZlib(fileSize, -1))
+                        ? new MemoryStream(r.DecompressZlib(fileSize, -1))
                         : new MemoryStream(r.ReadBytes(fileSize));
                 // not compressed
                 else if (fileSize <= 0 || file.Compressed == 0)
@@ -575,7 +575,7 @@ namespace GameSpec.Tes.Formats
                     var newFileSize = (int)r.ReadUInt32(); fileSize -= 4;
                     fileData = source.Version == SSE_BSAHEADER_VERSION
                         ? new MemoryStream(r.DecompressLz4(fileSize, newFileSize))
-                        : new MemoryStream(r.DecompressSharpZlib2(fileSize, newFileSize));
+                        : new MemoryStream(r.DecompressZlib2(fileSize, newFileSize));
                 }
             }
             else throw new InvalidOperationException("BAD MAGIC");

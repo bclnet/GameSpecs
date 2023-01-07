@@ -17,7 +17,7 @@ The following are the current familes:
 | ---                                              | ---                       | ---               | ---
 | [AC](Documents/Families/AC/Readme.md)            | Asheron's Call            | Asheron's Call    | In Development
 | [Arkane](Documents/Families/Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
-| [Aurora](Documents/Families/Aurora/Readme.md)    | BioWare Aurora            | Neverwinter Nights| In Development
+| [Bioware](Documents/Families/Bioware/Readme.md)    | BioWare Bioware            | Neverwinter Nights| In Development
 | [Cry](Documents/Families/Cry/Readme.md)          | Crytek                    | MechWarrior Online| In Development
 | [Cyanide](Documents/Families/Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
 | [Origin](Documents/Families/Origin/Readme.md)    | Origin Systems            | Ultima Online     | In Development
