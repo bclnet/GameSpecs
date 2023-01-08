@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats
@@ -19,6 +20,128 @@ namespace GameSpec.Arkane.Formats
 
         PakBinaryArkane() { }
 
+        unsafe class PakFat
+        {
+            byte[] cKey;
+            byte[] fat;
+            int pcFAT;
+            public int iTailleFAT;
+            int iPassKey;
+
+            public PakFat(string key, byte[] fat, int iTailleFAT)
+            {
+                this.cKey = Encoding.ASCII.GetBytes(key);
+                this.fat = fat;
+                this.iTailleFAT = iTailleFAT;
+            }
+
+            public void CryptChar(byte* _pChar)
+            {
+                var iTailleKey = cKey.Length;
+                var iDecalage = 0;
+                *_pChar = (byte)((*_pChar ^ cKey[iPassKey]) >> iDecalage);
+                iPassKey++;
+                if (iPassKey >= cKey.Length) iPassKey = 0;
+            }
+
+            public void UnCryptChar(byte* _pChar)
+            {
+                var iTailleKey = cKey.Length;
+                var iDecalage = 0;
+                *_pChar = (byte)((*_pChar ^ cKey[iPassKey]) << iDecalage);
+                iPassKey++;
+                if (iPassKey >= cKey.Length) iPassKey = 0;
+            }
+
+            public void CryptString(byte* _pTxt, int strLength)
+            {
+                var pTxtCopy = _pTxt;
+                var iTaille = strLength + 1;
+                while (iTaille-- != 0)
+                {
+                    CryptChar(pTxtCopy);
+                    pTxtCopy++;
+                }
+            }
+
+            public int UnCryptString(byte* _pTxt)
+            {
+                var pTxtCopy = _pTxt;
+                var iNbChar = 0;
+                while (true)
+                {
+                    UnCryptChar(pTxtCopy);
+                    if (*pTxtCopy == 0) break;
+                    pTxtCopy++;
+                    iNbChar++;
+                }
+                return iNbChar;
+            }
+
+            public void CryptShort(ushort* _pShort)
+            {
+                var cA = (byte)((*_pShort) & 0xFF);
+                var cB = (byte)(((*_pShort) >> 8) & 0xFF);
+
+                CryptChar(&cA);
+                CryptChar(&cB);
+                *_pShort = (ushort)(cA | (cB << 8));
+            }
+
+            public void UnCryptShort(ushort* _pShort)
+            {
+                var cA = (byte)((*_pShort) & 0xFF);
+                var cB = (byte)(((*_pShort) >> 8) & 0xFF);
+
+                UnCryptChar(&cA);
+                UnCryptChar(&cB);
+                *_pShort = (ushort)(cA | (cB << 8));
+            }
+
+            public void CryptInt(uint* _iInt)
+            {
+                var sA = (ushort)((*_iInt) & 0xFFFF);
+                var sB = (ushort)(((*_iInt) >> 16) & 0xFFFF);
+
+                CryptShort(&sA);
+                CryptShort(&sB);
+                *_iInt = (uint)(sA | (sB << 16));
+            }
+
+            public void UnCryptInt(uint* _iInt)
+            {
+                var sA = (ushort)((*_iInt) & 0xFFFF);
+                var sB = (ushort)(((*_iInt) >> 16) & 0xFFFF);
+
+                UnCryptShort(&sA);
+                UnCryptShort(&sB);
+                *_iInt = (uint)(sA | (sB << 16));
+            }
+
+            public int ReadFAT_int()
+            {
+                return 0;
+                //int i = *((int*)pcFAT);
+                //pcFAT += 4;
+                //iTailleFAT -= 4;
+
+                //UnCryptInt((uint*)&i);
+
+                //return i;
+            }
+
+            public string ReadFAT_string()
+            {
+                return null;
+                //char* t = pcFAT;
+                //int i = UnCryptString((byte*)t) + 1;
+                //pcFAT += i;
+                //iTailleFAT -= i;
+
+                //return t;
+            }
+        }
+
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
@@ -28,6 +151,26 @@ namespace GameSpec.Arkane.Formats
             {
                 case ".pak":
                     {
+                        var files = multiSource.Files = new List<FileMetadata>();
+                        // move to fat table
+                        r.Seek(r.ReadUInt32());
+                        var fatSize = (int)r.ReadUInt32();
+                        var fatBytes = r.ReadBytes(fatSize);
+                        var fat = new PakFat("AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX", fatBytes, fatSize);
+                        while (fat.iTailleFAT != 0)
+                        {
+                            var dirName = fat.ReadFAT_string();
+                            var numFiles = fat.ReadFAT_int();
+                            while (numFiles-- != 0)
+                                files.Add(new FileMetadata
+                                {
+                                    Path = fat.ReadFAT_string(),
+                                    Position = fat.ReadFAT_int(),
+                                    Compressed = fat.ReadFAT_int(),
+                                    PackedSize = fat.ReadFAT_int(),
+                                    FileSize = fat.ReadFAT_int(),
+                                });
+                        }
                         return Task.CompletedTask;
                     }
                 // index games
