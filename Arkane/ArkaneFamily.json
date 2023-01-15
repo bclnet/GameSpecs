@@ -11,7 +11,8 @@
       "name": "Arx Fatalis",
       "url": "https://www.gog.com/en/game/arx_fatalis",
       "date": "2002-11-12",
-      "pak": "game:/*.pak#AF"
+      "pak": "game:/*.pak#AF",
+      "key": "txt:AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX"
     },
     "DOM": {
       "name": "Dark Messiah of Might and Magic",

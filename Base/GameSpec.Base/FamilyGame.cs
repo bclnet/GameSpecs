@@ -30,11 +30,15 @@ namespace GameSpec
         /// <summary>
         /// The identifier
         /// </summary>
-        public string Game { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// The name
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// The engine
+        /// </summary>
+        public string Engine { get; set; }
         /// <summary>
         /// The paks
         /// </summary>
@@ -78,5 +82,16 @@ namespace GameSpec
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString() => Name;
+
+        #region FileSystem
+
+        /// <summary>
+        /// File system factory.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns></returns>
+        public FileManager.IFileSystem CreateFileSystem() => FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(FileSystemType) : null;
+
+        #endregion
     }
 }
