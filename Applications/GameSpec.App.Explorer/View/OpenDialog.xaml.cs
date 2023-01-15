@@ -119,7 +119,7 @@ namespace GameSpec.Metadata.View
                 if (files.Length < 1) return;
                 var file = files[0];
                 var selected = (FamilyGame)FamilyGame.SelectedItem;
-                PakUri = new UriBuilder(file) { Fragment = selected?.Game ?? "Unknown" }.Uri;
+                PakUri = new UriBuilder(file) { Fragment = selected?.Id ?? "Unknown" }.Uri;
             }
         }
 
@@ -132,7 +132,7 @@ namespace GameSpec.Metadata.View
                 if (files.Length < 1) return;
                 var file = files[0];
                 var selected = (FamilyGame)FamilyGame.SelectedItem;
-                Pak2Uri = new UriBuilder(file) { Fragment = selected?.Game ?? "Unknown" }.Uri;
+                Pak2Uri = new UriBuilder(file) { Fragment = selected?.Id ?? "Unknown" }.Uri;
             }
         }
 
@@ -145,7 +145,7 @@ namespace GameSpec.Metadata.View
                 if (files.Length < 1) return;
                 var file = files[0];
                 var selected = (FamilyGame)FamilyGame.SelectedItem;
-                Pak3Uri = new UriBuilder(file) { Fragment = selected?.Game ?? "Unknown" }.Uri;
+                Pak3Uri = new UriBuilder(file) { Fragment = selected?.Id ?? "Unknown" }.Uri;
             }
         }
 

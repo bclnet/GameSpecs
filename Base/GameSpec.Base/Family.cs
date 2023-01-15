@@ -22,9 +22,9 @@ namespace GameSpec
         };
 
         /// <summary>
-        /// AesKey
+        /// ByteKey
         /// </summary>
-        public class AesKey
+        public class ByteKey
         {
             public byte[] Key;
         }
@@ -83,6 +83,14 @@ namespace GameSpec
         /// The estate name.
         /// </value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets the engine.
+        /// </summary>
+        /// <value>
+        /// The estate name.
+        /// </value>
+        public string Engine { get; set; }
 
         /// <summary>
         /// Gets the studio.
@@ -241,20 +249,6 @@ namespace GameSpec
             var resource = FileManager.ParseResource(this, uri);
             return CreatePakFile(resource.Options, resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)), 0, resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.Host, throwOnError);
         }
-
-        #endregion
-
-        #region FileSystem
-
-        /// <summary>
-        /// File system factory.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        /// <returns></returns>
-        public FileManager.IFileSystem CreateFileSystem(FamilyGame game)
-            => game.FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(game.FileSystemType)
-            : FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(FileSystemType)
-            : null;
 
         #endregion
     }

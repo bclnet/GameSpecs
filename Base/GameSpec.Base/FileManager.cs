@@ -82,7 +82,7 @@ namespace GameSpec
             if (uri == null) return new Resource { Game = string.Empty };
             var fragment = uri.Fragment?[(uri.Fragment.Length != 0 ? 1 : 0)..];
             var (gameId, game) = family.GetGame(fragment);
-            var fileSystem = family.CreateFileSystem(game);
+            var fileSystem = game.CreateFileSystem();
             var r = new Resource { Game = gameId };
             // game-scheme
             if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{gameId}: unable to locate game resources") : Array.Empty<string>());

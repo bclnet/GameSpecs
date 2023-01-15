@@ -37,7 +37,7 @@ namespace GameSpec.Bioware
         #region GetPackBinary
 
         static PakBinary PackBinaryFactory(FamilyGame game)
-            => game.Game switch
+            => game.Id switch
             {
                 "TOR" => PakBinaryMyp.Instance,
                 _ => PakBinaryAurora.Instance,

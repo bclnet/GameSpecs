@@ -240,7 +240,7 @@ namespace GameSpec.IW.Formats
 
             var extension = Path.GetExtension(source.FilePath);
             var files = multiSource.Files = new List<FileMetadata>();
-            var cryptKey = source.Family.Games[source.Game].Key is Family.AesKey aes ? aes.Key : null;
+            var cryptKey = source.Family.Games[source.Game].Key is Family.ByteKey aes ? aes.Key : null;
 
             switch (source.Game)
             {
