@@ -120,6 +120,12 @@ namespace GameSpec.Arkane.Formats
 
             public int ReadFAT_int()
             {
+                var iTailleKey = cKey.Length;
+                var iDecalage = 0;
+                *_pChar = (byte)((*_pChar ^ cKey[iPassKey]) << iDecalage);
+                iPassKey++;
+                if (iPassKey >= cKey.Length) iPassKey = 0;
+
                 return 0;
                 //int i = *((int*)pcFAT);
                 //pcFAT += 4;
@@ -142,6 +148,24 @@ namespace GameSpec.Arkane.Formats
             }
         }
 
+        static byte readByte(byte* b)
+        {
+            return 0;
+        }
+
+        static string readFatString(byte* b)
+        {
+            var length = 0;
+            while (true)
+            {
+                readByte(b);
+                if (*b == 0) break;
+                b++;
+                length++;
+            }
+            return new string((char*)b, length);
+        }
+
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
@@ -152,10 +176,30 @@ namespace GameSpec.Arkane.Formats
                 case ".pak":
                     {
                         var files = multiSource.Files = new List<FileMetadata>();
+                        var key = Encoding.ASCII.GetBytes("AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX");
+
                         // move to fat table
                         r.Seek(r.ReadUInt32());
                         var fatSize = (int)r.ReadUInt32();
                         var fatBytes = r.ReadBytes(fatSize);
+                        fixed (byte* _ = fatBytes)
+                        {
+
+                        }
+
+                        //void foo()
+                        //{
+                        //    var pTxtCopy = _pTxt;
+                        //    var iNbChar = 0;
+                        //    while (true)
+                        //    {
+                        //        UnCryptChar(pTxtCopy);
+                        //        if (*pTxtCopy == 0) break;
+                        //        pTxtCopy++;
+                        //        iNbChar++;
+                        //    }
+                        //}
+
                         var fat = new PakFat("AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX", fatBytes, fatSize);
                         while (fat.iTailleFAT != 0)
                         {
