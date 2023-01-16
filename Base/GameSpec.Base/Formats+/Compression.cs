@@ -126,9 +126,13 @@ namespace GameSpec.Formats
             return os.ToArray();
         }
 
-        public static byte[] DecompressPkzip(this BinaryReader r, int length, int newLength)
+        public static byte[] DecompressBlast(this BinaryReader r, int length, int newLength)
         {
-            return new byte[0];
+            var decoder = new Blast();
+            var fileData = r.ReadBytes(length);
+            var os = new byte[newLength];
+            decoder.Decompress(fileData, os);
+            return os;
         }
     }
 }

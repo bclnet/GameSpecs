@@ -193,7 +193,7 @@ namespace GameSpec.Arkane.Formats
                 case Magic.PAK:
                     r.Position(file.Position);
                     return Task.FromResult((Stream)new MemoryStream((file.Compressed & 1) != 0
-                        ? r.DecompressPkzip((int)file.PackedSize, (int)file.FileSize)
+                        ? r.DecompressBlast((int)file.PackedSize, (int)file.FileSize)
                         : r.ReadBytes((int)file.PackedSize)));
                 case Magic.INDEX:
                     if (file.FileSize == 0 || _badPositions.Contains(file.Position)) return Task.FromResult(System.IO.Stream.Null);
