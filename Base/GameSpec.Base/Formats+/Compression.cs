@@ -115,7 +115,6 @@ namespace GameSpec.Formats
             return s.ToArray();
         }
 
-
         public static byte[] DecompressLzma(this BinaryReader r, int length, int newLength)
         {
             var decoder = new Decoder();
@@ -125,6 +124,11 @@ namespace GameSpec.Formats
             using var os = new MemoryStream(newLength);
             decoder.Code(s, os, fileData.Length, newLength, null);
             return os.ToArray();
+        }
+
+        public static byte[] DecompressPkzip(this BinaryReader r, int length, int newLength)
+        {
+            return new byte[0];
         }
     }
 }

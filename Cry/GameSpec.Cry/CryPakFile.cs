@@ -38,7 +38,7 @@ namespace GameSpec.Cry
 
         static PakBinary PackBinaryFactory(FamilyGame game)
         {
-            var key = game.Key is Family.ByteKey aes ? aes.Key : null;
+            var key = game.Key is Family.ByteKey z ? z.Key : null;
             return game.Id switch
             {
                 "ArcheAge" => new PakBinaryBespoke(key),

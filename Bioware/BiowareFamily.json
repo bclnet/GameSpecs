@@ -63,6 +63,7 @@
     },
     "NWN2": {
       "name": "Neverwinter Nights 2",
+      "engine": "Aurora",
       "url": "https://www.gog.com/en/game/neverwinter_nights_2_complete",
       "date": "2006-10-31",
       "tag": "Electron Engine",

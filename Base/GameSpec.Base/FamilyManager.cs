@@ -97,7 +97,7 @@ namespace GameSpec
                 var family = familyType != null ? (Family)Activator.CreateInstance(familyType) : new Family();
                 family.Id = (elem.TryGetProperty("id", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("id");
                 family.Name = (elem.TryGetProperty("name", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
-                family.Engine = (elem.TryGetProperty("engine", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("engine");
+                family.Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : null;
                 family.Studio = (elem.TryGetProperty("studio", out z) ? z.GetString() : null) ?? string.Empty;
                 family.Description = elem.TryGetProperty("description", out z) ? z.GetString() : string.Empty;
                 family.PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", z.GetString()) : null;

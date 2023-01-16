@@ -90,12 +90,6 @@
       "dat": "game:/SeventySix.esm#Fallout76"
     },
     "Starfield": {
-      "name": "Starfield",
-      "url": "https://store.steampowered.com/app/1716740",
-      "pak": "game:/Starfield*.ba2#Starfield",
-      "dat": "game:/Starfield.esm#Starfield"
-    },
-    "Starfield": {
       "name": "Starfield (future)",
       "url": "https://store.steampowered.com/app/1716740",
       "pak": "game:/Starfield*.ba2#Starfield",

@@ -18,156 +18,17 @@ namespace GameSpec.Arkane.Formats
             public SubPakFile(Family estate, string game, string filePath, object tag = null) : base(estate, game, filePath, Instance, tag) => Open();
         }
 
+        enum Magic
+        {
+            PAK,
+            INDEX,
+        }
+
         PakBinaryArkane() { }
-
-        unsafe class PakFat
-        {
-            byte[] cKey;
-            byte[] fat;
-            int pcFAT;
-            public int iTailleFAT;
-            int iPassKey;
-
-            public PakFat(string key, byte[] fat, int iTailleFAT)
-            {
-                this.cKey = Encoding.ASCII.GetBytes(key);
-                this.fat = fat;
-                this.iTailleFAT = iTailleFAT;
-            }
-
-            public void CryptChar(byte* _pChar)
-            {
-                var iTailleKey = cKey.Length;
-                var iDecalage = 0;
-                *_pChar = (byte)((*_pChar ^ cKey[iPassKey]) >> iDecalage);
-                iPassKey++;
-                if (iPassKey >= cKey.Length) iPassKey = 0;
-            }
-
-            public void UnCryptChar(byte* _pChar)
-            {
-                var iTailleKey = cKey.Length;
-                var iDecalage = 0;
-                *_pChar = (byte)((*_pChar ^ cKey[iPassKey]) << iDecalage);
-                iPassKey++;
-                if (iPassKey >= cKey.Length) iPassKey = 0;
-            }
-
-            public void CryptString(byte* _pTxt, int strLength)
-            {
-                var pTxtCopy = _pTxt;
-                var iTaille = strLength + 1;
-                while (iTaille-- != 0)
-                {
-                    CryptChar(pTxtCopy);
-                    pTxtCopy++;
-                }
-            }
-
-            public int UnCryptString(byte* _pTxt)
-            {
-                var pTxtCopy = _pTxt;
-                var iNbChar = 0;
-                while (true)
-                {
-                    UnCryptChar(pTxtCopy);
-                    if (*pTxtCopy == 0) break;
-                    pTxtCopy++;
-                    iNbChar++;
-                }
-                return iNbChar;
-            }
-
-            public void CryptShort(ushort* _pShort)
-            {
-                var cA = (byte)((*_pShort) & 0xFF);
-                var cB = (byte)(((*_pShort) >> 8) & 0xFF);
-
-                CryptChar(&cA);
-                CryptChar(&cB);
-                *_pShort = (ushort)(cA | (cB << 8));
-            }
-
-            public void UnCryptShort(ushort* _pShort)
-            {
-                var cA = (byte)((*_pShort) & 0xFF);
-                var cB = (byte)(((*_pShort) >> 8) & 0xFF);
-
-                UnCryptChar(&cA);
-                UnCryptChar(&cB);
-                *_pShort = (ushort)(cA | (cB << 8));
-            }
-
-            public void CryptInt(uint* _iInt)
-            {
-                var sA = (ushort)((*_iInt) & 0xFFFF);
-                var sB = (ushort)(((*_iInt) >> 16) & 0xFFFF);
-
-                CryptShort(&sA);
-                CryptShort(&sB);
-                *_iInt = (uint)(sA | (sB << 16));
-            }
-
-            public void UnCryptInt(uint* _iInt)
-            {
-                var sA = (ushort)((*_iInt) & 0xFFFF);
-                var sB = (ushort)(((*_iInt) >> 16) & 0xFFFF);
-
-                UnCryptShort(&sA);
-                UnCryptShort(&sB);
-                *_iInt = (uint)(sA | (sB << 16));
-            }
-
-            public int ReadFAT_int()
-            {
-                var iTailleKey = cKey.Length;
-                var iDecalage = 0;
-                *_pChar = (byte)((*_pChar ^ cKey[iPassKey]) << iDecalage);
-                iPassKey++;
-                if (iPassKey >= cKey.Length) iPassKey = 0;
-
-                return 0;
-                //int i = *((int*)pcFAT);
-                //pcFAT += 4;
-                //iTailleFAT -= 4;
-
-                //UnCryptInt((uint*)&i);
-
-                //return i;
-            }
-
-            public string ReadFAT_string()
-            {
-                return null;
-                //char* t = pcFAT;
-                //int i = UnCryptString((byte*)t) + 1;
-                //pcFAT += i;
-                //iTailleFAT -= i;
-
-                //return t;
-            }
-        }
-
-        static byte readByte(byte* b)
-        {
-            return 0;
-        }
-
-        static string readFatString(byte* b)
-        {
-            var length = 0;
-            while (true)
-            {
-                readByte(b);
-                if (*b == 0) break;
-                b++;
-                length++;
-            }
-            return new string((char*)b, length);
-        }
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
+            var (gameId, game) = source.Family.GetGame(source.Game);
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var extention = Path.GetExtension(source.FilePath);
@@ -175,51 +36,67 @@ namespace GameSpec.Arkane.Formats
             {
                 case ".pak":
                     {
+                        source.Magic = (int)Magic.PAK;
                         var files = multiSource.Files = new List<FileMetadata>();
-                        var key = Encoding.ASCII.GetBytes("AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX");
+                        var key = game.Key is Family.ByteKey z ? z.Key : null;
+                        int keyLength = key.Length, keyIndex = 0;
+
+                        int readFatInteger(ref byte* b)
+                        {
+                            var p = b;
+                            *(p + 0) = (byte)(*(p + 0) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
+                            *(p + 1) = (byte)(*(p + 1) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
+                            *(p + 2) = (byte)(*(p + 2) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
+                            *(p + 3) = (byte)(*(p + 3) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
+                            var r = *(int*)p;
+                            b += 4;
+                            return r;
+                        }
+
+                        string readFatString(ref byte* b)
+                        {
+                            var p = b;
+                            while (true)
+                            {
+                                *p = (byte)(*p ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
+                                if (*p == 0) break;
+                                p++;
+                            }
+                            var length = (int)(p - b);
+                            var r = Encoding.ASCII.GetString(new ReadOnlySpan<byte>(b, length));
+                            b = p + 1;
+                            return r;
+                        }
 
                         // move to fat table
                         r.Seek(r.ReadUInt32());
                         var fatSize = (int)r.ReadUInt32();
                         var fatBytes = r.ReadBytes(fatSize);
+
                         fixed (byte* _ = fatBytes)
                         {
-
-                        }
-
-                        //void foo()
-                        //{
-                        //    var pTxtCopy = _pTxt;
-                        //    var iNbChar = 0;
-                        //    while (true)
-                        //    {
-                        //        UnCryptChar(pTxtCopy);
-                        //        if (*pTxtCopy == 0) break;
-                        //        pTxtCopy++;
-                        //        iNbChar++;
-                        //    }
-                        //}
-
-                        var fat = new PakFat("AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX", fatBytes, fatSize);
-                        while (fat.iTailleFAT != 0)
-                        {
-                            var dirName = fat.ReadFAT_string();
-                            var numFiles = fat.ReadFAT_int();
-                            while (numFiles-- != 0)
-                                files.Add(new FileMetadata
-                                {
-                                    Path = fat.ReadFAT_string(),
-                                    Position = fat.ReadFAT_int(),
-                                    Compressed = fat.ReadFAT_int(),
-                                    PackedSize = fat.ReadFAT_int(),
-                                    FileSize = fat.ReadFAT_int(),
-                                });
+                            byte* c = _, end = _ + fatSize;
+                            while (c < end)
+                            {
+                                var dirPath = readFatString(ref c);
+                                var numFiles = readFatInteger(ref c);
+                                while (numFiles-- != 0)
+                                    files.Add(new FileMetadata
+                                    {
+                                        Path = dirPath + readFatString(ref c),
+                                        Position = readFatInteger(ref c),
+                                        Compressed = readFatInteger(ref c),
+                                        FileSize = readFatInteger(ref c),
+                                        PackedSize = readFatInteger(ref c),
+                                    });
+                            }
                         }
                         return Task.CompletedTask;
                     }
                 // index games
                 case ".index":
                     {
+                        source.Magic = (int)Magic.INDEX;
                         //if (Path.GetExtension(source.FilePath) != ".index") throw new ArgumentOutOfRangeException("must be index");
                         if (Path.GetFileName(source.FilePath) == "master.index")
                         {
@@ -311,15 +188,25 @@ namespace GameSpec.Arkane.Formats
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
-            if (file.FileSize == 0 || _badPositions.Contains(file.Position)) return Task.FromResult(System.IO.Stream.Null);
-            var (path, tag1, tag2) = ((string, string, string))file.Tag;
-            return Task.FromResult((Stream)new MemoryStream(source.GetBinaryReader(path).Func(r2 =>
+            switch ((Magic)source.Magic)
             {
-                r2.Position(file.Position);
-                return file.Compressed != 0
-                    ? r2.DecompressZlib((int)file.PackedSize, (int)file.FileSize)
-                    : r2.ReadBytes((int)file.PackedSize);
-            })));
+                case Magic.PAK:
+                    r.Position(file.Position);
+                    return Task.FromResult((Stream)new MemoryStream((file.Compressed & 1) != 0
+                        ? r.DecompressPkzip((int)file.PackedSize, (int)file.FileSize)
+                        : r.ReadBytes((int)file.PackedSize)));
+                case Magic.INDEX:
+                    if (file.FileSize == 0 || _badPositions.Contains(file.Position)) return Task.FromResult(System.IO.Stream.Null);
+                    var (path, tag1, tag2) = ((string, string, string))file.Tag;
+                    return Task.FromResult((Stream)new MemoryStream(source.GetBinaryReader(path).Func(r2 =>
+                    {
+                        r2.Position(file.Position);
+                        return file.Compressed != 0
+                            ? r2.DecompressZlib((int)file.PackedSize, (int)file.FileSize)
+                            : r2.ReadBytes((int)file.PackedSize);
+                    })));
+                default: throw new NotImplementedException();
+            }
         }
     }
 }

@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Formats\PakFat.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Formats\PakFat.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Base\GameSpec.Base\GameSpec.Base.csproj" />
   </ItemGroup>
 
