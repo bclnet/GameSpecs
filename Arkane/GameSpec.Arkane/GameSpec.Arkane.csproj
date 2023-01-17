@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Formats\PakFat.cs" />
+    <None Include="_\PakFat.cs" />
   </ItemGroup>
 
   <ItemGroup>

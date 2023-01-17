@@ -81,14 +81,19 @@ namespace GameSpec.Arkane.Formats
                                 var dirPath = readFatString(ref c);
                                 var numFiles = readFatInteger(ref c);
                                 while (numFiles-- != 0)
-                                    files.Add(new FileMetadata
+                                {
+                                    var f = new FileMetadata
                                     {
                                         Path = dirPath + readFatString(ref c),
                                         Position = readFatInteger(ref c),
                                         Compressed = readFatInteger(ref c),
                                         FileSize = readFatInteger(ref c),
                                         PackedSize = readFatInteger(ref c),
-                                    });
+                                    };
+                                    if (f.Path.EndsWith(".FTL")) f.Compressed = 1;
+                                    else if (f.Compressed == 0) f.FileSize = f.PackedSize;
+                                    files.Add(f);
+                                }
                             }
                         }
                         return Task.CompletedTask;

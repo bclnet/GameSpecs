@@ -130,9 +130,10 @@ namespace GameSpec.Formats
         {
             var decoder = new Blast();
             var fileData = r.ReadBytes(length);
-            var os = new byte[newLength];
+            //var os = new byte[newLength];
+            using var os = new MemoryStream(newLength);
             decoder.Decompress(fileData, os);
-            return os;
+            return os.ToArray();
         }
     }
 }

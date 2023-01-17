@@ -14,7 +14,15 @@ namespace GameSpec.Arkane.Formats
         internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
+                var x when x == ".txt" || x == ".ini" || x == ".asl" => (0, BinaryTxt.Factory),
+                var x when x == ".wav" => (0, BinarySnd.Factory),
+                var x when x == ".bmp" || x == ".jpg" => (0, BinaryImg.Factory),
                 ".dds" => (0, BinaryDds.Factory),
+                // AF
+                ".ftl" => (0, BinaryFtl.Factory),
+                //".llf" => (0, BinaryFlt.Factory),
+                //".dlf" => (0, BinaryFlt.Factory),
+                //".tea" => (0, BinaryFlt.Factory),
                 _ => (0, null),
             };
     }

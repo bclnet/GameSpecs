@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class BinaryText : IGetMetadataInfo
+    public class BinaryTxt : IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryText(r, (int)f.FileSize));
+        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryTxt(r, (int)f.FileSize));
 
-        public BinaryText() { }
-        public BinaryText(BinaryReader r, int fileSize) => Data = r.ReadEncoding(fileSize);
+        public BinaryTxt() { }
+        public BinaryTxt(BinaryReader r, int fileSize) => Data = r.ReadEncoding(fileSize);
 
         public string Data;
 

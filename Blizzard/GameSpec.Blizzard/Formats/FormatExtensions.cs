@@ -15,7 +15,7 @@ namespace GameSpec.Blizzard.Formats
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 ".dds" => (0, BinaryDds.Factory),
-                var x when x == ".cfg" || x == ".csv" || x == ".txt" => (0, BinaryText.Factory),
+                var x when x == ".cfg" || x == ".csv" || x == ".txt" => (0, BinaryTxt.Factory),
                 _ => (0, null),
             };
     }

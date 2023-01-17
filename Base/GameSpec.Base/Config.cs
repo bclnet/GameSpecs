@@ -18,7 +18,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForcePath = "LOC_default.pak:LOCALISATION/presence.ini",
+            //ForcePath = "data.pak:GAME/EDITOR/OBJ3D/CABAL.FTL",
+            ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/Y_MX/Y_MX.FTL",
             ForceOpen = true,
             Family = "Arkane",
             GameId = "AF", // Arx Fatalis

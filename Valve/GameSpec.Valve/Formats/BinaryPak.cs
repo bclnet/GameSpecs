@@ -82,7 +82,7 @@ namespace GameSpec.Valve.Formats
                     {
                         var sound = (DATASound)DATA;
                         var stream = sound.GetSoundStream();
-                        nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = sound.SoundType.ToString(), Dispose = this }));
+                        nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = $".{sound.SoundType}", Dispose = this }));
                     }
                     break;
                 case DATA.DataType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;

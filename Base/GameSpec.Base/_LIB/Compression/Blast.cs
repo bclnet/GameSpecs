@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Compression
 {
@@ -385,6 +386,42 @@ namespace Compression
                     UnsafeX.Memcpy(outputPtr, (IntPtr)buf, (uint)length);
                     outputPtr += length;
                     outputLen -= length;
+                    return 0;
+                }
+
+                // decompress to stdout
+                var ret = blast(inf, inputBuffer, outf, outputBuffer);
+                if (ret != 0) throw new Exception($"blast error: {ret}");
+                return 0;
+            }
+        }
+
+        public int Decompress(byte[] inputBuffer, Stream outputBuffer)
+        {
+            const int CHUNK = 16384;
+            var hold = stackalloc byte[CHUNK];
+            var holdPtr = (IntPtr)hold;
+            fixed (byte* input = inputBuffer)
+            {
+                int inputLen = inputBuffer.Length;
+                IntPtr inputPtr = (IntPtr)input;
+                int inf(object how, ref byte* buf)
+                {
+                    if (inputLen <= 0) return 0;
+                    buf = hold;
+                    var len = Math.Min(inputLen, CHUNK);
+                    UnsafeX.Memcpy(holdPtr, inputPtr, (uint)len);
+                    inputPtr += len;
+                    inputLen -= len;
+                    return len;
+                }
+                int outf(object how, byte* buf, int length)
+                {
+                    outputBuffer.Write(new ReadOnlySpan<byte>(buf, length));
+                    //if (outputLen <= 0) return 0;
+                    //UnsafeX.Memcpy(outputPtr, (IntPtr)buf, (uint)length);
+                    //outputPtr += length;
+                    //outputLen -= length;
                     return 0;
                 }
 

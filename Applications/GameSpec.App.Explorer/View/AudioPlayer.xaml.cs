@@ -72,9 +72,9 @@ namespace GameSpec.Metadata.View
                 {
                     _waveStream = Format.ToLowerInvariant() switch
                     {
-                        "wav" => new WaveFileReader(Stream),
-                        "mp3" => new Mp3FileReader(Stream, wf => new Mp3FrameDecompressor(wf)),
-                        "aac" => new StreamMediaFoundationReader(Stream),
+                        ".wav" => new WaveFileReader(Stream),
+                        ".mp3" => new Mp3FileReader(Stream, wf => new Mp3FrameDecompressor(wf)),
+                        ".aac" => new StreamMediaFoundationReader(Stream),
                         _ => throw new ArgumentOutOfRangeException(nameof(Format), Format),
                     };
                     _waveOut.Init(_waveStream);

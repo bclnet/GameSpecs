@@ -29,7 +29,7 @@ namespace GameSpec.AC.Formats.FileTypes
         //: FileTypes.Sound
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
-            var type = Header[0] == 0x55 ? "MP3" : "WAV";
+            var type = Header[0] == 0x55 ? ".mp3" : ".wav";
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = null, Tag = type }),
                 new MetadataInfo($"{nameof(Wave)}: {Id:X8}", items: new List<MetadataInfo> {
