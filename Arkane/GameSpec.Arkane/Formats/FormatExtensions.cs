@@ -20,9 +20,11 @@ namespace GameSpec.Arkane.Formats
                 ".dds" => (0, BinaryDds.Factory),
                 // AF
                 ".ftl" => (0, BinaryFtl.Factory),
+                ".fts" => (0, BinaryFts.Factory),
+                ".tea" => (0, BinaryTea.Factory),
+                //
                 //".llf" => (0, BinaryFlt.Factory),
                 //".dlf" => (0, BinaryFlt.Factory),
-                //".tea" => (0, BinaryFlt.Factory),
                 _ => (0, null),
             };
     }

@@ -18,8 +18,10 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "data.pak:GAME/EDITOR/OBJ3D/CABAL.FTL",
-            ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/Y_MX/Y_MX.FTL",
+            //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL",
+            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL",
+            ForcePath = "data.pak:GAME/GRAPH/Levels/Level1/fast.fts",
+            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/Y_MX/Y_MX.FTL",
             ForceOpen = true,
             Family = "Arkane",
             GameId = "AF", // Arx Fatalis

@@ -126,6 +126,7 @@ namespace GameSpec.Formats
             return os.ToArray();
         }
 
+        // blast
         public static byte[] DecompressBlast(this BinaryReader r, int length, int newLength)
         {
             var decoder = new Blast();

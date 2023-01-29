@@ -82,10 +82,7 @@ namespace GameSpec.App.Cli
         static string[] dev03b = new[] { "list", "-f", "Unity", "-u", @"game:/resources.assets#Tabletop" }; // asset.v21
         static string[] dev03c = new[] { "list", "-f", "Unity", "-u", @"game:/globalgamemanagers.assets#Tabletop" }; // asset.v21
 
-
         static string[] dev04a = new[] { "list", "-f", "Lith", "-u", @"game:/FEAR_1.Arch00#FEAR" };
-
-
 
         static string[] argsRsi1 = new[] { "export", "-f", "Rsi", "-u", "game:/Data.p4k#StarCitizen", "--path", @"D:\T_\StarCitizen" };
 
@@ -94,6 +91,8 @@ namespace GameSpec.App.Cli
         //
         static string[] argsRed1 = new[] { "export", "-f", "Red", "-u", "game:/main.key#Witcher", "--path", @"D:\T_\Witcher" };
         static string[] argsRed2 = new[] { "export", "-f", "Red", "-u", "game:/krbr.dzip#Witcher2", "--path", @"D:\T_\Witcher2" };
+
+        static string[] argsArkane1 = new[] { "export", "-f", "Arkane", "-u", "game:/*.pak#AF", "--path", @"C:\T_\AF" };
 
         static void Register()
         {
@@ -105,7 +104,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(dev04a)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsArkane1)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),
