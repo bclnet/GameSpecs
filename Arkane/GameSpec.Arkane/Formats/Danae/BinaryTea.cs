@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Arkane.Formats
+namespace GameSpec.Arkane.Formats.Danae
 {
     public class BinaryTea : IGetMetadataInfo
     {

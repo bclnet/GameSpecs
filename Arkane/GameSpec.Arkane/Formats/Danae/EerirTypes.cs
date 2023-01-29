@@ -2,9 +2,9 @@ using System;
 using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using static GameSpec.Arkane.Formats.BinaryFtl;
+using static GameSpec.Arkane.Formats.Danae.BinaryFtl;
 
-namespace GameSpec.Arkane.Formats
+namespace GameSpec.Arkane.Formats.Danae
 {
 
     //struct

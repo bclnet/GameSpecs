@@ -20,6 +20,8 @@
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide\GameSpec.Cyanide.csproj" />
     <ProjectReference Include="..\..\Hpl\GameSpec.Hpl.Platform\GameSpec.Hpl.Platform.csproj" />
     <ProjectReference Include="..\..\Hpl\GameSpec.Hpl\GameSpec.Hpl.csproj" />
+    <ProjectReference Include="..\..\Id\GameSpec.Id.Platform\GameSpec.Id.Platform.csproj" />
+    <ProjectReference Include="..\..\Id\GameSpec.Id\GameSpec.Id.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW.Platform\GameSpec.IW.Platform.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW\GameSpec.IW.csproj" />
     <ProjectReference Include="..\..\Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj" />

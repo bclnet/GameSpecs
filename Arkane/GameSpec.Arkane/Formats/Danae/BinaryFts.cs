@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace GameSpec.Arkane.Formats
+namespace GameSpec.Arkane.Formats.Danae
 {
     public unsafe class BinaryFts : IGetMetadataInfo
     {
@@ -109,8 +109,8 @@ namespace GameSpec.Arkane.Formats
                 if (zdiv < 0) zdiv = 1;
                 Xdiv = xdiv;
                 Zdiv = zdiv;
-                Xmul = 1f / (float)Xdiv;
-                Zmul = 1f / (float)Zdiv;
+                Xmul = 1f / Xdiv;
+                Zmul = 1f / Zdiv;
                 Backg = new E_BKG_INFO[sx * sz];
                 for (var i = 0; i < Backg.Length; i++) Backg[i].Nothing = true;
                 MinMax = new E_SMINMAX[sz];
@@ -483,7 +483,7 @@ namespace GameSpec.Arkane.Formats
             if (i < 0 || j < 0 || i >= level.NumRoomDistance || j >= level.NumRoomDistance || level.RoomDistance == null) return;
             var offs = i + j * level.NumRoomDistance;
             level.RoomDistance[offs].StartPos = p1;
-            level.RoomDistance[offs].EndPos =  p2;
+            level.RoomDistance[offs].EndPos = p2;
             level.RoomDistance[offs].Distance = val;
         }
     }

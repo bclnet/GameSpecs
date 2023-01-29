@@ -9,6 +9,7 @@
   "games": {
     "AF": {
       "name": "Arx Fatalis",
+      "engine":  "Danae",
       "url": "https://www.gog.com/en/game/arx_fatalis",
       "date": "2002-11-12",
       "pak": "game:/*.pak#AF",
@@ -16,6 +17,7 @@
     },
     "DOM": {
       "name": "Dark Messiah of Might and Magic",
+      "engine": "IdTech",
       "url": "https://store.steampowered.com/app/2100",
       "date": "2006-10-25",
       "pak": "game:/*.vpk#DOM"

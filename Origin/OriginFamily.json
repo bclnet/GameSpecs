@@ -7,10 +7,10 @@
   "familyType": "GameSpec.Origin.OriginFamily, GameSpec.Origin",
   "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin",
   "games": {
-    "UltimaOnline": {
+    "UO": {
       "name": "Ultima Online",
       "url": "https://uo.com/client-download/",
-      "pak": "game:/*.idx#UltimaOnline"
+      "pak": "game:/*.idx#UO"
     },
     "UltimaIX": {
       "name": "Ultima IX",

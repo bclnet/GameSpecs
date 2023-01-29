@@ -1,4 +1,6 @@
-﻿#define Arkane
+﻿//#define Arkane
+#define Valve
+//#define Id
 
 namespace GameSpec
 {
@@ -9,6 +11,9 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            //ForcePath = "TabooTable/0E00001E.taboo", // Ac:Data
+            //ForcePath = "Texture060043BE", // AC:Texture
+
             ForceOpen = true,
             Family = "AC",
             GameId = "AC", // Asheron's Call
@@ -18,14 +23,15 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL",
-            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL",
-            ForcePath = "data.pak:GAME/GRAPH/Levels/Level1/fast.fts",
-            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/Y_MX/Y_MX.FTL",
+            //AF
+            //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
+            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
+            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level1/fast.fts", //AF:Level
+
             ForceOpen = true,
             Family = "Arkane",
-            GameId = "AF", // Arx Fatalis
-            //GameId = "DOM", // Dark Messiah of Might and Magic
+            //GameId = "AF", // Arx Fatalis
+            GameId = "DOM", // Dark Messiah of Might and Magic
             //GameId = "D", // Dishonored
             //GameId = "D2", // Dishonored 2
             //GameId = "P", // Prey
@@ -40,10 +46,11 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            //ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe", SWTOR:Unknown
+
             ForceOpen = true,
             Family = "Bioware",
             //GameId = "SWTOR", // Star Wars: The Old Republic
-            //ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe",
             //GameId = "NWN", // Neverwinter Nights
             //GameId = "NWN2", // Neverwinter Nights 2
             //GameId = "KotOR", // Star Wars: Knights of the Old Republic
@@ -73,6 +80,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
+            
             ForceOpen = true,
             Family = "Cry",
             GameId = "ArcheAge", // ArcheAge
@@ -110,29 +119,38 @@ namespace GameSpec
             GameId = "SOMA", // SOMA
             GameId = "A:R", // Amnesia: Rebirth
         };
-#elif IW
-        static string[] FamilyKeys = new[] { "IW", "Unknown" };
+#elif Id
+        static string[] FamilyKeys = new[] { "Id", "Unknown" };
 
-        /* Sample: Data
-       * OK - Family = "AC", GameId = "AC", ForcePath = "TabooTable/0E00001E.taboo", ForceOpen = true,
-       */
-
-        /* Sample: Texture
-         * BAD - Family = "AC", GameId = "AC", ForcePath = "Texture060043BE", ForceOpen = true,
-         * BAD - Family = "Cry", GameId = "Hunt", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * BAD - Family = "Rsi", GameId = "StarCitizen", ForcePath = "Data/Textures/references/color.dds", ForceOpen = true,
-         * BAD - Family = "Rsi", GameId = "StarCitizen", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * BAD - Family = "Tes", GameId = "Morrowind", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * BAD - Family = "Tes", GameId = "StarCitizen", ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", ForceOpen = true,
-         * OK - Family = "Valve", GameId = "Dota2", ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", ForceOpen = true,
-         */
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            Family = "Id",
+            //GameId = "Q", // Quake
+            //GameId = "Q2", // Quake II
+            //GameId = "Q3:A", // Quake III Arena
+            //GameId = "D3", // Doom 3
+            //GameId = "Q:L", // Quake Live
+            //GameId = "R", // Rage
+            //GameId = "D", // Doom
+            //GameId = "D:VFR", // Doom VFR
+            //GameId = "R2", // Rage 2
+            //GameId = "D:E", // Doom Eternal
+            //GameId = "Q:C", // Quake Champions
+        };
+#elif IW
+        static string[] FamilyKeys = new[] { "IW", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            //ForcePath = "iw_08.iwd/images/155_cannon.iwi", //COD2:Texture
+            //ForcePath = "mp_farm.ff/images/155_cannon.iwi", //COD4:Texture
+
+            ForceOpen = true,
             Family = "IW",
-            //GameId = "COD2", // Call of Duty 2 - IWD //ForcePath = "iw_08.iwd/images/155_cannon.iwi",
+            //GameId = "COD2", // Call of Duty 2 - IWD 
             //GameId = "COD3", // Call of Duty 3 - XBOX only
-            //GameId = "COD4", // Call of Duty 4: Modern Warfare - IWD, FF //ForcePath = "mp_farm.ff/images/155_cannon.iwi",
+            //GameId = "COD4", // Call of Duty 4: Modern Warfare - IWD, FF
             //GameId = "COD:WaW", // Call of Duty: World at War - IWD, FF
             //GameId = "MW2", // Call of Duty: Modern Warfare 2
             //GameId = "COD:BO", // Call of Duty: Black Ops - IWD, FF
@@ -154,16 +172,134 @@ namespace GameSpec
         {
             ForceOpen = true,
             Family = "Lith",
-            GameId = "FEAR", // F.E.A.R.
-            GameId = "FEAR:EP", // F.E.A.R.: Extraction Point
-            GameId = "FEAR:PM", // F.E.A.R.: Perseus Mandate
-            GameId = "FEAR2", // F.E.A.R. 2: Project Origin
-            GameId = "FEAR3", // F.E.A.R. 3
+            //GameId = "FEAR", // F.E.A.R.
+            //GameId = "FEAR:EP", // F.E.A.R.: Extraction Point
+            //GameId = "FEAR:PM", // F.E.A.R.: Perseus Mandate
+            //GameId = "FEAR2", // F.E.A.R. 2: Project Origin
+            //GameId = "FEAR3", // F.E.A.R. 3
+        };
+#elif Origin
+        static string[] FamilyKeys = new[] { "Origin", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Origin",
+            //GameId = "UO", // Ultima Online
+            //GameId = "UltimaIX", // Ultima IX
+        };
+#elif Red
+        static string[] FamilyKeys = new[] { "Red", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Red",
+            //GameId = "Witcher", // The Witcher Enhanced Edition
+            //GameId = "Witcher2", // The Witcher 2
+            //GameId = "Witcher3", // The Witcher 3: Wild Hunt
+            //GameId = "CP77", // Cyberpunk 2077
+            //GameId = "Witcher4", // The Witcher 4 Polaris (future)
+        };
+#elif Rsi
+        static string[] FamilyKeys = new[] { "Rsi", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            // ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
+            // ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
+
+            ForceOpen = true,
+            Family = "Rsi",
+            //GameId = "StarCitizen", // Star Citizen
+        };
+#elif Tes
+        static string[] FamilyKeys = new[] { "Tes", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Tes",
+            //GameId = "Fallout2", // Fallout 2
+            //GameId = "Morrowind", // The Elder Scrolls III: Morrowind
+            //GameId = "Oblivion", // The Elder Scrolls IV: Oblivion
+            //GameId = "Fallout3", // Fallout 3
+            //GameId = "FalloutNV", // Fallout New Vegas
+            //GameId = "Skyrim", // The Elder Scrolls V: Skyrim
+            //GameId = "Fallout4", // Fallout 4
+            //GameId = "SkyrimSE", // The Elder Scrolls V: Skyrim – Special Edition
+            //GameId = "Fallout:S", // Fallout Shelter
+            //GameId = "Fallout4VR", // Fallout 4 VR
+            //GameId = "SkyrimVR", // The Elder Scrolls V: Skyrim VR
+            //GameId = "Fallout76", // Fallout 76
+            //GameId = "Starfield", // Starfield (future)
+            //GameId = "Unknown1", // The Elder Scrolls VI (future)
+            //GameId = "Fallout5", // Fallout 5 (future)
+        };
+#elif Unity
+        static string[] FamilyKeys = new[] { "Unity", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Unity",
+            //GameId = "AmongUs", // Among Us
+            //GameId = "Cities", // Cities: Skylines
+            //GameId = "Tabletop", // Tabletop Simulator
+            //GameId = "UBoat", // Destroyer: The U-Boat Hunter
+            //GameId = "7D2D", // 7 Days to Die
+        };
+#elif Unreal
+        static string[] FamilyKeys = new[] { "Unreal", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Unreal",
+            //GameId = "BioShock", // BioShock
+            //GameId = "BioShockR", // BioShock Remastered
+            //GameId = "BioShock2", // BioShock 2
+            //GameId = "BioShock2R", // BioShock 2 Remastered
+            //GameId = "BioShock:Inf", // BioShock Infinite
+        };
+#elif Valve
+        static string[] FamilyKeys = new[] { "Valve", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            //ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", //Dota2:Texture
+
+            ForceOpen = true,
+            Family = "Valve",
+            //GameId = "HL", // Half-Life
+            //GameId = "TF", // Team Fortress Classic
+            //GameId = "CS", // Counter-Strike
+            //GameId = "Ricochet", // Ricochet
+            //GameId = "HL:BS", // Half-Life: Blue Shift
+            //GameId = "DOD", // Day of Defeat
+            //GameId = "CS:CZ", // Counter-Strike: Condition Zero
+            //GameId = "HL:Src", // Half-Life: Source
+            //GameId = "CS:Src", // Counter-Strike: Source
+            //GameId = "HL2", // Half-Life 2
+            //GameId = "HL2:DM", // Half-Life 2: Deathmatch
+            //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source
+            //GameId = "HL2:E1", // Half-Life 2: Episode One
+            //GameId = "Portal", // Portal
+            //GameId = "HL2:E2", // Half-Life 2: Episode Two
+            //GameId = "TF2", // Team Fortress 2
+            //GameId = "L4D", // Left 4 Dead
+            //GameId = "L4D2", // Left 4 Dead 2
+            //GameId = "DOD:Src", // Day of Defeat: Source
+            //GameId = "Portal2", // Portal 2
+            //GameId = "CS:GO", // Counter-Strike: Global Offensive
+            //GameId = "D2", // Dota 2
+            //GameId = "Lab", // The Lab
+            //GameId = "HL:Alyx", // Half-Life: Alyx
         };
 #else
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cyanide", "Hpl", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions { };
+        public static DefaultOptions AppDefaultOptions = new() { };
 #endif
     }
 }

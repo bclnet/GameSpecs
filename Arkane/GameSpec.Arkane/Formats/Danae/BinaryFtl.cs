@@ -8,7 +8,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace GameSpec.Arkane.Formats
+namespace GameSpec.Arkane.Formats.Danae
 {
     public unsafe class BinaryFtl : IGetMetadataInfo
     {

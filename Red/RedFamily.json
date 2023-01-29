@@ -12,6 +12,7 @@
   "games": {
     "Witcher": {
       "name": "The Witcher Enhanced Edition",
+      "engine": "Aurora",
       "url": "https://www.gog.com/en/game/the_witcher",
       //"pak": "game:/*.key#Witcher"
       "pak": "game:/main.key#Witcher"
@@ -20,6 +21,7 @@
     },
     "Witcher2": {
       "name": "The Witcher 2",
+      "engine": "REDengine",
       "url": "https://www.gog.com/en/game/the_witcher_2",
       "pak": "game:/*#Witcher2",
       "pak_": "game:/base_scripts.dzip#Witcher2",
@@ -27,6 +29,7 @@
     },
     "Witcher3": {
       "name": "The Witcher 3: Wild Hunt",
+      "engine": "REDengine",
       "url": [
         "https://www.gog.com/en/game/the_witcher_3_wild_hunt",
         "https://www.gog.com/en/game/the_witcher_3_wild_hunt_game_of_the_year_edition"
@@ -42,6 +45,11 @@
       "pak1": "game:/lang_en_text.archive#CP77"
       //"pak": "game:/lang_en_voice.archive#CP77"
       //"pak": "game:/*.archive#CP77"
+    },
+    "Witcher4": {
+      "name": "The Witcher 4 Polaris (future)",
+      "engine": "Unreal",
+      "pak": "game:/*#Witcher4"
     }
   },
   "fileManager": {
@@ -72,6 +80,9 @@
         "CP77": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1091500",
           "path": "archive/pc/content"
+        },
+        "Witcher4": {
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
         }
       }
     }

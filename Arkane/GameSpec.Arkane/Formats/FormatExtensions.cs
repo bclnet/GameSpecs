@@ -1,4 +1,5 @@
-﻿using GameSpec.Formats;
+﻿using GameSpec.Arkane.Formats.Danae;
+using GameSpec.Formats;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace GameSpec.Arkane.Formats
                 var x when x == ".wav" => (0, BinarySnd.Factory),
                 var x when x == ".bmp" || x == ".jpg" => (0, BinaryImg.Factory),
                 ".dds" => (0, BinaryDds.Factory),
-                // AF
+                // Danae (AF)
                 ".ftl" => (0, BinaryFtl.Factory),
                 ".fts" => (0, BinaryFts.Factory),
                 ".tea" => (0, BinaryTea.Factory),
