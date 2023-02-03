@@ -15,11 +15,11 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(OS)' == 'Windows_NT'">
     <Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Base.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)GameSpec.Platform.Unity.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
   </Target>
 
-  <Target Name="Plugins">
+  <Target Name="Plugins" Condition="'$(OS)' == 'Windows_NT'">
     <Exec Command="xcopy /Y &quot;..\..\Base\Native\Unity\Plugins\x64\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\x64\&quot;" />
     <Exec Command="xcopy /Y &quot;..\..\Base\Native\Unity\Plugins\x86\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\x86\&quot;" />
     <Exec Command="xcopy /Y &quot;..\..\Base\Native\Unity\Plugins\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
