@@ -5,6 +5,7 @@ using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace GameSpec.Arkane
 {
@@ -22,13 +23,29 @@ namespace GameSpec.Arkane
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public ArkanePakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryArkane.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(family, game), tag)
         {
             Options = PakManyOptions.FilesById;
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }
+
+        #region GetPackBinary
+
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
+
+        static PakBinary GetPackBinary(Family family, string game)
+            => PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game));
+
+        static PakBinary PackBinaryFactory(FamilyGame game)
+            => game.Engine switch
+            {
+                "Valve" => Valve.Formats.PakBinaryVpk.Instance,
+                _ => PakBinaryArkane.Instance,
+            };
+
+        #endregion
 
         #region Transforms
 

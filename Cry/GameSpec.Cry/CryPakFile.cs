@@ -17,7 +17,7 @@ namespace GameSpec.Cry
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class CryPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CryPakFile" /> class.

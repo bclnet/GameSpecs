@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Base\GameSpec.Base\GameSpec.Base.csproj" />
+    <ProjectReference Include="..\..\Valve\GameSpec.Valve\GameSpec.Valve.csproj" />
   </ItemGroup>
 
 </Project>

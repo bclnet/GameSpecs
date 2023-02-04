@@ -28,6 +28,21 @@ namespace GameSpec
         }
 
         /// <summary>
+        /// Edition
+        /// </summary>
+        public class Locale
+        {
+            /// <summary>
+            /// The identifier
+            /// </summary>
+            public string Id { get; set; }
+            /// <summary>
+            /// The name
+            /// </summary>
+            public string Name { get; set; }
+        }
+
+        /// <summary>
         /// The identifier
         /// </summary>
         public string Id { get; set; }
@@ -66,6 +81,10 @@ namespace GameSpec
         /// The Editions
         /// </summary>
         public IDictionary<string, Edition> Editions { get; set; }
+        /// <summary>
+        /// The Locales
+        /// </summary>
+        public IDictionary<string, Locale> Locales { get; set; }
 
         /// <summary>
         /// Gets the name of the displayed.

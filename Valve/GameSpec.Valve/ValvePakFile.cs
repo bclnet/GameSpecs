@@ -7,6 +7,7 @@ using GameSpec.Valve.Transforms;
 using System;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
+using System.Collections.Concurrent;
 
 namespace GameSpec.Valve
 {
@@ -24,13 +25,29 @@ namespace GameSpec.Valve
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public ValvePakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryValve.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(family, game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             PathFinders.Add(typeof(object), FindBinary);
             Open();
         }
+
+        #region GetPackBinary
+
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
+
+        static PakBinary GetPackBinary(Family family, string game)
+            => PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game));
+
+        static PakBinary PackBinaryFactory(FamilyGame game)
+            => game.Engine switch
+            {
+                "Unity" => Unity.Formats.PakBinaryUnity.Instance,
+                _ => PakBinaryVpk.Instance,
+            };
+
+        #endregion
 
         #region PathFinders
 

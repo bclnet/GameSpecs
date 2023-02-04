@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Valve.Formats
 {
-    public unsafe class PakBinaryValve : PakBinary
+    // https://developer.valvesoftware.com/wiki/VPK_File_Format
+    public unsafe class PakBinaryVpk : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryValve();
-        PakBinaryValve() { }
+        public static readonly PakBinary Instance = new PakBinaryVpk();
+        PakBinaryVpk() { }
 
         #region Headers
 
-        public const int MAGIC = 0x55AA1234;
+        public const int MAGIC = 0x55aa1234;
 
         /// <summary>
         /// Header

@@ -17,10 +17,10 @@
     },
     "DOM": {
       "name": "Dark Messiah of Might and Magic",
-      "engine": "IdTech",
+      "engine": "Valve",
       "url": "https://store.steampowered.com/app/2100",
       "date": "2006-10-25",
-      "pak": "game:/*.vpk#DOM"
+      "pak": "game:/*_dir.vpk#DOM"
     },
     "D": {
       "name": "Dishonored",

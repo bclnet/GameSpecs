@@ -9,10 +9,7 @@
   "games": {
     "COD": {
       "name": "Call of Duty",
-      "url": [
-        "https://store.steampowered.com/app/2620",
-        "https://store.steampowered.com/app/2640"
-      ],
+      "url": [ "https://store.steampowered.com/app/2620", "https://store.steampowered.com/app/2640" ],
       "date": "2003-10-29",
       "tags": "WorldWarII COD",
       "pak": "game:/*.iwd#COD"

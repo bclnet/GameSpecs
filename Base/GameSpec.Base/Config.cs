@@ -288,13 +288,15 @@ namespace GameSpec
             //GameId = "HL2:E2", // Half-Life 2: Episode Two
             //GameId = "TF2", // Team Fortress 2
             //GameId = "L4D", // Left 4 Dead
-            //GameId = "L4D2", // Left 4 Dead 2
-            //GameId = "DOD:Src", // Day of Defeat: Source
-            //GameId = "Portal2", // Portal 2
-            //GameId = "CS:GO", // Counter-Strike: Global Offensive
-            //GameId = "D2", // Dota 2
-            //GameId = "Lab", // The Lab
-            //GameId = "HL:Alyx", // Half-Life: Alyx
+            GameId = "L4D2", // Left 4 Dead 2 [open]
+            //GameId = "DOD:Src", // Day of Defeat: Source [open]
+            //GameId = "Portal2", // Portal 2 [open]
+            //GameId = "CS:GO", // Counter-Strike: Global Offensive [open]
+            //GameId = "D2", // Dota 2 [open]
+            //GameId = "TheLab:RR", // The Lab: Robot Repair [open]
+            //GameId = "TheLab:SS", // The Lab: Secret Shop [unity]
+            //GameId = "TheLab:TL", // The Lab: The Lab [unity]
+            //GameId = "HL:Alyx", // Half-Life: Alyx [open]
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
