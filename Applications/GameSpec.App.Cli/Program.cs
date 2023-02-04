@@ -94,6 +94,8 @@ namespace GameSpec.App.Cli
 
         static string[] argsArkane1 = new[] { "export", "-f", "Arkane", "-u", "game:/*.pak#AF", "--path", @"C:\T_\AF" };
 
+        static string[] argsValve1 = new[] { "list", "-f", "Valve" };
+
         static void Register()
         {
             UnknownFileWriter.Factories["Collada"] = file => new ColladaFileWriter(file);
@@ -104,7 +106,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsArkane1)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsValve1)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),
