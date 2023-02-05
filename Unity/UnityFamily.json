@@ -57,6 +57,30 @@
           "path": "7DaysToDie_Data"
         }
       }
+    },
+    "macOS": {
+      "application": {
+        "AmongUs": {
+          "key": "Steam:945360",
+          "path": "Among Us_Data"
+        },
+        "Cities": {
+          "key": "Steam:255710",
+          "path": "Cities_Data"
+        },
+        "Tabletop": {
+          "key": "Steam:286160",
+          "path": "Tabletop Simulator_Data"
+        },
+        "UBoat": {
+          "key": "Steam:1272010",
+          "path": "Destroyer The U-Boat Hunter_Data"
+        },
+        "7D2D": {
+          "key": "Steam:251570",
+          "path": "7DaysToDie_Data"
+        }
+      }
     }
   }
 }

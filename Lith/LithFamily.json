@@ -52,6 +52,25 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21100"
         }
       }
+    },
+    "macOS": {
+      "application": {
+        "FEAR": {
+          "key": "Steam:21090"
+        },
+        "FEAR:EP": {
+          "key": "Steam:21110"
+        },
+        "FEAR:PM": {
+          "key": "Steam:21120"
+        },
+        "FEAR2": {
+          "key": "Steam:16450"
+        },
+        "FEAR3": {
+          "key": "Steam:21100"
+        }
+      }
     }
   }
 }

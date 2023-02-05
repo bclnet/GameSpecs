@@ -9,7 +9,7 @@
   "games": {
     "AF": {
       "name": "Arx Fatalis",
-      "engine":  "Danae",
+      "engine": "Danae",
       "url": "https://www.gog.com/en/game/arx_fatalis",
       "date": "2002-11-12",
       "pak": "game:/*.pak#AF",
@@ -113,6 +113,45 @@
         },
         "DL": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1252330",
+          "path": "base"
+        }
+      }
+    },
+    "macOS": {
+      "application": {
+        "AF": {
+          "key": "GOG:1207658680"
+        },
+        "DOM": {
+          "key": "Steam:2100",
+          "path": "vpks"
+        },
+        "D": {
+          "key": "GOG:1701063787",
+          "path": "DishonoredGame"
+        },
+        "D2": {
+          "key": "GOG:1431426311",
+          "path": "base"
+        },
+        "P": {
+          "key": "GOG:1158493447",
+          "path": "GameSDK"
+        },
+        "D:DOTO": {
+          "key": "GOG:1707860700",
+          "path": "base"
+        },
+        "W:YB": {
+          "key": "Steam:1056960",
+          "path": "base"
+        },
+        "W:CP": {
+          "key": "Steam:1056970",
+          "path": "base"
+        },
+        "DL": {
+          "key": "Steam:1252330",
           "path": "base"
         }
       }

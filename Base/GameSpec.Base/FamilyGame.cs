@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 
 namespace GameSpec
 {
@@ -26,6 +27,22 @@ namespace GameSpec
             /// </summary>
             public object Key { get; set; }
         }
+
+        /// <summary>
+        /// DownloadableContent
+        /// </summary>
+        public class DownloadableContent
+        {
+            /// <summary>
+            /// The identifier
+            /// </summary>
+            public string Id { get; set; }
+            /// <summary>
+            /// The name
+            /// </summary>
+            public string Name { get; set; }
+        }
+
 
         /// <summary>
         /// Edition
@@ -63,6 +80,10 @@ namespace GameSpec
         /// </summary>
         public IList<Uri> Dats { get; set; }
         /// <summary>
+        /// The Paths
+        /// </summary>
+        public IList<string> Paths { get; set; }
+        /// <summary>
         /// The key
         /// </summary>
         public object Key { get; set; }
@@ -81,6 +102,10 @@ namespace GameSpec
         /// The Editions
         /// </summary>
         public IDictionary<string, Edition> Editions { get; set; }
+        /// <summary>
+        /// The Dlcs
+        /// </summary>
+        public IDictionary<string, DownloadableContent> Dlc { get; set; }
         /// <summary>
         /// The Locales
         /// </summary>

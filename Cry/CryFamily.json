@@ -101,6 +101,45 @@
           "path": "Assets"
         }
       }
+    },
+    "macOS": {
+      "application": {
+        "ArcheAge": {
+          "key": "Steam:304030"
+        },
+        "Hunt": {
+          "key": "Steam:594650",
+          "path": [ "engine", "game_hunt" ]
+        },
+        "MWO": {
+          "key": "Steam:342200",
+          "path": "Game"
+        },
+        "Warface": {
+          "key": "Steam:291480",
+          "path": [ "13_2000076/Engine", "13_2000076/Game" ]
+        },
+        "Wolcen": {
+          "key": "Steam:424370",
+          "path": [ "Engine", "Game" ]
+        },
+        "Crysis": {
+          "key": "Steam:1715130",
+          "path": [ "Engine", "Game" ]
+        },
+        "Ryse": {
+          "key": "Steam:302510",
+          "path": [ "Engine", "GameRyse" ]
+        },
+        "Robinson": {
+          "key": "Steam:579820",
+          "path": [ "engine", "game_robinson" ]
+        },
+        "Snow": {
+          "key": "Steam:244930",
+          "path": "Assets"
+        }
+      }
     }
   }
 }

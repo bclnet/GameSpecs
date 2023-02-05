@@ -1,21 +1,22 @@
-﻿using System.Text.Json;
+﻿using System.IO;
+using System.Text.Json;
 
 namespace GameSpec.FileManagers
 {
     /// <summary>
-    /// OsxFileManager
+    /// MacOSFileManager
     /// </summary>
-    internal class MacOsFileManager : FileManager
+    internal class MacOSFileManager : FileManager
     {
         #region Parse File-Manager
 
         public override FileManager ParseFileManager(JsonElement elem)
         {
             base.ParseFileManager(elem);
-            if (!elem.TryGetProperty("macos", out var z)) return this;
+            if (!elem.TryGetProperty("macOS", out var z)) return this;
             elem = z;
 
-            AddRegistry(elem);
+            AddApplication(elem);
             AddDirect(elem);
             AddIgnores(elem);
             AddFilters(elem);
@@ -23,21 +24,26 @@ namespace GameSpec.FileManagers
             return this;
         }
 
-        protected void AddRegistry(JsonElement elem)
+        protected static bool TryGetApplicationByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
         {
-            if (!elem.TryGetProperty("registry", out var z)) return;
+            path = null;
+            //path = GetRegistryExePath(new[] { $@"Wow6432Node\{key}", key });
+            //if (keyElem == null) return !string.IsNullOrEmpty(path);
+            //if (keyElem.Value.TryGetProperty("path", out var path2)) { path = Path.GetFullPath(PathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
+            //else if (keyElem.Value.TryGetProperty("xml", out var xml)
+            //    && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
+            //    && TryGetSingleFileValue(PathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
+            //    return !string.IsNullOrEmpty(path);
+            return false;
+        }
+
+        protected void AddApplication(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("application", out var z)) return;
             foreach (var prop in z.EnumerateObject())
                 if (prop.Value.TryGetProperty("key", out z))
-                {
-                    var keys = z.ValueKind switch
-                    {
-                        JsonValueKind.String => new[] { z.GetString() },
-                        JsonValueKind.Array => z.EnumerateArray().Select(y => y.GetString()),
-                        _ => throw new ArgumentOutOfRangeException(),
-                    };
-                    foreach (var key in keys)
-                        if (TryGetRegistryByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? (JsonElement?)z : null, out var path)) AddPath(prop, path);
-                }
+                    foreach (var key in z.GetStringOrArray())
+                        if (TryGetApplicationByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
         }
 
         #endregion

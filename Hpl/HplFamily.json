@@ -97,6 +97,38 @@
           "path": "main"
         }
       }
+    },
+    "macOS": {
+      "application": {
+        "P:O": {
+          "key": "Steam:22180",
+          "path": "main"
+        },
+        "P:BP": {
+          "key": "Steam:22120",
+          "path": "main"
+        },
+        "P:R": {
+          "key": "Steam:22140",
+          "path": "main"
+        },
+        "A:TDD": {
+          "key": "Steam:57300",
+          "path": "main"
+        },
+        "A:AMFP": {
+          "key": "Steam:239200",
+          "path": "main"
+        },
+        "SOMA": {
+          "key": "Steam:282140",
+          "path": "main"
+        },
+        "A:R": {
+          "key": "Steam:999220",
+          "path": "main"
+        }
+      }
     }
   }
 }

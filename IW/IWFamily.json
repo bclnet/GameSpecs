@@ -179,10 +179,7 @@
     "windows": {
       "registry": {
         "COD": {
-          "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620",
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640"
-          ],
+          "key": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640" ],
           "path": [ "Main", "uo" ]
         },
         "COD2": {

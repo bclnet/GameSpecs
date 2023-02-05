@@ -28,15 +28,23 @@
     "windows": {
       "registry": {
         "Council": {
-          "key": [
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630",
-            "GOG.com/Games/1261705611",
-            "GOG.com/Games/1207658930"
-          ],
+          "key": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630", "GOG.com/Games/1261705611", "GOG.com/Games/1207658930" ],
           "path": "Data/Packages"
         },
         "Werewolf:TA": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 679110",
+          "path": "WW/Content/Paks"
+        }
+      }
+    },
+    "macOS": {
+      "application": {
+        "Council": {
+          "key": [ "Steam:287630", "GOG:1261705611", "GOG:1207658930" ],
+          "path": "Data/Packages"
+        },
+        "Werewolf:TA": {
+          "key": "Steam:679110",
           "path": "WW/Content/Paks"
         }
       }

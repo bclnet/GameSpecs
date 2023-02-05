@@ -56,17 +56,11 @@
     "windows": {
       "registry": {
         "Witcher": {
-          "key": [
-            "CD Projekt RED/The Witcher",
-            "GOG.com/Games/1207658924"
-          ],
+          "key": [ "CD Projekt RED/The Witcher", "GOG.com/Games/1207658924" ],
           "path": "Data"
         },
         "Witcher2": {
-          "key": [
-            "CD Projekt RED/The Witcher 2",
-            "GOG.com/Games/1207658930"
-          ],
+          "key": [ "CD Projekt RED/The Witcher 2", "GOG.com/Games/1207658930" ],
           "path": "CookedPC"
         },
         "Witcher3": {
@@ -83,6 +77,29 @@
         },
         "Witcher4": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        }
+      }
+    },
+    "macOS": {
+      "application": {
+        "Witcher": {
+          "key": "GOG:1207658924",
+          "path": "Data"
+        },
+        "Witcher2": {
+          "key": "GOG:1207658930",
+          "path": "CookedPC"
+        },
+        "Witcher3": {
+          "key": [ "GOG:1207664643", "GOG:1495134320" ],
+          "path": "content"
+        },
+        "CP77": {
+          "key": "Steam:1091500",
+          "path": "archive/pc/content"
+        },
+        "Witcher4": {
+          "key": "Steam:0"
         }
       }
     }

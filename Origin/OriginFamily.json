@@ -44,10 +44,18 @@
           ]
         },
         "UltimaIX": {
-          "key": [
-            "GOG.com/GOGULTIMA9",
-            "GOG.com/Games/1207659093"
-          ],
+          "key": [ "GOG.com/GOGULTIMA9", "GOG.com/Games/1207659093" ],
+          "path": "static"
+        }
+      }
+    },
+    "macOS": {
+      "application": {
+        "UltimaOnline": {
+          "key": ""
+        },
+        "UltimaIX": {
+          "key": [ "GOG:1207659093" ],
           "path": "static"
         }
       }

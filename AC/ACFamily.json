@@ -30,6 +30,13 @@
         }
       }
     },
+    "macOS": {
+      "application": {
+        "AC": {
+          "key": ""
+        }
+      }
+    },
     "filters": {
       "AC": {
         "Landblock": "0xFFFF",

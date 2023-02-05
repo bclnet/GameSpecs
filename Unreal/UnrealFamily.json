@@ -57,6 +57,30 @@
           "path": "XGame/CookedPCConsole_FR"
         }
       }
+    },
+    "macOS": {
+      "application": {
+        "BioShock": {
+          "key": "Steam:7670",
+          "path": "Content"
+        },
+        "BioShockR": {
+          "key": "Steam:409710",
+          "path": "ContentBaked/pc"
+        },
+        "BioShock2": {
+          "key": "Steam:8850",
+          "path": "SP/Content"
+        },
+        "BioShock2R": {
+          "key": "Steam:409720",
+          "path": "ContentBaked/pc"
+        },
+        "BioShock:Inf": {
+          "key": "Steam:8870",
+          "path": "XGame/CookedPCConsole_FR"
+        }
+      }
     }
   }
 }

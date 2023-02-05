@@ -1,6 +1,7 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -85,7 +86,7 @@ namespace GameSpec
             var fileSystem = game.CreateFileSystem();
             var r = new Resource { Game = gameId };
             // game-scheme
-            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{gameId}: unable to locate game resources") : Array.Empty<string>());
+            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(family, fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{gameId}: unable to locate game resources") : Array.Empty<string>());
             // file-scheme
             else if (uri.IsFile) r.Paths = GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{gameId}: unable to locate file resources") : Array.Empty<string>());
             // network-scheme
@@ -96,24 +97,32 @@ namespace GameSpec
         /// <summary>
         /// Gets the game file paths.
         /// </summary>
+        /// <param name="family">The family.</param>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="game">The game.</param>
         /// <param name="pathOrPattern">The path or pattern.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">pathOrPattern</exception>
         /// <exception cref="ArgumentOutOfRangeException">pathOrPattern</exception>
-        public string[] FindGameFilePaths(IFileSystem fileSystem, string game, string pathOrPattern)
+        public string[] FindGameFilePaths(Family family, IFileSystem fileSystem, string game, string pathOrPattern)
         {
             fileSystem ??= DefaultSystem;
+            var (_, familyGame) = family.GetGame(game);
+            if (familyGame == null) return null;
             // root folder
-            if (string.IsNullOrEmpty(pathOrPattern))
-                return Paths.TryGetValue(game, out var z) ? z.ToArray() : null;
+            if (string.IsNullOrEmpty(pathOrPattern)) return Paths.TryGetValue(game, out var z) ? z.ToArray() : null;
             // search folder
             var searchPattern = Path.GetFileName(pathOrPattern);
             if (string.IsNullOrEmpty(searchPattern)) throw new ArgumentOutOfRangeException(nameof(pathOrPattern), pathOrPattern);
             return Paths.TryGetValue(game, out var paths)
-                ? ExpandAndSearchPaths(fileSystem, Ignores.TryGetValue(game, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
+                ? ExpandGameFilePaths(familyGame, fileSystem, Ignores.TryGetValue(game, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
                 : null;
+        }
+
+        static IEnumerable<string> ExpandGameFilePaths(FamilyGame game, IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
+        {
+            foreach (var path in ExpandAndSearchPaths(fileSystem, ignore, paths, pathOrPattern))
+                yield return path;
         }
 
         static IEnumerable<string> ExpandAndSearchPaths(IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
@@ -232,13 +241,7 @@ namespace GameSpec
         {
             if (path == null || !Directory.Exists(path = PathWithSpecialFolders(path))) return;
             path = Path.GetFullPath(path);
-            var paths = prop.Value.TryGetProperty("path", out var z) ? z.ValueKind switch
-            {
-                JsonValueKind.String => new[] { Path.Combine(path, z.GetString()) },
-                JsonValueKind.Array => z.EnumerateArray().Select(y => Path.Combine(path, y.GetString())),
-                _ => throw new ArgumentOutOfRangeException(),
-            } : new[] { path };
-
+            var paths = prop.Value.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => Path.Combine(path, x)) : new[] { path };
             foreach (var path2 in paths)
             {
                 if (!Directory.Exists(path2)) continue;
@@ -284,15 +287,7 @@ namespace GameSpec
             if (!elem.TryGetProperty("direct", out var z)) return;
             foreach (var prop in z.EnumerateObject())
                 if (prop.Value.TryGetProperty("path", out z))
-                {
-                    var paths = z.ValueKind switch
-                    {
-                        JsonValueKind.String => new[] { z.GetString() },
-                        JsonValueKind.Array => z.EnumerateArray().Select(y => y.GetString()),
-                        _ => throw new ArgumentOutOfRangeException(),
-                    };
-                    foreach (var path in paths) AddPath(prop, path);
-                }
+                    foreach (var path in z.GetStringOrArray()) AddPath(prop, path);
         }
 
         protected void AddIgnores(JsonElement elem)
@@ -300,15 +295,7 @@ namespace GameSpec
             if (!elem.TryGetProperty("ignores", out var z)) return;
             foreach (var prop in z.EnumerateObject())
                 if (prop.Value.TryGetProperty("path", out z))
-                {
-                    var paths = z.ValueKind switch
-                    {
-                        JsonValueKind.String => new[] { z.GetString() },
-                        JsonValueKind.Array => z.EnumerateArray().Select(y => y.GetString()),
-                        _ => throw new ArgumentOutOfRangeException(),
-                    };
-                    foreach (var path in paths) AddIgnore(prop, path);
-                }
+                    foreach (var path in z.GetStringOrArray()) AddIgnore(prop, path);
         }
 
         protected void AddFilters(JsonElement elem)

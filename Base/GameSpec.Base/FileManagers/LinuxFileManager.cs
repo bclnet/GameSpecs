@@ -13,7 +13,7 @@ namespace GameSpec.FileManagers
         {
             base.ParseFileManager(elem);
             if (!elem.TryGetProperty("linux", out var z)) return this;
-            //elem = z;
+            elem = z;
 
             return this;
         }

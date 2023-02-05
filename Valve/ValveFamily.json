@@ -37,14 +37,16 @@
       "url": "https://store.steampowered.com/app/10",
       "date": "2000-11-01",
       "tags": "CounterStrike",
-      "pak": "game:/*_dir.vpk#CS"
+      "pak": "game:/*_dir.vpk#CS",
+      "path": "cstrike"
     },
     "Ricochet": {
       "name": "Ricochet",
       "url": "https://store.steampowered.com/app/60",
       "date": "2000-11-01",
       "tags": "",
-      "pak": "game:/*_dir.vpk#Ricochet"
+      "pak": "game:/*_dir.vpk#Ricochet",
+      "path": "ricochet"
     },
     "DM": {
       "name": "Deathmatch Classic",
@@ -375,15 +377,13 @@
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 20"
         },
         "HL:OF": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50",
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50"
         },
         "CS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10",
-          "path": "cstrike"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10"
         },
         "Ricochet": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60",
-          "path": "ricochet"
+          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60"
         },
         "DM": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 40"
@@ -457,6 +457,99 @@
         },
         "HL:Alyx": {
           "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 546560",
+          "path": "game"
+        }
+      }
+    },
+    "macOS": {
+      "application": {
+        "HL": {
+          "key": "Steam:70"
+        },
+        "TF": {
+          "key": "Steam:20"
+        },
+        "HL:OF": {
+          "key": "Steam:50"
+        },
+        "CS": {
+          "key": "Steam:10"
+        },
+        "Ricochet": {
+          "key": "Steam:60"
+        },
+        "DM": {
+          "key": "Steam:40"
+        },
+        "HL:BS": {
+          "key": "Steam:130"
+        },
+        "DOD": {
+          "key": "Steam:30"
+        },
+        "CS:CZ": {
+          "key": "Steam:80"
+        },
+        "HL:Src": {
+          "key": "Steam:280"
+        },
+        "CS:Src": {
+          "key": "Steam:240"
+        },
+        "HL2": {
+          "key": "Steam:220"
+        },
+        "HL2:DM": {
+          "key": "Steam:320"
+        },
+        "HL:DM:Src": {
+          "key": "Steam:360"
+        },
+        "HL2:E1": {
+          "key": "Steam:380"
+        },
+        "Portal": {
+          "key": "Steam:400"
+        },
+        "HL2:E2": {
+          "key": "Steam:420"
+        },
+        "TF2": {
+          "key": "Steam:440"
+        },
+        "L4D": {
+          "key": "Steam:500"
+        },
+        "L4D2": {
+          "key": "Steam:550"
+        },
+        "DOD:Src": {
+          "key": "Steam:300"
+        },
+        "Portal2": {
+          "key": "Steam:620"
+        },
+        "CS:GO": {
+          "key": "Steam:730"
+        },
+        "D2": {
+          "key": "Steam:570",
+          "path": "game"
+        },
+        "TheLab:RR": {
+          "key": "Steam:450390",
+          "path": "RobotRepair"
+        },
+        "TheLab:SS": {
+          "key": "Steam:450390",
+          "path": "SecretShop/win64/SecretShop_Data"
+        },
+        "TheLab:TL": {
+          "key": "Steam:450390",
+          "path": "TheLab/win64/TheLab_Data"
+        },
+        "HL:Alyx": {
+          "key": "Steam:546560",
           "path": "game"
         }
       }

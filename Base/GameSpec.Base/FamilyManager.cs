@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using static GameSpec.FamilyGame;
 using static GameSpec.Resource;
 
 namespace GameSpec
@@ -69,7 +70,7 @@ namespace GameSpec
             => FamilyPlatform.GetPlatformType() switch
             {
                 FamilyPlatform.PlatformType.Windows => new WindowsFileManager(),
-                FamilyPlatform.PlatformType.OSX => new MacOsFileManager(),
+                FamilyPlatform.PlatformType.OSX => new MacOSFileManager(),
                 FamilyPlatform.PlatformType.Linux => new LinuxFileManager(),
                 FamilyPlatform.PlatformType.Android => new AndroidFileManager(),
                 _ => throw new ArgumentOutOfRangeException(nameof(FamilyPlatform.GetPlatformType), FamilyPlatform.GetPlatformType().ToString()),
@@ -143,35 +144,41 @@ namespace GameSpec
                 Id = id,
                 Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
                 Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine,
+                Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : null,
+                Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : null,
+                Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : null,
                 Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
                 FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : family.FileSystemType,
                 Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameEdition(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
+                Dlc = elem.TryGetProperty("dlc", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
+                Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameLocal(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
                 Found = locations.ContainsKey(id),
             };
-            if (elem.TryGetProperty("pak", out z))
-                familyGame.Paks = z.ValueKind switch
-                {
-                    JsonValueKind.String => new[] { new Uri(z.GetString()) },
-                    JsonValueKind.Array => z.EnumerateArray().Select(y => new Uri(y.GetString())).ToArray(),
-                    _ => throw new ArgumentOutOfRangeException("pak", $"{z}"),
-                };
-            if (elem.TryGetProperty("dat", out z))
-                familyGame.Dats = z.ValueKind switch
-                {
-                    JsonValueKind.String => new[] { new Uri(z.GetString()) },
-                    JsonValueKind.Array => z.EnumerateArray().Select(y => new Uri(y.GetString())).ToArray(),
-                    _ => throw new ArgumentOutOfRangeException("dat", $"{z}"),
-                };
             return familyGame;
         }
 
-        static FamilyGame.Edition ParseGameEdition(string edition, JsonElement elem)
-            => new FamilyGame.Edition
+        static Edition ParseGameEdition(string edition, JsonElement elem)
+            => new()
             {
                 Id = edition,
                 Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
                 Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
             };
+
+        static DownloadableContent ParseGameDownloadableContent(string edition, JsonElement elem)
+            => new()
+            {
+                Id = edition,
+                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+            };
+
+        static Locale ParseGameLocal(string edition, JsonElement elem)
+            => new()
+            {
+                Id = edition,
+                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+            };
+
         #endregion
     }
 }

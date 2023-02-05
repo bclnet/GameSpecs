@@ -13,7 +13,7 @@ namespace GameSpec.FileManagers
         {
             base.ParseFileManager(elem);
             if (!elem.TryGetProperty("android", out var z)) return this;
-            //elem = z;
+            elem = z;
 
             return this;
         }

@@ -26,9 +26,10 @@ namespace GameSpec
         [DataRow("Valve", "Dota2", "core/pak01_dir.vpk")]
         public void FileManager(string familyName, string game, string searchPattern)
         {
-            var fileManager = FamilyManager.GetFamily(familyName).FileManager;
+            var family = FamilyManager.GetFamily(familyName);
+            var fileManager = family.FileManager;
             Assert.IsTrue(fileManager.HasPaths);
-            var abc0 = fileManager.FindGameFilePaths(null, game, searchPattern);
+            var abc0 = fileManager.FindGameFilePaths(family, null, game, searchPattern);
             Assert.AreEqual(1, abc0.Length);
         }
     }
