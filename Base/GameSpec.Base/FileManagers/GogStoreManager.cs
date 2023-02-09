@@ -42,7 +42,7 @@ namespace GameSpec.Base.FileManagers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                var paths = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
+                var paths = new[] { "Library/Application Support/GOG.com/Galaxy" };
                 return paths
                     .Select(path => Path.Join(home, path))
                     .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "appcache")));
