@@ -107,7 +107,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsIW1)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsBioware1)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),

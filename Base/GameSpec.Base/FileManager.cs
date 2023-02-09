@@ -234,6 +234,7 @@ namespace GameSpec
                 "GOG" => GogStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
                 "Blizzard" => BlizzardStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
                 "Epic" => EpicStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
+                "Unknown" => UnknownStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
                 _ => throw new ArgumentOutOfRangeException(nameof(key), parts[0]),
             };
         }

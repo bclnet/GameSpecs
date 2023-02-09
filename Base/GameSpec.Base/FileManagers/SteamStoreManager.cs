@@ -56,7 +56,7 @@ namespace GameSpec.Base.FileManagers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                var paths = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
+                var paths = new[] { "Library/Application Support/Steam" };
                 return paths
                     .Select(path => Path.Join(home, path))
                     .FirstOrDefault(path => Directory.Exists(Path.Join(path, "appcache")));
@@ -77,25 +77,27 @@ namespace GameSpec.Base.FileManagers
                 int lengthOfRegion = region.Length, index = 0;
                 while (lengthOfRegion > index)
                 {
-                    var firstItemStart = region.IndexOf('"', index);
-                    if (firstItemStart == -1) break;
-                    var firstItemEnd = region.IndexOf('"', firstItemStart + 1);
-                    index = firstItemEnd + 1;
-                    var firstItem = region.Substring(firstItemStart + 1, firstItemEnd - firstItemStart - 1);
-                    int secondItemStartQuote = region.IndexOf('"', index), secondItemStartBraceleft = region.IndexOf('{', index);
-                    if (secondItemStartBraceleft == -1 || secondItemStartQuote < secondItemStartBraceleft)
+                    var firstStart = region.IndexOf('"', index);
+                    if (firstStart == -1) break;
+                    var firstEnd = region.IndexOf('"', firstStart + 1);
+                    index = firstEnd + 1;
+                    var first = region.Substring(firstStart + 1, firstEnd - firstStart - 1);
+                    int secondStart = region.IndexOf('"', index), secondOpen = region.IndexOf('{', index);
+                    if (secondStart == -1)
+                        Get.Add(first, null);
+                    else if (secondOpen == -1 || secondStart < secondOpen)
                     {
-                        var secondItemEndQuote = region.IndexOf('"', secondItemStartQuote + 1);
-                        var secondItem = region.Substring(secondItemStartQuote + 1, secondItemEndQuote - secondItemStartQuote - 1);
-                        index = secondItemEndQuote + 1;
-                        Value.Add(firstItem, secondItem.Replace(@"\\", @"\"));
+                        var secondEnd = region.IndexOf('"', secondStart + 1);
+                        index = secondEnd + 1;
+                        var second = region.Substring(secondStart + 1, secondEnd - secondStart - 1);
+                        Value.Add(first, second.Replace(@"\\", @"\"));
                     }
                     else
                     {
-                        var secondItemEndBraceright = NextEndOf(region, '{', '}', secondItemStartBraceleft + 1);
-                        var acfs = new AcfStruct(region.Substring(secondItemStartBraceleft + 1, secondItemEndBraceright - secondItemStartBraceleft - 1));
-                        index = secondItemEndBraceright + 1;
-                        Get.Add(firstItem, acfs);
+                        var secondClose = NextEndOf(region, '{', '}', secondOpen + 1);
+                        var acfs = new AcfStruct(region.Substring(secondOpen + 1, secondClose - secondOpen - 1));
+                        index = secondClose + 1;
+                        Get.Add(first, acfs);
                     }
                 }
             }
