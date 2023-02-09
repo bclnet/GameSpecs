@@ -6,10 +6,6 @@
   "familyType": "GameSpec.Unknown.UnknownFamily, GameSpec.Base",
   "pakFileType": "GameSpec.Unknown.UnknownPakFile, GameSpec.Base",
   "games": {
-    "TheCouncil": {
-      "name": "The Council",
-      "pak": "game:/*.bsa#TheCouncil"
-    },
     "ACO": {
       "name": "Assassin's Creed Origins",
       "pak": "game:/*#ACO"
@@ -25,16 +21,6 @@
         "path": "%AppPath%/catalogs"
       }
     },
-    "windows": {
-      "registry": {
-        "TheCouncil": {
-          "key": [
-            "GOG.com/Games/1207658930",
-            "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630"
-          ],
-          "path": "Data"
-        }
-      }
-    }
+    "application": { }
   }
 }

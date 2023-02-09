@@ -368,190 +368,123 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "HL": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 70"
-        },
-        "TF": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 20"
-        },
-        "HL:OF": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50"
-        },
-        "CS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10"
-        },
-        "Ricochet": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60"
-        },
-        "DM": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 40"
-        },
-        "HL:BS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 130"
-        },
-        "DOD": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 30"
-        },
-        "CS:CZ": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 80"
-        },
-        "HL:Src": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 280"
-        },
-        "CS:Src": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 240"
-        },
-        "HL2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 220"
-        },
-        "HL2:DM": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 320"
-        },
-        "HL:DM:Src": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 360"
-        },
-        "HL2:E1": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 380"
-        },
-        "Portal": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 400"
-        },
-        "HL2:E2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 420"
-        },
-        "TF2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 440"
-        },
-        "L4D": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 500"
-        },
-        "L4D2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550"
-        },
-        "DOD:Src": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 300"
-        },
-        "Portal2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 620"
-        },
-        "CS:GO": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730"
-        },
-        "D2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 570",
-          "path": "game"
-        },
-        "TheLab:RR": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
-          "path": "RobotRepair"
-        },
-        "TheLab:SS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
-          "path": "SecretShop/win64/SecretShop_Data"
-        },
-        "TheLab:TL": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
-          "path": "TheLab/win64/TheLab_Data"
-        },
-        "HL:Alyx": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 546560",
-          "path": "game"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "HL": {
-          "key": "Steam:70"
-        },
-        "TF": {
-          "key": "Steam:20"
-        },
-        "HL:OF": {
-          "key": "Steam:50"
-        },
-        "CS": {
-          "key": "Steam:10"
-        },
-        "Ricochet": {
-          "key": "Steam:60"
-        },
-        "DM": {
-          "key": "Steam:40"
-        },
-        "HL:BS": {
-          "key": "Steam:130"
-        },
-        "DOD": {
-          "key": "Steam:30"
-        },
-        "CS:CZ": {
-          "key": "Steam:80"
-        },
-        "HL:Src": {
-          "key": "Steam:280"
-        },
-        "CS:Src": {
-          "key": "Steam:240"
-        },
-        "HL2": {
-          "key": "Steam:220"
-        },
-        "HL2:DM": {
-          "key": "Steam:320"
-        },
-        "HL:DM:Src": {
-          "key": "Steam:360"
-        },
-        "HL2:E1": {
-          "key": "Steam:380"
-        },
-        "Portal": {
-          "key": "Steam:400"
-        },
-        "HL2:E2": {
-          "key": "Steam:420"
-        },
-        "TF2": {
-          "key": "Steam:440"
-        },
-        "L4D": {
-          "key": "Steam:500"
-        },
-        "L4D2": {
-          "key": "Steam:550"
-        },
-        "DOD:Src": {
-          "key": "Steam:300"
-        },
-        "Portal2": {
-          "key": "Steam:620"
-        },
-        "CS:GO": {
-          "key": "Steam:730"
-        },
-        "D2": {
-          "key": "Steam:570",
-          "path": "game"
-        },
-        "TheLab:RR": {
-          "key": "Steam:450390",
-          "path": "RobotRepair"
-        },
-        "TheLab:SS": {
-          "key": "Steam:450390",
-          "path": "SecretShop/win64/SecretShop_Data"
-        },
-        "TheLab:TL": {
-          "key": "Steam:450390",
-          "path": "TheLab/win64/TheLab_Data"
-        },
-        "HL:Alyx": {
-          "key": "Steam:546560",
-          "path": "game"
-        }
+    "application": {
+      "HL": {
+        "key": "Steam:70",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 70"
+      },
+      "TF": {
+        "key": "Steam:20",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 20"
+      },
+      "HL:OF": {
+        "key": "Steam:50",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50"
+      },
+      "CS": {
+        "key": "Steam:10",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10"
+      },
+      "Ricochet": {
+        "key": "Steam:60",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60"
+      },
+      "DM": {
+        "key": "Steam:40",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 40"
+      },
+      "HL:BS": {
+        "key": "Steam:130",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 130"
+      },
+      "DOD": {
+        "key": "Steam:30",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 30"
+      },
+      "CS:CZ": {
+        "key": "Steam:80",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 80"
+      },
+      "HL:Src": {
+        "key": "Steam:280",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 280"
+      },
+      "CS:Src": {
+        "key": "Steam:240",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 240"
+      },
+      "HL2": {
+        "key": "Steam:220",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 220"
+      },
+      "HL2:DM": {
+        "key": "Steam:320",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 320"
+      },
+      "HL:DM:Src": {
+        "key": "Steam:360",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 360"
+      },
+      "HL2:E1": {
+        "key": "Steam:380",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 380"
+      },
+      "Portal": {
+        "key": "Steam:400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 400"
+      },
+      "HL2:E2": {
+        "key": "Steam:420",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 420"
+      },
+      "TF2": {
+        "key": "Steam:440",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 440"
+      },
+      "L4D": {
+        "key": "Steam:500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 500"
+      },
+      "L4D2": {
+        "key": "Steam:550",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550"
+      },
+      "DOD:Src": {
+        "key": "Steam:300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 300"
+      },
+      "Portal2": {
+        "key": "Steam:620",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 620"
+      },
+      "CS:GO": {
+        "key": "Steam:730",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730"
+      },
+      "D2": {
+        "key": "Steam:570",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 570",
+        "path": "game"
+      },
+      "TheLab:RR": {
+        "key": "Steam:450390",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+        "path": "RobotRepair"
+      },
+      "TheLab:SS": {
+        "key": "Steam:450390",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+        "path": "SecretShop/win64/SecretShop_Data"
+      },
+      "TheLab:TL": {
+        "key": "Steam:450390",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+        "path": "TheLab/win64/TheLab_Data"
+      },
+      "HL:Alyx": {
+        "key": "Steam:546560",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 546560",
+        "path": "game"
       }
     }
   }

@@ -19,21 +19,13 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "AC": {
-          "key": "Thwargle Games/ThwargLauncher",
-          "Thwargle Games/ThwargLauncher": {
-            "xml": "%LocalAppData%/Thwargle_Games/ThwargLauncher.exe_Url_211rsqwjx2ebkbzvsbzaeuk2kg5jvfdw/7.2.0.0/user.config",
-            "xmlPath": "//setting[@name='ACLocation']/value"
-          }
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "AC": {
-          "key": ""
+    "application": {
+      "AC": {
+        "key": "Unknown:AC",
+        "reg": "Thwargle Games/ThwargLauncher",
+        "Thwargle Games/ThwargLauncher": {
+          "xml": "%LocalAppData%/Thwargle_Games/ThwargLauncher.exe_Url_211rsqwjx2ebkbzvsbzaeuk2kg5jvfdw/7.2.0.0/user.config",
+          "xmlPath": "//setting[@name='ACLocation']/value"
         }
       }
     },

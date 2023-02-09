@@ -37,7 +37,8 @@ namespace GameSpec.App.Cli
             if (opts.Uri == null)
             {
                 Console.WriteLine($"{family.Name}\nDescription: {family.Description}\nStudio: {family.Studio}\n");
-                Console.WriteLine($"Games:\n{string.Join("\n", family.Games.Values)}");
+                Console.WriteLine($"Games:\n");
+                foreach (var game in family.Games.Values) Console.WriteLine(game.DisplayedName);
                 Console.WriteLine("\nLocations:");
                 var locations = family.FileManager.Paths;
                 if (locations.Count == 0) { Console.WriteLine($"No locations found for estate {opts.Family}."); return Task.FromResult(0); }

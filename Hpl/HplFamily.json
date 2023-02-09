@@ -66,68 +66,41 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "P:O": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22180",
-          "path": "main"
-        },
-        "P:BP": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22120",
-          "path": "main"
-        },
-        "P:R": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22140",
-          "path": "main"
-        },
-        "A:TDD": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 57300",
-          "path": "main"
-        },
-        "A:AMFP": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 239200",
-          "path": "main"
-        },
-        "SOMA": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282140",
-          "path": "main"
-        },
-        "A:R": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 999220",
-          "path": "main"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "P:O": {
-          "key": "Steam:22180",
-          "path": "main"
-        },
-        "P:BP": {
-          "key": "Steam:22120",
-          "path": "main"
-        },
-        "P:R": {
-          "key": "Steam:22140",
-          "path": "main"
-        },
-        "A:TDD": {
-          "key": "Steam:57300",
-          "path": "main"
-        },
-        "A:AMFP": {
-          "key": "Steam:239200",
-          "path": "main"
-        },
-        "SOMA": {
-          "key": "Steam:282140",
-          "path": "main"
-        },
-        "A:R": {
-          "key": "Steam:999220",
-          "path": "main"
-        }
+    "application": {
+      "P:O": {
+        "key": "Steam:22180",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22180",
+        "path": "main"
+      },
+      "P:BP": {
+        "key": "Steam:22120",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22120",
+        "path": "main"
+      },
+      "P:R": {
+        "key": "Steam:22140",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22140",
+        "path": "main"
+      },
+      "A:TDD": {
+        "key": "Steam:57300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 57300",
+        "path": "main"
+      },
+      "A:AMFP": {
+        "key": "Steam:239200",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 239200",
+        "path": "main"
+      },
+      "SOMA": {
+        "key": "Steam:282140",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282140",
+        "path": "main"
+      },
+      "A:R": {
+        "key": "Steam:999220",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 999220",
+        "path": "main"
       }
     }
   }

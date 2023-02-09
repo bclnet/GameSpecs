@@ -93,8 +93,9 @@ namespace GameSpec.App.Cli
         static string[] argsRed2 = new[] { "export", "-f", "Red", "-u", "game:/krbr.dzip#Witcher2", "--path", @"D:\T_\Witcher2" };
 
         static string[] argsArkane1 = new[] { "export", "-f", "Arkane", "-u", "game:/*.pak#AF", "--path", @"C:\T_\AF" };
-
+        static string[] argsBioware1 = new[] { "list", "-f", "Bioware" };
         static string[] argsValve1 = new[] { "list", "-f", "Valve" };
+        static string[] argsIW1 = new[] { "list", "-f", "IW" };
 
         static void Register()
         {
@@ -106,7 +107,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsValve1)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsIW1)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),

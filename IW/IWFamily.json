@@ -176,77 +176,93 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "COD": {
-          "key": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640" ],
-          "path": [ "Main", "uo" ]
-        },
-        "COD2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
-          "path": "main"
-        },
-        "COD4": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
-          "path": [ "main", "zone/english" ]
-        },
-        "WaW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10090",
-          "path": [ "main", "zone/english" ]
-        },
-        "MW2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
-          "path": [ "main", "zone/english" ]
-        },
-        "BO": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
-          "path": [ "main", "zone/Common", "zone/English" ]
-        },
-        "MW3": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
-          "path": [ "main", "zone/english" ]
-        },
-        "BO2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 202970",
-          "path": [ "sound", "zone/all", "zone/english" ]
-        },
-        "Ghosts": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209160",
-          "path": [ ".", "english" ]
-        },
-        "AW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209650",
-          "path": [ ".", "english" ]
-        },
-        "BO3": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 311210",
-          "path": [ "zone" ]
-        },
-        "IW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 292730",
-          "path": [ ".", "english" ]
-        },
-        "WWII": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600",
-          "path": [ ".", "english" ]
-        },
-        "BO4": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4"
-        },
-        "MW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 393080",
-          "path": [ ".", "english" ]
-        },
-        "BOCW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops Cold War"
-        },
-        "Vanguard": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Vanguard"
-        },
-        "COD:MW2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090",
-          "path": [ ".", "sp22" ]
-        }
+    "application": {
+      "COD": {
+        "key": [ "Steam:2620", "Steam:2640" ],
+        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640" ],
+        "path": [ "Main", "uo" ]
+      },
+      "COD2": {
+        "key": "Steam:2630",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
+        "path": "main"
+      },
+      "COD4": {
+        "key": "Steam:7940",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
+        "path": [ "main", "zone/english" ]
+      },
+      "WaW": {
+        "key": "Steam:10090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10090",
+        "path": [ "main", "zone/english" ]
+      },
+      "MW2": {
+        "key": "Steam:10180",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
+        "path": [ "main", "zone/english" ]
+      },
+      "BO": {
+        "key": "Steam:42700",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
+        "path": [ "main", "zone/Common", "zone/English" ]
+      },
+      "MW3": {
+        "key": "Steam:42680",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
+        "path": [ "main", "zone/english" ]
+      },
+      "BO2": {
+        "key": "Steam:202970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 202970",
+        "path": [ "sound", "zone/all", "zone/english" ]
+      },
+      "Ghosts": {
+        "key": "Steam:209160",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209160",
+        "path": [ ".", "english" ]
+      },
+      "AW": {
+        "key": "Steam:209650",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209650",
+        "path": [ ".", "english" ]
+      },
+      "BO3": {
+        "key": "Steam:311210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 311210",
+        "path": [ "zone" ]
+      },
+      "IW": {
+        "key": "Steam:292730",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 292730",
+        "path": [ ".", "english" ]
+      },
+      "WWII": {
+        "key": "Steam:476600",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600",
+        "path": [ ".", "english" ]
+      },
+      "BO4": {
+        "key": "Blizzard:Call of Duty Black Ops 4",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4"
+      },
+      "MW": {
+        "key": "Steam:393080",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 393080",
+        "path": [ ".", "english" ]
+      },
+      "BOCW": {
+        "key": "Blizzard:Call of Duty Black Ops Cold War",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops Cold War"
+      },
+      "Vanguard": {
+        "key": "Blizzard:Call of Duty Vanguard",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Vanguard"
+      },
+      "COD:MW2": {
+        "key": "Steam:1938090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090",
+        "path": [ ".", "sp22" ]
       }
     }
   }

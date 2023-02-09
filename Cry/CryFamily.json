@@ -63,82 +63,50 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "ArcheAge": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 304030"
-        },
-        "Hunt": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 594650",
-          "path": [ "engine", "game_hunt" ]
-        },
-        "MWO": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 342200",
-          "path": "Game"
-        },
-        "Warface": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 291480",
-          "path": [ "13_2000076/Engine", "13_2000076/Game" ]
-        },
-        "Wolcen": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 424370",
-          "path": [ "Engine", "Game" ]
-        },
-        "Crysis": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1715130",
-          "path": [ "Engine", "Game" ]
-        },
-        "Ryse": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 302510",
-          "path": [ "Engine", "GameRyse" ]
-        },
-        "Robinson": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 579820",
-          "path": [ "engine", "game_robinson" ]
-        },
-        "Snow": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 244930",
-          "path": "Assets"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "ArcheAge": {
-          "key": "Steam:304030"
-        },
-        "Hunt": {
-          "key": "Steam:594650",
-          "path": [ "engine", "game_hunt" ]
-        },
-        "MWO": {
-          "key": "Steam:342200",
-          "path": "Game"
-        },
-        "Warface": {
-          "key": "Steam:291480",
-          "path": [ "13_2000076/Engine", "13_2000076/Game" ]
-        },
-        "Wolcen": {
-          "key": "Steam:424370",
-          "path": [ "Engine", "Game" ]
-        },
-        "Crysis": {
-          "key": "Steam:1715130",
-          "path": [ "Engine", "Game" ]
-        },
-        "Ryse": {
-          "key": "Steam:302510",
-          "path": [ "Engine", "GameRyse" ]
-        },
-        "Robinson": {
-          "key": "Steam:579820",
-          "path": [ "engine", "game_robinson" ]
-        },
-        "Snow": {
-          "key": "Steam:244930",
-          "path": "Assets"
-        }
+    "application": {
+      "ArcheAge": {
+        "key": "Steam:304030",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 304030"
+      },
+      "Hunt": {
+        "key": "Steam:594650",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 594650",
+        "path": [ "engine", "game_hunt" ]
+      },
+      "MWO": {
+        "key": "Steam:342200",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 342200",
+        "path": "Game"
+      },
+      "Warface": {
+        "key": "Steam:291480",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 291480",
+        "path": [ "13_2000076/Engine", "13_2000076/Game" ]
+      },
+      "Wolcen": {
+        "key": "Steam:424370",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 424370",
+        "path": [ "Engine", "Game" ]
+      },
+      "Crysis": {
+        "key": "Steam:1715130",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1715130",
+        "path": [ "Engine", "Game" ]
+      },
+      "Ryse": {
+        "key": "Steam:302510",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 302510",
+        "path": [ "Engine", "GameRyse" ]
+      },
+      "Robinson": {
+        "key": "Steam:579820",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 579820",
+        "path": [ "engine", "game_robinson" ]
+      },
+      "Snow": {
+        "key": "Steam:244930",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 244930",
+        "path": "Assets"
       }
     }
   }

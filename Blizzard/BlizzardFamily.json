@@ -214,84 +214,54 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "SC": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft"
-        },
-        "D2R": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo II Resurrected"
-        },
-        "W3": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Warcraft III"
-        },
-        "WOW": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/World of Warcraft"
-        },
-        "SC2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft II"
-        },
-        "D3": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo III"
-        },
-        "HS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Hearthstone"
-        },
-        "HOTS": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Heroes of the Storm"
-        },
-        "CB": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Crash Bandicoot 4"
-        },
-        "DI": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo Immortal"
-        },
-        "OW2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Overwatch"
-        },
-        "D4": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo IV"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "SC": {
-          "key": "Blizzard:StarCraft"
-        },
-        "D2R": {
-          "key": "Blizzard:Diablo II Resurrected"
-        },
-        "W3": {
-          "key": "Blizzard:Warcraft III"
-        },
-        "WOW": {
-          "key": "Blizzard:World of Warcraft"
-        },
-        "SC2": {
-          "key": "Blizzard:StarCraft II"
-        },
-        "D3": {
-          "key": "Blizzard:Diablo III"
-        },
-        "HS": {
-          "key": "Blizzard:Hearthstone"
-        },
-        "HOTS": {
-          "key": "Blizzard:Heroes of the Storm"
-        },
-        "CB": {
-          "key": "Blizzard:Crash Bandicoot 4"
-        },
-        "DI": {
-          "key": "Blizzard:Diablo Immortal"
-        },
-        "OW2": {
-          "key": "Blizzard:Overwatch"
-        },
-        "D4": {
-          "key": "Blizzard:Diablo IV"
-        }
+    "application": {
+      "SC": {
+        "key": "Blizzard:StarCraft",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft"
+      },
+      "D2R": {
+        "key": "Blizzard:Diablo II Resurrected",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo II Resurrected"
+      },
+      "W3": {
+        "key": "Blizzard:Warcraft III",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Warcraft III"
+      },
+      "WOW": {
+        "key": "Blizzard:World of Warcraft",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/World of Warcraft"
+      },
+      "SC2": {
+        "key": "Blizzard:StarCraft II",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft II"
+      },
+      "D3": {
+        "key": "Blizzard:Diablo III",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo III"
+      },
+      "HS": {
+        "key": "Blizzard:Hearthstone",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Hearthstone"
+      },
+      "HOTS": {
+        "key": "Blizzard:Heroes of the Storm",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Heroes of the Storm"
+      },
+      "CB": {
+        "key": "Blizzard:Crash Bandicoot 4",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Crash Bandicoot 4"
+      },
+      "DI": {
+        "key": "Blizzard:Diablo Immortal",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo Immortal"
+      },
+      "OW2": {
+        "key": "Blizzard:Overwatch",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Overwatch"
+      },
+      "D4": {
+        "key": "Blizzard:Diablo IV",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo IV"
       }
     }
   }

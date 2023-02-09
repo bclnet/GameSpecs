@@ -14,6 +14,27 @@ namespace GameSpec.FileManagers
     {
         #region Parse File-Manager
 
+        public override FileManager ParseFileManager(JsonElement elem)
+        {
+            AddRegistry(elem);
+            base.ParseFileManager(elem);
+            if (!elem.TryGetProperty("windows", out var z)) return this;
+            elem = z;
+            AddDirect(elem);
+            AddIgnores(elem);
+            AddFilters(elem);
+            return this;
+        }
+
+        protected void AddRegistry(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("registry", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("reg", out z))
+                    foreach (var reg in z.GetStringOrArray())
+                        if (TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
+        }
+
         protected static bool TryGetRegistryByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
         {
             path = GetRegistryExePath(new[] { $@"Wow6432Node\{key}", key });
@@ -59,29 +80,6 @@ namespace GameSpec.FileManagers
                 }
                 catch { return null; }
             return null;
-        }
-
-        public override FileManager ParseFileManager(JsonElement elem)
-        {
-            base.ParseFileManager(elem);
-            if (!elem.TryGetProperty("windows", out var z)) return this;
-            elem = z;
-
-            AddRegistry(elem);
-            AddDirect(elem);
-            AddIgnores(elem);
-            AddFilters(elem);
-
-            return this;
-        }
-
-        protected void AddRegistry(JsonElement elem)
-        {
-            if (!elem.TryGetProperty("registry", out var z)) return;
-            foreach (var prop in z.EnumerateObject())
-                if (prop.Value.TryGetProperty("key", out z))
-                    foreach (var key in z.GetStringOrArray())
-                        if (TryGetRegistryByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
         }
 
         #endregion

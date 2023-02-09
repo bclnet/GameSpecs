@@ -15,20 +15,12 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "StarCitizen": {
-          "key": "81bfc699-f883-50c7-b674-2483b6baae23",
-          "81bfc699-f883-50c7-b674-2483b6baae23": {
-            "path": "%path%/../StarCitizen/LIVE"
-          }
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "StarCitizen": {
-          "key": ""
+    "application": {
+      "StarCitizen": {
+        "key": "StarCitizen:0",
+        "reg": "81bfc699-f883-50c7-b674-2483b6baae23",
+        "81bfc699-f883-50c7-b674-2483b6baae23": {
+          "path": "%path%/../StarCitizen/LIVE"
         }
       }
     }

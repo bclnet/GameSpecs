@@ -1,6 +1,8 @@
 ﻿//#define Arkane
-#define Valve
+#define Bioware
+//#define Valve
 //#define Id
+//#define IW
 
 namespace GameSpec
 {

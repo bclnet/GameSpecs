@@ -1,4 +1,5 @@
-﻿using GameSpec.Formats;
+﻿using GameSpec.Base.FileManagers;
+using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -121,11 +122,12 @@ namespace GameSpec
 
         static IEnumerable<string> ExpandGameFilePaths(FamilyGame game, IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
         {
-            foreach (var path in ExpandAndSearchPaths(fileSystem, ignore, paths, pathOrPattern))
-                yield return path;
+            foreach (var gamePath in game.Paths ?? new[] { "." })
+                foreach (var path in ExpandAndSearchPaths(fileSystem, ignore, paths, gamePath, pathOrPattern))
+                    yield return path;
         }
 
-        static IEnumerable<string> ExpandAndSearchPaths(IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
+        static IEnumerable<string> ExpandAndSearchPaths(IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string gamePath, string pathOrPattern)
         {
             // expand
             int expandStartIdx, expandMidIdx, expandEndIdx;
@@ -135,7 +137,7 @@ namespace GameSpec
                 expandStartIdx < expandEndIdx)
             {
                 foreach (var expand in pathOrPattern.Substring(expandStartIdx + 1, expandEndIdx - expandStartIdx - 1).Split(':'))
-                    foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, paths, pathOrPattern.Remove(expandStartIdx, expandEndIdx - expandStartIdx + 1).Insert(expandStartIdx, expand)))
+                    foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, paths, gamePath, pathOrPattern.Remove(expandStartIdx, expandEndIdx - expandStartIdx + 1).Insert(expandStartIdx, expand)))
                         yield return found;
                 yield break;
             }
@@ -146,7 +148,7 @@ namespace GameSpec
                 if (searchPattern.IndexOf('*') != -1)
                 {
                     foreach (var directory in fileSystem.GetDirectories(path, searchPattern))
-                        foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, Path.GetFileName(pathOrPattern)))
+                        foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, gamePath, Path.GetFileName(pathOrPattern)))
                             yield return found;
                     yield break;
                 }
@@ -223,18 +225,17 @@ namespace GameSpec
 
         #region Parse File-Manager
 
-        protected static bool TryGetSingleFileValue(string path, string ext, string select, out string value)
+        static bool TryGetStorePathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
         {
-            value = null;
-            if (!File.Exists(path)) return false;
-            var content = File.ReadAllText(path);
-            value = ext switch
+            var parts = key.Split(':', 2);
+            return parts[0] switch
             {
-                "xml" => XDocument.Parse(content).XPathSelectElement(select)?.Value,
-                _ => throw new ArgumentOutOfRangeException(nameof(ext)),
+                "Steam" => SteamStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
+                "GOG" => GogStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
+                "Blizzard" => BlizzardStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
+                "Epic" => EpicStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
+                _ => throw new ArgumentOutOfRangeException(nameof(key), parts[0]),
             };
-            if (value != null) value = Path.GetDirectoryName(value);
-            return true;
         }
 
         protected void AddPath(JsonProperty prop, string path)
@@ -276,6 +277,7 @@ namespace GameSpec
 
         public virtual FileManager ParseFileManager(JsonElement elem)
         {
+            AddApplication(elem);
             AddDirect(elem);
             AddIgnores(elem);
             AddFilters(elem);
@@ -303,6 +305,29 @@ namespace GameSpec
             if (!elem.TryGetProperty("filters", out var z)) return;
             foreach (var prop in z.EnumerateObject())
                 foreach (var filter in prop.Value.EnumerateObject()) AddFilter(prop, filter.Name, filter.Value);
+        }
+
+        protected void AddApplication(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("application", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("key", out z))
+                    foreach (var key in z.GetStringOrArray())
+                        if (TryGetStorePathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
+        }
+
+        protected static bool TryGetSingleFileValue(string path, string ext, string select, out string value)
+        {
+            value = null;
+            if (!File.Exists(path)) return false;
+            var content = File.ReadAllText(path);
+            value = ext switch
+            {
+                "xml" => XDocument.Parse(content).XPathSelectElement(select)?.Value,
+                _ => throw new ArgumentOutOfRangeException(nameof(ext)),
+            };
+            if (value != null) value = Path.GetDirectoryName(value);
+            return true;
         }
 
         #endregion

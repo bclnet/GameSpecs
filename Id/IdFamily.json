@@ -194,78 +194,50 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "Q": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2310"
-        },
-        "Q2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2320"
-        },
-        "Q3:A": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        },
-        "D3": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9050"
-        },
-        "Q:L": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        },
-        "R": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        },
-        "D": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        },
-        "D:VFR": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 650000"
-        },
-        "R2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        },
-        "D:E": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        },
-        "Q:C": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "Q": {
-          "key": "Steam:2310"
-        },
-        "Q2": {
-          "key": "Steam:2320"
-        },
-        "Q3:A": {
-          "key": "Steam:0"
-        },
-        "D3": {
-          "key": "Steam:9050"
-        },
-        "Q:L": {
-          "key": "Steam:0"
-        },
-        "R": {
-          "key": "Steam:0"
-        },
-        "D": {
-          "key": "Steam:0"
-        },
-        "D:VFR": {
-          "key": "Steam:650000"
-        },
-        "R2": {
-          "key": "Steam:0"
-        },
-        "D:E": {
-          "key": "Steam:0"
-        },
-        "Q:C": {
-          "key": "Steam:0"
-        }
+    "application": {
+      "Q": {
+        "key": "Steam:2310",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2310"
+      },
+      "Q2": {
+        "key": "Steam:2320",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2320"
+      },
+      "Q3:A": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+      },
+      "D3": {
+        "key": "Steam:9050",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9050"
+      },
+      "Q:L": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+      },
+      "R": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+      },
+      "D": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+      },
+      "D:VFR": {
+        "key": "Steam:650000",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 650000"
+      },
+      "R2": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+      },
+      "D:E": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+      },
+      "Q:C": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
       }
     }
   }

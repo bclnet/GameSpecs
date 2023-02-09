@@ -34,52 +34,31 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "AmongUs": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 945360",
-          "path": "Among Us_Data"
-        },
-        "Cities": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 255710",
-          "path": "Cities_Data"
-        },
-        "Tabletop": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 286160",
-          "path": "Tabletop Simulator_Data"
-        },
-        "UBoat": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1272010",
-          "path": "Destroyer The U-Boat Hunter_Data"
-        },
-        "7D2D": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 251570",
-          "path": "7DaysToDie_Data"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "AmongUs": {
-          "key": "Steam:945360",
-          "path": "Among Us_Data"
-        },
-        "Cities": {
-          "key": "Steam:255710",
-          "path": "Cities_Data"
-        },
-        "Tabletop": {
-          "key": "Steam:286160",
-          "path": "Tabletop Simulator_Data"
-        },
-        "UBoat": {
-          "key": "Steam:1272010",
-          "path": "Destroyer The U-Boat Hunter_Data"
-        },
-        "7D2D": {
-          "key": "Steam:251570",
-          "path": "7DaysToDie_Data"
-        }
+    "application": {
+      "AmongUs": {
+        "key": "Steam:945360",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 945360",
+        "path": "Among Us_Data"
+      },
+      "Cities": {
+        "key": "Steam:255710",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 255710",
+        "path": "Cities_Data"
+      },
+      "Tabletop": {
+        "key": "Steam:286160",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 286160",
+        "path": "Tabletop Simulator_Data"
+      },
+      "UBoat": {
+        "key": "Steam:1272010",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1272010",
+        "path": "Destroyer The U-Boat Hunter_Data"
+      },
+      "7D2D": {
+        "key": "Steam:251570",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 251570",
+        "path": "7DaysToDie_Data"
       }
     }
   }

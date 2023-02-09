@@ -34,52 +34,30 @@
     }
   },
   "fileManager": {
-    "windows": {
-      "registry": {
-        "BioShock": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",
-          "path": "Content"
-        },
-        "BioShockR": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409710",
-          "path": "ContentBaked/pc"
-        },
-        "BioShock2": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8850",
-          "path": "SP/Content"
-        },
-        "BioShock2R": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409720",
-          "path": "ContentBaked/pc"
-        },
-        "BioShock:Inf": {
-          "key": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8870",
-          "path": "XGame/CookedPCConsole_FR"
-        }
-      }
-    },
-    "macOS": {
-      "application": {
-        "BioShock": {
-          "key": "Steam:7670",
-          "path": "Content"
-        },
-        "BioShockR": {
-          "key": "Steam:409710",
-          "path": "ContentBaked/pc"
-        },
-        "BioShock2": {
-          "key": "Steam:8850",
-          "path": "SP/Content"
-        },
-        "BioShock2R": {
-          "key": "Steam:409720",
-          "path": "ContentBaked/pc"
-        },
-        "BioShock:Inf": {
-          "key": "Steam:8870",
-          "path": "XGame/CookedPCConsole_FR"
-        }
+    "application": {
+      "BioShock": {
+        "key": "Steam:7670",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",
+        "path": "Content"
+      },
+      "BioShockR": {
+        "key": "Steam:409710",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409710",
+        "path": "ContentBaked/pc"
+      },
+      "BioShock2": {
+        "key": "Steam:8850",
+        "path": "SP/Content"
+      },
+      "BioShock2R": {
+        "key": "Steam:409720",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409720",
+        "path": "ContentBaked/pc"
+      },
+      "BioShock:Inf": {
+        "key": "Steam:8870",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8870",
+        "path": "XGame/CookedPCConsole_FR"
       }
     }
   }
