@@ -17,6 +17,12 @@ namespace GameSpec.Base.FileManagers
 
         public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
             => AppPaths.TryGetValue(key, out path);
+        
+        static EpicStoreManager()
+        {
+            var root = GetPath();
+            if (root == null) return;
+        }
 
         static string GetPath()
         {
@@ -35,11 +41,11 @@ namespace GameSpec.Base.FileManagers
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                var paths = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
+                var home = "/Users/Shared";
+                var paths = new[] { "UnrealEngine/Launcher" };
                 return paths
                     .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "appcache")));
+                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "VaultCache")));
             }
             throw new PlatformNotSupportedException();
         }
