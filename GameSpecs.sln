@@ -278,6 +278,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.IdTests", "Id\Game
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Extra", "Base\GameSpec.Extra\GameSpec.Extra.csproj", "{82845847-19A3-4C05-8ACD-DF219729F700}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.StoreManager", "Base\GameSpec.StoreManager\GameSpec.StoreManager.csproj", "{3743FD8B-EE65-4581-B702-093A857C145D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -584,6 +586,10 @@ Global
 		{82845847-19A3-4C05-8ACD-DF219729F700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82845847-19A3-4C05-8ACD-DF219729F700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82845847-19A3-4C05-8ACD-DF219729F700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3743FD8B-EE65-4581-B702-093A857C145D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3743FD8B-EE65-4581-B702-093A857C145D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3743FD8B-EE65-4581-B702-093A857C145D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3743FD8B-EE65-4581-B702-093A857C145D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -668,6 +674,7 @@ Global
 		{5FFD07F5-DD55-485E-A5AB-0F3718CF2CAC} = {ADDD9C65-49FA-4981-BFA6-545759D762F7}
 		{C30B2AAF-D6AF-4613-843B-D87EBE90131C} = {ADDD9C65-49FA-4981-BFA6-545759D762F7}
 		{82845847-19A3-4C05-8ACD-DF219729F700} = {6D2DEF34-0211-49A7-B0CE-8AF7AE738D8A}
+		{3743FD8B-EE65-4581-B702-093A857C145D} = {6D2DEF34-0211-49A7-B0CE-8AF7AE738D8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

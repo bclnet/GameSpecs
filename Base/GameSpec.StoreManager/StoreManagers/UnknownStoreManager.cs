@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace GameSpec.Base.FileManagers
+namespace GameSpec.StoreManagers
 {
     /// <summary>
     /// UnknownStoreManager

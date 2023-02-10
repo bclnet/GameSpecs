@@ -1,7 +1,7 @@
 ﻿//#define Arkane
-//#define Blizzard
-//#define Bioware (GOG)
-#define Valve
+#define Blizzard
+//#define Bioware
+//#define Valve
 //#define Id
 //#define IW
 

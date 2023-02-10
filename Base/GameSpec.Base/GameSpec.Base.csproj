@@ -50,6 +50,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj" />
     <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics\OpenStack.Graphics.csproj" />
+    <ProjectReference Include="..\GameSpec.StoreManager\GameSpec.StoreManager.csproj" />
   </ItemGroup>
 
 </Project>

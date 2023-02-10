@@ -1,12 +1,12 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System;
 using System.Text.Json;
-using System.IO;
 
-namespace GameSpec.Base.FileManagers
+namespace GameSpec.StoreManagers
 {
     /// <summary>
     /// EpicStoreManager

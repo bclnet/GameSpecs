@@ -216,51 +216,55 @@
   "fileManager": {
     "application": {
       "SC": {
-        "key": "Blizzard:StarCraft",
+        "key": "Blizzard:s1",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft"
       },
       "D2R": {
-        "key": "Blizzard:Diablo II Resurrected",
+        "key": "Blizzard:osi",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo II Resurrected"
       },
       "W3": {
-        "key": "Blizzard:Warcraft III",
+        "key": "Blizzard:w3",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Warcraft III"
       },
       "WOW": {
-        "key": "Blizzard:World of Warcraft",
+        "key": "Blizzard:wow",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/World of Warcraft"
       },
+      "WOWC": {
+        "key": "Blizzard:wow_classic",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/World of Warcraft Classic"
+      },
       "SC2": {
-        "key": "Blizzard:StarCraft II",
+        "key": "Blizzard:s2",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/StarCraft II"
       },
       "D3": {
-        "key": "Blizzard:Diablo III",
+        "key": "Blizzard:diablo3",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo III"
       },
       "HS": {
-        "key": "Blizzard:Hearthstone",
+        "key": "Blizzard:hs_beta",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Hearthstone"
       },
       "HOTS": {
-        "key": "Blizzard:Heroes of the Storm",
+        "key": "Blizzard:heroes",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Heroes of the Storm"
       },
       "CB": {
-        "key": "Blizzard:Crash Bandicoot 4",
+        "key": "Blizzard:wlby",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Crash Bandicoot 4"
       },
       "DI": {
-        "key": "Blizzard:Diablo Immortal",
+        "key": "Blizzard:anbs",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo Immortal"
       },
       "OW2": {
-        "key": "Blizzard:Overwatch",
+        "key": "Blizzard:prometheus",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Overwatch"
       },
       "D4": {
-        "key": "Blizzard:Diablo IV",
+        "key": "Blizzard:diablo4",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Diablo IV"
       }
     }

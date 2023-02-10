@@ -16,7 +16,7 @@ namespace GameSpec.FileManagers
 
         public override FileManager ParseFileManager(JsonElement elem)
         {
-            AddRegistry(elem);
+            AddApplicationByRegistry(elem);
             base.ParseFileManager(elem);
             if (!elem.TryGetProperty("windows", out var z)) return this;
             elem = z;
@@ -26,13 +26,13 @@ namespace GameSpec.FileManagers
             return this;
         }
 
-        protected void AddRegistry(JsonElement elem)
+        protected void AddApplicationByRegistry(JsonElement elem)
         {
-            if (!elem.TryGetProperty("registry", out var z)) return;
+            if (!elem.TryGetProperty("application", out var z)) return;
             foreach (var prop in z.EnumerateObject())
                 if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("reg", out z))
                     foreach (var reg in z.GetStringOrArray())
-                        if (TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
+                        if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
         }
 
         protected static bool TryGetRegistryByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)

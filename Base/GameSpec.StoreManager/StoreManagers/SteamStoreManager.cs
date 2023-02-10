@@ -1,13 +1,13 @@
 ﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System;
-using System.IO;
-using System.Text.Json;
-using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
-namespace GameSpec.Base.FileManagers
+namespace GameSpec.StoreManagers
 {
     /// <summary>
     /// SteamStoreManager

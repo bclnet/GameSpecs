@@ -1,12 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using Google.Protobuf;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System;
 using System.Text.Json;
-using System.IO;
 
-namespace GameSpec.Base.FileManagers
+namespace GameSpec.StoreManagers
 {
     /// <summary>
     /// BlizzardStoreManager
@@ -23,14 +23,30 @@ namespace GameSpec.Base.FileManagers
             var root = GetPath();
             if (root == null) return;
             var dbPath = Path.Combine(root, "product.db");
+            if (!File.Exists(dbPath)) { return; }
+            using var s = File.OpenRead(dbPath);
+            Database data;
+            try
+            {
+                data = Database.Parser.ParseFrom(s);
+            }
+            catch (InvalidProtocolBufferException)
+            {
+                data = new Database { ProductInstall = { ProductInstall.Parser.ParseFrom(s) } };
+            }
+            foreach (var app in data.ProductInstall)
+            {
+                var appPath = app.Settings.InstallPath;
+                if (Directory.Exists(appPath)) AppPaths.Add(app.Uid, appPath);
+            }
         }
 
         static string GetPath()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
-                if (key != null && key.GetValue("SteamPath") is string steamPath) return steamPath;
+                var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Battle.net", "Agent");
+                return dbPath;
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {

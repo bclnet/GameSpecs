@@ -34,7 +34,6 @@ namespace GameSpec
         {
             Family.Bootstrap();
             var assembly = Assembly.GetExecutingAssembly();
-
             foreach (var id in FamilyKeys)
                 using (var r = new StreamReader(assembly.GetManifestResourceStream($"GameSpec.Base.Families.{id}Family.json")))
                 {

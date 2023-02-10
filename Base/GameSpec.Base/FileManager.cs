@@ -1,5 +1,4 @@
-﻿using GameSpec.Base.FileManagers;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -153,9 +152,10 @@ namespace GameSpec
                     yield break;
                 }
                 // file
+                var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;
                 var searchIdx = pathOrPattern.IndexOf('*');
-                if (searchIdx == -1) yield return Path.Combine(path, pathOrPattern);
-                else foreach (var file in fileSystem.GetFiles(path, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
+                if (searchIdx == -1) yield return Path.Combine(searchPath, pathOrPattern);
+                else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
             }
         }
 
@@ -224,20 +224,6 @@ namespace GameSpec
         #endregion
 
         #region Parse File-Manager
-
-        static bool TryGetStorePathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
-        {
-            var parts = key.Split(':', 2);
-            return parts[0] switch
-            {
-                "Steam" => SteamStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
-                "GOG" => GogStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
-                "Blizzard" => BlizzardStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
-                "Epic" => EpicStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
-                "Unknown" => UnknownStoreManager.TryGetPathByKey(parts[1], prop, keyElem, out path),
-                _ => throw new ArgumentOutOfRangeException(nameof(key), parts[0]),
-            };
-        }
 
         protected void AddPath(JsonProperty prop, string path)
         {
@@ -314,7 +300,7 @@ namespace GameSpec
             foreach (var prop in z.EnumerateObject())
                 if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("key", out z))
                     foreach (var key in z.GetStringOrArray())
-                        if (TryGetStorePathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
+                        if (!Paths.ContainsKey(prop.Name) && StoreManager.TryGetPathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
         }
 
         protected static bool TryGetSingleFileValue(string path, string ext, string select, out string value)
