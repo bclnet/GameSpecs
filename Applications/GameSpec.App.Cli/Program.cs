@@ -92,9 +92,13 @@ namespace GameSpec.App.Cli
         static string[] argsRed1 = new[] { "export", "-f", "Red", "-u", "game:/main.key#Witcher", "--path", @"D:\T_\Witcher" };
         static string[] argsRed2 = new[] { "export", "-f", "Red", "-u", "game:/krbr.dzip#Witcher2", "--path", @"D:\T_\Witcher2" };
 
-        static string[] argsArkane1 = new[] { "export", "-f", "Arkane", "-u", "game:/*.pak#AF", "--path", @"C:\T_\AF" };
+        static string[] argsArkane1 = new[] { "list", "-f", "Arkane" };
+        static string[] argsArkane2 = new[] { "export", "-f", "Arkane", "-u", "game:/*.pak#AF", "--path", @"C:\T_\AF" };
+        static string[] argsBlizzard1 = new[] { "list", "-f", "Blizzard" };
         static string[] argsBioware1 = new[] { "list", "-f", "Bioware" };
         static string[] argsValve1 = new[] { "list", "-f", "Valve" };
+        static string[] argsValve2 = new[] { "list", "-f", "Valve", "-u", "game:/*_dir.vpk#L4D" };
+        static string[] argsValve3 = new[] { "export", "-f", "Valve", "-u", "game:/*_dir.vpk#L4D", "--path", @"~/T_/L4D" };
         static string[] argsIW1 = new[] { "list", "-f", "IW" };
 
         static void Register()
@@ -107,7 +111,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsBioware1)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsBlizzard1)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),
@@ -115,5 +119,8 @@ namespace GameSpec.App.Cli
                 (ImportOptions opts) => RunImportAsync(opts).GetAwaiter().GetResult(),
                 errs => 1);
         }
+
+        internal static string GetPlatformPath(string path)
+            => path.StartsWith('~') ? path.Substring(1).Insert(0, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) : path;
     }
 }

@@ -26,7 +26,7 @@ namespace GameSpec.App.Cli
         {
             var from = ProgramState.Load(data => Convert.ToInt32(data), 0);
             var family = FamilyManager.GetFamily(opts.Family);
-            await ImportManager.ImportAsync(family, family.ParseResource(opts.Uri), opts.Path, from, opts.Option);
+            await ImportManager.ImportAsync(family, family.ParseResource(opts.Uri), GetPlatformPath(opts.Path), from, opts.Option);
             ProgramState.Clear();
             return 0;
         }

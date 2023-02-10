@@ -153,8 +153,7 @@ namespace GameSpec
                 }
                 // file
                 var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;
-                var searchIdx = pathOrPattern.IndexOf('*');
-                if (searchIdx == -1) yield return Path.Combine(searchPath, pathOrPattern);
+                if (pathOrPattern.IndexOf('*') == -1) yield return Path.Combine(searchPath, pathOrPattern);
                 else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
             }
         }
@@ -234,7 +233,7 @@ namespace GameSpec
             {
                 if (!Directory.Exists(path2)) continue;
                 if (!Paths.TryGetValue(prop.Name, out var z2)) Paths.Add(prop.Name, z2 = new HashSet<string>());
-                z2.Add(path2.Replace('/', '\\'));
+                z2.Add(path2); //.Replace('/', '\\'));
             }
         }
 

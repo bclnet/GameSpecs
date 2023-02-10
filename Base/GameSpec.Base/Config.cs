@@ -1,5 +1,5 @@
 ﻿//#define Arkane
-#define Blizzard
+//#define Blizzard
 //#define Bioware
 //#define Valve
 //#define Id
