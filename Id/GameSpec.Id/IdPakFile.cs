@@ -24,7 +24,7 @@ namespace GameSpec.Id
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public IdPakFile(Family family, string game, string filePath, object tag = null)
+        public IdPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryId.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

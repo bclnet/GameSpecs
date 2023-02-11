@@ -16,7 +16,6 @@ namespace GameSpec.Bioware
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class BiowarePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
         public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
 
         /// <summary>
@@ -26,8 +25,8 @@ namespace GameSpec.Bioware
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BiowarePakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(family, game, filePath), tag)
+        public BiowarePakFile(Family family, FamilyGame game, string filePath, object tag = null)
+            : base(family, game, filePath, GetPackBinary(game, filePath), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
@@ -36,17 +35,19 @@ namespace GameSpec.Bioware
 
         #region GetPackBinary
 
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
+
+        static PakBinary GetPackBinary(FamilyGame game, string filePath)
+            => !filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
+            ? PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game))
+            : ZipInstance;
+
         static PakBinary PackBinaryFactory(FamilyGame game)
             => game.Id switch
             {
                 "TOR" => PakBinaryMyp.Instance,
                 _ => PakBinaryAurora.Instance,
             };
-
-        static PakBinary GetPackBinary(Family family, string game, string filePath)
-            => !filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
-            ? PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game))
-            : ZipInstance;
 
         #endregion
 

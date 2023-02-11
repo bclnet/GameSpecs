@@ -24,7 +24,7 @@ namespace GameSpec.Lith
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public LithPakFile(Family family, string game, string filePath, object tag = null)
+        public LithPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryLith.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

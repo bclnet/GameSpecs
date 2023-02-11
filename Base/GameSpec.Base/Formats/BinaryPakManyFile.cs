@@ -31,7 +31,7 @@ namespace GameSpec.Formats
         /// <param name="filePath">The file path.</param>
         /// <param name="pakBinary">The pak binary.</param>
         /// <param name="tag">The tag.</param>
-        public BinaryPakManyFile(Family family, string game, string filePath, PakBinary pakBinary, object tag = null) : base(family, game, filePath, pakBinary, tag) { }
+        public BinaryPakManyFile(Family family, FamilyGame game, string filePath, PakBinary pakBinary, object tag = null) : base(family, game, filePath, pakBinary, tag) { }
 
         /// <summary>
         /// Closes this instance.

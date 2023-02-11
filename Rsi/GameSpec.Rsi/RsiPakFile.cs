@@ -21,7 +21,7 @@ namespace GameSpec.Rsi
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public RsiPakFile(Family family, string game, string filePath, object tag = null)
+        public RsiPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryP4k.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

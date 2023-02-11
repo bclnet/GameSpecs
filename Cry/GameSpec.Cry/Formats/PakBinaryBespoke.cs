@@ -41,7 +41,7 @@ namespace GameSpec.Cry.Formats
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files;
 
-            switch (source.Game)
+            switch (source.Game.Id)
             {
                 case "ArcheAge":
                     var stream = r.BaseStream;

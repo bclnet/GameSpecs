@@ -1,5 +1,4 @@
-﻿using GameSpec.FileManagers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -68,10 +67,10 @@ namespace GameSpec
         internal static FileManager CreateFileManager()
             => FamilyPlatform.GetPlatformType() switch
             {
-                FamilyPlatform.PlatformType.Windows => new WindowsFileManager(),
-                FamilyPlatform.PlatformType.OSX => new MacOSFileManager(),
-                FamilyPlatform.PlatformType.Linux => new LinuxFileManager(),
-                FamilyPlatform.PlatformType.Android => new AndroidFileManager(),
+                FamilyPlatform.PlatformType.Windows => new FileManager("windows"),
+                FamilyPlatform.PlatformType.OSX => new FileManager("macOS"),
+                FamilyPlatform.PlatformType.Linux => new FileManager("linux"),
+                FamilyPlatform.PlatformType.Android => new FileManager("android"),
                 _ => throw new ArgumentOutOfRangeException(nameof(FamilyPlatform.GetPlatformType), FamilyPlatform.GetPlatformType().ToString()),
             };
 

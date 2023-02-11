@@ -21,7 +21,7 @@ namespace GameSpec.Hpl
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public HplPakFile(Family family, string game, string filePath, object tag = null)
+        public HplPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryHpl.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

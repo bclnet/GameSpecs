@@ -24,7 +24,7 @@ namespace GameSpec.AC
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ACPakFile(Family family, string game, string filePath, object tag = null)
+        public ACPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryAC.Instance, tag)
         {
             Options = PakManyOptions.FilesById;

@@ -1,4 +1,5 @@
 ﻿using GameSpec.Formats;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,15 +10,17 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using static GameSpec.Resource;
+using static Microsoft.Win32.Registry;
 
 namespace GameSpec
 {
     /// <summary>
     /// FileManager
     /// </summary>
-    public abstract class FileManager
+    public class FileManager
     {
         public static readonly IFileSystem DefaultSystem = new StandardSystem();
+        public string platformName;
 
         /// <summary>
         /// IFileSystem
@@ -36,6 +39,8 @@ namespace GameSpec
             public string[] GetDirectories(string path, string searchPattern) => Directory.GetDirectories(path, searchPattern);
             public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
         }
+
+        public FileManager(string platformName) => this.platformName = platformName;
 
         /// <summary>
         /// Gets the host factory.
@@ -80,11 +85,11 @@ namespace GameSpec
         /// <returns></returns>
         public virtual Resource ParseResource(Family family, Uri uri, bool throwOnError = true)
         {
-            if (uri == null) return new Resource { Game = string.Empty };
+            if (uri == null) return new Resource { Game = null };
             var fragment = uri.Fragment?[(uri.Fragment.Length != 0 ? 1 : 0)..];
-            var (gameId, game) = family.GetGame(fragment);
+            var game = family.GetGame(fragment); var gameId = game.Id;
             var fileSystem = game.CreateFileSystem();
-            var r = new Resource { Game = gameId };
+            var r = new Resource { Game = game };
             // game-scheme
             if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(family, fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{gameId}: unable to locate game resources") : Array.Empty<string>());
             // file-scheme
@@ -104,18 +109,17 @@ namespace GameSpec
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">pathOrPattern</exception>
         /// <exception cref="ArgumentOutOfRangeException">pathOrPattern</exception>
-        public string[] FindGameFilePaths(Family family, IFileSystem fileSystem, string game, string pathOrPattern)
+        public string[] FindGameFilePaths(Family family, IFileSystem fileSystem, FamilyGame game, string pathOrPattern)
         {
             fileSystem ??= DefaultSystem;
-            var (_, familyGame) = family.GetGame(game);
-            if (familyGame == null) return null;
+            if (game == null) return null;
             // root folder
-            if (string.IsNullOrEmpty(pathOrPattern)) return Paths.TryGetValue(game, out var z) ? z.ToArray() : null;
+            if (string.IsNullOrEmpty(pathOrPattern)) return Paths.TryGetValue(game.Id, out var z) ? z.ToArray() : null;
             // search folder
             var searchPattern = Path.GetFileName(pathOrPattern);
             if (string.IsNullOrEmpty(searchPattern)) throw new ArgumentOutOfRangeException(nameof(pathOrPattern), pathOrPattern);
-            return Paths.TryGetValue(game, out var paths)
-                ? ExpandGameFilePaths(familyGame, fileSystem, Ignores.TryGetValue(game, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
+            return Paths.TryGetValue(game.Id, out var paths)
+                ? ExpandGameFilePaths(game, fileSystem, Ignores.TryGetValue(game.Id, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
                 : null;
         }
 
@@ -254,6 +258,62 @@ namespace GameSpec
             z2.Add(name, value);
         }
 
+        protected void AddApplicationByRegistry(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("application", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("reg", out z))
+                    foreach (var reg in z.GetStringOrArray())
+                        if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
+        }
+
+        protected static bool TryGetRegistryByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
+        {
+            path = GetRegistryExePath(new[] { $@"Wow6432Node\{key}", key });
+            if (keyElem == null) return !string.IsNullOrEmpty(path);
+            if (keyElem.Value.TryGetProperty("path", out var path2)) { path = Path.GetFullPath(PathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
+            else if (keyElem.Value.TryGetProperty("xml", out var xml)
+                && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
+                && TryGetSingleFileValue(PathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
+                return !string.IsNullOrEmpty(path);
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the executable path.
+        /// </summary>
+        /// <param name="name">Name of the sub.</param>
+        /// <returns></returns>
+        protected static string GetRegistryExePath(string[] paths)
+        {
+            var localMachine64 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+            var currentUser64 = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
+            foreach (var path in paths)
+                try
+                {
+                    var key = path.Replace('/', '\\');
+                    var foundKey = new Func<RegistryKey>[] {
+                        () => localMachine64.OpenSubKey($"SOFTWARE\\{key}"),
+                        () => currentUser64.OpenSubKey($"SOFTWARE\\{key}"),
+                        () => ClassesRoot.OpenSubKey($"VirtualStore\\MACHINE\\SOFTWARE\\{key}") }
+                        .Select(x => x()).FirstOrDefault(x => x != null);
+                    if (foundKey == null) continue;
+                    var foundPath = new[] { "Path", "Install Dir", "InstallDir", "InstallLocation" }
+                        .Select(x => foundKey.GetValue(x) as string)
+                        .FirstOrDefault(x => !string.IsNullOrEmpty(x) || Directory.Exists(x));
+                    if (foundPath == null)
+                    {
+                        foundPath = new[] { "Installed Path", "ExePath", "Exe" }
+                            .Select(x => foundKey.GetValue(x) as string)
+                            .FirstOrDefault(x => !string.IsNullOrEmpty(x) || File.Exists(x));
+                        if (foundPath != null) foundPath = Path.GetDirectoryName(foundPath);
+                    }
+                    if (foundPath != null && Directory.Exists(foundPath)) return foundPath;
+                }
+                catch { return null; }
+            return null;
+        }
+
         protected static string PathWithSpecialFolders(string path, string rootPath = null) =>
             path.StartsWith("%Path%", StringComparison.OrdinalIgnoreCase) ? $"{rootPath}{path[6..]}"
             : path.StartsWith("%AppPath%", StringComparison.OrdinalIgnoreCase) ? $"{FamilyManager.ApplicationPath}{path[9..]}"
@@ -263,7 +323,13 @@ namespace GameSpec
 
         public virtual FileManager ParseFileManager(JsonElement elem)
         {
+            AddApplicationByRegistry(elem);
             AddApplication(elem);
+            AddDirect(elem);
+            AddIgnores(elem);
+            AddFilters(elem);
+            if (!elem.TryGetProperty(platformName, out var z)) return this;
+            elem = z;
             AddDirect(elem);
             AddIgnores(elem);
             AddFilters(elem);

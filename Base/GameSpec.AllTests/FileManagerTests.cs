@@ -29,7 +29,7 @@ namespace GameSpec
             var family = FamilyManager.GetFamily(familyName);
             var fileManager = family.FileManager;
             Assert.IsTrue(fileManager.HasPaths);
-            var abc0 = fileManager.FindGameFilePaths(family, null, game, searchPattern);
+            var abc0 = fileManager.FindGameFilePaths(family, null, family.GetGame(game), searchPattern);
             Assert.AreEqual(1, abc0.Length);
         }
     }

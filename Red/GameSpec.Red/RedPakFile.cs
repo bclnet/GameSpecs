@@ -21,7 +21,7 @@ namespace GameSpec.Red
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public RedPakFile(Family family, string game, string filePath, object tag = null)
+        public RedPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryRed.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

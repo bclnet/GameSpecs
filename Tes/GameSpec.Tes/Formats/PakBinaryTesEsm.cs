@@ -37,23 +37,17 @@ namespace GameSpec.Tes.Formats
         public Dictionary<string, RecordGroup> Groups;
 
         static TesFormat GetFormat(string game)
-        {
-            switch (game)
+            => game switch
             {
                 // tes
-                case "Morrowind": return TesFormat.TES3;
-                case "Oblivion": return TesFormat.TES4;
-                case "Skyrim":
-                case "SkyrimSE":
-                case "SkyrimVR": return TesFormat.TES5;
+                "Morrowind" => TesFormat.TES3,
+                "Oblivion" => TesFormat.TES4,
+                "Skyrim" or "SkyrimSE" or "SkyrimVR" => TesFormat.TES5,
                 // fallout
-                case "Fallout3":
-                case "FalloutNV": return TesFormat.TES4;
-                case "Fallout4":
-                case "Fallout4VR": return TesFormat.TES5;
-                default: throw new ArgumentOutOfRangeException(nameof(game), game);
-            }
-        }
+                "Fallout3" or "FalloutNV" => TesFormat.TES4,
+                "Fallout4" or "Fallout4VR" => TesFormat.TES5,
+                _ => throw new ArgumentOutOfRangeException(nameof(game), game),
+            };
 
         /// <summary>
         /// Reads the asynchronous.
@@ -67,7 +61,7 @@ namespace GameSpec.Tes.Formats
         {
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
-            Format = GetFormat(source.Game);
+            Format = GetFormat(source.Game.Id);
             var recordLevel = 1;
             var filePath = source.FilePath;
             var poolAction = (GenericPoolAction<BinaryReader>)source.GetBinaryReader().Action; //: Leak

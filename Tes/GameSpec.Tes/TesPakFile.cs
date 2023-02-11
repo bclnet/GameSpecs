@@ -24,7 +24,7 @@ namespace GameSpec.Tes
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public TesPakFile(Family family, string game, string filePath, object tag = null)
+        public TesPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, Path.GetExtension(filePath) != ".esm" ? PakBinaryTes.Instance : PakBinaryTesEsm.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

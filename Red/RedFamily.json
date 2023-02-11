@@ -48,6 +48,7 @@
     },
     "Witcher4": {
       "name": "The Witcher 4 Polaris (future)",
+      "url": "https://en.wikipedia.org/wiki/The_Witcher_(video_game_series)",
       "engine": "Unreal",
       "pak": "game:/*#Witcher4"
     }

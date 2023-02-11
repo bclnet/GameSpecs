@@ -34,10 +34,10 @@ namespace GameSpec
         {
             var family = Some.Family;
             Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(null, null));
-            Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(null, "Wrong"));
-            Assert.AreEqual(null, family.OpenPakFile(null, "Wrong", throwOnError: false));
-            Assert.AreEqual(null, family.OpenPakFile(null, "Found"));
-            Assert.IsNotNull(family.OpenPakFile(new string[] { "path" }, "Found"));
+            Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(family.GetGame("Wrong"), null));
+            Assert.AreEqual(null, family.OpenPakFile(family.GetGame("Wrong"), null, throwOnError: false));
+            Assert.AreEqual(null, family.OpenPakFile(family.GetGame("Found"), null));
+            Assert.IsNotNull(family.OpenPakFile(family.GetGame("Found"), new string[] { "path" }));
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace GameSpec
             var family = Some.Family;
             Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(new Resource { }));
             Assert.AreEqual(null, family.OpenPakFile(new Resource { }, throwOnError: false));
-            Assert.IsNotNull(family.OpenPakFile(new Resource { Paths = new[] { "path" }, Game = "Found" }));
+            Assert.IsNotNull(family.OpenPakFile(new Resource { Paths = new[] { "path" }, Game = family.GetGame("Found") }));
         }
 
         [TestMethod]

@@ -23,7 +23,7 @@ namespace GameSpec.Formats
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
         /// <param name="pakFiles">The packs.</param>
-        public MultiPakFile(Family family, string game, string name, IList<PakFile> pakFiles) : base(family, game, name) => PakFiles = pakFiles;
+        public MultiPakFile(Family family, FamilyGame game, string name, IList<PakFile> pakFiles) : base(family, game, name) => PakFiles = pakFiles;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

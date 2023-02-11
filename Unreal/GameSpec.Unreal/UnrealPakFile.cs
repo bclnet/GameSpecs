@@ -21,7 +21,7 @@ namespace GameSpec.Unreal
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnrealPakFile(Family family, string game, string filePath, object tag = null)
+        public UnrealPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryXyz.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

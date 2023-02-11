@@ -43,7 +43,7 @@ namespace GameSpec.Formats
         /// <param name="pakBinary">The pak binary.</param>
         /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">pakBinary</exception>
-        public BinaryPakFile(Family family, string game, string filePath, PakBinary pakBinary, object tag = null)
+        public BinaryPakFile(Family family, FamilyGame game, string filePath, PakBinary pakBinary, object tag = null)
             : base(family, game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)))
         {
             FilePath = filePath ?? throw new ArgumentNullException(nameof(filePath));

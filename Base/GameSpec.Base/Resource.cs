@@ -29,6 +29,6 @@ namespace GameSpec
         /// <summary>
         /// The game
         /// </summary>
-        public string Game;
+        public FamilyGame Game;
     }
 }

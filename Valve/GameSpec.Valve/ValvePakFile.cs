@@ -24,8 +24,8 @@ namespace GameSpec.Valve
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ValvePakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(family, game), tag)
+        public ValvePakFile(Family family, FamilyGame game, string filePath, object tag = null)
+            : base(family, game, filePath, GetPackBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
@@ -37,8 +37,8 @@ namespace GameSpec.Valve
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
 
-        static PakBinary GetPackBinary(Family family, string game)
-            => PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game));
+        static PakBinary GetPackBinary(FamilyGame game)
+            => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game));
 
         static PakBinary PackBinaryFactory(FamilyGame game)
             => game.Engine switch

@@ -11,7 +11,7 @@ namespace GameSpec.App
         {
             foreach (var path in resource.Paths)
             {
-                using var pak = family.OpenPakFile(new[] { path }, resource.Game) as BinaryPakFile;
+                using var pak = family.OpenPakFile(resource.Game, new[] { path }) as BinaryPakFile;
                 if (pak == null) throw new InvalidOperationException("Pak not a BinaryPakFile");
 
                 // import pak

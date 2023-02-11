@@ -1,7 +1,7 @@
 ﻿{
   "id": "Id",
   "name": "Id",
-  "studio": "Id",
+  "studio": "id Software",
   "url": "https://en.wikipedia.org/wiki/List_of_id_Software_games",
   "familyType": "GameSpec.Id.IdFamily, GameSpec.Id",
   "pakFileType": "GameSpec.Id.IdPakFile, GameSpec.Id",

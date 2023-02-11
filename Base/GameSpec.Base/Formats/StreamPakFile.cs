@@ -21,7 +21,7 @@ namespace GameSpec.Formats
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="address">The host.</param>
-        public StreamPakFile(Func<Uri, string, AbstractHost> factory, Family family, string game, string filePath, Uri address = null) : base(family, game, filePath, new PakBinaryCanStream())
+        public StreamPakFile(Func<Uri, string, AbstractHost> factory, Family family, FamilyGame game, string filePath, Uri address = null) : base(family, game, filePath, new PakBinaryCanStream())
         {
             UseBinaryReader = false;
             if (address != null) Host = factory(address, filePath);
@@ -34,7 +34,7 @@ namespace GameSpec.Formats
         /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
-        public StreamPakFile(BinaryPakManyFile parent, Family family, string game, string filePath) : base(family, game, filePath, new PakBinaryCanStream())
+        public StreamPakFile(BinaryPakManyFile parent, Family family, FamilyGame game, string filePath) : base(family, game, filePath, new PakBinaryCanStream())
         {
             UseBinaryReader = false;
             Files = parent.Files;

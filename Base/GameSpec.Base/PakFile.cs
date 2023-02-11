@@ -17,7 +17,7 @@ namespace GameSpec
     public abstract class PakFile : IDisposable
     {
         public readonly Family Family;
-        public readonly string Game;
+        public readonly FamilyGame Game;
         public readonly string Name;
         public readonly IDictionary<Type, Func<string, string>> PathFinders = new Dictionary<Type, Func<string, string>>();
 
@@ -28,7 +28,7 @@ namespace GameSpec
         /// <exception cref="ArgumentNullException">filePaths
         /// or
         /// game</exception>
-        public PakFile(Family family, string game, string name)
+        public PakFile(Family family, FamilyGame game, string name)
         {
             Family = family ?? throw new ArgumentNullException(nameof(family));
             Game = game ?? throw new ArgumentNullException(nameof(game));
@@ -207,7 +207,7 @@ namespace GameSpec
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         public virtual Task<List<MetadataItem.Filter>> GetMetadataItemFiltersAsync(MetadataManager manager)
-            => Task.FromResult(Family.FileFilters.TryGetValue(Game, out var z) ? z.Select(x => new MetadataItem.Filter(x.Key, x.Value)).ToList() : null);
+            => Task.FromResult(Family.FileFilters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetadataItem.Filter(x.Key, x.Value)).ToList() : null);
 
         /// <summary>
         /// Gets the metadata infos.

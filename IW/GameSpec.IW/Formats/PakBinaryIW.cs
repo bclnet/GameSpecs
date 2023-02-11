@@ -204,7 +204,7 @@ namespace GameSpec.IW.Formats
 
         class XSUB_PakFile : BinaryPakManyFile
         {
-            public XSUB_PakFile(Family family, string game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) { Open(); }
+            public XSUB_PakFile(Family family, FamilyGame game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) { Open(); }
         }
 
         #endregion
@@ -240,15 +240,15 @@ namespace GameSpec.IW.Formats
 
             var extension = Path.GetExtension(source.FilePath);
             var files = multiSource.Files = new List<FileMetadata>();
-            var cryptKey = source.Family.Games[source.Game].Key is Family.ByteKey aes ? aes.Key : null;
+            var cryptKey = source.Game.Key is Family.ByteKey aes ? aes.Key : null;
 
-            switch (source.Game)
+            switch (source.Game.Id)
             {
                 case "BO4":
                 case "BOCW":
                 case "Vanguard":
                     source.Magic = (int)Magic.CASC;
-                    var editions = source.Family.Games[source.Game].Editions;
+                    var editions = source.Game.Editions;
                     var product = editions.First().Key;
                     casc = new CascContext();
                     casc.Read(source.FilePath, product, files);

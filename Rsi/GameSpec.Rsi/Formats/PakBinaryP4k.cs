@@ -20,7 +20,7 @@ namespace GameSpec.Rsi.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(Family family, string game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) => Open();
+            public SubPakFile(Family family, FamilyGame game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) => Open();
         }
 
         PakBinaryP4k(byte[] key = null) => Key = key ?? DefaultKey;

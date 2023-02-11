@@ -21,7 +21,7 @@ namespace GameSpec.Cyanide
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CyanidePakFile(Family family, string game, string filePath, object tag = null)
+        public CyanidePakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryCyanide.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

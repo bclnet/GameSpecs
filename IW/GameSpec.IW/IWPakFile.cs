@@ -21,7 +21,7 @@ namespace GameSpec.IW
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public IWPakFile(Family family, string game, string filePath, object tag = null)
+        public IWPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryIW.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

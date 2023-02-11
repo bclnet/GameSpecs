@@ -21,7 +21,7 @@ namespace GameSpec.Blizzard.Formats
             var files = multiSource.Files = new List<FileMetadata>();
 
             // load casc
-            var editions = source.Family.Games[source.Game].Editions;
+            var editions = source.Game.Editions;
             var product = editions.First().Key;
             casc = new CascContext();
             casc.Read(source.FilePath, product, files);

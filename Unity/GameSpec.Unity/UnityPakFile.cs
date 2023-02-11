@@ -21,7 +21,7 @@ namespace GameSpec.Unity
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnityPakFile(Family family, string game, string filePath, object tag = null)
+        public UnityPakFile(Family family, FamilyGame game, string filePath, object tag = null)
             : base(family, game, filePath, PakBinaryUnity.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

@@ -15,7 +15,7 @@ namespace GameSpec.Arkane.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(Family estate, string game, string filePath, object tag = null) : base(estate, game, filePath, Instance, tag) => Open();
+            public SubPakFile(Family estate, FamilyGame game, string filePath, object tag = null) : base(estate, game, filePath, Instance, tag) => Open();
         }
 
         enum Magic
@@ -28,7 +28,6 @@ namespace GameSpec.Arkane.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            var (gameId, game) = source.Family.GetGame(source.Game);
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var extention = Path.GetExtension(source.FilePath);
@@ -38,7 +37,7 @@ namespace GameSpec.Arkane.Formats
                     {
                         source.Magic = (int)Magic.PAK;
                         var files = multiSource.Files = new List<FileMetadata>();
-                        var key = game.Key is Family.ByteKey z ? z.Key : null;
+                        var key = source.Game.Key is Family.ByteKey z ? z.Key : null;
                         int keyLength = key.Length, keyIndex = 0;
 
                         int readFatInteger(ref byte* b)

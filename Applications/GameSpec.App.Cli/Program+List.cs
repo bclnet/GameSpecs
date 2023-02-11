@@ -42,11 +42,7 @@ namespace GameSpec.App.Cli
                 Console.WriteLine("\nLocations:");
                 var locations = family.FileManager.Paths;
                 if (locations.Count == 0) { Console.WriteLine($"No locations found for estate {opts.Family}."); return Task.FromResult(0); }
-                foreach (var location in locations)
-                {
-                    var (name, description) = family.GetGame(location.Key);
-                    Console.WriteLine($"{description} - {string.Join(", ", location.Value)}");
-                }
+                foreach (var location in locations) Console.WriteLine($"{family.GetGame(location.Key)} - {string.Join(", ", location.Value)}");
                 return Task.FromResult(0);
             }
 

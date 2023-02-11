@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\**" />
-    <EmbeddedResource Remove="Data\**" />
-    <None Remove="Data\**" />
+    <Compile Remove="FileManagers\**" />
+    <EmbeddedResource Remove="FileManagers\**" />
+    <None Remove="FileManagers\**" />
   </ItemGroup>
 
   <ItemGroup>

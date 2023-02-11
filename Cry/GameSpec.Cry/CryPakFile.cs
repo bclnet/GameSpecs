@@ -17,7 +17,6 @@ namespace GameSpec.Cry
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class CryPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CryPakFile" /> class.
@@ -26,8 +25,8 @@ namespace GameSpec.Cry
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CryPakFile(Family family, string game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(family, game), tag)
+        public CryPakFile(Family family, FamilyGame game, string filePath, object tag = null)
+            : base(family, game, filePath, GetPackBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
@@ -35,6 +34,11 @@ namespace GameSpec.Cry
         }
 
         #region GetPackBinary
+
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
+
+        static PakBinary GetPackBinary(FamilyGame game)
+            => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game));
 
         static PakBinary PackBinaryFactory(FamilyGame game)
         {
@@ -46,10 +50,7 @@ namespace GameSpec.Cry
             };
         }
 
-        static PakBinary GetPackBinary(Family family, string game)
-            => PakBinarys.GetOrAdd(game, _ => PackBinaryFactory(family.GetGame(game).game));
-
-#endregion
+        #endregion
 
         #region Transforms
 
