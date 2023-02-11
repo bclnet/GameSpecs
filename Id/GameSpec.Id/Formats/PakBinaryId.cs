@@ -14,123 +14,38 @@ namespace GameSpec.Id.Formats
         PakBinaryId() { }
 
         // Headers
-        #region X_Headers
+        // https://github.com/Rupan/HLLib/blob/master/HLLib/WADFile.h
+        #region WAD
 
-        const uint CRLF = 0x0d0a;
+        const uint WAD_MAGIC = 0x33444157; //: WAD3
 
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct X_FileMainHeader
+        [StructLayout(LayoutKind.Sequential)]
+        struct WAD_Header
         {
-            public ushort CrLf1;            // \r\n
-            public fixed byte FileType[60]; // FileType
-            public ushort CrLf2;            // \r\n
-            public fixed byte UserTitle[60];// FileType
-            public ushort CrLf3;            // \r\n
-            public byte Eof1;               // Eof
-            public uint FileFormatVersion;  // The file format version number only 1 is possible here right now
-            public uint RootDirPos;         // Position of the root directory structure in the file
-            public uint RootDirSize;        // Size of root directory
-            public uint RootDirTime;        // Time Root dir was last updated
-            public uint NextWritePos;       // Position of first directory in the file
-            public uint Time;               // Time resource file was last updated
-            public uint LargestKeyAry;      // Size of the largest key array in the resource file
-            public uint LargestDirNameSize; // Size of the largest directory name in the resource file (including 0 terminator)
-            public uint LargestRezNameSize; // Size of the largest resource name in the resource file (including 0 terminator)
-            public uint LargestCommentSize; // Size of the largest comment in the resource file (including 0 terminator)
-            public byte IsSorted;           // If 0 then data is not sorted if 1 then it is sorted
+            public uint Signature;
+            public uint LumpCount;
+            public uint LumpOffset;
         }
 
-        enum FileDirEntryType
+        [StructLayout(LayoutKind.Sequential)]
+        struct WAD_Lump
         {
-            ResourceEntry = 0,
-            DirectoryEntry = 1
+            public uint Offset;
+            public uint DiskLength;
+            public uint Length;
+            public byte Type;
+            public byte Compression;
+            public byte Padding0;
+            public byte Padding1;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)] public string Name;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct X_FileDirEntryDirHeader
+        [StructLayout(LayoutKind.Sequential)]
+        struct WAD_LumpInfo
         {
-            public uint Pos;                // File positon of dir entry
-            public uint Size;               // Size of directory data
-            public uint Time;               // Last time anything in directory was modified
-            //public string Name;           // Name of this directory
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct X_FileDirEntryRezHeader
-        {
-            public uint Pos;                // File positon of dir entry
-            public uint Size;               // Size of directory data
-            public uint Time;               // Last time this resource was modified
-            public uint ID;                 // Resource ID number
-            public uint Type;               // Type of resource this is
-            public uint NumKeys;            // The number of keys to read in for this resource
-            //public string Name;           // The name of this resource
-            //public string Comment;        // The comment data for this resource
-            //public int[] Keys;            // The key values for this resource
-        }
-
-        struct X_FileDirEntryHeader
-        {
-            uint Type;
-            X_FileDirEntryRezHeader Rez;
-            X_FileDirEntryDirHeader Dir;
-        }
-
-        #endregion
-
-        // Headers
-        #region Headers
-
-        const uint MAGIC = 0x5241544c;
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct Header
-        {
-            public const int SizeOf = 0x30;
-            public uint Magic;                      // Magic
-            public byte Version;                    // Version
-            fixed byte Unknown1[3];                 // Unknown
-            public int StringsLength;               // DescriptionLength
-            public int DirectoryCount;              // Directorys
-            public int FileCount;                   // Files
-            fixed byte Unknown2[0x1c];              // Unknown
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct HeaderFile
-        {
-            public int StringAt;                    // StringAt
-            public uint Position;                   // Position
-            public int Unknown1;                    // Unknown
-            public int FileSize;                    // FileSize
-            fixed byte Unknown2[0x10];              // Unknown
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct HeaderDirectory
-        {
-            public int StringAt;                    // StringAt
-            public int NextChild;                   // NextChild
-            public int NextBrother;                 // NextBrother
-            public int Count;                       // Count
-        }
-
-        class ArchBase
-        {
-            public ArchDirectory Parent;
-            public string Path;
-        }
-
-        class ArchFile : ArchBase
-        {
-            public int FileSize;
-            public uint Position;
-        }
-
-        class ArchDirectory : ArchBase
-        {
-            public List<ArchBase> Files;
-            public int Count;
+            public uint Width;
+            public uint Height;
+            public uint PaletteSize;
         }
 
         #endregion
@@ -141,70 +56,15 @@ namespace GameSpec.Id.Formats
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             // read file
-            var header = r.ReadT<Header>(sizeof(Header));
-            if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
-            if (header.Version != 3) throw new FormatException("BAD VERSION");
-            source.Version = header.Version;
-            var files = new ArchFile[header.FileCount];
-            var directories = new ArchDirectory[header.DirectoryCount];
-            var strings = r.ReadBytes(header.StringsLength);
-            fixed (byte* stringsB = strings)
+            switch (Path.GetExtension(source.FilePath).ToLowerInvariant())
             {
-                // files
-                var headerFiles = r.ReadTArray<HeaderFile>(sizeof(HeaderFile), header.FileCount);
-                for (var i = 0; i < headerFiles.Length; i++)
-                {
-                    var headerFile = headerFiles[i];
-                    files[i] = new ArchFile
+                case ".wad":
                     {
-                        Path = new string((sbyte*)&stringsB[headerFile.StringAt]),
-                        FileSize = headerFile.FileSize,
-                        Position = headerFile.Position,
-                    };
-                }
-
-                // directories
-                var headerDirectories = r.ReadTArray<HeaderDirectory>(sizeof(HeaderDirectory), header.DirectoryCount);
-                for (var i = 0; i < headerDirectories.Length; i++)
-                {
-                    var headerDirectory = headerDirectories[i];
-                    directories[i] = new ArchDirectory
-                    {
-                        Files = new List<ArchBase>(),
-                        Path = new string((sbyte*)&stringsB[headerDirectory.StringAt]).Replace('\\', '/'),
-                        Count = headerDirectory.Count,
-                    };
-                }
-            }
-
-            // build tree
-            int fileIndex = 0, directoryIdx = 0;
-            while (directoryIdx < directories.Length)
-            {
-                var directory = directories[directoryIdx];
-                directory.Files.Clear();
-                var countIdx = 0;
-                while (true)
-                {
-                    if (countIdx >= directory.Count)
-                    {
-                        if (directory.Parent != null) directory.Parent.Files.Add(directory);
-                        directoryIdx++;
+                        var header = r.ReadT<WAD_Header>(sizeof(WAD_Header));
+                        if (header.Signature != WAD_MAGIC) throw new FormatException("BAD MAGIC");
                         break;
                     }
-                    var file = files[fileIndex++];
-                    file.Parent = directory;
-                    directory.Files.Add(file);
-                    countIdx++;
-                }
             }
-
-            multiSource.Files = directories.SelectMany(x => x.Files.Cast<ArchFile>(), (a, b) => new FileMetadata
-            {
-                Path = $"{a.Path}/{b.Path}",
-                FileSize = b.FileSize,
-                Position = b.Position,
-            }).ToArray();
 
             return Task.CompletedTask;
         }

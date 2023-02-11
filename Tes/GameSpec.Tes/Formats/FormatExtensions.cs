@@ -11,7 +11,7 @@ namespace GameSpec.Tes.Formats
     public static class FormatExtensions
     {
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source)
+        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
         {
             Task<object> NiFactory(BinaryReader r, FileMetadata f, PakFile s) { var file = new NiFile(Path.GetFileNameWithoutExtension(f.Path)); file.Read(r); return Task.FromResult((object)file); }
             return Path.GetExtension(source.Path).ToLowerInvariant() switch

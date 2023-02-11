@@ -1,9 +1,9 @@
 ﻿//#define Arkane
 //#define Blizzard
 //#define Bioware
-//#define Valve
 //#define Id
 //#define IW
+#define Valve
 
 namespace GameSpec
 {
@@ -270,35 +270,40 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            //HL
+            ForcePath = "cached.wad:CONBACK.pic", //HL:Wad#Pic
+            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
+            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level1/fast.fts", //AF:Level
+
             //ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", //Dota2:Texture
 
             ForceOpen = true,
             Family = "Valve",
-            //GameId = "HL", // Half-Life
+            GameId = "HL", // Half-Life
             //GameId = "TF", // Team Fortress Classic
             //GameId = "CS", // Counter-Strike
             //GameId = "Ricochet", // Ricochet
             //GameId = "HL:BS", // Half-Life: Blue Shift
             //GameId = "DOD", // Day of Defeat
             //GameId = "CS:CZ", // Counter-Strike: Condition Zero
-            //GameId = "HL:Src", // Half-Life: Source
-            //GameId = "CS:Src", // Counter-Strike: Source
-            //GameId = "HL2", // Half-Life 2
-            //GameId = "HL2:DM", // Half-Life 2: Deathmatch
-            //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source
-            //GameId = "HL2:E1", // Half-Life 2: Episode One
-            //GameId = "Portal", // Portal
-            //GameId = "HL2:E2", // Half-Life 2: Episode Two
-            //GameId = "TF2", // Team Fortress 2
-            //GameId = "L4D", // Left 4 Dead
-            GameId = "L4D2", // Left 4 Dead 2 [open]
+            //GameId = "HL:Src", // Half-Life: Source [open]
+            //GameId = "CS:Src", // Counter-Strike: Source [open]
+            //GameId = "HL2", // Half-Life 2 [open]
+            //GameId = "HL2:DM", // Half-Life 2: Deathmatch [open]
+            //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source [open]
+            //GameId = "HL2:E1", // Half-Life 2: Episode One [open]
+            //GameId = "Portal", // Portal [open]
+            //GameId = "HL2:E2", // Half-Life 2: Episode Two [open]
+            //GameId = "TF2", // Team Fortress 2 [open]
+            //GameId = "L4D", // Left 4 Dead [open]
+            //GameId = "L4D2", // Left 4 Dead 2 [open]
             //GameId = "DOD:Src", // Day of Defeat: Source [open]
             //GameId = "Portal2", // Portal 2 [open]
             //GameId = "CS:GO", // Counter-Strike: Global Offensive [open]
             //GameId = "D2", // Dota 2 [open]
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open]
-            //GameId = "TheLab:SS", // The Lab: Secret Shop [unity]
-            //GameId = "TheLab:TL", // The Lab: The Lab [unity]
+            //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
+            //GameId = "TheLab:TL", // The Lab: The Lab [!unity]
             //GameId = "HL:Alyx", // Half-Life: Alyx [open]
         };
 #else

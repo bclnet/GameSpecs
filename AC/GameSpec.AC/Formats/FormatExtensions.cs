@@ -29,7 +29,7 @@ namespace GameSpec.AC.Formats
         }
 
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source)
+        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
         {
             var (pakType, type) = ((PakType, PakFileType?))source.ExtraArgs;
             if ((uint)source.Id == Iteration.FILE_ID) return (0, (r, m, s) => Task.FromResult((object)new Iteration(r)));

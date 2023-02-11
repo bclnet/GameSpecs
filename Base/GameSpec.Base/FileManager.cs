@@ -85,17 +85,17 @@ namespace GameSpec
         /// <returns></returns>
         public virtual Resource ParseResource(Family family, Uri uri, bool throwOnError = true)
         {
-            if (uri == null) return new Resource { Game = null };
+            if (uri == null) return new Resource { Game = new FamilyGame() };
             var fragment = uri.Fragment?[(uri.Fragment.Length != 0 ? 1 : 0)..];
-            var game = family.GetGame(fragment); var gameId = game.Id;
+            var game = family.GetGame(fragment);
             var fileSystem = game.CreateFileSystem();
             var r = new Resource { Game = game };
             // game-scheme
-            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(family, fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{gameId}: unable to locate game resources") : Array.Empty<string>());
+            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(family, fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{game.Id}: unable to locate game resources") : Array.Empty<string>());
             // file-scheme
-            else if (uri.IsFile) r.Paths = GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{gameId}: unable to locate file resources") : Array.Empty<string>());
+            else if (uri.IsFile) r.Paths = GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id}: unable to locate file resources") : Array.Empty<string>());
             // network-scheme
-            else r.Paths = GetHttpFilePaths(uri, out r.Host, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{gameId}: unable to locate network resources") : Array.Empty<string>());
+            else r.Paths = GetHttpFilePaths(uri, out r.Host, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id}: unable to locate network resources") : Array.Empty<string>());
             return r;
         }
 

@@ -32,7 +32,7 @@ namespace GameSpec.Formats
         protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>>();
 
         // object-factory
-        protected Func<FileMetadata, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
+        protected Func<FileMetadata, FamilyGame, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakFile" /> class.
@@ -208,7 +208,7 @@ namespace GameSpec.Formats
         {
             if (file.CachedObjectFactory != null) return file.CachedObjectFactory;
 
-            var factory = GetObjectFactoryFactory(file);
+            var factory = GetObjectFactoryFactory(file, Game);
             file.CachedDataOption = factory.option;
             file.CachedObjectFactory = factory.factory ?? FileMetadata.EmptyObjectFactory;
             return file.CachedObjectFactory;

@@ -1,6 +1,6 @@
 import os, json, glob, re
 
-def Readme(games):
+def Readme(gamesBody):
     # read
     f = open('README.md', 'r')
     text = f.read()
@@ -8,7 +8,7 @@ def Readme(games):
     # body
     head, sep, tail = text.partition('''## Games
 ---''')
-    body = head + sep + games
+    body = head + sep + '\n' + gamesBody
     # write
     f = open('README.md', 'w')
     f.write(body)
@@ -46,15 +46,25 @@ def Families():
         })
     return families
 
-def Body(families):
-    header = '''The following are the current games:
+def GamesBody(families):
+    b = ['''The following are the current games:\n
+| ID | Name | Open | Read | Tex | Mdl | Lvl | OpenGl | Unity | Unreal
+| -- | --   | --   | --   | --  | --  | --  | --     | --    | --
+''']
+    for f in families:
+        b.append(f'| **{f["id"]}** | **{f["name"]}**\n')
+        for g in f['games']:
+            open = "open" if "open" in g["status"] else "-"
+            read = "read" if "read" in g["status"] else "-"
+            tex = "tex" if "tex" in g["status"] else "-"
+            mdl = "mdl" if "mdl" in g["status"] else "-"
+            lvl = "lvl" if "lvl" in g["status"] else "-"
+            opengl = "opengl" if "opengl" in g["status"] else "-"
+            unity = "unity" if "unity" in g["status"] else "-"
+            unreal = "unreal" if "unreal" in g["status"] else "-"
+            b.append(f'| [{g["id"]}]({g["url"]}) | {g["name"]} | {open} | {read} | {tex} | {mdl} | {lvl} | {opengl} | {unity} | {unreal}\n')
+    return ''.join(b)
 
-    | ID                                               | Name                      | Sample Game       | Status
-    | --                                               | --                        | --                | --'''
-    breakx = '''
-    | **ID**                                           |                           |                   |'''
-    game = '''
-    | game | gm|                   |'''
-
-print(Families())
-print('done')
+body = GamesBody(Families())
+# print(body)
+Readme(body)

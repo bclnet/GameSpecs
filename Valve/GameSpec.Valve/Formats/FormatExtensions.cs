@@ -12,7 +12,7 @@ namespace GameSpec.Valve.Formats
     public static class FormatExtensions
     {
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source)
+        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
         {
             Task<object> BinaryPakFactory(BinaryReader r, FileMetadata f, PakFile s)
             {
@@ -39,6 +39,7 @@ namespace GameSpec.Valve.Formats
             }
             return Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
+                var x when game.Engine == "Valve1" && (x == ".pic" || x == ".txt" || x == ".fnt") => (0, BinaryWad.Factory),
                 _ => (0, BinaryPakFactory),
             };
         }

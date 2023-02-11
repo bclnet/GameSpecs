@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using static GameSpec.Resource;
 
 namespace GameSpec
@@ -227,7 +228,10 @@ namespace GameSpec
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         public PakFile OpenPakFile(FamilyGame game, string[] paths, int index = 0, bool throwOnError = true)
-            => CreatePakFile(game ?? throw new ArgumentNullException(nameof(game)), paths?.Length != 0 ? paths : throw new ArgumentOutOfRangeException(nameof(paths)), index, null, PakOptions, throwOnError);
+            => CreatePakFile(
+                game ?? throw new ArgumentNullException(nameof(game)), 
+                paths?.Length != 0 ? paths : throw new ArgumentOutOfRangeException(nameof(paths)), 
+                index, null, PakOptions, throwOnError);
 
         /// <summary>
         /// Opens the estates pak file.
@@ -235,19 +239,26 @@ namespace GameSpec
         /// <param name="resource">The resource.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(Resource resource, bool throwOnError = true)
-            => CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)), 0, resource.Host, resource.Options, throwOnError);
+        public PakFile OpenPakFile(Resource resource, int index = 0, bool throwOnError = true)
+            => CreatePakFile(
+                resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)),
+                resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)),
+                index, resource.Host, resource.Options, throwOnError);
 
         /// <summary>
         /// Opens the estates pak file.
         /// </summary>
         /// <param name="uri">The URI.</param>
+        /// <param name="index">The index.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(Uri uri, bool throwOnError = true)
+        public PakFile OpenPakFile(Uri uri, int index = 0, bool throwOnError = true)
         {
             var resource = FileManager.ParseResource(this, uri);
-            return CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)), 0, resource.Host, resource.Options, throwOnError);
+            return CreatePakFile(
+                resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), 
+                resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)),
+                index, resource.Host, resource.Options, throwOnError);
         }
 
         #endregion
