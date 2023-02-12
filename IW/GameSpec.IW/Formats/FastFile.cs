@@ -102,7 +102,7 @@ namespace GameSpec.IW.Formats
                     if (argCount > 0)
                     {
                         var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
-                        var argsNames = r.ReadTArray(r => r.ReadZASCII(), argCount);
+                        var argsNames = r.ReadTArray(r => r.ReadZAString(), argCount);
                         if (argsNames[argCount - 1] == "\u0005") { argCount--; r.Skip(-2); }
                         for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
                     }
@@ -360,7 +360,7 @@ namespace GameSpec.IW.Formats
             public COD_Shader(BinaryReader r)
             {
                 Pointers = r.ReadTArray<int>(sizeof(int), 36);  // 36 pointers (0x90 bytes) (bytes 0x19 up to 0x22 say if we get any content at all?)
-                Name = r.ReadZASCII();                          // Then techset file name (0x00 termination) if pointer is 0xFFFFFFFF?
+                Name = r.ReadZAString();                          // Then techset file name (0x00 termination) if pointer is 0xFFFFFFFF?
 
                 // start of shader pack
                 while (r.ReadInt32() != -1) // pointer (-1)

@@ -125,10 +125,10 @@ namespace GameSpec.Unity.Formats
 
                 public FileDependency(BinaryReader r, uint format, bool bigEndian)
                 {
-                    BufferedPath = format >= 6 ? r.ReadZASCII(1000) : null;
+                    BufferedPath = format >= 6 ? r.ReadZAString(1000) : null;
                     Guid = format >= 5 ? r.ReadGuid() : Guid.Empty;
                     Type = format >= 5 ? r.ReadUInt32E(bigEndian) : 0U;
-                    AssetPath = r.ReadZASCII(1000);
+                    AssetPath = r.ReadZAString(1000);
                 }
             }
 
@@ -338,7 +338,7 @@ namespace GameSpec.Unity.Formats
                     // read strings
                     var appendNullTerminator = typeTreeLen == 0 || treeBuffer[typeTreeLen - 1] != 0;
                     tr.Position(variableFieldsLen);
-                    var stringTable = tr.ReadZASCIIList();
+                    var stringTable = tr.ReadZAStringList();
                     if (appendNullTerminator) stringTable.Add(null);
                     Strings = stringTable.ToArray();
 
@@ -347,7 +347,7 @@ namespace GameSpec.Unity.Formats
                     {
                         //var depListLen = (int)r.ReadUInt32E(bigEndian); Deps = depListLen >= 0 ? r.ReadTArray(_ => r.ReadUInt32E(bigEndian)), depListLen) : new uint[0];
                         if (!secondaryTypeTree) Deps = r.ReadL32EArray<uint>(4, bigEndian);
-                        else Headers = r.ReadZASCIIList().ToArray();
+                        else Headers = r.ReadZAStringList().ToArray();
                     }
                 }
             }
@@ -365,8 +365,8 @@ namespace GameSpec.Unity.Formats
 
                 public TypeField_07(bool hasTypeTree, BinaryReader r, uint version, bool bigEndian)
                 {
-                    Type = r.ReadZASCII(256);
-                    Name = r.ReadZASCII(256);
+                    Type = r.ReadZAString(256);
+                    Name = r.ReadZAString(256);
                     Size = r.ReadUInt32E(bigEndian);
                     if (version == 2) r.Skip(4);
                     else if (version == 3) Index = unchecked((uint)-1);
@@ -421,7 +421,7 @@ namespace GameSpec.Unity.Formats
                     HasTypeTree = true;
                     if (version > 6)
                     {
-                        UnityVersion = r.ReadZASCII(64);
+                        UnityVersion = r.ReadZAString(64);
                         if (UnityVersion[0] < '0' || UnityVersion[0] > '9') { FieldCount = 0; return; }
                         Platform = r.ReadUInt32E(bigEndian);
                     }
@@ -474,7 +474,7 @@ namespace GameSpec.Unity.Formats
                 Preloads = format >= 0x0B ? r.ReadL32EArray((_, b) => new Preload(r, format, bigEndian), bigEndian) : new Preload[0];
                 Dependencies = r.ReadL32EArray((_, b) => new FileDependency(r, format, bigEndian), bigEndian);
                 SecondaryTypes = format >= 0x14 ? r.ReadL32EArray((_, b) => new Type_0D(Tree.HasTypeTree, r, format, bigEndian), bigEndian) : new Type_0D[0];
-                Unknown = r.ReadZASCII();
+                Unknown = r.ReadZAString();
                 // verify
                 Success = Verify(r);
             }
@@ -1495,7 +1495,7 @@ namespace GameSpec.Unity.Formats
                         Offset = _.ReadUInt64E(),
                         DecompressedSize = _.ReadUInt64E(),
                         Flags = _.ReadUInt32E(),
-                        Name = _.ReadZASCII(400),
+                        Name = _.ReadZAString(400),
                     });
                 }
             }
@@ -1549,7 +1549,7 @@ namespace GameSpec.Unity.Formats
 
             public BundleFile(BinaryReader r)
             {
-                Signature = r.ReadZASCII(13);
+                Signature = r.ReadZAString(13);
                 FileVersion = Signature == "UnityArchive" ? 6 : r.ReadUInt32E();
                 // early exit
                 if (FileVersion >= 6)
@@ -1562,8 +1562,8 @@ namespace GameSpec.Unity.Formats
                 }
 
                 // parse remaining header
-                MinPlayerVersion = r.ReadZASCII(24);
-                FileEngineVersion = r.ReadZASCII(64);
+                MinPlayerVersion = r.ReadZAString(24);
+                FileEngineVersion = r.ReadZAString(64);
                 var hasCompression = false;
                 if (FileVersion >= 6)
                 {
@@ -1626,7 +1626,7 @@ namespace GameSpec.Unity.Formats
                         r.Position(DataOffs);
                         Directories3 = r.ReadL32EArray((_, b) => new Directory
                         {
-                            Name = _.ReadZASCII(400),
+                            Name = _.ReadZAString(400),
                             Offset = _.ReadUInt32E(),
                             DecompressedSize = _.ReadUInt32E(),
                         });

@@ -20,6 +20,7 @@ The following are the current familes:
 | [Bioware](Documents/Families/Bioware/Readme.md)  | BioWare Bioware           | Neverwinter Nights| In Development
 | [Blizzard](Documents/Families/Blizzard/Readme.md)| Blizzard                  | World of Warcraft | In Development
 | [Cry](Documents/Families/Cry/Readme.md)          | Crytek                    | MechWarrior Online| In Development
+| [Cryptic](Documents/Families/Cryptic/Readme.md)  | Cryptic                   | Star Trek Online  | In Development
 | [Cyanide](Documents/Families/Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
 | [Hpl](Documents/Families/Hpl/Readme.md)          | Frictional Games          | Amnesia: A Machine for Pigs | In Development
 | [Id](Documents/Families/Id/Readme.md)            | id Software               | Doom              | In Development
@@ -138,6 +139,10 @@ The following are the current games:
 | [Ryse](https://store.steampowered.com/app/302510) | Ryse: Son of Rome | - | - | - | - | - | - | - | -
 | [Robinson](https://store.steampowered.com/app/579820) | Robinson: The Journey | - | - | - | - | - | - | - | -
 | [Snow](https://store.steampowered.com/app/244930) | SNOW - The Ultimate Edition | - | - | - | - | - | - | - | -
+| **Cryptic** | **Cryptic**
+| [CO](https://store.steampowered.com/app/9880) | Champions Online | - | - | - | - | - | - | - | -
+| [STO](https://store.steampowered.com/app/9900) | Star Trek Online | - | - | - | - | - | - | - | -
+| [NVW](https://store.steampowered.com/app/109600) | Neverwinter | - | - | - | - | - | - | - | -
 | **Cyanide** | **Cyanide**
 | [TC](https://store.steampowered.com/app/287630) | The Council | - | - | - | - | - | - | - | -
 | [Werewolf:TA](https://store.steampowered.com/app/679110) | Werewolf: The Apocalypse - Earthblood | - | - | - | - | - | - | - | -

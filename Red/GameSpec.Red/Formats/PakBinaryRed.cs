@@ -624,7 +624,7 @@ namespace GameSpec.Red.Formats
 
                             // name block
                             var filePaths = new string[header.NumFiles];
-                            for (var i = 0; i < header.NumFiles; i++) filePaths[i] = r.ReadZASCII(1000);
+                            for (var i = 0; i < header.NumFiles; i++) filePaths[i] = r.ReadZAString(1000);
 
                             // file block
                             var headerFiles = r.ReadTArray<CACHE_TEX_HeaderFile>(sizeof(CACHE_TEX_HeaderFile), (int)header.NumFiles);

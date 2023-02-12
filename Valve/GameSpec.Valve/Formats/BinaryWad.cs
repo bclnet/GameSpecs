@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class BinaryWad : ITextureInfo, IGetMetadataInfo
+    public unsafe class BinaryWad : ITextureInfo, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryWad(r, f));
 
@@ -35,17 +35,20 @@ namespace GameSpec.Formats
                 height = (int)r.ReadUInt32();
                 var pixels = r.ReadBytes(Width * Height);
                 var palette = r.ReadBytes(r.ReadUInt16() * 3);
-                //for (var i = 0; i < width; i++)
-                //    for (var j = 0; j < height; j++)
-                //    {
-                //        var uiPixelIndex = i + j * width;
-                //        var uiPaletteIndex = (hlUInt)pixels[uiPixelIndex] * 3;
+                var data = new byte[Width * Height * 3];
+                fixed (byte* _ = data)
+                    for (int i = 0, j = 0; i < pixels.Length; i++, j += 3)
+                    {
+                    }
 
-                //        uiPixelIndex *= 3;
-                //        lpPixelData[uiPixelIndex + 0] = lpPalette[uiPaletteIndex + 0];
-                //        lpPixelData[uiPixelIndex + 1] = lpPalette[uiPaletteIndex + 1];
-                //        lpPixelData[uiPixelIndex + 2] = lpPalette[uiPaletteIndex + 2];
-                //    }
+                //    var uiPixelIndex = i + j * width;
+                //    var uiPaletteIndex = (hlUInt)pixels[uiPixelIndex] * 3;
+
+                //    uiPixelIndex *= 3;
+                //    lpPixelData[uiPixelIndex + 0] = lpPalette[uiPaletteIndex + 0];
+                //    lpPixelData[uiPixelIndex + 1] = lpPalette[uiPaletteIndex + 1];
+                //    lpPixelData[uiPixelIndex + 2] = lpPalette[uiPaletteIndex + 2];
+                //}
             }
             else if (type == 0x43)
             {

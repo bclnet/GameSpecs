@@ -3,7 +3,8 @@
 //#define Bioware
 //#define Id
 //#define IW
-#define Valve
+//#define Valve
+#define Cryptic
 
 namespace GameSpec
 {
@@ -96,6 +97,19 @@ namespace GameSpec
             GameId = "Ryse", // Ryse: Son of Rome
             GameId = "Robinson", // Robinson: The Journey
             GameId = "Snow", // SNOW - The Ultimate Edition
+        };
+#elif Cryptic
+        static string[] FamilyKeys = new[] { "Cryptic", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
+            
+            ForceOpen = true,
+            Family = "Cryptic",
+            //GameId = "CO", // Champions Online
+            GameId = "STO", // Star Trek Online
+            //GameId = "NVW", // Neverwinter
         };
 #elif Cyanide
         static string[] FamilyKeys = new[] { "Cyanide", "Unknown" };
@@ -307,7 +321,7 @@ namespace GameSpec
             //GameId = "HL:Alyx", // Half-Life: Alyx [open]
         };
 #else
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cryptic", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
         public static DefaultOptions AppDefaultOptions = new() { };
 #endif

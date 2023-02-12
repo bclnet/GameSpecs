@@ -347,7 +347,7 @@ namespace GameSpec.Tes.Formats
                 for (var i = 0; i < files.Length; i++)
                 {
                     r.Position(filenamesPosition + filenameOffsets[i]);
-                    files[i].Path = r.ReadZASCII(1000).Replace('\\', '/');
+                    files[i].Path = r.ReadZAString(1000).Replace('\\', '/');
                 }
             }
 

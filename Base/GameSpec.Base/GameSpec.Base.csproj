@@ -17,6 +17,7 @@
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
     <EmbeddedResource Include="..\..\Blizzard\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
     <EmbeddedResource Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
+    <EmbeddedResource Include="..\..\Cryptic\CrypticFamily.json" Link="Families\CrypticFamily.json" />
     <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
     <EmbeddedResource Include="..\..\Hpl\HplFamily.json" Link="Families\HplFamily.json" />
     <EmbeddedResource Include="..\..\Id\IdFamily.json" Link="Families\IdFamily.json" />

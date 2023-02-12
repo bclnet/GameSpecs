@@ -14,6 +14,8 @@
     <ProjectReference Include="..\..\Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard.Platform\GameSpec.Blizzard.Platform.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj" />
+    <ProjectReference Include="..\..\Cryptic\GameSpec.Cryptic.Platform\GameSpec.Cryptic.Platform.csproj" />
+    <ProjectReference Include="..\..\Cryptic\GameSpec.Cryptic\GameSpec.Cryptic.csproj" />
     <ProjectReference Include="..\..\Cry\GameSpec.Cry.Platform\GameSpec.Cry.Platform.csproj" />
     <ProjectReference Include="..\..\Cry\GameSpec.Cry\GameSpec.Cry.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj" />
