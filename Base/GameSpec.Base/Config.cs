@@ -4,7 +4,7 @@
 //#define Id
 //#define IW
 //#define Valve
-#define Cryptic
+//#define Cryptic
 
 namespace GameSpec
 {

@@ -54,4 +54,8 @@
     <ProjectReference Include="..\GameSpec.StoreManager\GameSpec.StoreManager.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+  </ItemGroup>
+
 </Project>
