@@ -27,7 +27,7 @@ namespace GameSpec.Valve.Formats.Blocks
             var data = new Dictionary<string, object> { { "_name", refStruct.Name } };
             foreach (var field in refStruct.FieldIntrospection)
             {
-                r.Position(startingOffset + field.OnDiskOffset);
+                r.Seek(startingOffset + field.OnDiskOffset);
                 ReadFieldIntrospection(r, field, ref data);
             }
             // Some structs are padded, so all the field sizes do not add up to the size on disk

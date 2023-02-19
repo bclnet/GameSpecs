@@ -1,15 +1,14 @@
 using GameSpec.Formats;
 using GameSpec.Metadata;
-using ICSharpCode.SharpZipLib.Checksum;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
+using static OpenStack.Debug;
 
 namespace GameSpec.Arkane.Formats.Danae
 {
@@ -195,7 +194,6 @@ namespace GameSpec.Arkane.Formats.Danae
             public int NumAnchors;
             public Vector3 PlayerPos;
             public Vector3 MscenePos;
-            //
             public int NumPortals;
             public int NumRooms;
         }
@@ -234,7 +232,7 @@ namespace GameSpec.Arkane.Formats.Danae
             public Vector3 EndPos;
         }
 
-        public class ROOM_DIST_DATA
+        public struct ROOM_DIST_DATA
         {
             public float Distance; // -1 means use truedist
             public Vector3 StartPos;
@@ -259,6 +257,7 @@ namespace GameSpec.Arkane.Formats.Danae
             int i, j, k, kk;
             var header = r.ReadT<FTS_HEADER>(FTS_HEADER.SizeOf);
             if (header.Version != FTS_VERSION) throw new FormatException("BAD MAGIC");
+            //Log($"Header1: {r.Position():x}, {header.Path}");
             if (header.Count > 0)
             {
                 var count = 0;
@@ -266,10 +265,12 @@ namespace GameSpec.Arkane.Formats.Danae
                 {
                     r.ReadT<FTS_HEADER2>(FTS_HEADER2.SizeOf);
                     r.Skip(512); // skip check
+                    //Log($"Unique[{count}]: {r.Position():x}");
                     count++;
-                    if (count > 60) throw new FormatException("BAD MAGIC");
+                    if (count > 60) throw new FormatException("BAD HEADER");
                 }
             }
+            //Log($"Unique: {r.Position():x}");
 
             Level = new FastLevel();
             Bkg = new E_BACKGROUND();
@@ -279,10 +280,11 @@ namespace GameSpec.Arkane.Formats.Danae
             // read
             var fsh = r2.ReadT<FAST_SCENE_HEADER>(sizeof(FAST_SCENE_HEADER));
             if (fsh.Version != FTS_VERSION) throw new FormatException("BAD MAGIC");
-            if (fsh.SizeX != Bkg.XSize) throw new FormatException("BAD MAGIC");
-            if (fsh.SizeZ != Bkg.ZSize) throw new FormatException("BAD MAGIC");
+            if (fsh.SizeX != Bkg.XSize) throw new FormatException("BAD HEADER");
+            if (fsh.SizeZ != Bkg.ZSize) throw new FormatException("BAD HEADER");
             Level.PlayerPos = fsh.PlayerPos;
             Level.MscenePos = fsh.MscenePos;
+            Log($"Header2: {r2.Position():x}, {sizeof(FAST_SCENE_HEADER)}");
 
             // textures
             var textures = Level.Textures = new E_TEXTURE[fsh.NumTextures];
@@ -291,6 +293,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 var ftc = r2.ReadT<FAST_TEXTURE_CONTAINER>(FAST_TEXTURE_CONTAINER.SizeOf);
                 textures[k] = new E_TEXTURE { Id = ftc.TcPtr, Path = ftc.Fic };
             }
+            //Log($"Texture: {r2.Position():x}");
 
             // backg
             var backg = Bkg.Backg;
@@ -299,6 +302,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 {
                     ref E_BKG_INFO bi = ref backg[i + j * fsh.SizeX];
                     var fsi = r2.ReadT<FAST_SCENE_INFO>(sizeof(FAST_SCENE_INFO));
+                    //if (fsi.NumPoly > 0) Log($"F[{j},{i}]: {r2.Position():x}, {fsi.NumPoly}, {fsi.NumIAnchors}");
                     bi.NumIAnchors = (short)fsi.NumIAnchors;
                     bi.NumPoly = (short)fsi.NumPoly;
                     bi.Polydata = fsi.NumPoly > 0 ? new E_POLY[fsi.NumPoly] : null;
@@ -377,8 +381,9 @@ namespace GameSpec.Arkane.Formats.Danae
 
                     bi.IAnchors = fsi.NumIAnchors <= 0
                         ? null
-                        : r.ReadTArray<int>(sizeof(int), fsi.NumIAnchors);
+                        : r2.ReadTArray<int>(sizeof(int), fsi.NumIAnchors);
                 }
+            //Log($"Background: {r2.Position():x}");
 
             // anchors
             Bkg.NumAnchors = fsh.NumAnchors;
@@ -395,9 +400,10 @@ namespace GameSpec.Arkane.Formats.Danae
                 a.Height = fad.Height;
                 a.Radius = fad.Radius;
                 a.Linked = fad.NumLinked > 0
-                    ? r.ReadTArray<int>(sizeof(int), fad.NumLinked)
+                    ? r2.ReadTArray<int>(sizeof(int), fad.NumLinked)
                     : null;
             }
+            //Log($"Anchors: {r2.Position():x}");
 
             // rooms
             E_PORTAL_DATA portals = null;
@@ -433,9 +439,8 @@ namespace GameSpec.Arkane.Formats.Danae
                 }
                 for (i = 0; i < portals.NumRooms + 1; i++)
                 {
-                    ref E_ROOM_DATA rd = ref portals.Room[i];
+                    var rd = portals.Room[i] = new E_ROOM_DATA();
                     var erd = r2.ReadT<E_SAVE_ROOM_DATA>(sizeof(E_SAVE_ROOM_DATA));
-                    rd.memset();
                     rd.NumPortals = erd.NumPortals;
                     rd.NumPolys = erd.NumPolys;
                     rd.Portals = rd.NumPortals > 0
@@ -446,6 +451,8 @@ namespace GameSpec.Arkane.Formats.Danae
                         : null;
                 }
             }
+            //Log($"Portals: {r2.Position():x}");
+
             if (portals != null)
             {
                 var numRoomDistance = Level.NumRoomDistance = portals.NumRooms + 1;
@@ -462,6 +469,11 @@ namespace GameSpec.Arkane.Formats.Danae
                 Level.NumRoomDistance = 0;
                 Level.RoomDistance = null;
             }
+            //Log($"RoomDistance: {r2.Position():x}");
+            ComputePolyIn();
+            //PATHFINDER_Create();
+            //PORTAL_Blend_Portals_And_Rooms();
+            //ComputePortalVertexBuffer();
         }
 
         static void DeclareEGInfo(E_BACKGROUND bkg, float x, float y, float z)
@@ -482,9 +494,14 @@ namespace GameSpec.Arkane.Formats.Danae
         {
             if (i < 0 || j < 0 || i >= level.NumRoomDistance || j >= level.NumRoomDistance || level.RoomDistance == null) return;
             var offs = i + j * level.NumRoomDistance;
-            level.RoomDistance[offs].StartPos = p1;
-            level.RoomDistance[offs].EndPos = p2;
-            level.RoomDistance[offs].Distance = val;
+            ref ROOM_DIST_DATA rd = ref level.RoomDistance[offs];
+            rd.StartPos = p1;
+            rd.EndPos = p2;
+            rd.Distance = val;
+        }
+
+        static void ComputePolyIn()
+        {
         }
     }
 }

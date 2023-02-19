@@ -6,6 +6,7 @@ using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System;
 
 namespace GameSpec.Arkane
 {
@@ -41,8 +42,12 @@ namespace GameSpec.Arkane
         static PakBinary PackBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
+                "Danae" => PakBinaryDanae.Instance,
+                "Void" => PakBinaryVoid.Instance,
+                "Unreal" => Unreal.Formats.PakBinaryXyz.Instance,
+                "Cry" => Cry.Formats.PakBinaryCry3.Instance,
                 "Valve" => Valve.Formats.PakBinaryVpk.Instance,
-                _ => PakBinaryArkane.Instance,
+                _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
             };
 
         #endregion

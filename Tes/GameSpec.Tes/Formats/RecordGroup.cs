@@ -263,7 +263,7 @@ namespace GameSpec.Tes.Formats
         static int _cellsLoaded = 0;
         void ReadGroup(BinaryReader r, Header header, bool loadAll)
         {
-            r.Position(header.Position);
+            r.Seek(header.Position);
             var endPosition = header.Position + header.DataSize;
             while (r.BaseStream.Position < endPosition)
             {
@@ -293,7 +293,7 @@ namespace GameSpec.Tes.Formats
             var group = new RecordGroup(_poolAction, _filePath, _format, _recordLevel);
             group.AddHeader(recordHeader);
             Groups.Add(group);
-            r.Position(nextPosition);
+            r.Seek(nextPosition);
             // print header path
             var headerPath = string.Join("/", GetHeaderPath(new List<string>(), header).ToArray());
             Console.WriteLine($"Grup: {headerPath} {header.GroupType}");

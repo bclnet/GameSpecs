@@ -675,8 +675,6 @@ namespace GameSpec.Arkane.Formats.Danae
         //public LPDIRECT3DVERTEXBUFFER7 VertexBuffer;
         public uint NumTextures;
         public E_TEXTURE TextureContainer;
-
-        internal void memset() { }
     }
 
     [StructLayout(LayoutKind.Sequential)]

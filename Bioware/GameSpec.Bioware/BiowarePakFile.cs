@@ -4,8 +4,8 @@ using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
-using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Bioware
@@ -16,8 +16,6 @@ namespace GameSpec.Bioware
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class BiowarePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BiowarePakFile" /> class.
         /// </summary>
@@ -26,7 +24,7 @@ namespace GameSpec.Bioware
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public BiowarePakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(game, filePath), tag)
+            : base(family, game, filePath, GetPackBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
@@ -35,17 +33,17 @@ namespace GameSpec.Bioware
 
         #region GetPackBinary
 
-        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
 
-        static PakBinary GetPackBinary(FamilyGame game, string filePath)
-            => !filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
+        static PakBinary GetPackBinary(FamilyGame game, string extension)
+            => extension != ".zip"
             ? PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game))
-            : ZipInstance;
+            : PakBinarySystemZip.Instance;
 
         static PakBinary PackBinaryFactory(FamilyGame game)
-            => game.Id switch
+            => game.Engine switch
             {
-                "TOR" => PakBinaryMyp.Instance,
+                "HeroEngine" => PakBinaryMyp.Instance,
                 _ => PakBinaryAurora.Instance,
             };
 

@@ -9,6 +9,7 @@
   "games": {
     "ArcheAge": {
       "name": "ArcheAge",
+      "engine": "ArcheAge",
       "url": "https://store.steampowered.com/app/304030",
       "pak": "game:/game_pak#ArcheAge",
       "key": "aes:321F2AEEAA584AB49A6C9E09D59E9C6F"

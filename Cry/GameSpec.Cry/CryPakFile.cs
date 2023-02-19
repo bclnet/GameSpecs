@@ -17,7 +17,6 @@ namespace GameSpec.Cry
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class CryPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CryPakFile" /> class.
         /// </summary>
@@ -41,14 +40,11 @@ namespace GameSpec.Cry
             => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game));
 
         static PakBinary PackBinaryFactory(FamilyGame game)
-        {
-            var key = game.Key is Family.ByteKey z ? z.Key : null;
-            return game.Id switch
+            => game.Engine switch
             {
-                "ArcheAge" => new PakBinaryBespoke(key),
-                _ => new PakBinaryCry3(key),
+                "ArcheAge" => new PakBinaryArcheAge(game.Key as Family.ByteKey),
+                _ => new PakBinaryCry3(game.Key as Family.ByteKey),
             };
-        }
 
         #endregion
 

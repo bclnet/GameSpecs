@@ -1,10 +1,11 @@
-﻿using GameSpec.Lith.Formats;
+﻿using GameSpec.Formats;
+using GameSpec.Formats.Unknown;
+using GameSpec.Lith.Formats;
 using GameSpec.Lith.Transforms;
 using GameSpec.Metadata;
-using GameSpec.Formats;
-using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Lith
@@ -15,8 +16,6 @@ namespace GameSpec.Lith
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class LithPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LithPakFile" /> class.
         /// </summary>
@@ -25,12 +24,21 @@ namespace GameSpec.Lith
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public LithPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryLith.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }
+
+        #region GetPackBinary
+
+        static PakBinary GetPackBinary(string filePath)
+            => filePath != ".zip"
+            ? PakBinaryLith.Instance
+            : PakBinarySystemZip.Instance;
+
+        #endregion
 
         #region Transforms
 

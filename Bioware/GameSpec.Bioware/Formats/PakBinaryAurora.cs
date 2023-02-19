@@ -11,7 +11,6 @@ namespace GameSpec.Bioware.Formats
     public unsafe class PakBinaryAurora : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryAurora();
-        PakBinaryAurora() { }
 
         // https://nwn2.fandom.com/wiki/File_formats
 
@@ -218,14 +217,12 @@ namespace GameSpec.Bioware.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource))
-                throw new NotSupportedException();
-            if (stage != ReadStage.File)
-                throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
-
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
+            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files; List<FileMetadata> files2;
-            var magic = source.Magic = r.ReadUInt32();
+
             // KEY
+            var magic = source.Magic = r.ReadUInt32();
             if (magic == KEY_MAGIC) // Signature("KEY ")
             {
                 var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
@@ -234,13 +231,13 @@ namespace GameSpec.Bioware.Formats
                 multiSource.Files = files = new FileMetadata[header.NumFiles];
 
                 // parts
-                r.Position(header.FilesOffset);
+                r.Seek(header.FilesOffset);
                 var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x =>
                 {
-                    r.Position(x.FileNameOffset);
+                    r.Seek(x.FileNameOffset);
                     return (file: x, path: r.ReadFString(x.FileNameSize - 1));
                 }).ToArray();
-                r.Position(header.KeysOffset);
+                r.Seek(header.KeysOffset);
                 var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => x.Id, x => UnsafeX.ReadZASCII(x.Name, 0x10));
 
                 // combine
@@ -269,7 +266,7 @@ namespace GameSpec.Bioware.Formats
                 multiSource.Files = files2 = new List<FileMetadata>();
 
                 // files
-                r.Position(header.FilesOffset);
+                r.Seek(header.FilesOffset);
                 var headerFiles = r.ReadTArray<BIFF_HeaderFile>(sizeof(BIFF_HeaderFile), (int)header.NumFiles);
                 for (var i = 0; i < headerFiles.Length; i++)
                 {
@@ -292,7 +289,7 @@ namespace GameSpec.Bioware.Formats
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData;
-            r.Position(file.Position);
+            r.Seek(file.Position);
             if (source.Version == BIFF_VERSION) fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             else throw new ArgumentOutOfRangeException(nameof(source.Version), $"{source.Version}");
             return Task.FromResult(fileData);

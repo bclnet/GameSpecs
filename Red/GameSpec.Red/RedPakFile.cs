@@ -1,6 +1,6 @@
-﻿using GameSpec.Metadata;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Red.Formats;
 using GameSpec.Red.Transforms;
 using GameSpec.Transforms;

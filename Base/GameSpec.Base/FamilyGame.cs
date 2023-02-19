@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 
 namespace GameSpec
 {
@@ -42,7 +41,6 @@ namespace GameSpec
             /// </summary>
             public string Name { get; set; }
         }
-
 
         /// <summary>
         /// Edition

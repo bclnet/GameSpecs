@@ -46,7 +46,7 @@ namespace GameSpec.Tes.Formats
                 }
                 else if (fieldHeader.Type == "OFST" && Header.Type == "WRLD")
                 {
-                    r.Position(endPosition);
+                    r.Seek(endPosition);
                     continue;
                 }
                 var position = r.BaseStream.Position;

@@ -18,9 +18,9 @@ namespace GameSpec.AC.Formats.Entity
         public StringTableData(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            VarNames = r.ReadL16Array(x => x.ReadC32Unicode());
-            Vars = r.ReadL16Array(x => x.ReadC32Unicode());
-            Strings = r.ReadL32Array(x => x.ReadC32Unicode());
+            VarNames = r.ReadL16Array(x => x.ReadCU32String());
+            Vars = r.ReadL16Array(x => x.ReadCU32String());
+            Strings = r.ReadL32Array(x => x.ReadCU32String());
             Comments = r.ReadL32Array<uint>(sizeof(uint));
             Unknown = r.ReadByte();
         }

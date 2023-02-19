@@ -85,7 +85,7 @@ namespace GameSpec.Valve.Formats
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData;
-            r.Position(file.Position);
+            r.Seek(file.Position);
             fileData = new MemoryStream(file.Compressed == 0
                 ? r.ReadBytes((int)file.FileSize)
                 : throw new NotSupportedException());

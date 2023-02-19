@@ -30,7 +30,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             for (var i = REDIStruct.InputDependencies; i < REDIStruct.End; i++)
             {
                 var block = REDIFactory(i);

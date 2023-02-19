@@ -132,7 +132,7 @@ namespace GameSpec.Valve.Formats.Blocks
                     _ => 0,
                 };
 
-            r.Position(Offset);
+            r.Seek(Offset);
             Reader = r;
             Version = r.ReadUInt16();
             if (Version != 1) throw new FormatException($"Unknown vtex version. ({Version} != expected 1)");
@@ -205,7 +205,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 var unknown5 = r.ReadUInt32(); // 0?
                 var frames = r.Peek(z =>
                 {
-                    z.Position(dataOffset);
+                    z.Seek(dataOffset);
                     var sequenceName = z.ReadZUTF8();
                     var frameUnknown = z.ReadUInt16();
                     for (var j = 0; j < numFrames; j++)

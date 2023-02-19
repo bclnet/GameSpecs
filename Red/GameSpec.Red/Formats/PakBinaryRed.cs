@@ -21,7 +21,6 @@ namespace GameSpec.Red.Formats
     public unsafe class PakBinaryRed : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryRed();
-        PakBinaryRed() { }
 
         // Headers : KEY/BIF (Witcher)
         #region Headers : KEY/BIF
@@ -428,10 +427,9 @@ namespace GameSpec.Red.Formats
         // https://zenhax.com/viewtopic.php?t=3954
         // https://forums.cdprojektred.com/index.php?threads/modding-the-witcher-3-a-collection-of-tools-you-need.64557/
         // https://github.com/rfuzzo/CP77Tools
-
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             FileMetadata[] files; List<FileMetadata> files2;
@@ -449,9 +447,9 @@ namespace GameSpec.Red.Formats
                         multiSource.Files = files = new FileMetadata[header.NumFiles];
 
                         // parts
-                        r.Position(header.FilesOffset);
-                        var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Position(x.FileNameOffset); return (file: x, path: r.ReadFString((int)x.FileNameSize)); }).ToArray();
-                        r.Position(header.KeysOffset);
+                        r.Seek(header.FilesOffset);
+                        var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Seek(x.FileNameOffset); return (file: x, path: r.ReadFString((int)x.FileNameSize)); }).ToArray();
+                        r.Seek(header.KeysOffset);
                         var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => (x.Id, x.ResourceId), x => UnsafeX.ReadZASCII(x.Name, 0x10));
 
                         // combine
@@ -484,7 +482,7 @@ namespace GameSpec.Red.Formats
 
                         // files
                         var fileTypes = BIFF_FileTypes;
-                        r.Position(header.FilesOffset);
+                        r.Seek(header.FilesOffset);
                         var headerFiles = r.ReadTArray<BIFF_HeaderFile>(sizeof(BIFF_HeaderFile), (int)header.NumFiles);
                         for (var i = 0; i < header.NumFiles; i++)
                         {
@@ -509,7 +507,7 @@ namespace GameSpec.Red.Formats
                         source.Version = DZIP_VERSION;
                         multiSource.Files = files = new FileMetadata[header.NumFiles];
                         var cryptKey = source.CryptKey as ulong?;
-                        r.Position((long)header.FilesPosition);
+                        r.Seek((long)header.FilesPosition);
                         var hash = 0x00000000FFFFFFFFUL;
                         for (var i = 0; i < header.NumFiles; i++)
                         {
@@ -559,7 +557,7 @@ namespace GameSpec.Red.Formats
                         multiSource.Files = files = new FileMetadata[header.NumFiles];
 
                         // files
-                        r.Position(0x20);
+                        r.Seek(0x20);
                         var headerFiles = r.ReadTArray<BUNDLE_HeaderFile>(sizeof(BUNDLE_HeaderFile), header.NumFiles);
                         for (var i = 0; i < header.NumFiles; i++)
                         {
@@ -582,7 +580,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<RDAR_Header>(sizeof(RDAR_Header));
                         if (header.Version != 12) throw new FormatException("unsupported version");
                         source.Version = RDAR_MAGIC;
-                        r.Position((long)header.TableOffset);
+                        r.Seek((long)header.TableOffset);
                         var headerTable = r.ReadT<RDAR_HeaderTable>(sizeof(RDAR_HeaderTable));
                         var headerFiles = r.ReadTArray<RDAR_HeaderFile>(sizeof(RDAR_HeaderFile), (int)headerTable.Table1Count);
                         var headerOffsets = r.ReadTArray<RDAR_HeaderOffset>(sizeof(RDAR_HeaderOffset), (int)headerTable.Table2Count);
@@ -610,13 +608,13 @@ namespace GameSpec.Red.Formats
                         if (fileNameWithoutExtension == "texture")
                         {
                             source.Version = 'T';
-                            r.Position(r.BaseStream.Length - 20);
+                            r.Seek(r.BaseStream.Length - 20);
                             var header = r.ReadT<CACHE_TEX_Header>(sizeof(CACHE_TEX_Header));
                             Assert(header.Unk1 == 1415070536);
                             Assert(header.Unk2 == 6);
                             multiSource.Files = files = new FileMetadata[header.NumFiles];
                             var offset = 20 + 12 + (header.NumFiles * 52) + header.NamesSize + (header.ChunksSize * 4);
-                            r.Position(r.BaseStream.Length - offset);
+                            r.Seek(r.BaseStream.Length - offset);
 
                             // check block
                             var headerChunks = r.ReadTArray<uint>(sizeof(uint), (int)header.ChunksSize);
@@ -644,12 +642,12 @@ namespace GameSpec.Red.Formats
                             var header = version >= 2
                                 ? r.ReadT<CACHE_CS3W_Header>(sizeof(CACHE_CS3W_Header))
                                 : r.ReadT<CACHE_CS3W_HeaderV1>(sizeof(CACHE_CS3W_HeaderV1)).ToHeader();
-                            r.Position((long)header.NameOffset);
+                            r.Seek((long)header.NameOffset);
                             var name = r.ReadFString((int)header.NameSize);
                         }
                         else
                         {
-                            r.Position(0);
+                            r.Seek(0);
                             var packedSize = r.ReadUInt32();
                             if (packedSize == 0) packedSize = r.ReadUInt32() << 4;
                             var fileSize = r.ReadUInt32();
@@ -686,7 +684,7 @@ namespace GameSpec.Red.Formats
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData = null;
-            r.Position(file.Position);
+            r.Seek(file.Position);
             switch (source.Version)
             {
                 case BIFF_VERSION:
@@ -706,7 +704,7 @@ namespace GameSpec.Red.Formats
                         {
                             for (var i = 0; i < blocks; i++)
                             {
-                                r.Position(positions[i]);
+                                r.Seek(positions[i]);
                                 var bytesRead = r.DecompressLzf((int)(positions[i + 1] - positions[i + 0]), buffer);
                                 if (i + 1 < blocks && bytesRead != buffer.Length) throw new FormatException();
                                 s.Write(buffer, 0, bytesRead);
@@ -739,7 +737,7 @@ namespace GameSpec.Red.Formats
                         for (var i = startIndex; i < nextIndex; i++)
                         {
                             var offset = offsets[i];
-                            r.Position((long)offset.Offset);
+                            r.Seek((long)offset.Offset);
                             var buf = offset.PhysicalSize == offset.VirtualSize
                                 ? r.ReadBytes((int)offset.PhysicalSize)
                                 : r.DecompressOodleLZ((int)offset.PhysicalSize, (int)offset.VirtualSize);
@@ -871,7 +869,7 @@ namespace GameSpec.Red.Formats
 
                             void Read(long position)
                             {
-                                r.Position(position);
+                                r.Seek(position);
                                 var packedSize = r.ReadUInt32();
                                 var fileSize = r.ReadUInt32();
                                 var part = r.ReadByte();

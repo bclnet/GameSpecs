@@ -89,6 +89,7 @@
     },
     "SWTOR": {
       "name": "Star Wars: The Old Republic",
+      "engine": "HeroEngine",
       "url": "https://store.steampowered.com/app/1286830",
       "date": "2011-12-20",
       "tags": "StarWars",

@@ -1,10 +1,6 @@
-﻿using GameSpec.Formats;
-using OpenStack;
+﻿using OpenStack;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using static GameSpec.Resource;
 
 namespace GameSpec
@@ -151,10 +147,16 @@ namespace GameSpec
             => Games.TryGetValue(id, out var game) ? game : throw new ArgumentOutOfRangeException(nameof(id), id);
 
         /// <summary>
-        /// Gets the estates games.
+        /// Gets the games.
         /// </summary>
         /// <returns></returns>
         public IDictionary<string, FamilyGame> Games { get; set; }
+
+        /// <summary>
+        /// Gets the other games.
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, FamilyGame> OtherGames { get; set; }
 
         /// <summary>
         /// Gets the estates file manager.
@@ -184,42 +186,6 @@ namespace GameSpec
         #region Pak
 
         /// <summary>
-        /// Withes the platform graphic.
-        /// </summary>
-        /// <param name="pakFile">The pak file.</param>
-        /// <returns></returns>
-        static PakFile WithPlatformGraphic(PakFile pakFile)
-        {
-            if (pakFile != null) pakFile.Graphic = FamilyPlatform.GraphicFactory?.Invoke(pakFile);
-            return pakFile;
-        }
-
-        /// <summary>
-        /// Pak file factory.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="index">The index.</param>
-        /// <param name="host">The host.</param>
-        /// <param name="options">The options.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        PakFile CreatePakFile(FamilyGame game, object value, int index, Uri host, PakOption options, bool throwOnError)
-            => WithPlatformGraphic(value switch
-            {
-                string path when index == 0 && PakFileType != null => (PakFile)Activator.CreateInstance(PakFileType, this, game, path, null),
-                string path when index == 1 && Pak2FileType != null => (PakFile)Activator.CreateInstance(Pak2FileType, this, game, path, null),
-                string path when (options & PakOption.Stream) != 0 => new StreamPakFile(FileManager.HostFactory, this, game, path, host),
-                string[] paths when (options & PakOption.Paths) != 0 && index == 0 && PakFileType != null => (PakFile)Activator.CreateInstance(PakFileType, this, game, paths),
-                string[] paths when (options & PakOption.Paths) != 0 && index == 1 && Pak2FileType != null => (PakFile)Activator.CreateInstance(Pak2FileType, this, game, paths),
-                string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], index, host, options, throwOnError),
-                string[] paths when paths.Length > 1 => new MultiPakFile(this, game, "Many", paths.Select(path => CreatePakFile(game, path, index, host, options, throwOnError)).ToArray()),
-                string[] paths when paths.Length == 0 => null,
-                null => null,
-                _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
-            });
-
-        /// <summary>
         /// Opens the estates pak file.
         /// </summary>
         /// <param name="game">The game.</param>
@@ -228,7 +194,7 @@ namespace GameSpec
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         public PakFile OpenPakFile(FamilyGame game, string[] paths, int index = 0, bool throwOnError = true)
-            => CreatePakFile(
+            => FamilyManager.CreatePakFile(this,
                 game ?? throw new ArgumentNullException(nameof(game)), 
                 paths?.Length != 0 ? paths : throw new ArgumentOutOfRangeException(nameof(paths)), 
                 index, null, PakOptions, throwOnError);
@@ -240,7 +206,7 @@ namespace GameSpec
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         public PakFile OpenPakFile(Resource resource, int index = 0, bool throwOnError = true)
-            => CreatePakFile(
+            => FamilyManager.CreatePakFile(this,
                 resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)),
                 resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)),
                 index, resource.Host, resource.Options, throwOnError);
@@ -255,7 +221,7 @@ namespace GameSpec
         public PakFile OpenPakFile(Uri uri, int index = 0, bool throwOnError = true)
         {
             var resource = FileManager.ParseResource(this, uri);
-            return CreatePakFile(
+            return FamilyManager.CreatePakFile(this,
                 resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), 
                 resource.Paths?.Length != 0 ? resource.Paths : throw new ArgumentOutOfRangeException(nameof(resource.Paths)),
                 index, resource.Host, resource.Options, throwOnError);

@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Base\GameSpec.Base\GameSpec.Base.csproj" />
+    <ProjectReference Include="..\..\Cry\GameSpec.Cry\GameSpec.Cry.csproj" />
+    <ProjectReference Include="..\..\Id\GameSpec.Id\GameSpec.Id.csproj" />
+    <ProjectReference Include="..\..\Unreal\GameSpec.Unreal\GameSpec.Unreal.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve\GameSpec.Valve.csproj" />
   </ItemGroup>
 

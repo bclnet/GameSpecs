@@ -67,7 +67,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             var s = new MemoryStream();
             var w = new BinaryWriter(s);
             var r2 = new BinaryReader(s);
@@ -86,7 +86,7 @@ namespace GameSpec.Valve.Formats.Blocks
             else if (Encoding.CompareTo(KV3_ENCODING_BINARY_BLOCK_LZ4) == 0) DecompressLZ4(reader, w);
             else if (Encoding.CompareTo(KV3_ENCODING_BINARY_UNCOMPRESSED) == 0) reader.CopyTo(w.BaseStream);
             else throw new InvalidDataException($"Unrecognised KV3 Encoding: {Encoding}");
-            r.Position(0);
+            r.Seek(0);
 
             _strings = new string[r.ReadUInt32()];
             for (var i = 0; i < _strings.Length; i++) _strings[i] = r.ReadZUTF8();
@@ -113,14 +113,14 @@ namespace GameSpec.Valve.Formats.Blocks
             else throw new Exception($"Unknown KV3 compression method: {compressionMethod}");
 
             _binaryBytesOffset = 0;
-            r2.Position(binaryBytes, align: 4); // Align to % 4 after binary blobs
+            r2.Seek(binaryBytes, 4); // Align to % 4 after binary blobs
 
             _strings = new string[r2.ReadInt32()];
             var kv3Offset = r2.Position();
 
             // Subtract one integer since we already read it (_strings)
             // Align to % 8 for the start of doubles
-            _eightBytesOffset = r2.Position(r2.Position() + (integers - 1) * 4, 8);
+            _eightBytesOffset = r2.Seek(r2.Position() + (integers - 1) * 4, 8);
 
             r2.Skip(eightByteValues * 8);
 
@@ -130,7 +130,7 @@ namespace GameSpec.Valve.Formats.Blocks
             _types = r2.ReadBytes((int)(r2.BaseStream.Length - 4 - r2.Position()));
 
             // Move back to the start of the KV data for reading.
-            r2.Position(kv3Offset);
+            r2.Seek(kv3Offset);
             Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
         }
 

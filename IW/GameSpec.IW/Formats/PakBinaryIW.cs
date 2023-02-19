@@ -16,7 +16,6 @@ namespace GameSpec.IW.Formats
     public unsafe class PakBinaryIW : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryIW();
-        PakBinaryIW() { }
         CascContext casc;
 
         enum Magic
@@ -235,12 +234,10 @@ namespace GameSpec.IW.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
-
-            var extension = Path.GetExtension(source.FilePath);
             var files = multiSource.Files = new List<FileMetadata>();
-            var cryptKey = source.Game.Key is Family.ByteKey aes ? aes.Key : null;
+            var extension = Path.GetExtension(source.FilePath);
 
             switch (source.Game.Id)
             {

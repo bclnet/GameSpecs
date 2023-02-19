@@ -2,7 +2,6 @@
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ namespace GameSpec.Bioware.Formats
     public unsafe class PakBinaryMyp : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryMyp();
-        PakBinaryMyp() { }
 
         // Headers : MYP
         #region Headers : KEY/BIF
@@ -56,13 +54,11 @@ namespace GameSpec.Bioware.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource))
-                throw new NotSupportedException();
-            if (stage != ReadStage.File)
-                throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
-
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
+            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var files = multiSource.Files = new List<FileMetadata>();
             var hashLookup = TOR.HashLookup;
+
             var header = r.ReadT<MYP_Header>(sizeof(MYP_Header));
             header.Verify();
             source.Version = header.Version;
@@ -95,14 +91,13 @@ namespace GameSpec.Bioware.Formats
                     });
                 }
             }
-
             return Task.CompletedTask;
         }
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             if (file.FileSize == 0) return Task.FromResult(System.IO.Stream.Null);
-            r.Position(file.Position);
+            r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(file.Compressed switch
             {
                 0 => r.ReadBytes((int)file.PackedSize),

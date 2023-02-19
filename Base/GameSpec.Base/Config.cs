@@ -1,10 +1,19 @@
-﻿//#define Arkane
-//#define Blizzard
+﻿//#define AC
+//#define Arkane
 //#define Bioware
+//#define Blizzard
+//#define Cry
+//#define Cryptic
+//#define Cyanide
+//#define Hpl
 //#define Id
 //#define IW
-//#define Valve
-//#define Cryptic
+//#define Origin
+//#define Red
+//#define Rsi
+//#define Unity
+//#define Unreal
+#define Valve
 
 namespace GameSpec
 {
@@ -13,32 +22,32 @@ namespace GameSpec
 #if AC
         static string[] FamilyKeys = new[] { "AC", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //ForcePath = "TabooTable/0E00001E.taboo", // Ac:Data
             //ForcePath = "Texture060043BE", // AC:Texture
 
             ForceOpen = true,
             Family = "AC",
-            GameId = "AC", // Asheron's Call
+            GameId = "AC", // Asheron's Call [open, read]
         };
 #elif Arkane
         static string[] FamilyKeys = new[] { "Arkane", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //AF
             //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
-            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level1/fast.fts", //AF:Level
+            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/fast.fts", //AF:Level
 
             ForceOpen = true,
             Family = "Arkane",
-            //GameId = "AF", // Arx Fatalis
-            GameId = "DOM", // Dark Messiah of Might and Magic
-            //GameId = "D", // Dishonored
-            //GameId = "D2", // Dishonored 2
-            //GameId = "P", // Prey
+            //GameId = "AF", // Arx Fatalis [open, read]
+            //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
+            //GameId = "D", // Dishonored [unreal]
+            //GameId = "D2", // Dishonored 2 [open, read]
+            //GameId = "P", // Prey [open, read]
             //GameId = "D:DOTO", // Dishonored: Death of the Outsider
             //GameId = "W:YB", // Wolfenstein: Youngblood
             //GameId = "W:CP", // Wolfenstein: Cyberpilot
@@ -48,7 +57,7 @@ namespace GameSpec
 #elif Bioware
         static string[] FamilyKeys = new[] { "Bioware", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe", SWTOR:Unknown
 
@@ -62,7 +71,7 @@ namespace GameSpec
 #elif Blizzard
         static string[] FamilyKeys = new[] { "Blizzard", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Blizzard",
@@ -82,7 +91,7 @@ namespace GameSpec
 #elif Cry
         static string[] FamilyKeys = new[] { "Cry", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
             
@@ -101,20 +110,20 @@ namespace GameSpec
 #elif Cryptic
         static string[] FamilyKeys = new[] { "Cryptic", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
             
             ForceOpen = true,
             Family = "Cryptic",
-            //GameId = "CO", // Champions Online
-            GameId = "STO", // Star Trek Online
-            //GameId = "NVW", // Neverwinter
+            GameId = "CO", // Champions Online [open, read]
+            //GameId = "STO", // Star Trek Online [open, read]
+            //GameId = "NVW", // Neverwinter [open, read]
         };
 #elif Cyanide
         static string[] FamilyKeys = new[] { "Cyanide", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Cry",
@@ -124,7 +133,7 @@ namespace GameSpec
 #elif Hpl
         static string[] FamilyKeys = new[] { "Hpl", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Hpl",
@@ -139,7 +148,7 @@ namespace GameSpec
 #elif Id
         static string[] FamilyKeys = new[] { "Id", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Id",
@@ -158,7 +167,7 @@ namespace GameSpec
 #elif IW
         static string[] FamilyKeys = new[] { "IW", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //ForcePath = "iw_08.iwd/images/155_cannon.iwi", //COD2:Texture
             //ForcePath = "mp_farm.ff/images/155_cannon.iwi", //COD4:Texture
@@ -185,7 +194,7 @@ namespace GameSpec
 #elif Lith
         static string[] FamilyKeys = new[] { "Lith", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Lith",
@@ -198,7 +207,7 @@ namespace GameSpec
 #elif Origin
         static string[] FamilyKeys = new[] { "Origin", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Origin",
@@ -208,7 +217,7 @@ namespace GameSpec
 #elif Red
         static string[] FamilyKeys = new[] { "Red", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Red",
@@ -221,7 +230,7 @@ namespace GameSpec
 #elif Rsi
         static string[] FamilyKeys = new[] { "Rsi", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             // ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
             // ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
@@ -233,7 +242,7 @@ namespace GameSpec
 #elif Tes
         static string[] FamilyKeys = new[] { "Tes", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Tes",
@@ -256,7 +265,7 @@ namespace GameSpec
 #elif Unity
         static string[] FamilyKeys = new[] { "Unity", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Unity",
@@ -269,7 +278,7 @@ namespace GameSpec
 #elif Unreal
         static string[] FamilyKeys = new[] { "Unreal", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
             Family = "Unreal",
@@ -282,43 +291,44 @@ namespace GameSpec
 #elif Valve
         static string[] FamilyKeys = new[] { "Valve", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        public static DefaultOptions AppDefaultOptions = new()
         {
             //HL
-            ForcePath = "cached.wad:CONBACK.pic", //HL:Wad#Pic
-            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
-            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level1/fast.fts", //AF:Level
+            //ForcePath = "cached.wad:LOADING.pic", //HL:Wad#Pic
+            //ForcePath = "decals.wad:REFLECT1.tex", //HL:Wad#Tex
+            //ForcePath = "decals.wad:{247.tex", //HL:Wad#Tex
 
+            //Dota2
             //ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", //Dota2:Texture
 
             ForceOpen = true,
             Family = "Valve",
-            GameId = "HL", // Half-Life
-            //GameId = "TF", // Team Fortress Classic
-            //GameId = "CS", // Counter-Strike
-            //GameId = "Ricochet", // Ricochet
-            //GameId = "HL:BS", // Half-Life: Blue Shift
-            //GameId = "DOD", // Day of Defeat
-            //GameId = "CS:CZ", // Counter-Strike: Condition Zero
-            //GameId = "HL:Src", // Half-Life: Source [open]
-            //GameId = "CS:Src", // Counter-Strike: Source [open]
-            //GameId = "HL2", // Half-Life 2 [open]
-            //GameId = "HL2:DM", // Half-Life 2: Deathmatch [open]
-            //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source [open]
-            //GameId = "HL2:E1", // Half-Life 2: Episode One [open]
-            //GameId = "Portal", // Portal [open]
+            //GameId = "HL", // Half-Life [open, read, texture:GL]
+            GameId = "TF", // Team Fortress Classic [open, read]
+            //GameId = "CS", // Counter-Strike [open, read]
+            //GameId = "Ricochet", // Ricochet [open, read]
+            //GameId = "HL:BS", // Half-Life: Blue Shift [open, read]
+            //GameId = "DOD", // Day of Defeat [open, read]
+            //GameId = "CS:CZ", // Counter-Strike: Condition Zero [open, read]
+            //GameId = "HL:Src", // Half-Life: Source [open, read]
+            //GameId = "CS:Src", // Counter-Strike: Source [open, read]
+            //GameId = "HL2", // Half-Life 2 [open, read]
+            //GameId = "HL2:DM", // Half-Life 2: Deathmatch [open, read]
+            //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source [open, read]
+            //GameId = "HL2:E1", // Half-Life 2: Episode One [open, read]
+            //GameId = "Portal", // Portal [open, read]
             //GameId = "HL2:E2", // Half-Life 2: Episode Two [open]
-            //GameId = "TF2", // Team Fortress 2 [open]
-            //GameId = "L4D", // Left 4 Dead [open]
-            //GameId = "L4D2", // Left 4 Dead 2 [open]
-            //GameId = "DOD:Src", // Day of Defeat: Source [open]
-            //GameId = "Portal2", // Portal 2 [open]
-            //GameId = "CS:GO", // Counter-Strike: Global Offensive [open]
+            //GameId = "TF2", // Team Fortress 2 [open, read]
+            //GameId = "L4D", // Left 4 Dead [open, read]
+            //GameId = "L4D2", // Left 4 Dead 2 [open, read]
+            //GameId = "DOD:Src", // Day of Defeat: Source [open, read]
+            //GameId = "Portal2", // Portal 2 [open, read]
+            //GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
             //GameId = "D2", // Dota 2 [open]
-            //GameId = "TheLab:RR", // The Lab: Robot Repair [open]
+            //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]
-            //GameId = "HL:Alyx", // Half-Life: Alyx [open]
+            //GameId = "HL:Alyx", // Half-Life: Alyx [open, read]
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cryptic", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };

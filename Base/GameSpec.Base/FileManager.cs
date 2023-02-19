@@ -2,7 +2,6 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -20,7 +19,7 @@ namespace GameSpec
     public class FileManager
     {
         public static readonly IFileSystem DefaultSystem = new StandardSystem();
-        public string platformName;
+        public FamilyPlatform.PlatformType platformType = FamilyPlatform.GetPlatformType();
 
         /// <summary>
         /// IFileSystem
@@ -39,8 +38,6 @@ namespace GameSpec
             public string[] GetDirectories(string path, string searchPattern) => Directory.GetDirectories(path, searchPattern);
             public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
         }
-
-        public FileManager(string platformName) => this.platformName = platformName;
 
         /// <summary>
         /// Gets the host factory.
@@ -323,11 +320,12 @@ namespace GameSpec
 
         public virtual FileManager ParseFileManager(JsonElement elem)
         {
-            AddApplicationByRegistry(elem);
-            AddApplication(elem);
+            if (platformType == FamilyPlatform.PlatformType.Windows) AddApplicationByRegistry(elem);
+            else AddApplication(elem);
             AddDirect(elem);
             AddIgnores(elem);
             AddFilters(elem);
+            var platformName = platformType.ToString().ToLowerInvariant();
             if (!elem.TryGetProperty(platformName, out var z)) return this;
             elem = z;
             AddDirect(elem);

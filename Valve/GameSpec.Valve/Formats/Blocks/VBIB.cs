@@ -16,7 +16,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             var vertexBufferOffset = r.ReadUInt32();
             var vertexBufferCount = r.ReadUInt32();
             var indexBufferOffset = r.ReadUInt32();

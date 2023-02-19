@@ -33,7 +33,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             for (var i = 0; i < Size; i++) List.Add(new EditStringData { Name = r.ReadO32UTF8(), Value = r.ReadO32UTF8() });
         }
 

@@ -15,7 +15,7 @@ namespace GameSpec
         public static string Platform = "";
         public static Func<PakFile, IOpenGraphic> GraphicFactory;
 
-        public static readonly List<Func<bool>> Startups = new List<Func<bool>>();
+        public static readonly List<Func<bool>> Startups = new();
 
         public class Stats
         {
@@ -35,22 +35,13 @@ namespace GameSpec
             public static bool VR { get; private set; }
         }
 
-        public enum PlatformType
-        {
-            Windows,
-            OSX,
-            Linux,
-            Android
-        }
+        public enum PlatformType { Windows, OSX, Linux, Android }
 
         public static PlatformType GetPlatformType()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) { return PlatformType.Windows; }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) { return PlatformType.OSX; }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                return true ? PlatformType.Linux : PlatformType.Android;
-            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) { return true ? PlatformType.Linux : PlatformType.Android; }
             else throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform));
         }
 

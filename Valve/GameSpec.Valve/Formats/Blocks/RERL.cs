@@ -36,7 +36,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             var offset = r.ReadUInt32();
             var size = r.ReadUInt32();
             if (size == 0) return;

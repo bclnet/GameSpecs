@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using ZstdNet;
 
 namespace GameSpec.Cryptic.Formats
 {
@@ -13,16 +12,15 @@ namespace GameSpec.Cryptic.Formats
     public unsafe class PakBinaryCryptic : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryCryptic();
-        PakBinaryCryptic() { }
 
         // Headers
         #region Headers
 
         const uint MAGIC = 0xDEADF00D; // DEADF00D
-        const int HOGG_DATAENTRIES_OFFSET = 0x10018;
         const int HOGG_STRINGTABLE_OFFSET = 0x41C;
+        const int HOGG_DATAENTRIES_OFFSET = 0x10018;
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct Header
         {
             public uint Magic;                      // DEADF00D
@@ -31,7 +29,7 @@ namespace GameSpec.Cryptic.Formats
             public int CompressionInfoSectionSize;  // Size (in bytes) of the compression info section size
         }
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct DataTableEntry
         {
             public const int SizeOf = 9;
@@ -40,7 +38,7 @@ namespace GameSpec.Cryptic.Formats
             public int DataLength;                  // Length, in bytes, of the data in this entry
         }
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct DataEntry
         {
             public long FileOffset;                 // offset to the file's data
@@ -52,7 +50,7 @@ namespace GameSpec.Cryptic.Formats
             public uint Index;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct CompressionInfo
         {
             public int FilePathId;                  // Data ID of the file's path
@@ -65,7 +63,7 @@ namespace GameSpec.Cryptic.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             // read file
@@ -73,7 +71,7 @@ namespace GameSpec.Cryptic.Formats
             if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
             if (header.DataEntrySectionSize != header.CompressionInfoSectionSize * 2) throw new FormatException("data entry / compression info section size mismatch");
             var numFiles = header.CompressionInfoSectionSize >> 4; // compression_info_section_size = 16 * num_files
-            var files = (FileMetadata[])(multiSource.Files = new FileMetadata[numFiles]);
+            var files = new FileMetadata[numFiles];
 
             // Create FileInfo structures from the data entries within the hogg
             r.Seek(HOGG_DATAENTRIES_OFFSET);
@@ -93,8 +91,8 @@ namespace GameSpec.Cryptic.Formats
             var compressionInfos = r.ReadTArray<CompressionInfo>(sizeof(CompressionInfo), numFiles);
             for (var i = 0; i < files.Length; i++)
             {
-                ref FileMetadata f = ref files[i];
                 ref CompressionInfo s = ref compressionInfos[i];
+                var f = files[i];
                 f.PackedSize = s.UncompressedSize;
                 f.Compressed = s.UncompressedSize > 0 ? 1 : 0;
             }
@@ -104,38 +102,39 @@ namespace GameSpec.Cryptic.Formats
             var r2 = new BinaryReader(datalist);
             r2.Seek(4);
             var dataList = new List<string>(r2.ReadInt32());
-            for (var i = 0; i < dataList.Capacity; i++) dataList.Add(r2.ReadLAString(zstring: true));
+            for (var i = 0; i < dataList.Capacity; i++) dataList.Add(r2.ReadLA32String(true));
+            r2.Close();
 
             // Assign paths to the appropriate FileInfos
             r.Seek(HOGG_STRINGTABLE_OFFSET);
-            var dataTableEntries = new DataTableEntry[r.ReadInt32()];
-            for (var i = 0; i < dataTableEntries.Length; i++)
+            var stringTableSize = r.ReadInt32();
+            r.Skip(4);
+            var endPosition = r.Position() + stringTableSize;
+            while (r.Position() < endPosition)
             {
-                ref DataTableEntry s = ref dataTableEntries[i];
-                dataTableEntries[i] = r.ReadT<DataTableEntry>(DataTableEntry.SizeOf);
-                var path = s.Unknown != 1 ? r.ReadFAString(s.DataLength) : null;
-                dataList.Add(path);
+                var s = r.ReadT<DataTableEntry>(DataTableEntry.SizeOf);
+                dataList.Add(s.Unknown == 1 ? r.ReadFAString(s.DataLength, true) : null);
             }
 
             // Assign all the file's paths and fill in the path->FileInfo map
             for (var i = 0; i < files.Length; i++)
             {
-                ref FileMetadata f = ref files[i];
                 var filePathId = compressionInfos[i].FilePathId;
-                f.Path = dataList[filePathId];
+                files[i].Path = dataList[filePathId];
             }
+
+            // remove filesize of -1
+            multiSource.Files = files.Where(x => x.FileSize != -1).ToList();
 
             return Task.CompletedTask;
         }
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
-            Stream fileData;
-            r.Position(file.Position);
-            fileData = new MemoryStream(file.Compressed != 0
+            r.Seek(file.Position);
+            return Task.FromResult((Stream)new MemoryStream(file.Compressed != 0
                 ? r.DecompressZlib((int)file.PackedSize, (int)file.FileSize)
-                : r.ReadBytes((int)file.FileSize));
-            return Task.FromResult(fileData);
+                : r.ReadBytes((int)file.FileSize)));
         }
     }
 }

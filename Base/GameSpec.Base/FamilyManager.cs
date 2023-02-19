@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameSpec.Formats;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -17,8 +18,6 @@ namespace GameSpec
         public static readonly Family Unknown;
         public static readonly PakFile UnknownPakFile;
 
-        //static string[] FamilyKeys;
-
         public class DefaultOptions
         {
             public string Family { get; set; }
@@ -26,8 +25,6 @@ namespace GameSpec
             public string ForcePath { get; set; }
             public bool ForceOpen { get; set; }
         }
-
-        //public static DefaultOptions AppDefaultOptions;
 
         static FamilyManager()
         {
@@ -62,17 +59,49 @@ namespace GameSpec
             => Families.TryGetValue(familyName, out var estate) ? estate
             : throwOnError ? throw new ArgumentOutOfRangeException(nameof(familyName), familyName) : (Family)null;
 
+        #region Pak
+
+        /// <summary>
+        /// Withes the platform graphic.
+        /// </summary>
+        /// <param name="pakFile">The pak file.</param>
+        /// <returns></returns>
+        static PakFile WithPlatformGraphic(PakFile pakFile)
+        {
+            if (pakFile != null) pakFile.Graphic = FamilyPlatform.GraphicFactory?.Invoke(pakFile);
+            return pakFile;
+        }
+
+        /// <summary>
+        /// Pak file factory.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="host">The host.</param>
+        /// <param name="options">The options.</param>
+        /// <param name="throwOnError">Throws on error.</param>
+        /// <returns></returns>
+        internal static PakFile CreatePakFile(Family source, FamilyGame game, object value, int index, Uri host, PakOption options, bool throwOnError)
+            => WithPlatformGraphic(value switch
+            {
+                string path when index == 0 && source.PakFileType != null => (PakFile)Activator.CreateInstance(source.PakFileType, source, game, path, null),
+                string path when index == 1 && source.Pak2FileType != null => (PakFile)Activator.CreateInstance(source.Pak2FileType, source, game, path, null),
+                string path when (options & PakOption.Stream) != 0 => new StreamPakFile(source.FileManager.HostFactory, source, game, path, host),
+                string[] paths when (options & PakOption.Paths) != 0 && index == 0 && source.PakFileType != null => (PakFile)Activator.CreateInstance(source.PakFileType, source, game, paths),
+                string[] paths when (options & PakOption.Paths) != 0 && index == 1 && source.Pak2FileType != null => (PakFile)Activator.CreateInstance(source.Pak2FileType, source, game, paths),
+                string[] paths when paths.Length == 1 => CreatePakFile(source, game, paths[0], index, host, options, throwOnError),
+                string[] paths when paths.Length > 1 => new MultiPakFile(source, game, "Many", paths.Select(path => CreatePakFile(source, game, path, index, host, options, throwOnError)).ToArray()),
+                string[] paths when paths.Length == 0 => null,
+                null => null,
+                _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
+            });
+
+        #endregion
+
         #region Parse
 
-        internal static FileManager CreateFileManager()
-            => FamilyPlatform.GetPlatformType() switch
-            {
-                FamilyPlatform.PlatformType.Windows => new FileManager("windows"),
-                FamilyPlatform.PlatformType.OSX => new FileManager("macOS"),
-                FamilyPlatform.PlatformType.Linux => new FileManager("linux"),
-                FamilyPlatform.PlatformType.Android => new FileManager("android"),
-                _ => throw new ArgumentOutOfRangeException(nameof(FamilyPlatform.GetPlatformType), FamilyPlatform.GetPlatformType().ToString()),
-            };
+        internal static FileManager CreateFileManager() => new();
 
         /// <summary>
         /// Parses the estate.
@@ -105,7 +134,8 @@ namespace GameSpec
                 family.Pak2Options = elem.TryGetProperty("pak2Options", out z) ? Enum.TryParse<PakOption>(z.GetString(), true, out var z2) ? z2 : throw new ArgumentOutOfRangeException("pak2Options", z.GetString()) : 0;
                 family.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : null;
                 family.FileManager = fileManager;
-                family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, locations, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
+                family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, locations, x.Name, x.Value, false), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
+                family.OtherGames = elem.TryGetProperty("other-games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, locations, x.Name, x.Value, true), StringComparer.OrdinalIgnoreCase) : null;
                 return family;
             }
             catch (Exception e)
@@ -136,7 +166,7 @@ namespace GameSpec
             return true;
         }
 
-        static FamilyGame ParseGame(Family family, IDictionary<string, HashSet<string>> locations, string id, JsonElement elem)
+        static FamilyGame ParseGame(Family family, IDictionary<string, HashSet<string>> locations, string id, JsonElement elem, bool otherGame)
         {
             var familyGame = new FamilyGame
             {

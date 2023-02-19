@@ -10,7 +10,7 @@ namespace GameSpec.Valve.Formats.Blocks
     {
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             throw new NotImplementedException();
         }
     }

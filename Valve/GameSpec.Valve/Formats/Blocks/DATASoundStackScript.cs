@@ -10,7 +10,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             var version = r.ReadInt32();
             if (version != 8) throw new NotImplementedException($"Unknown soundstack version: {version}");
             SoundStackScriptValue = new Dictionary<string, string>();

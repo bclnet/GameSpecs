@@ -20,7 +20,8 @@ namespace GameSpec.Unity.Formats
     {
         public static readonly PakBinary Instance = new PakBinaryUnity();
         readonly byte[] Key;
-        public PakBinaryUnity(byte[] key = null) => Key = key;
+
+        public PakBinaryUnity(Family.ByteKey key = null) => Key = key?.Key;
 
         // File : ASSETS
         #region File : ASSETS
@@ -337,7 +338,7 @@ namespace GameSpec.Unity.Formats
 
                     // read strings
                     var appendNullTerminator = typeTreeLen == 0 || treeBuffer[typeTreeLen - 1] != 0;
-                    tr.Position(variableFieldsLen);
+                    tr.Seek(variableFieldsLen);
                     var stringTable = tr.ReadZAStringList();
                     if (appendNullTerminator) stringTable.Add(null);
                     Strings = stringTable.ToArray();
@@ -462,7 +463,7 @@ namespace GameSpec.Unity.Formats
                 Header = new FileHeader(r); var format = Header.Format; var bigEndian = Header.BigEndian;
                 // simple validity check
                 if (format == 0 || format > 0x40) throw new FormatException("Bad Header");
-                if (format < 9) r.Position(Header.FileSize - Header.MetadataSize + 1);
+                if (format < 9) r.Seek(Header.FileSize - Header.MetadataSize + 1);
                 Tree = new TypeTree(r, format, bigEndian);
                 if (Tree.UnityVersion[0] < '0' || Tree.UnityVersion[0] > '9') throw new FormatException("Bad Version");
                 AssetTablePos = r.Position();
@@ -488,7 +489,7 @@ namespace GameSpec.Unity.Formats
                 Log($"INFO: The .assets file was built for Unity {Tree.UnityVersion}.");
                 if (format > 0x16 || format < 0x08) Log("WARNING: AssetsTools (for .assets versions 8-22) wasn't tested with this .assets' version, likely parsing or writing the file won't work properly!");
 
-                r.Position(AssetTablePos);
+                r.Seek(AssetTablePos);
                 var fileInfos = r.ReadL32EArray((_, b) => new FileInfo(_, format, bigEndian), bigEndian);
                 Log($"INFO: The .assets file has {fileInfos.Length} assets (info list : {FileInfo.GetSize(format)} bytes)");
                 if (fileInfos.Length > 0)
@@ -540,7 +541,7 @@ namespace GameSpec.Unity.Formats
                     name = null;
                     if (!HasName(CurFileType)) return false;
                     var bigEndian = file.Header.BigEndian;
-                    r.Position(AbsolutePos);
+                    r.Seek(AbsolutePos);
                     var nameSize = (int)r.ReadUInt32E(bigEndian);
                     if (nameSize + 4 >= CurFileSize || nameSize >= 4092) return false;
                     var buf = r.ReadBytes(nameSize);
@@ -621,7 +622,7 @@ namespace GameSpec.Unity.Formats
             {
                 File = file;
                 var format = file.Header.Format; var bigEndian = file.Header.BigEndian;
-                r.Position(file.AssetTablePos);
+                r.Seek(file.AssetTablePos);
                 FileInfos = r.ReadL32EArray((_, b) => new FileInfo(file, _, format, bigEndian), bigEndian);
             }
         }
@@ -1623,7 +1624,7 @@ namespace GameSpec.Unity.Formats
                     //
                     if (Signature.StartsWith("UnityRaw")) // compressed bundles only have an uncompressed header
                     {
-                        r.Position(DataOffs);
+                        r.Seek(DataOffs);
                         Directories3 = r.ReadL32EArray((_, b) => new Directory
                         {
                             Name = _.ReadZAString(400),
@@ -1773,7 +1774,7 @@ namespace GameSpec.Unity.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             // try-bundle
@@ -1785,7 +1786,7 @@ namespace GameSpec.Unity.Formats
             }
 
             // try-asset
-            r.Position(0);
+            r.Seek(0);
             var assetsFile = new AssetsFile(r);
             if (assetsFile.Success)
             {
@@ -1794,7 +1795,7 @@ namespace GameSpec.Unity.Formats
             }
 
             // try-resources
-            r.Position(0);
+            r.Seek(0);
             var resourcesFile = new ResourcesFile(r);
             if (resourcesFile.Success)
             {
@@ -1820,7 +1821,7 @@ namespace GameSpec.Unity.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
 
             //source.UseBinaryReader = false;
             //var files = multiSource.Files;

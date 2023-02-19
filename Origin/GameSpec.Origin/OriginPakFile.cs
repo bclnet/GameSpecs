@@ -1,6 +1,6 @@
-﻿using GameSpec.Metadata;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Origin.Formats;
 using GameSpec.Origin.Transforms;
 using GameSpec.Transforms;
@@ -22,12 +22,21 @@ namespace GameSpec.Origin
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public OriginPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, game.Id == "UltimaOnline" ? PakBinaryOriginUO.Instance : PakBinaryOriginU9.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }
+
+        #region GetPackBinary
+
+        static PakBinary GetPackBinary(FamilyGame game)
+            => game.Id == "UO"
+            ? PakBinaryOriginUO.Instance
+            : PakBinaryOriginU9.Instance;
+
+        #endregion
 
         #region Transforms
 

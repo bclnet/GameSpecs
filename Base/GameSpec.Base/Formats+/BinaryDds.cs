@@ -73,10 +73,10 @@ namespace GameSpec.Formats
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("DDS Texture", items: new List<MetadataInfo> {
-                new MetadataInfo($"Width: {Header.dwWidth}"),
-                new MetadataInfo($"Height: {Header.dwHeight}"),
-                new MetadataInfo($"Mipmaps: {Header.dwMipMapCount}"),
+            new MetadataInfo("Texture", items: new List<MetadataInfo> {
+                new MetadataInfo($"Width: {Width}"),
+                new MetadataInfo($"Height: {Height}"),
+                new MetadataInfo($"Mipmaps: {NumMipMaps}"),
             }),
         };
     }

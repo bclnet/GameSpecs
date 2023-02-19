@@ -9,7 +9,6 @@ namespace GameSpec.Cyanide.Formats
     public unsafe class PakBinaryCyanide : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryCyanide();
-        PakBinaryCyanide() { }
 
         // Headers
         #region Headers
@@ -35,11 +34,11 @@ namespace GameSpec.Cyanide.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             var magic = source.Magic = r.ReadUInt32();
-            if (magic != CPK_MAGIC) throw new FormatException($"Unknown File Type {magic}");
+            if (magic != CPK_MAGIC) throw new FormatException("BAD MAGIC");
             var header = r.ReadT<CPK_Header>(sizeof(CPK_Header));
             var headerFiles = r.ReadTArray<CPK_HeaderFile>(sizeof(CPK_HeaderFile), (int)header.NumFiles);
             var files = multiSource.Files = new FileMetadata[header.NumFiles];
@@ -59,7 +58,7 @@ namespace GameSpec.Cyanide.Formats
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
-            r.Position(file.Position);
+            r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));
         }
     }

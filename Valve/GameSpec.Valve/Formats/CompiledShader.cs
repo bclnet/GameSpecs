@@ -79,7 +79,7 @@ namespace GameSpec.Valve.Formats
                 prevPos = r.BaseStream.Position;
 
                 name = r.ReadZUTF8();
-                r.Position(prevPos + 128);
+                r.Seek(prevPos + 128);
 
                 var type = r.ReadUInt32();
                 b_.AppendLine($"Name: {name} - Type: {type} - Offset: {r.BaseStream.Position}");

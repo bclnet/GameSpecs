@@ -11,19 +11,22 @@
       "name": "Champions Online",
       "date": "2009-09-01",
       "url": "https://store.steampowered.com/app/9880",
-      "pak": "game:/*#CO"
+      "pak": "game:/*.hogg#CO",
+      "status": [ "open", "read" ]
     },
     "STO": {
       "name": "Star Trek Online",
       "date": "2010-02-02",
       "url": "https://store.steampowered.com/app/9900",
-      "pak": "game:/*.hogg#STO"
+      "pak": "game:/*.hogg#STO",
+      "status": [ "open", "read" ]
     },
     "NVW": {
       "name": "Neverwinter",
       "date": "2013-12-05",
       "url": "https://store.steampowered.com/app/109600",
-      "pak": "game:/*#NVW"
+      "pak": "game:/*#NVW",
+      "status": [ "open", "read" ]
     }
   },
   "other-games": {
@@ -43,7 +46,8 @@
     "application": {
       "CO": {
         "key": "Steam:9880",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9880"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9880",
+        "path": "Champions Online/Live/piggs"
       },
       "STO": {
         "key": "Steam:9900",
@@ -52,7 +56,8 @@
       },
       "NVW": {
         "key": "Steam:109600",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 109600"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 109600",
+        "path": "Neverwinter/Live/piggs"
       }
     }
   }

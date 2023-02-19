@@ -15,15 +15,15 @@ namespace GameSpec.Unreal.Formats
         
         readonly byte[] Key;
 
-        public PakBinaryXyz(byte[] key = null) => Key = key;
+        public PakBinaryXyz(Family.ByteKey key = null) => Key = key?.Key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
+            //var files = multiSource.Files = new List<FileMetadata>();
 
             //source.UseBinaryReader = false;
-            //var files = multiSource.Files = new List<FileMetadata>();
             //var pak = (P4kFile)(source.Tag = new P4kFile(r.BaseStream) { Key = Key });
             //foreach (ZipEntry entry in pak)
             //{
@@ -42,7 +42,7 @@ namespace GameSpec.Unreal.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
 
             //source.UseBinaryReader = false;
             //var files = multiSource.Files;

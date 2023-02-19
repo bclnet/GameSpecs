@@ -39,7 +39,7 @@ namespace GameSpec.Valve.Formats
             }
             return Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
-                var x when game.Engine == "Valve1" && (x == ".pic" || x == ".txt" || x == ".fnt") => (0, BinaryWad.Factory),
+                var x when game.Engine == "Valve1" && (x == ".pic" || x == ".tex" || x == ".fnt") => (0, BinaryWad.Factory),
                 _ => (0, BinaryPakFactory),
             };
         }

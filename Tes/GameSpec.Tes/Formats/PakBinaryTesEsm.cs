@@ -30,7 +30,6 @@ namespace GameSpec.Tes.Formats
     public unsafe class PakBinaryTesEsm : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryTesEsm();
-        PakBinaryTesEsm() { }
 
         const int RecordHeaderSizeInBytes = 16;
         public TesFormat Format;
@@ -100,7 +99,7 @@ namespace GameSpec.Tes.Formats
                 var label = Encoding.ASCII.GetString(header.Label);
                 if (!Groups.TryGetValue(label, out var group)) { group = new RecordGroup(poolAction, filePath, Format, recordLevel); Groups.Add(label, group); }
                 group.AddHeader(header);
-                r.Position(nextPosition);
+                r.Seek(nextPosition);
             }
             return Task.CompletedTask;
         }

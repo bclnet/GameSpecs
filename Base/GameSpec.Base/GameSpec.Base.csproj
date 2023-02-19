@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="FileManagers\**" />
-    <EmbeddedResource Remove="FileManagers\**" />
-    <None Remove="FileManagers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
@@ -52,10 +46,6 @@
     <ProjectReference Include="..\..\OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj" />
     <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics\OpenStack.Graphics.csproj" />
     <ProjectReference Include="..\GameSpec.StoreManager\GameSpec.StoreManager.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configuration\" />
   </ItemGroup>
 
 </Project>

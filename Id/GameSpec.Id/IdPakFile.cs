@@ -1,10 +1,10 @@
-﻿using GameSpec.Id.Formats;
+﻿using GameSpec.Formats;
+using GameSpec.Formats.Unknown;
+using GameSpec.Id.Formats;
 using GameSpec.Id.Transforms;
 using GameSpec.Metadata;
-using GameSpec.Formats;
-using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
-using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Id
@@ -15,8 +15,6 @@ namespace GameSpec.Id
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class IdPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="IdPakFile" /> class.
         /// </summary>
@@ -25,12 +23,21 @@ namespace GameSpec.Id
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public IdPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryId.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }
+
+        #region GetPackBinary
+
+        static PakBinary GetPackBinary(string extension)
+            => extension != ".zip"
+            ? PakBinaryId.Instance
+            : PakBinarySystemZip.Instance;
+
+        #endregion
 
         #region Transforms
 

@@ -13,13 +13,14 @@ namespace GameSpec.Formats
     /// <seealso cref="GameEstate.Formats.PakBinary" />
     public class PakBinarySystemZip : PakBinary
     {
+        public static readonly PakBinary Instance = new PakBinarySystemZip();
         readonly byte[] Key;
 
-        public PakBinarySystemZip(byte[] key = null) => Key = key;
+        public PakBinarySystemZip(Family.ByteKey key = null) => Key = key?.Key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             source.UseBinaryReader = false;

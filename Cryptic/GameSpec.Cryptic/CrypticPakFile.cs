@@ -1,10 +1,11 @@
 ﻿using GameSpec.Cryptic.Formats;
 using GameSpec.Cryptic.Transforms;
-using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Cryptic
@@ -15,8 +16,6 @@ namespace GameSpec.Cryptic
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
     public class CrypticPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
-        public static readonly PakBinary ZipInstance = new PakBinarySystemZip();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CrypticPakFile" /> class.
         /// </summary>
@@ -25,12 +24,21 @@ namespace GameSpec.Cryptic
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public CrypticPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) ? ZipInstance : PakBinaryCryptic.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             Open();
         }
+
+        #region GetPackBinary
+
+        static PakBinary GetPackBinary(string extension)
+            => extension != ".zip"
+            ? PakBinaryCryptic.Instance
+            : PakBinarySystemZip.Instance;
+
+        #endregion
 
         #region Transforms
 

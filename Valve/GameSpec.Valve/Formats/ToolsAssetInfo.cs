@@ -14,7 +14,7 @@ namespace GameSpec.Valve.Formats
         public ToolsAssetInfo() { }
         public ToolsAssetInfo(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new() {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = ToString() }),
             new MetadataInfo("ToolsAssetInfo", items: new List<MetadataInfo> {
                 new MetadataInfo($"Mods: {Mods.Count}"),
@@ -27,20 +27,20 @@ namespace GameSpec.Valve.Formats
             }),
         };
 
-        public List<string> Mods { get; } = new List<string>();
-        public List<string> Directories { get; } = new List<string>();
-        public List<string> Filenames { get; } = new List<string>();
-        public List<string> Extensions { get; } = new List<string>();
-        public List<string> EditInfoKeys { get; } = new List<string>();
-        public List<string> MiscStrings { get; } = new List<string>();
-        public List<string> ConstructedFilepaths { get; } = new List<string>();
+        public readonly List<string> Mods = new();
+        public readonly List<string> Directories = new();
+        public readonly List<string> Filenames = new();
+        public readonly List<string> Extensions = new();
+        public readonly List<string> EditInfoKeys = new();
+        public readonly List<string> MiscStrings = new();
+        public readonly List<string> ConstructedFilepaths = new();
 
         public void Read(BinaryReader r)
         {
             if (r.ReadUInt32() != MAGIC) throw new InvalidDataException("Given file is not tools_asset_info.");
 
             var version = r.ReadUInt32();
-            if (version != 10) throw new InvalidDataException($"Unsupported version: {version}");
+            if (version > 10) throw new InvalidDataException($"Unsupported version: {version}");
             var fileCount = r.ReadUInt32();
             var b = r.ReadUInt32(); // block id?
             if (b != 1) throw new InvalidDataException($"b is {b}");

@@ -15,14 +15,14 @@ namespace GameSpec.Formats
     public class PakBinarySharpZip : PakBinary
     {
         static readonly PropertyInfo ZipFile_KeyProperty = typeof(ZipFile).GetProperty("Key", BindingFlags.NonPublic | BindingFlags.Instance);
-
+        public static readonly PakBinary Instance = new PakBinarySharpZip();
         readonly byte[] Key;
 
-        public PakBinarySharpZip(byte[] key = null) => Key = key;
+        public PakBinarySharpZip(Family.ByteKey key = null) => Key = key?.Key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             source.UseBinaryReader = false;

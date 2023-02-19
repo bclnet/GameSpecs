@@ -141,7 +141,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             IntrospectionVersion = r.ReadUInt32();
             ReadStructs(r);
             r.BaseStream.Position = Offset + 12; // skip 3 ints

@@ -14,17 +14,18 @@ namespace GameSpec.Cry.Formats
     /// <seealso cref="GameSpec.Formats.PakBinary" />
     public unsafe class PakBinaryCry3 : PakBinary
     {
+        public static readonly PakBinary Instance = new PakBinaryCry3();
         readonly byte[] Key;
 
-        public PakBinaryCry3(byte[] key = null) => Key = key;
+        public PakBinaryCry3(Family.ByteKey key = null) => Key = key?.Key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
-
-            source.UseBinaryReader = false;
             var files = multiSource.Files = new List<FileMetadata>();
+            source.UseBinaryReader = false;
+
             var pak = (Cry3File)(source.Tag = new Cry3File(r.BaseStream, Key));
             var parentByPath = new Dictionary<string, FileMetadata>();
             var partByPath = new Dictionary<string, SortedList<string, FileMetadata>>();
@@ -58,7 +59,7 @@ namespace GameSpec.Cry.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
 
             source.UseBinaryReader = false;
             var files = multiSource.Files;

@@ -11,7 +11,6 @@ namespace GameSpec.Tes.Formats
     public unsafe class PakBinaryTes : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryTes();
-        PakBinaryTes() { }
 
         // Header : DAT
         #region Header : DAT
@@ -208,7 +207,7 @@ namespace GameSpec.Tes.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files;
 
@@ -273,7 +272,7 @@ namespace GameSpec.Tes.Formats
                 // Assign full names to each file
                 if (header.NameTableOffset > 0)
                 {
-                    r.Position((long)header.NameTableOffset);
+                    r.Seek((long)header.NameTableOffset);
                     var path = r.ReadL16Encoding().Replace('\\', '/');
                     foreach (var file in files) file.Path = path;
                 }
@@ -346,7 +345,7 @@ namespace GameSpec.Tes.Formats
                 var filenamesPosition = r.Position();
                 for (var i = 0; i < files.Length; i++)
                 {
-                    r.Position(filenamesPosition + filenameOffsets[i]);
+                    r.Seek(filenamesPosition + filenameOffsets[i]);
                     files[i].Path = r.ReadZAString(1000).Replace('\\', '/');
                 }
             }
@@ -355,10 +354,10 @@ namespace GameSpec.Tes.Formats
             else if (string.Equals(Path.GetExtension(source.FilePath), ".dat", StringComparison.OrdinalIgnoreCase))
             {
                 source.Magic = F2_BSAHEADER_FILEID;
-                r.Position(r.BaseStream.Length - 8);
+                r.Seek(r.BaseStream.Length - 8);
                 var header = r.ReadT<F2_Header>(sizeof(F2_Header));
                 if (header.DataSize != r.BaseStream.Length) throw new InvalidOperationException("File is not a valid bsa archive.");
-                r.Position(header.DataSize - header.TreeSize - 8);
+                r.Seek(header.DataSize - header.TreeSize - 8);
 
                 // Create file metadatas
                 multiSource.Files = files = new FileMetadata[r.ReadInt32()];
@@ -389,7 +388,7 @@ namespace GameSpec.Tes.Formats
             if (magic == F4_BSAHEADER_FILEID)
             {
                 // position
-                r.Position(file.Position);
+                r.Seek(file.Position);
 
                 // General BA2 Format
                 if (file.FileInfo == null)
@@ -505,7 +504,7 @@ namespace GameSpec.Tes.Formats
                         for (var i = 0; i < tex.NumChunks; i++)
                         {
                             var chunk = chunks[i];
-                            r.Position((long)chunk.Offset);
+                            r.Seek((long)chunk.Offset);
                             if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib((int)file.PackedSize, (int)file.FileSize));
                             else s.WriteBytes(r, (int)file.FileSize);
                         }
@@ -535,7 +534,7 @@ namespace GameSpec.Tes.Formats
                         for (var i = 0; i < gnmf.NumChunks; i++)
                         {
                             var chunk = chunks[i];
-                            r.Position((long)chunk.Offset);
+                            r.Seek((long)chunk.Offset);
                             if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize));
                             else s.WriteBytes(r, (int)file.FileSize);
                         }
@@ -552,13 +551,13 @@ namespace GameSpec.Tes.Formats
                 var fileSize = (int)(source.Version == SSE_BSAHEADER_VERSION
                     ? file.PackedSize & OB_BSAFILE_SIZEMASK
                     : file.PackedSize);
-                r.Position(file.Position);
+                r.Seek(file.Position);
                 if (source.Params.TryGetValue("namePrefix", out var z2) && z2 == "Y")
                 {
                     var prefixLength = r.ReadByte() + 1;
                     if (source.Version == SSE_BSAHEADER_VERSION)
                         fileSize -= prefixLength;
-                    r.Position(file.Position + prefixLength);
+                    r.Seek(file.Position + prefixLength);
                 }
 
                 // fallout2

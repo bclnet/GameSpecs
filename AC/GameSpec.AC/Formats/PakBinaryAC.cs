@@ -10,7 +10,6 @@ namespace GameSpec.AC.Formats
     public unsafe class PakBinaryAC : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryAC();
-        PakBinaryAC() { }
 
         #region Headers
 
@@ -101,11 +100,11 @@ namespace GameSpec.AC.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             var files = multiSource.Files = new List<FileMetadata>();
-            r.Position(DAT_HEADER_OFFSET);
+            r.Seek(DAT_HEADER_OFFSET);
             var header = r.ReadT<Header>(sizeof(Header));
             var directory = new Directory(r, header.BTree, (int)header.BlockSize);
             directory.AddFiles(r, header.DataSet, files, string.Empty, (int)header.BlockSize);
@@ -121,7 +120,7 @@ namespace GameSpec.AC.Formats
         {
             int read;
             var buffer = new byte[size];
-            r.Position(offset);
+            r.Seek(offset);
             // Dat "file" is broken up into sectors that are not neccessarily congruous. Next address is stored in first four bytes of each sector.
             var nextAddress = (long)r.ReadUInt32();
             var bufferOffset = 0;
@@ -132,7 +131,7 @@ namespace GameSpec.AC.Formats
                     read = r.Read(buffer, bufferOffset, blockSize - 4); // Read in our sector into the buffer[]
                     bufferOffset += read; // Adjust this so we know where in our buffer[] the next sector gets appended to
                     size -= read; // Decrease this by the amount of data we just read into buffer[] so we know how much more to go
-                    r.Position(nextAddress); // Move the file pointer to the start of the next sector we read above.
+                    r.Seek(nextAddress); // Move the file pointer to the start of the next sector we read above.
                     nextAddress = r.ReadUInt32(); // Get the start location of the next sector.
                 }
                 else { r.Read(buffer, bufferOffset, size); return buffer; }

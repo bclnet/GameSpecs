@@ -103,7 +103,7 @@ namespace GameSpec.Bioware.Formats
             Type = (DataType)r.ReadUInt32();
             var header = r.ReadT<GFF_Header>(sizeof(GFF_Header));
             if (header.Version != GFF_VERSION3_2 && header.Version != GFF_VERSION3_3) throw new FormatException("BAD MAGIC");
-            r.Position(header.StructOffset);
+            r.Seek(header.StructOffset);
             var headerStructs = r.ReadTArray<GFF_Struct>(sizeof(GFF_Struct), (int)header.StructCount);
             var index = new Dictionary<uint, object>();
             var structs = new IDictionary<string, object>[header.StructCount];
@@ -115,7 +115,7 @@ namespace GameSpec.Bioware.Formats
                 s.Add("_", id);
                 index.Add(id, s);
             }
-            r.Position(header.FieldOffset);
+            r.Seek(header.FieldOffset);
             var headerFields = r.ReadTArray<GFF_Field>(sizeof(GFF_Field), (int)header.FieldCount).Select<GFF_Field, (uint label, object value)>(x =>
             {
                 switch (x.Type)
@@ -129,7 +129,7 @@ namespace GameSpec.Bioware.Formats
                     case 8: return (x.LabelIndex, BitConverter.ToSingle(BitConverter.GetBytes(x.DataOrDataOffset), 0)); //: Float
                     case 14: return (x.LabelIndex, structs[x.DataOrDataOffset]); //: Struct
                     case 15: //: List
-                        r.Position(header.ListIndicesOffset + x.DataOrDataOffset);
+                        r.Seek(header.ListIndicesOffset + x.DataOrDataOffset);
                         var list = new IDictionary<string, object>[(int)r.ReadUInt32()];
                         for (var i = 0; i < list.Length; i++)
                         {
@@ -139,7 +139,7 @@ namespace GameSpec.Bioware.Formats
                         }
                         return (x.LabelIndex, list);
                 }
-                r.Position(header.FieldDataOffset + x.DataOrDataOffset);
+                r.Seek(header.FieldDataOffset + x.DataOrDataOffset);
                 switch (x.Type)
                 {
                     case 6: return (x.LabelIndex, r.ReadUInt64());              //: DWord64
@@ -157,7 +157,7 @@ namespace GameSpec.Bioware.Formats
                 }
                 throw new ArgumentOutOfRangeException(nameof(x.Type), x.Type.ToString());
             }).ToArray();
-            r.Position(header.LabelOffset);
+            r.Seek(header.LabelOffset);
             var headerLabels = r.ReadTArray<GFF_Label>(sizeof(GFF_Label), (int)header.LabelCount).Select(x => UnsafeX.ReadZASCII(x.Name, 0x10)).ToArray();
             // combine
             for (var i = 0; i < structs.Length; i++)
@@ -171,7 +171,7 @@ namespace GameSpec.Bioware.Formats
                     continue;
                 }
                 var fields = structs[i];
-                r.Position(header.FieldIndicesOffset + dataOrDataOffset);
+                r.Seek(header.FieldIndicesOffset + dataOrDataOffset);
                 foreach (var idx in r.ReadTArray<uint>(sizeof(uint), (int)fieldCount))
                 {
                     var (label, value) = headerFields[idx];

@@ -47,24 +47,24 @@ def Families():
     return families
 
 def GamesBody(families):
+    def single(set, value): return value if value in set else '-'
+    def platform(set, value):
+        values = [i[len(value) + 1:].split('/') for i in g['status'] if i.startswith(value)]
+        values = values[0] if len(values) > 0 else values
+        gl = 'gl' if 'GL' in values else '--'
+        un = 'un' if 'UN' in values else '--'
+        ur = 'ur' if 'UR' in values else '--'
+        vk = 'vk' if 'VK' in values else '--'
+        return f'{gl} {un} {ur} {vk}'
     b = ['''The following are the current games:\n
-| ID | Name | Open | Read | Tex | Mdl | Lvl | OpenGl | Unity | Unreal
-| -- | --   | --   | --   | --  | --  | --  | --     | --    | --
+| ID | Name | Open | Read | Texure | Model | Level
+| -- | --   | --   | --   | --     | --    | --
 ''']
     for f in families:
         b.append(f'| **{f["id"]}** | **{f["name"]}**\n')
         for g in f['games']:
-            open = "open" if "open" in g["status"] else "-"
-            read = "read" if "read" in g["status"] else "-"
-            tex = "tex" if "tex" in g["status"] else "-"
-            mdl = "mdl" if "mdl" in g["status"] else "-"
-            lvl = "lvl" if "lvl" in g["status"] else "-"
-            opengl = "opengl" if "opengl" in g["status"] else "-"
-            unity = "unity" if "unity" in g["status"] else "-"
-            unreal = "unreal" if "unreal" in g["status"] else "-"
-            b.append(f'| [{g["id"]}]({g["url"]}) | {g["name"]} | {open} | {read} | {tex} | {mdl} | {lvl} | {opengl} | {unity} | {unreal}\n')
+            b.append(f'| [{g["id"]}]({g["url"]}) | {g["name"]} | {single(g["status"], "open")} | {single(g["status"], "read")} | {platform(g["status"], "texture")} | {platform(g["status"], "model")} | {platform(g["status"], "level")}\n')
     return ''.join(b)
-
 body = GamesBody(Families())
-# print(body)
+#print(body)
 Readme(body)

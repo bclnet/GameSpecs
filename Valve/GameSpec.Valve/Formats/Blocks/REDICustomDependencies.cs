@@ -7,7 +7,7 @@ namespace GameSpec.Valve.Formats.Blocks
     {
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            r.Position(Offset);
+            r.Seek(Offset);
             if (Size > 0) throw new NotImplementedException("CustomDependencies block is not handled.");
         }
 

@@ -58,7 +58,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public override void Read(BinaryPak parent, BinaryReader r)
         {
             Parent = parent;
-            r.Position(Offset);
+            r.Seek(Offset);
             if (parent.Version > 4) throw new InvalidDataException($"Invalid vsnd version '{parent.Version}'");
             if (parent.Version >= 4)
             {
@@ -113,7 +113,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public MemoryStream GetSoundStream()
         {
             var r = Parent.Reader;
-            r.Position(Offset + Size);
+            r.Seek(Offset + Size);
             var s = new MemoryStream();
             if (SoundType == AudioFileType.WAV)
             {

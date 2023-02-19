@@ -16,7 +16,7 @@
       "tags": "HalfLife",
       "pak": "game:/*.wad#HL",
       "path": [ "valve", "valve_hd" ],
-      "status": [ "open" ]
+      "status": [ "open", "read", "texture:GL" ]
     },
     "TF": {
       "name": "Team Fortress Classic",
@@ -26,7 +26,7 @@
       "tags": "TeamFortress",
       "pak": "game:/*.wad#TF",
       "path": "tfc",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL:OF": {
       "name": "Half-Life: Opposing Force",
@@ -36,7 +36,7 @@
       "tags": "HalfLife",
       "pak": "game:/*.wad#HL:OF",
       "path": [ "gearbox", "gearbox_hd" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "CS": {
       "name": "Counter-Strike",
@@ -46,7 +46,7 @@
       "tags": "CounterStrike",
       "pak": "game:/*.wad#CS",
       "path": "cstrike",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "Ricochet": {
       "name": "Ricochet",
@@ -56,7 +56,7 @@
       "tags": "",
       "pak": "game:/*.wad#Ricochet",
       "path": "ricochet",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "DM": {
       "name": "Deathmatch Classic",
@@ -66,7 +66,7 @@
       "tags": "HalfLife",
       "pak": "game:/*.wad#DM",
       "path": "dmc",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL:BS": {
       "name": "Half-Life: Blue Shift",
@@ -76,7 +76,7 @@
       "tags": "HalfLife",
       "pak": "game:/*.wad#HL:BS",
       "path": "bshift",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "DOD": {
       "name": "Day of Defeat",
@@ -86,16 +86,17 @@
       "tags": "DayOfDefeat",
       "pak": "game:/*.wad#DOD",
       "path": "dod",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "CS:CZ": {
       "name": "Counter-Strike: Condition Zero",
+      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/80",
       "date": "2004-05-01",
       "tags": "CounterStrike",
-      "pak": "game:/*_dir.vpk#CS:CZ",
+      "pak": "game:/*.wad#CS:CZ",
       "path": "czero",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL:Src": {
       "name": "Half-Life: Source",
@@ -103,8 +104,8 @@
       "date": "2004-06-01",
       "tags": "HalfLife",
       "pak": "game:/*_dir.vpk#HL:Src",
-      "path": "hl1",
-      "status": [ "open" ]
+      "path": [ "platform", "hl1" ],
+      "status": [ "open", "read" ]
     },
     "CS:Src": {
       "name": "Counter-Strike: Source",
@@ -112,8 +113,8 @@
       "date": "2004-11-01",
       "tags": "CounterStrike",
       "pak": "game:/*_dir.vpk#CS:Src",
-      "path": [ "cstrike", "hl2" ],
-      "status": [ "open" ]
+      "path": [ "platform", "hl2", "cstrike" ],
+      "status": [ "open", "read" ]
     },
     "HL2": {
       "name": "Half-Life 2",
@@ -122,7 +123,7 @@
       "tags": "HalfLife2",
       "pak": "game:/*_dir.vpk#HL2",
       "path": [ "platform", "hl2" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL2:DM": {
       "name": "Half-Life 2: Deathmatch",
@@ -131,7 +132,7 @@
       "tags": "HalfLife2",
       "pak": "game:/*_dir.vpk#HL2:DM",
       "path": [ "platform", "hl2", "hl2mp" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL:DM:Src": {
       "name": "Half-Life Deathmatch: Source",
@@ -140,7 +141,7 @@
       "tags": "HalfLife",
       "pak": "game:/*_dir.vpk#HL:DM:Src",
       "path": [ "platform", "hl2", "hl1mp" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL2:E1": {
       "name": "Half-Life 2: Episode One",
@@ -149,7 +150,7 @@
       "tags": "HalfLife2",
       "pak": "game:/*_dir.vpk#HL2:E1",
       "path": [ "platform", "hl2", "episodic" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "Portal": {
       "name": "Portal",
@@ -158,7 +159,7 @@
       "tags": "Portal",
       "path": [ "portal", "hl2" ],
       "pak": "game:/*_dir.vpk#Portal",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "HL2:E2": {
       "name": "Half-Life 2: Episode Two",
@@ -167,7 +168,7 @@
       "tags": "HalfLife2",
       "path": [ "ep2", "hl2" ],
       "pak": "game:/*_dir.vpk#HL2:E2",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "TF2": {
       "name": "Team Fortress 2",
@@ -176,16 +177,16 @@
       "tags": "TeamFortress",
       "path": [ "tf", "hl2" ],
       "pak": "game:/*_dir.vpk#TF2",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "L4D": {
       "name": "Left 4 Dead",
       "url": "https://store.steampowered.com/app/500",
       "date": "2008-11-17",
       "tags": "Left4Dead",
-      "path": [ "hl2", "left4dead", "platform" ],
+      "path": [ "platform", "hl2", "left4dead" ],
       "pak": "game:/*_dir.vpk#L4D",
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "L4D2": {
       "name": "Left 4 Dead 2",
@@ -208,7 +209,7 @@
           "path": "left4dead2_dlc3"
         }
       },
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "DOD:Src": {
       "name": "Day of Defeat: Source",
@@ -217,7 +218,7 @@
       "tags": "DayOfDefeat",
       "pak": "game:/*_dir.vpk#DOD:Src",
       "path": [ "platform", "hl2", "dod" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "Portal2": {
       "name": "Portal 2",
@@ -226,7 +227,7 @@
       "tags": "Portal",
       "pak": "game:/*_dir.vpk#Portal2",
       "path": [ "platform", "portal2", "portal2_dlc1", "portal2_dlc2", "update" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "CS:GO": {
       "name": "Counter-Strike: Global Offensive",
@@ -235,7 +236,7 @@
       "tags": "CounterStrike",
       "pak": "game:/*_dir.vpk#CS:GO",
       "path": [ "csgo", "platform" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "D2": {
       "name": "Dota 2",
@@ -364,7 +365,7 @@
       "tags": "VR",
       "pak": "game:/*_dir.vpk#TheLab:RR",
       "path": [ "core", "portal2_imported", "vr" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     },
     "TheLab:SS": {
       "name": "The Lab: Secret Shop",
@@ -373,7 +374,7 @@
       "date": "2016-05-05",
       "tags": "VR",
       "pak": "game:/*.assets#TheLab:SS",
-      "status": [ "!nity" ]
+      "status": [ "!unity" ]
     },
     "TheLab:TL": {
       "name": "The Lab: The Lab",
@@ -382,7 +383,7 @@
       "date": "2016-05-05",
       "tags": "VR",
       "pak": "game:/*.assets#TheLab:TL",
-      "status": [ "!nity" ]
+      "status": [ "!unity" ]
     },
     "HL:Alyx": {
       "name": "Half-Life: Alyx",
@@ -391,7 +392,7 @@
       "tags": "HalfLife VR",
       "pak": "game:/*_dir.vpk#HL:Alyx",
       "path": [ "core", "hlvr" ],
-      "status": [ "open" ]
+      "status": [ "open", "read" ]
     }
   },
   "fileManager": {

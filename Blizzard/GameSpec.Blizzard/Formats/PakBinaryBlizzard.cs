@@ -11,12 +11,11 @@ namespace GameSpec.Blizzard.Formats
     public unsafe class PakBinaryBlizzard : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryBlizzard();
-        PakBinaryBlizzard() { }
         CascContext casc;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var files = multiSource.Files = new List<FileMetadata>();
 

@@ -1,6 +1,6 @@
-﻿using GameSpec.Metadata;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Tes.Formats;
 using GameSpec.Tes.Transforms;
 using GameSpec.Transforms;
@@ -25,7 +25,7 @@ namespace GameSpec.Tes
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
         public TesPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, Path.GetExtension(filePath) != ".esm" ? PakBinaryTes.Instance : PakBinaryTesEsm.Instance, tag)
+            : base(family, game, filePath, GetPackBinary(Path.GetExtension(filePath)), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
@@ -54,6 +54,15 @@ namespace GameSpec.Tes
             Log($"Could not find file '{path}' in a PAK file.");
             return null;
         }
+
+        #endregion
+
+        #region GetPackBinary
+
+        static PakBinary GetPackBinary(string extension)
+            => extension != ".esm"
+            ? PakBinaryTes.Instance
+            : PakBinaryTesEsm.Instance;
 
         #endregion
 

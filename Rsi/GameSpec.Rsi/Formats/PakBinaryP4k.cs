@@ -23,15 +23,15 @@ namespace GameSpec.Rsi.Formats
             public SubPakFile(Family family, FamilyGame game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) => Open();
         }
 
-        PakBinaryP4k(byte[] key = null) => Key = key ?? DefaultKey;
+        PakBinaryP4k() => Key = DefaultKey;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
-
             source.UseBinaryReader = false;
             var files = multiSource.Files = new List<FileMetadata>();
+
             var pak = (P4kFile)(source.Tag = new P4kFile(r.BaseStream, Key));
             var parentByPath = new Dictionary<string, FileMetadata>();
             var partsByPath = new Dictionary<string, SortedList<string, FileMetadata>>();
@@ -66,10 +66,10 @@ namespace GameSpec.Rsi.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             source.UseBinaryReader = false;
             var files = multiSource.Files;
+
             var pak = (P4kFile)(source.Tag = new P4kFile(w.BaseStream, Key));
             pak.BeginUpdate();
             foreach (var file in files)

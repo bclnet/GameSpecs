@@ -72,7 +72,7 @@ namespace GameSpec.Id.Formats
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData;
-            r.Position(file.Position);
+            r.Seek(file.Position);
             fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             return Task.FromResult(fileData);
         }

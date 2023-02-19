@@ -11,7 +11,6 @@ namespace GameSpec.Lith.Formats
     public unsafe class PakBinaryLith : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryLith();
-        PakBinaryLith() { }
 
         // Headers
         #region X_Headers
@@ -137,7 +136,7 @@ namespace GameSpec.Lith.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             // read file
@@ -212,7 +211,7 @@ namespace GameSpec.Lith.Formats
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
             Stream fileData;
-            r.Position(file.Position);
+            r.Seek(file.Position);
             fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             return Task.FromResult(fileData);
         }
