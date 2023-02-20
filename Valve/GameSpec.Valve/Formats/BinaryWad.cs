@@ -16,6 +16,7 @@ namespace GameSpec.Formats
 
         public BinaryWad(BinaryReader r, FileMetadata f) => Read(r, f);
 
+        string name;
         int width;
         int height;
         byte[][] pixels;
@@ -25,11 +26,14 @@ namespace GameSpec.Formats
         {
             var type = Path.GetExtension(f.Path) switch
             {
+                ".tex2" => 0x40,
                 ".pic" => 0x42,
                 ".tex" => 0x43,
                 ".fnt" => 0x45,
                 _ => 0
             };
+            if (width > 0x1000 || height > 0x1000) throw new FormatException("Texture width or height exceeds maximum size!");
+            if (width == 0 || height == 0) throw new FormatException("Texture width and height must be larger than 0!");
             if (type == 0x42)
             {
                 width = (int)r.ReadUInt32();
@@ -38,23 +42,34 @@ namespace GameSpec.Formats
                 pixels = new byte[][] { r.ReadBytes(pixelSize) };
                 palette = r.ReadBytes(r.ReadUInt16() * 3);
                 r.Skip(2);
-                r.EnsureComplete();
+                //r.EnsureComplete();
             }
-            else if (type == 0x43)
+            else if (type == 0x40 || type == 0x43)
             {
-                var name = r.ReadFAString(16); // r.Skip(16); // Skip name
+                name = r.ReadFAString(16); // r.Skip(16); // Skip name
                 width = (int)r.ReadUInt32();
                 height = (int)r.ReadUInt32();
                 var pixelSize = width * height;
-                r.Skip(16); // Skip pixel offsets
+                var offsets = new[] { (long)r.ReadUInt32(), (long)r.ReadUInt32(), (long)r.ReadUInt32(), (long)r.ReadUInt32() }; // r.Skip(16); // Skip pixel offsets
+                if (r.Position() != offsets[0]) throw new Exception("BAD OFFSET");
                 pixels = new byte[][] { r.ReadBytes(pixelSize), r.ReadBytes(pixelSize >> 2), r.ReadBytes(pixelSize >> 4), r.ReadBytes(pixelSize >> 8) };
                 palette = r.ReadBytes(r.ReadUInt16());
-                r.EnsureComplete();
+                //r.EnsureComplete();
             }
             else if (type == 0x45)
             {
+                width = 0x100;
+                r.ReadUInt32();
+                r.ReadUInt32();
+                var infoArray = r.ReadTArray<CharInfo>(sizeof(CharInfo), 0x100);
                 pixels = new byte[][] { };
             }
+        }
+
+        struct CharInfo
+        {
+            public ushort StartOffset;
+            public ushort CharWidth;
         }
 
         public IDictionary<string, object> Data => null;
@@ -75,6 +90,7 @@ namespace GameSpec.Formats
                     for (int i = 0, pi = 0; i < source.Length; i++, pi += 3)
                     {
                         var pa = source[i] * 3;
+                        if (pa + 2 > palette.Length) continue;
                         _[pi + 0] = palette[pa + 0];
                         _[pi + 1] = palette[pa + 1];
                         _[pi + 2] = palette[pa + 2];

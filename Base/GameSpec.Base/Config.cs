@@ -304,7 +304,7 @@ namespace GameSpec
             ForceOpen = true,
             Family = "Valve",
             //GameId = "HL", // Half-Life [open, read, texture:GL]
-            GameId = "TF", // Team Fortress Classic [open, read]
+            GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
             //GameId = "HL:BS", // Half-Life: Blue Shift [open, read]

@@ -68,6 +68,7 @@ namespace GameSpec.Valve.Formats
                 {
                     Path = lump.Type switch
                     {
+                        0x40 => $"{lump.Name}.tex2",
                         0x42 => $"{lump.Name}.pic",
                         0x43 => $"{lump.Name}.tex",
                         //0x45 => $"{lump.Name}.fnt",

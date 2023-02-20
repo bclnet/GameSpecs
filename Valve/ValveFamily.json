@@ -26,7 +26,7 @@
       "tags": "TeamFortress",
       "pak": "game:/*.wad#TF",
       "path": "tfc",
-      "status": [ "open", "read" ]
+      "status": [ "open", "read", "texture:GL" ]
     },
     "HL:OF": {
       "name": "Half-Life: Opposing Force",
