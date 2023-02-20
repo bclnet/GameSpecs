@@ -4,4 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\..\Documents\Applications\Unity Plugin\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
 </Project>

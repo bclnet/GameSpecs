@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\GameSpec.Base\GameSpec.Base.csproj" />
+    <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
     <ProjectReference Include="..\GameSpec.Bioware.Resource\GameSpec.Bioware.Resource.csproj" />
   </ItemGroup>
 

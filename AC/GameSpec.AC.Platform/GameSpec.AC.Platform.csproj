@@ -6,15 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
-    <ProjectReference Include="..\..\Base\GameSpec.Platform.Unity\GameSpec.Platform.Unity.csproj" />
-    <ProjectReference Include="..\..\Base\GameSpec.Platform.Unreal\GameSpec.Platform.Unreal.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameSpec.Platform.Unity\GameSpec.Platform.Unity.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameSpec.Platform.Unreal\GameSpec.Platform.Unreal.csproj" />
     <ProjectReference Include="..\GameSpec.AC\GameSpec.AC.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="UnityEngine">
-	  <HintPath>..\..\Base\Native\Unity\UnityEngine.dll</HintPath>
+	  <HintPath>..\..\Context\Native\Unity\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 

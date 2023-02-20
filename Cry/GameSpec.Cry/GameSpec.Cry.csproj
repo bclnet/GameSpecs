@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\GameSpec.Base\GameSpec.Base.csproj" />
+    <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
   </ItemGroup>
 
 </Project>

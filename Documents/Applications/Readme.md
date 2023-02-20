@@ -1,11 +1,12 @@
 Applications
-===============
+===
+Multiple applications are included in GameSpecs to make it easier to work with game assets.
 
-Multiple applications are included in GameSpecs to make it easier to work with the game assets.
+The following are the current applications:
 
----
-
-## [Command Line Interface](Command%20Line%20Interface/Readme.md)
-## [Explorer](Explorer/Readme.md)
-## [Unity Plugin](Unity%20Plugin/Readme.md)
-## [Unreal Plugin](Unreal%20Plugin/Readme.md)
+| ID                                               | Name
+| --                                               | --  
+| [Command Line Interface](Command%20Line%20Interface/Readme.md)| A CLI tool.
+| [Explorer](Explorer/Readme.md)                   | An application explorer.
+| [Unity Plugin](Unity%20Plugin/Readme.md)         | A Unity plugin.
+| [Unreal Plugin](Unreal%20Plugin/Readme.md)       | A Unreal plugin.

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Documents\Platforms\Vulken\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics.OpenGL\OpenStack.Graphics.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
+  </ItemGroup>
+
+</Project>

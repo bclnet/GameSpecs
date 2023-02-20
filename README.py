@@ -55,7 +55,7 @@ def GamesBody(families):
         un = 'un' if 'UN' in values else '--'
         ur = 'ur' if 'UR' in values else '--'
         vk = 'vk' if 'VK' in values else '--'
-        return f'{gl} {un} {ur} {vk}'
+        return f'{gl} {un} {ur}'
     b = ['''The following are the current games:\n
 | ID | Name | Open | Read | Texure | Model | Level
 | -- | --   | --   | --   | --     | --    | --

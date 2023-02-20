@@ -1,4 +1,0 @@
-CrypticTech
-===============
-
-TBD

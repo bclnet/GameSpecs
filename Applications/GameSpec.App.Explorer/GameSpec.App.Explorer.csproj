@@ -105,13 +105,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\Documents\Applications\Explorer\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
     <PackageReference Include="WPFHexaEditor" Version="2.1.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
     <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics.GLControl\OpenStack.Graphics.GLControl.csproj" />
     <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
   </ItemGroup>

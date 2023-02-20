@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\GameSpec.All\GameSpec.All.csproj" />
+    <ProjectReference Include="..\..\Context\GameSpec.All\GameSpec.All.csproj" />
   </ItemGroup>
 
 </Project>
