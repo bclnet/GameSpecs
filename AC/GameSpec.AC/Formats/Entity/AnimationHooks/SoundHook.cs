@@ -17,10 +17,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is SoundHook s)
-            {
-                nodes.Add(new MetadataInfo($"Id: {s.Id:X8}"));
-            }
+            if (Base is SoundHook s) nodes.Add(new MetadataInfo($"Id: {s.Id:X8}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

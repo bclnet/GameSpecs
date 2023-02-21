@@ -19,7 +19,7 @@ namespace GameSpec.AC.Formats.FileTypes
         public readonly byte[] SourceData;
         public readonly uint[] Palette;
 
-        public Texture(BinaryReader r)
+        public Texture(BinaryReader r, FamilyGame game)
         {
             Id = r.ReadUInt32();
             Unknown = r.ReadInt32();
@@ -28,7 +28,9 @@ namespace GameSpec.AC.Formats.FileTypes
             Format = (SurfacePixelFormat)r.ReadUInt32();
             Length = r.ReadInt32();
             SourceData = r.ReadBytes(Length);
-            Palette = Format == SurfacePixelFormat.PFID_INDEX16 || Format == SurfacePixelFormat.PFID_P8 ? DatabaseManager.Portal.GetFile<Palette>(r.ReadUInt32()).Colors : null;
+            var hasPalette = Format == SurfacePixelFormat.PFID_INDEX16 || Format == SurfacePixelFormat.PFID_P8;
+            if (hasPalette) game.Family.Ensure();
+            Palette = hasPalette ? DatabaseManager.Portal.GetFile<Palette>(r.ReadUInt32()).Colors : null;
             if (Format == SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG)
             {
                 using var image = new Bitmap(new MemoryStream(SourceData));
@@ -50,12 +52,12 @@ namespace GameSpec.AC.Formats.FileTypes
             SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG or
             SurfacePixelFormat.PFID_R8G8B8 or
             SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 or
-            SurfacePixelFormat.PFID_A8R8G8B8 or
             SurfacePixelFormat.PFID_INDEX16 or
             SurfacePixelFormat.PFID_A8 or
             SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA or
             SurfacePixelFormat.PFID_P8 or
-            SurfacePixelFormat.PFID_R5G6B5 or
+            SurfacePixelFormat.PFID_R5G6B5 => TextureUnityFormat.RGB24,
+            SurfacePixelFormat.PFID_A8R8G8B8 or
             SurfacePixelFormat.PFID_A4R4G4B4 => TextureUnityFormat.RGBA32,
             _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
         };
@@ -64,14 +66,14 @@ namespace GameSpec.AC.Formats.FileTypes
             SurfacePixelFormat.PFID_DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
             SurfacePixelFormat.PFID_DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
             SurfacePixelFormat.PFID_DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
-            SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG or
             SurfacePixelFormat.PFID_R8G8B8 or
             SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 or
-            SurfacePixelFormat.PFID_INDEX16 or
             SurfacePixelFormat.PFID_A8 or
             SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA or
-            SurfacePixelFormat.PFID_P8 or
             SurfacePixelFormat.PFID_R5G6B5 => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            SurfacePixelFormat.PFID_INDEX16 or
+            SurfacePixelFormat.PFID_P8 or
             SurfacePixelFormat.PFID_A8R8G8B8 or
             SurfacePixelFormat.PFID_A4R4G4B4 => (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
             _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
@@ -104,25 +106,14 @@ namespace GameSpec.AC.Formats.FileTypes
                     //    {
                     //        var d = new byte[Width * Height * 3];
                     //        var s = SourceData;
-                    //        for (int i = 0; i < d.Length; i += 3)
-                    //        {
-                    //            d[i + 0] = s[i + 2];
-                    //            d[i + 1] = s[i + 1];
-                    //            d[i + 2] = s[i + 0];
-                    //        }
+                    //        for (int i = 0; i < d.Length; i += 3) { d[i + 0] = s[i + 2]; d[i + 1] = s[i + 1]; d[i + 2] = s[i + 0]; }
                     //        return d;
                     //    }
                     case SurfacePixelFormat.PFID_A8R8G8B8: // ARGB format. Most UI textures fall into this category
                         {
                             var d = new byte[Width * Height * 4];
                             var s = SourceData;
-                            for (int i = 0; i < d.Length; i += 4)
-                            {
-                                d[i + 0] = s[i + 1];
-                                d[i + 1] = s[i + 2];
-                                d[i + 2] = s[i + 3];
-                                d[i + 3] = s[i + 0];
-                            }
+                            for (var i = 0; i < d.Length; i += 4) { d[i + 0] = s[i + 1]; d[i + 1] = s[i + 2]; d[i + 2] = s[i + 3]; d[i + 3] = s[i + 0]; }
                             return d;
                         }
                     case SurfacePixelFormat.PFID_A8: // Greyscale, also known as Cairo A8.
@@ -130,12 +121,7 @@ namespace GameSpec.AC.Formats.FileTypes
                         {
                             var d = new byte[Width * Height * 3];
                             var s = SourceData;
-                            for (int i = 0, j = 0; i < d.Length; i += 3, j++)
-                            {
-                                d[i + 0] = s[j];
-                                d[i + 1] = s[j];
-                                d[i + 2] = s[j];
-                            }
+                            for (int i = 0, j = 0; i < d.Length; i += 3, j++) { d[i + 0] = s[j]; d[i + 1] = s[j]; d[i + 2] = s[j]; }
                             return d;
                         }
                     case SurfacePixelFormat.PFID_R5G6B5: // 16-bit RGB
@@ -218,37 +204,4 @@ namespace GameSpec.AC.Formats.FileTypes
             return nodes;
         }
     }
-
-    /*
-
-
- 
-
-
-                    case SurfacePixelFormat.PFID_INDEX16:
-                    case SurfacePixelFormat.PFID_P8:
-                        Palette pal = DatManager.PortalDat.ReadFromDat<Palette>((uint)DefaultPaletteId);
-
-                        // Apply any custom palette colors, if any, to our loaded palette (note, this may be all of them!)
-                        if (CustomPaletteColors.Count > 0)
-                            foreach (KeyValuePair<int, uint> entry in CustomPaletteColors)
-                                if (entry.Key <= pal.Colors.Count)
-                                    pal.Colors[entry.Key] = entry.Value;
-
-                        for (int i = 0; i < Height; i++)
-                            for (int j = 0; j < Width; j++)
-                            {
-                                int idx = (i * Width) + j;
-                                int a = (int)((pal.Colors[colorArray[idx]] & 0xFF000000) >> 24);
-                                int r = (int)(pal.Colors[colorArray[idx]] & 0xFF0000) >> 16;
-                                int g = (int)(pal.Colors[colorArray[idx]] & 0xFF00) >> 8;
-                                int b = (int)pal.Colors[colorArray[idx]] & 0xFF;
-                                image.SetPixel(j, i, Color.FromArgb(a, r, g, b));
-                            }
-                        break;
-
-            }
-
-
-    */
 }

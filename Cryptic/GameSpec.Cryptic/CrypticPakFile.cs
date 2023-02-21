@@ -19,12 +19,10 @@ namespace GameSpec.Cryptic
         /// <summary>
         /// Initializes a new instance of the <see cref="CrypticPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CrypticPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public CrypticPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

@@ -17,10 +17,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is EtherealHook s)
-            {
-                nodes.Add(new MetadataInfo($"Ethereal: {s.Ethereal}"));
-            }
+            if (Base is EtherealHook s) nodes.Add(new MetadataInfo($"Ethereal: {s.Ethereal}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

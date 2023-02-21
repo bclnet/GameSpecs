@@ -20,12 +20,10 @@ namespace GameSpec.AC
         /// <summary>
         /// Initializes a new instance of the <see cref="ACPakFile" /> class.
         /// </summary>
-        /// <param name="estate">The estate.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ACPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryAC.Instance, tag)
+        public ACPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryAC.Instance, tag)
         {
             Options = PakManyOptions.FilesById;
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

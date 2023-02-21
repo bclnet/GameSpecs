@@ -28,40 +28,38 @@ namespace GameSpec.AC.Formats.Entity
         }
 
         public static AnimationHook Factory(AnimationHook animationHook)
-        {
-            switch (animationHook.HookType)
+            => animationHook.HookType switch
             {
-                case AnimationHookType.AnimationDone: break;
-                case AnimationHookType.Attack: return new AttackHook(animationHook);
-                case AnimationHookType.CallPES: return new CallPESHook(animationHook);
-                case AnimationHookType.CreateBlockingParticle: break;
-                case AnimationHookType.CreateParticle: return new CreateParticleHook(animationHook);
-                case AnimationHookType.DefaultScript: break;
-                case AnimationHookType.DefaultScriptPart: return new DefaultScriptPartHook(animationHook);
-                case AnimationHookType.DestroyParticle: return new DestroyParticleHook(animationHook);
-                case AnimationHookType.Diffuse: return new DiffuseHook(animationHook);
-                case AnimationHookType.DiffusePart: return new DiffusePartHook(animationHook);
-                case AnimationHookType.Ethereal: return new EtherealHook(animationHook);
-                case AnimationHookType.ForceAnimationHook32Bit: break;
-                case AnimationHookType.Luminous: return new LuminousHook(animationHook);
-                case AnimationHookType.LuminousPart: return new LuminousPartHook(animationHook);
-                case AnimationHookType.NoDraw: return new NoDrawHook(animationHook);
-                case AnimationHookType.NoOp: break;
-                case AnimationHookType.ReplaceObject: return new ReplaceObjectHook(animationHook);
-                case AnimationHookType.Scale: return new ScaleHook(animationHook);
-                case AnimationHookType.SetLight: return new SetLightHook(animationHook);
-                case AnimationHookType.SetOmega: return new SetOmegaHook(animationHook);
-                case AnimationHookType.Sound: return new SoundHook(animationHook);
-                case AnimationHookType.SoundTable: return new SoundTableHook(animationHook);
-                case AnimationHookType.SoundTweaked: return new SoundTweakedHook(animationHook);
-                case AnimationHookType.StopParticle: return new StopParticleHook(animationHook);
-                case AnimationHookType.TextureVelocity: return new TextureVelocityHook(animationHook);
-                case AnimationHookType.TextureVelocityPart: return new TextureVelocityPartHook(animationHook);
-                case AnimationHookType.Transparent: return new TransparentHook(animationHook);
-                case AnimationHookType.TransparentPart: return new TransparentPartHook(animationHook);
-            }
-            return new AnimationHook(animationHook);
-        }
+                AnimationHookType.AnimationDone => new AnimationHook(animationHook),
+                AnimationHookType.Attack => new AttackHook(animationHook),
+                AnimationHookType.CallPES => new CallPESHook(animationHook),
+                AnimationHookType.CreateBlockingParticle => new AnimationHook(animationHook),
+                AnimationHookType.CreateParticle => new CreateParticleHook(animationHook),
+                AnimationHookType.DefaultScript => new AnimationHook(animationHook),
+                AnimationHookType.DefaultScriptPart => new DefaultScriptPartHook(animationHook),
+                AnimationHookType.DestroyParticle => new DestroyParticleHook(animationHook),
+                AnimationHookType.Diffuse => new DiffuseHook(animationHook),
+                AnimationHookType.DiffusePart => new DiffusePartHook(animationHook),
+                AnimationHookType.Ethereal => new EtherealHook(animationHook),
+                AnimationHookType.ForceAnimationHook32Bit => new AnimationHook(animationHook),
+                AnimationHookType.Luminous => new LuminousHook(animationHook),
+                AnimationHookType.LuminousPart => new LuminousPartHook(animationHook),
+                AnimationHookType.NoDraw => new NoDrawHook(animationHook),
+                AnimationHookType.NoOp => new AnimationHook(animationHook),
+                AnimationHookType.ReplaceObject => new ReplaceObjectHook(animationHook),
+                AnimationHookType.Scale => new ScaleHook(animationHook),
+                AnimationHookType.SetLight => new SetLightHook(animationHook),
+                AnimationHookType.SetOmega => new SetOmegaHook(animationHook),
+                AnimationHookType.Sound => new SoundHook(animationHook),
+                AnimationHookType.SoundTable => new SoundTableHook(animationHook),
+                AnimationHookType.SoundTweaked => new SoundTweakedHook(animationHook),
+                AnimationHookType.StopParticle => new StopParticleHook(animationHook),
+                AnimationHookType.TextureVelocity => new TextureVelocityHook(animationHook),
+                AnimationHookType.TextureVelocityPart => new TextureVelocityPartHook(animationHook),
+                AnimationHookType.Transparent => new TransparentHook(animationHook),
+                AnimationHookType.TransparentPart => new TransparentPartHook(animationHook),
+                _ => new AnimationHook(animationHook),
+            };
 
         public static AnimationHook Factory(BinaryReader r)
         {

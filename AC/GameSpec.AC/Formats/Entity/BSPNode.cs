@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPNode : IGetMetadataInfo
+    public class BspNode : IGetMetadataInfo
     {
         // These constants are actually strings in the dat file
         const uint PORT = 1347375700; // 0x504F5254
@@ -22,13 +22,13 @@ namespace GameSpec.AC.Formats.Entity
 
         public string Type;
         public Plane SplittingPlane;
-        public BSPNode PosNode;
-        public BSPNode NegNode;
+        public BspNode PosNode;
+        public BspNode NegNode;
         public Sphere Sphere;
         public ushort[] InPolys; // List of PolygonIds
 
-        protected BSPNode() { }
-        public BSPNode(BinaryReader r, BSPType treeType)
+        protected BspNode() { }
+        public BspNode(BinaryReader r, BSPType treeType)
         {
             Type = Encoding.ASCII.GetString(r.ReadBytes(4)).Reverse();
             switch (Type)
@@ -40,12 +40,9 @@ namespace GameSpec.AC.Formats.Entity
             SplittingPlane = new Plane(r);
             switch (Type)
             {
-                case "BPnn":
-                case "BPIn": PosNode = Factory(r, treeType); break;
-                case "BpIN":
-                case "BpnN": NegNode = Factory(r, treeType); break;
-                case "BPIN":
-                case "BPnN": PosNode = Factory(r, treeType); NegNode = Factory(r, treeType); break;
+                case "BPnn": case "BPIn": PosNode = Factory(r, treeType); break;
+                case "BpIN": case "BpnN": NegNode = Factory(r, treeType); break;
+                case "BPIN": case "BPnN": PosNode = Factory(r, treeType); NegNode = Factory(r, treeType); break;
             }
             if (treeType == BSPType.Cell) return;
             Sphere = new Sphere(r);
@@ -69,22 +66,22 @@ namespace GameSpec.AC.Formats.Entity
             return nodes;
         }
 
-        public static BSPNode Factory(BinaryReader r, BSPType treeType)
+        public static BspNode Factory(BinaryReader r, BSPType treeType)
         {
             // We peek forward to get the type, then revert our position.
             var type = Encoding.ASCII.GetString(r.ReadBytes(4)).Reverse();
             r.BaseStream.Position -= 4;
             switch (type)
             {
-                case "PORT": return new BSPPortal(r, treeType);
-                case "LEAF": return new BSPLeaf(r, treeType);
+                case "PORT": return new BspPortal(r, treeType);
+                case "LEAF": return new BspLeaf(r, treeType);
                 case "BPnn":
                 case "BPIn":
                 case "BpIN":
                 case "BpnN":
                 case "BPIN":
                 case "BPnN":
-                default: return new BSPNode(r, treeType);
+                default: return new BspNode(r, treeType);
             }
         }
     }

@@ -26,8 +26,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
             if (Base is TextureVelocityPartHook s)
             {
                 nodes.Add(new MetadataInfo($"PartIndex: {s.PartIndex}"));
-                nodes.Add(new MetadataInfo($"USpeed: {s.USpeed}"));
-                nodes.Add(new MetadataInfo($"VSpeed: {s.VSpeed}"));
+                nodes.Add(new MetadataInfo($"USpeed: {s.USpeed}, VSpeed: {s.VSpeed}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

@@ -17,12 +17,10 @@ namespace GameSpec.Origin
         /// <summary>
         /// Initializes a new instance of the <see cref="OriginPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public OriginPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(game), tag)
+        public OriginPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

@@ -21,11 +21,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is ScaleHook s)
-            {
-                nodes.Add(new MetadataInfo($"End: {s.End}"));
-                nodes.Add(new MetadataInfo($"Time: {s.Time}"));
-            }
+            if (Base is ScaleHook s) nodes.Add(new MetadataInfo($"End: {s.End}, Time: {s.Time}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

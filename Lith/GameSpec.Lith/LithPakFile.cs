@@ -19,12 +19,10 @@ namespace GameSpec.Lith
         /// <summary>
         /// Initializes a new instance of the <see cref="LithPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public LithPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public LithPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

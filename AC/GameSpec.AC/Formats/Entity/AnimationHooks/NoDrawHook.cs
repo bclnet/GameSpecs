@@ -17,10 +17,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is NoDrawHook s)
-            {
-                nodes.Add(new MetadataInfo($"NoDraw: {s.NoDraw}"));
-            }
+            if (Base is NoDrawHook s) nodes.Add(new MetadataInfo($"NoDraw: {s.NoDraw}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

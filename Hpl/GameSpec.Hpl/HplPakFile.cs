@@ -17,12 +17,10 @@ namespace GameSpec.Hpl
         /// <summary>
         /// Initializes a new instance of the <see cref="HplPakFile" /> class.
         /// </summary>
-        /// <param name="family">The estate.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public HplPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryHpl.Instance, tag)
+        public HplPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryHpl.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

@@ -43,9 +43,9 @@ namespace GameSpec
         /// <exception cref="ArgumentNullException">filePaths
         /// or
         /// game</exception>
-        public PakFile(Family family, FamilyGame game, string name)
+        public PakFile(FamilyGame game, string name)
         {
-            Family = family ?? throw new ArgumentNullException(nameof(family));
+            Family = game.Family ?? throw new ArgumentNullException(nameof(game.Family));
             Game = game ?? throw new ArgumentNullException(nameof(game));
             Name = name;
         }

@@ -17,10 +17,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is ReplaceObjectHook s)
-            {
-                nodes.AddRange((s.APChange as IGetMetadataInfo).GetInfoNodes(tag: tag));
-            }
+            if (Base is ReplaceObjectHook s) nodes.AddRange((s.APChange as IGetMetadataInfo).GetInfoNodes(tag: tag));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

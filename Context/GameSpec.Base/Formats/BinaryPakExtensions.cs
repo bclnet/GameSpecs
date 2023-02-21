@@ -13,7 +13,7 @@ namespace GameSpec.Formats
 
         public static async Task ExportAsync(this BinaryPakFile source, string filePath, int from = 0, DataOption option = 0, Action<FileMetadata, int> advance = null, Action<FileMetadata, string> exception = null)
         {
-            if (!(source is BinaryPakManyFile pak)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile pak) throw new NotSupportedException();
 
             // write pak
             if (!string.IsNullOrEmpty(filePath) && !Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
@@ -46,7 +46,7 @@ namespace GameSpec.Formats
             });
 
             // write pak-raw
-            if ((option & DataOption.Marker) != 0) await new StreamPakFile(pak, null, source.Game, filePath).WriteAsync(null, PakBinary.WriteStage.File);
+            if ((option & DataOption.Marker) != 0) await new StreamPakFile(pak, source.Game, filePath).WriteAsync(null, PakBinary.WriteStage.File);
         }
 
         static async Task ExportFileAsync(FileMetadata file, BinaryPakManyFile pak, string newPath, DataOption option = 0, Action<FileMetadata, string> exception = null)
@@ -91,7 +91,7 @@ namespace GameSpec.Formats
 
         public static async Task ImportAsync(this BinaryPakFile source, BinaryWriter w, string filePath, int from = 0, DataOption option = 0, Action<FileMetadata, int> advance = null, Action<FileMetadata, string> exception = null)
         {
-            if (!(source is BinaryPakManyFile pak)) throw new NotSupportedException();
+            if (source is not BinaryPakManyFile pak) throw new NotSupportedException();
 
             // read pak
             if (string.IsNullOrEmpty(filePath) || !Directory.Exists(filePath)) { exception?.Invoke(null, $"Directory Missing: {filePath}"); return; }

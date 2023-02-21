@@ -14,7 +14,7 @@ namespace GameSpec.Arkane.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(Family estate, FamilyGame game, string filePath, object tag = null) : base(estate, game, filePath, Instance, tag) => Open();
+            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
         }
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
@@ -44,7 +44,7 @@ namespace GameSpec.Arkane.Formats
                     files2.Add(new FileMetadata
                     {
                         Path = path,
-                        Pak = new SubPakFile(source.Family, source.Game, path),
+                        Pak = new SubPakFile(source.Game, path),
                     });
                 }
                 while (true);

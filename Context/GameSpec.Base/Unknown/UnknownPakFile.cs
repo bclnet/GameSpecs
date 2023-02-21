@@ -14,11 +14,10 @@ namespace GameSpec.Unknown
         /// <summary>
         /// Initializes a new instance of the <see cref="UnknownPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
-        public UnknownPakFile(Family family, FamilyGame game, string name)
-            : base(family, game, name) { }
+        public UnknownPakFile(FamilyGame game, string name)
+            : base(game, name) { }
         public override void Dispose() { }
 
         public override int Count => 0;

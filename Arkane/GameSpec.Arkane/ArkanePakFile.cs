@@ -1,12 +1,12 @@
 ﻿using GameSpec.Arkane.Formats;
 using GameSpec.Arkane.Transforms;
-using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Transforms;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
 using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace GameSpec.Arkane
 {
@@ -19,12 +19,10 @@ namespace GameSpec.Arkane
         /// <summary>
         /// Initializes a new instance of the <see cref="ArkanePakFile" /> class.
         /// </summary>
-        /// <param name="family">The estate.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ArkanePakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, GetPackBinary(game), tag)
+        public ArkanePakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game), tag)
         {
             Options = PakManyOptions.FilesById;
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;

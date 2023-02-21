@@ -34,7 +34,7 @@ namespace GameSpec
 
         public class SomePakFile : PakFile
         {
-            public SomePakFile(Family family, FamilyGame game, string filePath, object tag = null) : base(family, game, "Some Name") { }
+            public SomePakFile(FamilyGame game, string filePath, object tag = null) : base(game, "Some Name") { }
             public override void Dispose() { }
             public override int Count => 0;
             public override void Close() { }

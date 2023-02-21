@@ -12,10 +12,10 @@ namespace GameSpec.AC.Formats.Entity
         public readonly CVertexArray VertexArray;
         public readonly Dictionary<ushort, Polygon> Polygons;
         public readonly ushort[] Portals;
-        public readonly BSPTree CellBSP;
+        public readonly BspTree CellBSP;
         public readonly Dictionary<ushort, Polygon> PhysicsPolygons;
-        public readonly BSPTree PhysicsBSP;
-        public readonly BSPTree DrawingBSP;
+        public readonly BspTree PhysicsBSP;
+        public readonly BspTree DrawingBSP;
 
         public CellStruct(BinaryReader r)
         {
@@ -25,11 +25,11 @@ namespace GameSpec.AC.Formats.Entity
             VertexArray = new CVertexArray(r);
             Polygons = r.ReadTMany<ushort, Polygon>(sizeof(ushort), x => new Polygon(x), (int)numPolygons);
             Portals = r.ReadTArray<ushort>(sizeof(ushort), (int)numPortals); r.Align();
-            CellBSP = new BSPTree(r, BSPType.Cell);
+            CellBSP = new BspTree(r, BSPType.Cell);
             PhysicsPolygons = r.ReadTMany<ushort, Polygon>(sizeof(ushort), x => new Polygon(x), (int)numPhysicsPolygons);
-            PhysicsBSP = new BSPTree(r, BSPType.Physics);
+            PhysicsBSP = new BspTree(r, BSPType.Physics);
             var hasDrawingBSP = r.ReadUInt32();
-            if (hasDrawingBSP != 0) DrawingBSP = new BSPTree(r, BSPType.Drawing);
+            if (hasDrawingBSP != 0) DrawingBSP = new BspTree(r, BSPType.Drawing);
             r.Align();
         }
 

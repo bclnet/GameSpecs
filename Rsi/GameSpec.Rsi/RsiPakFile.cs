@@ -17,12 +17,10 @@ namespace GameSpec.Rsi
         /// <summary>
         /// Initializes a new instance of the <see cref="RsiPakFile" /> class.
         /// </summary>
-        /// <param name="family">The estate.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public RsiPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryP4k.Instance, tag)
+        public RsiPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryP4k.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

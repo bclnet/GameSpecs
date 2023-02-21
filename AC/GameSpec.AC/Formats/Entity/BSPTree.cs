@@ -6,12 +6,12 @@ using System.IO;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPTree : IGetMetadataInfo
+    public class BspTree : IGetMetadataInfo
     {
-        public readonly BSPNode RootNode;
+        public readonly BspNode RootNode;
 
-        public BSPTree(BinaryReader r, BSPType treeType)
-            => RootNode = BSPNode.Factory(r, treeType);
+        public BspTree(BinaryReader r, BSPType treeType)
+            => RootNode = BspNode.Factory(r, treeType);
 
         //: Entity.BSPTree
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)

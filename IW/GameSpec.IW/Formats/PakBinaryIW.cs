@@ -203,7 +203,7 @@ namespace GameSpec.IW.Formats
 
         class XSUB_PakFile : BinaryPakManyFile
         {
-            public XSUB_PakFile(Family family, FamilyGame game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) { Open(); }
+            public XSUB_PakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) { Open(); }
         }
 
         #endregion

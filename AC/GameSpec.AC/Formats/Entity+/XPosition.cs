@@ -120,7 +120,7 @@ namespace GameSpec.AC.Formats.Entity
 
         public Quaternion Rotation
         {
-            get => new Quaternion(RotationX, RotationY, RotationZ, RotationW);
+            get => new(RotationX, RotationY, RotationZ, RotationW);
             set
             {
                 RotationW = value.W;

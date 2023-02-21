@@ -20,10 +20,10 @@ namespace GameSpec.AC.Formats.FileTypes
         public readonly uint[] Surfaces; // also referred to as m_rgSurfaces in the client
         public readonly CVertexArray VertexArray;
         public readonly Dictionary<ushort, Polygon> PhysicsPolygons;
-        public readonly BSPTree PhysicsBSP;
+        public readonly BspTree PhysicsBSP;
         public readonly Vector3 SortCenter;
         public readonly Dictionary<ushort, Polygon> Polygons;
-        public readonly BSPTree DrawingBSP;
+        public readonly BspTree DrawingBSP;
         public readonly uint DIDDegrade;
 
         public GfxObj(BinaryReader r)
@@ -36,14 +36,14 @@ namespace GameSpec.AC.Formats.FileTypes
             if ((Flags & GfxObjFlags.HasPhysics) != 0)
             {
                 PhysicsPolygons = r.ReadC32Many<ushort, Polygon>(sizeof(ushort), x => new Polygon(x));
-                PhysicsBSP = new BSPTree(r, BSPType.Physics);
+                PhysicsBSP = new BspTree(r, BSPType.Physics);
             }
             SortCenter = r.ReadVector3();
             // Has Drawing 
             if ((Flags & GfxObjFlags.HasDrawing) != 0)
             {
                 Polygons = r.ReadC32Many<ushort, Polygon>(sizeof(ushort), x => new Polygon(x));
-                DrawingBSP = new BSPTree(r, BSPType.Drawing);
+                DrawingBSP = new BspTree(r, BSPType.Drawing);
             }
             if ((Flags & GfxObjFlags.HasDIDDegrade) != 0) DIDDegrade = r.ReadUInt32();
         }

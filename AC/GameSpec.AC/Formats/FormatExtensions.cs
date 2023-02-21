@@ -46,7 +46,7 @@ namespace GameSpec.AC.Formats
                 //PakFileType.AnimationHook => (0, null),
                 PakFileType.Palette => (0, (r, m, s) => Task.FromResult((object)new Palette(r))),
                 PakFileType.SurfaceTexture => (0, (r, m, s) => Task.FromResult((object)new SurfaceTexture(r))),
-                PakFileType.Texture => (0, (r, m, s) => Task.FromResult((object)new Texture(r))),
+                PakFileType.Texture => (0, (r, m, s) => Task.FromResult((object)new Texture(r, game))),
                 PakFileType.Surface => (0, (r, m, s) => Task.FromResult((object)new Surface(r))),
                 PakFileType.MotionTable => (0, (r, m, s) => Task.FromResult((object)new MotionTable(r))),
                 PakFileType.Wave => (0, (r, m, s) => Task.FromResult((object)new Wave(r))),

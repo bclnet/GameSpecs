@@ -9,11 +9,11 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPPortal : BSPNode, IGetMetadataInfo
+    public class BspPortal : BspNode, IGetMetadataInfo
     {
         public readonly PortalPoly[] InPortals;
 
-        public BSPPortal(BinaryReader r, BSPType treeType) : base()
+        public BspPortal(BinaryReader r, BSPType treeType) : base()
         {
             Type = Encoding.ASCII.GetString(r.ReadBytes(4)).Reverse();
             SplittingPlane = new Plane(r);

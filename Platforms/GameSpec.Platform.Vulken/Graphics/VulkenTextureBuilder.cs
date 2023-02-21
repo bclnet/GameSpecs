@@ -80,8 +80,7 @@ namespace GameSpec.Graphics
                     GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, bytes);
                 }
             }
-            else
-                throw new NotImplementedException();
+            else throw new NotImplementedException();
 
             if (info is IDisposable disposable) disposable.Dispose();
 

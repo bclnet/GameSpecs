@@ -14,7 +14,7 @@ namespace GameSpec.Formats
     [DebuggerDisplay("{Name}")]
     public abstract class BinaryPakFile : PakFile
     {
-        readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> BinaryReaders = new ConcurrentDictionary<string, GenericPool<BinaryReader>>();
+        readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> BinaryReaders = new();
         public readonly string FilePath;
         public readonly PakBinary PakBinary;
         public object Tag;
@@ -22,14 +22,14 @@ namespace GameSpec.Formats
         // state
         public bool UseBinaryReader = true;
         public Func<string, string> FileMask;
-        public readonly Dictionary<string, string> Params = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> Params = new();
         public uint Magic;
         public uint Version;
         public object CryptKey;
 
         // metadata
         protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
-        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>>();
+        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new();
 
         // object-factory
         protected Func<FileMetadata, FamilyGame, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
@@ -37,14 +37,13 @@ namespace GameSpec.Formats
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="pakBinary">The pak binary.</param>
         /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">pakBinary</exception>
-        public BinaryPakFile(Family family, FamilyGame game, string filePath, PakBinary pakBinary, object tag = null)
-            : base(family, game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)))
+        public BinaryPakFile(FamilyGame game, string filePath, PakBinary pakBinary, object tag = null)
+            : base(game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)))
         {
             FilePath = filePath ?? throw new ArgumentNullException(nameof(filePath));
             PakBinary = pakBinary ?? throw new ArgumentNullException(nameof(pakBinary));

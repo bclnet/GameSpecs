@@ -67,7 +67,7 @@ namespace GameSpec.Red.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(Family family, FamilyGame game, string filePath, object tag = null) : base(family, game, filePath, Instance, tag) { Open(); }
+            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) { Open(); }
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
@@ -465,7 +465,7 @@ namespace GameSpec.Red.Formats
                             {
                                 Path = path,
                                 FileSize = file.FileSize,
-                                Pak = new SubPakFile(source.Family, source.Game, subPath, (headerKeys, (uint)i)),
+                                Pak = new SubPakFile(source.Game, subPath, (headerKeys, (uint)i)),
                             };
                         }
                     }

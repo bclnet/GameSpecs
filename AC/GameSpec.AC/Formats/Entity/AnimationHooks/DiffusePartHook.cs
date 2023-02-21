@@ -28,9 +28,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
             if (Base is DiffusePartHook s)
             {
                 nodes.Add(new MetadataInfo($"Part: {s.Part}"));
-                nodes.Add(new MetadataInfo($"Start: {s.Start}"));
-                nodes.Add(new MetadataInfo($"End: {s.End}"));
-                nodes.Add(new MetadataInfo($"Time: {s.Time}"));
+                nodes.Add(new MetadataInfo($"Start: {s.Start}, End: {s.End}, Time: {s.Time}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

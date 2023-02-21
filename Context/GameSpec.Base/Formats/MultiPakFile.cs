@@ -19,11 +19,10 @@ namespace GameSpec.Formats
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
         /// <param name="pakFiles">The packs.</param>
-        public MultiPakFile(Family family, FamilyGame game, string name, IList<PakFile> pakFiles) : base(family, game, name) => PakFiles = pakFiles;
+        public MultiPakFile(FamilyGame game, string name, IList<PakFile> pakFiles) : base(game, name) => PakFiles = pakFiles;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

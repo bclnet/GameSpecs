@@ -17,7 +17,7 @@ namespace GameSpec.AC.Data
             public override int GetHashCode() => SetupId.GetHashCode();
         }
 
-        public readonly static Dictionary<uint, Row> Table = new Dictionary<uint, Row>();
+        public readonly static Dictionary<uint, Row> Table = new();
 
         public static void Load()
         {

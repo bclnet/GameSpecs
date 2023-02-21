@@ -21,11 +21,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is CallPESHook s)
-            {
-                nodes.Add(new MetadataInfo($"PES: {s.PES:X8}"));
-                nodes.Add(new MetadataInfo($"Pause: {s.Pause}"));
-            }
+            if (Base is CallPESHook s) nodes.Add(new MetadataInfo($"PES: {s.PES:X8}, Pause: {s.Pause}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

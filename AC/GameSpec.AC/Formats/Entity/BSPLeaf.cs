@@ -9,12 +9,12 @@ using System.Text;
 
 namespace GameSpec.AC.Formats.Entity
 {
-    public class BSPLeaf : BSPNode, IGetMetadataInfo
+    public class BspLeaf : BspNode, IGetMetadataInfo
     {
         public readonly int LeafIndex;
         public readonly int Solid;
 
-        public BSPLeaf(BinaryReader r, BSPType treeType) : base()
+        public BspLeaf(BinaryReader r, BSPType treeType) : base()
         {
             Type = Encoding.ASCII.GetString(r.ReadBytes(4)).Reverse();
             LeafIndex = r.ReadInt32();

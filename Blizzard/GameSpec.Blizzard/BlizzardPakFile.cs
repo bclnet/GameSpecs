@@ -17,12 +17,10 @@ namespace GameSpec.Blizzard
         /// <summary>
         /// Initializes a new instance of the <see cref="BlizzardPakFile" /> class.
         /// </summary>
-        /// <param name="family">The estate.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BlizzardPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryBlizzard.Instance, tag)
+        public BlizzardPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryBlizzard.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

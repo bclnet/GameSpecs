@@ -88,20 +88,23 @@ namespace GameSpec
         /// <param name="options">The options.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        internal static PakFile CreatePakFile(Family source, FamilyGame game, object value, int index, Uri host, PakOption options, bool throwOnError)
-            => WithPlatformGraphic(value switch
+        internal static PakFile CreatePakFile(FamilyGame game, object value, int index, Uri host, PakOption options, bool throwOnError)
+        {
+            var family = game.Family;
+            return WithPlatformGraphic(value switch
             {
-                string path when index == 0 && source.PakFileType != null => (PakFile)Activator.CreateInstance(source.PakFileType, source, game, path, null),
-                string path when index == 1 && source.Pak2FileType != null => (PakFile)Activator.CreateInstance(source.Pak2FileType, source, game, path, null),
-                string path when (options & PakOption.Stream) != 0 => new StreamPakFile(source.FileManager.HostFactory, source, game, path, host),
-                string[] paths when (options & PakOption.Paths) != 0 && index == 0 && source.PakFileType != null => (PakFile)Activator.CreateInstance(source.PakFileType, source, game, paths),
-                string[] paths when (options & PakOption.Paths) != 0 && index == 1 && source.Pak2FileType != null => (PakFile)Activator.CreateInstance(source.Pak2FileType, source, game, paths),
-                string[] paths when paths.Length == 1 => CreatePakFile(source, game, paths[0], index, host, options, throwOnError),
-                string[] paths when paths.Length > 1 => new MultiPakFile(source, game, "Many", paths.Select(path => CreatePakFile(source, game, path, index, host, options, throwOnError)).ToArray()),
+                string path when index == 0 && family.PakFileType != null => (PakFile)Activator.CreateInstance(family.PakFileType, game, path, null),
+                string path when index == 1 && family.Pak2FileType != null => (PakFile)Activator.CreateInstance(family.Pak2FileType, game, path, null),
+                string path when (options & PakOption.Stream) != 0 => new StreamPakFile(family.FileManager.HostFactory, game, path, host),
+                string[] paths when (options & PakOption.Paths) != 0 && index == 0 && family.PakFileType != null => (PakFile)Activator.CreateInstance(family.PakFileType, game, paths),
+                string[] paths when (options & PakOption.Paths) != 0 && index == 1 && family.Pak2FileType != null => (PakFile)Activator.CreateInstance(family.Pak2FileType, game, paths),
+                string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], index, host, options, throwOnError),
+                string[] paths when paths.Length > 1 => new MultiPakFile(game, "Many", paths.Select(path => CreatePakFile(game, path, index, host, options, throwOnError)).ToArray()),
                 string[] paths when paths.Length == 0 => null,
                 null => null,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
             });
+        }
 
         #endregion
 

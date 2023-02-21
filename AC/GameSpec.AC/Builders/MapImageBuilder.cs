@@ -38,7 +38,6 @@ namespace GameSpec.AC.Builders
                     var landblock = cell.GetFile<Landblock>(key);
                     int startX = block_x * 8, startY = LANDSIZE - block_y * 8 - 1;
                     for (var x = 0; x < 9; x++)
-                    {
                         for (var y = 0; y < 9; y++)
                         {
                             var type = landblock.Terrain[x * 9 + y];
@@ -50,7 +49,6 @@ namespace GameSpec.AC.Builders
                             var itex = (uint)((type >> 2) & 0x3F);
                             land[startY - y, startX + x].Blocked = !(itex < 16 || itex > 20);
                         }
-                    }
                 }
             });
 

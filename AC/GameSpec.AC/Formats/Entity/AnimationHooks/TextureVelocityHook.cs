@@ -21,11 +21,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is TextureVelocityHook s)
-            {
-                nodes.Add(new MetadataInfo($"USpeed: {s.USpeed}"));
-                nodes.Add(new MetadataInfo($"VSpeed: {s.VSpeed}"));
-            }
+            if (Base is TextureVelocityHook s) nodes.Add(new MetadataInfo($"USpeed: {s.USpeed}, VSpeed: {s.VSpeed}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

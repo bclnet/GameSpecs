@@ -18,10 +18,7 @@ namespace GameSpec.AC.Formats.Entity.AnimationHooks
         public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo>();
-            if (Base is SetOmegaHook s)
-            {
-                nodes.Add(new MetadataInfo($"Axis: {s.Axis}"));
-            }
+            if (Base is SetOmegaHook s) nodes.Add(new MetadataInfo($"Axis: {s.Axis}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

@@ -17,12 +17,11 @@ namespace GameSpec.Unity
         /// <summary>
         /// Initializes a new instance of the <see cref="UnityPakFile" /> class.
         /// </summary>
-        /// <param name="family">The family.</param>
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnityPakFile(Family family, FamilyGame game, string filePath, object tag = null)
-            : base(family, game, filePath, PakBinaryUnity.Instance, tag)
+        public UnityPakFile(FamilyGame game, string filePath, object tag = null)
+            : base(game, filePath, PakBinaryUnity.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
