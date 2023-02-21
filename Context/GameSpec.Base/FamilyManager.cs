@@ -179,6 +179,7 @@ namespace GameSpec
         {
             var familyGame = new FamilyGame
             {
+                Family = family,
                 Id = id,
                 Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
                 Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine,
@@ -199,6 +200,7 @@ namespace GameSpec
         {
             var familyGame = new FamilyGame
             {
+                Family = family,
                 Id = id,
                 Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
                 Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine,

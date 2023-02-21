@@ -58,6 +58,10 @@ namespace GameSpec
         }
 
         /// <summary>
+        /// Gets or sets the family.
+        /// </summary>
+        public Family Family { get; set; }
+        /// <summary>
         /// Gets or sets the game identifier.
         /// </summary>
         public string Id { get; set; }

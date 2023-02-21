@@ -15,7 +15,7 @@ namespace GameSpec.AC.Formats
 
         const uint DAT_HEADER_OFFSET = 0x140;
 
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct Header
         {
             public uint FileType;
@@ -42,7 +42,7 @@ namespace GameSpec.AC.Formats
             public uint VersionMinor;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct DirectoryHeader
         {
             public const int SizeOf = (sizeof(uint) * 0x3E) + sizeof(uint) + (File.SizeOf * 0x3D);
@@ -51,7 +51,7 @@ namespace GameSpec.AC.Formats
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x3D)] public File[] Entries;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct File
         {
             public const int SizeOf = sizeof(uint) * 6;
@@ -66,7 +66,7 @@ namespace GameSpec.AC.Formats
         class Directory
         {
             public readonly DirectoryHeader Header;
-            public readonly List<Directory> Directories = new List<Directory>();
+            public readonly List<Directory> Directories = new();
 
             public Directory(BinaryReader r, long offset, int blockSize)
             {
@@ -111,10 +111,11 @@ namespace GameSpec.AC.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null) =>
-            Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Position, (int)file.FileSize, (int)file.Digest)));
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+            => Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Position, (int)file.FileSize, (int)file.Digest)));
 
-        static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize) => UnsafeX.MarshalT<T>(ReadBytes(r, offset, size, blockSize));
+        static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize)
+            => UnsafeX.MarshalT<T>(ReadBytes(r, offset, size, blockSize));
 
         static byte[] ReadBytes(BinaryReader r, long offset, int size, int blockSize)
         {

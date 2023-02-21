@@ -1,4 +1,5 @@
 using GameSpec.Metadata;
+using OpenStack.Graphics;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;

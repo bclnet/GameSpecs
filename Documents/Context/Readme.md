@@ -52,6 +52,7 @@ Family Context
 | **class**     | **Edition**   | The game edition.
 | **class**     | **DownloadableContent** | The game DLC.
 | **class**     | **Locale**    | The game locale.
+| Family        | Family        | Gets or sets the family.
 | string        | Id            | Gets or sets the game identifier.
 | string        | Name          | Gets or sets the game name.
 | string        | Engine        | Gets or sets the game engine.

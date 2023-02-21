@@ -1,24 +1,23 @@
 using GameSpec.AC.Formats.Props;
-using GameSpec.Metadata;
 using GameSpec.Formats;
+using GameSpec.Metadata;
+using OpenStack.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.Texture)]
-    public class Texture : FileType, IGetMetadataInfo //, ITextureInfo
+    public unsafe class Texture : FileType, IGetMetadataInfo, ITextureInfo
     {
         public readonly int Unknown;
-        public readonly int Width;
-        public readonly int Height;
         public readonly SurfacePixelFormat Format;
         public readonly int Length;
         public readonly byte[] SourceData;
-        public readonly uint? DefaultPaletteId;
-        // Used to store a custom palette. Each Key represents the PaletteIndex and the Value is the color.
-        // This is used if you want to apply a non-default Palette to the image prior to extraction
-        public Dictionary<int, uint> CustomPaletteColors;
+        public readonly uint[] Palette;
 
         public Texture(BinaryReader r)
         {
@@ -29,31 +28,185 @@ namespace GameSpec.AC.Formats.FileTypes
             Format = (SurfacePixelFormat)r.ReadUInt32();
             Length = r.ReadInt32();
             SourceData = r.ReadBytes(Length);
-            switch (Format)
+            Palette = Format == SurfacePixelFormat.PFID_INDEX16 || Format == SurfacePixelFormat.PFID_P8 ? DatabaseManager.Portal.GetFile<Palette>(r.ReadUInt32()).Colors : null;
+            if (Format == SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG)
             {
-                case SurfacePixelFormat.PFID_INDEX16:
-                case SurfacePixelFormat.PFID_P8: DefaultPaletteId = r.ReadUInt32(); break;
-                default: DefaultPaletteId = null; break;
+                using var image = new Bitmap(new MemoryStream(SourceData));
+                Width = image.Width;
+                Height = image.Height;
             }
         }
 
-        //byte[] ITextureInfo.this[int index] { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        //IDictionary<string, object> ITextureInfo.Data => null;
-        //int ITextureInfo.Width => Width;
-        //int ITextureInfo.Height => Height;
-        //int ITextureInfo.Depth => throw new System.NotImplementedException();
-        //TextureFlags ITextureInfo.Flags => throw new System.NotImplementedException();
-        //TextureUnityFormat ITextureInfo.UnityFormat => throw new System.NotImplementedException();
-        //TextureGLFormat ITextureInfo.GLFormat => throw new System.NotImplementedException();
-        //int ITextureInfo.NumMipMaps => 1;
-        //void ITextureInfo.MoveToData() { throw new System.NotImplementedException(); }
+        public IDictionary<string, object> Data => null;
+        public int Width { get; }
+        public int Height { get; }
+        public int Depth => 0;
+        public TextureFlags Flags => 0;
+        public object UnityFormat => Format switch
+        {
+            SurfacePixelFormat.PFID_DXT1 => TextureUnityFormat.DXT1,
+            //SurfacePixelFormat.PFID_DXT3 => TextureUnityFormat.DXT3,
+            SurfacePixelFormat.PFID_DXT5 => TextureUnityFormat.DXT5,
+            SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG or
+            SurfacePixelFormat.PFID_R8G8B8 or
+            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 or
+            SurfacePixelFormat.PFID_A8R8G8B8 or
+            SurfacePixelFormat.PFID_INDEX16 or
+            SurfacePixelFormat.PFID_A8 or
+            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA or
+            SurfacePixelFormat.PFID_P8 or
+            SurfacePixelFormat.PFID_R5G6B5 or
+            SurfacePixelFormat.PFID_A4R4G4B4 => TextureUnityFormat.RGBA32,
+            _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
+        };
+        public object GLFormat => Format switch
+        {
+            SurfacePixelFormat.PFID_DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
+            SurfacePixelFormat.PFID_DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
+            SurfacePixelFormat.PFID_DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
+            SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            SurfacePixelFormat.PFID_R8G8B8 or
+            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 or
+            SurfacePixelFormat.PFID_INDEX16 or
+            SurfacePixelFormat.PFID_A8 or
+            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA or
+            SurfacePixelFormat.PFID_P8 or
+            SurfacePixelFormat.PFID_R5G6B5 => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            SurfacePixelFormat.PFID_A8R8G8B8 or
+            SurfacePixelFormat.PFID_A4R4G4B4 => (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
+            _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
+        };
+        public int NumMipMaps => 1;
+        public byte[] this[int index]
+        {
+            get
+            {
+                // https://www.hanselman.com/blog/how-do-you-use-systemdrawing-in-net-core
+                // https://stackoverflow.com/questions/1563038/fast-work-with-bitmaps-in-c-sharp
+                switch (Format)
+                {
+                    case SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG:
+                        {
+                            var d = new byte[Width * Height * 3];
+                            using var image = new Bitmap(new MemoryStream(SourceData));
+                            var data = image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+                            var s = (byte*)data.Scan0.ToPointer();
+                            for (var i = 0; i < d.Length; i += 3) { d[i + 0] = s[i + 0]; d[i + 1] = s[i + 1]; d[i + 2] = s[i + 2]; }
+                            image.UnlockBits(data);
+                            return d;
+                        }
+                    case SurfacePixelFormat.PFID_DXT1:
+                    case SurfacePixelFormat.PFID_DXT3:
+                    case SurfacePixelFormat.PFID_DXT5: return SourceData;
+                    case SurfacePixelFormat.PFID_R8G8B8: // RGB
+                    case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8: return SourceData;
+                    //case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8:
+                    //    {
+                    //        var d = new byte[Width * Height * 3];
+                    //        var s = SourceData;
+                    //        for (int i = 0; i < d.Length; i += 3)
+                    //        {
+                    //            d[i + 0] = s[i + 2];
+                    //            d[i + 1] = s[i + 1];
+                    //            d[i + 2] = s[i + 0];
+                    //        }
+                    //        return d;
+                    //    }
+                    case SurfacePixelFormat.PFID_A8R8G8B8: // ARGB format. Most UI textures fall into this category
+                        {
+                            var d = new byte[Width * Height * 4];
+                            var s = SourceData;
+                            for (int i = 0; i < d.Length; i += 4)
+                            {
+                                d[i + 0] = s[i + 1];
+                                d[i + 1] = s[i + 2];
+                                d[i + 2] = s[i + 3];
+                                d[i + 3] = s[i + 0];
+                            }
+                            return d;
+                        }
+                    case SurfacePixelFormat.PFID_A8: // Greyscale, also known as Cairo A8.
+                    case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA:
+                        {
+                            var d = new byte[Width * Height * 3];
+                            var s = SourceData;
+                            for (int i = 0, j = 0; i < d.Length; i += 3, j++)
+                            {
+                                d[i + 0] = s[j];
+                                d[i + 1] = s[j];
+                                d[i + 2] = s[j];
+                            }
+                            return d;
+                        }
+                    case SurfacePixelFormat.PFID_R5G6B5: // 16-bit RGB
+                        {
+                            var d = new byte[Width * Height * 3];
+                            fixed (byte* _ = SourceData)
+                            {
+                                var s = (ushort*)_;
+                                for (int i = 0, j = 0; i < d.Length; i += 4, j++)
+                                {
+                                    var val = s[j];
+                                    d[i + 0] = (byte)((val >> 8 & 0xF) / 0xF * 255);
+                                    d[i + 1] = (byte)((val >> 4 & 0xF) / 0xF * 255);
+                                    d[i + 2] = (byte)((val & 0xF) / 0xF * 255);
+                                }
+                            }
+                            return d;
+                        }
+                    case SurfacePixelFormat.PFID_A4R4G4B4:
+                        {
+                            var d = new byte[Width * Height * 4];
+                            fixed (byte* s_ = SourceData)
+                            {
+                                var s = (ushort*)s_;
+                                for (int i = 0, j = 0; i < d.Length; i += 4, j++)
+                                {
+                                    var val = s[j];
+                                    d[i + 0] = (byte)(((val & 0xF800) >> 11) << 3);
+                                    d[i + 1] = (byte)(((val & 0x7E0) >> 5) << 2);
+                                    d[i + 2] = (byte)((val & 0x1F) << 3);
+                                }
+                            }
+                            return d;
+                        }
+                    case SurfacePixelFormat.PFID_INDEX16: // 16-bit indexed colors. Index references position in a palette;
+                        {
+                            var p = Palette;
+                            var d = new byte[Width * Height * 4];
+                            fixed (byte* s_ = SourceData)
+                            fixed (byte* d_ = d)
+                            {
+                                var s = (ushort*)s_;
+                                var d2 = (uint*)d_;
+                                for (var i = 0; i < d.Length >> 2; i++) d2[i] = p[s[i]];
+                            }
+                            return d;
+                        }
+                    case SurfacePixelFormat.PFID_P8: // Indexed
+                        {
+                            var p = Palette;
+                            var d = new byte[Width * Height * 4];
+                            var s = SourceData;
+                            fixed (byte* d_ = d)
+                            {
+                                var d2 = (uint*)d_;
+                                for (var i = 0; i < d.Length >> 2; i++) d2[i] = p[s[i]];
+                            }
+                            return d;
+                        }
+                    default: Console.WriteLine($"Unhandled SurfacePixelFormat ({Format}) in RenderSurface {Id:X8}"); return null;
+                }
+            }
+            set => throw new NotImplementedException();
+        }
+        public void MoveToData() { }
 
-        //: FileTypes.Texture
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo> {
-                new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }),
-                //new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
+                //new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }),
+                new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
                 new MetadataInfo($"{nameof(Texture)}: {Id:X8}", items: new List<MetadataInfo> {
                     new MetadataInfo($"Unknown: {Unknown}"),
                     new MetadataInfo($"Width: {Width}"),
@@ -68,224 +221,10 @@ namespace GameSpec.AC.Formats.FileTypes
 
     /*
 
-            /// <summary>
-            /// Exports RenderSurface to a image file
-            /// </summary>
-            public void ExportTexture(string directory)
-            {
-                if (Length == 0) return;
 
-                switch (Format)
-                {
-                    case SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG:
-                        {
-                            var filename = Path.Combine(directory, $"{Id:X8}.jpg");
-                            using (var w = new BinaryWriter(File.Open(filename, FileMode.Create)))
-                                w.Write(SourceData);
-                        }
-                        break;
-                    default:
-                        {
-                            var bitmapImage = GetBitmap();
-                            var filename = Path.Combine(directory, $"{Id:X8}.png");
-                            bitmapImage.Save(filename, ImageFormat.Png);
-                        }
-                        break;
-                }
-            }
+ 
 
-            /// <summary>
-            /// Reads RenderSurface to bitmap structure
-            /// </summary>
-            public Bitmap GetBitmap()
-            {
-                switch (Format)
-                {
-                    case SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG:
-                        {
-                            var stream = new MemoryStream(SourceData);
-                            var image = Image.FromStream(stream);
-                            return new Bitmap(image);
-                        }
-                    case SurfacePixelFormat.PFID_DXT1:
-                        {
-                            var image = DxtUtil.DecompressDxt1(SourceData, Width, Height);
-                            return GetBitmap(image);
-                        }
-                    case SurfacePixelFormat.PFID_DXT3:
-                        {
-                            var image = DxtUtil.DecompressDxt3(SourceData, Width, Height);
-                            return GetBitmap(image);
-                        }
-                    case SurfacePixelFormat.PFID_DXT5:
-                        {
-                            var image = DxtUtil.DecompressDxt5(SourceData, Width, Height);
-                            return GetBitmap(image);
-                        }
-                    default:
-                        {
-                            List<int> colors = GetImageColorArray();
-                            return GetBitmap(colors);
-                        }
-                }
-            }
 
-            /// <summary>
-            /// Converts the byte array SourceData into color values per pixel
-            /// </summary>
-            List<int> GetImageColorArray()
-            {
-                List<int> colors = new List<int>();
-                if (Length == 0) return colors;
-
-                switch (Format)
-                {
-                    case SurfacePixelFormat.PFID_R8G8B8: // RGB
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint i = 0; i < Height; i++)
-                                for (uint j = 0; j < Width; j++)
-                                {
-                                    byte b = reader.ReadByte();
-                                    byte g = reader.ReadByte();
-                                    byte r = reader.ReadByte();
-                                    int color = (r << 16) | (g << 8) | b;
-                                    colors.Add(color);
-                                }
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8:
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint i = 0; i < Height; i++)
-                                for (uint j = 0; j < Width; j++)
-                                {
-                                    byte r = reader.ReadByte();
-                                    byte g = reader.ReadByte();
-                                    byte b = reader.ReadByte();
-                                    int color = (r << 16) | (g << 8) | b;
-                                    colors.Add(color);
-                                }
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_A8R8G8B8: // ARGB format. Most UI textures fall into this category
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint i = 0; i < Height; i++)
-                                for (uint j = 0; j < Width; j++)
-                                    colors.Add(reader.ReadInt32());
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_INDEX16: // 16-bit indexed colors. Index references position in a palette;
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint y = 0; y < Height; y++)
-                                for (uint x = 0; x < Width; x++)
-                                    colors.Add(reader.ReadInt16());
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_A8: // Greyscale, also known as Cairo A8.
-                    case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA:
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint y = 0; y < Height; y++)
-                                for (uint x = 0; x < Width; x++)
-                                    colors.Add(reader.ReadByte());
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_P8: // Indexed
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint y = 0; y < Height; y++)
-                                for (uint x = 0; x < Width; x++)
-                                    colors.Add(reader.ReadByte());
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_R5G6B5: // 16-bit RGB
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint y = 0; y < Height; y++)
-                                for (uint x = 0; x < Width; x++)
-                                {
-                                    ushort val = reader.ReadUInt16();
-                                    List<int> color = get565RGB(val);
-                                    colors.Add(color[0]); // Red
-                                    colors.Add(color[1]); // Green
-                                    colors.Add(color[2]); // Blue
-                                }
-                        }
-                        break;
-                    case SurfacePixelFormat.PFID_A4R4G4B4:
-                        using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                        {
-                            for (uint y = 0; y < Height; y++)
-                                for (uint x = 0; x < Width; x++)
-                                {
-                                    ushort val = reader.ReadUInt16();
-                                    int alpha = (val >> 12) / 0xF * 255;
-                                    int red = (val >> 8 & 0xF) / 0xF * 255;
-                                    int green = (val >> 4 & 0xF) / 0xF * 255;
-                                    int blue = (val & 0xF) / 0xF * 255;
-
-                                    colors.Add(alpha);
-                                    colors.Add(red);
-                                    colors.Add(green);
-                                    colors.Add(blue);
-                                }
-                        }
-                        break;
-                    default:
-                        Console.WriteLine("Unhandled SurfacePixelFormat (" + Format.ToString() + ") in RenderSurface " + Id.ToString("X8"));
-                        break;
-                }
-
-                return colors;
-            }
-
-            private List<int> GetPaletteIndexes()
-            {
-                List<int> colors = new List<int>();
-                using (BinaryReader reader = new BinaryReader(new MemoryStream(SourceData)))
-                {
-                    for (uint y = 0; y < Height; y++)
-                        for (uint x = 0; x < Width; x++)
-                            colors.Add(reader.ReadInt16());
-                }
-                return colors;
-            }
-
-            /// <summary>
-            /// Generates Bitmap data from colorArray.
-            /// </summary>
-            private Bitmap GetBitmap(List<int> colorArray)
-            {
-                Bitmap image = new Bitmap(Width, Height);
-                switch (this.Format)
-                {
-                    case SurfacePixelFormat.PFID_R8G8B8:
-                    case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8:
-                        for (int i = 0; i < Height; i++)
-                            for (int j = 0; j < Width; j++)
-                            {
-                                int idx = (i * Width) + j;
-                                int r = (colorArray[idx] & 0xFF0000) >> 16;
-                                int g = (colorArray[idx] & 0xFF00) >> 8;
-                                int b = colorArray[idx] & 0xFF;
-                                image.SetPixel(j, i, Color.FromArgb(r, g, b));
-                            }
-                        break;
-                    case SurfacePixelFormat.PFID_A8R8G8B8:
-                        for (int i = 0; i < Height; i++)
-                            for (int j = 0; j < Width; j++)
-                            {
-                                int idx = (i * Width) + j;
-                                int a = (int)((colorArray[idx] & 0xFF000000) >> 24);
-                                int r = (colorArray[idx] & 0xFF0000) >> 16;
-                                int g = (colorArray[idx] & 0xFF00) >> 8;
-                                int b = colorArray[idx] & 0xFF;
-                                image.SetPixel(j, i, Color.FromArgb(a, r, g, b));
-                            }
-                        break;
                     case SurfacePixelFormat.PFID_INDEX16:
                     case SurfacePixelFormat.PFID_P8:
                         Palette pal = DatManager.PortalDat.ReadFromDat<Palette>((uint)DefaultPaletteId);
@@ -307,83 +246,9 @@ namespace GameSpec.AC.Formats.FileTypes
                                 image.SetPixel(j, i, Color.FromArgb(a, r, g, b));
                             }
                         break;
-                    case SurfacePixelFormat.PFID_A8:
-                    case SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA:
-                        for (int i = 0; i < Height; i++)
-                            for (int j = 0; j < Width; j++)
-                            {
-                                int idx = (i * Width) + j;
-                                int r = colorArray[idx];
-                                int g = colorArray[idx];
-                                int b = colorArray[idx];
-                                image.SetPixel(j, i, Color.FromArgb(r, g, b));
-                            }
-                        break;
-                    case SurfacePixelFormat.PFID_R5G6B5: // 16-bit RGB
-                        for (int i = 0; i < Height; i++)
-                            for (int j = 0; j < Width; j++)
-                            {
-                                int idx = 3 * ((i * Width) + j);
-                                int r = (int)(colorArray[idx]);
-                                int g = (int)(colorArray[idx + 1]);
-                                int b = (int)(colorArray[idx + 2]);
-                                image.SetPixel(j, i, Color.FromArgb(r, g, b));
-                            }
-                        break;
-                    case SurfacePixelFormat.PFID_A4R4G4B4:
-                        for (int i = 0; i < Height; i++)
-                            for (int j = 0; j < Width; j++)
-                            {
-                                int idx = 4 * ((i * Width) + j);
-                                int a = (colorArray[idx]);
-                                int r = (colorArray[idx + 1]);
-                                int g = (colorArray[idx + 2]);
-                                int b = (colorArray[idx + 3]);
-                                image.SetPixel(j, i, Color.FromArgb(a, r, g, b));
-                            }
-                        break;
-                }
-                return image;
+
             }
 
-            /// <summary>
-            /// Generates Bitmap data from byteArray, generated by DXT1, DXT3, and DXT5 image foramts.
-            /// </summary>
-            private Bitmap GetBitmap(byte[] byteArray)
-            {
-                Bitmap image = new Bitmap(Width, Height);
-                for (int i = 0; i < Height; i++)
-                    for (int j = 0; j < Width; j++)
-                    {
-                        int idx = 4 * ((i * Width) + j);
-                        int r = (int)(byteArray[idx]);
-                        int g = (int)(byteArray[idx + 1]);
-                        int b = (int)(byteArray[idx + 2]);
-                        int a = (int)(byteArray[idx + 3]);
-                        image.SetPixel(j, i, Color.FromArgb(a, r, g, b));
-                    }
 
-                return image;
-            }
-
-            // https://docs.microsoft.com/en-us/windows/desktop/DirectShow/working-with-16-bit-rgb
-            private List<int> get565RGB(ushort val)
-            {
-                List<int> color = new List<int>();
-
-                int red_mask = 0xF800;
-                int green_mask = 0x7E0;
-                int blue_mask = 0x1F;
-
-                int red = ((val & red_mask) >> 11) << 3;
-                int green = ((val & green_mask) >> 5) << 2;
-                int blue = (val & blue_mask) << 3;
-
-                color.Add(red); // Red
-                color.Add(green); // Green
-                color.Add(blue); // Blue
-
-                return color;
-            }
     */
 }

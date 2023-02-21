@@ -25,7 +25,14 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //ForcePath = "TabooTable/0E00001E.taboo", // Ac:Data
-            //ForcePath = "Texture060043BE", // AC:Texture
+            //ForcePath = "Texture/06000133.tex", // AC:Texture.R8G8B8
+            //ForcePath = "Texture/06000FAA.tex", // AC:Texture.A8R8G8B8
+            //ForcePath = "Texture/06007529.tex", // AC:Texture.INDEX16
+            //ForcePath = "Texture/06007575.tex", // AC:Texture.DXT1
+            //ForcePath = "Texture/06007576.tex", // AC:Texture.JPG
+            //ForcePath = "Texture/0600127D.tex", // AC:Texture.R8G8B8
+            //ForcePath = "Texture/06001343.tex", // AC:Texture.R8G8B8
+            ForcePath = "Texture/06007529.tex", // AC:Texture.PAL
 
             ForceOpen = true,
             Family = "AC",

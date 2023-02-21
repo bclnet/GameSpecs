@@ -1,5 +1,4 @@
 ﻿using GameSpec.AC.Formats.FileTypes;
-using GameSpec.AC.Formats.Props;
 using GameSpec.Formats;
 using System;
 using System.IO;
@@ -123,7 +122,7 @@ namespace GameSpec.AC.Formats
                     case 0x03: return (PakFileType.Animation, "anm");
                     case 0x04: return (PakFileType.Palette, "pal");
                     case 0x05: return (PakFileType.SurfaceTexture, "texture");
-                    case 0x06: return (PakFileType.Texture, new PakFileExtensionAttribute(typeof(FormatExtensions), "TextureExtensionLookup").Value);
+                    case 0x06: return (PakFileType.Texture, "tex"); // new PakFileExtensionAttribute(typeof(FormatExtensions), "TextureExtensionLookup").Value);
                     case 0x08: return (PakFileType.Surface, "surface");
                     case 0x09: return (PakFileType.MotionTable, "dsc");
                     case 0x0A: return (PakFileType.Wave, "wav");
@@ -182,29 +181,12 @@ namespace GameSpec.AC.Formats
             return (0, null);
         }
 
-        static string TextureExtensionLookup(FileMetadata source, BinaryReader r)
-        {
-            r.Seek(source.Position);
-            r.Skip(16);
-            var format = (SurfacePixelFormat)r.ReadUInt32();
-            return format switch
-            {
-                SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG => "jpg",
-                SurfacePixelFormat.PFID_DXT1 => "dds",
-                SurfacePixelFormat.PFID_DXT3 => "dds",
-                SurfacePixelFormat.PFID_DXT5 => "dds",
-                _ => "img",
-            };
-        }
-
-        static string DbPropertyExtensionLookup(FileMetadata source, BinaryReader r)
-        {
-            return 0 switch
+        internal static string DbPropertyExtensionLookup(FileMetadata source, BinaryReader r)
+            => 0 switch
             {
                 0 => "dbpc",
                 1 => "pmat",
                 _ => throw new ArgumentOutOfRangeException(),
             };
-        }
     }
 }
