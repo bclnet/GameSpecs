@@ -1,4 +1,4 @@
-﻿#define AC
+﻿//#define AC
 //#define Arkane
 //#define Bioware
 //#define Blizzard
@@ -36,7 +36,7 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "AC",
-            GameId = "AC", // Asheron's Call [open, read]
+            GameId = "AC", // Asheron's Call [open, read, texture:GL]
         };
 #elif Arkane
         static string[] FamilyKeys = new[] { "Arkane", "Unknown" };
@@ -44,17 +44,19 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //AF
+            //ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
+            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp", //AF:Texture.bmp
             //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/fast.fts", //AF:Level
 
             ForceOpen = true,
             Family = "Arkane",
-            //GameId = "AF", // Arx Fatalis [open, read]
+            //GameId = "AF", // Arx Fatalis [open, read, texture:GL]
             //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
             //GameId = "D", // Dishonored [unreal]
             //GameId = "D2", // Dishonored 2 [open, read]
-            //GameId = "P", // Prey [open, read]
+            GameId = "P", // Prey [open, read]
             //GameId = "D:DOTO", // Dishonored: Death of the Outsider
             //GameId = "W:YB", // Wolfenstein: Youngblood
             //GameId = "W:CP", // Wolfenstein: Cyberpilot
@@ -311,7 +313,7 @@ namespace GameSpec
             ForceOpen = true,
             Family = "Valve",
             //GameId = "HL", // Half-Life [open, read, texture:GL]
-            GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
+            //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
             //GameId = "HL:BS", // Half-Life: Blue Shift [open, read]
@@ -331,7 +333,7 @@ namespace GameSpec
             //GameId = "DOD:Src", // Day of Defeat: Source [open, read]
             //GameId = "Portal2", // Portal 2 [open, read]
             //GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
-            //GameId = "D2", // Dota 2 [open]
+            GameId = "D2", // Dota 2 [open]
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]

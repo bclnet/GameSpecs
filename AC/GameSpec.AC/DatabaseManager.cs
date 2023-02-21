@@ -20,11 +20,12 @@ namespace GameSpec.AC
         public static DatabaseLanguage Language { get; private set; }
 
 #if true
-        internal static Family Ensure(Family family, bool loadCell = true)
+        internal static FamilyGame Ensure(FamilyGame game, bool loadCell = true)
         {
-            if (loaded) return family;
+            if (loaded) return game;
             loaded = true;
 
+            var family = game.Family;
             if (loadCell)
                 try
                 {
@@ -72,7 +73,7 @@ namespace GameSpec.AC
                 Log($"Exception: {ex.Message}");
             }
 
-            return family;
+            return game;
         }
 #endif
     }

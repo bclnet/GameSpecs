@@ -5,6 +5,7 @@
   "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call",
   "description": "The file formats used in Asheron's Call",
   "familyType": "GameSpec.AC.ACFamily, GameSpec.AC",
+  "familyGameType": "GameSpec.AC.ACFamilyGame, GameSpec.AC",
   "pakFileType": "GameSpec.AC.ACPakFile, GameSpec.AC",
   "games": {
     "AC": {
@@ -16,7 +17,7 @@
       ],
       "pak": "game:/client_portal.dat#AC",
       //"pak": "game:/*.dat#AC"
-      "status": [ "open", "read" ]
+      "status": [ "open", "read", "texture:GL" ]
     }
   },
   "fileManager": {

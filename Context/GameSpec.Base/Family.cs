@@ -40,17 +40,10 @@ namespace GameSpec
             Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);
         }
 
-        protected internal Family() { }
-
         /// <summary>
         /// Touches this instance.
         /// </summary>
         public static void Bootstrap() { }
-
-        /// <summary>
-        /// Ensures this instance.
-        /// </summary>
-        public virtual Family Ensure() => this;
 
         /// <summary>
         /// Converts to string.

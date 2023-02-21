@@ -4,11 +4,5 @@
     /// ArkaneFamily
     /// </summary>
     /// <seealso cref="GameSpec.Family" />
-    public class ArkaneFamily : Family
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ArkaneFamily"/> class.
-        /// </summary>
-        public ArkaneFamily() : base() { }
-    }
+    public class ArkaneFamily : Family { }
 }

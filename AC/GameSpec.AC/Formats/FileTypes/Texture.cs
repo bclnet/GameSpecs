@@ -29,7 +29,7 @@ namespace GameSpec.AC.Formats.FileTypes
             Length = r.ReadInt32();
             SourceData = r.ReadBytes(Length);
             var hasPalette = Format == SurfacePixelFormat.PFID_INDEX16 || Format == SurfacePixelFormat.PFID_P8;
-            if (hasPalette) game.Family.Ensure();
+            if (hasPalette) game.Ensure();
             Palette = hasPalette ? DatabaseManager.Portal.GetFile<Palette>(r.ReadUInt32()).Colors : null;
             if (Format == SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG)
             {

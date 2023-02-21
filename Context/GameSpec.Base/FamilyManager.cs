@@ -134,6 +134,7 @@ namespace GameSpec
                 if (elem.TryGetProperty("fileManager", out var z)) fileManager.ParseFileManager(z);
                 var locations = fileManager.Paths;
                 var familyType = elem.TryGetProperty("familyType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", z.GetString()) : null;
+                var familyGameType = elem.TryGetProperty("familyGameType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyGameType", z.GetString()) : null;
                 var family = familyType != null ? (Family)Activator.CreateInstance(familyType) : new Family();
                 family.Id = (elem.TryGetProperty("id", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("id");
                 family.Name = (elem.TryGetProperty("name", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
@@ -146,7 +147,7 @@ namespace GameSpec
                 family.Pak2Options = elem.TryGetProperty("pak2Options", out z) ? Enum.TryParse<PakOption>(z.GetString(), true, out var z2) ? z2 : throw new ArgumentOutOfRangeException("pak2Options", z.GetString()) : 0;
                 family.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : null;
                 family.FileManager = fileManager;
-                family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, locations, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
+                family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, familyGameType, locations, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
                 family.OtherGames = elem.TryGetProperty("other-games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseOtherGame(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 return family;
             }
@@ -178,60 +179,52 @@ namespace GameSpec
             return true;
         }
 
-        static FamilyGame ParseGame(Family family, IDictionary<string, HashSet<string>> locations, string id, JsonElement elem)
+        static FamilyGame ParseGame(Family family, Type familyGameType, IDictionary<string, HashSet<string>> locations, string id, JsonElement elem)
         {
-            var familyGame = new FamilyGame
-            {
-                Family = family,
-                Id = id,
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
-                Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine,
-                Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : null,
-                Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : null,
-                Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : null,
-                Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
-                FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : family.FileSystemType,
-                Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameEdition(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
-                Dlc = elem.TryGetProperty("dlc", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
-                Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameLocal(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null,
-                Found = locations.ContainsKey(id),
-            };
+            familyGameType = elem.TryGetProperty("familyGameType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyGameType", z.GetString()) : familyGameType;
+            var familyGame = familyGameType != null ? (FamilyGame)Activator.CreateInstance(familyGameType) : new FamilyGame();
+            familyGame.Family = family;
+            familyGame.Id = id;
+            familyGame.Name = (elem.TryGetProperty("name", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
+            familyGame.Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine;
+            familyGame.Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : null;
+            familyGame.Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : null;
+            familyGame.Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : null;
+            familyGame.Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null;
+            familyGame.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : family.FileSystemType;
+            familyGame.Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameEdition(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
+            familyGame.Dlc = elem.TryGetProperty("dlc", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
+            familyGame.Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameLocal(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
+            familyGame.Found = locations.ContainsKey(id);
             return familyGame;
         }
 
-        static FamilyGame ParseOtherGame(Family family, string id, JsonElement elem)
+        static FamilyGame ParseOtherGame(Family family, string id, JsonElement elem) => new()
         {
-            var familyGame = new FamilyGame
-            {
-                Family = family,
-                Id = id,
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
-                Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine,
-            };
-            return familyGame;
-        }
+            Family = family,
+            Id = id,
+            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+            Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine
+        };
 
-        static Edition ParseGameEdition(string edition, JsonElement elem)
-            => new()
-            {
-                Id = edition,
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
-                Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
-            };
+        static Edition ParseGameEdition(string edition, JsonElement elem) => new()
+        {
+            Id = edition,
+            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+            Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
+        };
 
-        static DownloadableContent ParseGameDownloadableContent(string edition, JsonElement elem)
-            => new()
-            {
-                Id = edition,
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
-            };
+        static DownloadableContent ParseGameDownloadableContent(string edition, JsonElement elem) => new()
+        {
+            Id = edition,
+            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+        };
 
-        static Locale ParseGameLocal(string edition, JsonElement elem)
-            => new()
-            {
-                Id = edition,
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
-            };
+        static Locale ParseGameLocal(string edition, JsonElement elem) => new()
+        {
+            Id = edition,
+            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
+        };
 
         #endregion
     }

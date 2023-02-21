@@ -6,16 +6,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace GameSpec.Valve.Formats
+namespace GameSpec.Valve.Formats.Extras
 {
     public class ClosedCaption
     {
-        public uint Hash { get; set; }
-        public uint UnknownV2 { get; set; }
-        public int Blocknum { get; set; }
-        public ushort Offset { get; set; }
-        public ushort Length { get; set; }
-        public string Text { get; set; }
+        public uint Hash;
+        public uint UnknownV2;
+        public int Blocknum;
+        public ushort Offset;
+        public ushort Length;
+        public string Text;
     }
 
     public class ClosedCaptions : IEnumerable<ClosedCaption>, IGetMetadataInfo
@@ -51,7 +51,7 @@ namespace GameSpec.Valve.Formats
             if (r.ReadUInt32() != MAGIC) throw new InvalidDataException("Given file is not a VCCD.");
 
             var version = r.ReadUInt32();
-            if (version != 1 && version != 2) throw new InvalidDataException("Unsupported VCCD version: " + version);
+            if (version != 1 && version != 2) throw new InvalidDataException($"Unsupported VCCD version: {version}");
 
             // numblocks, not actually required for hash lookups or populating entire list
             r.ReadUInt32();
@@ -59,20 +59,19 @@ namespace GameSpec.Valve.Formats
             var directorysize = r.ReadUInt32();
             var dataoffset = r.ReadUInt32();
             for (var i = 0U; i < directorysize; i++)
-            {
-                var caption = new ClosedCaption();
-                caption.Hash = r.ReadUInt32();
-                if (version >= 2) caption.UnknownV2 = r.ReadUInt32();
-                caption.Blocknum = r.ReadInt32();
-                caption.Offset = r.ReadUInt16();
-                caption.Length = r.ReadUInt16();
-                Captions.Add(caption);
-            }
+                Captions.Add(new ClosedCaption
+                {
+                    Hash = r.ReadUInt32(),
+                    UnknownV2 = version >= 2 ? r.ReadUInt32() : 0,
+                    Blocknum = r.ReadInt32(),
+                    Offset = r.ReadUInt16(),
+                    Length = r.ReadUInt16()
+                });
 
             // Probably could be inside the for loop above, but I'm unsure what the performance costs are of moving the position head manually a bunch compared to reading sequentually
             foreach (var caption in Captions)
             {
-                r.Seek(dataoffset + (caption.Blocknum * blocksize) + caption.Offset);
+                r.Seek(dataoffset + caption.Blocknum * blocksize + caption.Offset);
                 caption.Text = r.ReadZEncoding(Encoding.Unicode);
             }
         }

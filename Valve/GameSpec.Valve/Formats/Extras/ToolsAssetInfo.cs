@@ -1,14 +1,15 @@
-using GameSpec.Metadata;
 using GameSpec.Formats;
+using GameSpec.Metadata;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace GameSpec.Valve.Formats
+namespace GameSpec.Valve.Formats.Extras
 {
     public class ToolsAssetInfo : IGetMetadataInfo
     {
         public const uint MAGIC = 0xC4CCACE8;
+        public const uint MAGIC2 = 0xC4CCACE9;
         public const uint GUARD = 0x049A48B2;
 
         public ToolsAssetInfo() { }
@@ -34,16 +35,18 @@ namespace GameSpec.Valve.Formats
         public readonly List<string> EditInfoKeys = new();
         public readonly List<string> MiscStrings = new();
         public readonly List<string> ConstructedFilepaths = new();
+        public readonly List<string> UnknownSoundField1 = new();
+        public readonly List<string> UnknownSoundField2 = new();
 
         public void Read(BinaryReader r)
         {
-            if (r.ReadUInt32() != MAGIC) throw new InvalidDataException("Given file is not tools_asset_info.");
+            var magic = r.ReadUInt32();
+            if (magic != MAGIC && magic != MAGIC2) throw new InvalidDataException("Given file is not tools_asset_info.");
 
             var version = r.ReadUInt32();
-            if (version > 10) throw new InvalidDataException($"Unsupported version: {version}");
+            if (version < 9 || version > 13) throw new InvalidDataException($"Unsupported version: {version}");
             var fileCount = r.ReadUInt32();
-            var b = r.ReadUInt32(); // block id?
-            if (b != 1) throw new InvalidDataException($"b is {b}");
+            if (r.ReadUInt32() != 1) throw new InvalidDataException($"Invalid blockId");
 
             ReadStringsBlock(r, Mods);
             ReadStringsBlock(r, Directories);
@@ -51,6 +54,11 @@ namespace GameSpec.Valve.Formats
             ReadStringsBlock(r, Extensions);
             ReadStringsBlock(r, EditInfoKeys);
             ReadStringsBlock(r, MiscStrings);
+            if (version >= 12)
+            {
+                ReadStringsBlock(r, UnknownSoundField1);
+                ReadStringsBlock(r, UnknownSoundField2);
+            }
 
             for (var i = 0; i < fileCount; i++)
             {
@@ -62,10 +70,10 @@ namespace GameSpec.Valve.Formats
                 var extensionIndex = (int)(hash & 0x3FF);
                 //Console.WriteLine($"{unk1} {addonIndex} {directoryIndex} {filenameIndex} {extensionIndex}");
                 var path = new StringBuilder();
-                if (addonIndex != 0x1FF) { path.Append(Mods[addonIndex]); path.Append("/"); }
-                if (directoryIndex != 0x7FFFF) { path.Append(Directories[directoryIndex]); path.Append("/"); }
+                if (addonIndex != 0x1FF) { path.Append(Mods[addonIndex]); path.Append('/'); }
+                if (directoryIndex != 0x7FFFF) { path.Append(Directories[directoryIndex]); path.Append('/'); }
                 if (filenameIndex != 0x7FFFFF) { path.Append(Filenames[filenameIndex]); }
-                if (extensionIndex != 0x3FF) { path.Append("."); path.Append(Extensions[extensionIndex]); }
+                if (extensionIndex != 0x3FF) { path.Append('.'); path.Append(Extensions[extensionIndex]); }
                 ConstructedFilepaths.Add(path.ToString());
             }
         }

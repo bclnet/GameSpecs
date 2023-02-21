@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using Decoder = SevenZip.Compression.LZMA.Decoder;
 
-namespace GameSpec.Valve.Formats
+namespace GameSpec.Valve.Formats.Extras
 {
     public class CompiledShader : IGetMetadataInfo
     {
@@ -268,7 +268,7 @@ namespace GameSpec.Valve.Formats
                 // Needs further investigation. This is where parsing a lot of shaders break right now.
                 if (length > -1 && type != 0 && type != 2 && type != 10 && type != 11 && type != 13)
                 {
-                    if (type != 1 && type != 5 && type != 6 && type != 7) b_.AppendLine($"!!! Unknown type of type {type} encountered at position {(r.BaseStream.Position - 8)}. Assuming normal sized chunk.");
+                    if (type != 1 && type != 5 && type != 6 && type != 7) b_.AppendLine($"!!! Unknown type of type {type} encountered at position {r.BaseStream.Position - 8}. Assuming normal sized chunk.");
                     else
                     {
                         var unk5_b = r.ReadBytes(length);
@@ -445,7 +445,7 @@ namespace GameSpec.Valve.Formats
 
             b_.AppendLine($"Chunk size: {chunkSize}");
             b_.AppendLine($"Compressed size: {compressedSize}");
-            b_.AppendLine($"Uncompressed size: {uncompressedSize} ({((uncompressedSize - compressedSize) / (double)uncompressedSize):P2} compression)");
+            b_.AppendLine($"Uncompressed size: {uncompressedSize} ({(uncompressedSize - compressedSize) / (double)uncompressedSize:P2} compression)");
 
             var decoder = new Decoder();
             decoder.SetDecoderProperties(r.ReadBytes(5));

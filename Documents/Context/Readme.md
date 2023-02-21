@@ -24,7 +24,6 @@ Family Context
 | **class**     | **Empty**     | An empty family.
 | **class**     | **ByteKey**   | A ByteKey Container.
 | void          | Bootstrap     | Touches this instance.
-| void          | Ensure        | Ensures this instance.
 | void          | FileFilters   | Gets the file filters.
 | string        | Id            | Gets or sets the family identifier.
 | string        | Name          | Gets or sets the family name.
@@ -66,6 +65,7 @@ Family Context
 | IDictionary<string, DownloadableContent>| Dlc | Gets the game dlcs.
 | IDictionary<string, Locale>| Locales | Gets the game locales.
 | string        | DisplayedName | Gets the displayed game name.
+| FamilyGame    | Ensure()      | Ensures this instance.
 | FileManager.IFileSystem | CreateFileSystem() | Creates the game file system.
 
 ### FamilyPlatform

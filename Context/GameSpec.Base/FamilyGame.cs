@@ -128,6 +128,11 @@ namespace GameSpec
         /// </returns>
         public override string ToString() => Name;
 
+        /// <summary>
+        /// Ensures this instance.
+        /// </summary>
+        public virtual FamilyGame Ensure() => this;
+
         #region FileSystem
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace GameSpec.Valve.Formats.Blocks
             var indexBufferOffset = r.ReadUInt32();
             var indexBufferCount = r.ReadUInt32();
 
-            r.BaseStream.Position = Offset + vertexBufferOffset;
+            r.Seek(Offset + vertexBufferOffset);
             for (var i = 0; i < vertexBufferCount; i++)
             {
                 var vertexBuffer = default(VertexBuffer);

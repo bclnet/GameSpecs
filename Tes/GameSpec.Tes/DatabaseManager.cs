@@ -16,9 +16,9 @@ namespace GameSpec.Tes
 
         public static DatabaseCell Cell { get; private set; }
 
-        internal static Family Ensure(Family estate, bool loadCell = true)
+        internal static FamilyGame Ensure(FamilyGame game, bool loadCell = true)
         {
-            if (loaded) return estate;
+            if (loaded) return game;
             loaded = true;
 
             //try
@@ -34,7 +34,7 @@ namespace GameSpec.Tes
             //    Log($"Exception: {ex.Message}");
             //}
 
-            return estate;
+            return game;
         }
     }
 }

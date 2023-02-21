@@ -43,12 +43,9 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public override void WriteText(IndentedTextWriter w)
         {
-            w.WriteLine("ResourceEditInfoBlock_t");
-            w.WriteLine("{");
-            w.Indent++;
+            w.WriteLine("ResourceEditInfoBlock_t {"); w.Indent++;
             foreach (var dep in Structs) dep.Value.WriteText(w);
-            w.Indent--;
-            w.WriteLine("}");
+            w.Indent--; w.WriteLine("}");
         }
 
         static REDIAbstract REDIFactory(REDIStruct id)

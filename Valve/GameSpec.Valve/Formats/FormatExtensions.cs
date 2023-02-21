@@ -1,5 +1,6 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Valve.Formats.Blocks;
+using GameSpec.Valve.Formats.Extras;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace GameSpec.Valve.Formats
     public static class FormatExtensions
     {
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
+        public static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
         {
             Task<object> BinaryPakFactory(BinaryReader r, FileMetadata f, PakFile s)
             {

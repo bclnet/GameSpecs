@@ -1,8 +1,8 @@
-﻿namespace GameSpec.AC
+﻿namespace GameSpec.Rsi
 {
     /// <summary>
-    /// ACFamily
+    /// RsiFamily
     /// </summary>
     /// <seealso cref="GameSpec.Family" />
-    public class ACFamily : Family { }
+    public class RsiFamily : Family { }
 }

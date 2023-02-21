@@ -24,7 +24,11 @@ namespace GameSpec.Valve.Formats.Blocks
         public override void Read(BinaryPak parent, BinaryReader r)
         {
             r.Seek(Offset);
-            for (var i = 0; i < Size; i++) List.Add(new EditFloatData { Name = r.ReadO32UTF8(), Value = r.ReadSingle() });
+            for (var i = 0; i < Size; i++) List.Add(new EditFloatData
+            {
+                Name = r.ReadO32UTF8(),
+                Value = r.ReadSingle()
+            });
         }
 
         public override void WriteText(IndentedTextWriter w)
