@@ -93,46 +93,55 @@
     "application": {
       "AF": {
         "key": "GOG:1207658680",
-        "reg": "GOG.com/Games/1207658680"
+        "reg": "GOG.com/Games/1207658680",
+        "dir": "Arx Fatalis"
       },
       "DOM": {
         "key": "Steam:2100",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2100",
+        "dir": "Dark Messiah Might and Magic Single Player",
         "path": "vpks"
       },
       "D": {
         "key": "GOG:1701063787",
         "reg": "GOG.com/Games/1701063787",
+        "dir": "Dishonored",
         "path": "DishonoredGame"
       },
       "D2": {
         "key": "GOG:1431426311",
         "reg": "GOG.com/Games/1431426311",
+        "dir": "Dishonored 2",
         "path": "base"
       },
       "P": {
         "key": "GOG:1158493447",
         "reg": "GOG.com/Games/1158493447",
+        "dir": "Prey",
         "path": "GameSDK"
       },
       "D:DOTO": {
         "key": "GOG:1707860700",
         "reg": "GOG.com/Games/1707860700",
+        "dir": "Dishonored Death of the Outsider",
         "path": "base"
       },
       "W:YB": {
         "key": "Steam:1056960",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1056960",
+        "dir": "",
         "path": "base"
       },
       "W:CP": {
         "key": "Steam:1056970",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1056970",
+        "dir": "Wolfenstein Cyberpilot",
         "path": "base"
       },
       "DL": {
         "key": "Steam:1252330",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1252330",
+        "dir": "DEATHLOOP",
         "path": "base"
       }
     },

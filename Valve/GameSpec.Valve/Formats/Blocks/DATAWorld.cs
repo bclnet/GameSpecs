@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    //was:Resource/ResourceTypes/World
     public class DATAWorld : DATABinaryKV3OrNTRO
     {
         public IEnumerable<string> GetEntityLumpNames() => Data.Get<string[]>("m_entityLumps");

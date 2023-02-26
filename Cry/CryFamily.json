@@ -67,46 +67,55 @@
     "application": {
       "ArcheAge": {
         "key": "Steam:304030",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 304030"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 304030",
+        "dir": "ArcheAge"
       },
       "Hunt": {
         "key": "Steam:594650",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 594650",
+        "dir": "Hunt Showdown",
         "path": [ "engine", "game_hunt" ]
       },
       "MWO": {
         "key": "Steam:342200",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 342200",
+        "dir": "MechWarrior Online",
         "path": "Game"
       },
       "Warface": {
         "key": "Steam:291480",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 291480",
+        "dir": "Warface",
         "path": [ "13_2000076/Engine", "13_2000076/Game" ]
       },
       "Wolcen": {
         "key": "Steam:424370",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 424370",
+        "dir": "Wolcen",
         "path": [ "Engine", "Game" ]
       },
       "Crysis": {
         "key": "Steam:1715130",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1715130",
+        "dir": "Crysis Remastered",
         "path": [ "Engine", "Game" ]
       },
       "Ryse": {
         "key": "Steam:302510",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 302510",
+        "dir": "Ryse Son of Rome",
         "path": [ "Engine", "GameRyse" ]
       },
       "Robinson": {
         "key": "Steam:579820",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 579820",
+        "dir": "Robinson The Journey",
         "path": [ "engine", "game_robinson" ]
       },
       "Snow": {
         "key": "Steam:244930",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 244930",
+        "dir": "SNOW",
         "path": "Assets"
       }
     }

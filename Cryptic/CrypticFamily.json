@@ -47,16 +47,19 @@
       "CO": {
         "key": "Steam:9880",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9880",
+        "dir": "Champions Online",
         "path": "Champions Online/Live/piggs"
       },
       "STO": {
         "key": "Steam:9900",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9900",
+        "dir": "Star Trek Online",
         "path": "Star Trek Online/Live/piggs"
       },
       "NVW": {
         "key": "Steam:109600",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 109600",
+        "dir": "Cryptic Studios",
         "path": "Neverwinter/Live/piggs"
       }
     }

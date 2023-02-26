@@ -19,6 +19,7 @@
       "StarCitizen": {
         "key": "Unknown:StarCitizen",
         "reg": "81bfc699-f883-50c7-b674-2483b6baae23",
+        "dir": "StarCitizen/LIVE",
         "81bfc699-f883-50c7-b674-2483b6baae23": {
           "path": "%path%/../StarCitizen/LIVE"
         }

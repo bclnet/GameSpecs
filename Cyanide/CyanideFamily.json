@@ -27,11 +27,13 @@
       "TC": {
         "key": [ "Steam:287630", "GOG:1261705611", "GOG:1207658930" ],
         "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630", "GOG.com/Games/1261705611", "GOG.com/Games/1207658930" ],
+        "dir": "The Council",
         "path": "Data/Packages"
       },
       "Werewolf:TA": {
         "key": "Steam:679110",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 679110",
+        "dir": "WerewolfTheApocalypseEarthblood",
         "path": "WW/Content/Paks"
       }
     }

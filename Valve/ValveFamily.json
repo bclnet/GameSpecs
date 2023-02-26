@@ -399,119 +399,147 @@
     "application": {
       "HL": {
         "key": "Steam:70",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 70"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 70",
+        "dir": "Half-Life"
       },
       "TF": {
         "key": "Steam:20",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 20"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 20",
+        "dir": "Half-Life"
       },
       "HL:OF": {
         "key": "Steam:50",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 50",
+        "dir": "Half-Life"
       },
       "CS": {
         "key": "Steam:10",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10",
+        "loc": "Half-Life"
       },
       "Ricochet": {
         "key": "Steam:60",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 60",
+        "dir": "Half-Life"
       },
       "DM": {
         "key": "Steam:40",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 40"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 40",
+        "dir": "Half-Life"
       },
       "HL:BS": {
         "key": "Steam:130",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 130"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 130",
+        "dir": "Half-Life"
       },
       "DOD": {
         "key": "Steam:30",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 30"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 30",
+        "loc": "Half-Life"
       },
       "CS:CZ": {
         "key": "Steam:80",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 80"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 80",
+        "dir": "Half-Life"
       },
       "HL:Src": {
         "key": "Steam:280",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 280"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 280",
+        "dir": "Half-Life 2"
       },
       "CS:Src": {
         "key": "Steam:240",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 240"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 240",
+        "dir": "Counter-Strike Source"
       },
       "HL2": {
         "key": "Steam:220",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 220"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 220",
+        "loc": "Half-Life 2"
       },
       "HL2:DM": {
         "key": "Steam:320",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 320"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 320",
+        "dir": "Half-Life 2 Deathmatch"
       },
       "HL:DM:Src": {
         "key": "Steam:360",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 360"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 360",
+        "dir": "Half-Life 1 Source Deathmatch"
       },
       "HL2:E1": {
         "key": "Steam:380",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 380"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 380",
+        "dir": "Half-Life 2"
       },
       "Portal": {
         "key": "Steam:400",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 400"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 400",
+        "loc": "Portal"
       },
       "HL2:E2": {
         "key": "Steam:420",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 420"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 420",
+        "dir": "Half-Life 2"
       },
       "TF2": {
         "key": "Steam:440",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 440"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 440",
+        "dir": "Team Fortress 2"
       },
       "L4D": {
         "key": "Steam:500",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 500"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 500",
+        "dir": "left 4 dead"
       },
       "L4D2": {
         "key": "Steam:550",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550",
+        "loc": "Left 4 Dead 2"
       },
       "DOD:Src": {
         "key": "Steam:300",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 300"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 300",
+        "dir": "Day of Defeat Source"
       },
       "Portal2": {
         "key": "Steam:620",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 620"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 620",
+        "dir": "Portal 2"
       },
       "CS:GO": {
         "key": "Steam:730",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730",
+        "dir": "Counter-Strike Global Offensive"
       },
       "D2": {
         "key": "Steam:570",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 570",
+        "dir": "dota 2 beta",
         "path": "game"
       },
       "TheLab:RR": {
         "key": "Steam:450390",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+        "dir": "The Lab",
         "path": "RobotRepair"
       },
       "TheLab:SS": {
         "key": "Steam:450390",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+        "dir": "The Lab",
         "path": "SecretShop/win64/SecretShop_Data"
       },
       "TheLab:TL": {
         "key": "Steam:450390",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 450390",
+        "dir": "The Lab",
         "path": "TheLab/win64/TheLab_Data"
       },
       "HL:Alyx": {
         "key": "Steam:546560",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 546560",
+        "dir": "Half-Life Alyx",
         "path": "game"
       }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    //was:Resource/ResourceTypes/ParticleSystem
     public class DATAParticleSystem : DATABinaryKV3OrNTRO, IParticleSystemInfo
     {
         public IEnumerable<IDictionary<string, object>> Renderers => Data.GetArray("m_Renderers") ?? Enumerable.Empty<IDictionary<string, object>>();
@@ -16,9 +17,9 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public IEnumerable<string> GetChildParticleNames(bool enabledOnly = false)
         {
-            var children = Data.GetArray("m_Children");
+            IEnumerable<IDictionary<string, object>> children = Data.GetArray("m_Children");
             if (children == null) return Enumerable.Empty<string>();
-            if (enabledOnly) children = children.Where(c => !c.ContainsKey("m_bDisableChild") || !c.Get<bool>("m_bDisableChild")).ToArray();
+            if (enabledOnly) children = children.Where(c => !c.ContainsKey("m_bDisableChild") || !c.Get<bool>("m_bDisableChild"));
             return children.Select(c => c.Get<string>("m_ChildRef")).ToList();
         }
     }

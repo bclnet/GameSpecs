@@ -180,88 +180,106 @@
       "COD": {
         "key": [ "Steam:2620", "Steam:2640" ],
         "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640" ],
+        "dir": "Call of Duty",
         "path": [ "Main", "uo" ]
       },
       "COD2": {
         "key": "Steam:2630",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
+        "dir": "Call of Duty 2",
         "path": "main"
       },
       "COD4": {
         "key": "Steam:7940",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
+        "dir": "Call of Duty 4",
         "path": [ "main", "zone/english" ]
       },
       "WaW": {
         "key": "Steam:10090",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10090",
+        "dir": "Call of Duty World at War",
         "path": [ "main", "zone/english" ]
       },
       "MW2": {
         "key": "Steam:10180",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
+        "dir": "Call of Duty Modern Warfare 2",
         "path": [ "main", "zone/english" ]
       },
       "BO": {
         "key": "Steam:42700",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
+        "dir": "Call of Duty Black Ops",
         "path": [ "main", "zone/Common", "zone/English" ]
       },
       "MW3": {
         "key": "Steam:42680",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
+        "dir": "Call of Duty Modern Warfare 3",
         "path": [ "main", "zone/english" ]
       },
       "BO2": {
         "key": "Steam:202970",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 202970",
+        "dir": "Call of Duty Black Ops II",
         "path": [ "sound", "zone/all", "zone/english" ]
       },
       "Ghosts": {
         "key": "Steam:209160",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209160",
+        "dir": "Call of Duty Ghosts",
         "path": [ ".", "english" ]
       },
       "AW": {
         "key": "Steam:209650",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209650",
+        "dir": "Call of Duty Advanced Warfare",
         "path": [ ".", "english" ]
       },
       "BO3": {
         "key": "Steam:311210",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 311210",
+        "dir": "Call of Duty Black Ops III",
         "path": [ "zone" ]
       },
       "IW": {
         "key": "Steam:292730",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 292730",
+        "dir": "Call of Duty - Infinite Warfare",
         "path": [ ".", "english" ]
       },
       "WWII": {
         "key": "Steam:476600",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600",
+        "dir": "Call of Duty WWII",
         "path": [ ".", "english" ]
       },
       "BO4": {
         "key": "Blizzard:Call of Duty Black Ops 4",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4",
+        "dir": "Call of Duty Black Ops 4"
       },
       "MW": {
         "key": "Steam:393080",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 393080",
+        "dir": "Call of Duty Modern Warfare Remastered",
         "path": [ ".", "english" ]
       },
       "BOCW": {
         "key": "Blizzard:Call of Duty Black Ops Cold War",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops Cold War"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops Cold War",
+        "dir": "Call of Duty Black Ops Cold War"
       },
       "Vanguard": {
         "key": "Blizzard:Call of Duty Vanguard",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Vanguard"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Vanguard",
+        "dir": "Call of Duty Vanguard"
       },
       "COD:MW2": {
         "key": "Steam:1938090",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090",
+        "dir": "Call of Duty HQ",
         "path": [ ".", "sp22" ]
       }
     }

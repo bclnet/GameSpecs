@@ -4,19 +4,20 @@ using K4os.Compression.LZ4;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Buffers;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
     public class DATABinaryKV3 : DATA, IGetMetadataInfo
     {
-        public enum KVFlag
+        public enum KVFlag //was:Serialization/KeyValues/KVFlaggedValue
         {
             None,
             Resource,
             DeferredResource
         }
 
-        public enum KVType : byte
+        public enum KVType : byte //was:Serialization/KeyValues/KVValue
         {
             STRING_MULTI = 0, // STRING_MULTI doesn't have an ID
             NULL = 1,
@@ -39,12 +40,13 @@ namespace GameSpec.Valve.Formats.Blocks
             DOUBLE_ONE = 18,
         }
 
-        static readonly Guid KV3_ENCODING_BINARY_BLOCK_COMPRESSED = new Guid(new byte[] { 0x46, 0x1A, 0x79, 0x95, 0xBC, 0x95, 0x6C, 0x4F, 0xA7, 0x0B, 0x05, 0xBC, 0xA1, 0xB7, 0xDF, 0xD2 });
-        static readonly Guid KV3_ENCODING_BINARY_UNCOMPRESSED = new Guid(new byte[] { 0x00, 0x05, 0x86, 0x1B, 0xD8, 0xF7, 0xC1, 0x40, 0xAD, 0x82, 0x75, 0xA4, 0x82, 0x67, 0xE7, 0x14 });
-        static readonly Guid KV3_ENCODING_BINARY_BLOCK_LZ4 = new Guid(new byte[] { 0x8A, 0x34, 0x47, 0x68, 0xA1, 0x63, 0x5C, 0x4F, 0xA1, 0x97, 0x53, 0x80, 0x6F, 0xD9, 0xB1, 0x19 });
-        //static readonly Guid KV3_FORMAT_GENERIC = new Guid(new byte[] { 0x7C, 0x16, 0x12, 0x74, 0xE9, 0x06, 0x98, 0x46, 0xAF, 0xF2, 0xE6, 0x3E, 0xB5, 0x90, 0x37, 0xE7 });
+        static readonly Guid KV3_ENCODING_BINARY_BLOCK_COMPRESSED = new(new byte[] { 0x46, 0x1A, 0x79, 0x95, 0xBC, 0x95, 0x6C, 0x4F, 0xA7, 0x0B, 0x05, 0xBC, 0xA1, 0xB7, 0xDF, 0xD2 });
+        static readonly Guid KV3_ENCODING_BINARY_UNCOMPRESSED = new(new byte[] { 0x00, 0x05, 0x86, 0x1B, 0xD8, 0xF7, 0xC1, 0x40, 0xAD, 0x82, 0x75, 0xA4, 0x82, 0x67, 0xE7, 0x14 });
+        static readonly Guid KV3_ENCODING_BINARY_BLOCK_LZ4 = new(new byte[] { 0x8A, 0x34, 0x47, 0x68, 0xA1, 0x63, 0x5C, 0x4F, 0xA1, 0x97, 0x53, 0x80, 0x6F, 0xD9, 0xB1, 0x19 });
+        static readonly Guid KV3_FORMAT_GENERIC = new(new byte[] { 0x7C, 0x16, 0x12, 0x74, 0xE9, 0x06, 0x98, 0x46, 0xAF, 0xF2, 0xE6, 0x3E, 0xB5, 0x90, 0x37, 0xE7 });
         public const int MAGIC = 0x03564B56; // VKV3 (3 isn't ascii, its 0x03)
         public const int MAGIC2 = 0x4B563301; // KV3\x01
+        public const int MAGIC3 = 0x4B563302; // KV3\x02
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "BinaryKV3", Value = ToString() }),
@@ -59,227 +61,235 @@ namespace GameSpec.Valve.Formats.Blocks
         public Guid Encoding { get; private set; }
         public Guid Format { get; private set; }
 
-        string[] _strings;
-        byte[] _types;
-        long _typeIndex;
-        long _eightBytesOffset;
-        long _binaryBytesOffset = -1;
+        string[] strings;
+        byte[] types;
+        BinaryReader uncompressedBlockDataReader;
+        int[] uncompressedBlockLengthArray;
+        long currentCompressedBlockIndex;
+        long currentTypeIndex;
+        long currentEightBytesOffset = -1;
+        long currentBinaryBytesOffset = -1;
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
             r.Seek(Offset);
-            var s = new MemoryStream();
-            var w = new BinaryWriter(s);
-            var r2 = new BinaryReader(s);
             var magic = r.ReadUInt32();
-            if (magic == MAGIC2) ReadVersion2(r, w, r2);
-            else if (magic == MAGIC) ReadVersion1(r, w, r2);
-            else throw new InvalidDataException($"Invalid KV3 signature {magic}");
-        }
-
-        void ReadVersion1(BinaryReader reader, BinaryWriter w, BinaryReader r)
-        {
-            Encoding = reader.ReadGuid();
-            Format = reader.ReadGuid();
-
-            if (Encoding.CompareTo(KV3_ENCODING_BINARY_BLOCK_COMPRESSED) == 0) BlockDecompress(reader, w, r);
-            else if (Encoding.CompareTo(KV3_ENCODING_BINARY_BLOCK_LZ4) == 0) DecompressLZ4(reader, w);
-            else if (Encoding.CompareTo(KV3_ENCODING_BINARY_UNCOMPRESSED) == 0) reader.CopyTo(w.BaseStream);
-            else throw new InvalidDataException($"Unrecognised KV3 Encoding: {Encoding}");
-            r.Seek(0);
-
-            _strings = new string[r.ReadUInt32()];
-            for (var i = 0; i < _strings.Length; i++) _strings[i] = r.ReadZUTF8();
-
-            Data = (IDictionary<string, object>)ParseBinaryKV3(r, null, true);
-        }
-
-        void ReadVersion2(BinaryReader r, BinaryWriter w, BinaryReader r2)
-        {
-            Format = r.ReadGuid();
-            var compressionMethod = r.ReadInt32();
-            var binaryBytes = r.ReadInt32(); // how many bytes (binary blobs)
-            var integers = r.ReadInt32(); // how many 4 byte values (ints)
-            var eightByteValues = r.ReadInt32(); // how many 8 byte values (doubles)
-
-            if (compressionMethod == 0)
+            switch (magic)
             {
-                var length = r.ReadInt32();
-                var buffer = new byte[length];
-                r.Read(buffer, 0, length);
-                w.Write(buffer);
+                case MAGIC: ReadVersion1(r); break;
+                case MAGIC2: ReadVersion2(r, w, r2); break;
+                //case MAGIC3: ReadVersion3(r, w, r2); break;
+                default: throw new ArgumentOutOfRangeException(nameof(magic), $"Invalid KV3 signature {magic}");
             }
-            else if (compressionMethod == 1) DecompressLZ4(r, w);
-            else throw new Exception($"Unknown KV3 compression method: {compressionMethod}");
-
-            _binaryBytesOffset = 0;
-            r2.Seek(binaryBytes, 4); // Align to % 4 after binary blobs
-
-            _strings = new string[r2.ReadInt32()];
-            var kv3Offset = r2.Position();
-
-            // Subtract one integer since we already read it (_strings)
-            // Align to % 8 for the start of doubles
-            _eightBytesOffset = r2.Seek(r2.Position() + (integers - 1) * 4, 8);
-
-            r2.Skip(eightByteValues * 8);
-
-            for (var i = 0; i < _strings.Length; i++) _strings[i] = r2.ReadZUTF8();
-
-            // bytes after the string table is kv types, minus 4 static bytes at the end
-            _types = r2.ReadBytes((int)(r2.BaseStream.Length - 4 - r2.Position()));
-
-            // Move back to the start of the KV data for reading.
-            r2.Seek(kv3Offset);
-            Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
         }
 
-        static void BlockDecompress(BinaryReader r, BinaryWriter w, BinaryReader r2)
-        {
-            var flags = r.ReadBytes(4);
-            if ((flags[3] & 0x80) > 0) { w.Write(r.ReadBytes((int)(r.BaseStream.Length - r.BaseStream.Position))); return; }
-            var length = (flags[2] << 16) + (flags[1] << 8) + flags[0];
-            while (r.BaseStream.Position != r.BaseStream.Length)
-                try
-                {
-                    var blockMask = r.ReadUInt16();
-                    for (var i = 0; i < 16; i++)
-                    {
-                        if ((blockMask & (1 << i)) > 0)
-                        {
-                            var offsetSize = r.ReadUInt16();
-                            var offset = ((offsetSize & 0xFFF0) >> 4) + 1;
-                            var size = (offsetSize & 0x000F) + 3;
-                            var lookupSize = Math.Min(offset, size);
-                            var position = r2.Position();
-                            r2.Skip(-offset);
-                            var data = r2.ReadBytes(lookupSize);
-                            w.BaseStream.Position = position;
-                            while (size > 0) { w.Write(data, 0, Math.Min(lookupSize, size)); size -= lookupSize; }
-                        }
-                        else w.Write(r.ReadByte());
-                        if (w.BaseStream.Length == length) return;
-                    }
-                }
-                catch (EndOfStreamException) { return; }
-        }
-
-        void DecompressLZ4(BinaryReader r, BinaryWriter w)
+        void DecompressLZ4(BinaryReader r, MemoryStream s)
         {
             var uncompressedSize = r.ReadUInt32();
             var compressedSize = (int)(Size - (r.BaseStream.Position - Offset));
 
-            var input = r.ReadBytes(compressedSize);
             var output = new Span<byte>(new byte[uncompressedSize]);
+            var buf = ArrayPool<byte>.Shared.Rent(compressedSize);
+            try
+            {
+                var input = buf.AsSpan(0, compressedSize);
+                r.Read(input);
 
-            LZ4Codec.Decode(input, output);
+                var written = LZ4Codec.Decode(input, output);
+                if (written != output.Length) throw new InvalidDataException($"Failed to decompress LZ4 (expected {output.Length} bytes, got {written}).");
+            }
+            finally { ArrayPool<byte>.Shared.Return(buf); }
 
-            w.Write(output.ToArray()); // TODO: Write as span
-            w.BaseStream.Position = 0;
+            s.Write(output);
+        }
+
+        void ReadVersion1(BinaryReader r)
+        {
+            Encoding = r.ReadGuid();
+            Format = r.ReadGuid();
+
+            using var s = new MemoryStream();
+            using var r2 = new BinaryReader(s, System.Text.Encoding.UTF8, true);
+
+            if (Encoding.CompareTo(KV3_ENCODING_BINARY_BLOCK_COMPRESSED) == 0) s.Write(BlockCompress.FastDecompress(r));
+            else if (Encoding.CompareTo(KV3_ENCODING_BINARY_BLOCK_LZ4) == 0) DecompressLZ4(r, s);
+            else if (Encoding.CompareTo(KV3_ENCODING_BINARY_UNCOMPRESSED) == 0) r.CopyTo(s);
+            else throw new ArgumentOutOfRangeException(nameof(Encoding), $"Unrecognised KV3 Encoding: {Encoding}");
+            s.Seek(0, SeekOrigin.Begin);
+
+            strings = new string[r2.ReadUInt32()];
+            for (var i = 0; i < strings.Length; i++) strings[i] = r2.ReadZUTF8();
+
+            Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
+
+            var trailer = r2.ReadUInt32();
+            if (trailer != 0xFFFFFFFF) throw new ArgumentOutOfRangeException(nameof(trailer), $"Invalid trailer {trailer}");
+        }
+
+        void ReadVersion2(BinaryReader r)
+        {
+            Format = r.ReadGuid();
+            var compressionMethod = r.ReadInt32();
+            var countOfBinaryBytes = r.ReadInt32(); // how many bytes (binary blobs)
+            var countOfIntegers = r.ReadInt32(); // how many 4 byte values (ints)
+            var countOfEightByteValues = r.ReadInt32(); // how many 8 byte values (doubles)
+
+            using var s = new MemoryStream();
+
+            if (compressionMethod == 0)
+            {
+                var length = r.ReadInt32();
+                var output = new Span<byte>(new byte[length]);
+                r.Read(output);
+                s.Write(output);
+                s.Seek(0, SeekOrigin.Begin);
+            }
+            else if (compressionMethod == 1) DecompressLZ4(r, s);
+            else throw new ArgumentOutOfRangeException(nameof(compressionMethod), $"Unknown KV3 compression method: {compressionMethod}");
+
+            using var r2 = new BinaryReader(s, System.Text.Encoding.UTF8, true);
+
+            currentBinaryBytesOffset = 0;
+            r2.Seek(countOfBinaryBytes, 4);
+
+            var countOfStrings = r2.ReadInt32();
+            var kvDataOffset = r2.BaseStream.Position;
+
+            // Subtract one integer since we already read it (countOfStrings)
+            r2.Skip((countOfIntegers - 1) * 4, 8);
+
+            currentEightBytesOffset = r2.BaseStream.Position;
+            r2.BaseStream.Position += countOfEightByteValues * 8;
+
+            strings = new string[countOfStrings];
+            for (var i = 0; i < countOfStrings; i++) strings[i] = r2.ReadZUTF8();
+
+            // bytes after the string table is kv types, minus 4 static bytes at the end
+            var typesLength = r2.BaseStream.Length - 4 - r2.BaseStream.Position;
+            types = new byte[typesLength];
+            for (var i = 0; i < typesLength; i++) types[i] = r2.ReadByte();
+
+            // Move back to the start of the KV data for reading.
+            r2.Seek(kvDataOffset);
+            Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
         }
 
         (KVType Type, KVFlag Flag) ReadType(BinaryReader r)
         {
-            var databyte = _types != null ? _types[_typeIndex++] : r.ReadByte();
+            var databyte = types != null ? types[currentTypeIndex++] : r.ReadByte();
             var flag = KVFlag.None;
             if ((databyte & 0x80) > 0)
             {
                 databyte &= 0x7F; // Remove the flag bit
-                flag = _types != null ? (KVFlag)_types[_typeIndex++] : (KVFlag)r.ReadByte();
+                flag = types != null ? (KVFlag)types[currentTypeIndex++] : (KVFlag)r.ReadByte();
             }
             return ((KVType)databyte, flag);
         }
 
-        object ParseBinaryKV3(BinaryReader r, IDictionary<string, object> parent, bool inArray)
+        IDictionary<string, object> ParseBinaryKV3(BinaryReader r, IDictionary<string, object> parent, bool inArray = false)
         {
             string name;
-            if (!inArray) { var stringId = r.ReadInt32(); name = stringId == -1 ? string.Empty : _strings[stringId]; }
+            if (!inArray)
+            {
+                var stringId = r.ReadInt32();
+                name = stringId == -1 ? string.Empty : strings[stringId];
+            }
             else name = null;
             var (type, flag) = ReadType(r);
-            var value = ReadBinaryValue(type, flag, r);
-            if (name != null) parent?.Add(name, value);
-            return value;
+            return ReadBinaryValue(name, type, flag, r, parent);
         }
 
-        object ReadBinaryValue(KVType type, KVFlag flag, BinaryReader r)
+        IDictionary<string, object> ReadBinaryValue(string name, KVType type, KVFlag flag, BinaryReader r, IDictionary<string, object> parent)
         {
-            var position = r.BaseStream.Position;
+            var currentOffset = r.BaseStream.Position;
             switch (type)
             {
-                case KVType.NULL: return MakeValue(type, null, flag);
+                case KVType.NULL: parent.Add(name, MakeValue(type, null, flag)); break;
                 case KVType.BOOLEAN:
                     {
-                        if (_binaryBytesOffset > -1) r.BaseStream.Position = _binaryBytesOffset;
-                        var value = MakeValue(type, r.ReadBoolean(), flag);
-                        if (_binaryBytesOffset > -1) { _binaryBytesOffset = r.BaseStream.Position; r.BaseStream.Position = position; }
-                        return value;
+                        if (currentBinaryBytesOffset > -1) r.BaseStream.Position = currentBinaryBytesOffset;
+                        parent.Add(name, MakeValue(type, r.ReadBoolean(), flag));
+                        if (currentBinaryBytesOffset > -1) { currentBinaryBytesOffset++; r.BaseStream.Position = currentOffset; }
+                        break;
                     }
-                case KVType.BOOLEAN_TRUE: return MakeValue(type, true, flag);
-                case KVType.BOOLEAN_FALSE: return MakeValue(type, false, flag);
-                case KVType.INT64_ZERO: return MakeValue(type, 0L, flag);
-                case KVType.INT64_ONE: return MakeValue(type, 1L, flag);
+                case KVType.BOOLEAN_TRUE: parent.Add(name, MakeValue(type, true, flag)); break;
+                case KVType.BOOLEAN_FALSE: parent.Add(name, MakeValue(type, false, flag)); break;
+                case KVType.INT64_ZERO: parent.Add(name, MakeValue(type, 0L, flag)); break;
+                case KVType.INT64_ONE: parent.Add(name, MakeValue(type, 1L, flag); break;
                 case KVType.INT64:
                     {
-                        if (_eightBytesOffset > 0) r.BaseStream.Position = _eightBytesOffset;
-                        var value = MakeValue(type, r.ReadInt64(), flag);
-                        if (_eightBytesOffset > 0) { _eightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = position; }
-                        return value;
+                        if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
+                        parent.Add(name, MakeValue(type, r.ReadInt64(), flag));
+                        if (currentEightBytesOffset > 0) { currentEightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset; }
+                        break;
                     }
                 case KVType.UINT64:
                     {
-                        if (_eightBytesOffset > 0) r.BaseStream.Position = _eightBytesOffset;
-                        var value = MakeValue(type, r.ReadUInt64(), flag);
-                        if (_eightBytesOffset > 0) { _eightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = position; }
-                        return value;
+                        if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
+                        parent.Add(name, MakeValue(type, r.ReadUInt64(), flag));
+                        if (currentEightBytesOffset > 0) { currentEightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset; }
+                        break;
                     }
-                case KVType.INT32: return MakeValue(type, r.ReadInt32(), flag);
-                case KVType.UINT32: return MakeValue(type, r.ReadUInt32(), flag);
+                case KVType.INT32: parent.Add(name, MakeValue(type, r.ReadInt32(), flag)); break;
+                case KVType.UINT32: parent.Add(name, MakeValue(type, r.ReadUInt32(), flag)); break;
                 case KVType.DOUBLE:
                     {
-                        if (_eightBytesOffset > 0) r.BaseStream.Position = _eightBytesOffset;
-                        var value = MakeValue(type, r.ReadDouble(), flag);
-                        if (_eightBytesOffset > 0) { _eightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = position; }
-                        return value;
+                        if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
+                        parent.Add(name, MakeValue(type, r.ReadDouble(), flag));
+                        if (currentEightBytesOffset > 0) { currentEightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset; }
+                        break;
                     }
-                case KVType.DOUBLE_ZERO: return MakeValue(type, 0.0D, flag);
-                case KVType.DOUBLE_ONE: return MakeValue(type, 1.0D, flag);
+                case KVType.DOUBLE_ZERO: parent.Add(name, MakeValue(type, 0.0D, flag)); break;
+                case KVType.DOUBLE_ONE: parent.Add(name, MakeValue(type, 1.0D, flag)); break;
                 case KVType.STRING:
                     {
                         var id = r.ReadInt32();
-                        return MakeValue(type, id == -1 ? string.Empty : _strings[id], flag);
+                        parent.Add(name, MakeValue(type, id == -1 ? string.Empty : strings[id], flag));
+                        break;
                     }
                 case KVType.BINARY_BLOB:
                     {
+                        if (uncompressedBlockDataReader != null)
+                        {
+                            var output = uncompressedBlockDataReader.ReadBytes(uncompressedBlockLengthArray[currentCompressedBlockIndex++]);
+                            parent.Add(name, MakeValue(type, output, flag));
+                            break;
+                        }
                         var length = r.ReadInt32();
-                        if (_binaryBytesOffset > -1) r.BaseStream.Position = _binaryBytesOffset;
-                        var value = MakeValue(type, r.ReadBytes(length), flag);
-                        if (_binaryBytesOffset > -1) { _binaryBytesOffset = r.BaseStream.Position; r.BaseStream.Position = position + 4; }
-                        return value;
+                        if (currentBinaryBytesOffset > -1) r.BaseStream.Position = currentBinaryBytesOffset;
+                        parent.Add(name, MakeValue(type, r.ReadBytes(length), flag));
+                        if (currentBinaryBytesOffset > -1) { currentBinaryBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset + 4; }
+                        break;
                     }
                 case KVType.ARRAY:
                     {
-                        var count = r.ReadInt32();
-                        var values = new object[count];
-                        for (var i = 0; i < count; i++) values[i] = ParseBinaryKV3(r, null, true);
-                        return MakeValue(type, values, flag);
+                        var arrayLength = r.ReadInt32();
+                        var array = new object[arrayLength];
+                        for (var i = 0; i < arrayLength; i++) array[i] = ParseBinaryKV3(r, null, true);
+                        parent.Add(name, MakeValue(type, array, flag));
+                        break;
                     }
                 case KVType.ARRAY_TYPED:
                     {
-                        var count = r.ReadInt32();
+                        var typeArrayLength = r.ReadInt32();
                         var (subType, subFlag) = ReadType(r);
-                        var values = new object[count];
-                        for (var i = 0; i < count; i++) values[i] = ReadBinaryValue(subType, subFlag, r);
-                        return MakeValue(type, values, flag);
+                        var typedArray = new object[typeArrayLength];
+                        for (var i = 0; i < typeArrayLength; i++) typedArray[i] = ReadBinaryValue(subType, subFlag, r, null); //: typedArray
+                        parent.Add(name, MakeValue(type, typedArray, flag));
+                        break;
                     }
                 case KVType.OBJECT:
                     {
                         var objectLength = r.ReadInt32();
                         var newObject = new Dictionary<string, object>();
                         for (var i = 0; i < objectLength; i++) ParseBinaryKV3(r, newObject, false);
-                        return MakeValue(type, newObject, flag);
+                        if (parent == null) parent = newObject;
+                        else parent.Add(name, MakeValue(type, newObject, flag));
+                        break;
                     }
                 default: throw new InvalidDataException($"Unknown KVType {type} on byte {r.BaseStream.Position - 1}");
             }
+            return parent;
         }
 
         //static KVType ConvertBinaryOnlyKVType(KVType type)
@@ -308,6 +318,16 @@ namespace GameSpec.Valve.Formats.Blocks
         //    var realType = ConvertBinaryOnlyKVType(type);
         //    flag != KVFlag.None ? (object)(realType, flag, data) : (realType, data);
         //}
+
+
+#pragma warning disable CA1024 // Use properties where appropriate
+        public DATABinaryKV3File GetKV3File()
+#pragma warning restore CA1024 // Use properties where appropriate
+        {
+            // TODO: Other format guids are not "generic" but strings like "vpc19"
+            var formatType = Format != KV3_FORMAT_GENERIC ? "vrfunknown" : "generic";
+            return new DATABinaryKV3File(Data, format: $"{formatType}:version{{{Format}}}");
+        }
 
         public override void WriteText(IndentedTextWriter w) => w.Write(KVExtensions.Print(Data));
     }

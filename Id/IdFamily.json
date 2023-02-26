@@ -32,7 +32,7 @@
     },
     "Q:L": {
       "name": "Quake Live",
-      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Quake_Live" ],
+      "url": [ "https://store.steampowered.com/app/282440", "https://en.wikipedia.org/wiki/Quake_Live" ],
       "date": "2010-08-06",
       "pak": "game:/*.pak#Q:L"
     },
@@ -68,7 +68,7 @@
     },
     "Q:C": {
       "name": "Quake Champions",
-      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Quake_Champions" ],
+      "url": [ "https://store.steampowered.com/app/611500", "https://en.wikipedia.org/wiki/Quake_Champions" ],
       "date": "2022-08-18",
       "pak": "game:/*.pak#Q:C"
     }
@@ -197,47 +197,58 @@
     "application": {
       "Q": {
         "key": "Steam:2310",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2310"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2310",
+        "dir": "Quake"
       },
       "Q2": {
         "key": "Steam:2320",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2320"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2320",
+        "dir": "Quake 2"
       },
       "Q3:A": {
-        "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "key": [ "Steam:2200", "GOG:1441704920" ],
+        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2200", "GOG.com/Games/1441704920" ],
+        "dir": "Quake III"
       },
       "D3": {
         "key": "Steam:9050",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9050"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9050",
+        "dir": "Doom 3"
       },
       "Q:L": {
-        "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "key": "Steam:282440",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282440",
+        "dir": "xx"
       },
       "R": {
         "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "xx"
       },
       "D": {
         "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "xx"
       },
       "D:VFR": {
         "key": "Steam:650000",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 650000"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 650000",
+        "dir": "DOOM VFR"
       },
       "R2": {
         "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "xx"
       },
       "D:E": {
         "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "xx"
       },
       "Q:C": {
-        "key": "Steam:0",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0"
+        "key": "Steam:611500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611500",
+        "dir": "xx"
       }
     }
   }

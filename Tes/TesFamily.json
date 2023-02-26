@@ -121,60 +121,72 @@
     "application": {
       "Fallout2": {
         "key": [ "Steam:38410", "GOG:1440151285" ],
-        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410", "GOG.com/Games/1440151285" ]
+        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410", "GOG.com/Games/1440151285" ],
+        "dir": "Fallout Tactics"
       },
       "Morrowind": {
         "key": "Steam:22320",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22320",
+        "dir": "Morrowind",
         "path": "Data Files"
       },
       "Oblivion": {
         "key": "Steam:22330",
         "reg": [ "Bethesda Softworks/Oblivion", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22330" ],
+        "dir": "Oblivion",
         "path": "Data"
       },
       "Fallout3": {
         "key": "Steam:22370",
         "reg": [ "Bethesda Softworks/Fallout3", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22370" ],
+        "dir": "Fallout 3 goty",
         "path": "Data"
       },
       "FalloutNV": {
         "key": "Steam:22380",
         "reg": [ "Bethesda Softworks/falloutnv", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22380" ],
+        "dir": "Fallout New Vegas",
         "path": "Data"
       },
       "Skyrim": {
         "key": "Steam:72850",
         "reg": [ "Bethesda Softworks/skyrim", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 72850" ],
+        "dir": "Skyrim",
         "path": "Data"
       },
       "Fallout4": {
         "key": "Steam:377160",
         "reg": [ "Bethesda Softworks/Fallout4", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 377160" ],
+        "dir": "Fallout 4",
         "path": "Data"
       },
       "SkyrimSE": {
         "key": "Steam:489830",
         "reg": [ "Bethesda Softworks/Skyrim SE", "Bethesda Softworks/Skyrim Special Edition", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 489830" ],
+        "dir": "Skyrim Special Edition",
         "path": "Data"
       },
       "Fallout:S": {
         "key": "Steam:588430",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 588430"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 588430",
+        "dir": "Fallout Shelter"
       },
       "Fallout4VR": {
         "key": "Steam:611660",
         "reg": [ "Bethesda Softworks/Fallout 4 VR", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611660" ],
+        "dir": "Fallout 4 VR",
         "path": "Data"
       },
       "SkyrimVR": {
         "key": "Steam:611670",
         "reg": [ "Bethesda Softworks/Skyrim VR", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611670" ],
+        "dir": "SkyrimVR",
         "path": "Data"
       },
       "Fallout76": {
         "key": "Steam:1151340",
         "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1151340" ],
+        "dir": "Fallout76",
         "path": "Data"
       }
     },

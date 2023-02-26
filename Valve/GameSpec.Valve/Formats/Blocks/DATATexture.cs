@@ -4,14 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static OpenStack.Debug;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    //was:Resource/ResourceTypes/Texture
     public class DATATexture : DATA, ITextureInfo
     {
+        public enum VTexExtraData //was:Resource/Enums/VTexExtraData
+        {
+            UNKNOWN = 0,
+            FALLBACK_BITS = 1,
+            SHEET = 2,
+            FILL_TO_POWER_OF_TWO = 3,
+            COMPRESSED_MIP_SIZE = 4,
+            CUBEMAP_RADIANCE_SH = 5,
+        }
+
         [Flags]
-        public enum VTexFlags
+        public enum VTexFlags //was:Resource/Enums/VTexFlags
         {
             SUGGEST_CLAMPS = 0x00000001,
             SUGGEST_CLAMPT = 0x00000002,
@@ -22,64 +32,8 @@ namespace GameSpec.Valve.Formats.Blocks
             TEXTURE_ARRAY = 0x00000040,
         }
 
-        public enum VTexExtraData
+        public enum VTexFormat : byte //was:Resource/Enums/VTexFlags
         {
-            UNKNOWN = 0,
-            FALLBACK_BITS = 1,
-            SHEET = 2,
-            FILL_TO_POWER_OF_TWO = 3,
-            COMPRESSED_MIP_SIZE = 4,
-        }
-
-        public BinaryReader Reader { get; private set; }
-        public ushort Version { get; private set; }
-        public ushort Width { get; private set; }
-        public ushort Height { get; private set; }
-        public ushort Depth { get; private set; }
-        public float[] Reflectivity { get; private set; }
-        public VTexFlags Flags { get; private set; }
-        public TextureGLFormat Format { get; private set; }
-        public byte NumMipMaps { get; private set; }
-        public uint Picmip0Res { get; private set; }
-        public Dictionary<VTexExtraData, byte[]> ExtraData { get; private set; } = new Dictionary<VTexExtraData, byte[]>();
-        public ushort NonPow2Width { get; private set; }
-        public ushort NonPow2Height { get; private set; }
-
-        int[] CompressedMips;
-        bool IsActuallyCompressedMips;
-        long DataOffset;
-
-        #region ITextureInfo
-
-        IDictionary<string, object> ITextureInfo.Data => null;
-        int ITextureInfo.Width => Width;
-        int ITextureInfo.Height => Height;
-        int ITextureInfo.Depth => Depth;
-        TextureFlags ITextureInfo.Flags => (TextureFlags)Flags;
-        object ITextureInfo.UnityFormat => throw new NotImplementedException();
-        object ITextureInfo.GLFormat => Format;
-        int ITextureInfo.NumMipMaps => NumMipMaps;
-
-        void ITextureInfo.MoveToData() => Reader.BaseStream.Position = Offset + Size;
-
-        byte[] ITextureInfo.this[int index]
-        {
-            get
-            {
-                var uncompressedSize = Format.GetMipMapTrueDataSize(this, index);
-                if (!IsActuallyCompressedMips) return Reader.ReadBytes(uncompressedSize);
-                var compressedSize = CompressedMips[index];
-                if (compressedSize >= uncompressedSize) return Reader.ReadBytes(uncompressedSize);
-                return Reader.DecompressLz4(compressedSize, uncompressedSize);
-            }
-            set => throw new NotImplementedException();
-        }
-
-        #endregion
-
-        public enum ValveTextureFormat : byte
-        {
-#pragma warning disable 1591
             UNKNOWN = 0,
             DXT1 = 1,
             DXT5 = 2,
@@ -109,29 +63,90 @@ namespace GameSpec.Valve.Formats.Blocks
             RG11_EAC = 26,
             ATI1N = 27,
             BGRA8888 = 28,
-#pragma warning restore 1591
         }
+
+        public BinaryReader Reader { get; private set; }
+        long DataOffset;
+        public ushort Version { get; private set; }
+        public ushort Width { get; private set; }
+        public ushort Height { get; private set; }
+        public ushort Depth { get; private set; }
+        public float[] Reflectivity { get; private set; }
+        public VTexFlags Flags { get; private set; }
+        public VTexFormat Format { get; private set; }
+        public byte NumMipMaps { get; private set; }
+        public uint Picmip0Res { get; private set; }
+        public Dictionary<VTexExtraData, byte[]> ExtraData { get; private set; } = new Dictionary<VTexExtraData, byte[]>();
+        public ushort NonPow2Width { get; private set; }
+        public ushort NonPow2Height { get; private set; }
+
+        int[] CompressedMips;
+        bool IsActuallyCompressedMips;
+        float[] RadianceCoefficients;
+
+        public ushort ActualWidth => NonPow2Width > 0 ? NonPow2Width : Width;
+        public ushort ActualHeight => NonPow2Height > 0 ? NonPow2Height : Height;
+
+        #region ITextureInfo
+
+        IDictionary<string, object> ITextureInfo.Data => null;
+        int ITextureInfo.Width => Width;
+        int ITextureInfo.Height => Height;
+        int ITextureInfo.Depth => Depth;
+        TextureFlags ITextureInfo.Flags => (TextureFlags)Flags;
+        public object UnityFormat => Format switch
+        {
+            VTexFormat.DXT1 => null,
+            //TextureFormat.DXT3 => null,
+            VTexFormat.DXT5 => null,
+            VTexFormat.ETC2 => null,
+            VTexFormat.ETC2_EAC => null,
+            VTexFormat.ATI1N => null,
+            VTexFormat.ATI2N => null,
+            VTexFormat.BC6H => null,
+            VTexFormat.BC7 => null,
+            VTexFormat.RGBA8888 => null,
+            VTexFormat.RGBA16161616F => null,
+            VTexFormat.I8 => null,
+            _ => null,
+        };
+        public object GLFormat => Format switch
+        {
+            VTexFormat.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
+            //TextureFormat.DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
+            VTexFormat.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
+            VTexFormat.ETC2 => TextureGLFormat.CompressedRgb8Etc2,
+            VTexFormat.ETC2_EAC => TextureGLFormat.CompressedRgba8Etc2Eac,
+            VTexFormat.ATI1N => TextureGLFormat.CompressedRedRgtc1,
+            VTexFormat.ATI2N => TextureGLFormat.CompressedRgRgtc2,
+            VTexFormat.BC6H => TextureGLFormat.CompressedRgbBptcUnsignedFloat,
+            VTexFormat.BC7 => TextureGLFormat.CompressedRgbaBptcUnorm,
+            VTexFormat.RGBA8888 => TextureGLFormat.Rgba8,
+            VTexFormat.RGBA16161616F => TextureGLFormat.Rgba16f,
+            VTexFormat.I8 => TextureGLFormat.Intensity8,
+            _ => null,
+        };
+        int ITextureInfo.NumMipMaps => NumMipMaps;
+
+        void ITextureInfo.MoveToData() => Reader.BaseStream.Position = Offset + Size;
+
+        byte[] ITextureInfo.this[int index]
+        {
+            get
+            {
+                var uncompressedSize = ((TextureGLFormat)GLFormat).GetMipMapTrueDataSize(this, index);
+                if (!IsActuallyCompressedMips) return Reader.ReadBytes(uncompressedSize);
+                var compressedSize = CompressedMips[index];
+                if (compressedSize >= uncompressedSize) return Reader.ReadBytes(uncompressedSize);
+                return Reader.DecompressLz4(compressedSize, uncompressedSize);
+            }
+            set => throw new NotImplementedException();
+        }
+
+        #endregion
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
-            static TextureGLFormat MapFormat(byte format)
-                => (ValveTextureFormat)format switch
-                {
-                    ValveTextureFormat.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
-                    //TextureFormat.DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
-                    ValveTextureFormat.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
-                    ValveTextureFormat.ETC2 => TextureGLFormat.CompressedRgb8Etc2,
-                    ValveTextureFormat.ETC2_EAC => TextureGLFormat.CompressedRgba8Etc2Eac,
-                    ValveTextureFormat.ATI1N => TextureGLFormat.CompressedRedRgtc1,
-                    ValveTextureFormat.ATI2N => TextureGLFormat.CompressedRgRgtc2,
-                    ValveTextureFormat.BC6H => TextureGLFormat.CompressedRgbBptcUnsignedFloat,
-                    ValveTextureFormat.BC7 => TextureGLFormat.CompressedRgbaBptcUnorm,
-                    ValveTextureFormat.RGBA8888 => TextureGLFormat.Rgba8,
-                    ValveTextureFormat.RGBA16161616F => TextureGLFormat.Rgba16f,
-                    ValveTextureFormat.I8 => TextureGLFormat.Intensity8,
-                    _ => 0,
-                };
-
             r.Seek(Offset);
             Reader = r;
             Version = r.ReadUInt16();
@@ -143,7 +158,7 @@ namespace GameSpec.Valve.Formats.Blocks
             Depth = r.ReadUInt16();
             NonPow2Width = 0;
             NonPow2Height = 0;
-            var format = r.ReadByte(); Format = MapFormat(format); if (Format == 0) Log($"Unsupported texture format: {format}");
+            Format = (VTexFormat)r.ReadByte();
             NumMipMaps = r.ReadByte();
             Picmip0Res = r.ReadUInt32();
             var extraDataOffset = r.ReadUInt32();
@@ -159,25 +174,35 @@ namespace GameSpec.Valve.Formats.Blocks
                     r.Peek(z =>
                     {
                         z.Skip(offset);
+                        ExtraData.Add(type, r.ReadBytes((int)size));
+                        z.Skip(-size);
                         if (type == VTexExtraData.FILL_TO_POWER_OF_TWO)
                         {
                             z.ReadUInt16();
                             var nw = z.ReadUInt16();
                             var nh = z.ReadUInt16();
-                            if (nw > 0 && nh > 0 && Width >= nw && Height >= nh) { NonPow2Width = nw; NonPow2Height = nh; }
-                            z.Skip(-6);
+                            if (nw > 0 && nh > 0 && Width >= nw && Height >= nh)
+                            {
+                                NonPow2Width = nw;
+                                NonPow2Height = nh;
+                            }
                         }
-                        ExtraData.Add(type, r.ReadBytes((int)size));
-                        if (type == VTexExtraData.COMPRESSED_MIP_SIZE)
+                        else if (type == VTexExtraData.COMPRESSED_MIP_SIZE)
                         {
-                            z.Skip(-size);
                             var int1 = z.ReadUInt32(); // 1?
-                            var int2 = z.ReadUInt32(); // 8?
+                            var mipsOffset = z.ReadUInt32();
                             var mips = z.ReadUInt32();
                             if (int1 != 1 && int1 != 0) throw new FormatException($"int1 got: {int1}");
-                            if (int2 != 8) throw new FormatException($"int2 expected 8 but got: {int2}");
                             IsActuallyCompressedMips = int1 == 1; // TODO: Verify whether this int is the one that actually controls compression
+                            r.Skip(mipsOffset - 8);
                             CompressedMips = z.ReadTArray<int>(sizeof(int), (int)mips);
+                        }
+                        else if (type == VTexExtraData.CUBEMAP_RADIANCE_SH)
+                        {
+                            var coeffsOffset = r.ReadUInt32();
+                            var coeffs = r.ReadUInt32();
+                            r.Skip(coeffsOffset - 8);
+                            RadianceCoefficients = z.ReadTArray<float>(sizeof(float), (int)coeffs); // Spherical Harmonics
                         }
                     });
                 }
@@ -189,43 +214,73 @@ namespace GameSpec.Valve.Formats.Blocks
         {
             if (!ExtraData.TryGetValue(VTexExtraData.SHEET, out var bytes)) return null;
             var sequences = new TextureSequences();
-            using var s = new MemoryStream(bytes);
-            using var r = new BinaryReader(s);
+            using var r = new BinaryReader(new MemoryStream(bytes));
             var version = r.ReadUInt32();
+            if (version != 8) throw new ArgumentOutOfRangeException(nameof(version), $"Unknown version {version}");
+
             var numSequences = r.ReadUInt32();
             for (var i = 0; i < numSequences; i++)
             {
-                var sequenceNumber = r.ReadUInt32();
-                var unknown1 = r.ReadUInt32(); // 1?
-                var unknown2 = r.ReadUInt32();
+                var sequence = new TextureSequences.Sequence();
+                var id = r.ReadUInt32();
+                sequence.Clamp = r.ReadBoolean();
+                sequence.AlphaCrop = r.ReadBoolean();
+                sequence.NoColor = r.ReadBoolean();
+                sequence.NoAlpha = r.ReadBoolean();
+                var framesOffset = r.BaseStream.Position + r.ReadUInt32();
                 var numFrames = r.ReadUInt32();
-                var framesPerSecond = r.ReadSingle(); // Not too sure about this one
-                var dataOffset = r.BaseStream.Position + r.ReadUInt32();
-                var unknown4 = r.ReadUInt32(); // 0?
-                var unknown5 = r.ReadUInt32(); // 0?
-                var frames = r.Peek(z =>
+                sequence.FramesPerSecond = r.ReadSingle(); // Not too sure about this one
+                var nameOffset = r.BaseStream.Position + r.ReadUInt32();
+                var floatParamsOffset = r.BaseStream.Position + r.ReadUInt32();
+                var floatParamsCount = r.ReadUInt32();
+                r.Peek(z =>
                 {
-                    z.Seek(dataOffset);
-                    var sequenceName = z.ReadZUTF8();
-                    var frameUnknown = z.ReadUInt16();
-                    for (var j = 0; j < numFrames; j++)
+                    z.Seek(nameOffset);
+                    sequence.Name = z.ReadZUTF8();
+
+                    if (floatParamsCount > 0)
                     {
-                        var frameUnknown1 = z.ReadSingle();
-                        var frameUnknown2 = z.ReadUInt32();
-                        var frameUnknown3 = z.ReadSingle();
-                    }
-                    var fs = new TextureSequences.Sequence.Frame[numFrames];
-                    for (var j = 0; j < numFrames; j++)
-                        fs[j] = new TextureSequences.Sequence.Frame
+                        r.Seek(floatParamsOffset);
+                        for (var p = 0; p < floatParamsCount; p++)
                         {
-                            StartMins = z.ReadVector2(),
-                            StartMaxs = z.ReadVector2(),
-                            EndMins = z.ReadVector2(),
-                            EndMaxs = z.ReadVector2()
+                            var floatParamNameOffset = r.BaseStream.Position + r.ReadUInt32();
+                            var floatValue = r.ReadSingle();
+                            var offsetNextParam = r.BaseStream.Position;
+                            r.Seek(floatParamNameOffset);
+                            var floatName = r.ReadZUTF8();
+                            r.Seek(offsetNextParam);
+                            sequence.FloatParams.Add(floatName, floatValue);
+                        }
+                    }
+
+                    z.Seek(framesOffset);
+                    sequence.Frames = new TextureSequences.Frame[numFrames];
+                    for (var f = 0; f < numFrames; f++)
+                    {
+                        var displayTime = r.ReadSingle();
+                        var imageOffset = r.BaseStream.Position + r.ReadUInt32();
+                        var imageCount = r.ReadUInt32();
+                        var originalOffset = r.BaseStream.Position;
+                        var images = new TextureSequences.Image[imageCount];
+                        sequence.Frames[f] = new TextureSequences.Frame
+                        {
+                            DisplayTime = displayTime,
+                            Images = images,
                         };
-                    return fs;
+
+                        r.Seek(imageOffset);
+                        for (var i = 0; i < images.Length; i++)
+                            images[i] = new TextureSequences.Image
+                            {
+                                CroppedMin = r.ReadVector2(),
+                                CroppedMax = r.ReadVector2(),
+                                UncroppedMin = r.ReadVector2(),
+                                UncroppedMax = r.ReadVector2(),
+                            };
+                        r.Skip(originalOffset);
+                    }
                 });
-                sequences.Add(new TextureSequences.Sequence { Frames = frames, FramesPerSecond = framesPerSecond });
+                sequences.Add(sequence);
             }
             return sequences;
         }
@@ -240,19 +295,25 @@ namespace GameSpec.Valve.Formats.Blocks
             w.WriteLine($"{"NonPow2W",-12} = {NonPow2Width}");
             w.WriteLine($"{"NonPow2H",-12} = {NonPow2Height}");
             w.WriteLine($"{"Reflectivity",-12} = ( {Reflectivity[0]:F6}, {Reflectivity[1]:F6}, {Reflectivity[2]:F6}, {Reflectivity[3]:F6} )");
-            w.WriteLine($"{"NumMips",-12} = {NumMipMaps}");
+            w.WriteLine($"{"NumMipMaps",-12} = {NumMipMaps}");
             w.WriteLine($"{"Picmip0Res",-12} = {Picmip0Res}");
             w.WriteLine($"{"Format",-12} = {(int)Format} (VTEX_FORMAT_{Format})");
-            w.WriteLine($"{"Flags",-12} = 0x{((int)Flags):X8}");
+            w.WriteLine($"{"Flags",-12} = 0x{(int)Flags:X8}");
             foreach (Enum value in Enum.GetValues(Flags.GetType())) if (Flags.HasFlag(value)) w.WriteLine($"{"",-12} | 0x{(Convert.ToInt32(value)):X8} = VTEX_FLAG_{value}");
             w.WriteLine($"{"Extra Data",-12} = {ExtraData.Count} entries:");
             var entry = 0;
             foreach (var b in ExtraData)
             {
-                w.WriteLine($"{0,-12}   [ Entry {entry++}: VTEX_EXTRA_DATA_{b.Key} - {b.Value.Length} bytes ]");
-                if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE) w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
+                w.WriteLine($"{"",-12}   [ Entry {entry++}: VTEX_EXTRA_DATA_{b.Key} - {b.Value.Length} bytes ]");
+                if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE)
+                    w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
+                else if (b.Key == VTexExtraData.CUBEMAP_RADIANCE_SH)
+                    w.WriteLine($"{"",-16}   [ {RadianceCoefficients.Length} coefficients, sized: {string.Join(", ", RadianceCoefficients)} ]");
+                else if (b.Key == VTexExtraData.SHEET)
+                    w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
             }
-            for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureInfo.GetMipmapTrueDataSize(Format, Width, Height, Depth, j)}");
+            if (Format is not VTexFormat.JPEG_DXT5 and not VTexFormat.JPEG_RGBA8888 and not VTexFormat.PNG_DXT5 and not VTexFormat.PNG_RGBA8888)
+                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureInfo.GetMipmapTrueDataSize(((TextureGLFormat)GLFormat), Width, Height, Depth, j)}");
             return w.ToString();
         }
     }

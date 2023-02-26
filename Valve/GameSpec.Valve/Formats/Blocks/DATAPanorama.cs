@@ -5,6 +5,7 @@ using System.Text;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    //was:Resource/ResourceTypes/Panorama
     public class DATAPanorama : DATA
     {
         public class NameEntry
@@ -33,7 +34,10 @@ namespace GameSpec.Valve.Formats.Blocks
                 });
             var headerSize = r.BaseStream.Position - Offset;
             Data = r.ReadBytes((int)Size - (int)headerSize);
-            if (Crc32Digest.Compute(Data) != Crc32) throw new InvalidDataException("CRC32 mismatch for read data.");
+
+            // Valve seemingly screwed up when they started minifying vcss and the crc no longer matches
+            // See core/pak01 in Artifact Foundry for such files
+            if (!parent.ContainsBlockType<SRMA>() && Crc32Digest.Compute(Data) != Crc32) throw new InvalidDataException("CRC32 mismatch for read data.");
         }
 
         public override string ToString() => Encoding.UTF8.GetString(Data);

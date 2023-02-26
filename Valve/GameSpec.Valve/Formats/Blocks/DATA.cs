@@ -8,12 +8,13 @@ namespace GameSpec.Valve.Formats.Blocks
     /// </summary>
     public class DATA : Block
     {
-        public enum DataType
+        //: Enums.ResourceType
+        public enum ResourceType //was:Resource/Enums/ResourceType
         {
-#pragma warning disable 1591
             Unknown = 0,
             [Extension("vanim")] Animation,
             [Extension("vagrp")] AnimationGroup,
+            [Extension("vanmgrph")] AnimationGraph,
             [Extension("valst")] ActionList,
             [Extension("vseq")] Sequence,
             [Extension("vpcf")] Particle,
@@ -32,78 +33,79 @@ namespace GameSpec.Valve.Formats.Blocks
             [Extension("vents")] EntityLump,
             [Extension("vsurf")] SurfaceProperties,
             [Extension("vsndevts")] SoundEventScript,
+            [Extension("vmix")] VMix,
             [Extension("vsndstck")] SoundStackScript,
             [Extension("vfont")] BitmapFont,
             [Extension("vrmap")] ResourceRemapTable,
+            [Extension("vcdlist")] ChoreoSceneFileData,
             // All Panorama* are compiled just as CompilePanorama
             [Extension("vtxt")] Panorama, // vtxt is not a real extension
             [Extension("vcss")] PanoramaStyle,
             [Extension("vxml")] PanoramaLayout,
             [Extension("vpdi")] PanoramaDynamicImages,
             [Extension("vjs")] PanoramaScript,
+            [Extension("vts")] PanoramaTypescript,
             [Extension("vsvg")] PanoramaVectorGraphic,
             [Extension("vpsf")] ParticleSnapshot,
             [Extension("vmap")] Map,
-#pragma warning restore 1591
+            [Extension("vpost")] PostProcessing,
+            [Extension("vdata")] VData,
+            [Extension("item")] ArtifactItem,
+            [Extension("sbox")] SboxManagedResource, // TODO: Managed resources can have any extension
         }
 
         public override void Read(BinaryPak parent, BinaryReader r) { }
 
-        internal static bool IsHandledType(DataType type) =>
-            type == DataType.Model ||
-            type == DataType.World ||
-            type == DataType.WorldNode ||
-            type == DataType.Particle ||
-            type == DataType.Material ||
-            type == DataType.EntityLump;
+        internal static bool IsHandledType(ResourceType type) =>
+            type == ResourceType.Model ||
+            type == ResourceType.World ||
+            type == ResourceType.WorldNode ||
+            type == ResourceType.Particle ||
+            type == ResourceType.Material ||
+            type == ResourceType.EntityLump;
 
-        internal static DataType DetermineTypeByCompilerIdentifier(REDISpecialDependencies.SpecialDependency value)
+        internal static ResourceType DetermineTypeByCompilerIdentifier(REDISpecialDependencies.SpecialDependency value)
         {
             var identifier = value.CompilerIdentifier;
             if (identifier.StartsWith("Compile", StringComparison.Ordinal)) identifier = identifier.Remove(0, "Compile".Length);
             return identifier switch
             {
-                "Psf" => DataType.ParticleSnapshot,
-                "AnimGroup" => DataType.AnimationGroup,
-                "VPhysXData" => DataType.PhysicsCollisionMesh,
-                "Font" => DataType.BitmapFont,
-                "RenderMesh" => DataType.Mesh,
+                "Psf" => ResourceType.ParticleSnapshot,
+                "AnimGroup" => ResourceType.AnimationGroup,
+                "VPhysXData" => ResourceType.PhysicsCollisionMesh,
+                "Font" => ResourceType.BitmapFont,
+                "RenderMesh" => ResourceType.Mesh,
                 "Panorama" => value.String switch
                 {
-                    "Panorama Style Compiler Version" => DataType.PanoramaStyle,
-                    "Panorama Script Compiler Version" => DataType.PanoramaScript,
-                    "Panorama Layout Compiler Version" => DataType.PanoramaLayout,
-                    "Panorama Dynamic Images Compiler Version" => DataType.PanoramaDynamicImages,
-                    _ => DataType.Panorama,
+                    "Panorama Style Compiler Version" => ResourceType.PanoramaStyle,
+                    "Panorama Script Compiler Version" => ResourceType.PanoramaScript,
+                    "Panorama Layout Compiler Version" => ResourceType.PanoramaLayout,
+                    "Panorama Dynamic Images Compiler Version" => ResourceType.PanoramaDynamicImages,
+                    _ => ResourceType.Panorama,
                 },
-                "VectorGraphic" => DataType.PanoramaVectorGraphic,
-                _ => Enum.TryParse(identifier, false, out DataType type) ? type : DataType.Unknown,
+                "VectorGraphic" => ResourceType.PanoramaVectorGraphic,
+                _ => Enum.TryParse(identifier, false, out ResourceType type) ? type : ResourceType.Unknown,
             };
         }
 
-        internal static DATA Factory(BinaryPak source)
+        //: Resource.ConstructResourceType()
+        internal static DATA Factory(BinaryPak source) => source.DataType switch
         {
-            switch (source.DataType)
-            {
-                case DataType.Panorama:
-                case DataType.PanoramaStyle:
-                case DataType.PanoramaScript:
-                case DataType.PanoramaLayout:
-                case DataType.PanoramaDynamicImages:
-                case DataType.PanoramaVectorGraphic: return new DATAPanorama();
-                case DataType.Sound: return new DATASound();
-                case DataType.Texture: return new DATATexture();
-                case DataType.Model: return new DATAModel();
-                case DataType.World: return new DATAWorld();
-                case DataType.WorldNode: return new DATAWorldNode();
-                case DataType.EntityLump: return new DATAEntityLump();
-                case DataType.Material: return new DATAMaterial();
-                case DataType.SoundEventScript: return new DATASoundEventScript();
-                case DataType.SoundStackScript: return new DATASoundStackScript();
-                case DataType.Particle: return new DATAParticleSystem();
-                case DataType.Mesh: return source.Version != 0 ? new DATABinaryKV3() : source.ContainsBlockType<NTRO>() ? new DATABinaryNTRO() : new DATA();
-                default: return source.ContainsBlockType<NTRO>() ? new DATABinaryNTRO() : new DATA();
-            }
-        }
+            ResourceType.Panorama or ResourceType.PanoramaScript or ResourceType.PanoramaTypescript or ResourceType.PanoramaDynamicImages or ResourceType.PanoramaVectorGraphic => new DATAPanorama(),
+            ResourceType.PanoramaStyle => new DATAPanoramaStyle(),
+            ResourceType.PanoramaLayout => new DATAPanoramaLayout(),
+            ResourceType.Sound => new DATASound(),
+            ResourceType.Texture => new DATATexture(),
+            ResourceType.Model => new DATAModel(),
+            ResourceType.World => new DATAWorld(),
+            ResourceType.WorldNode => new DATAWorldNode(),
+            ResourceType.EntityLump => new DATAEntityLump(),
+            ResourceType.Material => new DATAMaterial(),
+            ResourceType.SoundEventScript => new DATASoundEventScript(),
+            ResourceType.SoundStackScript => new DATASoundStackScript(),
+            ResourceType.Particle => new DATAParticleSystem(),
+            ResourceType.Mesh => source.Version != 0 ? new DATABinaryKV3() : source.ContainsBlockType<NTRO>() ? new DATABinaryNTRO() : new DATA(),
+            _ => source.ContainsBlockType<NTRO>() ? new DATABinaryNTRO() : new DATA(),
+        };
     }
 }

@@ -175,83 +175,101 @@
   "fileManager": {
     "application": {
       "SS": {
-        "key": "GOG:1207666283",
-        "reg": "GOG.com/Games/1207666283"
+        "key": "GOG:1207658669",
+        "reg": "GOG.com/Games/1207658669",
+        "dir": "Shattered Steel"
       },
       "BG": {
         "key": "GOG:1207666353",
-        "reg": "GOG.com/Games/1207666353"
+        "reg": "GOG.com/Games/1207666353",
+        "dir": "Baldur's Gate - Enhanced Edition"
       },
       "MDK2": {
         "key": "GOG:1207658645",
         "reg": "GOG.com/Games/1207658645",
+        "dir": "MDK 2",
         "path": "data"
       },
       "BG2": {
         "key": "GOG:1207666373",
-        "reg": "GOG.com/Games/1207666373"
+        "reg": "GOG.com/Games/1207666373",
+        "dir": "Baldur's Gate II - Enhanced Edition\"\""
       },
       "NWN": {
         "key": [ "Steam:704450", "GOG:1097893768", "GOG:1207658890" ],
         "reg": [ "BioWare/NWN/Neverwinter", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 704450", "GOG.com/Games/1097893768", "GOG.com/Games/1207658890" ],
+        "dir": "Neverwinter Nights",
         "path": "data"
       },
       "KotOR": {
         "key": [ "Steam:32370", "GOG:1207666283", "GOG:111" ],
         "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370", "GOG.com/Games/1207666283", "GOG.com/Games/111" ],
+        "dir": [ "swkotor", "Star Wars - KotOR" ],
         "path": [ ".", "TexturePacks" ]
       },
       "JE": {
         "key": "GOG:1207659237",
-        "reg": "GOG.com/Games/1207659237"
+        "reg": "GOG.com/Games/1207659237",
+        "dir": "Jade Empire"
       },
       "ME": {
         "key": "Steam:1328670",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670",
+        "dir": "Mass Effect Legendary Edition"
       },
       "NWN2": {
         "key": "GOG:1207659162",
         "reg": [ "Obsidian/NWN 2/Neverwinter", "GOG.com/Games/1207659162" ],
+        "dir": "NWN2 Complete",
         "path": "Data"
       },
       "DA:O": {
         "key": "Steam:47810",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 47810"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 47810",
+        "dir": "Dragon Age Ultimate Edition"
       },
       "ME2": {
         "key": "Steam:24980",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 24980"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 24980",
+        "dir": "Mass Effect 2"
       },
       "DA2": {
         "key": "Steam:1238040",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238040"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238040",
+        "dir": "Dragon Age II"
       },
       "SWTOR": {
         "key": "Steam:1286830",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1286830",
+        "dir": "Star Wars - The Old Republic",
         "path": "Assets"
       },
       "ME3": {
         "key": "Steam:1238020",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238020"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238020",
+        "dir": "Mass Effect 3"
       },
       "DA:I": {
         "key": "Steam:1222690",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1222690"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1222690",
+        "dir": "Dragon Age Inquisition"
       },
       "ME:A": {
         "key": "Steam:1238000",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1238000",
+        "dir": "Mass Effect Andromeda",
         "path": "Data/Win32"
       },
       "A": {
         "key": "Unknown:0",
         "reg": "BioWare/Anthem",
+        "dir": "Anthem",
         "path": "Data/Win32"
       },
       "ME:LE": {
         "key": "Steam:1328670",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670",
+        "dir": "Mass Effect Legendary Edition",
         "path": [ "Game/ME1/BioGame/CookedPCConsole", "Game/ME2/BioGame/CookedPCConsole", "Game/ME3/BioGame/CookedPCConsole" ]
       }
     }

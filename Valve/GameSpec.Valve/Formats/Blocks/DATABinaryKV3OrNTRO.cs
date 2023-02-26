@@ -6,11 +6,8 @@ namespace GameSpec.Valve.Formats.Blocks
     public class DATABinaryKV3OrNTRO : DATA
     {
         readonly string IntrospectionStructName;
-
         protected BinaryPak Parent { get; private set; }
-
         public IDictionary<string, object> Data { get; private set; }
-
         DATA BackingData;
 
         public DATABinaryKV3OrNTRO() { }

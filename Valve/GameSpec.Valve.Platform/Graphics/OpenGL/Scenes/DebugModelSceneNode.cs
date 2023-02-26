@@ -1,6 +1,7 @@
 using GameSpec.Valve.Formats;
 using GameSpec.Valve.Formats.Blocks;
 using GameSpec.Valve.Formats.Blocks.Animation;
+using GameSpec.Valve.Formats.Blocks.Animation.SegmentDecoders;
 using GameSpec.Valve.Formats.OpenGL;
 using OpenStack;
 using OpenStack.Graphics.OpenGL;
@@ -25,13 +26,13 @@ namespace GameSpec.Valve.Graphics.OpenGL.Scenes
 
         public IEnumerable<Mesh> Meshes => _activeMeshRenderers;
 
-        readonly List<Mesh> _meshRenderers = new List<Mesh>();
-        readonly List<ModelAnimation> _animations = new List<ModelAnimation>();
+        readonly List<Mesh> _meshRenderers = new();
+        readonly List<CCompressedAnimQuaternion> _animations = new();
         Dictionary<string, string> _skinMaterials;
 
-        ModelAnimation _activeAnimation;
+        CCompressedAnimQuaternion _activeAnimation;
         int _animationTexture;
-        ModelSkeleton _skeleton;
+        Skeleton _skeleton;
         ICollection<string> _activeMeshGroups = new HashSet<string>();
         ICollection<Mesh> _activeMeshRenderers = new HashSet<Mesh>();
 

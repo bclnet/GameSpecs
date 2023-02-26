@@ -12,9 +12,10 @@ using GameSpec.Valve.Formats.Extras;
 
 namespace GameSpec.Valve.Formats
 {
+    //was:Resource/Resource
     public class BinaryPak : IDisposable, IGetMetadataInfo, IRedirected<ITextureInfo>, IRedirected<IMaterialInfo>, IRedirected<IMeshInfo>, IRedirected<IModelInfo>, IRedirected<IParticleSystemInfo>
     {
-        public const ushort KnownHeaderVersion = 12;
+        internal const ushort KnownHeaderVersion = 12;
 
         public BinaryPak() { }
         public BinaryPak(BinaryReader r) => Read(r);
@@ -23,11 +24,12 @@ namespace GameSpec.Valve.Formats
         {
             Reader?.Dispose();
             Reader = null;
+            GC.SuppressFinalize(this);
         }
 
         ITextureInfo IRedirected<ITextureInfo>.Value => DATA as ITextureInfo;
         IMaterialInfo IRedirected<IMaterialInfo>.Value => DATA as IMaterialInfo;
-        IMeshInfo IRedirected<IMeshInfo>.Value => DataType == DATA.DataType.Mesh ? new DATAMesh(this) as IMeshInfo : null;
+        IMeshInfo IRedirected<IMeshInfo>.Value => DataType == DATA.ResourceType.Mesh ? new DATAMesh(this) as IMeshInfo : null;
         IModelInfo IRedirected<IModelInfo>.Value => DATA as IModelInfo;
         IParticleSystemInfo IRedirected<IParticleSystemInfo>.Value => DATA as IParticleSystemInfo;
 
@@ -43,7 +45,7 @@ namespace GameSpec.Valve.Formats
             };
             switch (DataType)
             {
-                case DATA.DataType.Texture:
+                case DATA.ResourceType.Texture:
                     {
                         var data = (DATATexture)DATA;
                         try
@@ -64,7 +66,7 @@ namespace GameSpec.Valve.Formats
                         }
                     }
                     break;
-                case DATA.DataType.Panorama:
+                case DATA.ResourceType.Panorama:
                     {
                         var data = (DATAPanorama)DATA;
                         nodes.AddRange(new List<MetadataInfo> {
@@ -75,22 +77,22 @@ namespace GameSpec.Valve.Formats
                         });
                     }
                     break;
-                case DATA.DataType.PanoramaLayout: break;
-                case DATA.DataType.PanoramaScript: break;
-                case DATA.DataType.PanoramaStyle: break;
-                case DATA.DataType.Particle: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
-                case DATA.DataType.Sound:
+                case DATA.ResourceType.PanoramaLayout: break;
+                case DATA.ResourceType.PanoramaScript: break;
+                case DATA.ResourceType.PanoramaStyle: break;
+                case DATA.ResourceType.Particle: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
+                case DATA.ResourceType.Sound:
                     {
                         var sound = (DATASound)DATA;
                         var stream = sound.GetSoundStream();
                         nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = $".{sound.SoundType}", Dispose = this }));
                     }
                     break;
-                case DATA.DataType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
-                case DATA.DataType.WorldNode: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
-                case DATA.DataType.Model: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
-                case DATA.DataType.Mesh: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
-                case DATA.DataType.Material: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
+                case DATA.ResourceType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
+                case DATA.ResourceType.WorldNode: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
+                case DATA.ResourceType.Model: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
+                case DATA.ResourceType.Mesh: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
+                case DATA.ResourceType.Material: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
             }
             foreach (var block in Blocks)
             {
@@ -105,9 +107,9 @@ namespace GameSpec.Valve.Formats
                 if (block is DATA)
                     switch (DataType)
                     {
-                        case DATA.DataType.Sound: tab.Value = ((DATASound)block).ToString(); break;
-                        case DATA.DataType.Particle:
-                        case DATA.DataType.Mesh:
+                        case DATA.ResourceType.Sound: tab.Value = ((DATASound)block).ToString(); break;
+                        case DATA.ResourceType.Particle:
+                        case DATA.ResourceType.Mesh:
                             if (block is DATABinaryKV3 kv3) tab.Value = kv3.ToString();
                             else if (block is NTRO blockNTRO) tab.Value = blockNTRO.ToString();
                             break;
@@ -141,15 +143,15 @@ namespace GameSpec.Valve.Formats
 
         public List<Block> Blocks { get; } = new List<Block>();
 
-        public DATA.DataType DataType { get; set; }
+        public DATA.ResourceType DataType { get; set; }
 
         public void Read(BinaryReader r)
         {
             Reader = r;
             FileSize = r.ReadUInt32();
-            if (FileSize == 0x55AA1234) throw new InvalidDataException("VPK file");
-            if (FileSize == CompiledShader.MAGIC) throw new InvalidDataException("Shader file");
-            if (FileSize != r.BaseStream.Length) { }
+            if (FileSize == 0x55AA1234) throw new FormatException("VPK file");
+            else if (FileSize == CompiledShader.MAGIC) throw new FormatException("Shader file");
+            else if (FileSize != r.BaseStream.Length) { }
             var headerVersion = r.ReadUInt16();
             if (headerVersion != KnownHeaderVersion) throw new FormatException($"Bad Magic: {headerVersion}, expected {KnownHeaderVersion}");
             Version = r.ReadUInt16();
@@ -159,13 +161,17 @@ namespace GameSpec.Valve.Formats
             for (var i = 0; i < blockCount; i++)
             {
                 var blockType = Encoding.UTF8.GetString(r.ReadBytes(4));
-                var startPosition = r.BaseStream.Position;
-                var offset = (uint)startPosition + r.ReadUInt32();
+                var position = r.BaseStream.Position;
+                var offset = (uint)position + r.ReadUInt32();
                 var size = r.ReadUInt32();
-                var block = (size >= 4 && blockType == "DATA" && !DATA.IsHandledType(DataType)
-                    ? r.Peek(z => { var magic = z.ReadUInt32(); return magic == DATABinaryKV3.MAGIC || magic == DATABinaryKV3.MAGIC2 ? (Block)new DATABinaryKV3() : null; })
-                    : null)
-                    ?? Block.Factory(this, blockType);
+                var block = size >= 4 && blockType == "DATA" && !DATA.IsHandledType(DataType) ? r.Peek(z =>
+                    {
+                        var magic = z.ReadUInt32();
+                        if (magic == DATABinaryKV3.MAGIC || magic == DATABinaryKV3.MAGIC2 || magic == DATABinaryKV3.MAGIC3) return (Block)new DATABinaryKV3();
+                        //else if (magic == DATABinaryKV1.MAGIC) return (Block)new DATABinaryKV1();
+                        return null;
+                    }) : null;
+                block ??= Block.Factory(this, blockType);
                 block.Offset = offset;
                 block.Size = size;
                 if (blockType == "REDI" || blockType == "NTRO") block.Read(this, r);
@@ -174,22 +180,22 @@ namespace GameSpec.Valve.Formats
                 {
                     case REDI redi:
                         // Try to determine resource type by looking at first compiler indentifier
-                        if (DataType == DATA.DataType.Unknown && REDI.Structs.ContainsKey(REDI.REDIStruct.SpecialDependencies))
+                        if (DataType == DATA.ResourceType.Unknown && REDI.Structs.ContainsKey(REDI.REDIStruct.SpecialDependencies))
                         {
                             var specialDeps = (REDISpecialDependencies)REDI.Structs[REDI.REDIStruct.SpecialDependencies];
                             if (specialDeps.List.Count > 0) DataType = DATA.DetermineTypeByCompilerIdentifier(specialDeps.List[0]);
                         }
                         break;
                     case NTRO ntro:
-                        if (DataType == DATA.DataType.Unknown && NTRO.ReferencedStructs.Count > 0)
+                        if (DataType == DATA.ResourceType.Unknown && NTRO.ReferencedStructs.Count > 0)
                             switch (NTRO.ReferencedStructs[0].Name)
                             {
-                                case "VSoundEventScript_t": DataType = DATA.DataType.SoundEventScript; break;
-                                case "CWorldVisibility": DataType = DATA.DataType.WorldVisibility; break;
+                                case "VSoundEventScript_t": DataType = DATA.ResourceType.SoundEventScript; break;
+                                case "CWorldVisibility": DataType = DATA.ResourceType.WorldVisibility; break;
                             }
                         break;
                 }
-                r.BaseStream.Position = startPosition + 8;
+                r.BaseStream.Position = position + 8;
             }
             foreach (var block in Blocks) if (!(block is REDI) && !(block is NTRO)) block.Read(this, r);
         }

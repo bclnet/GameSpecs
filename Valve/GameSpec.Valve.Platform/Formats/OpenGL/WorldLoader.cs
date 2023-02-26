@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using static GameSpec.Valve.Formats.Blocks.DATAEntityLump;
 
 namespace GameSpec.Valve.Formats.OpenGL
 {
@@ -186,7 +187,7 @@ namespace GameSpec.Valve.Formats.OpenGL
 
                 // HL Alyx has an entity that puts rendercolor as a string instead of color255
                 // TODO: Make an enum for these types
-                if (color != default && color.Type == 0x09)
+                if (color != default && color.Type == EntityFieldType.Color32)
                 {
                     var colourBytes = (byte[])color.Data;
                     objColor.X = colourBytes[0] / 255.0f;
@@ -226,7 +227,7 @@ namespace GameSpec.Valve.Formats.OpenGL
                     modelNode.SetAnimation(animation);
                 }
 
-                var bodyHash = DATAEntityLump.EntityLumpKeyLookup.Get("body");
+                var bodyHash = DATAEntityLump.StringToken.Get("body");
                 if (entity.Properties.ContainsKey(bodyHash))
                 {
                     var groups = modelNode.GetMeshGroups();

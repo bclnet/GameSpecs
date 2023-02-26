@@ -6,6 +6,7 @@ namespace GameSpec.Valve.Formats.Blocks
     /// <summary>
     /// "SNAP" block.
     /// </summary>
+    //was:Resource/Blocks/SNAP
     public class SNAP : Block
     {
         public override void Read(BinaryPak parent, BinaryReader r)

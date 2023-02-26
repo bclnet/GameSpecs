@@ -38,25 +38,31 @@
       "BioShock": {
         "key": "Steam:7670",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",
+        "dir": "Bioshock",
         "path": "Content"
       },
       "BioShockR": {
         "key": "Steam:409710",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409710",
+        "dir": "BioShock Remastered",
         "path": "ContentBaked/pc"
       },
       "BioShock2": {
         "key": "Steam:8850",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8850",
+        "dir": "BioShock 2",
         "path": "SP/Content"
       },
       "BioShock2R": {
         "key": "Steam:409720",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409720",
+        "dir": "BioShock 2 Remastered",
         "path": "ContentBaked/pc"
       },
       "BioShock:Inf": {
         "key": "Steam:8870",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8870",
+        "dir": "BioShock Infinite",
         "path": "XGame/CookedPCConsole_FR"
       }
     }

@@ -1,18 +1,49 @@
 using OpenStack.Graphics.Algorithms;
 using OpenStack.Graphics.DirectX;
 using OpenStack.Graphics.Renderer;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using static OpenStack.Graphics.Renderer.OnDiskBufferData;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
     /// <summary>
     /// "VBIB" block.
     /// </summary>
+    //was:Resource/Blocks/VBIB
     public class VBIB : Block, IVBIB
     {
-        public List<VertexBuffer> VertexBuffers { get; } = new List<VertexBuffer>();
-        public List<IndexBuffer> IndexBuffers { get; } = new List<IndexBuffer>();
+        public List<OnDiskBufferData> VertexBuffers { get; }
+        public List<OnDiskBufferData> IndexBuffers { get; }
+
+        public VBIB()
+        {
+            VertexBuffers = new List<OnDiskBufferData>();
+            IndexBuffers = new List<OnDiskBufferData>();
+        }
+
+        public VBIB(IDictionary<string, object> data) : this()
+        {
+            var vertexBuffers = data.GetArray("m_vertexBuffers");
+            foreach (var vb in vertexBuffers)
+            {
+                var vertexBuffer = BufferDataFromDATA(vb);
+                var decompressedSize = vertexBuffer.ElementCount * vertexBuffer.ElementSizeInBytes;
+                if (vertexBuffer.Data.Length != decompressedSize) vertexBuffer.Data = MeshOptimizerVertexDecoder.DecodeVertexBuffer((int)vertexBuffer.ElementCount, (int)vertexBuffer.ElementSizeInBytes, vertexBuffer.Data);
+                VertexBuffers.Add(vertexBuffer);
+            }
+            var indexBuffers = data.GetArray("m_indexBuffers");
+            foreach (var ib in indexBuffers)
+            {
+                var indexBuffer = BufferDataFromDATA(ib);
+                var decompressedSize = indexBuffer.ElementCount * indexBuffer.ElementSizeInBytes;
+                if (indexBuffer.Data.Length != decompressedSize) indexBuffer.Data = MeshOptimizerIndexDecoder.DecodeIndexBuffer((int)indexBuffer.ElementCount, (int)indexBuffer.ElementSizeInBytes, indexBuffer.Data);
+                IndexBuffers.Add(indexBuffer);
+            }
+        }
 
         public override void Read(BinaryPak parent, BinaryReader r)
         {
@@ -25,88 +56,163 @@ namespace GameSpec.Valve.Formats.Blocks
             r.Seek(Offset + vertexBufferOffset);
             for (var i = 0; i < vertexBufferCount; i++)
             {
-                var vertexBuffer = default(VertexBuffer);
-
-                vertexBuffer.Count = r.ReadUInt32();            //0
-                vertexBuffer.Size = r.ReadUInt32();             //4
-                var decompressedSize = vertexBuffer.Count * vertexBuffer.Size;
-
-                var refA = r.BaseStream.Position;
-                var attributeOffset = r.ReadUInt32();  //8
-                var attributeCount = r.ReadUInt32();   //12
-
-                //TODO: Read attributes in the future
-                var refB = r.BaseStream.Position;
-                var dataOffset = r.ReadUInt32();       //16
-                var totalSize = r.ReadUInt32();        //20
-
-                vertexBuffer.Attributes = new List<VertexBuffer.VertexAttribute>();
-
-                r.BaseStream.Position = refA + attributeOffset;
-                for (var j = 0; j < attributeCount; j++)
-                {
-                    var previousPosition = r.BaseStream.Position;
-
-                    var attribute = default(VertexBuffer.VertexAttribute);
-
-                    attribute.Name = r.ReadZUTF8().ToUpperInvariant();
-
-                    // Offset is always 40 bytes from the start
-                    r.BaseStream.Position = previousPosition + 36;
-
-                    attribute.Type = (DXGI_FORMAT)r.ReadUInt32();
-                    attribute.Offset = r.ReadUInt32();
-
-                    // There's unusual amount of padding in attributes
-                    r.BaseStream.Position = previousPosition + 56;
-
-                    vertexBuffer.Attributes.Add(attribute);
-                }
-
-                r.BaseStream.Position = refB + dataOffset;
-
-                var vertexBufferBytes = r.ReadBytes((int)totalSize);
-                vertexBuffer.Buffer = totalSize == decompressedSize
-                    ? vertexBufferBytes
-                    : MeshOptimizerVertexDecoder.DecodeVertexBuffer((int)vertexBuffer.Count, (int)vertexBuffer.Size, vertexBufferBytes);
-
+                var vertexBuffer = ReadOnDiskBufferData(r);
+                var decompressedSize = vertexBuffer.ElementCount * vertexBuffer.ElementSizeInBytes;
+                if (vertexBuffer.Data.Length != decompressedSize) vertexBuffer.Data = MeshOptimizerVertexDecoder.DecodeVertexBuffer((int)vertexBuffer.ElementCount, (int)vertexBuffer.ElementSizeInBytes, vertexBuffer.Data);
                 VertexBuffers.Add(vertexBuffer);
-
-                r.BaseStream.Position = refB + 4 + 4; //Go back to the vertex array to read the next iteration
             }
 
-            r.BaseStream.Position = Offset + 8 + indexBufferOffset; //8 to take into account vertexOffset / count
+            r.Seek(Offset + 8 + indexBufferOffset); // 8 to take into account vertexOffset / count
             for (var i = 0; i < indexBufferCount; i++)
             {
-                var indexBuffer = default(IndexBuffer);
-
-                indexBuffer.Count = r.ReadUInt32();        //0
-                indexBuffer.Size = r.ReadUInt32();         //4
-                var decompressedSize = indexBuffer.Count * indexBuffer.Size;
-
-                var unknown1 = r.ReadUInt32();     //8
-                var unknown2 = r.ReadUInt32();     //12
-
-                var refC = r.BaseStream.Position;
-                var dataOffset = r.ReadUInt32();   //16
-                var dataSize = r.ReadUInt32();     //20
-
-                r.BaseStream.Position = refC + dataOffset;
-
-                indexBuffer.Buffer = dataSize == decompressedSize
-                    ? r.ReadBytes((int)dataSize)
-                    : MeshOptimizerIndexDecoder.DecodeIndexBuffer((int)indexBuffer.Count, (int)indexBuffer.Size, r.ReadBytes((int)dataSize));
-
+                var indexBuffer = ReadOnDiskBufferData(r);
+                var decompressedSize = indexBuffer.ElementCount * indexBuffer.ElementSizeInBytes;
+                if (indexBuffer.Data.Length != decompressedSize) indexBuffer.Data = MeshOptimizerIndexDecoder.DecodeIndexBuffer((int)indexBuffer.ElementCount, (int)indexBuffer.ElementSizeInBytes, indexBuffer.Data);
                 IndexBuffers.Add(indexBuffer);
-
-                r.BaseStream.Position = refC + 4 + 4; //Go back to the index array to read the next iteration.
             }
         }
 
-        public static float[] ReadVertexAttribute(int offset, VertexBuffer vertexBuffer, VertexBuffer.VertexAttribute attribute)
+        static OnDiskBufferData ReadOnDiskBufferData(BinaryReader r)
         {
-            offset = (int)(offset * vertexBuffer.Size) + (int)attribute.Offset;
-            return attribute.Type.ReadVertex(vertexBuffer.Buffer, offset);
+            var buffer = default(OnDiskBufferData);
+
+            buffer.ElementCount = r.ReadUInt32();            //0
+            buffer.ElementSizeInBytes = r.ReadUInt32();      //4
+
+            var refA = r.BaseStream.Position;
+            var attributeOffset = r.ReadUInt32();  //8
+            var attributeCount = r.ReadUInt32();   //12
+
+            var refB = r.BaseStream.Position;
+            var dataOffset = r.ReadUInt32();       //16
+            var totalSize = r.ReadInt32();        //20
+
+            r.Seek(refA + attributeOffset);
+            buffer.Attributes = Enumerable.Range(0, (int)attributeCount)
+                .Select(j =>
+                {
+                    var attribute = default(OnDiskBufferData.Attribute);
+                    var previousPosition = r.BaseStream.Position;
+                    attribute.SemanticName = r.ReadZUTF8().ToUpperInvariant(); //32 bytes long null-terminated string
+                    r.BaseStream.Position = previousPosition + 32; // Offset is always 40 bytes from the start
+                    attribute.SemanticIndex = r.ReadInt32();
+                    attribute.Format = (DXGI_FORMAT)r.ReadUInt32();
+                    attribute.Offset = r.ReadUInt32();
+                    attribute.Slot = r.ReadInt32();
+                    attribute.SlotType = (OnDiskBufferData.RenderSlotType)r.ReadUInt32();
+                    attribute.InstanceStepRate = r.ReadInt32();
+                    return attribute;
+                }).ToArray();
+
+            r.Seek(refB + dataOffset);
+            buffer.Data = r.ReadBytes(totalSize); //can be compressed
+
+            r.Seek(refB + 8); //Go back to the index array to read the next iteration.
+            return buffer;
+        }
+
+        static OnDiskBufferData BufferDataFromDATA(IDictionary<string, object> data)
+        {
+            var buffer = new OnDiskBufferData
+            {
+                ElementCount = data.GetUInt32("m_nElementCount"),
+                ElementSizeInBytes = data.GetUInt32("m_nElementSizeInBytes"),
+            };
+
+            var inputLayoutFields = data.GetArray("m_inputLayoutFields");
+            buffer.Attributes = inputLayoutFields.Select(il => new OnDiskBufferData.Attribute
+            {
+                //null-terminated string
+                SemanticName = Encoding.UTF8.GetString(il.Get<byte[]>("m_pSemanticName")).TrimEnd((char)0),
+                SemanticIndex = il.GetInt32("m_nSemanticIndex"),
+                Format = (DXGI_FORMAT)il.GetUInt32("m_Format"),
+                Offset = il.GetUInt32("m_nOffset"),
+                Slot = il.GetInt32("m_nSlot"),
+                SlotType = (RenderSlotType)il.GetUInt32("m_nSlotType"),
+                InstanceStepRate = il.GetInt32("m_nInstanceStepRate")
+            }).ToArray();
+
+            buffer.Data = data.Get<byte[]>("m_pData");
+            return buffer;
+        }
+
+        public static float[] ReadVertexAttribute(int offset, OnDiskBufferData vertexBuffer, OnDiskBufferData.Attribute attribute)
+        {
+            offset = (int)(offset * vertexBuffer.ElementSizeInBytes) + (int)attribute.Offset;
+            // Useful reference: https://github.com/apitrace/dxsdk/blob/master/Include/d3dx_dxgiformatconvert.inl
+            float[] result;
+            switch (attribute.Format)
+            {
+                case DXGI_FORMAT.R32G32B32_FLOAT:
+                    {
+                        result = new float[3];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, result, 0, 12);
+                        return result;
+                    }
+                case DXGI_FORMAT.R32G32B32A32_FLOAT:
+                    {
+                        result = new float[4];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, result, 0, 16);
+                        return result;
+                    }
+                case DXGI_FORMAT.R16G16_UNORM:
+                    {
+                        var shorts = new ushort[2];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, shorts, 0, 4);
+                        result = new[] { (float)shorts[0] / ushort.MaxValue, (float)shorts[1] / ushort.MaxValue };
+                        return result;
+                    }
+                case DXGI_FORMAT.R16G16_SNORM:
+                    {
+                        var shorts = new short[2];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, shorts, 0, 4);
+                        result = new[] { (float)shorts[0] / short.MaxValue, (float)shorts[1] / short.MaxValue };
+                        return result;
+                    }
+                case DXGI_FORMAT.R16G16_FLOAT:
+                    {
+                        result = new[] { (float)BitConverter.ToHalf(vertexBuffer.Data, offset), (float)BitConverter.ToHalf(vertexBuffer.Data, offset + 2) };
+                        return result;
+                    }
+                case DXGI_FORMAT.R32_FLOAT:
+                    {
+                        result = new float[1];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, result, 0, 4);
+                        return result;
+                    }
+                case DXGI_FORMAT.R32G32_FLOAT:
+                    {
+                        result = new float[2];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, result, 0, 8);
+                        return result;
+                    }
+                case DXGI_FORMAT.R16G16_SINT:
+                    {
+                        var shorts = new short[2];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, shorts, 0, 4);
+                        result = new float[2];
+                        for (var i = 0; i < 2; i++) result[i] = shorts[i];
+                        return result;
+                    }
+                case DXGI_FORMAT.R16G16B16A16_SINT:
+                    {
+                        var shorts = new short[4];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, shorts, 0, 8);
+                        result = new float[4];
+                        for (var i = 0; i < 4; i++) result[i] = shorts[i];
+                        return result;
+                    }
+                case DXGI_FORMAT.R8G8B8A8_UINT:
+                case DXGI_FORMAT.R8G8B8A8_UNORM:
+                    {
+                        var bytes = new byte[4];
+                        Buffer.BlockCopy(vertexBuffer.Data, offset, bytes, 0, 4);
+                        result = new float[4];
+                        for (var i = 0; i < 4; i++) result[i] = attribute.Format == DXGI_FORMAT.R8G8B8A8_UNORM ? (float)bytes[i] / byte.MaxValue : bytes[i];
+                        return result;
+                    }
+                default: throw new NotImplementedException($"Unsupported \"{attribute.SemanticName}\" DXGI_FORMAT.{attribute.Format}");
+            }
         }
 
         public override void WriteText(IndentedTextWriter w)
@@ -114,14 +220,19 @@ namespace GameSpec.Valve.Formats.Blocks
             w.WriteLine("Vertex buffers:");
             foreach (var vertexBuffer in VertexBuffers)
             {
-                w.WriteLine($"Count: {vertexBuffer.Count}");
-                w.WriteLine($"Size: {vertexBuffer.Size}");
-                for (var i = 0; i < vertexBuffer.Attributes.Count; i++)
+                w.WriteLine($"Count: {vertexBuffer.ElementCount}");
+                w.WriteLine($"Size: {vertexBuffer.ElementSizeInBytes}");
+                for (var i = 0; i < vertexBuffer.Attributes.Length; i++)
                 {
                     var vertexAttribute = vertexBuffer.Attributes[i];
-                    w.WriteLine($"Attribute[{i}].Name = {vertexAttribute.Name}");
-                    w.WriteLine($"Attribute[{i}].Offset = {vertexAttribute.Offset}");
-                    w.WriteLine($"Attribute[{i}].Type = {vertexAttribute.Type}");
+                    w.WriteLine($"Attribute[{i}]"); w.Indent++;
+                    w.WriteLine($"SemanticName = {vertexAttribute.SemanticName}");
+                    w.WriteLine($"SemanticIndex = {vertexAttribute.SemanticIndex}");
+                    w.WriteLine($"Offset = {vertexAttribute.Offset}");
+                    w.WriteLine($"Format = {vertexAttribute.Format}");
+                    w.WriteLine($"Slot = {vertexAttribute.Slot}");
+                    w.WriteLine($"SlotType = {vertexAttribute.SlotType}");
+                    w.WriteLine($"InstanceStepRate = {vertexAttribute.InstanceStepRate}"); w.Indent--;
                 }
                 w.WriteLine();
             }
@@ -129,10 +240,76 @@ namespace GameSpec.Valve.Formats.Blocks
             w.WriteLine("Index buffers:");
             foreach (var indexBuffer in IndexBuffers)
             {
-                w.WriteLine($"Count: {indexBuffer.Count}");
-                w.WriteLine($"Size: {indexBuffer.Size}");
+                w.WriteLine($"Count: {indexBuffer.ElementCount}");
+                w.WriteLine($"Size: {indexBuffer.ElementSizeInBytes}");
                 w.WriteLine();
             }
+        }
+
+        static (int ElementSize, int ElementCount) GetFormatInfo(OnDiskBufferData.Attribute attribute)
+            => attribute.Format switch
+            {
+                DXGI_FORMAT.R32G32B32_FLOAT => (4, 3),
+                DXGI_FORMAT.R32G32B32A32_FLOAT => (4, 4),
+                DXGI_FORMAT.R16G16_UNORM => (2, 2),
+                DXGI_FORMAT.R16G16_SNORM => (2, 2),
+                DXGI_FORMAT.R16G16_FLOAT => (2, 2),
+                DXGI_FORMAT.R32_FLOAT => (4, 1),
+                DXGI_FORMAT.R32G32_FLOAT => (4, 2),
+                DXGI_FORMAT.R16G16_SINT => (2, 2),
+                DXGI_FORMAT.R16G16B16A16_SINT => (2, 4),
+                DXGI_FORMAT.R8G8B8A8_UINT => (1, 4),
+                DXGI_FORMAT.R8G8B8A8_UNORM => (1, 4),
+                _ => throw new NotImplementedException($"Unsupported \"{attribute.SemanticName}\" DXGI_FORMAT.{attribute.Format}"),
+            };
+
+        public static int[] CombineRemapTables(int[][] remapTables)
+        {
+            remapTables = remapTables.Where(remapTable => remapTable.Length != 0).ToArray();
+            var newRemapTable = remapTables[0].AsEnumerable();
+            for (var i = 1; i < remapTables.Length; i++)
+            {
+                var remapTable = remapTables[i];
+                newRemapTable = newRemapTable.Select(j => j != -1 ? remapTable[j] : -1);
+            }
+            return newRemapTable.ToArray();
+        }
+
+        public VBIB RemapBoneIndices(int[] remapTable)
+        {
+            var res = new VBIB();
+            res.VertexBuffers.AddRange(VertexBuffers.Select(buf =>
+            {
+                var blendIndices = Array.FindIndex(buf.Attributes, field => field.SemanticName == "BLENDINDICES");
+                if (blendIndices != -1)
+                {
+                    var field = buf.Attributes[blendIndices];
+                    var (formatElementSize, formatElementCount) = GetFormatInfo(field);
+                    var formatSize = formatElementSize * formatElementCount;
+                    buf.Data = buf.Data.ToArray();
+                    var bufSpan = buf.Data.AsSpan();
+                    for (var i = (int)field.Offset; i < buf.Data.Length; i += (int)buf.ElementSizeInBytes)
+                        for (var j = 0; j < formatSize; j += formatElementSize)
+                        {
+                            switch (formatElementSize)
+                            {
+                                case 4:
+                                    BitConverter.TryWriteBytes(bufSpan.Slice(i + j), remapTable[BitConverter.ToUInt32(buf.Data, i + j)]);
+                                    break;
+                                case 2:
+                                    BitConverter.TryWriteBytes(bufSpan.Slice(i + j), (short)remapTable[BitConverter.ToUInt16(buf.Data, i + j)]);
+                                    break;
+                                case 1:
+                                    buf.Data[i + j] = (byte)remapTable[buf.Data[i + j]];
+                                    break;
+                                default: throw new NotImplementedException();
+                            }
+                        }
+                }
+                return buf;
+            }));
+            res.IndexBuffers.AddRange(IndexBuffers);
+            return res;
         }
     }
 }

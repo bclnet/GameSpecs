@@ -41,11 +41,13 @@
           "Origin Worlds Online/Ultima Online Samurai Empire/3d/1.0",
           "Electronic Arts/EA Games/Ultima Online Stygian Abyss Classic",
           "Electronic Arts/EA Games/Ultima Online Classic"
-        ]
+        ],
+        "dir": [ "Ultima Online Classic", "Ultima Online Enhanced" ]
       },
       "UltimaIX": {
         "key": [ "GOG:1207659093" ],
         "reg": [ "GOG.com/GOGULTIMA9", "GOG.com/Games/1207659093" ],
+        "dir": "Ultima 9",
         "path": "static"
       }
     },

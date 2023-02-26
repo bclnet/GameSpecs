@@ -1,9 +1,34 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using static GameSpec.Formats.Unknown.IUnknownFileObject;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    public readonly struct EmphasisSample
+    {
+        public float Time { get; }
+        public float Value { get; }
+    }
+
+    public readonly struct PhonemeTag
+    {
+        public float StartTime { get; init; }
+        public float EndTime { get; init; }
+        public ushort PhonemeCode { get; init; }
+    }
+
+    public class Sentence
+    {
+        public bool ShouldVoiceDuck { get; init; }
+
+        public PhonemeTag[] RunTimePhonemes { get; init; }
+
+        public EmphasisSample[] EmphasisSamples { get; init; }
+    }
+
+    //was:Resource/ResourceTypes/Sound
     public class DATASound : DATA
     {
         public enum AudioFileType
@@ -11,6 +36,22 @@ namespace GameSpec.Valve.Formats.Blocks
             AAC = 0,
             WAV = 1,
             MP3 = 2,
+        }
+
+        public enum AudioFormatV4
+        {
+            PCM16 = 0,
+            PCM8 = 1,
+            MP3 = 2,
+            ADPCM = 3,
+        }
+
+        // https://github.com/naudio/NAudio/blob/fb35ce8367f30b8bc5ea84e7d2529e172cf4c381/NAudio.Core/Wave/WaveFormats/WaveFormatEncoding.cs
+        public enum WaveAudioFormat : uint
+        {
+            Unknown = 0,
+            PCM = 1,
+            ADPCM = 2,
         }
 
         /// <summary>
@@ -41,7 +82,7 @@ namespace GameSpec.Valve.Formats.Blocks
         /// Gets the bitstream encoding format.
         /// </summary>
         /// <value>The audio format.</value>
-        public uint AudioFormat { get; private set; }
+        public WaveAudioFormat AudioFormat { get; private set; }
 
         public uint SampleSize { get; private set; }
 
@@ -49,7 +90,11 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public int LoopStart { get; private set; }
 
+        public int LoopEnd { get; private set; }
+
         public float Duration { get; private set; }
+
+        public Sentence Sentence { get; private set; }
 
         public uint StreamingDataSize { get; private set; }
 
@@ -63,10 +108,33 @@ namespace GameSpec.Valve.Formats.Blocks
             if (parent.Version >= 4)
             {
                 SampleRate = r.ReadUInt16();
-                SetVersion4(r);
-                SampleSize = Bits / 8;
-                Channels = 1;
-                AudioFormat = 1;
+                var soundFormat = (AudioFormatV4)r.ReadByte();
+                Channels = r.ReadByte();
+                switch (soundFormat)
+                {
+                    case AudioFormatV4.PCM8:
+                        SoundType = AudioFileType.WAV;
+                        Bits = 8;
+                        SampleSize = 1;
+                        AudioFormat = WaveAudioFormat.PCM;
+                        break;
+                    case AudioFormatV4.PCM16:
+                        SoundType = AudioFileType.WAV;
+                        Bits = 16;
+                        SampleSize = 2;
+                        AudioFormat = WaveAudioFormat.PCM;
+                        break;
+                    case AudioFormatV4.MP3:
+                        SoundType = AudioFileType.MP3;
+                        break;
+                    case AudioFormatV4.ADPCM:
+                        SoundType = AudioFileType.WAV;
+                        Bits = 4;
+                        SampleSize = 1;
+                        AudioFormat = WaveAudioFormat.ADPCM;
+                        throw new NotImplementedException("ADPCM is currently not implemented correctly.");
+                    default: throw new ArgumentOutOfRangeException(nameof(soundFormat), $"Unexpected audio type {soundFormat}");
+                }
             }
             else
             {
@@ -77,14 +145,61 @@ namespace GameSpec.Valve.Formats.Blocks
                 Bits = ExtractSub(bitpackedSoundInfo, 2, 5);
                 Channels = ExtractSub(bitpackedSoundInfo, 7, 2);
                 SampleSize = ExtractSub(bitpackedSoundInfo, 9, 3);
-                AudioFormat = ExtractSub(bitpackedSoundInfo, 12, 2);
+                AudioFormat = (WaveAudioFormat)ExtractSub(bitpackedSoundInfo, 12, 2);
                 SampleRate = ExtractSub(bitpackedSoundInfo, 14, 17);
             }
             LoopStart = r.ReadInt32();
             SampleCount = r.ReadUInt32();
             Duration = r.ReadSingle();
-            r.Skip(12);
+
+            var sentenceOffset = (long)r.ReadUInt32();
+            r.Skip(4);
+            if (sentenceOffset != 0) sentenceOffset = r.BaseStream.Position + sentenceOffset;
+            
+            r.Skip(4); // Skipping over m_pHeader
             StreamingDataSize = r.ReadUInt32();
+
+            if (parent.Version >= 1)
+            {
+                var d = r.ReadUInt32();
+                if (d != 0) throw new ArgumentOutOfRangeException(nameof(d), $"Unexpected {d}");
+                var e = r.ReadUInt32();
+                if (e != 0) throw new ArgumentOutOfRangeException(nameof(e), $"Unexpected {e}");
+            }
+            // v2 and v3 are the same?
+            if (parent.Version >= 2)
+            {
+                var f = r.ReadUInt32();
+                if (f != 0) throw new ArgumentOutOfRangeException(nameof(f), $"Unexpected {f}");
+            }
+            if (parent.Version >= 4) LoopEnd = r.ReadInt32();
+
+            ReadPhonemeStream(r, sentenceOffset);
+        }
+
+        void ReadPhonemeStream(BinaryReader r, long sentenceOffset)
+        {
+            if (sentenceOffset == 0) return;
+            r.Seek(sentenceOffset);
+            var numPhonemeTags = r.ReadInt32();
+            var a = r.ReadInt32(); // numEmphasisSamples ?
+            var b = r.ReadInt32(); // Sentence.ShouldVoiceDuck ?
+            // Skip sounds that have these
+            if (a != 0 || b != 0)  return;
+            Sentence = new Sentence
+            {
+                RunTimePhonemes = new PhonemeTag[numPhonemeTags]
+            };
+            for (var i = 0; i < numPhonemeTags; i++)
+            {
+                Sentence.RunTimePhonemes[i] = new PhonemeTag
+                {
+                    StartTime = r.ReadSingle(),
+                    EndTime = r.ReadSingle(),
+                    PhonemeCode = r.ReadUInt16()
+                };
+                r.Skip(2);
+            }
         }
 
         static uint ExtractSub(uint l, byte offset, byte nrBits)
@@ -126,6 +241,11 @@ namespace GameSpec.Valve.Formats.Blocks
 
                 var byteRate = SampleRate * Channels * (Bits / 8);
                 var blockAlign = Channels * (Bits / 8);
+                if (AudioFormat == WaveAudioFormat.ADPCM)
+                {
+                    byteRate = 1;
+                    blockAlign = 4;
+                }
 
                 s.Write(headerRiff, 0, headerRiff.Length);
                 s.Write(PackageInt(StreamingDataSize + 42, 4), 0, 4);
@@ -134,7 +254,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 s.Write(formatTag, 0, formatTag.Length);
                 s.Write(PackageInt(16, 4), 0, 4); // Subchunk1Size
 
-                s.Write(PackageInt(AudioFormat, 2), 0, 2);
+                s.Write(PackageInt((uint)AudioFormat, 2), 0, 2);
                 s.Write(PackageInt(Channels, 2), 0, 2);
                 s.Write(PackageInt(SampleRate, 4), 0, 4);
                 s.Write(PackageInt(byteRate, 4), 0, 4);
@@ -146,26 +266,9 @@ namespace GameSpec.Valve.Formats.Blocks
             }
             r.BaseStream.CopyTo(s, (int)StreamingDataSize);
             // Flush and reset position so that consumers can read it
-            s.Flush(); s.Seek(0, SeekOrigin.Begin);
+            s.Flush();
+            s.Seek(0, SeekOrigin.Begin);
             return s;
-        }
-
-        void SetVersion4(BinaryReader r)
-        {
-            var type = r.ReadUInt16();
-            // We don't know if it's actually calculated, or if its a lookup
-            switch (type)
-            {
-                case 0x0101: SoundType = AudioFileType.WAV; Bits = 8; break;
-                case 0x0201: SoundType = AudioFileType.WAV; Bits = 8; break;
-                case 0x0100: SoundType = AudioFileType.WAV; Bits = 16; break;
-                case 0x0200: SoundType = AudioFileType.WAV; Bits = 32; break;
-                case 0x0400: SoundType = AudioFileType.WAV; Bits = 32; break;
-                case 0x0102: SoundType = AudioFileType.MP3; Bits = 16; break;
-                case 0x0202: SoundType = AudioFileType.MP3; Bits = 32; break;
-                //case 0x0203: // TODO: Unknown. In HL:A - pontoon_splash1 or switch_burst
-                default: throw new NotImplementedException($"Unhandled v4 vsnd bits: {type}");
-            }
         }
 
         static byte[] PackageInt(uint source, int length)
@@ -184,16 +287,22 @@ namespace GameSpec.Valve.Formats.Blocks
         public override string ToString()
         {
             var b = new StringBuilder();
-            b.AppendLine($"SoundType: {SoundType}");
-            b.AppendLine($"Sample Rate: {SampleRate}");
-            b.AppendLine($"Bits: {Bits}");
-            b.AppendLine($"SampleSize: {SampleSize}");
-            b.AppendLine($"SampleCount: {SampleCount}");
-            b.AppendLine($"Format: {AudioFormat}");
-            b.AppendLine($"Channels: {Channels}");
-            b.AppendLine($"LoopStart: {LoopStart}");
-            var duration = TimeSpan.FromSeconds(Duration);
-            b.AppendLine($"Duration: {duration} ({Duration})");
+            b.AppendLine(CultureInfo.InvariantCulture, $"SoundType: {SoundType}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"Sample Rate: {SampleRate}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"Bits: {Bits}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"SampleSize: {SampleSize}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"SampleCount: {SampleCount}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"Format: {AudioFormat}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"Channels: {Channels}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"LoopStart: ({TimeSpan.FromSeconds(LoopStart)}) {LoopStart}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"LoopEnd: ({TimeSpan.FromSeconds(LoopEnd)}) {LoopEnd}");
+            b.AppendLine(CultureInfo.InvariantCulture, $"Duration: {TimeSpan.FromSeconds(Duration)} ({Duration})");
+            b.AppendLine(CultureInfo.InvariantCulture, $"StreamingDataSize: {StreamingDataSize}");
+            if (Sentence != null)
+            {
+                b.AppendLine(CultureInfo.InvariantCulture, $"Sentence[{Sentence.RunTimePhonemes.Length}]:");
+                foreach (var phoneme in Sentence.RunTimePhonemes) b.AppendLine(CultureInfo.InvariantCulture, $"\tPhonemeTag(StartTime={phoneme.StartTime}, EndTime={phoneme.EndTime}, PhonemeCode={phoneme.PhonemeCode})");
+            }
             return b.ToString();
         }
     }
