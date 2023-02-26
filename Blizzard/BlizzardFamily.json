@@ -237,8 +237,8 @@
       },
       "WOWC": {
         "key": "Blizzard:wow_classic",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/World of Warcraft Classic",
-        "dir": "World of Warcraft Classic"
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Wrath of the Lich King Classic",
+        "dir": "Wrath of the Lich King Classic"
       },
       "SC2": {
         "key": "Blizzard:s2",
