@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     /// <summary>
     /// Interaction logic for MainMenu.xaml

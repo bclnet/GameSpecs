@@ -1,9 +1,9 @@
-﻿<Window x:Class="GameSpec.Metadata.View.MainWindow"
+﻿<Window x:Class="GameSpec.App.Explorer.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameSpec.Metadata.View"
+        xmlns:local="clr-namespace:GameSpec.App.Explorer.View"
         mc:Ignorable="d"
         Title="GameEstate Explorer" Width="1342" Height="798">
     <Grid>

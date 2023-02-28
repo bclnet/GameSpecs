@@ -41,7 +41,7 @@ namespace GameSpec.Graphics
             0.9f, 0.2f, 0.8f, 1f,
         });
 
-        public override int BuildTexture(ITextureInfo info)
+        public override int BuildTexture(ITexture info)
         {
             var id = GL.GenTexture();
 

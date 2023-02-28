@@ -19,7 +19,7 @@ using NAudio.Wave;
 using System.IO;
 using NLayer.NAudioSupport;
 
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     /// <summary>
     /// Interaction logic for AudioPlayer.xaml

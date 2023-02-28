@@ -1,18 +1,20 @@
-using GameSpec.Valve.Formats.Blocks.Animation;
-using GameSpec.Valve.Formats.Blocks.Animation.SegmentDecoders;
+using GameSpec.Valve.Formats.Animations;
+using OpenStack.Graphics;
+using OpenStack.Graphics.Renderer1;
+using OpenStack.Graphics.Renderer1.Animations;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
     //was:Resource/ResourceTypes/Model
-    public class DATAModel : DATABinaryKV3OrNTRO //, IValveModelInfo
+    public class DATAModel : DATABinaryKV3OrNTRO, IValveModel
     {
-        Skeleton _cachedSkeleton;
-        public Skeleton Skeleton => _cachedSkeleton ?? (_cachedSkeleton = Skeleton.FromModelData(Data));
-        readonly IDictionary<(VBIB VBIB, int MeshIndex), VBIB> remappedVBIBCache = new Dictionary<(VBIB VBIB, int MeshIndex), VBIB>();
+        public Skeleton Skeleton => CachedSkeleton ?? (CachedSkeleton = Skeleton.FromModelData(Data));
 
-        List<CCompressedAnimQuaternion> CachedAnimations;
+        List<Animation> CachedAnimations;
+        Skeleton CachedSkeleton;
+        readonly IDictionary<(IVBIB VBIB, int MeshIndex), IVBIB> remappedVBIBCache = new Dictionary<(IVBIB VBIB, int MeshIndex), IVBIB>();
 
         public int[] GetRemapTable(int meshIndex)
         {
@@ -25,7 +27,7 @@ namespace GameSpec.Valve.Formats.Blocks
             return remapTable.Skip(start).Take(Skeleton.LocalRemapTable.Length).ToArray();
         }
 
-        public VBIB RemapBoneIndices(VBIB vbib, int meshIndex)
+        public IVBIB RemapBoneIndices(IVBIB vbib, int meshIndex)
         {
             if (Skeleton.Bones.Length == 0) return vbib;
             if (remappedVBIBCache.TryGetValue((vbib, meshIndex), out var res)) return res;
@@ -48,7 +50,7 @@ namespace GameSpec.Valve.Formats.Blocks
         }
 
         public IEnumerable<(DATAMesh Mesh, int MeshIndex, string Name, long LoDMask)> GetEmbeddedMeshesAndLoD()
-            => GetEmbeddedMeshes().Zip(Data.Get<int[]>("m_refLODGroupMasks"), (l, r) => (l.Mesh, l.MeshIndex, l.Name, r));
+            => GetEmbeddedMeshes().Zip(Data.GetInt64Array("m_refLODGroupMasks"), (l, r) => (l.Mesh, l.MeshIndex, l.Name, r));
 
         public IEnumerable<(DATAMesh Mesh, int MeshIndex, string Name)> GetEmbeddedMeshes()
         {
@@ -75,7 +77,6 @@ namespace GameSpec.Valve.Formats.Blocks
                     meshes.Add((mesh, meshIndex, name));
                 }
             }
-
             return meshes;
         }
 
@@ -97,9 +98,9 @@ namespace GameSpec.Valve.Formats.Blocks
         public IEnumerable<string> GetReferencedAnimationGroupNames()
             => Data.Get<string[]>("m_refAnimGroups");
 
-        public IEnumerable<CCompressedAnimQuaternion> GetEmbeddedAnimations()
+        public IEnumerable<Animation> GetEmbeddedAnimations()
         {
-            var embeddedAnimations = new List<CCompressedAnimQuaternion>();
+            var embeddedAnimations = new List<Animation>();
             if (!Parent.ContainsBlockType<CTRL>()) return embeddedAnimations;
 
             var ctrl = Parent.GetBlockByType<CTRL>() as DATABinaryKV3;
@@ -112,10 +113,10 @@ namespace GameSpec.Valve.Formats.Blocks
             var animationGroup = Parent.GetBlockByIndex<DATABinaryKV3OrNTRO>(groupDataBlockIndex);
             var decodeKey = animationGroup.Data.GetSub("m_decodeKey");
             var animationDataBlock = Parent.GetBlockByIndex<DATABinaryKV3OrNTRO>(animDataBlockIndex);
-            return CCompressedAnimQuaternion.FromData(animationDataBlock.Data, decodeKey, Skeleton);
+            return Animation.FromData(animationDataBlock.Data, decodeKey, Skeleton);
         }
 
-        public IEnumerable<CCompressedAnimQuaternion> GetAllAnimations(PakFile fileLoader)
+        public IEnumerable<Animation> GetAllAnimations(IOpenGraphic graphic)
         {
             if (CachedAnimations != null) return CachedAnimations;
 
@@ -125,9 +126,8 @@ namespace GameSpec.Valve.Formats.Blocks
             // Load animations from referenced animation groups
             foreach (var animGroupPath in animGroupPaths)
             {
-                var animGroup = fileLoader.LoadFileObjectAsync<object>(animGroupPath + "_c");
-                if (animGroup != default)
-                    animations.AddRange(AnimationGroupLoader.LoadAnimationGroup(animGroup, fileLoader, Skeleton));
+                var animGroup = graphic.LoadFileObjectAsync<BinaryPak>($"{animGroupPath}_c").Result;
+                if (animGroup != default) animations.AddRange(AnimationGroupLoader.LoadAnimationGroup(animGroup, graphic, Skeleton));
             }
 
             CachedAnimations = animations.ToList();
@@ -138,7 +138,7 @@ namespace GameSpec.Valve.Formats.Blocks
             => Data.Get<string[]>("m_meshGroups");
 
         public IEnumerable<string> GetMaterialGroups()
-           => Data.Get<IDictionary<string, object>>("m_materialGroups").Select(group => group.Get<string>("m_name"));
+           => Data.Get<IDictionary<string, object>[]>("m_materialGroups").Select(group => group.Get<string>("m_name"));
 
         public IEnumerable<string> GetDefaultMeshGroups()
         {

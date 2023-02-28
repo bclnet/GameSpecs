@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GameSpec.Valve.Formats.Blocks
@@ -52,6 +53,13 @@ namespace GameSpec.Valve.Formats.Blocks
             [Extension("vdata")] VData,
             [Extension("item")] ArtifactItem,
             [Extension("sbox")] SboxManagedResource, // TODO: Managed resources can have any extension
+        }
+
+        public IDictionary<string, object> AsKeyValue()
+        {
+            if (this is DATABinaryNTRO ntro) return ntro.Data;
+            else if (this is DATABinaryKV3 kv3) return kv3.Data;
+            return default;
         }
 
         public override void Read(BinaryPak parent, BinaryReader r) { }

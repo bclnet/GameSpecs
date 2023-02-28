@@ -5,7 +5,7 @@ using System.Linq;
 namespace GameSpec.Valve.Formats.Blocks
 {
     //was:Resource/ResourceTypes/ParticleSystem
-    public class DATAParticleSystem : DATABinaryKV3OrNTRO, IParticleSystemInfo
+    public class DATAParticleSystem : DATABinaryKV3OrNTRO, IParticleSystem
     {
         public IEnumerable<IDictionary<string, object>> Renderers => Data.GetArray("m_Renderers") ?? Enumerable.Empty<IDictionary<string, object>>();
 

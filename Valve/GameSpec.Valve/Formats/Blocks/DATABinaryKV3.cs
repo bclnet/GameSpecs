@@ -77,8 +77,8 @@ namespace GameSpec.Valve.Formats.Blocks
             switch (magic)
             {
                 case MAGIC: ReadVersion1(r); break;
-                case MAGIC2: ReadVersion2(r, w, r2); break;
-                //case MAGIC3: ReadVersion3(r, w, r2); break;
+                case MAGIC2: ReadVersion2(r); break;
+                //case MAGIC3: ReadVersion3(r); break;
                 default: throw new ArgumentOutOfRangeException(nameof(magic), $"Invalid KV3 signature {magic}");
             }
         }
@@ -215,7 +215,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 case KVType.BOOLEAN_TRUE: parent.Add(name, MakeValue(type, true, flag)); break;
                 case KVType.BOOLEAN_FALSE: parent.Add(name, MakeValue(type, false, flag)); break;
                 case KVType.INT64_ZERO: parent.Add(name, MakeValue(type, 0L, flag)); break;
-                case KVType.INT64_ONE: parent.Add(name, MakeValue(type, 1L, flag); break;
+                case KVType.INT64_ONE: parent.Add(name, MakeValue(type, 1L, flag)); break;
                 case KVType.INT64:
                     {
                         if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
@@ -274,7 +274,7 @@ namespace GameSpec.Valve.Formats.Blocks
                         var typeArrayLength = r.ReadInt32();
                         var (subType, subFlag) = ReadType(r);
                         var typedArray = new object[typeArrayLength];
-                        for (var i = 0; i < typeArrayLength; i++) typedArray[i] = ReadBinaryValue(subType, subFlag, r, null); //: typedArray
+                        for (var i = 0; i < typeArrayLength; i++) typedArray[i] = ReadBinaryValue(null, subType, subFlag, r, null); //: typedArray
                         parent.Add(name, MakeValue(type, typedArray, flag));
                         break;
                     }
@@ -318,7 +318,6 @@ namespace GameSpec.Valve.Formats.Blocks
         //    var realType = ConvertBinaryOnlyKVType(type);
         //    flag != KVFlag.None ? (object)(realType, flag, data) : (realType, data);
         //}
-
 
 #pragma warning disable CA1024 // Use properties where appropriate
         public DATABinaryKV3File GetKV3File()

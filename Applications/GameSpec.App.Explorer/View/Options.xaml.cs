@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     /// <summary>
     /// Interaction logic for Options.xaml

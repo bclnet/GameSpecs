@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.Valve.Formats.Blocks
 {
     //was:Resource/ResourceTypes/Texture
-    public class DATATexture : DATA, ITextureInfo
+    public class DATATexture : DATA, ITexture
     {
         public enum VTexExtraData //was:Resource/Enums/VTexExtraData
         {
@@ -89,11 +89,11 @@ namespace GameSpec.Valve.Formats.Blocks
 
         #region ITextureInfo
 
-        IDictionary<string, object> ITextureInfo.Data => null;
-        int ITextureInfo.Width => Width;
-        int ITextureInfo.Height => Height;
-        int ITextureInfo.Depth => Depth;
-        TextureFlags ITextureInfo.Flags => (TextureFlags)Flags;
+        IDictionary<string, object> ITexture.Data => null;
+        int ITexture.Width => Width;
+        int ITexture.Height => Height;
+        int ITexture.Depth => Depth;
+        TextureFlags ITexture.Flags => (TextureFlags)Flags;
         public object UnityFormat => Format switch
         {
             VTexFormat.DXT1 => null,
@@ -126,11 +126,11 @@ namespace GameSpec.Valve.Formats.Blocks
             VTexFormat.I8 => TextureGLFormat.Intensity8,
             _ => null,
         };
-        int ITextureInfo.NumMipMaps => NumMipMaps;
+        int ITexture.NumMipMaps => NumMipMaps;
 
-        void ITextureInfo.MoveToData() => Reader.BaseStream.Position = Offset + Size;
+        void ITexture.MoveToData() => Reader.BaseStream.Position = Offset + Size;
 
-        byte[] ITextureInfo.this[int index]
+        byte[] ITexture.this[int index]
         {
             get
             {
@@ -313,7 +313,7 @@ namespace GameSpec.Valve.Formats.Blocks
                     w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
             }
             if (Format is not VTexFormat.JPEG_DXT5 and not VTexFormat.JPEG_RGBA8888 and not VTexFormat.PNG_DXT5 and not VTexFormat.PNG_RGBA8888)
-                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureInfo.GetMipmapTrueDataSize(((TextureGLFormat)GLFormat), Width, Height, Depth, j)}");
+                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {EmptyTexture.GetMipmapTrueDataSize(((TextureGLFormat)GLFormat), Width, Height, Depth, j)}");
             return w.ToString();
         }
     }

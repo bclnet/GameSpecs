@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     //public class BindingProxy_ : Freezable
     //{

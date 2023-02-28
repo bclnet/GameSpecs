@@ -1,7 +1,6 @@
-using GameSpec.Metadata;
 using GameSpec.Formats;
-using GameSpec.Graphics;
-using OpenStack.Graphics.Renderer;
+using GameSpec.Metadata;
+using OpenStack.Graphics.Renderer1;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -9,23 +8,8 @@ using System.Numerics;
 namespace GameSpec.Valve.Formats.Blocks
 {
     //was:Resource/ResourceTypes/Mesh
-    public class DATAMesh : DATABinaryKV3OrNTRO, IMeshInfo, IGetMetadataInfo
+    public class DATAMesh : DATABinaryKV3OrNTRO, IMesh, IGetMetadataInfo
     {
-        [Flags]
-        public enum RenderMeshDrawPrimitiveFlags //was:Resource/Enum/RenderMeshDrawPrimitiveFlags
-        {
-            None = 0x0,
-            UseShadowFastPath = 0x1,
-            UseCompressedNormalTangent = 0x2,
-            IsOccluder = 0x4,
-            InputLayoutIsNotMatchedToMaterial = 0x8,
-            HasBakedLightingFromVertexStream = 0x10,
-            HasBakedLightingFromLightmap = 0x20,
-            CanBatchWithDynamicShaderConstants = 0x40,
-            DrawLast = 0x80,
-            HasPerInstanceBakedLightingData = 0x100,
-        }
-
         IVBIB _cachedVBIB;
         public IVBIB VBIB
         {
@@ -39,7 +23,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public DATAMesh(BinaryPak pak) : base("PermRenderMeshData_t") { }
 
-        void GetBounds()
+        public void GetBounds()
         {
             var sceneObjects = Data.GetArray("m_sceneObjects");
             if (sceneObjects.Length == 0)
@@ -62,20 +46,6 @@ namespace GameSpec.Valve.Formats.Blocks
             }
             MinBounds = minBounds;
             MaxBounds = maxBounds;
-        }
-
-        public static bool IsCompressedNormalTangent(IDictionary<string, object> drawCall)
-        {
-            if (drawCall.ContainsKey("m_bUseCompressedNormalTangent")) return drawCall.Get<bool>("m_bUseCompressedNormalTangent");
-            if (!drawCall.ContainsKey("m_nFlags")) return false;
-            var flags = drawCall.Get<object>("m_nFlags");
-            return flags switch
-            {
-                string flagsString => flagsString.Contains("MESH_DRAW_FLAGS_USE_COMPRESSED_NORMAL_TANGENT", StringComparison.InvariantCulture),
-                long flagsLong => ((RenderMeshDrawPrimitiveFlags)flagsLong & RenderMeshDrawPrimitiveFlags.UseCompressedNormalTangent) != 0,
-                byte flagsByte => ((RenderMeshDrawPrimitiveFlags)flagsByte & RenderMeshDrawPrimitiveFlags.UseCompressedNormalTangent) != 0,
-                _ => false
-            };
         }
 
         public async void LoadExternalMorphData(PakFile fileLoader)

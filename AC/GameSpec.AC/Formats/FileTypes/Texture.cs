@@ -11,7 +11,7 @@ using System.IO;
 namespace GameSpec.AC.Formats.FileTypes
 {
     [PakFileType(PakFileType.Texture)]
-    public unsafe class Texture : FileType, IGetMetadataInfo, ITextureInfo
+    public unsafe class Texture : FileType, IGetMetadataInfo, ITexture
     {
         public readonly int Unknown;
         public readonly SurfacePixelFormat Format;

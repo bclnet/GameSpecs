@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     /// <summary>
     /// ExplorerTab

@@ -12,7 +12,7 @@ namespace GameSpec.Tes.Formats.Unity
     {
         public enum MatTestMode { Always, Less, LEqual, Equal, GEqual, Greater, NotEqual, Never }
 
-        class FixedMaterialInfo : IFixedMaterialInfo
+        class FixedMaterialInfo : IFixedMaterial
         {
             public string Name { get; set; }
             public string ShaderName { get; set; }
@@ -233,7 +233,7 @@ namespace GameSpec.Tes.Formats.Unity
             return mesh;
         }
 
-        IMaterialInfo NiAVObjectPropertiesToMaterialProperties(NiAVObject obj)
+        IMaterial NiAVObjectPropertiesToMaterialProperties(NiAVObject obj)
         {
             // Find relevant properties.
             NiTexturingProperty texturingProperty = null;

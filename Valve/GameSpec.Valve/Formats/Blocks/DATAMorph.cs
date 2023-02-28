@@ -1,6 +1,4 @@
-using GameSpec.Valve.Formats.Blocks.Animation;
 using OpenStack.Graphics;
-using OpenStack.Graphics.Renderer;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,7 +33,7 @@ namespace GameSpec.Valve.Formats.Blocks
             var width = Data.GetInt32("m_nWidth");
             var height = Data.GetInt32("m_nHeight");
 
-            var texture = textureResource as ITextureInfo;
+            var texture = textureResource as ITexture;
             var texWidth = texture.Width;
             var texHeight = texture.Height;
             var texPixels = texture[0];

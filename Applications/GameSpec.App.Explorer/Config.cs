@@ -1,4 +1,4 @@
-namespace GameSpec.Metadata
+namespace GameSpec.App.Explorer
 {
     public static class Config
     {

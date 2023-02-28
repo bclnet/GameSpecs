@@ -1,12 +1,12 @@
 using OpenStack.Graphics.Algorithms;
 using OpenStack.Graphics.DirectX;
-using OpenStack.Graphics.Renderer;
+using OpenStack.Graphics.Renderer1;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using static OpenStack.Graphics.Renderer.OnDiskBufferData;
+using static OpenStack.Graphics.Renderer1.OnDiskBufferData;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
@@ -275,7 +275,7 @@ namespace GameSpec.Valve.Formats.Blocks
             return newRemapTable.ToArray();
         }
 
-        public VBIB RemapBoneIndices(int[] remapTable)
+        public IVBIB RemapBoneIndices(int[] remapTable)
         {
             var res = new VBIB();
             res.VertexBuffers.AddRange(VertexBuffers.Select(buf =>

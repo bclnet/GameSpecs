@@ -2,7 +2,7 @@ using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Valve.Formats.Blocks;
 using OpenStack.Graphics;
-using OpenStack.Graphics.Renderer;
+using OpenStack.Graphics.Renderer1;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using GameSpec.Valve.Formats.Extras;
 namespace GameSpec.Valve.Formats
 {
     //was:Resource/Resource
-    public class BinaryPak : IDisposable, IGetMetadataInfo, IRedirected<ITextureInfo>, IRedirected<IMaterialInfo>, IRedirected<IMeshInfo>, IRedirected<IModelInfo>, IRedirected<IParticleSystemInfo>
+    public class BinaryPak : IDisposable, IGetMetadataInfo, IRedirected<ITexture>, IRedirected<IMaterial>, IRedirected<IMesh>, IRedirected<IModel>, IRedirected<IParticleSystem>
     {
         internal const ushort KnownHeaderVersion = 12;
 
@@ -27,11 +27,11 @@ namespace GameSpec.Valve.Formats
             GC.SuppressFinalize(this);
         }
 
-        ITextureInfo IRedirected<ITextureInfo>.Value => DATA as ITextureInfo;
-        IMaterialInfo IRedirected<IMaterialInfo>.Value => DATA as IMaterialInfo;
-        IMeshInfo IRedirected<IMeshInfo>.Value => DataType == DATA.ResourceType.Mesh ? new DATAMesh(this) as IMeshInfo : null;
-        IModelInfo IRedirected<IModelInfo>.Value => DATA as IModelInfo;
-        IParticleSystemInfo IRedirected<IParticleSystemInfo>.Value => DATA as IParticleSystemInfo;
+        ITexture IRedirected<ITexture>.Value => DATA as ITexture;
+        IMaterial IRedirected<IMaterial>.Value => DATA as IMaterial;
+        IMesh IRedirected<IMesh>.Value => DataType == DATA.ResourceType.Mesh ? new DATAMesh(this) as IMesh : null;
+        IModel IRedirected<IModel>.Value => DATA as IModel;
+        IParticleSystem IRedirected<IParticleSystem>.Value => DATA as IParticleSystem;
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {

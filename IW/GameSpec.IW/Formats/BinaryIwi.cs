@@ -13,7 +13,7 @@ namespace GameSpec.IW.Formats
     // https://github.com/XLabsProject/img-format-helper - IWI
     // https://github.com/DentonW/DevIL/blob/master/DevIL/src-IL/src/il_iwi.cpp - IWI
     // https://github.com/XLabsProject/img-format-helper - IWI
-    public class BinaryIwi : ITextureInfo, IGetMetadataInfo
+    public class BinaryIwi : ITexture, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryIwi(r));
 

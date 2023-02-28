@@ -1,76 +1,74 @@
 using GameSpec.Valve.Formats.Blocks;
+using GameSpec.Valve.Formats.Extras;
 using GameSpec.Valve.Graphics.OpenGL.Scenes;
 using OpenStack;
-using OpenStack.Graphics.Renderer;
+using OpenStack.Graphics.Renderer1;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using static GameSpec.Valve.Formats.Blocks.DATAEntityLump;
+using static System.Numerics.Polyfill;
 
 namespace GameSpec.Valve.Formats.OpenGL
 {
+    //was:Renderer/WorldLoader
     public class WorldLoader
     {
-        readonly DATAWorld _data;
-        readonly IOpenGLGraphic _graphic;
+        readonly DATAWorld World;
+        readonly IOpenGLGraphic Graphic;
 
         // Contains metadata that can't be captured by manipulating the scene itself. Returned from Load().
         public class LoadResult
         {
-            public HashSet<string> DefaultEnabledLayers { get; } = new HashSet<string>();
-
-            public IDictionary<string, Matrix4x4> CameraMatrices { get; } = new Dictionary<string, Matrix4x4>();
-
-            public Vector3? GlobalLightPosition { get; set; }
-
-            public DATAWorld Skybox { get; set; }
-            public float SkyboxScale { get; set; } = 1.0f;
-            public Vector3 SkyboxOrigin { get; set; } = Vector3.Zero;
+            public readonly HashSet<string> DefaultEnabledLayers = new();
+            public readonly IDictionary<string, Matrix4x4> CameraMatrices = new Dictionary<string, Matrix4x4>();
+            public Vector3? GlobalLightPosition;
+            public DATAWorld Skybox;
+            public float SkyboxScale = 1.0f;
+            public Vector3 SkyboxOrigin = Vector3.Zero;
         }
 
-        public WorldLoader(IOpenGLGraphic graphic, DATAWorld data)
+        public WorldLoader(IOpenGLGraphic graphic, DATAWorld world)
         {
-            _data = data;
-            _graphic = graphic;
+            World = world;
+            Graphic = graphic;
         }
 
         public LoadResult Load(Scene scene)
         {
             var result = new LoadResult();
+            result.DefaultEnabledLayers.Add("Entities");
 
             // Output is World_t we need to iterate m_worldNodes inside it.
-            var worldNodes = _data.GetWorldNodeNames();
-            foreach (var worldNode in worldNodes)
+            foreach (var worldNode in World.GetWorldNodeNames())
                 if (worldNode != null)
                 {
-                    var newResource = _graphic.LoadFileObjectAsync<BinaryPak>($"{worldNode}.vwnod").Result ?? throw new Exception("WTF");
-                    var subloader = new WorldNodeLoader(_graphic, (DATAWorldNode)newResource.DATA);
+                    var newResource = Graphic.LoadFileObjectAsync<BinaryPak>($"{worldNode}.vwnod_c").Result;
+                    if (newResource == null) continue;
+                    var subloader = new WorldNodeLoader(Graphic, (DATAWorldNode)newResource.DATA);
                     subloader.Load(scene);
                 }
 
-            foreach (var lumpName in _data.GetEntityLumpNames())
+            foreach (var lumpName in World.GetEntityLumpNames())
             {
-                if (lumpName == null) return result;
+                if (lumpName == null) continue;
 
-                var newResource = _graphic.LoadFileObjectAsync<BinaryPak>(lumpName).Result;
-                if (newResource == null) return result;
+                var newResource = Graphic.LoadFileObjectAsync<BinaryPak>("{lumpName}_c").Result;
+                if (newResource == null) continue;
 
                 var entityLump = (DATAEntityLump)newResource.DATA;
-                LoadEntitiesFromLump(scene, result, entityLump, "world_layer_base"); // TODO
+                LoadEntitiesFromLump(scene, result, entityLump, "world_layer_base");
             }
-
             return result;
         }
 
         void LoadEntitiesFromLump(Scene scene, LoadResult result, DATAEntityLump entityLump, string layerName = null)
         {
-            var childEntities = entityLump.GetChildEntityNames();
-
-            foreach (var childEntityName in childEntities)
+            foreach (var childEntityName in entityLump.GetChildEntityNames())
             {
-                var newResource = _graphic.LoadFileObjectAsync<BinaryPak>(childEntityName).Result;
+                var newResource = Graphic.LoadFileObjectAsync<BinaryPak>(childEntityName).Result;
                 if (newResource == null) continue;
 
                 var childLump = (DATAEntityLump)newResource.DATA;
@@ -79,9 +77,7 @@ namespace GameSpec.Valve.Formats.OpenGL
                 LoadEntitiesFromLump(scene, result, childLump, childName);
             }
 
-            var worldEntities = entityLump.GetEntities();
-
-            foreach (var entity in worldEntities)
+            foreach (var entity in entityLump.GetEntities())
             {
                 var classname = entity.Get<string>("classname");
 
@@ -100,7 +96,8 @@ namespace GameSpec.Valve.Formats.OpenGL
                     var worldgroupid = entity.Get<string>("worldgroupid");
                     var targetmapname = entity.Get<string>("targetmapname");
 
-                    var skyboxPackage = _graphic.LoadFileObjectAsync<BinaryPak>($"maps/{Path.GetFileNameWithoutExtension(targetmapname)}/world.vwrld").Result;
+                    var skyboxWorldPath = $"maps/{Path.GetFileNameWithoutExtension(targetmapname)}/world.vwrld_c";
+                    var skyboxPackage = Graphic.LoadFileObjectAsync<BinaryPak>(skyboxWorldPath).Result;
                     if (skyboxPackage != null) result.Skybox = (DATAWorld)skyboxPackage.DATA;
                 }
 
@@ -110,50 +107,33 @@ namespace GameSpec.Valve.Formats.OpenGL
                 var model = entity.Get<string>("model");
                 var skin = entity.Get<string>("skin");
                 var particle = entity.Get<string>("effect_name");
-                //var animation = entity.GetProperty<string>("defaultanim");
-                string animation = null;
-
+                var animation = entity.Get<string>("defaultanim");
                 if (scale == null || position == null || angles == null) continue;
 
-                var isGlobalLight = classname == "env_global_light";
-                var isCamera =
-                    classname == "sky_camera" ||
-                    classname == "point_devshot_camera" ||
-                    classname == "point_camera";
+                var isGlobalLight = classname == "env_global_light" || classname == "light_environment";
+                var isCamera = classname == "sky_camera" || classname == "point_devshot_camera" || classname == "point_camera";
+                var isTrigger = classname.Contains("trigger", StringComparison.InvariantCulture) || classname == "post_processing_volume";
 
-                var scaleMatrix = Matrix4x4.CreateScale(System.Numerics.Polyfill.ParseVector(scale));
-
-                var positionVector = System.Numerics.Polyfill.ParseVector(position);
-                var positionMatrix = Matrix4x4.CreateTranslation(positionVector);
-
-                var pitchYawRoll = System.Numerics.Polyfill.ParseVector(angles);
-                var rollMatrix = Matrix4x4.CreateRotationX(OpenTK.MathHelper.DegreesToRadians(pitchYawRoll.Z)); // Roll
-                var pitchMatrix = Matrix4x4.CreateRotationY(OpenTK.MathHelper.DegreesToRadians(pitchYawRoll.X)); // Pitch
-                var yawMatrix = Matrix4x4.CreateRotationZ(OpenTK.MathHelper.DegreesToRadians(pitchYawRoll.Y)); // Yaw
-
-                var rotationMatrix = rollMatrix * pitchMatrix * yawMatrix;
-                var transformationMatrix = scaleMatrix * rotationMatrix * positionMatrix;
+                var origin = ParseVector3(position);
+                var transformationMatrix = ConvertToTransformationMatrix(scale, position, angles);
 
                 if (classname == "sky_camera")
                 {
                     result.SkyboxScale = entity.Get<ulong>("scale");
-                    result.SkyboxOrigin = positionVector;
+                    result.SkyboxOrigin = origin;
                 }
 
                 if (particle != null)
                 {
-                    var particleResource = _graphic.LoadFileObjectAsync<BinaryPak>(particle).Result;
-
+                    var particleResource = Graphic.LoadFileObjectAsync<BinaryPak>(particle).Result;
                     if (particleResource != null)
                     {
                         var particleSystem = (DATAParticleSystem)particleResource.DATA;
-                        var origin = new Vector3(positionVector.X, positionVector.Y, positionVector.Z);
-
                         try
                         {
-                            var particleNode = new DebugParticleSceneNode(scene, particleSystem)
+                            var particleNode = new ParticleSceneNode(scene, particleSystem)
                             {
-                                Transform = Matrix4x4.CreateTranslation(origin),
+                                Transform = Matrix4x4.CreateTranslation((Vector3)origin),
                                 LayerName = layerName,
                             };
                             scene.Add(particleNode, true);
@@ -163,21 +143,17 @@ namespace GameSpec.Valve.Formats.OpenGL
                             Console.Error.WriteLine($"Failed to setup particle '{particle}': {e.Message}");
                         }
                     }
-
                     continue;
                 }
 
                 if (isCamera)
                 {
                     var name = entity.Get<string>("targetname") ?? string.Empty;
-                    var cameraName = string.IsNullOrEmpty(name)
-                        ? classname
-                        : name;
-
+                    var cameraName = string.IsNullOrEmpty(name) ? classname : name;
                     result.CameraMatrices.Add(cameraName, transformationMatrix);
                     continue;
                 }
-                else if (isGlobalLight) { result.GlobalLightPosition = positionVector; continue; }
+                else if (isGlobalLight) { result.GlobalLightPosition = origin; continue; }
                 else if (model == null) continue;
 
                 var objColor = Vector4.One;
@@ -186,23 +162,28 @@ namespace GameSpec.Valve.Formats.OpenGL
                 var color = entity.Get("rendercolor");
 
                 // HL Alyx has an entity that puts rendercolor as a string instead of color255
-                // TODO: Make an enum for these types
                 if (color != default && color.Type == EntityFieldType.Color32)
                 {
-                    var colourBytes = (byte[])color.Data;
-                    objColor.X = colourBytes[0] / 255.0f;
-                    objColor.Y = colourBytes[1] / 255.0f;
-                    objColor.Z = colourBytes[2] / 255.0f;
-                    objColor.W = colourBytes[3] / 255.0f;
+                    var bytes = (byte[])color.Data;
+                    objColor.X = bytes[0] / 255.0f;
+                    objColor.Y = bytes[1] / 255.0f;
+                    objColor.Z = bytes[2] / 255.0f;
+                    objColor.W = bytes[3] / 255.0f;
                 }
 
-                var newEntity = _graphic.LoadFileObjectAsync<BinaryPak>(model).Result;
+                if (!isTrigger && model == null)
+                {
+                    AddToolModel(scene, classname, transformationMatrix, origin);
+                    continue;
+                }
+
+                var newEntity = Graphic.LoadFileObjectAsync<BinaryPak>($"{model}_c").Result;
                 if (newEntity == null)
                 {
-                    var errorModelResource = _graphic.LoadFileObjectAsync<BinaryPak>("models/dev/error.vmdl").Result;
+                    var errorModelResource = Graphic.LoadFileObjectAsync<BinaryPak>("models/dev/error.vmdl_c").Result;
                     if (errorModelResource != null)
                     {
-                        var errorModel = new DebugModelSceneNode(scene, (IValveModelInfo)errorModelResource.DATA, skin, false)
+                        var errorModel = new ModelSceneNode(scene, (IValveModel)errorModelResource.DATA, skin, false)
                         {
                             Transform = transformationMatrix,
                             LayerName = layerName,
@@ -213,21 +194,23 @@ namespace GameSpec.Valve.Formats.OpenGL
                     continue;
                 }
 
-                var newModel = (IValveModelInfo)newEntity.DATA;
-                var modelNode = new DebugModelSceneNode(scene, newModel, skin, false)
+                var newModel = (IValveModel)newEntity.DATA;
+                var modelNode = new ModelSceneNode(scene, newModel, skin, false)
                 {
                     Transform = transformationMatrix,
                     Tint = objColor,
                     LayerName = layerName,
+                    Name = model,
                 };
 
                 if (animation != default)
                 {
-                    modelNode.LoadAnimation(animation); // Load only this animation
+                    modelNode.LoadAnimations(); // Load only this animation
                     modelNode.SetAnimation(animation);
+                    if (entity.Get<bool>("holdanimation")) modelNode.AnimationController.PauseLastFrame();
                 }
 
-                var bodyHash = DATAEntityLump.StringToken.Get("body");
+                var bodyHash = StringToken.Get("body");
                 if (entity.Properties.ContainsKey(bodyHash))
                 {
                     var groups = modelNode.GetMeshGroups();
@@ -242,9 +225,61 @@ namespace GameSpec.Valve.Formats.OpenGL
 
                     modelNode.SetActiveMeshGroups(groups.Skip(bodyGroup).Take(1));
                 }
+                scene.Add(modelNode, false);
 
+                var phys = newModel.GetEmbeddedPhys();
+                if (phys == null)
+                {
+                    var refPhysicsPaths = newModel.GetReferencedPhysNames();
+                    if (refPhysicsPaths.Any())
+                    {
+                        var newResource = Graphic.LoadFileObjectAsync<BinaryPak>($"{refPhysicsPaths.First()}_c").Result;
+                        if (newResource != null) phys = (DATAPhysAggregateData)newResource.DATA;
+                    }
+                }
+
+                if (phys != null)
+                {
+                    var physSceneNode = new PhysSceneNode(scene, phys)
+                    {
+                        Transform = transformationMatrix,
+                        IsTrigger = isTrigger,
+                        LayerName = layerName
+                    };
+                    scene.Add(physSceneNode, false);
+                }
+            }
+        }
+
+        void AddToolModel(Scene scene, string classname, Matrix4x4 transformationMatrix, Vector3 position)
+        {
+            var filename = HammerEntities.GetToolModel(classname);
+            var resource = Graphic.LoadFileObjectAsync<BinaryPak>($"{filename}_c").Result;
+            if (resource == null)
+            {
+                // TODO: Create a 16x16x16 box to emulate how Hammer draws them
+                resource = Graphic.LoadFileObjectAsync<BinaryPak>("materials/editor/obsolete.vmat_c").Result;
+                if (resource == null) return;
+            }
+
+            if (resource.DATA is DATAModel model)
+            {
+                var modelNode = new ModelSceneNode(scene, (IValveModel)model, null, false)
+                {
+                    Transform = transformationMatrix,
+                    LayerName = "Entities",
+                };
                 scene.Add(modelNode, false);
             }
+            else if (resource.DATA is DATAMaterial)
+            {
+                var spriteNode = new SpriteSceneNode(scene, resource, position)
+                {
+                    LayerName = "Entities",
+                };
+                scene.Add(spriteNode, false);
+            }
+            else throw new ArgumentOutOfRangeException(nameof(resource), $"Got resource {resource} for class \"{classname}\"");
         }
     }
 }

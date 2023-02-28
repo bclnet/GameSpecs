@@ -10,7 +10,7 @@ namespace GameSpec.Formats
     // https://github.com/dreamstalker/rehlds/blob/master/rehlds/engine/model.cpp
     // https://greg-kennedy.com/hl_materials/
     // https://github.com/tmp64/BSPRenderer
-    public unsafe class BinaryWad : ITextureInfo, IGetMetadataInfo
+    public unsafe class BinaryWad : ITexture, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryWad(r, f));
 

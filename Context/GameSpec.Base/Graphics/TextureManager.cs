@@ -11,7 +11,7 @@ namespace GameSpec.Graphics
         readonly PakFile _pakFile;
         readonly AbstractTextureBuilder<Texture> _builder;
         readonly Dictionary<object, (Texture texture, IDictionary<string, object> data)> _cachedTextures = new Dictionary<object, (Texture texture, IDictionary<string, object> data)>();
-        readonly Dictionary<object, Task<ITextureInfo>> _preloadTasks = new Dictionary<object, Task<ITextureInfo>>();
+        readonly Dictionary<object, Task<ITexture>> _preloadTasks = new Dictionary<object, Task<ITexture>>();
 
         public TextureManager(PakFile pakFile, AbstractTextureBuilder<Texture> builder)
         {
@@ -26,7 +26,7 @@ namespace GameSpec.Graphics
         {
             if (_cachedTextures.TryGetValue(key, out var cache)) { data = cache.data; return cache.texture; }
             // Load & cache the texture.
-            var info = key is ITextureInfo z ? z : LoadTextureInfo(key);
+            var info = key is ITexture z ? z : LoadTextureInfo(key);
             var texture = info != null ? _builder.BuildTexture(info) : _builder.DefaultTexture;
             data = info?.Data;
             _cachedTextures[key] = (texture, data);
@@ -37,10 +37,10 @@ namespace GameSpec.Graphics
         {
             if (_cachedTextures.ContainsKey(path)) return;
             // Start loading the texture file asynchronously if we haven't already started.
-            if (!_preloadTasks.ContainsKey(path)) _preloadTasks[path] = _pakFile.LoadFileObjectAsync<ITextureInfo>(path);
+            if (!_preloadTasks.ContainsKey(path)) _preloadTasks[path] = _pakFile.LoadFileObjectAsync<ITexture>(path);
         }
 
-        ITextureInfo LoadTextureInfo(object key)
+        ITexture LoadTextureInfo(object key)
         {
             Assert(!_cachedTextures.ContainsKey(key));
             switch (key)

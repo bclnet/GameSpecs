@@ -13,7 +13,7 @@
 //#define Rsi
 //#define Unity
 //#define Unreal
-//#define Valve
+#define Valve
 
 namespace GameSpec
 {
@@ -333,11 +333,11 @@ namespace GameSpec
             //GameId = "DOD:Src", // Day of Defeat: Source [open, read]
             //GameId = "Portal2", // Portal 2 [open, read]
             //GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
-            GameId = "D2", // Dota 2 [open]
+            //GameId = "D2", // Dota 2 [open]
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]
-            //GameId = "HL:Alyx", // Half-Life: Alyx [open, read]
+            GameId = "HL:Alyx", // Half-Life: Alyx [open, read]
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cryptic", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };

@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
-    public class DATAMaterial : DATABinaryKV3OrNTRO, IParamMaterialInfo
+    public class DATAMaterial : DATABinaryKV3OrNTRO, IParamMaterial
     {
         public string Name { get; set; }
         public string ShaderName { get; set; }

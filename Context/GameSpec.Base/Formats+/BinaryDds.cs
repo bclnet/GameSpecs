@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class BinaryDds : ITextureInfo, IGetMetadataInfo
+    public class BinaryDds : ITexture, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDds(r));
 

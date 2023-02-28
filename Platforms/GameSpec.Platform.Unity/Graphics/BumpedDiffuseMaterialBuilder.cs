@@ -21,7 +21,7 @@ namespace GameSpec.Graphics
             switch (key)
             {
                 case null: return BuildMaterial();
-                case IFixedMaterialInfo p:
+                case IFixedMaterial p:
                     Material material;
                     if (p.AlphaBlended) material = BuildMaterialBlended((ur.BlendMode)p.SrcBlendMode, (ur.BlendMode)p.DstBlendMode);
                     else if (p.AlphaTest) material = BuildMaterialTested(p.AlphaCutoff);

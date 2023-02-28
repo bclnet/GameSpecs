@@ -1,35 +1,35 @@
 using OpenStack.Graphics;
-using OpenStack.Graphics.OpenGL;
+using OpenStack.Graphics.OpenGL.Renderer1;
 using System;
 using System.Numerics;
 
 namespace GameSpec.Graphics
 {
-    public class OpenGLMaterialBuilder : AbstractMaterialBuilder<Material, int>
+    public class OpenGLMaterialBuilder : AbstractMaterialBuilder<GLRenderMaterial, int>
     {
         public OpenGLMaterialBuilder(TextureManager<int> textureManager) : base(textureManager) { }
 
-        Material _defaultMaterial;
-        public override Material DefaultMaterial => _defaultMaterial != null ? _defaultMaterial : _defaultMaterial = BuildAutoMaterial(-1);
+        GLRenderMaterial _defaultMaterial;
+        public override GLRenderMaterial DefaultMaterial => _defaultMaterial != null ? _defaultMaterial : _defaultMaterial = BuildAutoMaterial(-1);
 
-        Material BuildAutoMaterial(int type)
+        GLRenderMaterial BuildAutoMaterial(int type)
         {
-            var m = new Material(null);
+            var m = new GLRenderMaterial(null);
             m.Textures["g_tColor"] = _textureManager.DefaultTexture;
-            m.Info.ShaderName = "vrf.error";
+            m.Material.ShaderName = "vrf.error";
             return m;
         }
 
-        public override Material BuildMaterial(object key)
+        public override GLRenderMaterial BuildMaterial(object key)
         {
             switch (key)
             {
-                case IMaterialInfo s:
-                    var m = new Material(s);
+                case IMaterial s:
+                    var m = new GLRenderMaterial(s);
                     switch (s)
                     {
-                        case IFixedMaterialInfo _: return m;
-                        case IParamMaterialInfo p:
+                        case IFixedMaterial _: return m;
+                        case IParamMaterial p:
                             foreach (var tex in p.TextureParams) m.Textures[tex.Key] = _textureManager.LoadTexture(tex.Value, out _);
                             if (p.IntParams.ContainsKey("F_SOLID_COLOR") && p.IntParams["F_SOLID_COLOR"] == 1)
                             {

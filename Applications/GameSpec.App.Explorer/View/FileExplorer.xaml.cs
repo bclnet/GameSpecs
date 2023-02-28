@@ -10,8 +10,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using GameSpec.Metadata;
 
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     /// <summary>
     /// Interaction logic for FileType.xaml

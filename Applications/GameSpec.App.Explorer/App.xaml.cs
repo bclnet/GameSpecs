@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 
 // https://www.wpf-tutorial.com/data-binding/debugging/
-namespace GameSpec.Metadata.View
+namespace GameSpec.App.Explorer.View
 {
     /// <summary>
     /// Interaction logic for App.xaml

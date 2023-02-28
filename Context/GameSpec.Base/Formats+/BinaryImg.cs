@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public unsafe class BinaryImg : IGetMetadataInfo, ITextureInfo
+    public unsafe class BinaryImg : IGetMetadataInfo, ITexture
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryImg(r, f));
 

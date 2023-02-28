@@ -1,14 +1,15 @@
+using GameSpec.Metadata;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media.Imaging;
 
-namespace GameSpec.Metadata
+namespace GameSpec.App.Explorer
 {
     public class ResourceManagerProvider : MetadataManager
     {
-        readonly Dictionary<string, BitmapImage> Icons = new Dictionary<string, BitmapImage>();
+        readonly Dictionary<string, BitmapImage> Icons = new();
         readonly ConcurrentDictionary<string, BitmapImage> ImageCache = new();
         readonly object _defaultIcon;
         readonly object _folderIcon;

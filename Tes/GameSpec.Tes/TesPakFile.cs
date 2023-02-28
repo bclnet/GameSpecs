@@ -27,7 +27,7 @@ namespace GameSpec.Tes
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            PathFinders.Add(typeof(ITextureInfo), FindTexture);
+            PathFinders.Add(typeof(ITexture), FindTexture);
             Open();
         }
 

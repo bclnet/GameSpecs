@@ -10,7 +10,7 @@ namespace Tests
     // game:/Fallout4*#Fallout4VR
     public class TestTexture : AbstractTest
     {
-        class FixedMaterialInfo : IFixedMaterialInfo
+        class FixedMaterialInfo : IFixedMaterial
         {
             public string Name { get; set; }
             public string ShaderName { get; set; }

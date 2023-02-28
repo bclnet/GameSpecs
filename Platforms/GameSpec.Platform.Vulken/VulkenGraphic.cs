@@ -1,36 +1,35 @@
 ﻿using GameSpec.Graphics;
-using OpenStack.Graphics.OpenGL;
-using System.Collections.Generic;
-using OpenStack;
 using OpenStack.Graphics;
+using OpenStack.Graphics.OpenGL.Renderer1;
+using OpenStack.Graphics.Renderer1;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenStack.Graphics.Renderer;
 
 namespace GameSpec
 {
-    public interface IVulkenGraphic : IOpenGraphic<object, Material, int, Shader> { }
+    public interface IVulkenGraphic : IOpenGraphic<object, GLRenderMaterial, int, Shader> { }
 
     public class VulkenGraphic : IVulkenGraphic
     {
         readonly PakFile _source;
         readonly TextureManager<int> _textureManager;
-        readonly MaterialManager<Material, int> _materialManager;
-        readonly ObjectManager<object, Material, int> _objectManager;
+        readonly MaterialManager<GLRenderMaterial, int> _materialManager;
+        readonly ObjectManager<object, GLRenderMaterial, int> _objectManager;
         readonly ShaderManager<Shader> _shaderManager;
 
         public VulkenGraphic(PakFile source)
         {
             _source = source;
             _textureManager = new TextureManager<int>(source, new VulkenTextureBuilder());
-            _materialManager = new MaterialManager<Material, int>(source, _textureManager, new VulkenMaterialBuilder(_textureManager));
-            _objectManager = new ObjectManager<object, Material, int>(source, _materialManager, new VulkenObjectBuilder());
+            _materialManager = new MaterialManager<GLRenderMaterial, int>(source, _textureManager, new VulkenMaterialBuilder(_textureManager));
+            _objectManager = new ObjectManager<object, GLRenderMaterial, int>(source, _materialManager, new VulkenObjectBuilder());
             _shaderManager = new ShaderManager<Shader>(source, new VulkenShaderBuilder());
             MeshBufferCache = new GpuMeshBufferCache();
         }
 
         public PakFile Source => _source;
         public ITextureManager<int> TextureManager => _textureManager;
-        public IMaterialManager<Material, int> MaterialManager => _materialManager;
+        public IMaterialManager<GLRenderMaterial, int> MaterialManager => _materialManager;
         public IShaderManager<Shader> ShaderManager => _shaderManager;
         public int LoadTexture(string path, out IDictionary<string, object> data) => _textureManager.LoadTexture(path, out data);
         public void PreloadTexture(string path) => _textureManager.PreloadTexture(path);
