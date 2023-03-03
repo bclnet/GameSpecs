@@ -4,6 +4,7 @@ using System;
 
 namespace GameSpec.Graphics
 {
+    //was:Types/Renderer/MaterialLoader
     public class OpenGLTextureBuilder : AbstractTextureBuilder<int>
     {
         public void Release()

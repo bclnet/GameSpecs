@@ -26,7 +26,7 @@ namespace GameSpec.Graphics
                     if (p.AlphaBlended) material = BuildMaterialBlended((ur.BlendMode)p.SrcBlendMode, (ur.BlendMode)p.DstBlendMode);
                     else if (p.AlphaTest) material = BuildMaterialTested(p.AlphaCutoff);
                     else material = BuildMaterial();
-                    if (p.MainFilePath != null) material.mainTexture = _textureManager.LoadTexture(p.MainFilePath, out var _);
+                    if (p.MainFilePath != null) material.mainTexture = TextureManager.LoadTexture(p.MainFilePath, out var _);
                     return material;
                 case MaterialTerrain _: return BuildMaterialTerrain();
                 default: throw new ArgumentOutOfRangeException(nameof(key));

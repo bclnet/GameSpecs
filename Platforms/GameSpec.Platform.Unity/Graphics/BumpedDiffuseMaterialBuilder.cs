@@ -28,10 +28,10 @@ namespace GameSpec.Graphics
                     else material = BuildMaterial();
                     if (p.MainFilePath != null)
                     {
-                        material.mainTexture = _textureManager.LoadTexture(p.MainFilePath, out var _);
-                        if (NormalGeneratorIntensity != null) material.SetTexture("_BumpMap", _textureManager.BuildNormalMap((Texture2D)material.mainTexture, NormalGeneratorIntensity.Value));
+                        material.mainTexture = TextureManager.LoadTexture(p.MainFilePath, out var _);
+                        if (NormalGeneratorIntensity != null) material.SetTexture("_BumpMap", TextureManager.BuildNormalMap((Texture2D)material.mainTexture, NormalGeneratorIntensity.Value));
                     }
-                    if (p.BumpFilePath != null) material.SetTexture("_BumpMap", _textureManager.LoadTexture(p.BumpFilePath, out var _));
+                    if (p.BumpFilePath != null) material.SetTexture("_BumpMap", TextureManager.LoadTexture(p.BumpFilePath, out var _));
                     return material;
                 case MaterialTerrain _: return BuildMaterialTerrain();
                 default: throw new ArgumentOutOfRangeException(nameof(key));

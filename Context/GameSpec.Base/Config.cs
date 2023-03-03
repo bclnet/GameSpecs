@@ -303,12 +303,34 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //HL
-            //ForcePath = "cached.wad:LOADING.pic", //HL:Wad#Pic
-            //ForcePath = "decals.wad:REFLECT1.tex", //HL:Wad#Tex
-            //ForcePath = "decals.wad:{247.tex", //HL:Wad#Tex
+            //ForcePath = "cached.wad:LOADING.pic", //Picture
+            //ForcePath = "decals.wad:REFLECT1.tex", //Texture
+            //ForcePath = "decals.wad:{247.tex", //Texture
 
+            //CS:GO
+            ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
             //Dota2
-            //ForcePath = "materials/console_background_color_psd_b9e26a4.vtex_c", //Dota2:Texture
+            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
+            //TheLab:RR
+            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
+            //HL:Alyx
+            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
+            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
 
             ForceOpen = true,
             Family = "Valve",
@@ -332,12 +354,12 @@ namespace GameSpec
             //GameId = "L4D2", // Left 4 Dead 2 [open, read]
             //GameId = "DOD:Src", // Day of Defeat: Source [open, read]
             //GameId = "Portal2", // Portal 2 [open, read]
-            //GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
-            //GameId = "D2", // Dota 2 [open]
-            //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read]
+            GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
+            //GameId = "D2", // Dota 2 [open, read, texture:GL, model:GL]
+            //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read, texture:GL, model:GL]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]
-            GameId = "HL:Alyx", // Half-Life: Alyx [open, read]
+            //GameId = "HL:Alyx", // Half-Life: Alyx [open, read, texture:GL, model:GL]
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cryptic", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };

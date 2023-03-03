@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using GameSpec.Valve.Formats.Extras;
+using static GameSpec.Valve.Formats.Blocks.DATA;
+using static GameSpec.Valve.Formats.Blocks.DATATexture;
 
 namespace GameSpec.Valve.Formats
 {
@@ -29,7 +31,7 @@ namespace GameSpec.Valve.Formats
 
         ITexture IRedirected<ITexture>.Value => DATA as ITexture;
         IMaterial IRedirected<IMaterial>.Value => DATA as IMaterial;
-        IMesh IRedirected<IMesh>.Value => DataType == DATA.ResourceType.Mesh ? new DATAMesh(this) as IMesh : null;
+        IMesh IRedirected<IMesh>.Value => DataType == ResourceType.Mesh ? new DATAMesh(this) as IMesh : null;
         IModel IRedirected<IModel>.Value => DATA as IModel;
         IParticleSystem IRedirected<IParticleSystem>.Value => DATA as IParticleSystem;
 
@@ -45,7 +47,7 @@ namespace GameSpec.Valve.Formats
             };
             switch (DataType)
             {
-                case DATA.ResourceType.Texture:
+                case ResourceType.Texture:
                     {
                         var data = (DATATexture)DATA;
                         try
@@ -66,7 +68,7 @@ namespace GameSpec.Valve.Formats
                         }
                     }
                     break;
-                case DATA.ResourceType.Panorama:
+                case ResourceType.Panorama:
                     {
                         var data = (DATAPanorama)DATA;
                         nodes.AddRange(new List<MetadataInfo> {
@@ -77,22 +79,22 @@ namespace GameSpec.Valve.Formats
                         });
                     }
                     break;
-                case DATA.ResourceType.PanoramaLayout: break;
-                case DATA.ResourceType.PanoramaScript: break;
-                case DATA.ResourceType.PanoramaStyle: break;
-                case DATA.ResourceType.Particle: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
-                case DATA.ResourceType.Sound:
+                case ResourceType.PanoramaLayout: break;
+                case ResourceType.PanoramaScript: break;
+                case ResourceType.PanoramaStyle: break;
+                case ResourceType.Particle: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
+                case ResourceType.Sound:
                     {
                         var sound = (DATASound)DATA;
                         var stream = sound.GetSoundStream();
                         nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = $".{sound.SoundType}", Dispose = this }));
                     }
                     break;
-                case DATA.ResourceType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
-                case DATA.ResourceType.WorldNode: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
-                case DATA.ResourceType.Model: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
-                case DATA.ResourceType.Mesh: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
-                case DATA.ResourceType.Material: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
+                case ResourceType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
+                case ResourceType.WorldNode: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
+                case ResourceType.Model: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
+                case ResourceType.Mesh: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
+                case ResourceType.Material: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
             }
             foreach (var block in Blocks)
             {
@@ -107,9 +109,9 @@ namespace GameSpec.Valve.Formats
                 if (block is DATA)
                     switch (DataType)
                     {
-                        case DATA.ResourceType.Sound: tab.Value = ((DATASound)block).ToString(); break;
-                        case DATA.ResourceType.Particle:
-                        case DATA.ResourceType.Mesh:
+                        case ResourceType.Sound: tab.Value = ((DATASound)block).ToString(); break;
+                        case ResourceType.Particle:
+                        case ResourceType.Mesh:
                             if (block is DATABinaryKV3 kv3) tab.Value = kv3.ToString();
                             else if (block is NTRO blockNTRO) tab.Value = blockNTRO.ToString();
                             break;
@@ -141,11 +143,34 @@ namespace GameSpec.Valve.Formats
 
         public bool TryGetBlockType<T>(out T value) where T : Block => (value = (T)Blocks.Find(b => typeof(T).IsAssignableFrom(b.GetType()))) != null;
 
-        public List<Block> Blocks { get; } = new List<Block>();
+        public readonly List<Block> Blocks = new();
 
-        public DATA.ResourceType DataType { get; set; }
+        public ResourceType DataType;
 
-        public void Read(BinaryReader r)
+        /// <summary>
+        /// Resource files have a FileSize in the metadata, however certain file types such as sounds have streaming audio data come
+        /// after the resource file, and the size is specified within the DATA block. This property attemps to return the correct size.
+        /// </summary>
+        public uint FullFileSize
+        {
+            get
+            {
+                var size = FileSize;
+                if (DataType == ResourceType.Sound)
+                {
+                    var data = (DATASound)DATA;
+                    size += data.StreamingDataSize;
+                }
+                else if (DataType == ResourceType.Texture)
+                {
+                    var data = (DATATexture)DATA;
+                    size += (uint)data.CalculateTextureDataSize();
+                }
+                return size;
+            }
+        }
+
+        public void Read(BinaryReader r, bool verifyFileSize = false) //:true
         {
             Reader = r;
             FileSize = r.ReadUInt32();
@@ -154,6 +179,7 @@ namespace GameSpec.Valve.Formats
             else if (FileSize != r.BaseStream.Length) { }
             var headerVersion = r.ReadUInt16();
             if (headerVersion != KnownHeaderVersion) throw new FormatException($"Bad Magic: {headerVersion}, expected {KnownHeaderVersion}");
+            //if (FileName != null) DataType = DetermineResourceTypeByFileExtension();
             Version = r.ReadUInt16();
             var blockOffset = r.ReadUInt32();
             var blockCount = r.ReadUInt32();
@@ -167,37 +193,57 @@ namespace GameSpec.Valve.Formats
                 var block = size >= 4 && blockType == "DATA" && !DATA.IsHandledType(DataType) ? r.Peek(z =>
                     {
                         var magic = z.ReadUInt32();
-                        if (magic == DATABinaryKV3.MAGIC || magic == DATABinaryKV3.MAGIC2 || magic == DATABinaryKV3.MAGIC3) return (Block)new DATABinaryKV3();
-                        //else if (magic == DATABinaryKV1.MAGIC) return (Block)new DATABinaryKV1();
-                        return null;
+                        return magic == DATABinaryKV3.MAGIC || magic == DATABinaryKV3.MAGIC2 || magic == DATABinaryKV3.MAGIC3
+                            ? (Block)new DATABinaryKV3()
+                            : magic == DATABinaryKV1.MAGIC ? (Block)new DATABinaryKV1() : null;
                     }) : null;
-                block ??= Block.Factory(this, blockType);
+                block ??= Factory(this, blockType);
                 block.Offset = offset;
                 block.Size = size;
-                if (blockType == "REDI" || blockType == "NTRO") block.Read(this, r);
+                if (blockType == "REDI" || blockType == "RED2" || blockType == "NTRO") block.Read(this, r);
                 Blocks.Add(block);
                 switch (block)
                 {
                     case REDI redi:
                         // Try to determine resource type by looking at first compiler indentifier
-                        if (DataType == DATA.ResourceType.Unknown && REDI.Structs.ContainsKey(REDI.REDIStruct.SpecialDependencies))
+                        if (DataType == ResourceType.Unknown && REDI.Structs.TryGetValue(REDI.REDIStruct.SpecialDependencies, out var specialBlock))
                         {
-                            var specialDeps = (REDISpecialDependencies)REDI.Structs[REDI.REDIStruct.SpecialDependencies];
-                            if (specialDeps.List.Count > 0) DataType = DATA.DetermineTypeByCompilerIdentifier(specialDeps.List[0]);
+                            var specialDeps = (REDISpecialDependencies)specialBlock;
+                            if (specialDeps.List.Count > 0) DataType = DetermineTypeByCompilerIdentifier(specialDeps.List[0]);
+                        }
+                        // Try to determine resource type by looking at the input dependency if there is only one
+                        if (DataType == ResourceType.Unknown && REDI.Structs.TryGetValue(REDI.REDIStruct.InputDependencies, out var inputBlock))
+                        {
+                            var inputDeps = (REDIInputDependencies)inputBlock;
+                            if (inputDeps.List.Count == 1) DataType = DetermineResourceTypeByFileExtension(Path.GetExtension(inputDeps.List[0].ContentRelativeFilename));
                         }
                         break;
                     case NTRO ntro:
-                        if (DataType == DATA.ResourceType.Unknown && NTRO.ReferencedStructs.Count > 0)
-                            switch (NTRO.ReferencedStructs[0].Name)
+                        if (DataType == ResourceType.Unknown && ntro.ReferencedStructs.Count > 0)
+                            switch (ntro.ReferencedStructs[0].Name)
                             {
-                                case "VSoundEventScript_t": DataType = DATA.ResourceType.SoundEventScript; break;
-                                case "CWorldVisibility": DataType = DATA.ResourceType.WorldVisibility; break;
+                                case "VSoundEventScript_t": DataType = ResourceType.SoundEventScript; break;
+                                case "CWorldVisibility": DataType = ResourceType.WorldVisibility; break;
                             }
                         break;
                 }
                 r.BaseStream.Position = position + 8;
             }
-            foreach (var block in Blocks) if (!(block is REDI) && !(block is NTRO)) block.Read(this, r);
+            foreach (var block in Blocks) if (!(block is REDI) && !(block is RED2) && !(block is NTRO)) block.Read(this, r);
+
+            var fullFileSize = FullFileSize;
+            if (verifyFileSize && Reader.BaseStream.Length != fullFileSize)
+            {
+                if (DataType == ResourceType.Texture)
+                {
+                    var data = (DATATexture)DATA;
+                    // TODO: We do not currently have a way of calculating buffer size for these types, Texture.GenerateBitmap also just reads until end of the buffer
+                    if (data.Format == VTexFormat.JPEG_DXT5 || data.Format == VTexFormat.JPEG_RGBA8888) return;
+                    // TODO: Valve added null bytes after the png for whatever reason, so assume we have the full file if the buffer is bigger than the size we calculated
+                    if (data.Format == VTexFormat.PNG_DXT5 || data.Format == VTexFormat.PNG_RGBA8888 && Reader.BaseStream.Length > fullFileSize) return;
+                }
+                throw new InvalidDataException($"File size ({Reader.BaseStream.Length}) does not match size specified in file ({fullFileSize}) ({DataType}).");
+            }
         }
     }
 }

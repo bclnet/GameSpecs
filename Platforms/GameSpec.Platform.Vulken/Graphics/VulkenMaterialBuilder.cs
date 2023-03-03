@@ -15,7 +15,7 @@ namespace GameSpec.Graphics
         GLRenderMaterial BuildAutoMaterial(int type)
         {
             var m = new GLRenderMaterial(null);
-            m.Textures["g_tColor"] = _textureManager.DefaultTexture;
+            m.Textures["g_tColor"] = TextureManager.DefaultTexture;
             m.Material.ShaderName = "vrf.error";
             return m;
         }
@@ -30,15 +30,15 @@ namespace GameSpec.Graphics
                     {
                         case IFixedMaterial _: return m;
                         case IParamMaterial p:
-                            foreach (var tex in p.TextureParams) m.Textures[tex.Key] = _textureManager.LoadTexture(tex.Value, out _);
+                            foreach (var tex in p.TextureParams) m.Textures[tex.Key] = TextureManager.LoadTexture(tex.Value, out _);
                             if (p.IntParams.ContainsKey("F_SOLID_COLOR") && p.IntParams["F_SOLID_COLOR"] == 1)
                             {
                                 var a = p.VectorParams["g_vColorTint"];
-                                m.Textures["g_tColor"] = _textureManager.BuildSolidTexture(1, 1, a.X, a.Y, a.Z, a.W);
+                                m.Textures["g_tColor"] = TextureManager.BuildSolidTexture(1, 1, a.X, a.Y, a.Z, a.W);
                             }
-                            if (!m.Textures.ContainsKey("g_tColor")) m.Textures["g_tColor"] = _textureManager.DefaultTexture;
+                            if (!m.Textures.ContainsKey("g_tColor")) m.Textures["g_tColor"] = TextureManager.DefaultTexture;
                             // Since our shaders only use g_tColor, we have to find at least one texture to use here
-                            if (m.Textures["g_tColor"] == _textureManager.DefaultTexture)
+                            if (m.Textures["g_tColor"] == TextureManager.DefaultTexture)
                                 foreach (var name in new[] { "g_tColor2", "g_tColor1", "g_tColorA", "g_tColorB", "g_tColorC" })
                                     if (m.Textures.ContainsKey(name))
                                     {

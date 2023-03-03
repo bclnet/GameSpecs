@@ -11,47 +11,47 @@ namespace GameSpec.Graphics
     /// </summary>
     public class MaterialManager<Material, Texture> : IMaterialManager<Material, Texture>
     {
-        readonly PakFile _pakFile;
-        readonly AbstractMaterialBuilder<Material, Texture> _builder;
-        readonly Dictionary<object, (Material material, IDictionary<string, object> data)> _cachedMaterials = new Dictionary<object, (Material material, IDictionary<string, object> data)>();
-        readonly Dictionary<object, Task<IMaterial>> _preloadTasks = new Dictionary<object, Task<IMaterial>>();
+        readonly PakFile PakFile;
+        readonly AbstractMaterialBuilder<Material, Texture> Builder;
+        readonly Dictionary<object, (Material material, IDictionary<string, object> data)> CachedMaterials = new();
+        readonly Dictionary<object, Task<IMaterial>> PreloadTasks = new();
 
         public ITextureManager<Texture> TextureManager { get; }
 
         public MaterialManager(PakFile pakFile, ITextureManager<Texture> textureManager, AbstractMaterialBuilder<Material, Texture> builder)
         {
-            _pakFile = pakFile;
+            PakFile = pakFile;
             TextureManager = textureManager;
-            _builder = builder;
+            Builder = builder;
         }
 
         public Material LoadMaterial(object key, out IDictionary<string, object> data)
         {
-            if (_cachedMaterials.TryGetValue(key, out var cache)) { data = cache.data; return cache.material; }
+            if (CachedMaterials.TryGetValue(key, out var cache)) { data = cache.data; return cache.material; }
             // Load & cache the material.
             var info = key is IMaterial z ? z : LoadMaterialInfo(key);
-            var material = info != null ? _builder.BuildMaterial(info) : _builder.DefaultMaterial;
+            var material = info != null ? Builder.BuildMaterial(info) : Builder.DefaultMaterial;
             data = info?.Data;
-            _cachedMaterials[key] = (material, data);
+            CachedMaterials[key] = (material, data);
             return material;
         }
 
         public void PreloadMaterial(string path)
         {
-            if (_cachedMaterials.ContainsKey(path)) return;
+            if (CachedMaterials.ContainsKey(path)) return;
             // Start loading the material file asynchronously if we haven't already started.
-            if (!_preloadTasks.ContainsKey(path)) _preloadTasks[path] = _pakFile.LoadFileObjectAsync<IMaterial>(path);
+            if (!PreloadTasks.ContainsKey(path)) PreloadTasks[path] = PakFile.LoadFileObjectAsync<IMaterial>(path);
         }
 
         IMaterial LoadMaterialInfo(object key)
         {
-            Assert(!_cachedMaterials.ContainsKey(key));
+            Assert(!CachedMaterials.ContainsKey(key));
             switch (key)
             {
                 case string path:
                     PreloadMaterial(path);
-                    var info = _preloadTasks[key].Result;
-                    _preloadTasks.Remove(key);
+                    var info = PreloadTasks[key].Result;
+                    PreloadTasks.Remove(key);
                     return info;
                 default: throw new ArgumentOutOfRangeException(nameof(key), $"{key}");
             }

@@ -10,12 +10,12 @@ namespace GameSpec.Valve.Formats.Blocks
     //was:Resource/ResourceTypes/Mesh
     public class DATAMesh : DATABinaryKV3OrNTRO, IMesh, IGetMetadataInfo
     {
-        IVBIB _cachedVBIB;
+        IVBIB _vbib;
         public IVBIB VBIB
         {
             //new format has VBIB block, for old format we can get it from NTRO DATA block
-            get => _cachedVBIB ?? (_cachedVBIB = Parent.VBIB ?? new VBIB(Data));
-            set => _cachedVBIB = value;
+            get => _vbib ??= Parent.VBIB ?? new VBIB(Data);
+            set => _vbib = value;
         }
         public Vector3 MinBounds { get; private set; }
         public Vector3 MaxBounds { get; private set; }

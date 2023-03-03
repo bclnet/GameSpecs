@@ -356,7 +356,7 @@
         "ru": { "name": "russian" },
         "zh": { "name": "schinese" }
       },
-      "status": [ "open" ]
+      "status": [ "open", "read", "texture:GL" ]
     },
     "TheLab:RR": {
       "name": "The Lab: Robot Repair",
@@ -365,7 +365,7 @@
       "tags": "VR",
       "pak": "game:/*_dir.vpk#TheLab:RR",
       "path": [ "core", "portal2_imported", "vr" ],
-      "status": [ "open", "read" ]
+      "status": [ "open", "read", "texture:GL", "model:GL" ]
     },
     "TheLab:SS": {
       "name": "The Lab: Secret Shop",
@@ -392,7 +392,7 @@
       "tags": "HalfLife VR",
       "pak": "game:/*_dir.vpk#HL:Alyx",
       "path": [ "core", "hlvr" ],
-      "status": [ "open", "read" ]
+      "status": [ "open", "read", "texture:GL", "model:GL" ]
     }
   },
   "fileManager": {

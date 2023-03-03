@@ -49,11 +49,13 @@ namespace GameSpec.App.Explorer.Controls1
                 : null;
             if (source == null) return;
 
+#if true
             Camera.SetViewportSize(source.Width, source.Height);
+#endif
             Camera.SetLocation(new Vector3(200));
             Camera.LookAt(new Vector3(0));
 
-            var texture = graphic.TextureManager.LoadTexture(source, out var _);
+            var texture = graphic.TextureManager.LoadTexture(source, out _);
             Renderers.Add(new TextureRenderer(graphic, texture));
         }
 

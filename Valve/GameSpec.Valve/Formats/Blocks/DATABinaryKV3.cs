@@ -5,9 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Buffers;
+using System.Linq;
+using K4os.Compression.LZ4.Encoders;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    //was:Resource/ResourceTypes/BinaryKV3
     public class DATABinaryKV3 : DATA, IGetMetadataInfo
     {
         public enum KVFlag //was:Serialization/KeyValues/KVFlaggedValue
@@ -78,7 +81,7 @@ namespace GameSpec.Valve.Formats.Blocks
             {
                 case MAGIC: ReadVersion1(r); break;
                 case MAGIC2: ReadVersion2(r); break;
-                //case MAGIC3: ReadVersion3(r); break;
+                case MAGIC3: ReadVersion3(r); break;
                 default: throw new ArgumentOutOfRangeException(nameof(magic), $"Invalid KV3 signature {magic}");
             }
         }
@@ -174,6 +177,168 @@ namespace GameSpec.Valve.Formats.Blocks
             Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
         }
 
+        void ReadVersion3(BinaryReader r)
+        {
+            Format = r.ReadGuid();
+
+            var compressionMethod = r.ReadUInt32();
+            var compressionDictionaryId = r.ReadUInt16();
+            var compressionFrameSize = r.ReadUInt16();
+            var countOfBinaryBytes = r.ReadUInt32(); // how many bytes (binary blobs)
+            var countOfIntegers = r.ReadUInt32(); // how many 4 byte values (ints)
+            var countOfEightByteValues = r.ReadUInt32(); // how many 8 byte values (doubles)
+
+            // 8 bytes that help valve preallocate, useless for us
+            var stringAndTypesBufferSize = r.ReadUInt32();
+            var b = r.ReadUInt16();
+            var c = r.ReadUInt16();
+
+            var uncompressedSize = r.ReadUInt32();
+            var compressedSize = r.ReadUInt32();
+            var blockCount = r.ReadUInt32();
+            var blockTotalSize = r.ReadUInt32();
+
+            if (compressedSize > int.MaxValue) throw new NotImplementedException("KV3 compressedSize is higher than 32-bit integer, which we currently don't handle.");
+            else if (blockTotalSize > int.MaxValue) throw new NotImplementedException("KV3 compressedSize is higher than 32-bit integer, which we currently don't handle.");
+
+            using var s = new MemoryStream();
+
+            if (compressionMethod == 0)
+            {
+                if (compressionDictionaryId != 0) throw new ArgumentOutOfRangeException(nameof(compressionDictionaryId), $"Unhandled: {compressionDictionaryId}");
+                else if (compressionFrameSize != 0) throw new ArgumentOutOfRangeException(nameof(compressionFrameSize), $"Unhandled: {compressionFrameSize}");
+
+                var output = new Span<byte>(new byte[compressedSize]);
+                r.Read(output);
+                s.Write(output);
+            }
+            else if (compressionMethod == 1)
+            {
+                if (compressionDictionaryId != 0) throw new ArgumentOutOfRangeException(nameof(compressionDictionaryId), $"Unhandled: {compressionDictionaryId}");
+                else if (compressionFrameSize != 16384) throw new ArgumentOutOfRangeException(nameof(compressionFrameSize), $"Unhandled: {compressionFrameSize}");
+
+                var output = new Span<byte>(new byte[uncompressedSize]);
+                var buf = ArrayPool<byte>.Shared.Rent((int)compressedSize);
+                try
+                {
+                    var input = buf.AsSpan(0, (int)compressedSize);
+                    r.Read(input);
+                    var written = LZ4Codec.Decode(input, output);
+                    if (written != output.Length) throw new InvalidDataException($"Failed to decompress LZ4 (expected {output.Length} bytes, got {written}).");
+                }
+                finally { ArrayPool<byte>.Shared.Return(buf); }
+                s.Write(output);
+            }
+            else if (compressionMethod == 2)
+            {
+                if (compressionDictionaryId != 0) throw new ArgumentOutOfRangeException(nameof(compressionDictionaryId), $"Unhandled {compressionDictionaryId}");
+                else if (compressionFrameSize != 0) throw new ArgumentOutOfRangeException(nameof(compressionFrameSize), $"Unhandled {compressionFrameSize}");
+
+                using var zstd = new ZstdSharp.Decompressor();
+                var totalSize = uncompressedSize + blockTotalSize;
+                var output = new Span<byte>(new byte[totalSize]);
+                var buf = ArrayPool<byte>.Shared.Rent((int)compressedSize);
+                try
+                {
+                    var input = buf.AsSpan(0, (int)compressedSize);
+                    r.Read(input);
+                    if (!zstd.TryUnwrap(input, output, out var written) || totalSize != written) throw new InvalidDataException($"Failed to decompress zstd correctly (written {written} bytes, expected {totalSize} bytes)");
+                }
+                finally { ArrayPool<byte>.Shared.Return(buf); }
+                s.Write(output);
+            }
+            else throw new ArgumentOutOfRangeException(nameof(compressionMethod), $"Unknown compression method {compressionMethod}");
+
+            s.Seek(0, SeekOrigin.Begin);
+            using var r2 = new BinaryReader(s, System.Text.Encoding.UTF8, true);
+
+            currentBinaryBytesOffset = 0;
+            r2.BaseStream.Position = countOfBinaryBytes;
+            r2.Seek(countOfBinaryBytes, 4); // Align to % 4 after binary blobs
+
+            var countOfStrings = r2.ReadUInt32();
+            var kvDataOffset = r2.BaseStream.Position;
+
+            // Subtract one integer since we already read it (countOfStrings)
+            r2.Skip((countOfIntegers - 1) * 4, 8); // Align to % 8 for the start of doubles
+
+            currentEightBytesOffset = r2.BaseStream.Position;
+
+            r2.BaseStream.Position += countOfEightByteValues * 8;
+            var stringArrayStartPosition = r2.BaseStream.Position;
+
+            strings = new string[countOfStrings];
+            for (var i = 0; i < countOfStrings; i++) strings[i] = r2.ReadZUTF8();
+
+            var typesLength = stringAndTypesBufferSize - (r2.BaseStream.Position - stringArrayStartPosition);
+            types = new byte[typesLength];
+            for (var i = 0; i < typesLength; i++) types[i] = r2.ReadByte();
+
+            if (blockCount == 0)
+            {
+                var noBlocksTrailer = r2.ReadUInt32();
+                if (noBlocksTrailer != 0xFFEEDD00) throw new ArgumentOutOfRangeException(nameof(noBlocksTrailer), $"Invalid trailer {noBlocksTrailer}");
+
+                // Move back to the start of the KV data for reading.
+                r2.BaseStream.Position = kvDataOffset;
+
+                Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
+                return;
+            }
+
+            uncompressedBlockLengthArray = new int[blockCount];
+            for (var i = 0; i < blockCount; i++) uncompressedBlockLengthArray[i] = r2.ReadInt32();
+
+            var trailer = r2.ReadUInt32();
+            if (trailer != 0xFFEEDD00) throw new ArgumentOutOfRangeException(nameof(trailer), $"Invalid trailer {trailer}");
+
+            try
+            {
+                using var uncompressedBlocks = new MemoryStream((int)blockTotalSize);
+                uncompressedBlockDataReader = new BinaryReader(uncompressedBlocks);
+
+                if (compressionMethod == 0)
+                {
+                    for (var i = 0; i < blockCount; i++) r.BaseStream.CopyTo(uncompressedBlocks, uncompressedBlockLengthArray[i]);
+                }
+                else if (compressionMethod == 1)
+                {
+                    using var lz4decoder = new LZ4ChainDecoder(compressionFrameSize, 0);
+                    while (r2.BaseStream.Position < r2.BaseStream.Length)
+                    {
+                        var compressedBlockLength = r2.ReadUInt16();
+                        var output = new Span<byte>(new byte[compressionFrameSize]);
+                        var buf = ArrayPool<byte>.Shared.Rent(compressedBlockLength);
+                        try
+                        {
+                            var input = buf.AsSpan(0, compressedBlockLength);
+                            r.Read(input);
+                            if (lz4decoder.DecodeAndDrain(input, output, out var decoded) && decoded > 0) uncompressedBlocks.Write(decoded < output.Length ? output[..decoded] : output);
+                            else throw new InvalidOperationException("LZ4 decode drain failed, this is likely a bug.");
+                        }
+                        finally { ArrayPool<byte>.Shared.Return(buf); }
+                    }
+                }
+                else if (compressionMethod == 2)
+                {
+                    // This is supposed to be a streaming decompress using ZSTD_decompressStream,
+                    // but as it turns out, zstd unwrap above already decompressed all of the blocks for us,
+                    // so all we need to do is just copy the buffer.
+                    // It's possible that Valve's code needs extra decompress because they set ZSTD_d_stableOutBuffer parameter.
+                    r2.BaseStream.CopyTo(uncompressedBlocks);
+                }
+                else throw new ArgumentOutOfRangeException(nameof(compressionMethod), $"Unimplemented compression method in block decoder {compressionMethod}");
+
+                uncompressedBlocks.Position = 0;
+
+                // Move back to the start of the KV data for reading.
+                r2.BaseStream.Position = kvDataOffset;
+
+                Data = (IDictionary<string, object>)ParseBinaryKV3(r2, null, true);
+            }
+            finally { uncompressedBlockDataReader.Dispose(); }
+        }
+
         (KVType Type, KVFlag Flag) ReadType(BinaryReader r)
         {
             var databyte = types != null ? types[currentTypeIndex++] : r.ReadByte();
@@ -186,7 +351,7 @@ namespace GameSpec.Valve.Formats.Blocks
             return ((KVType)databyte, flag);
         }
 
-        IDictionary<string, object> ParseBinaryKV3(BinaryReader r, IDictionary<string, object> parent, bool inArray = false)
+        object ParseBinaryKV3(BinaryReader r, IDictionary<string, object> parent, bool inArray = false)
         {
             string name;
             if (!inArray)
@@ -196,55 +361,58 @@ namespace GameSpec.Valve.Formats.Blocks
             }
             else name = null;
             var (type, flag) = ReadType(r);
-            return ReadBinaryValue(name, type, flag, r, parent);
+            var value = ReadBinaryValue(name, type, flag, r);
+            if (name != null) parent?.Add(name, value);
+            return value;
         }
 
-        IDictionary<string, object> ReadBinaryValue(string name, KVType type, KVFlag flag, BinaryReader r, IDictionary<string, object> parent)
+        object ReadBinaryValue(string name, KVType type, KVFlag flag, BinaryReader r)
         {
             var currentOffset = r.BaseStream.Position;
+            object value;
             switch (type)
             {
-                case KVType.NULL: parent.Add(name, MakeValue(type, null, flag)); break;
+                case KVType.NULL: value = MakeValue(type, null, flag); break;
                 case KVType.BOOLEAN:
                     {
                         if (currentBinaryBytesOffset > -1) r.BaseStream.Position = currentBinaryBytesOffset;
-                        parent.Add(name, MakeValue(type, r.ReadBoolean(), flag));
+                        value = MakeValue(type, r.ReadBoolean(), flag);
                         if (currentBinaryBytesOffset > -1) { currentBinaryBytesOffset++; r.BaseStream.Position = currentOffset; }
                         break;
                     }
-                case KVType.BOOLEAN_TRUE: parent.Add(name, MakeValue(type, true, flag)); break;
-                case KVType.BOOLEAN_FALSE: parent.Add(name, MakeValue(type, false, flag)); break;
-                case KVType.INT64_ZERO: parent.Add(name, MakeValue(type, 0L, flag)); break;
-                case KVType.INT64_ONE: parent.Add(name, MakeValue(type, 1L, flag)); break;
+                case KVType.BOOLEAN_TRUE: value = MakeValue(type, true, flag); break;
+                case KVType.BOOLEAN_FALSE: value = MakeValue(type, false, flag); break;
+                case KVType.INT64_ZERO: value = MakeValue(type, 0L, flag); break;
+                case KVType.INT64_ONE: value = MakeValue(type, 1L, flag); break;
                 case KVType.INT64:
                     {
                         if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
-                        parent.Add(name, MakeValue(type, r.ReadInt64(), flag));
+                        value = MakeValue(type, r.ReadInt64(), flag);
                         if (currentEightBytesOffset > 0) { currentEightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset; }
                         break;
                     }
                 case KVType.UINT64:
                     {
                         if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
-                        parent.Add(name, MakeValue(type, r.ReadUInt64(), flag));
+                        value = MakeValue(type, r.ReadUInt64(), flag);
                         if (currentEightBytesOffset > 0) { currentEightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset; }
                         break;
                     }
-                case KVType.INT32: parent.Add(name, MakeValue(type, r.ReadInt32(), flag)); break;
-                case KVType.UINT32: parent.Add(name, MakeValue(type, r.ReadUInt32(), flag)); break;
+                case KVType.INT32: value = MakeValue(type, r.ReadInt32(), flag); break;
+                case KVType.UINT32: value = MakeValue(type, r.ReadUInt32(), flag); break;
                 case KVType.DOUBLE:
                     {
                         if (currentEightBytesOffset > 0) r.BaseStream.Position = currentEightBytesOffset;
-                        parent.Add(name, MakeValue(type, r.ReadDouble(), flag));
+                        value = MakeValue(type, r.ReadDouble(), flag);
                         if (currentEightBytesOffset > 0) { currentEightBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset; }
                         break;
                     }
-                case KVType.DOUBLE_ZERO: parent.Add(name, MakeValue(type, 0.0D, flag)); break;
-                case KVType.DOUBLE_ONE: parent.Add(name, MakeValue(type, 1.0D, flag)); break;
+                case KVType.DOUBLE_ZERO: value = MakeValue(type, 0.0D, flag); break;
+                case KVType.DOUBLE_ONE: value = MakeValue(type, 1.0D, flag); break;
                 case KVType.STRING:
                     {
                         var id = r.ReadInt32();
-                        parent.Add(name, MakeValue(type, id == -1 ? string.Empty : strings[id], flag));
+                        value = MakeValue(type, id == -1 ? string.Empty : strings[id], flag);
                         break;
                     }
                 case KVType.BINARY_BLOB:
@@ -252,12 +420,12 @@ namespace GameSpec.Valve.Formats.Blocks
                         if (uncompressedBlockDataReader != null)
                         {
                             var output = uncompressedBlockDataReader.ReadBytes(uncompressedBlockLengthArray[currentCompressedBlockIndex++]);
-                            parent.Add(name, MakeValue(type, output, flag));
+                            value = MakeValue(type, output, flag);
                             break;
                         }
                         var length = r.ReadInt32();
                         if (currentBinaryBytesOffset > -1) r.BaseStream.Position = currentBinaryBytesOffset;
-                        parent.Add(name, MakeValue(type, r.ReadBytes(length), flag));
+                        value = MakeValue(type, r.ReadBytes(length), flag);
                         if (currentBinaryBytesOffset > -1) { currentBinaryBytesOffset = r.BaseStream.Position; r.BaseStream.Position = currentOffset + 4; }
                         break;
                     }
@@ -266,7 +434,7 @@ namespace GameSpec.Valve.Formats.Blocks
                         var arrayLength = r.ReadInt32();
                         var array = new object[arrayLength];
                         for (var i = 0; i < arrayLength; i++) array[i] = ParseBinaryKV3(r, null, true);
-                        parent.Add(name, MakeValue(type, array, flag));
+                        value = MakeValue(type, array, flag);
                         break;
                     }
                 case KVType.ARRAY_TYPED:
@@ -274,50 +442,25 @@ namespace GameSpec.Valve.Formats.Blocks
                         var typeArrayLength = r.ReadInt32();
                         var (subType, subFlag) = ReadType(r);
                         var typedArray = new object[typeArrayLength];
-                        for (var i = 0; i < typeArrayLength; i++) typedArray[i] = ReadBinaryValue(null, subType, subFlag, r, null); //: typedArray
-                        parent.Add(name, MakeValue(type, typedArray, flag));
+                        for (var i = 0; i < typeArrayLength; i++) typedArray[i] = ReadBinaryValue(null, subType, subFlag, r);
+                        value = MakeValue(type, typedArray, flag);
                         break;
                     }
                 case KVType.OBJECT:
                     {
                         var objectLength = r.ReadInt32();
                         var newObject = new Dictionary<string, object>();
+                        if (name != null) newObject.Add("_key", name);
                         for (var i = 0; i < objectLength; i++) ParseBinaryKV3(r, newObject, false);
-                        if (parent == null) parent = newObject;
-                        else parent.Add(name, MakeValue(type, newObject, flag));
+                        value = MakeValue(type, newObject, flag);
                         break;
                     }
                 default: throw new InvalidDataException($"Unknown KVType {type} on byte {r.BaseStream.Position - 1}");
             }
-            return parent;
+            return value;
         }
 
-        //static KVType ConvertBinaryOnlyKVType(KVType type)
-        //{
-        //    switch (type)
-        //    {
-        //        case KVType.BOOLEAN:
-        //        case KVType.BOOLEAN_TRUE:
-        //        case KVType.BOOLEAN_FALSE: return KVType.BOOLEAN;
-        //        case KVType.INT64:
-        //        case KVType.INT32:
-        //        case KVType.INT64_ZERO:
-        //        case KVType.INT64_ONE: return KVType.INT64;
-        //        case KVType.UINT64:
-        //        case KVType.UINT32: return KVType.UINT64;
-        //        case KVType.DOUBLE:
-        //        case KVType.DOUBLE_ZERO:
-        //        case KVType.DOUBLE_ONE: return KVType.DOUBLE;
-        //        case KVType.ARRAY_TYPED: return KVType.ARRAY;
-        //        default: return type;
-        //    }
-        //}
-
         static object MakeValue(KVType type, object data, KVFlag flag) => data;
-        //{
-        //    var realType = ConvertBinaryOnlyKVType(type);
-        //    flag != KVFlag.None ? (object)(realType, flag, data) : (realType, data);
-        //}
 
 #pragma warning disable CA1024 // Use properties where appropriate
         public DATABinaryKV3File GetKV3File()

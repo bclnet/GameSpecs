@@ -38,7 +38,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public IEnumerable<(int MeshIndex, string MeshName, long LoDMask)> GetReferenceMeshNamesAndLoD()
         {
-            var refLODGroupMasks = Data.Get<int[]>("m_refLODGroupMasks");
+            var refLODGroupMasks = Data.GetInt64Array("m_refLODGroupMasks");
             var refMeshes = Data.Get<string[]>("m_refMeshes");
             var result = new List<(int MeshIndex, string MeshName, long LoDMask)>();
             for (var meshIndex = 0; meshIndex < refMeshes.Length; meshIndex++)

@@ -8,29 +8,29 @@ namespace GameSpec.Graphics.Scenes
 {
     public class MeshSceneNode : SceneNode, IMeshCollection
     {
-        GLRenderableMesh _mesh;
+        GLRenderableMesh Mesh;
 
         public MeshSceneNode(Scene scene, IMesh mesh, int meshIndex, IDictionary<string, string> skinMaterials = null)
             : base(scene)
         {
-            _mesh = new GLRenderableMesh(Scene.Graphic as IOpenGLGraphic, mesh, meshIndex, skinMaterials);
-            LocalBoundingBox = _mesh.BoundingBox;
+            Mesh = new GLRenderableMesh(Scene.Graphic as IOpenGLGraphic, mesh, meshIndex, skinMaterials);
+            LocalBoundingBox = Mesh.BoundingBox;
         }
 
         public Vector4 Tint
         {
-            get => _mesh.Tint;
-            set => _mesh.Tint = value;
+            get => Mesh.Tint;
+            set => Mesh.Tint = value;
         }
 
         public IEnumerable<RenderableMesh> RenderableMeshes
         {
-            get { yield return _mesh; }
+            get { yield return Mesh; }
         }
 
-        public override IEnumerable<string> GetSupportedRenderModes() => _mesh.GetSupportedRenderModes();
-        public override void SetRenderMode(string renderMode) => _mesh.SetRenderMode(renderMode);
-        public override void Update(Scene.UpdateContext context) => _mesh.Update(context.Timestep);
+        public override IEnumerable<string> GetSupportedRenderModes() => Mesh.GetSupportedRenderModes();
+        public override void SetRenderMode(string renderMode) => Mesh.SetRenderMode(renderMode);
+        public override void Update(Scene.UpdateContext context) => Mesh.Update(context.Timestep);
         public override void Render(Scene.RenderContext context) { } // This node does not render itself; it uses the batching system via IRenderableMeshCollection
     }
 }

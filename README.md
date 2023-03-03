@@ -74,9 +74,9 @@ The following are the current games:
 | ID | Name | Open | Read | Texure | Model | Level
 | -- | --   | --   | --   | --     | --    | --
 | **AC** | **Asheron's Call**
-| [AC](https://emulator.ac/how-to-play/) | Asheron's Call | open | read | -- -- -- | -- -- -- | -- -- --
+| [AC](https://emulator.ac/how-to-play/) | Asheron's Call | open | read | gl -- -- | -- -- -- | -- -- --
 | **Arkane** | **Arkane Studios**
-| [AF](https://www.gog.com/en/game/arx_fatalis) | Arx Fatalis | open | read | -- -- -- | -- -- -- | -- -- --
+| [AF](https://www.gog.com/en/game/arx_fatalis) | Arx Fatalis | open | read | gl -- -- | -- -- -- | -- -- --
 | [DOM](https://store.steampowered.com/app/2100) | Dark Messiah of Might and Magic | open | read | -- -- -- | -- -- -- | -- -- --
 | [D](https://www.gog.com/en/game/dishonored_definitive_edition) | Dishonored | - | - | -- -- -- | -- -- -- | -- -- --
 | [D2](https://www.gog.com/index.php/game/dishonored_2) | Dishonored 2 | open | read | -- -- -- | -- -- -- | -- -- --
@@ -117,7 +117,7 @@ The following are the current games:
 | [D3](https://us.shop.battle.net/en-us/product/diablo-iii) | Diablo III | - | - | -- -- -- | -- -- -- | -- -- --
 | [HS](https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft) | Hearthstone | - | - | -- -- -- | -- -- -- | -- -- --
 | [HOTS]() | Heroes of the Storm | - | - | -- -- -- | -- -- -- | -- -- --
-| [CB](https://us.shop.battle.net/en-us/family/crash-bandicoot-4) | Crash Bandicootï¿½ 4: Itï¿½s About Time | - | - | -- -- -- | -- -- -- | -- -- --
+| [CB](https://us.shop.battle.net/en-us/family/crash-bandicoot-4) | Crash Bandicoot™ 4: It’s About Time | - | - | -- -- -- | -- -- -- | -- -- --
 | [DI](https://diabloimmortal.blizzard.com/en-us/) | Diablo Immortal | - | - | -- -- -- | -- -- -- | -- -- --
 | [OW2](https://us.shop.battle.net/en-us/product/overwatch) | Overwatch 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [D4](https://diablo4.blizzard.com/en-us/) | Diablo IV | - | - | -- -- -- | -- -- -- | -- -- --
@@ -151,13 +151,13 @@ The following are the current games:
 | [Q2](https://store.steampowered.com/app/2320) | Quake II | - | - | -- -- -- | -- -- -- | -- -- --
 | [Q3:A](https://store.steampowered.com/app/0) | Quake III Arena | - | - | -- -- -- | -- -- -- | -- -- --
 | [D3](https://store.steampowered.com/app/9050) | Doom 3 | - | - | -- -- -- | -- -- -- | -- -- --
-| [Q:L](https://store.steampowered.com/app/0) | Quake Live | - | - | -- -- -- | -- -- -- | -- -- --
+| [Q:L](https://store.steampowered.com/app/282440) | Quake Live | - | - | -- -- -- | -- -- -- | -- -- --
 | [R](https://store.steampowered.com/app/0) | Rage | - | - | -- -- -- | -- -- -- | -- -- --
 | [D](https://store.steampowered.com/app/0) | Doom | - | - | -- -- -- | -- -- -- | -- -- --
 | [D:VFR](https://store.steampowered.com/app/650000) | Doom VFR | - | - | -- -- -- | -- -- -- | -- -- --
 | [R2](https://store.steampowered.com/app/0) | Rage 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [D:E](https://store.steampowered.com/app/0) | Doom Eternal | - | - | -- -- -- | -- -- -- | -- -- --
-| [Q:C](https://store.steampowered.com/app/0) | Quake Champions | - | - | -- -- -- | -- -- -- | -- -- --
+| [Q:C](https://store.steampowered.com/app/611500) | Quake Champions | - | - | -- -- -- | -- -- -- | -- -- --
 | **IW** | **Infinity Ward**
 | [COD](https://store.steampowered.com/app/2620) | Call of Duty | - | - | -- -- -- | -- -- -- | -- -- --
 | [COD2](https://store.steampowered.com/app/2630) | Call of Duty 2 | - | - | -- -- -- | -- -- -- | -- -- --
@@ -202,7 +202,7 @@ The following are the current games:
 | [FalloutNV](https://store.steampowered.com/app/22380) | Fallout New Vegas | - | - | -- -- -- | -- -- -- | -- -- --
 | [Skyrim](https://store.steampowered.com/app/72850) | The Elder Scrolls V: Skyrim | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout4](https://store.steampowered.com/app/377160) | Fallout 4 | - | - | -- -- -- | -- -- -- | -- -- --
-| [SkyrimSE](https://store.steampowered.com/app/489830) | The Elder Scrolls V: Skyrim ï¿½ Special Edition | - | - | -- -- -- | -- -- -- | -- -- --
+| [SkyrimSE](https://store.steampowered.com/app/489830) | The Elder Scrolls V: Skyrim – Special Edition | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout:S](https://store.steampowered.com/app/588430) | Fallout Shelter | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout4VR](https://store.steampowered.com/app/611660) | Fallout 4 VR | - | - | -- -- -- | -- -- -- | -- -- --
 | [SkyrimVR](https://store.steampowered.com/app/611670) | The Elder Scrolls V: Skyrim VR | - | - | -- -- -- | -- -- -- | -- -- --
@@ -249,8 +249,8 @@ The following are the current games:
 | [DOD:Src](https://store.steampowered.com/app/300) | Day of Defeat: Source | open | read | -- -- -- | -- -- -- | -- -- --
 | [Portal2](https://store.steampowered.com/app/620) | Portal 2 | open | read | -- -- -- | -- -- -- | -- -- --
 | [CS:GO](https://store.steampowered.com/app/730) | Counter-Strike: Global Offensive | open | read | -- -- -- | -- -- -- | -- -- --
-| [D2](https://store.steampowered.com/app/570) | Dota 2 | open | - | -- -- -- | -- -- -- | -- -- --
-| [TheLab:RR](https://store.steampowered.com/app/450390) | The Lab: Robot Repair | open | read | -- -- -- | -- -- -- | -- -- --
+| [D2](https://store.steampowered.com/app/570) | Dota 2 | open | read | gl -- -- | -- -- -- | -- -- --
+| [TheLab:RR](https://store.steampowered.com/app/450390) | The Lab: Robot Repair | open | read | gl -- -- | gl -- -- | -- -- --
 | [TheLab:SS](https://store.steampowered.com/app/450390) | The Lab: Secret Shop | - | - | -- -- -- | -- -- -- | -- -- --
 | [TheLab:TL](https://store.steampowered.com/app/450390) | The Lab: The Lab | - | - | -- -- -- | -- -- -- | -- -- --
-| [HL:Alyx](https://store.steampowered.com/app/546560) | Half-Life: Alyx | open | read | -- -- -- | -- -- -- | -- -- --
+| [HL:Alyx](https://store.steampowered.com/app/546560) | Half-Life: Alyx | open | read | gl -- -- | gl -- -- | -- -- --

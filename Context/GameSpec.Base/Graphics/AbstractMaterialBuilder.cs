@@ -4,9 +4,9 @@ namespace GameSpec.Graphics
 {
     public abstract class AbstractMaterialBuilder<Material, Texture>
     {
-        protected ITextureManager<Texture> _textureManager;
+        protected ITextureManager<Texture> TextureManager;
 
-        public AbstractMaterialBuilder(ITextureManager<Texture> textureManager) => _textureManager = textureManager;
+        public AbstractMaterialBuilder(ITextureManager<Texture> textureManager) => TextureManager = textureManager;
 
         public float? NormalGeneratorIntensity = 0.75f;
         public abstract Material DefaultMaterial { get; }

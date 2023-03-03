@@ -121,9 +121,13 @@ namespace GameSpec.Valve.Formats.Blocks
             VTexFormat.ATI2N => TextureGLFormat.CompressedRgRgtc2,
             VTexFormat.BC6H => TextureGLFormat.CompressedRgbBptcUnsignedFloat,
             VTexFormat.BC7 => TextureGLFormat.CompressedRgbaBptcUnorm,
-            VTexFormat.RGBA8888 => TextureGLFormat.Rgba8,
-            VTexFormat.RGBA16161616F => TextureGLFormat.Rgba16f,
-            VTexFormat.I8 => TextureGLFormat.Intensity8,
+            VTexFormat.RGBA8888 => (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), //TextureGLFormat.Rgba8,
+            VTexFormat.RGBA16161616F => (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), //TextureGLFormat.Rgba16f,
+            VTexFormat.I8 => TextureGLFormat.Intensity8, //(TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
+            VTexFormat.R16 => (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort),
+            VTexFormat.R16F => (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float),
+            VTexFormat.RG1616 => (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort),
+            VTexFormat.RG1616F => (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float),
             _ => null,
         };
         int ITexture.NumMipMaps => NumMipMaps;
@@ -134,7 +138,7 @@ namespace GameSpec.Valve.Formats.Blocks
         {
             get
             {
-                var uncompressedSize = ((TextureGLFormat)GLFormat).GetMipMapTrueDataSize(this, index);
+                var uncompressedSize = TextureHelper.GetMipmapTrueDataSize(GLFormat, Width, Height, Depth, index);
                 if (!IsActuallyCompressedMips) return Reader.ReadBytes(uncompressedSize);
                 var compressedSize = CompressedMips[index];
                 if (compressedSize >= uncompressedSize) return Reader.ReadBytes(uncompressedSize);
@@ -305,16 +309,49 @@ namespace GameSpec.Valve.Formats.Blocks
             foreach (var b in ExtraData)
             {
                 w.WriteLine($"{"",-12}   [ Entry {entry++}: VTEX_EXTRA_DATA_{b.Key} - {b.Value.Length} bytes ]");
-                if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE)
+                if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE && CompressedMips != null)
                     w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
-                else if (b.Key == VTexExtraData.CUBEMAP_RADIANCE_SH)
+                else if (b.Key == VTexExtraData.CUBEMAP_RADIANCE_SH && RadianceCoefficients != null)
                     w.WriteLine($"{"",-16}   [ {RadianceCoefficients.Length} coefficients, sized: {string.Join(", ", RadianceCoefficients)} ]");
-                else if (b.Key == VTexExtraData.SHEET)
+                else if (b.Key == VTexExtraData.SHEET && CompressedMips != null)
                     w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
             }
             if (Format is not VTexFormat.JPEG_DXT5 and not VTexFormat.JPEG_RGBA8888 and not VTexFormat.PNG_DXT5 and not VTexFormat.PNG_RGBA8888)
-                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {EmptyTexture.GetMipmapTrueDataSize(((TextureGLFormat)GLFormat), Width, Height, Depth, j)}");
+                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureHelper.GetMipmapTrueDataSize(GLFormat, Width, Height, Depth, j)}");
             return w.ToString();
+        }
+
+        public int CalculateTextureDataSize()
+        {
+            if (Format == VTexFormat.PNG_DXT5 || Format == VTexFormat.PNG_RGBA8888) return TextureHelper.CalculatePngSize(Reader, DataOffset);
+            var bytes = 0;
+            if (CompressedMips != null) bytes = CompressedMips.Sum();
+            else for (var j = 0; j < NumMipMaps; j++) bytes += CalculateBufferSizeForMipLevel(j);
+            return bytes;
+        }
+
+        int CalculateBufferSizeForMipLevel(int mipLevel)
+        {
+            var (bytesPerPixel, _) = TextureHelper.GetBlockSize(GLFormat);
+            var width = TextureHelper.MipLevelSize(Width, mipLevel);
+            var height = TextureHelper.MipLevelSize(Height, mipLevel);
+            var depth = TextureHelper.MipLevelSize(Depth, mipLevel);
+            if ((Flags & VTexFlags.CUBE_TEXTURE) != 0) bytesPerPixel *= 6;
+            if (Format == VTexFormat.DXT1 || Format == VTexFormat.DXT5 || Format == VTexFormat.BC6H || Format == VTexFormat.BC7 ||
+                Format == VTexFormat.ETC2 || Format == VTexFormat.ETC2_EAC || Format == VTexFormat.ATI1N)
+            {
+                var misalign = width % 4;
+                if (misalign > 0) width += 4 - misalign;
+                misalign = height % 4;
+                if (misalign > 0) height += 4 - misalign;
+                if (width < 4 && width > 0) width = 4;
+                if (height < 4 && height > 0) height = 4;
+                if (depth < 4 && depth > 1) depth = 4;
+                var numBlocks = (width * height) >> 4;
+                numBlocks *= depth;
+                return numBlocks * bytesPerPixel;
+            }
+            return width * height * depth * bytesPerPixel;
         }
     }
 }

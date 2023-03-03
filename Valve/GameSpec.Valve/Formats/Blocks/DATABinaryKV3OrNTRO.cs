@@ -3,6 +3,7 @@ using System.IO;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
+    //was:Resource/ResourceTypes/KeyValuesOrNTRO
     public class DATABinaryKV3OrNTRO : DATA
     {
         readonly string IntrospectionStructName;
