@@ -113,7 +113,7 @@ namespace GameSpec
         /// Gets or sets the pak options.
         /// </summary>
         /// <value>
-        /// The multi-pak.
+        /// The pack option.
         /// </value>
         public PakOption PakOptions { get; set; }
 
@@ -129,7 +129,7 @@ namespace GameSpec
         /// Gets or sets the pak2 options.
         /// </summary>
         /// <value>
-        /// The multi-pak.
+        /// The pack option.
         /// </value>
         public PakOption Pak2Options { get; set; }
 
@@ -193,7 +193,7 @@ namespace GameSpec
             => FamilyManager.CreatePakFile(
                 game ?? throw new ArgumentNullException(nameof(game)), 
                 paths?.Length != 0 ? paths : throw new ArgumentOutOfRangeException(nameof(paths)), 
-                index, null, PakOptions, throwOnError);
+                index, null, game.PakOptions, throwOnError);
 
         /// <summary>
         /// Opens the family pak file.

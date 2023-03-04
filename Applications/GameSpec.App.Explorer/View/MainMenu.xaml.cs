@@ -13,18 +13,16 @@ namespace GameSpec.App.Explorer.View
     /// </summary>
     public partial class MainMenu : UserControl
     {
-        public static MainWindow MainWindow => MainWindow.Instance;
+       //public static MainMenu MainWindow => MainWindow.Instance;
 
-        public MainMenu()
-           => InitializeComponent();
+        public MainMenu() => InitializeComponent();
 
-        public void OnFirstLoad()
-            => OpenFile_Click(null, null);
+        public void OnFirstLoad() => OpenFile_Click(null, null);
 
         void OpenFile_Click(object sender, RoutedEventArgs e)
         {
             var openDialog = new OpenDialog();
-            if (openDialog.ShowDialog() == true) MainWindow.Open((Family)openDialog.Family.SelectedItem, openDialog.PakUris);
+            if (openDialog.ShowDialog() == true) MainWindow.Instance.Open((Family)openDialog.Family.SelectedItem, openDialog.PakUris);
         }
 
         void Options_Click(object sender, RoutedEventArgs e)

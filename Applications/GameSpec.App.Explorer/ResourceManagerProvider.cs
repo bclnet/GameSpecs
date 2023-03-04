@@ -40,22 +40,18 @@ namespace GameSpec.App.Explorer
                 Icons.Add(res[4], image);
             }
         }
-        
-        public override object FolderIcon
-            => _folderIcon;
 
-        public override object PackageIcon
-            => _packageIcon;
+        public override object FolderIcon => _folderIcon;
 
-        public override object GetIcon(string name)
-            => Icons.TryGetValue(name, out var z) ? z : _defaultIcon;
+        public override object PackageIcon => _packageIcon;
 
-        public override object GetImage(string name)
-            => ImageCache.GetOrAdd(name, x =>
-            {
-                var image = new BitmapImage(new Uri("pack://application:,,,//{x}"));
-                image.Freeze(); // to prevent error: "Must create DependencySource on same Thread as the DependencyObject"
-                return image;
-            });
+        public override object GetIcon(string name) => Icons.TryGetValue(name, out var z) ? z : _defaultIcon;
+
+        public override object GetImage(string name) => ImageCache.GetOrAdd(name, x =>
+        {
+            var image = new BitmapImage(new Uri("pack://application:,,,//{x}"));
+            image.Freeze(); // to prevent error: "Must create DependencySource on same Thread as the DependencyObject"
+            return image;
+        });
     }
 }

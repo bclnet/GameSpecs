@@ -22,10 +22,10 @@ namespace GameSpec.Formats
             Parallel.For(from, pak.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
             {
                 var file = pak.Files[index];
-                var newPath = Path.Combine(filePath, file.Path);
+                var newPath = filePath != null ? Path.Combine(filePath, file.Path) : null;
 
                 // create directory
-                var directory = Path.GetDirectoryName(newPath);
+                var directory = newPath != null ? Path.GetDirectoryName(newPath) : null;
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
                 // recursive extract pak, and exit
@@ -63,19 +63,23 @@ namespace GameSpec.Formats
                 }
                 else if ((fileOption & DataOption.Stream) != 0)
                 {
-                    if (!(await pak.LoadFileObjectAsync<object>(file) is IHaveStream haveStream))
+                    if (await pak.LoadFileObjectAsync<object>(file) is not IHaveStream haveStream)
                     {
                         exception?.Invoke(null, $"ExportFileAsync: {file.Path} @ {file.FileSize}");
                         throw new InvalidOperationException();
                     }
                     using var b2 = haveStream.GetStream();
-                    using var s2 = new FileStream(newPath, FileMode.Create, FileAccess.Write);
+                    using var s2 = newPath != null
+                        ? new FileStream(newPath, FileMode.Create, FileAccess.Write)
+                        : (Stream)new MemoryStream();
                     b2.CopyTo(s2);
                     return;
                 }
             }
             using var b = await pak.LoadFileDataAsync(file, option, exception);
-            using var s = new FileStream(newPath, FileMode.Create, FileAccess.Write);
+            using var s = newPath != null
+                ? new FileStream(newPath, FileMode.Create, FileAccess.Write)
+                : (Stream)new MemoryStream();
             b.CopyTo(s);
             if (file.Parts != null && (option & DataOption.Raw) == 0)
                 foreach (var part in file.Parts)

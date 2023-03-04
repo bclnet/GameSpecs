@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameSpec.App.Explorer.View"
         mc:Ignorable="d"
-        Title="GameEstate Explorer" Width="1342" Height="798">
+        Title="GameSpec Explorer" Width="1342" Height="798">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />

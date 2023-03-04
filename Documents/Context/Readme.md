@@ -55,12 +55,14 @@ Family Context
 | string        | Id            | Gets or sets the game identifier.
 | string        | Name          | Gets or sets the game name.
 | string        | Engine        | Gets or sets the game engine.
+| PakOption     | PakOptions    | Gets or sets the pak options.
+| PakOption     | Pak2Options   | Gets or sets the pak2 options.
 | IList<Uri>    | Paks          | Gets or sets the paks.
 | IList<Uri>    | Dats          | Gets or sets the dats.
 | IList<string> | Paths         | Gets or sets the Paths.
 | object        | Key           | Gets or sets the key.
 | bool          | Found         | Determines if the game has been found.
-| PakOption     | Pak2Options   | Gets or sets the file system type.
+| Type          | FileSystemType| Gets or sets the file system type.
 | IDictionary<string, Edition>| Editions | Gets the game editions.
 | IDictionary<string, DownloadableContent>| Dlc | Gets the game dlcs.
 | IDictionary<string, Locale>| Locales | Gets the game locales.

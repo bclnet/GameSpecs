@@ -19,7 +19,6 @@ namespace GameSpec.App.Explorer.View
     /// </summary>
     public partial class Options : Window
     {
-        public Options()
-            => InitializeComponent();
+        public Options() => InitializeComponent();
     }
 }

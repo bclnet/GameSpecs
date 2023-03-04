@@ -99,6 +99,7 @@ namespace GameSpec.App.Cli
         static string[] argsValve1 = new[] { "list", "-f", "Valve" };
         static string[] argsValve2 = new[] { "list", "-f", "Valve", "-u", "game:/*_dir.vpk#L4D" };
         static string[] argsValve3 = new[] { "export", "-f", "Valve", "-u", "game:/*_dir.vpk#L4D", "--path", @"~/T_/L4D" };
+        static string[] argsValveNull = new[] { "export", "-f", "Valve", "-u", "game:/*_dir.vpk#L4D", "--path", "null" };
         static string[] argsIW1 = new[] { "list", "-f", "IW" };
 
         static void Register()
@@ -111,7 +112,7 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsBlizzard1)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsValveNull)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),
@@ -121,6 +122,8 @@ namespace GameSpec.App.Cli
         }
 
         internal static string GetPlatformPath(string path)
-            => path.StartsWith('~') ? path.Substring(1).Insert(0, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) : path;
+            => string.Compare(path, "null", true) == 0 ? null
+            : path.StartsWith('~') ? path[1..].Insert(0, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+            : path;
     }
 }

@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace GameSpec.App.Explorer.View
 {
     /// <summary>
-    /// ExplorerTab
+    /// ExplorerMainTab
     /// </summary>
     public class ExplorerMainTab
     {
@@ -67,7 +67,7 @@ namespace GameSpec.App.Explorer.View
             set { _mainTabs = value; NotifyPropertyChanged(); }
         }
 
-        public IList<PakFile> PakFiles { get; private set; } = new List<PakFile>();
+        public readonly IList<PakFile> PakFiles = new List<PakFile>();
 
         public Task OnOpenedAsync(string path = null)
         {

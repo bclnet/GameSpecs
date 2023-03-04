@@ -19,10 +19,8 @@ namespace GameSpec.App.Explorer.View
     /// </summary>
     public partial class About : Window
     {
-        public About()
-            => InitializeComponent();
+        public About() => InitializeComponent();
 
-        void OK_Click(object sender, RoutedEventArgs e)
-            => Close();
+        void OK_Click(object sender, RoutedEventArgs e) => Close();
     }
 }

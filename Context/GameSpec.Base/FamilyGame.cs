@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static GameSpec.Resource;
 
 namespace GameSpec
 {
@@ -73,6 +74,14 @@ namespace GameSpec
         /// Gets or sets the game engine.
         /// </summary>
         public string Engine { get; set; }
+        /// <summary>
+        /// Gets or sets the pak options.
+        /// </summary>
+        public PakOption PakOptions { get; set; }
+        /// <summary>
+        /// Gets or sets the pak2 options.
+        /// </summary>
+        public PakOption Pak2Options { get; set; }
         /// <summary>
         /// Gets or sets the paks.
         /// </summary>

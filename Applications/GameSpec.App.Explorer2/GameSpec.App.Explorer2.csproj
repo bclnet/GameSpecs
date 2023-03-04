@@ -1,0 +1,179 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>GameSpec.App.Explorer2</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>GameSpec.App.Explorer2</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.gamespec.app.explorer2</ApplicationId>
+		<ApplicationIdGuid>1b5191df-e453-4abe-a64b-73a693de1131</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\Documents\Applications\Explorer\Readme.md" Link="Readme.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="Microsoft.Maui.Graphics" Version="7.0.59" />
+		<PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\agrp.png" Link="Resources\Icons\agrp.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\anim.png" Link="Resources\Icons\anim.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\bsp.png" Link="Resources\Icons\bsp.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\css.png" Link="Resources\Icons\css.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\dds.png" Link="Resources\Icons\dds.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\dmx.png" Link="Resources\Icons\dmx.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\ents.png" Link="Resources\Icons\ents.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\fbx.png" Link="Resources\Icons\fbx.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\gnv.png" Link="Resources\Icons\gnv.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\grass.png" Link="Resources\Icons\grass.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\hcg.png" Link="Resources\Icons\hcg.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\html.png" Link="Resources\Icons\html.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\jpg.png" Link="Resources\Icons\jpg.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\map.png" Link="Resources\Icons\map.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mat.png" Link="Resources\Icons\mat.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mdl.png" Link="Resources\Icons\mdl.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mesh.png" Link="Resources\Icons\mesh.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\morf.png" Link="Resources\Icons\morf.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mp3.png" Link="Resources\Icons\mp3.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\pcf.png" Link="Resources\Icons\pcf.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\pdf.png" Link="Resources\Icons\pdf.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\pdi.png" Link="Resources\Icons\pdi.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\phy.png" Link="Resources\Icons\phy.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\phys.png" Link="Resources\Icons\phys.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\png.png" Link="Resources\Icons\png.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\post.png" Link="Resources\Icons\post.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\psd.png" Link="Resources\Icons\psd.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\rman.png" Link="Resources\Icons\rman.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\snd.png" Link="Resources\Icons\snd.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\surf.png" Link="Resources\Icons\surf.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\tex.png" Link="Resources\Icons\tex.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\ttf.png" Link="Resources\Icons\ttf.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\txt.png" Link="Resources\Icons\txt.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vis.png" Link="Resources\Icons\vis.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vmt.png" Link="Resources\Icons\vmt.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vtf.png" Link="Resources\Icons\vtf.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vtx.png" Link="Resources\Icons\vtx.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vvd.png" Link="Resources\Icons\vvd.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\wav.png" Link="Resources\Icons\wav.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\wnod.png" Link="Resources\Icons\wnod.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\wrld.png" Link="Resources\Icons\wrld.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\xml.png" Link="Resources\Icons\xml.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_default.png" Link="Resources\Icons\_default.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_folder.png" Link="Resources\Icons\_folder.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_openFile.png" Link="Resources\Icons\_openFile.png" />
+	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_package.png" Link="Resources\Icons\_package.png" />
+	  <EmbeddedResource Include="Resources\Icons\none.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="About.xaml.cs">
+	    <DependentUpon>About.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="AudioPlayer.xaml.cs">
+	    <DependentUpon>AudioPlayer.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="FileContent.xaml.cs">
+	    <DependentUpon>FileContent.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="FileExplorer.xaml.cs">
+	    <DependentUpon>FileExplorer.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="FileInfo.xaml.cs">
+	    <DependentUpon>FileInfo.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="MainMenu.xaml.cs">
+	    <DependentUpon>MainMenu.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="OpenDialog.xaml.cs">
+	    <DependentUpon>OpenDialog.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Options.xaml.cs">
+	    <DependentUpon>Options.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="About.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AudioPlayer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="FileContent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="FileExplorer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="FileInfo.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MainMenu.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="OpenDialog.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Options.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="MainPage.xaml.old">
+	    <Generator></Generator>
+	  </None>
+	</ItemGroup>
+
+</Project>
