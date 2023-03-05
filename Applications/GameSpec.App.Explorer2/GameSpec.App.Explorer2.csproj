@@ -49,6 +49,104 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Icons\agrp.png" />
+	  <None Remove="Resources\Icons\anim.png" />
+	  <None Remove="Resources\Icons\bsp.png" />
+	  <None Remove="Resources\Icons\css.png" />
+	  <None Remove="Resources\Icons\dds.png" />
+	  <None Remove="Resources\Icons\dmx.png" />
+	  <None Remove="Resources\Icons\ents.png" />
+	  <None Remove="Resources\Icons\fbx.png" />
+	  <None Remove="Resources\Icons\gnv.png" />
+	  <None Remove="Resources\Icons\grass.png" />
+	  <None Remove="Resources\Icons\hcg.png" />
+	  <None Remove="Resources\Icons\html.png" />
+	  <None Remove="Resources\Icons\jpg.png" />
+	  <None Remove="Resources\Icons\map.png" />
+	  <None Remove="Resources\Icons\mat.png" />
+	  <None Remove="Resources\Icons\mdl.png" />
+	  <None Remove="Resources\Icons\mesh.png" />
+	  <None Remove="Resources\Icons\morf.png" />
+	  <None Remove="Resources\Icons\mp3.png" />
+	  <None Remove="Resources\Icons\pcf.png" />
+	  <None Remove="Resources\Icons\pdf.png" />
+	  <None Remove="Resources\Icons\pdi.png" />
+	  <None Remove="Resources\Icons\phy.png" />
+	  <None Remove="Resources\Icons\phys.png" />
+	  <None Remove="Resources\Icons\png.png" />
+	  <None Remove="Resources\Icons\post.png" />
+	  <None Remove="Resources\Icons\psd.png" />
+	  <None Remove="Resources\Icons\rman.png" />
+	  <None Remove="Resources\Icons\snd.png" />
+	  <None Remove="Resources\Icons\surf.png" />
+	  <None Remove="Resources\Icons\tex.png" />
+	  <None Remove="Resources\Icons\ttf.png" />
+	  <None Remove="Resources\Icons\txt.png" />
+	  <None Remove="Resources\Icons\vis.png" />
+	  <None Remove="Resources\Icons\vmt.png" />
+	  <None Remove="Resources\Icons\vtf.png" />
+	  <None Remove="Resources\Icons\vtx.png" />
+	  <None Remove="Resources\Icons\vvd.png" />
+	  <None Remove="Resources\Icons\wav.png" />
+	  <None Remove="Resources\Icons\wnod.png" />
+	  <None Remove="Resources\Icons\wrld.png" />
+	  <None Remove="Resources\Icons\xml.png" />
+	  <None Remove="Resources\Icons\_default.png" />
+	  <None Remove="Resources\Icons\_folder.png" />
+	  <None Remove="Resources\Icons\_openFile.png" />
+	  <None Remove="Resources\Icons\_package.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Icons\agrp.png" />
+	  <EmbeddedResource Include="Resources\Icons\anim.png" />
+	  <EmbeddedResource Include="Resources\Icons\bsp.png" />
+	  <EmbeddedResource Include="Resources\Icons\css.png" />
+	  <EmbeddedResource Include="Resources\Icons\dds.png" />
+	  <EmbeddedResource Include="Resources\Icons\dmx.png" />
+	  <EmbeddedResource Include="Resources\Icons\ents.png" />
+	  <EmbeddedResource Include="Resources\Icons\fbx.png" />
+	  <EmbeddedResource Include="Resources\Icons\gnv.png" />
+	  <EmbeddedResource Include="Resources\Icons\grass.png" />
+	  <EmbeddedResource Include="Resources\Icons\hcg.png" />
+	  <EmbeddedResource Include="Resources\Icons\html.png" />
+	  <EmbeddedResource Include="Resources\Icons\jpg.png" />
+	  <EmbeddedResource Include="Resources\Icons\map.png" />
+	  <EmbeddedResource Include="Resources\Icons\mat.png" />
+	  <EmbeddedResource Include="Resources\Icons\mdl.png" />
+	  <EmbeddedResource Include="Resources\Icons\mesh.png" />
+	  <EmbeddedResource Include="Resources\Icons\morf.png" />
+	  <EmbeddedResource Include="Resources\Icons\mp3.png" />
+	  <EmbeddedResource Include="Resources\Icons\pcf.png" />
+	  <EmbeddedResource Include="Resources\Icons\pdf.png" />
+	  <EmbeddedResource Include="Resources\Icons\pdi.png" />
+	  <EmbeddedResource Include="Resources\Icons\phy.png" />
+	  <EmbeddedResource Include="Resources\Icons\phys.png" />
+	  <EmbeddedResource Include="Resources\Icons\png.png" />
+	  <EmbeddedResource Include="Resources\Icons\post.png" />
+	  <EmbeddedResource Include="Resources\Icons\psd.png" />
+	  <EmbeddedResource Include="Resources\Icons\rman.png" />
+	  <EmbeddedResource Include="Resources\Icons\snd.png" />
+	  <EmbeddedResource Include="Resources\Icons\surf.png" />
+	  <EmbeddedResource Include="Resources\Icons\tex.png" />
+	  <EmbeddedResource Include="Resources\Icons\ttf.png" />
+	  <EmbeddedResource Include="Resources\Icons\txt.png" />
+	  <EmbeddedResource Include="Resources\Icons\vis.png" />
+	  <EmbeddedResource Include="Resources\Icons\vmt.png" />
+	  <EmbeddedResource Include="Resources\Icons\vtf.png" />
+	  <EmbeddedResource Include="Resources\Icons\vtx.png" />
+	  <EmbeddedResource Include="Resources\Icons\vvd.png" />
+	  <EmbeddedResource Include="Resources\Icons\wav.png" />
+	  <EmbeddedResource Include="Resources\Icons\wnod.png" />
+	  <EmbeddedResource Include="Resources\Icons\wrld.png" />
+	  <EmbeddedResource Include="Resources\Icons\xml.png" />
+	  <EmbeddedResource Include="Resources\Icons\_default.png" />
+	  <EmbeddedResource Include="Resources\Icons\_folder.png" />
+	  <EmbeddedResource Include="Resources\Icons\_openFile.png" />
+	  <EmbeddedResource Include="Resources\Icons\_package.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="..\..\Documents\Applications\Explorer\Readme.md" Link="Readme.md" />
 	</ItemGroup>
 
@@ -59,57 +157,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\agrp.png" Link="Resources\Icons\agrp.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\anim.png" Link="Resources\Icons\anim.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\bsp.png" Link="Resources\Icons\bsp.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\css.png" Link="Resources\Icons\css.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\dds.png" Link="Resources\Icons\dds.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\dmx.png" Link="Resources\Icons\dmx.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\ents.png" Link="Resources\Icons\ents.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\fbx.png" Link="Resources\Icons\fbx.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\gnv.png" Link="Resources\Icons\gnv.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\grass.png" Link="Resources\Icons\grass.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\hcg.png" Link="Resources\Icons\hcg.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\html.png" Link="Resources\Icons\html.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\jpg.png" Link="Resources\Icons\jpg.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\map.png" Link="Resources\Icons\map.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mat.png" Link="Resources\Icons\mat.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mdl.png" Link="Resources\Icons\mdl.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mesh.png" Link="Resources\Icons\mesh.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\morf.png" Link="Resources\Icons\morf.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\mp3.png" Link="Resources\Icons\mp3.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\pcf.png" Link="Resources\Icons\pcf.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\pdf.png" Link="Resources\Icons\pdf.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\pdi.png" Link="Resources\Icons\pdi.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\phy.png" Link="Resources\Icons\phy.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\phys.png" Link="Resources\Icons\phys.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\png.png" Link="Resources\Icons\png.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\post.png" Link="Resources\Icons\post.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\psd.png" Link="Resources\Icons\psd.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\rman.png" Link="Resources\Icons\rman.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\snd.png" Link="Resources\Icons\snd.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\surf.png" Link="Resources\Icons\surf.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\tex.png" Link="Resources\Icons\tex.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\ttf.png" Link="Resources\Icons\ttf.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\txt.png" Link="Resources\Icons\txt.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vis.png" Link="Resources\Icons\vis.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vmt.png" Link="Resources\Icons\vmt.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vtf.png" Link="Resources\Icons\vtf.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vtx.png" Link="Resources\Icons\vtx.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\vvd.png" Link="Resources\Icons\vvd.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\wav.png" Link="Resources\Icons\wav.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\wnod.png" Link="Resources\Icons\wnod.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\wrld.png" Link="Resources\Icons\wrld.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\xml.png" Link="Resources\Icons\xml.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_default.png" Link="Resources\Icons\_default.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_folder.png" Link="Resources\Icons\_folder.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_openFile.png" Link="Resources\Icons\_openFile.png" />
-	  <EmbeddedResource Include="..\GameSpec.App.Explorer\Icons\_package.png" Link="Resources\Icons\_package.png" />
-	  <EmbeddedResource Include="Resources\Icons\none.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="TreeView.Maui" Version="1.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -117,63 +166,51 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="About.xaml.cs">
-	    <DependentUpon>About.xaml</DependentUpon>
+	  <Compile Update="Views\AboutPage.xaml.cs">
+	    <DependentUpon>AboutPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="AudioPlayer.xaml.cs">
+	  <Compile Update="Views\AudioPlayer.xaml.cs">
 	    <DependentUpon>AudioPlayer.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="FileContent.xaml.cs">
+	  <Compile Update="Views\FileContent.xaml.cs">
 	    <DependentUpon>FileContent.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="FileExplorer.xaml.cs">
+	  <Compile Update="Views\FileExplorer.xaml.cs">
 	    <DependentUpon>FileExplorer.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="FileInfo.xaml.cs">
+	  <Compile Update="Views\FileInfo.xaml.cs">
 	    <DependentUpon>FileInfo.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="MainMenu.xaml.cs">
-	    <DependentUpon>MainMenu.xaml</DependentUpon>
+	  <Compile Update="Views\OpenPage.xaml.cs">
+	    <DependentUpon>OpenPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="OpenDialog.xaml.cs">
-	    <DependentUpon>OpenDialog.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Options.xaml.cs">
-	    <DependentUpon>Options.xaml</DependentUpon>
+	  <Compile Update="Views\OptionsPage.xaml.cs">
+	    <DependentUpon>OptionsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="About.xaml">
+	  <MauiXaml Update="Views\AboutPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="AudioPlayer.xaml">
+	  <MauiXaml Update="Views\AudioPlayer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="FileContent.xaml">
+	  <MauiXaml Update="Views\FileContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="FileExplorer.xaml">
+	  <MauiXaml Update="Views\FileExplorer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="FileInfo.xaml">
+	  <MauiXaml Update="Views\FileInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MainMenu.xaml">
+	  <MauiXaml Update="Views\OpenPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="OpenDialog.xaml">
+	  <MauiXaml Update="Views\OptionsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Options.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="MainPage.xaml.old">
-	    <Generator></Generator>
-	  </None>
 	</ItemGroup>
 
 </Project>

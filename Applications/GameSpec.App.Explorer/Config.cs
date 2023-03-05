@@ -1,3 +1,6 @@
+using System.Windows;
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+
 namespace GameSpec.App.Explorer
 {
     public static class Config

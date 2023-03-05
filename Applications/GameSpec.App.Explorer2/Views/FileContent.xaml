@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GameSpec.App.Explorer.Views"
+             xmlns:control1="clr-namespace:GameSpec.App.Explorer.Controls1"
+             xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
+             x:Name="this"
+             x:Class="GameSpec.App.Explorer.Views.FileContent">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="Content_Null" x:DataType="{x:Type model:MetadataContent}">
+                <Label Text="Null" Margin="5,5,5,5" FontFamily="GenericMonospace" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Hex" x:DataType="{x:Type model:MetadataContent}">
+                <!--<control:HexEditor Margin="5,5,5,5" Stream="{Binding Value}"/>-->
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Text" x:DataType="{x:Type model:MetadataContent}">
+                <ScrollView>
+                    <Label Text="{Binding Value}" Margin="5,5,5,5" FontFamily="Courier New" />
+                </ScrollView>
+            </DataTemplate>
+            <DataTemplate x:Key="Content_DataGrid" x:DataType="{x:Type model:MetadataContent}">
+                <!--<DataGrid VerticalAlignment="Top" ItemsSource="{Binding Value}" Margin="5,5,5,5" />-->
+            </DataTemplate>
+            <DataTemplate x:Key="Content_AudioPlayer" x:DataType="{x:Type model:MetadataContent}">
+                <local:AudioPlayer Stream="{Binding Value}" Format="{Binding Tag}" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Image" x:DataType="{x:Type model:MetadataContent}">
+                <Image MaximumWidthRequest="{Binding MaxWidth}" MaximumHeightRequest="{Binding MaxHeight}" Margin="5,5,5,5" />
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Material" x:DataType="{x:Type model:MetadataContent}">
+                <!--<control1:GLMaterialViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Particle" x:DataType="{x:Type model:MetadataContent}">
+                <!--<control1:GLParticleViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Texture" x:DataType="{x:Type model:MetadataContent}">
+                <!--<control1:GLTextureViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </DataTemplate>
+            <DataTemplate x:Key="Content_Model" x:DataType="{x:Type model:MetadataContent}">
+                <!--<control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </DataTemplate>
+            <DataTemplate x:Key="Content_World" x:DataType="{x:Type model:MetadataContent}">
+                <!--<control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </DataTemplate>
+        </Grid.Resources>
+        <Label Text="FILE CONTENT"/>
+        <!--<TabBar x:Name="ContentTab" Grid.Row="1" BindingContext="{Binding ContentTabs}">
+        </TabBar>-->
+    </Grid>
+</ContentView>

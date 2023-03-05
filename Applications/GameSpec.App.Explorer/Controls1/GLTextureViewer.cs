@@ -26,6 +26,7 @@ namespace GameSpec.App.Explorer.Controls1
 
         public static readonly DependencyProperty GraphicProperty = DependencyProperty.Register(nameof(Graphic), typeof(object), typeof(GLTextureViewer),
             new PropertyMetadata((d, e) => (d as GLTextureViewer).OnProperty()));
+
         public IOpenGraphic Graphic
         {
             get => GetValue(GraphicProperty) as IOpenGraphic;
@@ -34,6 +35,7 @@ namespace GameSpec.App.Explorer.Controls1
 
         public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(nameof(Source), typeof(object), typeof(GLTextureViewer),
             new PropertyMetadata((d, e) => (d as GLTextureViewer).OnProperty()));
+
         public object Source
         {
             get => GetValue(SourceProperty);
@@ -59,7 +61,7 @@ namespace GameSpec.App.Explorer.Controls1
             Renderers.Add(new TextureRenderer(graphic, texture));
         }
 
-        HashSet<TextureRenderer> Renderers { get; } = new HashSet<TextureRenderer>();
+        readonly HashSet<TextureRenderer> Renderers  = new();
 
         void OnPaint(object sender, RenderEventArgs e)
         {

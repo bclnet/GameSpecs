@@ -26,7 +26,7 @@ namespace GameSpec.App.Explorer
         void LoadIcons()
         {
             var assembly = typeof(ResourceManagerProvider).Assembly;
-            var names = assembly.GetManifestResourceNames().Where(n => n.StartsWith("GameSpec.App.Explorer.Icons.", StringComparison.Ordinal));
+            var names = assembly.GetManifestResourceNames().Where(n => n.StartsWith("GameSpec.App.Explorer.Resources.Icons.", StringComparison.Ordinal));
             foreach (var name in names)
             {
                 var res = name.Split('.');
@@ -37,7 +37,7 @@ namespace GameSpec.App.Explorer
                 image.CacheOption = BitmapCacheOption.OnLoad;
                 image.EndInit();
                 image.Freeze();
-                Icons.Add(res[4], image);
+                Icons.Add(res[5], image);
             }
         }
 

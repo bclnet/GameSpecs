@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using GameSpec.App.Explorer.Views;
 
 namespace GameSpec.App.Explorer
 {
@@ -58,13 +59,17 @@ namespace GameSpec.App.Explorer
 
         int RunDefault(DefaultOptions opts)
         {
-            MainPage = new AppShell();
+            var page = new AppShell();
+            page.OnFirstLoad().Wait();
+            MainPage = page;
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
-            MainPage = new AppShell();
+            var page = new AppShell();
+            page.OnFirstLoad().Wait();
+            MainPage = page;
             return 0;
         }
 

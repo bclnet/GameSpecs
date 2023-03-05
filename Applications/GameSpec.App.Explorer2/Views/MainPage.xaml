@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:GameSpec.App.Explorer.Views"
+             x:Class="GameSpec.App.Explorer.Views.MainPage"
+             Title="Main">
+
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="TabTemplate">
+            <Grid RowDefinitions="30,4">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}"/>
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource Primary}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black"/>
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <Label Text="{TemplateBinding Content.Name}" x:Name="TextLabel" />
+                <BoxView x:Name="Indicator" Grid.Row="1" Color="Transparent"/>
+            </Grid>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
+    <!--<ContentPage.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="Open" Clicked="OpenPage_Click">
+                <MenuFlyoutItem.IconImageSource Source="/Icons/OpenFile_16x.png" />
+            </MenuFlyoutItem>
+        </MenuBarItem>
+        <MenuBarItem Text="Edit">
+            <MenuFlyoutItem Text="Options" Clicked="OptionsPage_Click" />
+        </MenuBarItem>
+        <MenuBarItem Text="View">
+            <MenuFlyoutItem Text="World Map" Clicked="WorldMap_Click" />
+        </MenuBarItem>
+        <MenuBarItem Text="Help">
+            <MenuFlyoutItem Text="View Help" Clicked="Guide_Click" />
+            <MenuFlyoutItem Text="About" Clicked="AboutPage_Click" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>-->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height=".1*" />
+            <RowDefinition Height="63" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width=".1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <DataTemplate x:Key="FileExplorer" x:DataType="{x:Type views:ExplorerMainTab}">
+                <views:FileExplorer x:Name="PakFileExplorer" OpenPath="{Binding Source={x:StaticResource RelativeSource.TemplatedParent}, Path=Content.OpenPath}" PakFile="{Binding Source={x:StaticResource RelativeSource.TemplatedParent}, Path=Content.PakFile}" />
+            </DataTemplate>
+            <DataTemplate x:Key="TextBlock" x:DataType="{x:Type views:ExplorerMainTab}">
+                <ScrollView>
+                    <Label Text="{Binding Text}" Margin="5,5,5,5" />
+                </ScrollView>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Frame Grid.Row="1" Margin="0,0,0,5"
+            BackgroundColor="{Binding CardColor}"
+            BorderColor="DarkGray">
+            <HorizontalStackLayout x:Name="MainTabControl"
+                VerticalOptions="StartAndExpand"
+                BindableLayout.ItemsSource="{Binding MainTabs}"
+                RadioButtonGroup.GroupName="Tabs">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton Content="{Binding}" ControlTemplate="{StaticResource TabTemplate}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Grid.Row="1" Grid.Column="2" Margin="0,0,0,5"
+            BackgroundColor="{Binding CardColor}"
+            BorderColor="DarkGray">
+            <views:FileContent x:Name="FileContent" />
+        </Frame>
+
+        <Entry x:Name="Status" Grid.Row="2" Grid.ColumnSpan="3" Margin="7.5,0,7.5,7.5" Text="STATUS" />
+    </Grid>
+</ContentPage>

@@ -1,14 +1,19 @@
-﻿namespace GameSpec.App.Explorer
+﻿using GameSpec.App.Explorer.Views;
+
+namespace GameSpec.App.Explorer
 {
     public partial class AppShell : Shell
     {
-        public static MainPage Instance;
-
         public AppShell()
         {
             InitializeComponent();
-            //var abc = this.b;
-            //Instance = ShellContent.MainPage;
+            Application.Current.MainPage = this;
+        }
+
+        internal async Task OnFirstLoad()
+        {
+            var openPage = new OpenPage();
+            await Navigation.PushAsync(openPage);
         }
     }
 }

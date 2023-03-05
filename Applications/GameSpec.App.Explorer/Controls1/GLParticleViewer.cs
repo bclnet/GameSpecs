@@ -28,6 +28,7 @@ namespace GameSpec.App.Explorer.Controls1
 
         public static readonly DependencyProperty GraphicProperty = DependencyProperty.Register(nameof(Graphic), typeof(object), typeof(GLParticleViewer),
             new PropertyMetadata((d, e) => (d as GLParticleViewer).OnProperty()));
+
         public IOpenGraphic Graphic
         {
             get => GetValue(GraphicProperty) as IOpenGraphic;
@@ -36,6 +37,7 @@ namespace GameSpec.App.Explorer.Controls1
 
         public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(nameof(Source), typeof(object), typeof(GLParticleViewer),
             new PropertyMetadata((d, e) => (d as GLParticleViewer).OnProperty()));
+
         public object Source
         {
             get => GetValue(SourceProperty);

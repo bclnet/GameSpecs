@@ -30,7 +30,7 @@ namespace GameSpec.App.Explorer
                 var res = name.Split('.');
                 using var stream = assembly.GetManifestResourceStream(name);
                 var image = PlatformImage.FromStream(stream);
-                Icons.Add(res[4], image);
+                Icons.Add(res[5], image);
             }
         }
 

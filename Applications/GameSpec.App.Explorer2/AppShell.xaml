@@ -3,12 +3,16 @@
     x:Class="GameSpec.App.Explorer.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:GameSpec.App.Explorer"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:views="clr-namespace:GameSpec.App.Explorer.Views">
 
-    <ShellContent
-        Title="GameSpec Explorer"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <ShellContent Title="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
+    <ShellContent Title="Open" ContentTemplate="{DataTemplate views:OpenPage}" />
+    <FlyoutItem Title="View">
+        <ShellContent Title="Options" ContentTemplate="{DataTemplate views:OptionsPage}" />
+        <ShellContent Title="World Map" ContentTemplate="{DataTemplate views:OptionsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Help">
+        <ShellContent Title="Help" ContentTemplate="{DataTemplate views:AboutPage}" />
+        <ShellContent Title="AboutMap" ContentTemplate="{DataTemplate views:AboutPage}" />
+    </FlyoutItem>
 </Shell>

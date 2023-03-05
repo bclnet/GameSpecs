@@ -1,11 +1,12 @@
 ﻿using CommandLine;
+using GameSpec.App.Explorer.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
 // https://www.wpf-tutorial.com/data-binding/debugging/
-namespace GameSpec.App.Explorer.View
+namespace GameSpec.App.Explorer
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -64,33 +65,12 @@ namespace GameSpec.App.Explorer.View
 
         #endregion
 
-        static int RunDefault(DefaultOptions opts)
-        {
-            new MainWindow().Show();
-            return 0;
-        }
+        static int RunDefault(DefaultOptions opts) { var page = new MainPage(); page.OnFirstLoad(); page.Show(); return 0; }
 
-        static int RunTest(TestOptions opts)
-        {
-            var wnd = new MainWindow();
-            wnd.Show();
-            return 0;
-        }
+        static int RunTest(TestOptions opts) { var page = new MainPage(); page.OnFirstLoad(); page.Show(); return 0; }
 
-        static int RunOpen(OpenOptions opts)
-        {
-            var family = FamilyManager.GetFamily(opts.Family);
-            var wnd = new MainWindow(false);
-            wnd.Open(family, new[] { opts.Uri }, opts.Path);
-            wnd.Show();
-            return 0;
-        }
+        static int RunOpen(OpenOptions opts) { var page = new MainPage().Open(FamilyManager.GetFamily(opts.Family), new[] { opts.Uri }, opts.Path); page.Show(); return 0; }
 
-        static int RunError(IEnumerable<Error> errs)
-        {
-            MessageBox.Show("Errors: \n\n" + errs.First());
-            Current.Shutdown(1);
-            return 1;
-        }
+        static int RunError(IEnumerable<Error> errs) { MessageBox.Show("Errors: \n\n" + errs.First()); Current.Shutdown(1); return 1; }
     }
 }

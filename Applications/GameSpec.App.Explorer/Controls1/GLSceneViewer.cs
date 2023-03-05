@@ -26,19 +26,19 @@ namespace GameSpec.App.Explorer.Controls1
         protected float SkyboxScale { get; set; } = 1.0f;
         protected Vector3 SkyboxOrigin { get; set; } = Vector3.Zero;
 
-        bool _showStaticOctree = false;
-        bool _showDynamicOctree = false;
-        Frustum _cullFrustum;
+        bool ShowStaticOctree = false;
+        bool ShowDynamicOctree = false;
+        Frustum CullFrustum;
 
         //ComboBox _renderModeComboBox;
-        ParticleGridRenderer _baseGrid;
-        Camera _skyboxCamera = new GLDebugCamera();
-        OctreeDebugRenderer<SceneNode> _staticOctreeRenderer;
-        OctreeDebugRenderer<SceneNode> _dynamicOctreeRenderer;
+        ParticleGridRenderer BaseGrid;
+        Camera SkyboxCamera = new GLDebugCamera();
+        OctreeDebugRenderer<SceneNode> StaticOctreeRenderer;
+        OctreeDebugRenderer<SceneNode> DynamicOctreeRenderer;
 
         protected GLSceneViewer(Frustum cullFrustum = null)
         {
-            _cullFrustum = cullFrustum;
+            CullFrustum = cullFrustum;
 
             InitializeControl();
 
@@ -55,6 +55,7 @@ namespace GameSpec.App.Explorer.Controls1
 
         public static readonly DependencyProperty GraphicProperty = DependencyProperty.Register(nameof(Graphic), typeof(object), typeof(GLSceneViewer),
             new PropertyMetadata((d, e) => (d as GLSceneViewer).OnProperty()));
+
         public IOpenGraphic Graphic
         {
             get => GetValue(GraphicProperty) as IOpenGraphic;
@@ -63,6 +64,7 @@ namespace GameSpec.App.Explorer.Controls1
 
         public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(nameof(Source), typeof(object), typeof(GLSceneViewer),
             new PropertyMetadata((d, e) => (d as GLSceneViewer).OnProperty()));
+
         public object Source
         {
             get => GetValue(SourceProperty);
@@ -76,7 +78,7 @@ namespace GameSpec.App.Explorer.Controls1
             var graphic = Graphic as IOpenGLGraphic;
 
             Scene = new Scene(graphic, MeshBatchRenderer.Render);
-            _baseGrid = new ParticleGridRenderer(20, 5, graphic);
+            BaseGrid = new ParticleGridRenderer(20, 5, graphic);
 
             Camera.SetViewportSize((int)ActualWidth, (int)ActualHeight); //: HandleResize()
             Camera.SetLocation(new Vector3(256));
@@ -93,8 +95,8 @@ namespace GameSpec.App.Explorer.Controls1
                 Camera.LookAt(bbox.Center);
             }
 
-            _staticOctreeRenderer = new OctreeDebugRenderer<SceneNode>(Scene.StaticOctree, Graphic as IOpenGLGraphic, false);
-            _dynamicOctreeRenderer = new OctreeDebugRenderer<SceneNode>(Scene.DynamicOctree, Graphic as IOpenGLGraphic, true);
+            StaticOctreeRenderer = new OctreeDebugRenderer<SceneNode>(Scene.StaticOctree, Graphic as IOpenGLGraphic, false);
+            DynamicOctreeRenderer = new OctreeDebugRenderer<SceneNode>(Scene.DynamicOctree, Graphic as IOpenGLGraphic, true);
 
             //if (_renderModeComboBox != null)
             //{
@@ -116,31 +118,31 @@ namespace GameSpec.App.Explorer.Controls1
             Scene.MainCamera = e.Camera;
             Scene.Update(e.FrameTime);
 
-            if (ShowBaseGrid) _baseGrid.Render(e.Camera, RenderPass.Both);
+            if (ShowBaseGrid) BaseGrid.Render(e.Camera, RenderPass.Both);
 
             if (ShowSkybox && SkyboxScene != null)
             {
-                _skyboxCamera.CopyFrom(e.Camera);
-                _skyboxCamera.SetLocation(e.Camera.Location - SkyboxOrigin);
-                _skyboxCamera.SetScale(SkyboxScale);
+                SkyboxCamera.CopyFrom(e.Camera);
+                SkyboxCamera.SetLocation(e.Camera.Location - SkyboxOrigin);
+                SkyboxCamera.SetScale(SkyboxScale);
 
-                SkyboxScene.MainCamera = _skyboxCamera;
+                SkyboxScene.MainCamera = SkyboxCamera;
                 SkyboxScene.Update(e.FrameTime);
-                SkyboxScene.RenderWithCamera(_skyboxCamera);
+                SkyboxScene.RenderWithCamera(SkyboxCamera);
 
                 GL.Clear(ClearBufferMask.DepthBufferBit);
             }
 
-            Scene.RenderWithCamera(e.Camera, _cullFrustum);
+            Scene.RenderWithCamera(e.Camera, CullFrustum);
 
-            if (_showStaticOctree) _staticOctreeRenderer.Render(e.Camera, RenderPass.Both);
-            if (_showDynamicOctree) _dynamicOctreeRenderer.Render(e.Camera, RenderPass.Both);
+            if (ShowStaticOctree) StaticOctreeRenderer.Render(e.Camera, RenderPass.Both);
+            if (ShowDynamicOctree) DynamicOctreeRenderer.Render(e.Camera, RenderPass.Both);
         }
 
         protected void SetEnabledLayers(HashSet<string> layers)
         {
             Scene.SetEnabledLayers(layers);
-            _staticOctreeRenderer = new OctreeDebugRenderer<SceneNode>(Scene.StaticOctree, Graphic as IOpenGLGraphic, false);
+            StaticOctreeRenderer = new OctreeDebugRenderer<SceneNode>(Scene.StaticOctree, Graphic as IOpenGLGraphic, false);
         }
 
         //protected void AddRenderModeSelectionControl()
