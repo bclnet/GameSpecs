@@ -48,6 +48,7 @@ namespace GameSpec.StoreManagers
                 var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Battle.net", "Agent");
                 return dbPath;
             }
+            else if (RuntimeInformation.RuntimeIdentifier.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

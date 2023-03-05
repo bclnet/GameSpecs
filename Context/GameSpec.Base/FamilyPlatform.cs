@@ -47,14 +47,15 @@ namespace GameSpec
         {
             PlatformOS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? OS.Windows
                 : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? OS.OSX
-                : RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? true ? OS.Linux : OS.Android
-                : throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform));
+                : RuntimeInformation.RuntimeIdentifier.StartsWith("android-") ? OS.Android
+                : RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? OS.Linux
+                : throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform), RuntimeInformation.RuntimeIdentifier);
         }
 
         /// <summary>
         /// Gets or sets the platform.
         /// </summary>
-        public static Type Platform = Type.Unknown;
+        public static Type Platform;
 
         /// <summary>
         /// Gets or sets the platform tag.

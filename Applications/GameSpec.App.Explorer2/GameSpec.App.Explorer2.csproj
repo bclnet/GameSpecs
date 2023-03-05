@@ -152,7 +152,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
-		<PackageReference Include="Microsoft.Maui.Graphics" Version="7.0.59" />
 		<PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
 	</ItemGroup>
 

@@ -6,6 +6,32 @@
              xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
              x:Name="this"
              x:Class="GameSpec.App.Explorer.Views.FileContent">
+    <ContentView.Resources>
+        <ControlTemplate x:Key="TabTemplate">
+            <Grid RowDefinitions="30,4">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}"/>
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource Primary}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black"/>
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <Label Text="{TemplateBinding Content.Name}" x:Name="TextLabel" />
+                <BoxView x:Name="Indicator" Grid.Row="1" Color="Transparent"/>
+            </Grid>
+        </ControlTemplate>
+    </ContentView.Resources>
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="Content_Null" x:DataType="{x:Type model:MetadataContent}">
@@ -45,7 +71,12 @@
             </DataTemplate>
         </Grid.Resources>
         <Label Text="FILE CONTENT"/>
-        <!--<TabBar x:Name="ContentTab" Grid.Row="1" BindingContext="{Binding ContentTabs}">
-        </TabBar>-->
+        <HorizontalStackLayout x:Name="ContentTab" Grid.Row="1" BindableLayout.ItemsSource="{Binding ContentTabs}" VerticalOptions="StartAndExpand" RadioButtonGroup.GroupName="Tabs">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:MetadataContent}">
+                    <RadioButton Content="{Binding}" ControlTemplate="{StaticResource TabTemplate}" />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </HorizontalStackLayout>
     </Grid>
 </ContentView>

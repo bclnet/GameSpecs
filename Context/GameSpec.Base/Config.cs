@@ -355,7 +355,7 @@ namespace GameSpec
             //GameId = "DOD:Src", // Day of Defeat: Source [open, read]
             //GameId = "Portal2", // Portal 2 [open, read]
             //GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
-            GameId = "D2", // Dota 2 [open, read, texture:GL, model:GL]
+            //GameId = "D2", // Dota 2 [open, read, texture:GL, model:GL]
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read, texture:GL, model:GL]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]

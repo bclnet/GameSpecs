@@ -1,5 +1,5 @@
 using GameSpec.Metadata;
-using Microsoft.Maui.Graphics.Platform;
+//using Microsoft.Maui.Graphics.Platform;
 using System.Collections.Concurrent;
 using IImage = Microsoft.Maui.Graphics.IImage;
 
@@ -29,8 +29,8 @@ namespace GameSpec.App.Explorer
             {
                 var res = name.Split('.');
                 using var stream = assembly.GetManifestResourceStream(name);
-                var image = PlatformImage.FromStream(stream);
-                Icons.Add(res[5], image);
+                //var image = PlatformImage.FromStream(stream);
+                //Icons.Add(res[5], image);
             }
         }
 
@@ -44,8 +44,9 @@ namespace GameSpec.App.Explorer
         {
             var assembly = typeof(ResourceManagerProvider).Assembly;
             using var stream = assembly.GetManifestResourceStream(x);
-            var image = PlatformImage.FromStream(stream);
-            return image;
+            //var image = PlatformImage.FromStream(stream);
+            //return image;
+            return null;
         });
     }
 }

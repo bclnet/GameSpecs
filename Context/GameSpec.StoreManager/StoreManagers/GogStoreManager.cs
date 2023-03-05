@@ -54,6 +54,7 @@ namespace GameSpec.StoreManagers
                 //var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"SOFTWARE\GOG.com\GalaxyClient\paths") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\GOG.com\GalaxyClient\paths");
                 //if (key != null && key.GetValue("client") is string steamPath) return steamPath;
             }
+            else if (RuntimeInformation.RuntimeIdentifier.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

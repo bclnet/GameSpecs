@@ -45,6 +45,7 @@ namespace GameSpec.StoreManagers
                 var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
                 if (key != null && key.GetValue("SteamPath") is string path) return path;
             }
+            else if (RuntimeInformation.RuntimeIdentifier.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

@@ -8,7 +8,7 @@ namespace GameSpec.App.Explorer.Views
     {
         public static MetadataManager Resource = new ResourceManagerProvider();
         public static FileExplorer Instance;
-        public static FileContent FileContent => FileContent.Instance;
+        //public static FileContent FileContent => FileContent.Instance;
 
         public FileExplorer()
         {
@@ -99,7 +99,7 @@ namespace GameSpec.App.Explorer.Views
 
         public void OnFileInfo(List<MetadataInfo> infos)
         {
-            FileContent.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
+            FileContent.Instance.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             FileInfo.Infos = infos?.Where(x => x.Name != null).ToList();
         }
 
