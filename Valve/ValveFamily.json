@@ -415,7 +415,7 @@
       "CS": {
         "key": "Steam:10",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10",
-        "loc": "Half-Life"
+        "dir": "Half-Life"
       },
       "Ricochet": {
         "key": "Steam:60",
@@ -435,7 +435,7 @@
       "DOD": {
         "key": "Steam:30",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 30",
-        "loc": "Half-Life"
+        "dir": "Half-Life"
       },
       "CS:CZ": {
         "key": "Steam:80",
@@ -455,7 +455,7 @@
       "HL2": {
         "key": "Steam:220",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 220",
-        "loc": "Half-Life 2"
+        "dir": "Half-Life 2"
       },
       "HL2:DM": {
         "key": "Steam:320",
@@ -475,7 +475,7 @@
       "Portal": {
         "key": "Steam:400",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 400",
-        "loc": "Portal"
+        "dir": "Portal"
       },
       "HL2:E2": {
         "key": "Steam:420",
@@ -495,7 +495,7 @@
       "L4D2": {
         "key": "Steam:550",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 550",
-        "loc": "Left 4 Dead 2"
+        "dir": "Left 4 Dead 2"
       },
       "DOD:Src": {
         "key": "Steam:300",

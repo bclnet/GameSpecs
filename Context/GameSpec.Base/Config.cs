@@ -343,7 +343,7 @@ namespace GameSpec
             //GameId = "CS:CZ", // Counter-Strike: Condition Zero [open, read]
             //GameId = "HL:Src", // Half-Life: Source [open, read]
             //GameId = "CS:Src", // Counter-Strike: Source [open, read]
-            //GameId = "HL2", // Half-Life 2 [open, read]
+            GameId = "HL2", // Half-Life 2 [open, read]
             //GameId = "HL2:DM", // Half-Life 2: Deathmatch [open, read]
             //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source [open, read]
             //GameId = "HL2:E1", // Half-Life 2: Episode One [open, read]

@@ -224,23 +224,67 @@ namespace GameSpec
 
         #region Parse File-Manager
 
-        protected void AddPath(JsonProperty prop, string path)
+        public virtual FileManager ParseFileManager(JsonElement elem)
         {
-            if (path == null || !Directory.Exists(path = PathWithSpecialFolders(path))) return;
-            path = Path.GetFullPath(path);
-            var paths = prop.Value.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => Path.Combine(path, x)) : new[] { path };
-            foreach (var path2 in paths)
-            {
-                if (!Directory.Exists(path2)) continue;
-                if (!Paths.TryGetValue(prop.Name, out var z2)) Paths.Add(prop.Name, z2 = new HashSet<string>());
-                z2.Add(path2); //.Replace('/', '\\'));
-            }
+            var platformOS = FamilyPlatform.PlatformOS;
+            if (platformOS == FamilyPlatform.OS.Windows) AddApplicationByRegistry(elem);
+            else if (platformOS == FamilyPlatform.OS.OSX || platformOS == FamilyPlatform.OS.Linux) AddApplicationByStore(elem);
+            AddApplicationByDirectory(elem);
+            AddDirect(elem);
+            AddIgnores(elem);
+            AddFilters(elem);
+            var platformName = platformOS.ToString().ToLowerInvariant();
+            if (!elem.TryGetProperty(platformName, out var z)) return this;
+            elem = z;
+            AddDirect(elem);
+            AddIgnores(elem);
+            AddFilters(elem);
+            return this;
         }
 
-        protected void AddIgnore(JsonProperty prop, string path)
+        protected void AddApplicationByDirectory(JsonElement elem)
         {
-            if (!Ignores.TryGetValue(prop.Name, out var z2)) Ignores.Add(prop.Name, z2 = new HashSet<string>());
-            z2.Add(path);
+            var games = DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, "Games")).Where(Directory.Exists).SelectMany(Directory.GetDirectories)
+                .ToDictionary(Path.GetFileName, x => x);
+            if (!elem.TryGetProperty("application", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("dir", out z))
+                    foreach (var key in z.GetStringOrArray())
+                        if (!Paths.ContainsKey(prop.Name) && games.TryGetValue(key, out var path)) AddPath(prop, path);
+        }
+
+        protected void AddApplicationByStore(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("application", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("key", out z))
+                    foreach (var key in z.GetStringOrArray())
+                        if (!Paths.ContainsKey(prop.Name) && StoreManager.TryGetPathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
+        }
+
+        protected void AddApplicationByRegistry(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("application", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("reg", out z))
+                    foreach (var reg in z.GetStringOrArray())
+                        if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
+        }
+
+        protected void AddDirect(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("direct", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                if (prop.Value.TryGetProperty("path", out z))
+                    foreach (var path in z.GetStringOrArray()) AddPath(prop, path);
+        }
+
+
+        protected void AddFilters(JsonElement elem)
+        {
+            if (!elem.TryGetProperty("filters", out var z)) return;
+            foreach (var prop in z.EnumerateObject())
+                foreach (var filter in prop.Value.EnumerateObject()) AddFilter(prop, filter.Name, filter.Value);
         }
 
         protected void AddFilter(JsonProperty prop, string name, JsonElement element)
@@ -254,33 +298,46 @@ namespace GameSpec
             z2.Add(name, value);
         }
 
-        protected void AddApplicationByRegistry(JsonElement elem)
+        protected void AddIgnores(JsonElement elem)
         {
-            if (!elem.TryGetProperty("application", out var z)) return;
+            if (!elem.TryGetProperty("ignores", out var z)) return;
             foreach (var prop in z.EnumerateObject())
-                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("reg", out z))
-                    foreach (var reg in z.GetStringOrArray())
-                        if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
+                if (prop.Value.TryGetProperty("path", out z))
+                    foreach (var path in z.GetStringOrArray()) AddIgnore(prop, path);
         }
 
-        protected static bool TryGetRegistryByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
+        protected void AddIgnore(JsonProperty prop, string path)
         {
-            path = GetRegistryExePath(new[] { $@"Wow6432Node\{key}", key });
-            if (keyElem == null) return !string.IsNullOrEmpty(path);
-            if (keyElem.Value.TryGetProperty("path", out var path2)) { path = Path.GetFullPath(PathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
-            else if (keyElem.Value.TryGetProperty("xml", out var xml)
-                && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
-                && TryGetSingleFileValue(PathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
-                return !string.IsNullOrEmpty(path);
-            return false;
+            if (!Ignores.TryGetValue(prop.Name, out var z2)) Ignores.Add(prop.Name, z2 = new HashSet<string>());
+            z2.Add(path);
         }
+
+        protected void AddPath(JsonProperty prop, string path)
+        {
+            if (path == null || !Directory.Exists(path = GetPathWithSpecialFolders(path))) return;
+            path = Path.GetFullPath(path);
+            var paths = prop.Value.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => Path.Combine(path, x)) : new[] { path };
+            foreach (var path2 in paths)
+            {
+                if (!Directory.Exists(path2)) continue;
+                if (!Paths.TryGetValue(prop.Name, out var z2)) Paths.Add(prop.Name, z2 = new HashSet<string>());
+                z2.Add(path2); //.Replace('/', '\\'));
+            }
+        }
+
+
+
+
+
+
+
 
         /// <summary>
         /// Gets the executable path.
         /// </summary>
         /// <param name="name">Name of the sub.</param>
         /// <returns></returns>
-        protected static string GetRegistryExePath(string[] paths)
+        protected static string FindRegistryExePath(string[] paths)
         {
             var localMachine64 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
             var currentUser64 = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
@@ -310,60 +367,24 @@ namespace GameSpec
             return null;
         }
 
-        protected static string PathWithSpecialFolders(string path, string rootPath = null) =>
+        protected static string GetPathWithSpecialFolders(string path, string rootPath = null) =>
             path.StartsWith("%Path%", StringComparison.OrdinalIgnoreCase) ? $"{rootPath}{path[6..]}"
             : path.StartsWith("%AppPath%", StringComparison.OrdinalIgnoreCase) ? $"{FamilyManager.ApplicationPath}{path[9..]}"
             : path.StartsWith("%AppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}{path[9..]}"
             : path.StartsWith("%LocalAppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{path[14..]}"
             : path;
 
-        public virtual FileManager ParseFileManager(JsonElement elem)
-        {
-            var platformOS = FamilyPlatform.PlatformOS;
-            if (platformOS == FamilyPlatform.OS.Windows) AddApplicationByRegistry(elem);
-            else AddApplication(elem);
-            AddDirect(elem);
-            AddIgnores(elem);
-            AddFilters(elem);
-            var platformName = platformOS.ToString().ToLowerInvariant();
-            if (!elem.TryGetProperty(platformName, out var z)) return this;
-            elem = z;
-            AddDirect(elem);
-            AddIgnores(elem);
-            AddFilters(elem);
-            return this;
-        }
 
-        protected void AddDirect(JsonElement elem)
+        protected static bool TryGetRegistryByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
         {
-            if (!elem.TryGetProperty("direct", out var z)) return;
-            foreach (var prop in z.EnumerateObject())
-                if (prop.Value.TryGetProperty("path", out z))
-                    foreach (var path in z.GetStringOrArray()) AddPath(prop, path);
-        }
-
-        protected void AddIgnores(JsonElement elem)
-        {
-            if (!elem.TryGetProperty("ignores", out var z)) return;
-            foreach (var prop in z.EnumerateObject())
-                if (prop.Value.TryGetProperty("path", out z))
-                    foreach (var path in z.GetStringOrArray()) AddIgnore(prop, path);
-        }
-
-        protected void AddFilters(JsonElement elem)
-        {
-            if (!elem.TryGetProperty("filters", out var z)) return;
-            foreach (var prop in z.EnumerateObject())
-                foreach (var filter in prop.Value.EnumerateObject()) AddFilter(prop, filter.Name, filter.Value);
-        }
-
-        protected void AddApplication(JsonElement elem)
-        {
-            if (!elem.TryGetProperty("application", out var z)) return;
-            foreach (var prop in z.EnumerateObject())
-                if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("key", out z))
-                    foreach (var key in z.GetStringOrArray())
-                        if (!Paths.ContainsKey(prop.Name) && StoreManager.TryGetPathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
+            path = FindRegistryExePath(new[] { $@"Wow6432Node\{key}", key });
+            if (keyElem == null) return !string.IsNullOrEmpty(path);
+            if (keyElem.Value.TryGetProperty("path", out var path2)) { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
+            else if (keyElem.Value.TryGetProperty("xml", out var xml)
+                && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
+                && TryGetSingleFileValue(GetPathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
+                return !string.IsNullOrEmpty(path);
+            return false;
         }
 
         protected static bool TryGetSingleFileValue(string path, string ext, string select, out string value)
