@@ -32,24 +32,6 @@
         </ControlTemplate>
     </ContentPage.Resources>
 
-    <!--<ContentPage.MenuBarItems>
-        <MenuBarItem Text="File">
-            <MenuFlyoutItem Text="Open" Clicked="OpenPage_Click">
-                <MenuFlyoutItem.IconImageSource Source="/Icons/OpenFile_16x.png" />
-            </MenuFlyoutItem>
-        </MenuBarItem>
-        <MenuBarItem Text="Edit">
-            <MenuFlyoutItem Text="Options" Clicked="OptionsPage_Click" />
-        </MenuBarItem>
-        <MenuBarItem Text="View">
-            <MenuFlyoutItem Text="World Map" Clicked="WorldMap_Click" />
-        </MenuBarItem>
-        <MenuBarItem Text="Help">
-            <MenuFlyoutItem Text="View Help" Clicked="Guide_Click" />
-            <MenuFlyoutItem Text="About" Clicked="AboutPage_Click" />
-        </MenuBarItem>
-    </ContentPage.MenuBarItems>-->
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
