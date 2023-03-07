@@ -5,6 +5,7 @@ Thumbs.db.meta
 *.directory
 .vs
 .vscode
+.vsconfig
 .workspace
 .gradle
 *.zip

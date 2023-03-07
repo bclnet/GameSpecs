@@ -13,7 +13,7 @@
 //#define Rsi
 //#define Unity
 //#define Unreal
-#define Valve
+//#define Valve
 
 namespace GameSpec
 {
