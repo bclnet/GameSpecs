@@ -17,6 +17,7 @@ namespace GameSpec.App.Explorer.WinUI
         public App()
         {
             this.InitializeComponent();
+            Explorer.App.Startup();
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();

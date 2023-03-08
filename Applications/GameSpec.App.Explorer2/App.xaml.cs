@@ -1,10 +1,12 @@
 ﻿using CommandLine;
-using GameSpec.App.Explorer.Views;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace GameSpec.App.Explorer
 {
     public partial class App : Application
     {
+        public static App Instance;
+
         static App() => FamilyPlatform.Startups.Add(OpenGLPlatform.Startup);
 
         static string[] args = new string[0];
@@ -26,12 +28,44 @@ namespace GameSpec.App.Explorer
         public App()
         {
             InitializeComponent();
+            Instance = this;
+            MainPage = new AppShell();
+        }
+
+        public static void Startup()
+        {
+            var status = CheckAndRequestPermission<StorageWrite>().Result;
+            Console.WriteLine(status);
+            if (status == PermissionStatus.Granted) status = CheckAndRequestPermission<StorageRead>().Result;
+            Console.WriteLine(status);
+            if (status != PermissionStatus.Granted)
+            {
+                Instance.MainPage.DisplayAlert("Prompt", $"NO ACCESS", "Cancel").Wait();
+                return;
+            }
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
-                .MapResult(
-                    (DefaultOptions opts) => RunDefault(opts),
-                    (TestOptions opts) => RunTest(opts),
-                    (OpenOptions opts) => RunOpen(opts),
-                    errs => RunError(errs));
+            .MapResult(
+                (DefaultOptions opts) => Instance.RunDefault(opts),
+                (TestOptions opts) => Instance.RunTest(opts),
+                (OpenOptions opts) => Instance.RunOpen(opts),
+                errs => Instance.RunError(errs));
+        }
+
+        async static Task<PermissionStatus> CheckAndRequestPermission<TPermission>() where TPermission : BasePermission, new()
+        {
+            var status = await CheckStatusAsync<TPermission>();
+            if (status == PermissionStatus.Granted) return status;
+            else if (status == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                await Instance.MainPage.DisplayAlert("Prompt", $"turn on in settings", "Cancel");
+                return status;
+            }
+            else if (ShouldShowRationale<TPermission>())
+            {
+                await Instance.MainPage.DisplayAlert("Prompt", "Why the permission is needed", "Cancel");
+            }
+            status = await RequestAsync<TPermission>();
+            return status;
         }
 
         #region Options
@@ -59,24 +93,22 @@ namespace GameSpec.App.Explorer
 
         int RunDefault(DefaultOptions opts)
         {
-            var page = new AppShell();
+            var page = (AppShell)MainPage;
             page.OnFirstLoad().Wait();
-            MainPage = page;
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
-            var page = new AppShell();
+            var page = (AppShell)MainPage;
             page.OnFirstLoad().Wait();
-            MainPage = page;
             return 0;
         }
 
         int RunOpen(OpenOptions opts)
         {
+            var page = (AppShell)MainPage;
             var family = FamilyManager.GetFamily(opts.Family);
-            MainPage = new AppShell();
             //var wnd = new MainWindow(false);
             //MainPage.Open(family, new[] { opts.Uri }, opts.Path);
             //MainPage.Show();
@@ -85,7 +117,7 @@ namespace GameSpec.App.Explorer
 
         int RunError(IEnumerable<Error> errs)
         {
-            //MessageBox.Show("Errors: \n\n" + errs.First());
+            MainPage.DisplayAlert("Alert", $"Errors: \n\n {errs.First()}", "Cancel").Wait();
             //Current.Shutdown(1);
             return 1;
         }

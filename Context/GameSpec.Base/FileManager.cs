@@ -144,7 +144,7 @@ namespace GameSpec
             {
                 // folder
                 var searchPattern = Path.GetDirectoryName(pathOrPattern);
-                if (searchPattern.IndexOf('*') != -1)
+                if (searchPattern.Contains('*'))
                 {
                     foreach (var directory in fileSystem.GetDirectories(path, searchPattern))
                         foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, gamePath, Path.GetFileName(pathOrPattern)))
@@ -153,7 +153,8 @@ namespace GameSpec
                 }
                 // file
                 var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;
-                if (pathOrPattern.IndexOf('*') == -1) yield return Path.Combine(searchPath, pathOrPattern);
+                var abc = Directory.GetFiles(searchPath);
+                if (!pathOrPattern.Contains('*')) yield return Path.Combine(searchPath, pathOrPattern);
                 else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
             }
         }
@@ -244,8 +245,10 @@ namespace GameSpec
 
         protected void AddApplicationByDirectory(JsonElement elem)
         {
-            var games = DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, "Games")).Where(Directory.Exists).SelectMany(Directory.GetDirectories)
-                .ToDictionary(Path.GetFileName, x => x);
+            var gameRoots = FamilyPlatform.PlatformOS != FamilyPlatform.OS.Android
+                ? DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, "Documents"))
+                : new[] { Path.Combine("/sdcard", "Documents") };
+            var games = gameRoots.Where(Directory.Exists).SelectMany(Directory.GetDirectories).ToDictionary(Path.GetFileName, x => x);
             if (!elem.TryGetProperty("application", out var z)) return;
             foreach (var prop in z.EnumerateObject())
                 if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("dir", out z))
@@ -278,7 +281,6 @@ namespace GameSpec
                 if (prop.Value.TryGetProperty("path", out z))
                     foreach (var path in z.GetStringOrArray()) AddPath(prop, path);
         }
-
 
         protected void AddFilters(JsonElement elem)
         {
@@ -325,13 +327,6 @@ namespace GameSpec
             }
         }
 
-
-
-
-
-
-
-
         /// <summary>
         /// Gets the executable path.
         /// </summary>
@@ -373,7 +368,6 @@ namespace GameSpec
             : path.StartsWith("%AppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}{path[9..]}"
             : path.StartsWith("%LocalAppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{path[14..]}"
             : path;
-
 
         protected static bool TryGetRegistryByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
         {

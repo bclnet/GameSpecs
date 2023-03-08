@@ -43,15 +43,6 @@ namespace GameSpec
         /// </summary>
         public enum OS { Windows, OSX, Linux, Android }
 
-        static FamilyPlatform()
-        {
-            PlatformOS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? OS.Windows
-                : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? OS.OSX
-                : RuntimeInformation.RuntimeIdentifier.StartsWith("android-") ? OS.Android
-                : RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? OS.Linux
-                : throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform), RuntimeInformation.RuntimeIdentifier);
-        }
-
         /// <summary>
         /// Gets or sets the platform.
         /// </summary>
@@ -65,7 +56,11 @@ namespace GameSpec
         /// <summary>
         /// Gets the platform os.
         /// </summary>
-        public static readonly OS PlatformOS;
+        public static readonly OS PlatformOS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? OS.Windows
+            : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? OS.OSX
+            : RuntimeInformation.RuntimeIdentifier.StartsWith("android-") ? OS.Android
+            : RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? OS.Linux
+            : throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform), RuntimeInformation.RuntimeIdentifier);
 
         /// <summary>
         /// Gets or sets the platform graphics factory.
@@ -80,7 +75,6 @@ namespace GameSpec
         /// <summary>
         /// Determines if in a test host.
         /// </summary>
-        public static bool InTestHost
-            => AppDomain.CurrentDomain.GetAssemblies().Any(x => x.FullName.StartsWith("testhost,"));
+        public static bool InTestHost => AppDomain.CurrentDomain.GetAssemblies().Any(x => x.FullName.StartsWith("testhost,"));
     }
 }

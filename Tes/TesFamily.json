@@ -5,7 +5,7 @@
   "description": "TES formats used by Bethesda",
   "url": "https://en.wikipedia.org/wiki/Bethesda_Game_Studios",
   "familyType": "GameSpec.Tes.TesFamily, GameSpec.Tes",
-  "familyGameType": "GameSpec.Tes.ACFamilyGame, GameSpec.Tes",
+  "familyGameType": "GameSpec.Tes.TesFamilyGame, GameSpec.Tes",
   "pakFileType": "GameSpec.Tes.TesPakFile, GameSpec.Tes",
   "games": {
     "Fallout2": {

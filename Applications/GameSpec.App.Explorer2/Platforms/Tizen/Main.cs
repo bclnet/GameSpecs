@@ -12,6 +12,7 @@ namespace GameSpec.App.Explorer2
         {
             var app = new Program();
             app.Run(args);
+            App.Startup();
         }
     }
 }
