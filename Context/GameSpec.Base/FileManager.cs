@@ -153,7 +153,6 @@ namespace GameSpec
                 }
                 // file
                 var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;
-                var abc = Directory.GetFiles(searchPath);
                 if (!pathOrPattern.Contains('*')) yield return Path.Combine(searchPath, pathOrPattern);
                 else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
             }

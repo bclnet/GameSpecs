@@ -30,14 +30,13 @@ namespace GameSpec.App.Explorer
             InitializeComponent();
             Instance = this;
             MainPage = new AppShell();
+            if (FamilyPlatform.PlatformOS != FamilyPlatform.OS.Android) Startup();
         }
 
         public static void Startup()
         {
             var status = CheckAndRequestPermission<StorageWrite>().Result;
-            Console.WriteLine(status);
             if (status == PermissionStatus.Granted) status = CheckAndRequestPermission<StorageRead>().Result;
-            Console.WriteLine(status);
             if (status != PermissionStatus.Granted)
             {
                 Instance.MainPage.DisplayAlert("Prompt", $"NO ACCESS", "Cancel").Wait();

@@ -116,11 +116,11 @@ namespace GameSpec.Valve.Formats
             // sourceFilePath
             var sourceFilePath = source.FilePath;
             var sourceFileDirVpk = sourceFilePath.EndsWith("_dir.vpk", StringComparison.OrdinalIgnoreCase);
-            if (sourceFileDirVpk) sourceFilePath = sourceFilePath.Substring(0, sourceFilePath.Length - 8);
+            if (sourceFileDirVpk) sourceFilePath = sourceFilePath[..^8];
             source.FileMask = path =>
             {
                 var extension = Path.GetExtension(path);
-                if (extension.EndsWith("_c", StringComparison.Ordinal)) extension = extension.Substring(0, extension.Length - 2);
+                if (extension.EndsWith("_c", StringComparison.Ordinal)) extension = extension[..^2];
                 if (extension.StartsWith(".v")) extension = extension.Remove(1, 1);
                 return $"{Path.GetFileNameWithoutExtension(path)}{extension}";
             };
