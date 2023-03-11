@@ -36,7 +36,7 @@ namespace GameSpec
         /// <summary>
         /// The platform type.
         /// </summary>
-        public enum Type { Unknown, OpenGL, Unity, Unreal, Vulken, Test, Other }
+        public enum Type { Unknown, OpenGL, Unity, Unreal, Vulken, StereoKit, Test, Other }
 
         /// <summary>
         /// The platform OS.

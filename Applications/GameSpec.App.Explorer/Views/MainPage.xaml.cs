@@ -78,7 +78,6 @@ namespace GameSpec.App.Explorer.Views
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
-                Text = "Example",
                 OpenPath = path,
             }).ToList();
             tabs.Add(new ExplorerMainTab

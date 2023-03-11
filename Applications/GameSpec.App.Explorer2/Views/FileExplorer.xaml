@@ -5,23 +5,26 @@
              xmlns:views="clr-namespace:GameSpec.App.Explorer.Views"
              xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
              x:Class="GameSpec.App.Explorer.Views.FileExplorer">
+    <ContentView.Resources>
+        <views:MetadataItemToTreeViewNodeConverter x:Key="metadataItemToTreeViewNode" />
+    </ContentView.Resources>
     <Grid RowDefinitions="25,22.5,.7*,.3*">
         <Label Text="File Filter" Grid.Row="0"/>
-        <Picker x:Name="NodeFilter" Grid.Row="1" Margin="7.5,0,0,0"
-                ItemsSource="{Binding NodeFilters}" />
-        <t:TreeView x:Name="Node" Grid.Row="2" Margin="7.5,7.5,0,0"
-                ItemsSource="{Binding Nodes}">
-            <!--SelectedItemChanged="Node_SelectedItemChanged"-->
+        <Picker x:Name="NodeFilter" Grid.Row="1" Margin="7.5,0,0,0" ItemsSource="{Binding NodeFilters}" />
+        <t:TreeView x:Name="Node" Grid.Row="2" Margin="7.5,7.5,0,0" ItemsSource="{Binding Path=Nodes, Converter={StaticResource metadataItemToTreeViewNode}}">
             <t:TreeView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type model:MetadataItem}">
-                    <StackLayout Orientation="Horizontal">
-                        <Image Source="{Binding Icon}" />
-                        <Label Text="{Binding Name}" />
-                    </StackLayout>
+                <DataTemplate>
+                    <HorizontalStackLayout Margin="0" Padding="0">
+                        <!--<Image Source="{Binding Icon}" />-->
+                        <Label Text="{Binding Name}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNodeTapped" CommandParameter="{Binding Value}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
                 </DataTemplate>
             </t:TreeView.ItemTemplate>
         </t:TreeView>
         <views:FileInfo x:Name="FileInfo" Grid.Row="3" />
-        <Label Text="FILE EXPLORER" />
     </Grid>
 </ContentView>

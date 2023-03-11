@@ -1,14 +1,12 @@
 ﻿using GameSpec.Metadata;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace GameSpec.App.Explorer.Views
 {
-    public partial class FileExplorer : ContentView, INotifyPropertyChanged
+    public partial class FileExplorer : ContentView
     {
         public static MetadataManager Resource = new ResourceManagerProvider();
         public static FileExplorer Instance;
-        //public static FileContent FileContent => FileContent.Instance;
 
         public FileExplorer()
         {
@@ -17,13 +15,10 @@ namespace GameSpec.App.Explorer.Views
             BindingContext = this;
         }
 
-        public new event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
         public static readonly BindableProperty OpenPathProperty = BindableProperty.Create(nameof(OpenPath), typeof(string), typeof(FileExplorer), null);
         public string OpenPath
         {
-            get => GetValue(OpenPathProperty) as string;
+            get => (string)GetValue(OpenPathProperty);
             set => SetValue(OpenPathProperty, value);
         }
 
@@ -38,7 +33,7 @@ namespace GameSpec.App.Explorer.Views
             });
         public PakFile PakFile
         {
-            get => GetValue(PakFileProperty) as PakFile;
+            get => (PakFile)GetValue(PakFileProperty);
             set => SetValue(PakFileProperty, value);
         }
 
@@ -49,11 +44,11 @@ namespace GameSpec.App.Explorer.Views
             return paths.Length == 1 ? node : node?.FindByPath(paths[1]);
         }
 
-        List<MetadataItem.Filter> _nodeFilters;
+        public static readonly BindableProperty NodeFiltersProperty = BindableProperty.Create(nameof(NodeFilters), typeof(List<MetadataItem.Filter>), typeof(FileExplorer), null);
         public List<MetadataItem.Filter> NodeFilters
         {
-            get => _nodeFilters;
-            set { _nodeFilters = value; NotifyPropertyChanged(); }
+            get => (List<MetadataItem.Filter>)GetValue(NodeFiltersProperty);
+            set => SetValue(NodeFiltersProperty, value);
         }
 
         //void NodeFilter_KeyUp(object sender, EventArgs e)
@@ -79,11 +74,17 @@ namespace GameSpec.App.Explorer.Views
 
         List<MetadataItem> PakNodes;
 
-        List<MetadataItem> _nodes;
+        public static readonly BindableProperty NodesProperty = BindableProperty.Create(nameof(Nodes), typeof(List<MetadataItem>), typeof(FileExplorer), null);
         public List<MetadataItem> Nodes
         {
-            get => _nodes;
-            set { _nodes = value; NotifyPropertyChanged(); }
+            get => (List<MetadataItem>)GetValue(NodesProperty);
+            set => SetValue(NodesProperty, value);
+        }
+
+        void OnNodeTapped(object s, EventArgs args)
+        {
+            var parameter = ((TappedEventArgs)args).Parameter;
+            if (parameter is MetadataItem item && item.PakFile != null) SelectedItem = item;
         }
 
         MetadataItem _selectedItem;
@@ -92,6 +93,7 @@ namespace GameSpec.App.Explorer.Views
             get => _selectedItem;
             set
             {
+                if (_selectedItem == value) return;
                 _selectedItem = value;
                 OnFileInfo(value?.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
             }
@@ -102,12 +104,6 @@ namespace GameSpec.App.Explorer.Views
             FileContent.Instance.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             FileInfo.Infos = infos?.Where(x => x.Name != null).ToList();
         }
-
-        //void Node_SelectedItemChanged(object sender, EventArgs e)
-        //{
-        //    if (e.NewValue is TreeViewItem item && item.Items.Count > 0) (item.Items[0] as TreeViewItem).IsSelected = true;
-        //    else if (e.NewValue is MetadataItem itemNode && itemNode.PakFile != null && SelectedItem != itemNode) SelectedItem = itemNode;
-        //}
 
         void OnReady()
         {

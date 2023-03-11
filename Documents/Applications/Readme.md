@@ -8,5 +8,6 @@ The following are the current applications:
 | --                                               | --  
 | [Command Line Interface](Command%20Line%20Interface/Readme.md)| A CLI tool.
 | [Explorer](Explorer/Readme.md)                   | An application explorer.
+| [Stereo](Stereo/Readme.md)                       | A stereo explorer.
 | [Unity Plugin](Unity%20Plugin/Readme.md)         | A Unity plugin.
 | [Unreal Plugin](Unreal%20Plugin/Readme.md)       | A Unreal plugin.

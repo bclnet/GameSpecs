@@ -16,6 +16,8 @@ namespace GameSpec.App.Explorer.Views
             BindingContext = this;
         }
 
+        void ContentTab_Changed(object sender, CheckedChangedEventArgs e) => ContentTabContent.BindingContext = ((RadioButton)sender).BindingContext;
+
         public new event PropertyChangedEventHandler PropertyChanged;
         void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
@@ -26,11 +28,17 @@ namespace GameSpec.App.Explorer.Views
             set { _graphic = value; NotifyPropertyChanged(); }
         }
 
-        IList<MetadataContent> _contentTabs;
+        public static readonly BindableProperty ContentTabsProperty = BindableProperty.Create(nameof(ContentTabs), typeof(IList<MetadataContent>), typeof(FileContent),
+            propertyChanged: (d, e, n) =>
+            {
+                var contentTab = ((FileContent)d).ContentTab;
+                var firstTab = (RadioButton)contentTab.Children.FirstOrDefault();
+                if (firstTab != null) firstTab.IsChecked = true;
+            });
         public IList<MetadataContent> ContentTabs
         {
-            get => _contentTabs;
-            set { _contentTabs = value; NotifyPropertyChanged(); }
+            get => (IList<MetadataContent>)GetValue(ContentTabsProperty);
+            set => SetValue(ContentTabsProperty, value);
         }
 
         public void OnFileInfo(PakFile pakFile, List<MetadataInfo> infos)

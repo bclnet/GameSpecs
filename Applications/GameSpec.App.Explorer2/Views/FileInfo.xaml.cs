@@ -1,6 +1,7 @@
 ﻿using GameSpec.Metadata;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TreeView.Maui.Core;
 
 namespace GameSpec.App.Explorer.Views
 {

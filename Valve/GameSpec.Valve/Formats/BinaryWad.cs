@@ -32,8 +32,6 @@ namespace GameSpec.Formats
                 ".fnt" => 0x45,
                 _ => 0
             };
-            if (width > 0x1000 || height > 0x1000) throw new FormatException("Texture width or height exceeds maximum size!");
-            if (width == 0 || height == 0) throw new FormatException("Texture width and height must be larger than 0!");
             if (type == 0x42)
             {
                 width = (int)r.ReadUInt32();
@@ -64,6 +62,9 @@ namespace GameSpec.Formats
                 var infoArray = r.ReadTArray<CharInfo>(sizeof(CharInfo), 0x100);
                 pixels = new byte[][] { };
             }
+            // validate
+            if (width > 0x1000 || height > 0x1000) throw new FormatException("Texture width or height exceeds maximum size!");
+            else if (width == 0 || height == 0) throw new FormatException("Texture width and height must be larger than 0!");
         }
 
         struct CharInfo

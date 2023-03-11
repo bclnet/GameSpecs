@@ -244,9 +244,9 @@ namespace GameSpec
 
         protected void AddApplicationByDirectory(JsonElement elem)
         {
-            var gameRoots = FamilyPlatform.PlatformOS != FamilyPlatform.OS.Android
-                ? DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, "Documents"))
-                : new[] { Path.Combine("/sdcard", "Documents") };
+            const string GAMESPATH = "Games";
+            var gameRoots = DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, GAMESPATH)).ToList();
+            if (FamilyPlatform.PlatformOS == FamilyPlatform.OS.Android) gameRoots.Add(Path.Combine("/sdcard", GAMESPATH));
             var games = gameRoots.Where(Directory.Exists).SelectMany(Directory.GetDirectories).ToDictionary(Path.GetFileName, x => x);
             if (!elem.TryGetProperty("application", out var z)) return;
             foreach (var prop in z.EnumerateObject())

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace GameSpec.App.Explorer.Views
+﻿namespace GameSpec.App.Explorer.Views
 {
     /// <summary>
     /// ExplorerMainTab
@@ -14,7 +11,7 @@ namespace GameSpec.App.Explorer.Views
         public string OpenPath { get; set; }
     }
 
-    public partial class MainPage : ContentPage, INotifyPropertyChanged
+    public partial class MainPage : ContentPage
     {
         public static MainPage Instance;
 
@@ -25,10 +22,10 @@ namespace GameSpec.App.Explorer.Views
             BindingContext = this;
         }
 
-        internal void OnFirstLoad() => OpenPage_Click(null, null);
+        // https://dev.to/davidortinau/making-a-tabbar-or-segmentedcontrol-in-net-maui-54ha
+        void MainTab_Changed(object sender, CheckedChangedEventArgs e) => MainTabContent.BindingContext = ((RadioButton)sender).BindingContext;
 
-        public new event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        internal void OnFirstLoad() => OpenPage_Click(null, null);
 
         public void Open(Family family, IEnumerable<Uri> pakUris, string path = null)
         {
@@ -44,24 +41,27 @@ namespace GameSpec.App.Explorer.Views
             OnOpenedAsync(path).Wait();
         }
 
-        IList<ExplorerMainTab> _mainTabs;
+        public static readonly BindableProperty MainTabsProperty = BindableProperty.Create(nameof(MainTabs), typeof(IList<ExplorerMainTab>), typeof(MainPage),
+            propertyChanged: (d, e, n) =>
+            {
+                var mainTab = ((MainPage)d).MainTab;
+                var firstTab = (RadioButton)mainTab.Children.FirstOrDefault();
+                if (firstTab != null) firstTab.IsChecked = true;
+            });
         public IList<ExplorerMainTab> MainTabs
         {
-            get => _mainTabs;
-            set { _mainTabs = value; NotifyPropertyChanged(); }
+            get => (IList<ExplorerMainTab>)GetValue(MainTabsProperty);
+            set => SetValue(MainTabsProperty, value);
         }
 
         public readonly IList<PakFile> PakFiles = new List<PakFile>();
 
-        // https://dev.to/davidortinau/making-a-tabbar-or-segmentedcontrol-in-net-maui-54ha
         public Task OnOpenedAsync(string path = null)
         {
-            //MainTabControl.SelectedIndex = 0;
             var tabs = PakFiles.Where(x => x != null).Select(pakFile => new ExplorerMainTab
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
-                Text = "Example",
                 OpenPath = path,
             }).ToList();
             tabs.Add(new ExplorerMainTab

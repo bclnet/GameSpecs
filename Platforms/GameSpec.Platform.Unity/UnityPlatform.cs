@@ -16,7 +16,7 @@ namespace GameSpec
                 FamilyPlatform.PlatformTag = task.Result;
                 FamilyPlatform.GraphicFactory = source => new UnityGraphic(source);
                 //Debug.Log(Platform);
-                UnsafeX.Memcpy = (dest, src, count) => { UnsafeUtility.MemCpy((void*)dest, (void*)src, count); return IntPtr.Zero; };
+                UnsafeX.Memcpy = (dest, src, count) => UnsafeUtility.MemCpy(dest, src, count);
                 Debug.AssertFunc = x => UnityEngine.Debug.Assert(x);
                 Debug.LogFunc = a => UnityEngine.Debug.Log(a);
                 Debug.LogFormatFunc = (a, b) => UnityEngine.Debug.LogFormat(a, b);

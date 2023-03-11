@@ -303,10 +303,11 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //HL
-            //ForcePath = "cached.wad:LOADING.pic", //Picture
+            ForcePath = "cached.wad:LOADING.pic", //Picture
             //ForcePath = "decals.wad:REFLECT1.tex", //Texture
             //ForcePath = "decals.wad:{247.tex", //Texture
-
+            //HL2
+            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //CS:GO
             //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
@@ -334,7 +335,7 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Valve",
-            //GameId = "HL", // Half-Life [open, read, texture:GL]
+            GameId = "HL", // Half-Life [open, read, texture:GL]
             //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
@@ -343,7 +344,7 @@ namespace GameSpec
             //GameId = "CS:CZ", // Counter-Strike: Condition Zero [open, read]
             //GameId = "HL:Src", // Half-Life: Source [open, read]
             //GameId = "CS:Src", // Counter-Strike: Source [open, read]
-            GameId = "HL2", // Half-Life 2 [open, read]
+            //GameId = "HL2", // Half-Life 2 [open, read]
             //GameId = "HL2:DM", // Half-Life 2: Deathmatch [open, read]
             //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source [open, read]
             //GameId = "HL2:E1", // Half-Life 2: Episode One [open, read]

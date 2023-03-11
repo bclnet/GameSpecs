@@ -365,7 +365,7 @@ namespace Compression
         {
             const int CHUNK = 16384;
             var hold = stackalloc byte[CHUNK];
-            var holdPtr = (IntPtr)hold;
+            var holdPtr = hold;
             fixed (byte* input = inputBuffer, output = outputBuffer)
             {
                 int inputLen = inputBuffer.Length, outputLen = outputBuffer.Length;
@@ -375,7 +375,7 @@ namespace Compression
                     if (inputLen <= 0) return 0;
                     buf = hold;
                     var len = Math.Min(inputLen, CHUNK);
-                    UnsafeX.Memcpy(holdPtr, inputPtr, (uint)len);
+                    UnsafeX.Memcpy(holdPtr, (void*)inputPtr, (uint)len);
                     inputPtr += len;
                     inputLen -= len;
                     return len;
@@ -383,7 +383,7 @@ namespace Compression
                 int outf(object how, byte* buf, int length)
                 {
                     if (outputLen <= 0) return 0;
-                    UnsafeX.Memcpy(outputPtr, (IntPtr)buf, (uint)length);
+                    UnsafeX.Memcpy((void*)outputPtr, (void*)buf, (uint)length);
                     outputPtr += length;
                     outputLen -= length;
                     return 0;
@@ -400,7 +400,7 @@ namespace Compression
         {
             const int CHUNK = 16384;
             var hold = stackalloc byte[CHUNK];
-            var holdPtr = (IntPtr)hold;
+            var holdPtr = hold;
             fixed (byte* input = inputBuffer)
             {
                 int inputLen = inputBuffer.Length;
@@ -410,7 +410,7 @@ namespace Compression
                     if (inputLen <= 0) return 0;
                     buf = hold;
                     var len = Math.Min(inputLen, CHUNK);
-                    UnsafeX.Memcpy(holdPtr, inputPtr, (uint)len);
+                    UnsafeX.Memcpy(holdPtr, (void*)inputPtr, (uint)len);
                     inputPtr += len;
                     inputLen -= len;
                     return len;
