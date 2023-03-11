@@ -15,7 +15,7 @@ namespace GameSpec.App.Explorer.Views
             {
                 Name = s.Name,
                 Value = s,
-                GetChildren = s.Items.Count > 0 ? node => ToTreeNodes(((MetadataItem)node.Value).Items).ToList() : null
+                GetChildren = s.Items.Count > 0 ? node => ToTreeNodes(((MetadataItem)node.Value).Items).ToList() : null,
             };
         }
     }
@@ -31,7 +31,7 @@ namespace GameSpec.App.Explorer.Views
             {
                 Name = s?.Name,
                 Value = s,
-                GetChildren = s?.Items.Any() == true ? node => ToTreeNodes(((MetadataInfo)node.Value).Items).ToList() : null
+                GetChildren = s?.Items.Any() == true ? node => ToTreeNodes(((MetadataInfo)node.Value).Items).ToList() : null,
             };
         }
     }

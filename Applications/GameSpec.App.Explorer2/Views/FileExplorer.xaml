@@ -8,23 +8,27 @@
     <ContentView.Resources>
         <views:MetadataItemToTreeViewNodeConverter x:Key="metadataItemToTreeViewNode" />
     </ContentView.Resources>
-    <Grid RowDefinitions="25,22.5,.7*,.3*">
-        <Label Text="File Filter" Grid.Row="0"/>
-        <Picker x:Name="NodeFilter" Grid.Row="1" Margin="7.5,0,0,0" ItemsSource="{Binding NodeFilters}" />
-        <t:TreeView x:Name="Node" Grid.Row="2" Margin="7.5,7.5,0,0" ItemsSource="{Binding Path=Nodes, Converter={StaticResource metadataItemToTreeViewNode}}">
-            <t:TreeView.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout Margin="0" Padding="0">
-                        <!--<Image Source="{Binding Icon}" />-->
-                        <Label Text="{Binding Name}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnNodeTapped" CommandParameter="{Binding Value}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </t:TreeView.ItemTemplate>
-        </t:TreeView>
-        <views:FileInfo x:Name="FileInfo" Grid.Row="3" />
+    <Grid RowDefinitions="25,.8*,.2*">
+        <HorizontalStackLayout Grid.Row="0" BackgroundColor="DarkGrey">
+            <Label Text="File Filter" />
+            <Picker x:Name="NodeFilter" ItemsSource="{Binding NodeFilters}" SelectedIndexChanged="OnNodeFilterSelected" />
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="1" BackgroundColor="LightGray">
+            <t:TreeView x:Name="Node" ItemsSource="{Binding Path=Nodes, Converter={StaticResource metadataItemToTreeViewNode}}">
+                <t:TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <!--<Image Source="{Binding Icon}" />-->
+                            <Label Text="{Binding Name}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnNodeSelected" CommandParameter="{Binding Value}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </t:TreeView.ItemTemplate>
+            </t:TreeView>
+        </ScrollView>
+        <views:FileInfo x:Name="FileInfo" Grid.Row="2" BackgroundColor="DarkGrey" />
     </Grid>
 </ContentView>

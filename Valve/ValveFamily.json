@@ -542,6 +542,21 @@
         "dir": "Half-Life Alyx",
         "path": "game"
       }
+    },
+    "filters": {
+      "D2": {
+        "Animation": ".vanim_c",
+        "Particle": ".vpcf_c",
+        "Material": ".vmat_c",
+        "Mesh": ".vmesh_c",
+        "Textures": ".vtex_c",
+        "Model": ".vmdl_c",
+        "Physics": ".vphys_c",
+        "Sound": ".vsnd_c",
+        "World": ".vwrld_c",
+        "WorldNode": ".vwnod_c",
+        "Panorama": ".vtxt_c"
+      }
     }
   }
 }

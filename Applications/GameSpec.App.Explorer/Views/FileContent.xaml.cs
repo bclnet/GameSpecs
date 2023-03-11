@@ -26,7 +26,6 @@ namespace GameSpec.App.Explorer.Views
     public partial class FileContent : UserControl, INotifyPropertyChanged
     {
         public static FileContent Instance;
-        //public static MainPage MainWindow => MainPage.Instance;
 
         public FileContent()
         {
@@ -36,20 +35,20 @@ namespace GameSpec.App.Explorer.Views
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         IOpenGraphic _graphic;
         public IOpenGraphic Graphic
         {
             get => _graphic;
-            set { _graphic = value; NotifyPropertyChanged(); }
+            set { _graphic = value; OnPropertyChanged(); }
         }
 
         IList<MetadataContent> _contentTabs;
         public IList<MetadataContent> ContentTabs
         {
             get => _contentTabs;
-            set { _contentTabs = value; NotifyPropertyChanged(); }
+            set { _contentTabs = value; OnPropertyChanged(); }
         }
 
         public void OnFileInfo(PakFile pakFile, List<MetadataInfo> infos)

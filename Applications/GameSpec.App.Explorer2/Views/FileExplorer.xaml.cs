@@ -1,5 +1,4 @@
 ﻿using GameSpec.Metadata;
-using System.Windows.Input;
 
 namespace GameSpec.App.Explorer.Views
 {
@@ -15,7 +14,7 @@ namespace GameSpec.App.Explorer.Views
             BindingContext = this;
         }
 
-        public static readonly BindableProperty OpenPathProperty = BindableProperty.Create(nameof(OpenPath), typeof(string), typeof(FileExplorer), null);
+        public static readonly BindableProperty OpenPathProperty = BindableProperty.Create(nameof(OpenPath), typeof(string), typeof(FileExplorer));
         public string OpenPath
         {
             get => (string)GetValue(OpenPathProperty);
@@ -44,17 +43,17 @@ namespace GameSpec.App.Explorer.Views
             return paths.Length == 1 ? node : node?.FindByPath(paths[1]);
         }
 
-        public static readonly BindableProperty NodeFiltersProperty = BindableProperty.Create(nameof(NodeFilters), typeof(List<MetadataItem.Filter>), typeof(FileExplorer), null);
+        List<MetadataItem.Filter> _nodeFilters;
         public List<MetadataItem.Filter> NodeFilters
         {
-            get => (List<MetadataItem.Filter>)GetValue(NodeFiltersProperty);
-            set => SetValue(NodeFiltersProperty, value);
+            get => _nodeFilters;
+            set { _nodeFilters = value; OnPropertyChanged(); }
         }
 
-        //void NodeFilter_KeyUp(object sender, EventArgs e)
+        //void OnNodeFilterKeyUp(object sender, EventArgs e)
         //{
         //    if (string.IsNullOrEmpty(NodeFilter.SelectedItem as string)) Nodes = PakNodes;
-        //    else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.SelectedItem as string))).ToList();
+        //    else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.SelectedItem as string))).Where(x => x != null).ToList();
         //    //var view = (CollectionView)CollectionViewSource.GetDefaultView(Node.ItemsSource);
         //    //view.Filter = o =>
         //    //{
@@ -64,24 +63,23 @@ namespace GameSpec.App.Explorer.Views
         //    //view.Refresh();
         //}
 
-        //void NodeFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (e.AddedItems.Count <= 0) return;
-        //    var filter = e.AddedItems[0] as MetadataItem.Filter;
-        //    if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = PakNodes;
-        //    else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).ToList();
-        //}
+        void OnNodeFilterSelected(object s, EventArgs e)
+        {
+            var filter = (MetadataItem.Filter)NodeFilter.SelectedItem;
+            if (filter == null) Nodes = PakNodes;
+            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).Where(x => x != null).ToList();
+        }
 
         List<MetadataItem> PakNodes;
 
-        public static readonly BindableProperty NodesProperty = BindableProperty.Create(nameof(Nodes), typeof(List<MetadataItem>), typeof(FileExplorer), null);
+        List<MetadataItem> _nodes;
         public List<MetadataItem> Nodes
         {
-            get => (List<MetadataItem>)GetValue(NodesProperty);
-            set => SetValue(NodesProperty, value);
+            get => _nodes;
+            set { _nodes = value; OnPropertyChanged(); }
         }
 
-        void OnNodeTapped(object s, EventArgs args)
+        void OnNodeSelected(object s, EventArgs args)
         {
             var parameter = ((TappedEventArgs)args).Parameter;
             if (parameter is MetadataItem item && item.PakFile != null) SelectedItem = item;

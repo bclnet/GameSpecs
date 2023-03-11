@@ -18,14 +18,14 @@
         <ComboBox Name="NodeFilter" Grid.Row="1" Margin="7.5,0,0,0"
                   IsEditable="True"
                   ItemsSource="{Binding NodeFilters}"
-                  KeyUp="NodeFilter_KeyUp"
-                  SelectionChanged="NodeFilter_SelectionChanged"/>
+                  KeyUp="OnNodeFilterKeyUp"
+                  SelectionChanged="OnNodeFilterSelected"/>
         <TreeView Name="Node" Grid.Row="2" Margin="7.5,7.5,0,0"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling"
                   ItemsSource="{Binding Nodes}"
-                  SelectedItemChanged="Node_SelectedItemChanged">
+                  SelectedItemChanged="OnNodeSelected">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type model:MetadataItem}" ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal">

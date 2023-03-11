@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using static System.Net.WebRequestMethods;
 
 namespace GameSpec.App.Explorer.Views
 {
@@ -12,9 +10,6 @@ namespace GameSpec.App.Explorer.Views
             BindingContext = this;
             if (!string.IsNullOrEmpty(Config.DefaultFamily)) Family.SelectedIndex = FamilyManager.Families.Keys.ToList().IndexOf(Config.DefaultFamily);
         }
-
-        public new event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public IList<Family> Families { get; } = FamilyManager.Families.Values.ToList();
 
@@ -49,28 +44,28 @@ namespace GameSpec.App.Explorer.Views
         public IList<FamilyGame> FamilyGames
         {
             get => _familyGames;
-            set { _familyGames = value; NotifyPropertyChanged(); }
+            set { _familyGames = value; OnPropertyChanged(); }
         }
 
         Uri _pakUri;
         public Uri PakUri
         {
             get => _pakUri;
-            set { _pakUri = value; NotifyPropertyChanged(); }
+            set { _pakUri = value; OnPropertyChanged(); }
         }
 
         Uri _pak2Uri;
         public Uri Pak2Uri
         {
             get => _pak2Uri;
-            set { _pak2Uri = value; NotifyPropertyChanged(); }
+            set { _pak2Uri = value; OnPropertyChanged(); }
         }
 
         Uri _pak3Uri;
         public Uri Pak3Uri
         {
             get => _pak3Uri;
-            set { _pak3Uri = value; NotifyPropertyChanged(); }
+            set { _pak3Uri = value; OnPropertyChanged(); }
         }
 
         void Family_SelectionChanged(object sender, EventArgs e)

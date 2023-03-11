@@ -1,7 +1,6 @@
 ﻿using NAudio.Wave;
 using NLayer.NAudioSupport;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace GameSpec.App.Explorer.Views
 {
@@ -25,12 +24,8 @@ namespace GameSpec.App.Explorer.Views
             WaveStream = null;
         }
 
-        public new event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
         public static readonly BindableProperty StreamProperty = BindableProperty.Create(nameof(Stream), typeof(Stream), typeof(AudioPlayer),
             propertyChanged: (d, e, n) => (d as AudioPlayer).LoadSound());
-
         public Stream Stream
         {
             get => GetValue(StreamProperty) as Stream;
@@ -39,7 +34,6 @@ namespace GameSpec.App.Explorer.Views
 
         public static readonly BindableProperty FormatProperty = BindableProperty.Create(nameof(Format), typeof(string), typeof(AudioPlayer),
             propertyChanged: (d, e, n) => (d as AudioPlayer).LoadSound());
-
         public string Format
         {
             get => GetValue(FormatProperty) as string;

@@ -21,8 +21,6 @@ namespace GameSpec.App.Explorer.Views
     {
         public static MetadataManager Resource = new ResourceManagerProvider();
         public static FileExplorer Instance;
-        //public static MainWindow MainWindow => MainWindow.Instance;
-        public static FileContent FileContent => FileContent.Instance;
 
         public FileExplorer()
         {
@@ -32,12 +30,12 @@ namespace GameSpec.App.Explorer.Views
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public static readonly DependencyProperty OpenPathProperty = DependencyProperty.Register(nameof(OpenPath), typeof(string), typeof(FileExplorer));
         public string OpenPath
         {
-            get => GetValue(OpenPathProperty) as string;
+            get => (string)GetValue(OpenPathProperty);
             set => SetValue(OpenPathProperty, value);
         }
 
@@ -53,7 +51,7 @@ namespace GameSpec.App.Explorer.Views
             }));
         public PakFile PakFile
         {
-            get => GetValue(PakFileProperty) as PakFile;
+            get => (PakFile)GetValue(PakFileProperty);
             set => SetValue(PakFileProperty, value);
         }
 
@@ -68,13 +66,13 @@ namespace GameSpec.App.Explorer.Views
         public List<MetadataItem.Filter> NodeFilters
         {
             get => _nodeFilters;
-            set { _nodeFilters = value; NotifyPropertyChanged(); }
+            set { _nodeFilters = value; OnPropertyChanged(); }
         }
 
-        void NodeFilter_KeyUp(object sender, KeyEventArgs e)
+        void OnNodeFilterKeyUp(object sender, KeyEventArgs e)
         {
             if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = PakNodes;
-            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.Text))).ToList();
+            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.Text))).Where(x => x != null).ToList();
             //var view = (CollectionView)CollectionViewSource.GetDefaultView(Node.ItemsSource);
             //view.Filter = o =>
             //{
@@ -84,12 +82,12 @@ namespace GameSpec.App.Explorer.Views
             //view.Refresh();
         }
 
-        void NodeFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void OnNodeFilterSelected(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count <= 0) return;
             var filter = e.AddedItems[0] as MetadataItem.Filter;
             if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = PakNodes;
-            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).ToList();
+            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).Where(x => x != null).ToList();
         }
 
         List<MetadataItem> PakNodes;
@@ -98,7 +96,7 @@ namespace GameSpec.App.Explorer.Views
         public List<MetadataItem> Nodes
         {
             get => _nodes;
-            set { _nodes = value; NotifyPropertyChanged(); }
+            set { _nodes = value; OnPropertyChanged(); }
         }
 
         MetadataItem _selectedItem;
@@ -114,11 +112,11 @@ namespace GameSpec.App.Explorer.Views
 
         public void OnFileInfo(List<MetadataInfo> infos)
         {
-            FileContent.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
+            FileContent.Instance.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             FileInfo.Infos = infos?.Where(x => x.Name != null).ToList();
         }
 
-        void Node_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        void OnNodeSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue is TreeViewItem item && item.Items.Count > 0) (item.Items[0] as TreeViewItem).IsSelected = true;
             else if (e.NewValue is MetadataItem itemNode && itemNode.PakFile != null && SelectedItem != itemNode) SelectedItem = itemNode;

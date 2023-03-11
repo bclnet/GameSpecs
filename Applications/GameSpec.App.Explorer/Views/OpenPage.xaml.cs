@@ -30,7 +30,7 @@ namespace GameSpec.App.Explorer.Views
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public ICollection<Family> Families { get; } = FamilyManager.Families.Values;
 
@@ -63,28 +63,28 @@ namespace GameSpec.App.Explorer.Views
         public ICollection<FamilyGame> FamilyGames
         {
             get => _familyGames;
-            set { _familyGames = value; NotifyPropertyChanged(); }
+            set { _familyGames = value; OnPropertyChanged(); }
         }
 
         Uri _pakUri;
         public Uri PakUri
         {
             get => _pakUri;
-            set { _pakUri = value; NotifyPropertyChanged(); }
+            set { _pakUri = value; OnPropertyChanged(); }
         }
 
         Uri _pak2Uri;
         public Uri Pak2Uri
         {
             get => _pak2Uri;
-            set { _pak2Uri = value; NotifyPropertyChanged(); }
+            set { _pak2Uri = value; OnPropertyChanged(); }
         }
 
         Uri _pak3Uri;
         public Uri Pak3Uri
         {
             get => _pak3Uri;
-            set { _pak3Uri = value; NotifyPropertyChanged(); }
+            set { _pak3Uri = value; OnPropertyChanged(); }
         }
 
         void Family_SelectionChanged(object sender, SelectionChangedEventArgs e)

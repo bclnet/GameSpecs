@@ -7,7 +7,7 @@
     <ContentView.Resources>
         <views:MetadataInfoToTreeViewNodeConverter x:Key="metadataInfoToTreeViewNode" />
     </ContentView.Resources>
-    <Grid>
+    <ScrollView>
         <t:TreeView x:Name="Node" ItemsSource="{Binding Path=Infos, Converter={StaticResource metadataInfoToTreeViewNode}}">
             <t:TreeView.ItemTemplate>
                 <DataTemplate>
@@ -17,5 +17,5 @@
                 </DataTemplate>
             </t:TreeView.ItemTemplate>
         </t:TreeView>
-    </Grid>
+    </ScrollView>
 </ContentView>

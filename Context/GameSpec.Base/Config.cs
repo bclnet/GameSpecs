@@ -303,7 +303,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //HL
-            ForcePath = "cached.wad:LOADING.pic", //Picture
+            //ForcePath = "cached.wad:LOADING.pic", //Picture
             //ForcePath = "decals.wad:REFLECT1.tex", //Texture
             //ForcePath = "decals.wad:{247.tex", //Texture
             //HL2
@@ -315,7 +315,7 @@ namespace GameSpec
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
             //Dota2
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
@@ -335,7 +335,7 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Valve",
-            GameId = "HL", // Half-Life [open, read, texture:GL]
+            //GameId = "HL", // Half-Life [open, read, texture:GL]
             //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
@@ -356,7 +356,7 @@ namespace GameSpec
             //GameId = "DOD:Src", // Day of Defeat: Source [open, read]
             //GameId = "Portal2", // Portal 2 [open, read]
             //GameId = "CS:GO", // Counter-Strike: Global Offensive [open, read]
-            //GameId = "D2", // Dota 2 [open, read, texture:GL, model:GL]
+            GameId = "D2", // Dota 2 [open, read, texture:GL, model:GL]
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read, texture:GL, model:GL]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]

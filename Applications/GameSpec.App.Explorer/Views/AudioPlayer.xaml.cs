@@ -45,11 +45,10 @@ namespace GameSpec.App.Explorer.Views
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(nameof(Stream), typeof(Stream), typeof(AudioPlayer),
             new PropertyMetadata((d, e) => (d as AudioPlayer).LoadSound()));
-
         public Stream Stream
         {
             get => GetValue(StreamProperty) as Stream;
@@ -58,7 +57,6 @@ namespace GameSpec.App.Explorer.Views
 
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(nameof(Format), typeof(string), typeof(AudioPlayer),
              new PropertyMetadata((d, e) => (d as AudioPlayer).LoadSound()));
-
         public string Format
         {
             get => GetValue(FormatProperty) as string;

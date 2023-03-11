@@ -33,13 +33,13 @@ namespace GameSpec.App.Explorer.Views
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         List<MetadataInfo> _infos;
         public List<MetadataInfo> Infos
         {
             get => _infos;
-            set { _infos = value; NotifyPropertyChanged(); }
+            set { _infos = value; OnPropertyChanged(); }
         }
     }
 }

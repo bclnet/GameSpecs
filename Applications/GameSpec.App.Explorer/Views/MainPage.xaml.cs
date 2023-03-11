@@ -45,7 +45,7 @@ namespace GameSpec.App.Explorer.Views
         public void OnFirstLoad() => OpenPage_Click(null, null);
 
         public event PropertyChangedEventHandler PropertyChanged;
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public MainPage Open(Family family, IEnumerable<Uri> pakUris, string path = null)
         {
@@ -66,7 +66,7 @@ namespace GameSpec.App.Explorer.Views
         public IList<ExplorerMainTab> MainTabs
         {
             get => _mainTabs;
-            set { _mainTabs = value; NotifyPropertyChanged(); }
+            set { _mainTabs = value; OnPropertyChanged(); }
         }
 
         public readonly IList<PakFile> PakFiles = new List<PakFile>();

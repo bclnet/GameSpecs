@@ -45,7 +45,7 @@
             propertyChanged: (d, e, n) =>
             {
                 var mainTab = ((MainPage)d).MainTab;
-                var firstTab = (RadioButton)mainTab.Children.FirstOrDefault();
+                var firstTab = mainTab.Children.FirstOrDefault() as RadioButton;
                 if (firstTab != null) firstTab.IsChecked = true;
             });
         public IList<ExplorerMainTab> MainTabs
