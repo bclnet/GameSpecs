@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace GameSpec.App.Explorer.Views
 {
-    public partial class AudioPlayer : ContentView, INotifyPropertyChanged
+    public partial class AudioPlayer : ContentView
     {
         WaveOutEvent WaveOut = new();
         WaveStream WaveStream;

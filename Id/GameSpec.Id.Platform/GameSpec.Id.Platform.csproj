@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Platforms\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameSpec.Platform.StereoKit\GameSpec.Platform.StereoKit.csproj" />
     <ProjectReference Include="..\..\Platforms\GameSpec.Platform.Unity\GameSpec.Platform.Unity.csproj" />
     <ProjectReference Include="..\..\Platforms\GameSpec.Platform.Unreal\GameSpec.Platform.Unreal.csproj" />
     <ProjectReference Include="..\GameSpec.Id\GameSpec.Id.csproj" />

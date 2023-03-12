@@ -1,13 +1,11 @@
 ﻿using CommandLine;
-using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace GameSpec.App.Explorer
 {
     public partial class App : Application
     {
-        public static App Instance;
-
         static App() => FamilyPlatform.Startups.Add(OpenGLPlatform.Startup);
+        public static App Instance;
 
         static string[] args = new string[0];
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "01000001.obj" };
@@ -35,36 +33,13 @@ namespace GameSpec.App.Explorer
 
         public static void Startup()
         {
-            var status = CheckAndRequestPermission<StorageWrite>().Result;
-            if (status == PermissionStatus.Granted) status = CheckAndRequestPermission<StorageRead>().Result;
-            if (status != PermissionStatus.Granted)
-            {
-                Instance.MainPage.DisplayAlert("Prompt", $"NO ACCESS", "Cancel").Wait();
-                return;
-            }
+            if (!HasPermissions()) return;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
             .MapResult(
                 (DefaultOptions opts) => Instance.RunDefault(opts),
                 (TestOptions opts) => Instance.RunTest(opts),
                 (OpenOptions opts) => Instance.RunOpen(opts),
                 errs => Instance.RunError(errs));
-        }
-
-        async static Task<PermissionStatus> CheckAndRequestPermission<TPermission>() where TPermission : BasePermission, new()
-        {
-            var status = await CheckStatusAsync<TPermission>();
-            if (status == PermissionStatus.Granted) return status;
-            else if (status == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
-            {
-                await Instance.MainPage.DisplayAlert("Prompt", $"turn on in settings", "Cancel");
-                return status;
-            }
-            else if (ShouldShowRationale<TPermission>())
-            {
-                await Instance.MainPage.DisplayAlert("Prompt", "Why the permission is needed", "Cancel");
-            }
-            status = await RequestAsync<TPermission>();
-            return status;
         }
 
         #region Options

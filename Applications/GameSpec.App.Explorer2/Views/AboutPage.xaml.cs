@@ -1,4 +1,6 @@
-﻿namespace GameSpec.App.Explorer.Views
+﻿using System.ComponentModel;
+
+namespace GameSpec.App.Explorer.Views
 {
     public partial class AboutPage : ContentPage
     {

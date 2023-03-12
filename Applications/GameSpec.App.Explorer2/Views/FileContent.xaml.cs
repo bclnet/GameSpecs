@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace GameSpec.App.Explorer.Views
 {
-    public partial class FileContent : ContentView, INotifyPropertyChanged
+    public partial class FileContent : ContentView
     {
         public static FileContent Instance;
 

@@ -2,7 +2,7 @@
 
 namespace GameSpec.App.Explorer.Views
 {
-    public partial class OpenPage : ContentPage, INotifyPropertyChanged
+    public partial class OpenPage : ContentPage
     {
         public OpenPage()
         {
