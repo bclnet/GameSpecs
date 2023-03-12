@@ -1,0 +1,291 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<OutputType>Exe</OutputType>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+	<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+	<RootNamespace>GameSpec.App.Explorer</RootNamespace>
+	<UseMaui>true</UseMaui>
+	<SingleProject>true</SingleProject>
+
+
+	<!-- Display name -->
+	<ApplicationTitle>GameSpec.App.Explorer2</ApplicationTitle>
+
+	<!-- App Identifier -->
+	<ApplicationId>com.companyname.gamespec.app.explorer2</ApplicationId>
+	<ApplicationIdGuid>1b5191df-e453-4abe-a64b-73a693de1131</ApplicationIdGuid>
+
+	<!-- Versions -->
+	<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	<ApplicationVersion>1</ApplicationVersion>
+
+	<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+	<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+	<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\floor_shader.hlsl" />
+    <None Remove="Assets\power.png" />
+    <None Remove="Resources\AppIcon\appicon.svg" />
+    <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
+    <None Remove="Resources\Icons\agrp.png" />
+    <None Remove="Resources\Icons\anim.png" />
+    <None Remove="Resources\Icons\bsp.png" />
+    <None Remove="Resources\Icons\css.png" />
+    <None Remove="Resources\Icons\dds.png" />
+    <None Remove="Resources\Icons\dmx.png" />
+    <None Remove="Resources\Icons\ents.png" />
+    <None Remove="Resources\Icons\fbx.png" />
+    <None Remove="Resources\Icons\gnv.png" />
+    <None Remove="Resources\Icons\grass.png" />
+    <None Remove="Resources\Icons\hcg.png" />
+    <None Remove="Resources\Icons\html.png" />
+    <None Remove="Resources\Icons\jpg.png" />
+    <None Remove="Resources\Icons\map.png" />
+    <None Remove="Resources\Icons\mat.png" />
+    <None Remove="Resources\Icons\mdl.png" />
+    <None Remove="Resources\Icons\mesh.png" />
+    <None Remove="Resources\Icons\morf.png" />
+    <None Remove="Resources\Icons\mp3.png" />
+    <None Remove="Resources\Icons\pcf.png" />
+    <None Remove="Resources\Icons\pdf.png" />
+    <None Remove="Resources\Icons\pdi.png" />
+    <None Remove="Resources\Icons\phy.png" />
+    <None Remove="Resources\Icons\phys.png" />
+    <None Remove="Resources\Icons\png.png" />
+    <None Remove="Resources\Icons\post.png" />
+    <None Remove="Resources\Icons\psd.png" />
+    <None Remove="Resources\Icons\rman.png" />
+    <None Remove="Resources\Icons\snd.png" />
+    <None Remove="Resources\Icons\surf.png" />
+    <None Remove="Resources\Icons\tex.png" />
+    <None Remove="Resources\Icons\ttf.png" />
+    <None Remove="Resources\Icons\txt.png" />
+    <None Remove="Resources\Icons\vis.png" />
+    <None Remove="Resources\Icons\vmt.png" />
+    <None Remove="Resources\Icons\vtf.png" />
+    <None Remove="Resources\Icons\vtx.png" />
+    <None Remove="Resources\Icons\vvd.png" />
+    <None Remove="Resources\Icons\wav.png" />
+    <None Remove="Resources\Icons\wnod.png" />
+    <None Remove="Resources\Icons\wrld.png" />
+    <None Remove="Resources\Icons\xml.png" />
+    <None Remove="Resources\Icons\_default.png" />
+    <None Remove="Resources\Icons\_folder.png" />
+    <None Remove="Resources\Icons\_openFile.png" />
+    <None Remove="Resources\Icons\_package.png" />
+    <None Remove="Resources\Images\dotnet_bot.svg" />
+    <None Remove="Resources\Raw\AboutAssets.txt" />
+    <None Remove="Resources\Splash\splash.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\floor_shader.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator></Generator>
+    </Content>
+    <Content Include="Assets\power.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<SKShader Include="Assets\*.hlsl" BuildRoot="..\" BuildTo="Assets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controls_\**" />
+    <Compile Remove="Views1\**" />
+    <EmbeddedResource Remove="Controls_\**" />
+    <EmbeddedResource Remove="Views1\**" />
+    <MauiCss Remove="Controls_\**" />
+    <MauiCss Remove="Views1\**" />
+    <MauiXaml Remove="Controls_\**" />
+    <MauiXaml Remove="Views1\**" />
+    <None Remove="Controls_\**" />
+    <None Remove="Views1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="App1+View.cs" />
+    <Compile Remove="App1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons\agrp.png" />
+    <EmbeddedResource Include="Resources\Icons\anim.png" />
+    <EmbeddedResource Include="Resources\Icons\bsp.png" />
+    <EmbeddedResource Include="Resources\Icons\css.png" />
+    <EmbeddedResource Include="Resources\Icons\dds.png" />
+    <EmbeddedResource Include="Resources\Icons\dmx.png" />
+    <EmbeddedResource Include="Resources\Icons\ents.png" />
+    <EmbeddedResource Include="Resources\Icons\fbx.png" />
+    <EmbeddedResource Include="Resources\Icons\gnv.png" />
+    <EmbeddedResource Include="Resources\Icons\grass.png" />
+    <EmbeddedResource Include="Resources\Icons\hcg.png" />
+    <EmbeddedResource Include="Resources\Icons\html.png" />
+    <EmbeddedResource Include="Resources\Icons\jpg.png" />
+    <EmbeddedResource Include="Resources\Icons\map.png" />
+    <EmbeddedResource Include="Resources\Icons\mat.png" />
+    <EmbeddedResource Include="Resources\Icons\mdl.png" />
+    <EmbeddedResource Include="Resources\Icons\mesh.png" />
+    <EmbeddedResource Include="Resources\Icons\morf.png" />
+    <EmbeddedResource Include="Resources\Icons\mp3.png" />
+    <EmbeddedResource Include="Resources\Icons\pcf.png" />
+    <EmbeddedResource Include="Resources\Icons\pdf.png" />
+    <EmbeddedResource Include="Resources\Icons\pdi.png" />
+    <EmbeddedResource Include="Resources\Icons\phy.png" />
+    <EmbeddedResource Include="Resources\Icons\phys.png" />
+    <EmbeddedResource Include="Resources\Icons\png.png" />
+    <EmbeddedResource Include="Resources\Icons\post.png" />
+    <EmbeddedResource Include="Resources\Icons\psd.png" />
+    <EmbeddedResource Include="Resources\Icons\rman.png" />
+    <EmbeddedResource Include="Resources\Icons\snd.png" />
+    <EmbeddedResource Include="Resources\Icons\surf.png" />
+    <EmbeddedResource Include="Resources\Icons\tex.png" />
+    <EmbeddedResource Include="Resources\Icons\ttf.png" />
+    <EmbeddedResource Include="Resources\Icons\txt.png" />
+    <EmbeddedResource Include="Resources\Icons\vis.png" />
+    <EmbeddedResource Include="Resources\Icons\vmt.png" />
+    <EmbeddedResource Include="Resources\Icons\vtf.png" />
+    <EmbeddedResource Include="Resources\Icons\vtx.png" />
+    <EmbeddedResource Include="Resources\Icons\vvd.png" />
+    <EmbeddedResource Include="Resources\Icons\wav.png" />
+    <EmbeddedResource Include="Resources\Icons\wnod.png" />
+    <EmbeddedResource Include="Resources\Icons\wrld.png" />
+    <EmbeddedResource Include="Resources\Icons\xml.png" />
+    <EmbeddedResource Include="Resources\Icons\_default.png" />
+    <EmbeddedResource Include="Resources\Icons\_folder.png" />
+    <EmbeddedResource Include="Resources\Icons\_openFile.png" />
+    <EmbeddedResource Include="Resources\Icons\_package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiAsset Include="Resources\Raw\AboutAssets.txt">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiFont Include="Resources\Fonts\OpenSans-Regular.ttf" />
+    <MauiFont Include="Resources\Fonts\OpenSans-Semibold.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiIcon Include="Resources\AppIcon\appicon.svg">
+      <Color>#512BD4</Color>
+      <ForegroundFile>Resources\AppIcon\appiconfg.svg</ForegroundFile>
+    </MauiIcon>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiImage Include="Resources\Images\dotnet_bot.svg">
+      <BaseSize>168,208</BaseSize>
+    </MauiImage>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiSplashScreen Include="Resources\Splash\splash.svg">
+      <Color>#512BD4</Color>
+      <BaseSize>128,128</BaseSize>
+    </MauiSplashScreen>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Documents\Applications\Explorer\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    <PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
+    <PackageReference Include="TreeView.Maui" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Platforms\Windows\App.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+      <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+    </Compile>
+    <Compile Update="Views\AboutPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AudioPlayer.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FileContent.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FileExplorer.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FileInfo.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OpenPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OptionsPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Platforms\Windows\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Resources\Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Resources\Styles\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\AudioPlayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\FileContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\FileExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\FileInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\OpenPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\OptionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Platforms\Windows\Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+</Project>

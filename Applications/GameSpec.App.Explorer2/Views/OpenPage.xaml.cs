@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace GameSpec.App.Explorer.Views
+﻿namespace GameSpec.App.Explorer.Views
 {
     public partial class OpenPage : ContentPage
     {

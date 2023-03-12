@@ -1,4 +1,7 @@
 using System;
+using System.Runtime.InteropServices;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
 using StereoKit;
 namespace GameSpec.App.Explorer
 {
@@ -7,7 +10,7 @@ namespace GameSpec.App.Explorer
         delegate uint XR_xrConvertTimeToWin32PerformanceCounterKHR(ulong instance, long time, out long performanceCounter);
         static XR_xrConvertTimeToWin32PerformanceCounterKHR xrConvertTimeToWin32PerformanceCounterKHR;
 
-        static void Main(string[] args)
+        static void Mainx(string[] args)
         {
             // If the app has a constructor that takes a string array, then we'll use that, and pass the command line arguments into it on creation
             var appType = typeof(App);

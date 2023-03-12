@@ -1,5 +1,4 @@
 ﻿using GameSpec.Metadata;
-using System.ComponentModel;
 
 namespace GameSpec.App.Explorer.Views
 {

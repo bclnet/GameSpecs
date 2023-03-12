@@ -1,6 +1,5 @@
 ﻿using NAudio.Wave;
 using NLayer.NAudioSupport;
-using System.ComponentModel;
 
 namespace GameSpec.App.Explorer.Views
 {

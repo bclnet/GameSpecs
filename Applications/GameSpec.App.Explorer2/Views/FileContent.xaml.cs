@@ -1,6 +1,5 @@
 ﻿using GameSpec.Metadata;
 using OpenStack.Graphics;
-using System.ComponentModel;
 
 namespace GameSpec.App.Explorer.Views
 {

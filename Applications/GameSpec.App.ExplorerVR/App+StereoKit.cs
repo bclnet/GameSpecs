@@ -62,7 +62,7 @@ namespace GameSpec.App.Explorer
             if (!Tests.IsTesting) SK.AddStepper(new RenderCamera(new Pose(0.3f, 0, .5f, Quat.FromAngles(0, -90, 0)), 1000, 1000));
         }
 
-        public override void Step()
+        public void Step()
         {
             CheckFocus();
 
@@ -93,7 +93,7 @@ namespace GameSpec.App.Explorer
                 Lines.Add(tr, br, Color.White, 1.5f * U.cm);
             }
 
-            MainPage?.Step();
+            //MainPage?.Step();
 
             //// Make a window for demo selection
             //UI.WindowBegin("Demos", ref demoSelectPose, new Vec2(50 * U.cm, 0));
