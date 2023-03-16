@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using System;
-
-namespace GameSpec.App.Explorer.Views
+﻿namespace GameSpec.App.Explorer.Views
 {
     public partial class AboutPage : ContentPage
     {

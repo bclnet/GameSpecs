@@ -1,8 +1,5 @@
-﻿using Microsoft.Maui.Controls;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using NLayer.NAudioSupport;
-using System;
-using System.IO;
 
 namespace GameSpec.App.Explorer.Views
 {

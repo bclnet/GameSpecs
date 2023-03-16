@@ -1,7 +1,6 @@
 ﻿using StereoKit;
-using StereoKit.Framework;
-using System;
-using System.IO;
+using Color = StereoKit.Color;
+using IStepper = StereoKit.Framework.IStepper;
 
 namespace GameSpec.App.Explorer.Tools
 {

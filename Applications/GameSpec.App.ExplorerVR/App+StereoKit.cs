@@ -2,6 +2,7 @@
 using StereoKit;
 using System;
 using System.Collections.Generic;
+using Color = StereoKit.Color;
 
 namespace GameSpec.App.Explorer
 {
@@ -70,7 +71,7 @@ namespace GameSpec.App.Explorer
 
             if (Input.Key(Key.Esc).IsJustActive()) SK.Quit();
 
-            /// Toggle the projection mode
+            // Toggle the projection mode
             if (SK.ActiveDisplayMode == DisplayMode.Flatscreen && Input.Key(Key.P).IsJustActive()) Renderer.Projection = Renderer.Projection == Projection.Perspective ? Projection.Ortho : Projection.Perspective;
             // If we can't see the world, we'll draw a floor!
             if (SK.System.displayType == Display.Opaque) Renderer.Add(floorMesh, World.HasBounds ? World.BoundsPose.ToMatrix() : floorTr, Color.White);

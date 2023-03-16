@@ -1,17 +1,14 @@
 ﻿using CommandLine;
-using Microsoft.Maui.Controls;
-using System.Collections.Generic;
-using System;
 using GameSpec.App.Explorer.Views;
 
 namespace GameSpec.App.Explorer
 {
     public partial class App : Application
     {
-        static App() => FamilyPlatform.Startups.Add(StereoKitPlatform.Startup);
-        public static App Instance;
+        //static App() => FamilyPlatform.Startups.Add(StereoKitPlatform.Startup);
+        //public static App Instance;
 
-        //static string[] args = new string[0];
+        static string[] args = new string[0];
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "01000001.obj" };
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "02000001.set" };
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "03000001.obj" };
@@ -27,22 +24,24 @@ namespace GameSpec.App.Explorer
         //static string[] args = new string[] { "open", "-e", "Valve", "-u", "game:/dota/pak01_dir.vpk#Dota2", "-p", "models/npc_minions/draft_siege_good.vmdl_c" };
         //static string[] args = new string[] { "open", "-e", "Valve", "-u", "game:/dota/pak01_dir.vpk#Dota2", "-p", "particles/hw_fx/candy_carrying_overhead.vpcf_c" };
 
-        public App(string[] args)
+        public App()
         {
             StartupStereoKit(args);
             InitializeComponent();
-            Instance = this;
+            //Instance = this;
+
+            MainPage = new MainPage();
         }
 
         public void Startup(string[] args)
         {
             MainPage = new MainPage();
-            Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
-            .MapResult(
-                (DefaultOptions opts) => Instance.RunDefault(opts),
-                (TestOptions opts) => Instance.RunTest(opts),
-                (OpenOptions opts) => Instance.RunOpen(opts),
-                errs => Instance.RunError(errs));
+            //Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
+            //.MapResult(
+            //    (DefaultOptions opts) => Instance.RunDefault(opts),
+            //    (TestOptions opts) => Instance.RunTest(opts),
+            //    (OpenOptions opts) => Instance.RunOpen(opts),
+            //    errs => Instance.RunError(errs));
         }
 
         #region Options
@@ -71,14 +70,14 @@ namespace GameSpec.App.Explorer
         int RunDefault(DefaultOptions opts)
         {
             var page = (MainPage)MainPage;
-            page.OnFirstLoad();
+            //page.OnFirstLoad();
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
             var page = (MainPage)MainPage;
-            page.OnFirstLoad();
+            //page.OnFirstLoad();
             return 0;
         }
 

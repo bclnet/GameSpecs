@@ -1,8 +1,4 @@
-﻿using GameSpec.App.ExplorerVR.Controls;
-using Microsoft.Maui.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using GameSpec.App.Explorer.Controls;
 
 namespace GameSpec.App.Explorer.Views
 {
@@ -89,7 +85,7 @@ namespace GameSpec.App.Explorer.Views
 
         async void PakUriFile_Click(object sender, EventArgs e)
         {
-            var results = await FilePicker.Default.PickAsync(new PickOptions { PickerTitle = "PAK files" });
+            var results = await FilePicker2.Default.PickAsync(new PickOptions { PickerTitle = "PAK files" });
             if (results != null)
             {
                 var file = results.FileName;
@@ -100,7 +96,7 @@ namespace GameSpec.App.Explorer.Views
 
         async void Pak2UriFile_Click(object sender, EventArgs e)
         {
-            var results = await FilePicker.Default.PickAsync(new PickOptions { PickerTitle = "PAK files" });
+            var results = await FilePicker2.Default.PickAsync(new PickOptions { PickerTitle = "PAK files" });
             if (results != null)
             {
                 var file = results.FileName;
@@ -111,7 +107,7 @@ namespace GameSpec.App.Explorer.Views
 
         async void Pak3UriFile_Click(object sender, EventArgs e)
         {
-            var results = await FilePicker.Default.PickAsync(new PickOptions { PickerTitle = "PAK files" });
+            var results = await FilePicker2.Default.PickAsync(new PickOptions { PickerTitle = "PAK files" });
             if (results != null)
             {
                 var file = results.FileName;

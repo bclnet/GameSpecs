@@ -1,9 +1,5 @@
 ﻿using GameSpec.Metadata;
-using Microsoft.Maui.Controls;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using TreeView.Maui.Core;
 
 namespace GameSpec.App.Explorer.Views
