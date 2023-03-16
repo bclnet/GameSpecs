@@ -23,6 +23,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<DefaultLanguage>en-US</DefaultLanguage>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -51,9 +52,9 @@
 	  <MauiXaml Remove="Views\MainPage.xaml" />
 	</ItemGroup>
 
+	<!-- Copy assets, and build the app's shaders into the final app folder -->
 	<ItemGroup>
-	  <None Remove="Assets\floor_shader.hlsl" />
-	  <None Remove="Assets\power.png" />
+		<SKShader Include="Assets\**\*.hlsl" BuildRoot="." BuildTo="Assets" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -73,6 +74,7 @@
 	<ItemGroup>
 	  <PackageReference Include="CommandLineParser" Version="2.9.1" />
 	  <PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
+	  <PackageReference Include="StereoKit" Version="0.3.6" />
 	  <PackageReference Include="TreeView.Maui" Version="1.0.5" />
 	</ItemGroup>
 
@@ -133,5 +135,11 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties XamarinHotReloadDebuggerTimeoutExceptionGameSpecAppExplorer2HideInfoBar="True" />
+		</VisualStudio>
+	</ProjectExtensions>
 
 </Project>

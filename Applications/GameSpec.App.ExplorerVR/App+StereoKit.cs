@@ -1,13 +1,14 @@
 ﻿using GameSpec.App.Explorer.Tools;
 using StereoKit;
-using System;
-using System.Collections.Generic;
 using Color = StereoKit.Color;
 
 namespace GameSpec.App.Explorer
 {
     partial class App
     {
+        delegate uint XR_xrConvertTimeToWin32PerformanceCounterKHR(ulong instance, long time, out long performanceCounter);
+        static XR_xrConvertTimeToWin32PerformanceCounterKHR xrConvertTimeToWin32PerformanceCounterKHR;
+
         public SKSettings Settings = new()
         {
             appName = "StereoKit C#",
@@ -19,8 +20,6 @@ namespace GameSpec.App.Explorer
 
         Model floorMesh;
         Matrix floorTr;
-        //Pose demoSelectPose = new();
-        //Sprite powerButton;
         string startTest = "welcome";
 
         public void StartupStereoKit(string[] args)
@@ -40,6 +39,24 @@ namespace GameSpec.App.Explorer
             SK.PreLoadLibrary();
             Time.Scale = 1;
             Log.Subscribe(OnLog);
+
+            // Initialize StereoKit, and the app
+            Backend.OpenXR.RequestExt("XR_KHR_win32_convert_performance_counter_time");
+            if (!SK.Initialize(Settings)) Environment.Exit(1);
+            if (Backend.XRType == BackendXRType.OpenXR && Backend.OpenXR.ExtEnabled("XR_KHR_win32_convert_performance_counter_time"))
+            {
+                xrConvertTimeToWin32PerformanceCounterKHR = Backend.OpenXR.GetFunction<XR_xrConvertTimeToWin32PerformanceCounterKHR>("xrConvertTimeToWin32PerformanceCounterKHR");
+                if (xrConvertTimeToWin32PerformanceCounterKHR != null)
+                {
+                    xrConvertTimeToWin32PerformanceCounterKHR(Backend.OpenXR.Instance, Backend.OpenXR.Time, out long counter);
+                    Log.Info($"XrTime: {counter}");
+                }
+            }
+
+            Initialize(args);
+
+            // Now pass execution over to StereoKit
+            SK.Run(Step, () => Log.Info("Done"));
         }
 
         public void Initialize(string[] args)
@@ -53,6 +70,7 @@ namespace GameSpec.App.Explorer
             floorMat.SetVector("radius", new Vec4(5, 10, 0, 0));
             floorMesh = Model.FromMesh(Mesh.GeneratePlane(new Vec2(40, 40), Vec3.Up, Vec3.Forward), floorMat);
             floorTr = Matrix.TR(new Vec3(0, -1.5f, 0), Quat.Identity);
+            logPose = new(0, -0.1f, 0.5f, Quat.LookDir(Vec3.Forward));
             //powerButton = Sprite.FromTex(Tex.FromFile("power.png"));
             //demoSelectPose = new Pose(new Vec3(0, 0, -0.6f), Quat.LookDir(-Vec3.Forward));
 
@@ -114,8 +132,8 @@ namespace GameSpec.App.Explorer
 
         #region Log
 
-        static Pose logPose = new(0, -0.1f, 0.5f, Quat.LookDir(Vec3.Forward));
-        static List<string> logList = new();
+        static Pose logPose;
+        static readonly List<string> logList = new();
         static string logText = "";
 
         static void OnLog(LogLevel level, string text)

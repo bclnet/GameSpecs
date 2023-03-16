@@ -1,12 +1,14 @@
 ﻿using CommandLine;
 using GameSpec.App.Explorer.Views;
+using StereoKit;
+using System.Runtime.InteropServices;
 
 namespace GameSpec.App.Explorer
 {
     public partial class App : Application
     {
-        //static App() => FamilyPlatform.Startups.Add(StereoKitPlatform.Startup);
-        //public static App Instance;
+        static App() => FamilyPlatform.Startups.Add(StereoKitPlatform.Startup);
+        public static App Instance;
 
         static string[] args = new string[0];
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "01000001.obj" };
@@ -26,22 +28,20 @@ namespace GameSpec.App.Explorer
 
         public App()
         {
-            StartupStereoKit(args);
             InitializeComponent();
-            //Instance = this;
-
+            Instance = this;
             MainPage = new MainPage();
+            StartupStereoKit(args);
         }
 
         public void Startup(string[] args)
         {
-            MainPage = new MainPage();
-            //Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
-            //.MapResult(
-            //    (DefaultOptions opts) => Instance.RunDefault(opts),
-            //    (TestOptions opts) => Instance.RunTest(opts),
-            //    (OpenOptions opts) => Instance.RunOpen(opts),
-            //    errs => Instance.RunError(errs));
+            Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
+            .MapResult(
+                (DefaultOptions opts) => Instance.RunDefault(opts),
+                (TestOptions opts) => Instance.RunTest(opts),
+                (OpenOptions opts) => Instance.RunOpen(opts),
+                errs => Instance.RunError(errs));
         }
 
         #region Options
@@ -70,14 +70,14 @@ namespace GameSpec.App.Explorer
         int RunDefault(DefaultOptions opts)
         {
             var page = (MainPage)MainPage;
-            //page.OnFirstLoad();
+            page.OnFirstLoad();
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
             var page = (MainPage)MainPage;
-            //page.OnFirstLoad();
+            page.OnFirstLoad();
             return 0;
         }
 

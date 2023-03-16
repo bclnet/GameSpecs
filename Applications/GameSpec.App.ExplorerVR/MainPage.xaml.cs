@@ -4,17 +4,13 @@
     {
         int count = 0;
 
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+        public MainPage() => InitializeComponent();
 
-        internal void Open(Family familySelectedItem, IList<Uri> pakUris)
-        {
-            throw new NotImplementedException();
-        }
+        public void OnFirstLoad() { }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        public void Open(Family familySelectedItem, IList<Uri> pakUris) { }
+
+        void OnCounterClicked(object sender, EventArgs e)
         {
             count++;
 
