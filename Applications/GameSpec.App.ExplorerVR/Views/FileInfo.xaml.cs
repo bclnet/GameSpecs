@@ -1,4 +1,6 @@
 ﻿using GameSpec.Metadata;
+using Microsoft.Maui.Controls;
+using System.Collections.Generic;
 
 namespace GameSpec.App.Explorer.Views
 {

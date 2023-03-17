@@ -1,4 +1,7 @@
-﻿namespace GameSpec.App.Explorer
+﻿using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
+
+namespace GameSpec.App.Explorer
 {
     public static class MauiProgram
     {

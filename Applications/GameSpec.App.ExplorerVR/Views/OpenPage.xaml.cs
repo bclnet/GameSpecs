@@ -1,4 +1,9 @@
 ﻿using GameSpec.App.Explorer.Controls;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GameSpec.App.Explorer.Views
 {

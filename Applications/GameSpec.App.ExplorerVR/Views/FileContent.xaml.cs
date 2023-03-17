@@ -1,5 +1,8 @@
 ﻿using GameSpec.Metadata;
+using Microsoft.Maui.Controls;
 using OpenStack.Graphics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GameSpec.App.Explorer.Views
 {

@@ -12,7 +12,7 @@ namespace GameSpec.Graphics
 
         Material BuildAutoMaterial(int type)
         {
-            var m = new Material(null);
+            var m = new Material((string)null);
             return m;
         }
 

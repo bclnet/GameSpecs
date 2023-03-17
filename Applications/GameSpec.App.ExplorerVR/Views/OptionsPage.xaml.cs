@@ -1,4 +1,6 @@
-﻿namespace GameSpec.App.Explorer.Views
+﻿using Microsoft.Maui.Controls;
+
+namespace GameSpec.App.Explorer.Views
 {
     public partial class OptionsPage : ContentPage
     {

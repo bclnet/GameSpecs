@@ -1,5 +1,7 @@
 ﻿using GameSpec.App.Explorer.Tools;
 using StereoKit;
+using System;
+using System.Collections.Generic;
 using Color = StereoKit.Color;
 
 namespace GameSpec.App.Explorer
@@ -22,7 +24,7 @@ namespace GameSpec.App.Explorer
         Matrix floorTr;
         string startTest = "welcome";
 
-        public void StartupStereoKit(string[] args)
+        public void PlatformStartup()
         {
             // args
             Tests.IsTesting = Array.IndexOf(args, "-test") != -1;
@@ -36,27 +38,28 @@ namespace GameSpec.App.Explorer
             }
 
             // Preload the StereoKit library for access to Time.Scale before initialization occurs.
-            SK.PreLoadLibrary();
-            Time.Scale = 1;
-            Log.Subscribe(OnLog);
+            //SK.PreLoadLibrary();
+            //Time.Scale = 1;
+            //Log.Subscribe(OnLog);
 
             // Initialize StereoKit, and the app
-            Backend.OpenXR.RequestExt("XR_KHR_win32_convert_performance_counter_time");
-            if (!SK.Initialize(Settings)) Environment.Exit(1);
-            if (Backend.XRType == BackendXRType.OpenXR && Backend.OpenXR.ExtEnabled("XR_KHR_win32_convert_performance_counter_time"))
+            //Backend.OpenXR.RequestExt("XR_KHR_win32_convert_performance_counter_time");
+            if (!SK.Initialize(Settings))
             {
-                xrConvertTimeToWin32PerformanceCounterKHR = Backend.OpenXR.GetFunction<XR_xrConvertTimeToWin32PerformanceCounterKHR>("xrConvertTimeToWin32PerformanceCounterKHR");
-                if (xrConvertTimeToWin32PerformanceCounterKHR != null)
-                {
-                    xrConvertTimeToWin32PerformanceCounterKHR(Backend.OpenXR.Instance, Backend.OpenXR.Time, out long counter);
-                    Log.Info($"XrTime: {counter}");
-                }
+                Console.WriteLine("Test");
+                Environment.Exit(1);
             }
+            //if (Backend.XRType == BackendXRType.OpenXR && Backend.OpenXR.ExtEnabled("XR_KHR_win32_convert_performance_counter_time"))
+            //{
+            //    xrConvertTimeToWin32PerformanceCounterKHR = Backend.OpenXR.GetFunction<XR_xrConvertTimeToWin32PerformanceCounterKHR>("xrConvertTimeToWin32PerformanceCounterKHR");
+            //    if (xrConvertTimeToWin32PerformanceCounterKHR != null)
+            //    {
+            //        xrConvertTimeToWin32PerformanceCounterKHR(Backend.OpenXR.Instance, Backend.OpenXR.Time, out long counter);
+            //        Log.Info($"XrTime: {counter}");
+            //    }
+            //}
 
             Initialize(args);
-
-            // Now pass execution over to StereoKit
-            SK.Run(Step, () => Log.Info("Done"));
         }
 
         public void Initialize(string[] args)

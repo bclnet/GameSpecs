@@ -1,6 +1,8 @@
 ﻿using CommandLine;
-using GameSpec.App.Explorer.Views;
+using Microsoft.Maui.Controls;
 using StereoKit;
+using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace GameSpec.App.Explorer
@@ -9,6 +11,7 @@ namespace GameSpec.App.Explorer
     {
         static App() => FamilyPlatform.Startups.Add(StereoKitPlatform.Startup);
         public static App Instance;
+        Page MainPage2;
 
         static string[] args = new string[0];
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "01000001.obj" };
@@ -30,8 +33,12 @@ namespace GameSpec.App.Explorer
         {
             InitializeComponent();
             Instance = this;
-            MainPage = new MainPage();
-            StartupStereoKit(args);
+            MainPage2 = new MainPage();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                PlatformStartup();
+                SK.Run(Step, () => Log.Info("Done"));
+            }
         }
 
         public void Startup(string[] args)
@@ -69,31 +76,31 @@ namespace GameSpec.App.Explorer
 
         int RunDefault(DefaultOptions opts)
         {
-            var page = (MainPage)MainPage;
+            var page = (MainPage)MainPage2;
             page.OnFirstLoad();
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
-            var page = (MainPage)MainPage;
+            var page = (MainPage)MainPage2;
             page.OnFirstLoad();
             return 0;
         }
 
         int RunOpen(OpenOptions opts)
         {
-            var page = (MainPage)MainPage;
+            var page = (MainPage)MainPage2;
             var family = FamilyManager.GetFamily(opts.Family);
             //var wnd = new MainWindow(false);
-            //MainPage.Open(family, new[] { opts.Uri }, opts.Path);
+            //MainPage2.Open(family, new[] { opts.Uri }, opts.Path);
             //MainPage.Show();
             return 0;
         }
 
         int RunError(IEnumerable<Error> errs)
         {
-            //MainPage.DisplayAlert("Alert", $"Errors: \n\n {errs.First()}", "Cancel").Wait();
+            //MainPage2.DisplayAlert("Alert", $"Errors: \n\n {errs.First()}", "Cancel").Wait();
             //Current.Shutdown(1);
             return 1;
         }

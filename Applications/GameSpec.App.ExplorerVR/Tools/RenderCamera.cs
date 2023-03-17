@@ -1,4 +1,6 @@
 ﻿using StereoKit;
+using System;
+using System.IO;
 using Color = StereoKit.Color;
 using IStepper = StereoKit.Framework.IStepper;
 

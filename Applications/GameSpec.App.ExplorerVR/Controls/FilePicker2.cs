@@ -1,3 +1,6 @@
+using Microsoft.Maui.Storage;
+using System.Threading.Tasks;
+
 namespace GameSpec.App.Explorer.Controls
 {
     public class FilePicker2
