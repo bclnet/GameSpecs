@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
-using Microsoft.UI.Xaml;
+using StereoKit;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,5 +23,20 @@ namespace GameSpec.App.Explorer.WinUI
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
+        static bool running = false;
+        internal static void Run()
+        {
+            if (running) return;
+            running = true;
+
+            //Task.Run(() =>
+            //{
+                var app = Explorer.App.Instance;
+                app.PlatformStartup().Wait();
+                // Now pass execution over to StereoKit
+                SK.Run(app.Step, () => Log.Info("Done"));
+            //});
+        }
     }
 }

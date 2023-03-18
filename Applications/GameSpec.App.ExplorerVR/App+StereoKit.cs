@@ -2,6 +2,7 @@
 using StereoKit;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Color = StereoKit.Color;
 
 namespace GameSpec.App.Explorer
@@ -24,7 +25,7 @@ namespace GameSpec.App.Explorer
         Matrix floorTr;
         string startTest = "welcome";
 
-        public void PlatformStartup()
+        public async Task PlatformStartup()
         {
             // args
             Tests.IsTesting = Array.IndexOf(args, "-test") != -1;
@@ -38,17 +39,13 @@ namespace GameSpec.App.Explorer
             }
 
             // Preload the StereoKit library for access to Time.Scale before initialization occurs.
-            //SK.PreLoadLibrary();
+            SK.PreLoadLibrary();
             //Time.Scale = 1;
-            //Log.Subscribe(OnLog);
+            Log.Subscribe(OnLog);
 
             // Initialize StereoKit, and the app
             //Backend.OpenXR.RequestExt("XR_KHR_win32_convert_performance_counter_time");
-            if (!SK.Initialize(Settings))
-            {
-                Console.WriteLine("Test");
-                Environment.Exit(1);
-            }
+            if (!SK.Initialize(Settings)) Environment.Exit(1);
             //if (Backend.XRType == BackendXRType.OpenXR && Backend.OpenXR.ExtEnabled("XR_KHR_win32_convert_performance_counter_time"))
             //{
             //    xrConvertTimeToWin32PerformanceCounterKHR = Backend.OpenXR.GetFunction<XR_xrConvertTimeToWin32PerformanceCounterKHR>("xrConvertTimeToWin32PerformanceCounterKHR");
@@ -59,12 +56,12 @@ namespace GameSpec.App.Explorer
             //    }
             //}
 
-            Initialize(args);
+            await Initialize(args);
         }
 
-        public void Initialize(string[] args)
+        public async Task Initialize(string[] args)
         {
-            Startup(args);
+            await Startup(args);
             var floorMat = new Material(Shader.FromFile("floor_shader.hlsl"))
             {
                 Transparency = Transparency.Blend,

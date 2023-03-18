@@ -7,14 +7,18 @@ namespace GameSpec.App.Explorer
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+            var builder = MauiApp.CreateBuilder(true);
             builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                .UseMauiApp<App>();
+                //.ConfigureMauiHandlers(collection =>
+                //{
+                //    collection.Clear();
+                //});
+                //.ConfigureFonts(fonts =>
+                //{
+                //    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                //    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                //});
 
             return builder.Build();
         }

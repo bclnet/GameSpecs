@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace GameSpec.App.Explorer
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPagex : ContentPage
     {
         int count = 0;
 
-        public MainPage() => InitializeComponent();
+        public MainPagex() => InitializeComponent();
 
         public void OnFirstLoad() { }
 

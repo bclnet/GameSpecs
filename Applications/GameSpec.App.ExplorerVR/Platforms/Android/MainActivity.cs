@@ -6,10 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using Java.Lang;
-using Microsoft.Maui;
 using StereoKit;
 using System;
-using System.Threading.Tasks;
 
 namespace GameSpec.App.Explorer
 {
@@ -35,36 +33,21 @@ namespace GameSpec.App.Explorer
             base.OnCreate(savedInstanceState);
             Microsoft.Maui.ApplicationModel.Platform.Init(this, savedInstanceState);
 
-            Run(Handle);
+            MainApplication.Run(Handle);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Microsoft.Maui.ApplicationModel.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+#pragma warning disable CA1416 // Validate platform compatibility
+        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        //{
+        //    Microsoft.Maui.ApplicationModel.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //}
+#pragma warning restore CA1416 // Validate platform compatibility
 
         protected override void OnDestroy()
         {
             SK.Quit();
             base.OnDestroy();
-        }
-
-        static bool running = false;
-        void Run(IntPtr activityHandle)
-        {
-            if (running) return;
-            running = true;
-
-            Task.Run(() =>
-            {
-                var app = App.Instance;
-                app.Settings.androidActivity = activityHandle;
-                app.PlatformStartup();
-                // Now pass execution over to StereoKit
-                SK.Run(app.Step, () => Log.Info("Done"));
-                Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
-            });
         }
 
         // Events related to surface state changes

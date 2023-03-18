@@ -7,7 +7,8 @@ namespace GameSpec.App.Explorer
         static bool HasPermissions()
         {
             var status = CheckAndRequestPermission<StorageWrite>().Result;
-            if (status == PermissionStatus.Granted) status = CheckAndRequestPermission<StorageRead>().Result;
+            if (status == PermissionStatus.Granted)
+                status = CheckAndRequestPermission<StorageRead>().Result;
             if (status != PermissionStatus.Granted)
             {
                 Instance.MainPage.DisplayAlert("Prompt", $"NO ACCESS", "Cancel").Wait();

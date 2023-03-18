@@ -15,7 +15,7 @@
 		<ApplicationTitle>GameSpec.App.Explorer2</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.gamespec.app.explorer2</ApplicationId>
+		<ApplicationId>com.contoso.gamespec.app.explorer2</ApplicationId>
 		<ApplicationIdGuid>1b5191df-e453-4abe-a64b-73a693de1131</ApplicationIdGuid>
 
 		<!-- Versions -->

@@ -9,14 +9,14 @@ namespace GameSpec.App.Explorer
     public class MainActivity : MauiAppCompatActivity {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            if (!Android.OS.Environment.IsExternalStorageManager)
-            {
-                var intent = new Intent();
-                intent.SetAction(Android.Provider.Settings.ActionManageAppAllFilesAccessPermission);
-                Android.Net.Uri uri = Android.Net.Uri.FromParts("package", this.PackageName, null);
-                intent.SetData(uri);
-                StartActivity(intent);
-            }
+            //if (!Android.OS.Environment.IsExternalStorageManager)
+            //{
+            //    var intent = new Intent();
+            //    intent.SetAction(Android.Provider.Settings.ActionManageAppAllFilesAccessPermission);
+            //    Android.Net.Uri uri = Android.Net.Uri.FromParts("package", this.PackageName, null);
+            //    intent.SetData(uri);
+            //    StartActivity(intent);
+            //}
             base.OnCreate(savedInstanceState);
             App.Startup();
         }

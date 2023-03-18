@@ -1,9 +1,11 @@
 ﻿using CommandLine;
+using GameSpec.App.Explorer.Views;
 using Microsoft.Maui.Controls;
 using StereoKit;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace GameSpec.App.Explorer
 {
@@ -33,16 +35,15 @@ namespace GameSpec.App.Explorer
         {
             InitializeComponent();
             Instance = this;
-            MainPage2 = new MainPage();
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                PlatformStartup();
-                SK.Run(Step, () => Log.Info("Done"));
-            }
+            MainPage = new MainPage();
+#if !__ANDROID__
+            Explorer.WinUI.App.Run();
+#endif
         }
 
-        public void Startup(string[] args)
+        public async Task Startup(string[] args)
         {
+            if (await HasPermissions()) return;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
             .MapResult(
                 (DefaultOptions opts) => Instance.RunDefault(opts),
@@ -76,21 +77,21 @@ namespace GameSpec.App.Explorer
 
         int RunDefault(DefaultOptions opts)
         {
-            var page = (MainPage)MainPage2;
+            var page = (MainPage)MainPage;
             page.OnFirstLoad();
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
-            var page = (MainPage)MainPage2;
+            var page = (MainPage)MainPage;
             page.OnFirstLoad();
             return 0;
         }
 
         int RunOpen(OpenOptions opts)
         {
-            var page = (MainPage)MainPage2;
+            var page = (MainPage)MainPage;
             var family = FamilyManager.GetFamily(opts.Family);
             //var wnd = new MainWindow(false);
             //MainPage2.Open(family, new[] { opts.Uri }, opts.Path);

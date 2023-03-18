@@ -9,10 +9,10 @@
 		<SingleProject>true</SingleProject>
 
 		<!-- Display name -->
-		<ApplicationTitle>GameSpec.App.Explorer</ApplicationTitle>
+		<ApplicationTitle>GameSpec.App.ExplorerVR</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.gamespec.app.explorer</ApplicationId>
+		<ApplicationId>com.contoso.gamespec.app.explorerVR</ApplicationId>
 		<ApplicationIdGuid>fd51f409-dd2c-49a7-8d7e-ab4e91e09972</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -44,25 +44,9 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Remove="Views\MainPage.xaml.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Remove="Views\MainPage.xaml" />
-	</ItemGroup>
-
 	<!-- Copy assets, and build the app's shaders into the final app folder -->
 	<ItemGroup>
 		<SKShader Include="Assets\**\*.hlsl" BuildRoot="." BuildTo="Assets" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AndroidResource Remove="runtimes_\**" />
-	  <Compile Remove="runtimes_\**" />
-	  <EmbeddedResource Remove="runtimes_\**" />
-	  <MauiCss Remove="runtimes_\**" />
-	  <MauiXaml Remove="runtimes_\**" />
-	  <None Remove="runtimes_\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -87,11 +71,15 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
+	  <ProjectReference Include="..\StereoKit.Maui\StereoKit.Maui.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="MainPage.xaml.cs">
+	  <Compile Update="App+Permissions.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="MainPagex.xaml.cs">
+	    <DependentUpon>MainPagex.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\AboutPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
@@ -117,7 +105,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MainPage.xaml">
+	  <MauiXaml Update="MainPagex.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AboutPage.xaml">
@@ -133,6 +121,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\FileInfo.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\OpenPage.xaml">

@@ -1,0 +1,161 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Handlers\ActivityIndicator\**" />
+	  <Compile Remove="Handlers\Application\**" />
+	  <Compile Remove="Handlers\Border\**" />
+	  <Compile Remove="Handlers\Button\**" />
+	  <Compile Remove="Handlers\CheckBox\**" />
+	  <Compile Remove="Handlers\ContentView\**" />
+	  <Compile Remove="Handlers\DatePicker\**" />
+	  <Compile Remove="Handlers\Editor\**" />
+	  <Compile Remove="Handlers\Element\**" />
+	  <Compile Remove="Handlers\Entry\**" />
+	  <Compile Remove="Handlers\FlyoutView\**" />
+	  <Compile Remove="Handlers\GraphicsView\**" />
+	  <Compile Remove="Handlers\ImageButton\**" />
+	  <Compile Remove="Handlers\Image\**" />
+	  <Compile Remove="Handlers\IndicatorView\**" />
+	  <Compile Remove="Handlers\Label\**" />
+	  <Compile Remove="Handlers\Layout\**" />
+	  <Compile Remove="Handlers\MenuBarItem\**" />
+	  <Compile Remove="Handlers\MenuBar\**" />
+	  <Compile Remove="Handlers\MenuFlyoutHandler\**" />
+	  <Compile Remove="Handlers\MenuFlyoutItem\**" />
+	  <Compile Remove="Handlers\MenuFlyoutSeparator\**" />
+	  <Compile Remove="Handlers\MenuFlyoutSubItem\**" />
+	  <Compile Remove="Handlers\NavigationPage\**" />
+	  <Compile Remove="Handlers\Page\**" />
+	  <Compile Remove="Handlers\Picker\**" />
+	  <Compile Remove="Handlers\ProgressBar\**" />
+	  <Compile Remove="Handlers\RadioButton\**" />
+	  <Compile Remove="Handlers\RefreshView\**" />
+	  <Compile Remove="Handlers\ScrollView\**" />
+	  <Compile Remove="Handlers\SearchBar\**" />
+	  <Compile Remove="Handlers\ShapeView\**" />
+	  <Compile Remove="Handlers\Slider\**" />
+	  <Compile Remove="Handlers\Stepper\**" />
+	  <Compile Remove="Handlers\SwipeItemMenuItem\**" />
+	  <Compile Remove="Handlers\SwipeItemView\**" />
+	  <Compile Remove="Handlers\SwipeView\**" />
+	  <Compile Remove="Handlers\Switch\**" />
+	  <Compile Remove="Handlers\TabbedView\**" />
+	  <Compile Remove="Handlers\TimePicker\**" />
+	  <Compile Remove="Handlers\Toolbar\**" />
+	  <Compile Remove="Handlers\View\**" />
+	  <Compile Remove="Handlers\WebView\**" />
+	  <Compile Remove="Handlers\Window\**" />
+	  <EmbeddedResource Remove="Handlers\ActivityIndicator\**" />
+	  <EmbeddedResource Remove="Handlers\Application\**" />
+	  <EmbeddedResource Remove="Handlers\Border\**" />
+	  <EmbeddedResource Remove="Handlers\Button\**" />
+	  <EmbeddedResource Remove="Handlers\CheckBox\**" />
+	  <EmbeddedResource Remove="Handlers\ContentView\**" />
+	  <EmbeddedResource Remove="Handlers\DatePicker\**" />
+	  <EmbeddedResource Remove="Handlers\Editor\**" />
+	  <EmbeddedResource Remove="Handlers\Element\**" />
+	  <EmbeddedResource Remove="Handlers\Entry\**" />
+	  <EmbeddedResource Remove="Handlers\FlyoutView\**" />
+	  <EmbeddedResource Remove="Handlers\GraphicsView\**" />
+	  <EmbeddedResource Remove="Handlers\ImageButton\**" />
+	  <EmbeddedResource Remove="Handlers\Image\**" />
+	  <EmbeddedResource Remove="Handlers\IndicatorView\**" />
+	  <EmbeddedResource Remove="Handlers\Label\**" />
+	  <EmbeddedResource Remove="Handlers\Layout\**" />
+	  <EmbeddedResource Remove="Handlers\MenuBarItem\**" />
+	  <EmbeddedResource Remove="Handlers\MenuBar\**" />
+	  <EmbeddedResource Remove="Handlers\MenuFlyoutHandler\**" />
+	  <EmbeddedResource Remove="Handlers\MenuFlyoutItem\**" />
+	  <EmbeddedResource Remove="Handlers\MenuFlyoutSeparator\**" />
+	  <EmbeddedResource Remove="Handlers\MenuFlyoutSubItem\**" />
+	  <EmbeddedResource Remove="Handlers\NavigationPage\**" />
+	  <EmbeddedResource Remove="Handlers\Page\**" />
+	  <EmbeddedResource Remove="Handlers\Picker\**" />
+	  <EmbeddedResource Remove="Handlers\ProgressBar\**" />
+	  <EmbeddedResource Remove="Handlers\RadioButton\**" />
+	  <EmbeddedResource Remove="Handlers\RefreshView\**" />
+	  <EmbeddedResource Remove="Handlers\ScrollView\**" />
+	  <EmbeddedResource Remove="Handlers\SearchBar\**" />
+	  <EmbeddedResource Remove="Handlers\ShapeView\**" />
+	  <EmbeddedResource Remove="Handlers\Slider\**" />
+	  <EmbeddedResource Remove="Handlers\Stepper\**" />
+	  <EmbeddedResource Remove="Handlers\SwipeItemMenuItem\**" />
+	  <EmbeddedResource Remove="Handlers\SwipeItemView\**" />
+	  <EmbeddedResource Remove="Handlers\SwipeView\**" />
+	  <EmbeddedResource Remove="Handlers\Switch\**" />
+	  <EmbeddedResource Remove="Handlers\TabbedView\**" />
+	  <EmbeddedResource Remove="Handlers\TimePicker\**" />
+	  <EmbeddedResource Remove="Handlers\Toolbar\**" />
+	  <EmbeddedResource Remove="Handlers\View\**" />
+	  <EmbeddedResource Remove="Handlers\WebView\**" />
+	  <EmbeddedResource Remove="Handlers\Window\**" />
+	  <None Remove="Handlers\ActivityIndicator\**" />
+	  <None Remove="Handlers\Application\**" />
+	  <None Remove="Handlers\Border\**" />
+	  <None Remove="Handlers\Button\**" />
+	  <None Remove="Handlers\CheckBox\**" />
+	  <None Remove="Handlers\ContentView\**" />
+	  <None Remove="Handlers\DatePicker\**" />
+	  <None Remove="Handlers\Editor\**" />
+	  <None Remove="Handlers\Element\**" />
+	  <None Remove="Handlers\Entry\**" />
+	  <None Remove="Handlers\FlyoutView\**" />
+	  <None Remove="Handlers\GraphicsView\**" />
+	  <None Remove="Handlers\ImageButton\**" />
+	  <None Remove="Handlers\Image\**" />
+	  <None Remove="Handlers\IndicatorView\**" />
+	  <None Remove="Handlers\Label\**" />
+	  <None Remove="Handlers\Layout\**" />
+	  <None Remove="Handlers\MenuBarItem\**" />
+	  <None Remove="Handlers\MenuBar\**" />
+	  <None Remove="Handlers\MenuFlyoutHandler\**" />
+	  <None Remove="Handlers\MenuFlyoutItem\**" />
+	  <None Remove="Handlers\MenuFlyoutSeparator\**" />
+	  <None Remove="Handlers\MenuFlyoutSubItem\**" />
+	  <None Remove="Handlers\NavigationPage\**" />
+	  <None Remove="Handlers\Page\**" />
+	  <None Remove="Handlers\Picker\**" />
+	  <None Remove="Handlers\ProgressBar\**" />
+	  <None Remove="Handlers\RadioButton\**" />
+	  <None Remove="Handlers\RefreshView\**" />
+	  <None Remove="Handlers\ScrollView\**" />
+	  <None Remove="Handlers\SearchBar\**" />
+	  <None Remove="Handlers\ShapeView\**" />
+	  <None Remove="Handlers\Slider\**" />
+	  <None Remove="Handlers\Stepper\**" />
+	  <None Remove="Handlers\SwipeItemMenuItem\**" />
+	  <None Remove="Handlers\SwipeItemView\**" />
+	  <None Remove="Handlers\SwipeView\**" />
+	  <None Remove="Handlers\Switch\**" />
+	  <None Remove="Handlers\TabbedView\**" />
+	  <None Remove="Handlers\TimePicker\**" />
+	  <None Remove="Handlers\Toolbar\**" />
+	  <None Remove="Handlers\View\**" />
+	  <None Remove="Handlers\WebView\**" />
+	  <None Remove="Handlers\Window\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Handlers\ElementHandlerExtensions.cs" />
+	  <Compile Remove="Handlers\IElementHandler.cs" />
+	  <Compile Remove="Handlers\IViewHandler.Android.cs" />
+	  <Compile Remove="Handlers\IViewHandler.cs" />
+	  <Compile Remove="Handlers\IViewHandler.iOS.cs" />
+	  <Compile Remove="Handlers\IViewHandler.Tizen.cs" />
+	  <Compile Remove="Handlers\IViewHandler.Windows.cs" />
+	  <Compile Remove="Handlers\OpenWindowRequest.cs" />
+	  <Compile Remove="Handlers\ViewHandlerExtensions.Android.cs" />
+	  <Compile Remove="Handlers\ViewHandlerExtensions.iOS.cs" />
+	  <Compile Remove="Handlers\ViewHandlerExtensions.Tizen.cs" />
+	  <Compile Remove="Handlers\ViewHandlerExtensions.Windows.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Handlers\" />
+	</ItemGroup>
+
+</Project>
