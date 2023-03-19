@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls2.MauiSearchBar;
-using QueryEditor = StereoKit.Maui.Controls.Entry;
+using PlatformView = StereoKit.Maui.Controls.MauiSearchBar;
+using QueryEditor = StereoKit.UIX.Controls.Entry;
 
 namespace StereoKit.Maui.Handlers
 {

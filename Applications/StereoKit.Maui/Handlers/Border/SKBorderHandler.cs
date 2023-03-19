@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui;
 using StereoKit.Maui.Platform;
-using PlatformView = StereoKit.Maui.Views.Border;
+using PlatformView = StereoKit.UIX.Views.Border;
 
 namespace StereoKit.Maui.Handlers
 {

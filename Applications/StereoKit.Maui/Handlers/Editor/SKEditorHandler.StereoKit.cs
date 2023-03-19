@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui;
 using System;
-using PlatformView = StereoKit.Maui.Controls.Editor;
+using PlatformView = StereoKit.UIX.Controls.Editor;
 
 namespace StereoKit.Maui.Handlers
 {

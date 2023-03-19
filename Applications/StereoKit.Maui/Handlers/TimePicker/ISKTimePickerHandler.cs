@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.TimePicker;
+using PlatformView = StereoKit.UIX.Controls.TimePicker;
 
 namespace StereoKit.Maui.Handlers
 {

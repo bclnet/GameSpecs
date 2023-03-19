@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls2.MauiSearchBar;
+using PlatformView = StereoKit.Maui.Controls.MauiSearchBar;
 
 namespace StereoKit.Maui.Handlers
 {

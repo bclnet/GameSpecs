@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Media;
 using System.IO;
 using IPlatformViewHandler = Microsoft.Maui.IViewHandler;
-using PlatformView = StereoKit.Maui.Controls.View;
-using ParentView = StereoKit.Maui.Controls.View;
+using PlatformView = StereoKit.UIX.Controls.View;
+using ParentView = StereoKit.UIX.Controls.View;
 using System;
 using Microsoft.Maui;
 

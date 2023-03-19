@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.DatePicker;
+using PlatformView = StereoKit.UIX.Controls.DatePicker;
 
 namespace StereoKit.Maui.Handlers
 {

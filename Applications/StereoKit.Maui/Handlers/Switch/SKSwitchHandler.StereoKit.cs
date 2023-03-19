@@ -1,5 +1,5 @@
 using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.Switch;
+using PlatformView = StereoKit.UIX.Controls.Switch;
 
 namespace StereoKit.Maui.Handlers
 {

@@ -18,4 +18,8 @@
 	  <PackageReference Include="StereoKit" Version="0.3.7-preview.9" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\StereoKit.Controls\StereoKit.Controls.csproj" />
+	</ItemGroup>
+
 </Project>

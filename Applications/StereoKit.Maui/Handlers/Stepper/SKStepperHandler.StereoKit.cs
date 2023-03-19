@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls2.MauiStepper;
+using PlatformView = StereoKit.Maui.Controls.MauiStepper;
 
 namespace StereoKit.Maui.Handlers
 {

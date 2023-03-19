@@ -3,7 +3,7 @@ using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using System;
 using System.Threading;
-using PlatformView = StereoKit.Maui.Controls.Image;
+using PlatformView = StereoKit.UIX.Controls.Image;
 
 namespace StereoKit.Maui.Handlers
 {

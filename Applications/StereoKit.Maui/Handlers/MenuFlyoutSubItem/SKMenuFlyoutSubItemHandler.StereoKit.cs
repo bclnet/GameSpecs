@@ -1,6 +1,6 @@
 ﻿#if MENU2
 using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.MenuFlyoutSubItem;
+using PlatformView = StereoKit.UIX.Controls.MenuFlyoutSubItem;
 
 namespace StereoKit.Maui.Handlers
 {

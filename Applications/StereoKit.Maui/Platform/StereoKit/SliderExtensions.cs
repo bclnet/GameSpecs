@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using StereoKit.Maui.Controls;
+using StereoKit.UIX.Controls;
 using System.Threading.Tasks;
 
 namespace StereoKit.Maui.Platform

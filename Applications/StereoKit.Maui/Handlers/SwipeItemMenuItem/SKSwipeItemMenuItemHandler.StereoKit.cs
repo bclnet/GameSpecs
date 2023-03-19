@@ -1,7 +1,7 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 using System;
-using PlatformView = StereoKit.Maui.Controls.SwipeItem;
+using PlatformView = StereoKit.UIX.Controls.SwipeItem;
 
 namespace StereoKit.Maui.Handlers
 {

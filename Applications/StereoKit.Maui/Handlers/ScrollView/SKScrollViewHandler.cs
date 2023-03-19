@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.ScrollViewer;
+using PlatformView = StereoKit.UIX.Controls.ScrollViewer;
 
 namespace StereoKit.Maui.Handlers
 {

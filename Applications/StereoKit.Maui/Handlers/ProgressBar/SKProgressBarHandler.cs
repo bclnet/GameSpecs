@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.ProgressBar;
+using PlatformView = StereoKit.UIX.Controls.ProgressBar;
 
 namespace StereoKit.Maui.Handlers
 {

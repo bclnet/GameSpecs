@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui;
 using System;
-using PlatformView = StereoKit.Maui.Controls.RadioButton;
+using PlatformView = StereoKit.UIX.Controls.RadioButton;
 
 namespace StereoKit.Maui.Handlers
 {

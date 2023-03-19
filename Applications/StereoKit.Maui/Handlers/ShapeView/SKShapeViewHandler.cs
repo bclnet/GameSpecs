@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls2.MauiShapeView;
+using PlatformView = StereoKit.Maui.Controls.MauiShapeView;
 
 namespace StereoKit.Maui.Handlers
 {

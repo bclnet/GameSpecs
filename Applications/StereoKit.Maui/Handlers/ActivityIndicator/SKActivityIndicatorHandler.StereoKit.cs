@@ -1,7 +1,7 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 using System;
-using PlatformView = StereoKit.Maui.Controls.ActivityIndicator;
+using PlatformView = StereoKit.UIX.Controls.ActivityIndicator;
 
 namespace StereoKit.Maui.Handlers
 {

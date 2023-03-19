@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.CheckBox;
+using PlatformView = StereoKit.UIX.Controls.CheckBox;
 
 namespace StereoKit.Maui.Handlers
 {

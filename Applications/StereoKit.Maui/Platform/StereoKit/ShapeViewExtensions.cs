@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Graphics;
-using StereoKit.Maui.Controls2;
+using StereoKit.Maui.Controls;
 
 namespace StereoKit.Maui.Platform
 {

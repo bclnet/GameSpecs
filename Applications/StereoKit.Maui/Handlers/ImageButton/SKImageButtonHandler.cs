@@ -1,8 +1,8 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Platform;
 using PlatformImage = System.Object;
-using PlatformImageView = StereoKit.Maui.Controls.Image;
-using PlatformView = StereoKit.Maui.Controls.Button;
+using PlatformImageView = StereoKit.UIX.Controls.Image;
+using PlatformView = StereoKit.UIX.Controls.Button;
 
 namespace StereoKit.Maui.Handlers
 {

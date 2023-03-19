@@ -3,7 +3,7 @@ using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Handlers;
 using StereoKit.Maui.Platform;
 using MRect = Microsoft.Maui.Graphics.Rect;
-using PlatformView = StereoKit.Maui.Controls.View;
+using PlatformView = StereoKit.UIX.Controls.View;
 
 namespace StereoKit.Maui.Handlers
 {
