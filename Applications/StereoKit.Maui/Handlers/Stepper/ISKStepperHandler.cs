@@ -1,20 +1,11 @@
-﻿#if __IOS__ || MACCATALYST
-using PlatformView = UIKit.UIStepper;
-#elif MONOANDROID
-using PlatformView = Microsoft.Maui.Platform.MauiStepper;
-#elif WINDOWS
-using PlatformView = Microsoft.Maui.Platform.MauiStepper;
-#elif TIZEN
-using PlatformView = Microsoft.Maui.Platform.MauiStepper;
-#elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
-using PlatformView = System.Object;
-#endif
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiStepper;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial interface ISKStepperHandler : IViewHandler
-	{
-		new IStepper VirtualView { get; }
-		new PlatformView PlatformView { get; }
-	}
+    public partial interface ISKStepperHandler : IViewHandler
+    {
+        new IStepper VirtualView { get; }
+        new PlatformView PlatformView { get; }
+    }
 }

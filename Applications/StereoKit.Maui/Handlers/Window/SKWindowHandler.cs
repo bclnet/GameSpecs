@@ -3,9 +3,9 @@ using Microsoft.Maui.Handlers;
 
 namespace StereoKit.Maui.Handlers
 {
-    public partial class SKWindowHandler : IWindowHandler
+    public partial class SKWindowHandler : ISKWindowHandler
     {
-        public static IPropertyMapper<IWindow, IWindowHandler> Mapper = new PropertyMapper<IWindow, IWindowHandler>(ElementHandler.ElementMapper)
+        public static IPropertyMapper<IWindow, ISKWindowHandler> Mapper = new PropertyMapper<IWindow, ISKWindowHandler>(ElementHandler.ElementMapper)
         {
             [nameof(IWindow.Title)] = MapTitle,
             [nameof(IWindow.Content)] = MapContent,
@@ -15,7 +15,7 @@ namespace StereoKit.Maui.Handlers
             //[nameof(IWindow.Height)] = MapHeight,
         };
 
-        public static CommandMapper<IWindow, IWindowHandler> CommandMapper = new(ElementCommandMapper)
+        public static CommandMapper<IWindow, ISKWindowHandler> CommandMapper = new(ElementCommandMapper)
         {
             [nameof(IWindow.RequestDisplayDensity)] = MapRequestDisplayDensity,
         };

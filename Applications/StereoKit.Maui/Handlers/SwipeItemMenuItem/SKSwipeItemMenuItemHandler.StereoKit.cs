@@ -1,31 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Handlers;
+using System;
+using PlatformView = StereoKit.Maui.Controls.SwipeItem;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class SwipeItemMenuItemHandler : ElementHandler<ISwipeItemMenuItem, object>
-	{
-		protected override object CreatePlatformElement()
-		{
-			throw new NotImplementedException();
-		}
+    public partial class SKSwipeItemMenuItemHandler : ElementHandler<ISwipeItemMenuItem, PlatformView>
+    {
+        protected override PlatformView CreatePlatformElement() => new();
 
-		public static void MapTextColor(ISwipeItemMenuItemHandler handler, ITextStyle view) { }
+        public static void MapTextColor(ISKSwipeItemMenuItemHandler handler, ITextStyle view) { }
+        public static void MapCharacterSpacing(ISKSwipeItemMenuItemHandler handler, ITextStyle view) { }
+        public static void MapFont(ISKSwipeItemMenuItemHandler handler, ITextStyle view) { }
+        public static void MapText(ISKSwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
+        public static void MapBackground(ISKSwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
+        public static void MapVisibility(ISKSwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
+        public static void MapSource(ISKSwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
 
-		public static void MapCharacterSpacing(ISwipeItemMenuItemHandler handler, ITextStyle view) { }
-
-		public static void MapFont(ISwipeItemMenuItemHandler handler, ITextStyle view) { }
-
-		public static void MapText(ISwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
-
-		public static void MapBackground(ISwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
-
-		public static void MapVisibility(ISwipeItemMenuItemHandler handler, ISwipeItemMenuItem view) { }
-
-		void OnSetImageSource(object? obj)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        void OnSetImageSource(object? obj) => throw new NotImplementedException();
+    }
 }

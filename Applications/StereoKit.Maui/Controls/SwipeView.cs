@@ -3,7 +3,7 @@ using System;
 
 namespace StereoKit.Maui.Controls
 {
-    public class SwipeView
+    public class SwipeView : View
     {
     }
 }

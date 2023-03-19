@@ -3,7 +3,7 @@ using System;
 
 namespace StereoKit.Maui.Controls
 {
-    public class Switch
+    public class Switch : View
     {
         public bool IsToggled { get; internal set; }
         public object OnColor { get; internal set; }

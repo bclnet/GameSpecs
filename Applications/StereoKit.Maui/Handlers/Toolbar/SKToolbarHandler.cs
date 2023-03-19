@@ -19,6 +19,6 @@ namespace StereoKit.Maui.Handlers
         public SKToolbarHandler(IPropertyMapper? mapper, CommandMapper? commandMapper) : base(mapper ?? Mapper, commandMapper ?? CommandMapper) { }
 
         IToolbar ISKToolbarHandler.VirtualView => VirtualView;
-        PlatformView ISKToolbarHandler.PlatformView => (PlatformView)PlatformView;
+        PlatformView ISKToolbarHandler.PlatformView => PlatformView;
     }
 }

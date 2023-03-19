@@ -7,13 +7,9 @@ namespace GameSpec.App.Explorer
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder(true);
+            var builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiApp<App>();
-                //.ConfigureMauiHandlers(collection =>
-                //{
-                //    collection.Clear();
-                //});
+                .UseSKMauiApp<App>();
                 //.ConfigureFonts(fonts =>
                 //{
                 //    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

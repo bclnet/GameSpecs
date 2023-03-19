@@ -29,6 +29,6 @@ namespace StereoKit.Maui.Handlers
 
         ISwipeView ISKSwipeViewHandler.VirtualView => VirtualView;
 
-        PlatformView ISKSwipeViewHandler.PlatformView => (PlatformView)PlatformView;
+        PlatformView ISKSwipeViewHandler.PlatformView => PlatformView;
     }
 }

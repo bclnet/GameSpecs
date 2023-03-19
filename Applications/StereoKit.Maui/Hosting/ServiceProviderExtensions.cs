@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
 using System;
 
-namespace StereoKit.Maui
+namespace Microsoft.Maui
 {
     internal static class ServiceProviderExtensions
 	{

@@ -1,10 +1,11 @@
-﻿using System;
-using Microsoft.Maui;
+﻿using Microsoft.Maui;
 using Microsoft.Maui.HotReload;
 using StereoKit.Maui.Controls;
+using Microsoft.Maui.Platform;
+using System;
 using NView = StereoKit.Maui.Controls.View;
 
-namespace StereoKit.Maui.Platform
+namespace StereoKit.Maui.Views
 {
     public class ContainerView : ViewGroup, IReloadHandler
     {
@@ -46,7 +47,7 @@ namespace StereoKit.Maui.Platform
                 //nativeView.WidthSpecification = Tizen.NUI.BaseComponents.LayoutParamPolicies.MatchParent;
                 //nativeView.HeightSpecification = Tizen.NUI.BaseComponents.LayoutParamPolicies.MatchParent;
                 Children.Add(nativeView);
-                CurrentPlatformView = nativeView;
+                CurrentPlatformView = (NView)nativeView;
             }
         }
 

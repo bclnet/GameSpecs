@@ -1,22 +1,22 @@
-﻿using System;
-using Microsoft.Maui.Graphics;
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiShapeView;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class ShapeViewHandler : ViewHandler<IShapeView, object>
-	{
-		protected override object CreatePlatformView() => throw new NotImplementedException();
+    public partial class SKShapeViewHandler : SKViewHandler<IShapeView, PlatformView>
+    {
+        protected override PlatformView CreatePlatformView() => new();
 
-		public static void MapBackground(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapShape(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapAspect(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapFill(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStroke(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStrokeThickness(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStrokeDashPattern(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStrokeDashOffset(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStrokeLineCap(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStrokeLineJoin(IShapeViewHandler handler, IShapeView shapeView) { }
-		public static void MapStrokeMiterLimit(IShapeViewHandler handler, IShapeView shapeView) { }
-	}
+        public static void MapBackground(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapShape(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapAspect(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapFill(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStroke(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStrokeThickness(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStrokeDashPattern(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStrokeDashOffset(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStrokeLineCap(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStrokeLineJoin(ISKShapeViewHandler handler, IShapeView shapeView) { }
+        public static void MapStrokeMiterLimit(ISKShapeViewHandler handler, IShapeView shapeView) { }
+    }
 }

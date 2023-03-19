@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls.ScrollViewer;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class ScrollViewHandler : ViewHandler<IScrollView, object>
-	{
-		protected override object CreatePlatformView() => throw new NotImplementedException();
+    public partial class SKScrollViewHandler : SKViewHandler<IScrollView, PlatformView>
+    {
+        protected override PlatformView CreatePlatformView() => new();
 
-		public static void MapContent(IViewHandler handler, IScrollView scrollView) { }
-		public static void MapHorizontalScrollBarVisibility(IViewHandler handler, IScrollView scrollView) { }
-		public static void MapVerticalScrollBarVisibility(IViewHandler handler, IScrollView scrollView) { }
-		public static void MapOrientation(IViewHandler handler, IScrollView scrollView) { }
-		public static void MapContentSize(IViewHandler handler, IScrollView scrollView) { }
-		public static void MapRequestScrollTo(IScrollViewHandler handler, IScrollView scrollView, object? args) { }
-	}
+        public static void MapContent(IViewHandler handler, IScrollView scrollView) { }
+        public static void MapHorizontalScrollBarVisibility(IViewHandler handler, IScrollView scrollView) { }
+        public static void MapVerticalScrollBarVisibility(IViewHandler handler, IScrollView scrollView) { }
+        public static void MapOrientation(IViewHandler handler, IScrollView scrollView) { }
+        public static void MapContentSize(IViewHandler handler, IScrollView scrollView) { }
+        public static void MapRequestScrollTo(ISKScrollViewHandler handler, IScrollView scrollView, object? args) { }
+    }
 }

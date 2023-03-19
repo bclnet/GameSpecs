@@ -1,12 +1,13 @@
-﻿using Microsoft.Maui;
+﻿#if MENU2
 using System;
 
 namespace StereoKit.Maui.Controls
 {
     public class MenuFlyoutItem
     {
-        public Action<object, UI.Xaml.RoutedEventArgs> Click { get; internal set; }
+        public Action<object, EventArgs> Click { get; internal set; }
         public object Icon { get; internal set; }
         public string Text { get; internal set; }
     }
 }
+#endif

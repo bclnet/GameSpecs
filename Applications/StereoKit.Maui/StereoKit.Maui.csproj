@@ -7,74 +7,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Handlers\Element_\**" />
-	  <Compile Remove="Handlers\ImageButton\**" />
-	  <Compile Remove="Handlers\Image\**" />
-	  <Compile Remove="Handlers\IndicatorView\**" />
-	  <Compile Remove="Handlers\SwipeItemView\**" />
-	  <Compile Remove="Handlers\WebView\**" />
-	  <EmbeddedResource Remove="Handlers\Element_\**" />
-	  <EmbeddedResource Remove="Handlers\ImageButton\**" />
-	  <EmbeddedResource Remove="Handlers\Image\**" />
-	  <EmbeddedResource Remove="Handlers\IndicatorView\**" />
-	  <EmbeddedResource Remove="Handlers\SwipeItemView\**" />
-	  <EmbeddedResource Remove="Handlers\WebView\**" />
-	  <MauiCss Remove="Handlers\Element_\**" />
-	  <MauiCss Remove="Handlers\ImageButton\**" />
-	  <MauiCss Remove="Handlers\Image\**" />
-	  <MauiCss Remove="Handlers\IndicatorView\**" />
-	  <MauiCss Remove="Handlers\SwipeItemView\**" />
-	  <MauiCss Remove="Handlers\WebView\**" />
-	  <MauiXaml Remove="Handlers\Element_\**" />
-	  <MauiXaml Remove="Handlers\ImageButton\**" />
-	  <MauiXaml Remove="Handlers\Image\**" />
-	  <MauiXaml Remove="Handlers\IndicatorView\**" />
-	  <MauiXaml Remove="Handlers\SwipeItemView\**" />
-	  <MauiXaml Remove="Handlers\WebView\**" />
-	  <None Remove="Handlers\Element_\**" />
-	  <None Remove="Handlers\ImageButton\**" />
-	  <None Remove="Handlers\Image\**" />
-	  <None Remove="Handlers\IndicatorView\**" />
-	  <None Remove="Handlers\SwipeItemView\**" />
-	  <None Remove="Handlers\WebView\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Handlers\ElementHandlerExtensions.cs" />
-	  <Compile Remove="Handlers\IElementHandler.cs" />
-	  <Compile Remove="Handlers\IViewHandler.Android.cs" />
-	  <Compile Remove="Handlers\IViewHandler.cs" />
-	  <Compile Remove="Handlers\IViewHandler.iOS.cs" />
-	  <Compile Remove="Handlers\IViewHandler.Windows.cs" />
-	  <Compile Remove="Handlers\OpenWindowRequest.cs" />
-	  <Compile Remove="Handlers\ViewHandlerExtensions.Android.cs" />
-	  <Compile Remove="Handlers\ViewHandlerExtensions.iOS.cs" />
-	  <Compile Remove="Handlers\ViewHandlerExtensions.StereoKit.cs" />
-	  <Compile Remove="Handlers\ViewHandlerExtensions.Windows.cs" />
-	  <Compile Remove="Platform\StereoKit\StackNavigationManager.cs" />
-	  <Compile Remove="Platform\StereoKit\StrokeExtensions_NEW.cs" />
-	  <Compile Remove="Platform\StereoKit\ToolbarExtensions.cs" />
-	  <Compile Remove="Platform\StereoKit\TransformationExtensions.cs" />
-	  <Compile Remove="Platform\StereoKit\ViewExtensions_NEW.cs" />
-	  <Compile Remove="Platform\StereoKit\WebViewExtensions.cs" />
-	  <Compile Remove="Platform\StereoKit\WindowExtensions_NEW.cs" />
-	  <Compile Remove="Platform\StereoKit\WrapperView.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Include="Handlers\ImageButton\ISKImageButtonHandler.cs" />
-	  <Compile Include="Handlers\ImageButton\SKImageButtonHandler.cs" />
-	  <Compile Include="Handlers\ImageButton\SKImageButtonHandler.StereoKit.cs" />
-	  <Compile Include="Handlers\Image\ISKImageHandler.cs" />
-	  <Compile Include="Handlers\Image\SKImageHandler.cs" />
-	  <Compile Include="Handlers\Image\SKImageHandler.StereoKit.cs" />
-	  <Compile Include="Handlers\IndicatorView\ISKIndicatorViewHandler.cs" />
-	  <Compile Include="Handlers\IndicatorView\SKIndicatorViewHandler.cs" />
-	  <Compile Include="Handlers\IndicatorView\SKIndicatorViewHandler.StereoKit.cs" />
-	  <Compile Include="Handlers\SwipeItemView\ISKSwipeItemViewHandler.cs" />
-	  <Compile Include="Handlers\WebView\ISKWebViewHandler.cs" />
-	  <Compile Include="Handlers\WebView\SKWebViewHandler.cs" />
-	  <Compile Include="Handlers\WebView\SKWebViewHandler.StereoKit.cs" />
+	  <Compile Remove="Hosting_\**" />
+	  <EmbeddedResource Remove="Hosting_\**" />
+	  <MauiCss Remove="Hosting_\**" />
+	  <MauiXaml Remove="Hosting_\**" />
+	  <None Remove="Hosting_\**" />
 	</ItemGroup>
 
 	<ItemGroup>

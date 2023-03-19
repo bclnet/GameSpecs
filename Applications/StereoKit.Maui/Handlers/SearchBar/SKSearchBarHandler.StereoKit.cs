@@ -1,27 +1,28 @@
-﻿using System;
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiSearchBar;
+using QueryEditor = StereoKit.Maui.Controls.Entry;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class SearchBarHandler : ViewHandler<ISearchBar, object>
-	{
-		protected override object CreatePlatformView() => throw new NotImplementedException();
+    public partial class SKSearchBarHandler : SKViewHandler<ISearchBar, PlatformView>
+    {
+        protected override PlatformView CreatePlatformView() => new();
+        public QueryEditor? QueryEditor => new();
 
-		public object? QueryEditor => throw new NotImplementedException();
-
-		public static void MapBackground(ISearchBarHandler handler, ISearchBar searchBar) { }
-		public static void MapIsEnabled(ISearchBarHandler handler, ISearchBar searchBar) { }
-		public static void MapText(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapPlaceholder(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapPlaceholderColor(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapFont(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapHorizontalTextAlignment(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapVerticalTextAlignment(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapCharacterSpacing(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapTextColor(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapCancelButtonColor(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapIsTextPredictionEnabled(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapMaxLength(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapIsReadOnly(IViewHandler handler, ISearchBar searchBar) { }
-		public static void MapKeyboard(IViewHandler handler, ISearchBar searchBar) { }
-	}
+        public static void MapBackground(ISKSearchBarHandler handler, ISearchBar searchBar) { }
+        public static void MapIsEnabled(ISKSearchBarHandler handler, ISearchBar searchBar) { }
+        public static void MapText(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapPlaceholder(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapPlaceholderColor(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapFont(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapHorizontalTextAlignment(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapVerticalTextAlignment(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapCharacterSpacing(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapTextColor(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapCancelButtonColor(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapIsTextPredictionEnabled(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapMaxLength(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapIsReadOnly(IViewHandler handler, ISearchBar searchBar) { }
+        public static void MapKeyboard(IViewHandler handler, ISearchBar searchBar) { }
+    }
 }

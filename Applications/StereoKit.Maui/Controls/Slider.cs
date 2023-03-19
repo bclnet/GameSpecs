@@ -3,7 +3,7 @@ using System;
 
 namespace StereoKit.Maui.Controls
 {
-    public class Slider
+    public class Slider : View
     {
         public float MinValue { get; internal set; }
         public float MaxValue { get; internal set; }

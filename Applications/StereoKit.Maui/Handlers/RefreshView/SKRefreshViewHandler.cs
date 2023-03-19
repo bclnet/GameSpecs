@@ -1,48 +1,29 @@
-﻿#if __IOS__ || MACCATALYST
-using PlatformView = Microsoft.Maui.Platform.MauiRefreshView;
-#elif MONOANDROID
-using PlatformView = Microsoft.Maui.Platform.MauiSwipeRefreshLayout;
-#elif WINDOWS
-using PlatformView = Microsoft.UI.Xaml.Controls.RefreshContainer;
-#elif TIZEN
-using PlatformView = Microsoft.Maui.Platform.MauiRefreshLayout;
-#elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
-using PlatformView = System.Object;
-#endif
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiRefreshView;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class RefreshViewHandler : IRefreshViewHandler
-	{
-		public static IPropertyMapper<IRefreshView, IRefreshViewHandler> Mapper = new PropertyMapper<IRefreshView, IRefreshViewHandler>(ViewHandler.ViewMapper)
-		{
-			[nameof(IRefreshView.IsRefreshing)] = MapIsRefreshing,
-			[nameof(IRefreshView.Content)] = MapContent,
-			[nameof(IRefreshView.RefreshColor)] = MapRefreshColor,
-			[nameof(IView.Background)] = MapBackground,
-			[nameof(IView.IsEnabled)] = MapIsEnabled,
-		};
+    public partial class SKRefreshViewHandler : ISKRefreshViewHandler
+    {
+        public static IPropertyMapper<IRefreshView, ISKRefreshViewHandler> Mapper = new PropertyMapper<IRefreshView, ISKRefreshViewHandler>(SKViewHandler.ViewMapper)
+        {
+            [nameof(IRefreshView.IsRefreshing)] = MapIsRefreshing,
+            [nameof(IRefreshView.Content)] = MapContent,
+            [nameof(IRefreshView.RefreshColor)] = MapRefreshColor,
+            [nameof(IView.Background)] = MapBackground,
+            [nameof(IView.IsEnabled)] = MapIsEnabled,
+        };
 
-		public static CommandMapper<IRefreshView, IRefreshViewHandler> CommandMapper = new(ViewCommandMapper)
-		{
-		};
+        public static CommandMapper<IRefreshView, ISKRefreshViewHandler> CommandMapper = new(ViewCommandMapper);
 
-		public RefreshViewHandler() : base(Mapper, CommandMapper)
-		{
-		}
+        public SKRefreshViewHandler() : base(Mapper, CommandMapper) { }
 
-		public RefreshViewHandler(IPropertyMapper? mapper)
-			: base(mapper ?? Mapper, CommandMapper)
-		{
-		}
+        public SKRefreshViewHandler(IPropertyMapper? mapper) : base(mapper ?? Mapper, CommandMapper) { }
 
-		public RefreshViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper)
-			: base(mapper ?? Mapper, commandMapper ?? CommandMapper)
-		{
-		}
+        public SKRefreshViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper) : base(mapper ?? Mapper, commandMapper ?? CommandMapper) { }
 
-		IRefreshView IRefreshViewHandler.VirtualView => VirtualView;
+        IRefreshView ISKRefreshViewHandler.VirtualView => VirtualView;
 
-		PlatformView IRefreshViewHandler.PlatformView => PlatformView;
-	}
+        PlatformView ISKRefreshViewHandler.PlatformView => PlatformView;
+    }
 }

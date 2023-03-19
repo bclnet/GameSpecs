@@ -1,9 +1,8 @@
-﻿using Microsoft.Maui;
-using System;
+﻿using Microsoft.Maui.Controls;
 
 namespace StereoKit.Maui.Controls
 {
-    public class Editor
+    public class Editor : View
     {
         public string Text { get; internal set; }
         public object TextColor { get; internal set; }

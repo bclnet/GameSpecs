@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if false
+using System;
 using System.Collections.Generic;
 using Microsoft.Maui;
 using Microsoft.Maui.Devices;
@@ -130,3 +131,4 @@ namespace StereoKit.Maui.Platform.StereoKit
             window.FrameChanged(platformWindow.WindowPositionSize.ToDP());
     }
 }
+#endif

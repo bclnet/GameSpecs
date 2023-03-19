@@ -36,6 +36,7 @@ namespace GameSpec.App.Explorer
             InitializeComponent();
             Instance = this;
             MainPage = new MainPage();
+
 #if !__ANDROID__
             Explorer.WinUI.App.Run();
 #endif
@@ -78,7 +79,7 @@ namespace GameSpec.App.Explorer
         int RunDefault(DefaultOptions opts)
         {
             var page = (MainPage)MainPage;
-            page.OnFirstLoad();
+            //page.OnFirstLoad();
             return 0;
         }
 

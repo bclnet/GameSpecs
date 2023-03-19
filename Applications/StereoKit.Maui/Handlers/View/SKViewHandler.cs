@@ -2,6 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Handlers;
 using StereoKit.Maui.Platform;
+using MRect = Microsoft.Maui.Graphics.Rect;
 using PlatformView = StereoKit.Maui.Controls.View;
 
 namespace StereoKit.Maui.Handlers
@@ -98,7 +99,7 @@ namespace StereoKit.Maui.Handlers
 
         public abstract Size GetDesiredSize(double widthConstraint, double heightConstraint);
 
-        public abstract void PlatformArrange(Rect frame);
+        public abstract void PlatformArrange(MRect frame);
 
         private protected abstract PlatformView OnCreatePlatformView();
 

@@ -5,7 +5,7 @@ namespace StereoKit.Maui
 {
     public static partial class WindowExtensions
 	{
-		internal static DisplayOrientation GetOrientation(this IWindow? window) =>
-			DeviceDisplay.Current.MainDisplayInfo.Orientation;
+		//internal static DisplayOrientation GetOrientation(this IWindow? window) =>
+		//	DeviceDisplay.Current.MainDisplayInfo.Orientation;
 	}
 }

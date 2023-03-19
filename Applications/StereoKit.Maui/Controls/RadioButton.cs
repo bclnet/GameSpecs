@@ -1,6 +1,6 @@
 ﻿namespace StereoKit.Maui.Controls
 {
-    public class RadioButton
+    public class RadioButton : View
     {
     }
 }

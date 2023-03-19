@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui;
-using PlatformView = StereoKit.Maui.Controls.MenuBar;
+using PlatformView = StereoKit.Maui.Controls.MenuBarItem;
 
 namespace StereoKit.Maui.Handlers
 {

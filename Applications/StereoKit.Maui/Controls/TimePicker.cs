@@ -3,7 +3,7 @@ using System;
 
 namespace StereoKit.Maui.Controls
 {
-    public class TimePicker
+    public class TimePicker : View
     {
     }
 }

@@ -30,13 +30,14 @@ namespace GameSpec.App.Explorer.WinUI
             if (running) return;
             running = true;
 
-            var app = Explorer.App.Instance;
-            app.PlatformStartup().Wait();
-            //Task.Run(() =>
-            //{
-            // Now pass execution over to StereoKit
-            SK.Run(app.Step, () => Log.Info("Done"));
-            //});
+            Task.Run(() =>
+            {
+                var app = Explorer.App.Instance;
+                app.PlatformStartup().Wait();
+
+                // Now pass execution over to StereoKit
+                SK.Run(app.Step, () => Log.Info("Done"));
+            });
         }
     }
 }

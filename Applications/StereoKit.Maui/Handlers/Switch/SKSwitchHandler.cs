@@ -22,6 +22,6 @@ namespace StereoKit.Maui.Handlers
 
         ISwitch ISKSwitchHandler.VirtualView => VirtualView;
 
-        PlatformView ISKSwitchHandler.PlatformView => (PlatformView)PlatformView;
+        PlatformView ISKSwitchHandler.PlatformView => PlatformView;
     }
 }

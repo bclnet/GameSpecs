@@ -1,18 +1,9 @@
-﻿#if __IOS__ || MACCATALYST
-using PlatformView = UIKit.UIButton;
-#elif MONOANDROID
-using PlatformView = Android.Views.View;
-#elif WINDOWS
-using PlatformView = Microsoft.UI.Xaml.Controls.SwipeItem;
-#elif TIZEN
-using PlatformView = Tizen.UIExtensions.NUI.Button;
-#elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
-using PlatformView = System.Object;
-#endif
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls.SwipeItem;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial interface ISwipeItemMenuItemHandler : IElementHandler
+	public partial interface ISKSwipeItemMenuItemHandler : IElementHandler
 	{
 		new ISwipeItemMenuItem VirtualView { get; }
 		new PlatformView PlatformView { get; }

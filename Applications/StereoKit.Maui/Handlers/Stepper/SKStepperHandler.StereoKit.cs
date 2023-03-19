@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiStepper;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class StepperHandler : ViewHandler<IStepper, object>
+    public partial class SKStepperHandler : SKViewHandler<IStepper, PlatformView>
 	{
-		protected override object CreatePlatformView() => throw new NotImplementedException();
+		protected override PlatformView CreatePlatformView() => new();
 
 		public static void MapMinimum(IViewHandler handler, IStepper stepper) { }
 		public static void MapMaximum(IViewHandler handler, IStepper stepper) { }

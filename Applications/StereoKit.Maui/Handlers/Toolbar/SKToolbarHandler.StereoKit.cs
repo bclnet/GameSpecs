@@ -1,11 +1,11 @@
 using Microsoft.Maui;
-using System;
+using PlatformView = StereoKit.Maui.Controls.Toolbar;
 
 namespace StereoKit.Maui.Handlers
 {
-    public partial class SKToolbarHandler : SKElementHandler<IToolbar, object>
+    public partial class SKToolbarHandler : SKElementHandler<IToolbar, PlatformView>
     {
-        protected override object CreatePlatformElement() => throw new NotImplementedException();
+        protected override PlatformView CreatePlatformElement() => new();
 
         public static void MapTitle(ISKToolbarHandler arg1, IToolbar arg2) { }
     }

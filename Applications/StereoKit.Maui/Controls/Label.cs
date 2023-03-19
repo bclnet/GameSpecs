@@ -3,7 +3,7 @@ using System;
 
 namespace StereoKit.Maui.Controls
 {
-    public class Label
+    public class Label : View
     {
     }
 }

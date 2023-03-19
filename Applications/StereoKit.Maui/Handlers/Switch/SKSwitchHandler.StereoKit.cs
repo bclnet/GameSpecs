@@ -1,11 +1,11 @@
 using Microsoft.Maui;
-using System;
+using PlatformView = StereoKit.Maui.Controls.Switch;
 
 namespace StereoKit.Maui.Handlers
 {
-    public partial class SKSwitchHandler : SKViewHandler<ISwitch, object>
+    public partial class SKSwitchHandler : SKViewHandler<ISwitch, PlatformView>
     {
-        protected override object CreatePlatformView() => throw new NotImplementedException();
+        protected override PlatformView CreatePlatformView() => new();
 
         public static void MapIsOn(ISKSwitchHandler handler, ISwitch view) { }
         public static void MapTrackColor(ISKSwitchHandler handler, ISwitch view) { }

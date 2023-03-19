@@ -8,8 +8,8 @@ namespace StereoKit.Maui.Handlers
 	{
 		public static IPropertyMapper<IMenuBarItem, ISKMenuBarItemHandler> Mapper = new PropertyMapper<IMenuBarItem, ISKMenuBarItemHandler>(ElementMapper)
 		{
-			[nameof(IMenuBarItem.Text)] = MapText,
-			[nameof(IMenuBarItem.IsEnabled)] = MapIsEnabled,
+			//[nameof(IMenuBarItem.Text)] = MapText,
+			//[nameof(IMenuBarItem.IsEnabled)] = MapIsEnabled,
 		};
 
 		public static CommandMapper<IMenuBarItem, ISKMenuBarItemHandler> CommandMapper = new(ElementCommandMapper)

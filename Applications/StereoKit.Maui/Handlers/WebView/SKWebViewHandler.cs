@@ -26,6 +26,6 @@ namespace StereoKit.Maui.Handlers
 
         IWebView ISKWebViewHandler.VirtualView => VirtualView;
 
-        PlatformView ISKWebViewHandler.PlatformView => (PlatformView)PlatformView;
+        PlatformView ISKWebViewHandler.PlatformView => PlatformView;
     }
 }

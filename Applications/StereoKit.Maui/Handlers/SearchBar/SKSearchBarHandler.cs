@@ -1,64 +1,41 @@
-﻿#nullable enable
-#if __IOS__ || MACCATALYST
-using PlatformView = Microsoft.Maui.Platform.MauiSearchBar;
-#elif MONOANDROID
-using PlatformView = AndroidX.AppCompat.Widget.SearchView;
-#elif WINDOWS
-using PlatformView = Microsoft.UI.Xaml.Controls.AutoSuggestBox;
-#elif TIZEN
-using PlatformView = Microsoft.Maui.Platform.MauiSearchBar;
-#elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
-using PlatformView = System.Object;
-#endif
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiSearchBar;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class SearchBarHandler : ISearchBarHandler
-	{
-		public static IPropertyMapper<ISearchBar, ISearchBarHandler> Mapper = new PropertyMapper<ISearchBar, ISearchBarHandler>(ViewHandler.ViewMapper)
-		{
-#if __IOS__
-			[nameof(ISearchBar.IsEnabled)] = MapIsEnabled,
-#endif
-			[nameof(ISearchBar.Background)] = MapBackground,
-			[nameof(ISearchBar.CharacterSpacing)] = MapCharacterSpacing,
-			[nameof(ISearchBar.Font)] = MapFont,
-			[nameof(ITextAlignment.HorizontalTextAlignment)] = MapHorizontalTextAlignment,
-			[nameof(ITextAlignment.VerticalTextAlignment)] = MapVerticalTextAlignment,
-			[nameof(ISearchBar.IsReadOnly)] = MapIsReadOnly,
-			[nameof(ISearchBar.IsTextPredictionEnabled)] = MapIsTextPredictionEnabled,
-			[nameof(ISearchBar.MaxLength)] = MapMaxLength,
-			[nameof(ISearchBar.Placeholder)] = MapPlaceholder,
-			[nameof(ISearchBar.PlaceholderColor)] = MapPlaceholderColor,
-			[nameof(ISearchBar.Text)] = MapText,
-			[nameof(ISearchBar.TextColor)] = MapTextColor,
-			[nameof(ISearchBar.CancelButtonColor)] = MapCancelButtonColor,
-			[nameof(ISearchBar.Keyboard)] = MapKeyboard
-		};
+    public partial class SKSearchBarHandler : ISKSearchBarHandler
+    {
+        public static IPropertyMapper<ISearchBar, ISKSearchBarHandler> Mapper = new PropertyMapper<ISearchBar, ISKSearchBarHandler>(SKViewHandler.ViewMapper)
+        {
+            [nameof(ISearchBar.Background)] = MapBackground,
+            [nameof(ISearchBar.CharacterSpacing)] = MapCharacterSpacing,
+            [nameof(ISearchBar.Font)] = MapFont,
+            [nameof(ITextAlignment.HorizontalTextAlignment)] = MapHorizontalTextAlignment,
+            [nameof(ITextAlignment.VerticalTextAlignment)] = MapVerticalTextAlignment,
+            [nameof(ISearchBar.IsReadOnly)] = MapIsReadOnly,
+            [nameof(ISearchBar.IsTextPredictionEnabled)] = MapIsTextPredictionEnabled,
+            [nameof(ISearchBar.MaxLength)] = MapMaxLength,
+            [nameof(ISearchBar.Placeholder)] = MapPlaceholder,
+            [nameof(ISearchBar.PlaceholderColor)] = MapPlaceholderColor,
+            [nameof(ISearchBar.Text)] = MapText,
+            [nameof(ISearchBar.TextColor)] = MapTextColor,
+            [nameof(ISearchBar.CancelButtonColor)] = MapCancelButtonColor,
+            [nameof(ISearchBar.Keyboard)] = MapKeyboard
+        };
 
-		public static CommandMapper<ISearchBar, ISearchBarHandler> CommandMapper = new(ViewCommandMapper)
-		{
-#if ANDROID
-			[nameof(ISearchBar.Focus)] = MapFocus
-#endif
-		};
+        public static CommandMapper<ISearchBar, ISKSearchBarHandler> CommandMapper = new(ViewCommandMapper)
+        {
+            [nameof(ISearchBar.Focus)] = MapFocus
+        };
 
-		public SearchBarHandler() : this(Mapper)
-		{
-		}
+        public SKSearchBarHandler() : this(Mapper) { }
 
-		public SearchBarHandler(IPropertyMapper? mapper)
-			: base(mapper ?? Mapper, CommandMapper)
-		{
-		}
+        public SKSearchBarHandler(IPropertyMapper? mapper) : base(mapper ?? Mapper, CommandMapper) { }
 
-		public SearchBarHandler(IPropertyMapper? mapper, CommandMapper? commandMapper)
-			: base(mapper ?? Mapper, commandMapper ?? CommandMapper)
-		{
-		}
+        public SKSearchBarHandler(IPropertyMapper? mapper, CommandMapper? commandMapper) : base(mapper ?? Mapper, commandMapper ?? CommandMapper) { }
 
-		ISearchBar ISearchBarHandler.VirtualView => VirtualView;
+        ISearchBar ISKSearchBarHandler.VirtualView => VirtualView;
 
-		PlatformView ISearchBarHandler.PlatformView => PlatformView;
-	}
+        PlatformView ISKSearchBarHandler.PlatformView => PlatformView;
+    }
 }

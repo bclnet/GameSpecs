@@ -1,17 +1,14 @@
-﻿using Tizen.UIExtensions.NUI.GraphicsView;
+﻿using Microsoft.Maui;
+using StereoKit.Maui.Controls;
 
-namespace Microsoft.Maui.Platform
+namespace StereoKit.Maui.Platform
 {
 	public static class ProgressBarExtensions
 	{
-		public static void UpdateProgress(this ProgressBar platformProgressBar, IProgress progress)
-		{
-			platformProgressBar.Progress = progress.Progress;
-		}
+		//public static void UpdateProgress(this ProgressBar platformProgressBar, IProgress progress)
+		//	=> platformProgressBar.Progress = progress.Progress;
 
-		public static void UpdateProgressColor(this ProgressBar platformProgressBar, IProgress progress)
-		{
-			platformProgressBar.ProgressColor = progress.ProgressColor.ToPlatform();
-		}
+		//public static void UpdateProgressColor(this ProgressBar platformProgressBar, IProgress progress)
+		//	=> platformProgressBar.ProgressColor = progress.ProgressColor.ToPlatform();
 	}
 }

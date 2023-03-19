@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui;
+﻿#if MENU2
+using Microsoft.Maui;
 using PlatformView = StereoKit.Maui.Controls.MenuFlyoutItem;
 
 namespace StereoKit.Maui.Handlers
@@ -21,3 +22,4 @@ namespace StereoKit.Maui.Handlers
         PlatformView ISKMenuFlyoutItemHandler.PlatformView => PlatformView;
     }
 }
+#endif

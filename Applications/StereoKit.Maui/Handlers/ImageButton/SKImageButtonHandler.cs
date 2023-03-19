@@ -35,7 +35,7 @@ namespace StereoKit.Maui.Handlers
 
         IImage ISKImageHandler.VirtualView => VirtualView;
 
-        PlatformImageView ISKImageHandler.PlatformView => PlatformView;
+        PlatformImageView ISKImageHandler.PlatformView => default; // PlatformView;
 
         PlatformView ISKImageButtonHandler.PlatformView => PlatformView;
 

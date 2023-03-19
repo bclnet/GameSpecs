@@ -1,20 +1,13 @@
-﻿using System;
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Views.ContentView;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class SwipeItemViewHandler : ViewHandler<ISwipeItemView, object>, ISwipeItemViewHandler
+    public partial class SKSwipeItemViewHandler : SKViewHandler<ISwipeItemView, PlatformView>, ISKSwipeItemViewHandler
 	{
-		protected override object CreatePlatformView()
-		{
-			throw new NotImplementedException();
-		}
+		protected override PlatformView CreatePlatformView() => new();
 
-		public static void MapContent(ISwipeItemViewHandler handler, ISwipeItemView page)
-		{
-		}
-
-		public static void MapVisibility(ISwipeItemViewHandler handler, ISwipeItemView view)
-		{
-		}
+		public static void MapContent(ISKSwipeItemViewHandler handler, ISwipeItemView page) { }
+		public static void MapVisibility(ISKSwipeItemViewHandler handler, ISwipeItemView view) { }
 	}
 }

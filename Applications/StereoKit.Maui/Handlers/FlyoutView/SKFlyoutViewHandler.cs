@@ -7,13 +7,13 @@ namespace StereoKit.Maui.Handlers
     {
         public static IPropertyMapper<IFlyoutView, ISKFlyoutViewHandler> Mapper = new PropertyMapper<IFlyoutView, ISKFlyoutViewHandler>(SKViewHandler.ViewMapper)
         {
-            [nameof(IFlyoutView.Flyout)] = MapFlyout,
-            [nameof(IFlyoutView.Detail)] = MapDetail,
-            [nameof(IFlyoutView.IsPresented)] = MapIsPresented,
-            [nameof(IFlyoutView.FlyoutBehavior)] = MapFlyoutBehavior,
-            [nameof(IFlyoutView.FlyoutWidth)] = MapFlyoutWidth,
-            [nameof(IFlyoutView.IsGestureEnabled)] = MapIsGestureEnabled,
-            [nameof(IToolbarElement.Toolbar)] = MapToolbar,
+            //[nameof(IFlyoutView.Flyout)] = MapFlyout,
+            //[nameof(IFlyoutView.Detail)] = MapDetail,
+            //[nameof(IFlyoutView.IsPresented)] = MapIsPresented,
+            //[nameof(IFlyoutView.FlyoutBehavior)] = MapFlyoutBehavior,
+            //[nameof(IFlyoutView.FlyoutWidth)] = MapFlyoutWidth,
+            //[nameof(IFlyoutView.IsGestureEnabled)] = MapIsGestureEnabled,
+            //[nameof(IToolbarElement.Toolbar)] = MapToolbar,
         };
 
         public static CommandMapper<IFlyoutView, ISKFlyoutViewHandler> CommandMapper = new(ViewCommandMapper);

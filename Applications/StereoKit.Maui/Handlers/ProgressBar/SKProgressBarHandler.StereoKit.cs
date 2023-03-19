@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Maui;
 using PlatformView = StereoKit.Maui.Controls.ProgressBar;
 
 namespace StereoKit.Maui.Handlers

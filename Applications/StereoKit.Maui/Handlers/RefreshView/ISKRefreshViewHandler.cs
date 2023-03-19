@@ -1,18 +1,9 @@
-﻿#if __IOS__ || MACCATALYST
-using PlatformView = Microsoft.Maui.Platform.MauiRefreshView;
-#elif MONOANDROID
-using PlatformView = Microsoft.Maui.Platform.MauiSwipeRefreshLayout;
-#elif WINDOWS
-using PlatformView = Microsoft.UI.Xaml.Controls.RefreshContainer;
-#elif TIZEN
-using PlatformView = Microsoft.Maui.Platform.MauiRefreshLayout;
-#elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
-using PlatformView = System.Object;
-#endif
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls2.MauiRefreshView;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial interface IRefreshViewHandler : IViewHandler
+	public partial interface ISKRefreshViewHandler : IViewHandler
 	{
 		new IRefreshView VirtualView { get; }
 		new PlatformView PlatformView { get; }

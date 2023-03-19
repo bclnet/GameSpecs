@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui;
+﻿#if false
+using Microsoft.Maui;
 using Microsoft.Maui.Platform;
 using NView = Tizen.NUI.BaseComponents.View;
 
@@ -88,3 +89,4 @@ namespace StereoKit.Maui.Platform.StereoKit
         }
     }
 }
+#endif

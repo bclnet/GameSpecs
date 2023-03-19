@@ -1,46 +1,26 @@
-﻿using System;
-#if IOS || MACCATALYST
-using PlatformView = Microsoft.Maui.Platform.ContentView;
-#elif MONOANDROID
-using PlatformView = Microsoft.Maui.Platform.ContentViewGroup;
-#elif WINDOWS
-using PlatformView = Microsoft.UI.Xaml.FrameworkElement;
-#elif TIZEN
-using PlatformView = Microsoft.Maui.Platform.ContentViewGroup;
-#elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID && !TIZEN)
-using PlatformView = System.Object;
-#endif
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Views.ContentView;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-	public partial class SwipeItemViewHandler : ViewHandler<ISwipeItemView, PlatformView>, ISwipeItemViewHandler
+	public partial class SKSwipeItemViewHandler : SKViewHandler<ISwipeItemView, PlatformView>, ISKSwipeItemViewHandler
 	{
-		public static IPropertyMapper<ISwipeItemView, ISwipeItemViewHandler> Mapper = new PropertyMapper<ISwipeItemView, ISwipeItemViewHandler>(ViewHandler.ViewMapper)
+		public static IPropertyMapper<ISwipeItemView, ISKSwipeItemViewHandler> Mapper = new PropertyMapper<ISwipeItemView, ISKSwipeItemViewHandler>(SKViewHandler.ViewMapper)
 		{
 			[nameof(ISwipeItemView.Content)] = MapContent,
 			[nameof(ISwipeItemView.Visibility)] = MapVisibility
 		};
 
-		public static CommandMapper<ISwipeItemView, ISwipeItemViewHandler> CommandMapper = new(ViewHandler.ViewCommandMapper)
-		{
-		};
+		public static CommandMapper<ISwipeItemView, ISKSwipeItemViewHandler> CommandMapper = new(SKViewHandler.ViewCommandMapper);
 
-		public SwipeItemViewHandler() : base(Mapper, CommandMapper)
-		{
-		}
+		public SKSwipeItemViewHandler() : base(Mapper, CommandMapper) { }
 
-		protected SwipeItemViewHandler(IPropertyMapper? mapper)
-			: base(mapper ?? Mapper, CommandMapper)
-		{
-		}
+		protected SKSwipeItemViewHandler(IPropertyMapper? mapper) : base(mapper ?? Mapper, CommandMapper) { }
 
-		protected SwipeItemViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper)
-			: base(mapper ?? Mapper, commandMapper ?? CommandMapper)
-		{
-		}
+		protected SKSwipeItemViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper) : base(mapper ?? Mapper, commandMapper ?? CommandMapper) { }
 
-		ISwipeItemView ISwipeItemViewHandler.VirtualView => VirtualView;
+		ISwipeItemView ISKSwipeItemViewHandler.VirtualView => VirtualView;
 
-		PlatformView ISwipeItemViewHandler.PlatformView => PlatformView;
+		PlatformView ISKSwipeItemViewHandler.PlatformView => PlatformView;
 	}
 }

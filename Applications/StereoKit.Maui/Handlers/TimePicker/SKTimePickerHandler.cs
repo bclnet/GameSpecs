@@ -24,6 +24,6 @@ namespace StereoKit.Maui.Handlers
 
 		ITimePicker ISKTimePickerHandler.VirtualView => VirtualView;
 
-		PlatformView ISKTimePickerHandler.PlatformView => (PlatformView)PlatformView;
+		PlatformView ISKTimePickerHandler.PlatformView => PlatformView;
 	}
 }

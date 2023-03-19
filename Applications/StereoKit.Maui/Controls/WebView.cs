@@ -3,7 +3,7 @@ using System;
 
 namespace StereoKit.Maui.Controls
 {
-    public class WebView
+    public class WebView : View
     {
     }
 }

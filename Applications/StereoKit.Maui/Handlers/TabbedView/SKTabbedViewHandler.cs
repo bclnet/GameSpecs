@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui;
-using System;
 using PlatformView = StereoKit.Maui.Controls.View;
 
 namespace StereoKit.Maui.Handlers
@@ -16,7 +15,6 @@ namespace StereoKit.Maui.Handlers
 
         public SKTabbedViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper) : base(mapper ?? Mapper, commandMapper ?? CommandMapper) { }
 
-        protected override PlatformView CreatePlatformView()
-            => throw new NotImplementedException();
+        protected override PlatformView CreatePlatformView() => new();
     }
 }

@@ -1,4 +1,5 @@
-﻿using PlatformView = StereoKit.Maui.Views.MauiPageControl;
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Views.MauiPageControl;
 
 namespace StereoKit.Maui.Handlers
 {

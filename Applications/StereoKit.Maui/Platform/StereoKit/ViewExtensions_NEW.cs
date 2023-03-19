@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if false
+using System;
 using System.Numerics;
 using System.Threading.Tasks;
 using Microsoft.Maui;
@@ -346,3 +347,4 @@ namespace StereoKit.Maui.Platform.StereoKit
         }
     }
 }
+#endif

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Maui;
+using StereoKit.Maui.Platform;
 using PlatformView = StereoKit.Maui.Views.Border;
 
 namespace StereoKit.Maui.Handlers
 {
     public partial class SKBorderHandler : ISKBorderHandler
     {
-        public static IPropertyMapper<IBorderView, ISKBorderHandler> Mapper = new PropertyMapper<IBorderView, ISKBorderHandler>(SKViewMapper)
+        public static IPropertyMapper<IBorderView, ISKBorderHandler> Mapper = new PropertyMapper<IBorderView, ISKBorderHandler>(ViewMapper)
         {
             [nameof(IContentView.Background)] = MapBackground,
             [nameof(IContentView.Content)] = MapContent,

@@ -1,10 +1,11 @@
 using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls.Label;
 
 namespace StereoKit.Maui.Handlers
 {
-    public partial class SKLabelHandler : SKViewHandler<ILabel, object>
+    public partial class SKLabelHandler : SKViewHandler<ILabel, PlatformView>
 	{
-		protected override object CreatePlatformView() => new();
+		protected override PlatformView CreatePlatformView() => new();
 
 		public static void MapText(ISKLabelHandler handler, ILabel label) { }
 		public static void MapTextColor(ISKLabelHandler handler, ILabel label) { }
