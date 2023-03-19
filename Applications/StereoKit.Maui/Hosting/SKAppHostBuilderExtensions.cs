@@ -6,15 +6,11 @@ using Microsoft.Maui.Controls.Handlers;
 using Microsoft.Maui.Controls.Handlers.Items;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Handlers;
 using StereoKit.Maui.Handlers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Microsoft.Maui.Hosting
 {
