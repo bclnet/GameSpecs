@@ -25,11 +25,11 @@ namespace GameSpec.App.Explorer
             app.Settings.androidActivity = activityHandle;
             app.PlatformStartup().Wait();
             // Now pass execution over to StereoKit
-            Task.Run(() =>
-            {
-                SK.Run(app.Step, () => Log.Info("Done"));
-                Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
-            });
+            //Task.Run(() =>
+            //{
+            SK.Run(app.Step, () => Log.Info("Done"));
+            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            //});
         }
     }
 }

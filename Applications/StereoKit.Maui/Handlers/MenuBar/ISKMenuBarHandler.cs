@@ -1,0 +1,15 @@
+﻿using Microsoft.Maui;
+using PlatformView = StereoKit.Maui.Controls.MenuBar;
+
+namespace StereoKit.Maui.Handlers
+{
+	public interface ISKMenuBarHandler : IElementHandler
+	{
+		void Add(IMenuBarItem view);
+		void Remove(IMenuBarItem view);
+		void Clear();
+		void Insert(int index, IMenuBarItem view);
+		new PlatformView PlatformView { get; }
+		new IMenuBar VirtualView { get; }
+	}
+}
