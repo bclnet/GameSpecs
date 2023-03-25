@@ -1,5 +1,5 @@
-﻿#if MENU2
-using Microsoft.Maui;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Handlers;
 using System.Collections.Generic;
 using PlatformView = StereoKit.UIX.Controls.MenuFlyout;
 
@@ -54,4 +54,3 @@ namespace StereoKit.Maui.Handlers
         }
     }
 }
-#endif

@@ -1,5 +1,4 @@
-﻿#if MENU2
-using Microsoft.Maui;
+﻿using Microsoft.Maui;
 using System;
 using PlatformView = StereoKit.UIX.Controls.MenuFlyoutItem;
 using Microsoft.Maui.Platform;
@@ -25,14 +24,13 @@ namespace StereoKit.Maui.Handlers
         void OnClicked(object sender, EventArgs e)
             => VirtualView.Clicked();
 
-        public static void MapSource(ISKMenuFlyoutItemHandler handler, IMenuFlyoutItem view)
-            => handler.PlatformView.Icon = view.Source?.ToIconSource(handler.MauiContext!)?.CreateIconElement();
+        //public static void MapSource(ISKMenuFlyoutItemHandler handler, IMenuFlyoutItem view)
+        //    => handler.PlatformView.Icon = view.Source?.ToIconSource(handler.MauiContext!)?.CreateIconElement();
 
-        public static void MapText(ISKMenuFlyoutItemHandler handler, IMenuFlyoutItem view)
-            => handler.PlatformView.Text = view.Text;
+        //public static void MapText(ISKMenuFlyoutItemHandler handler, IMenuFlyoutItem view)
+        //    => handler.PlatformView.Text = view.Text;
 
-        public static void MapIsEnabled(ISKMenuFlyoutItemHandler handler, IMenuFlyoutItem view)
-            => handler.PlatformView.UpdateIsEnabled(view.IsEnabled);
+        //public static void MapIsEnabled(ISKMenuFlyoutItemHandler handler, IMenuFlyoutItem view)
+        //    => handler.PlatformView.UpdateIsEnabled(view.IsEnabled);
     }
 }
-#endif

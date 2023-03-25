@@ -1,5 +1,4 @@
-﻿#if MENU2
-using PlatformView = StereoKit.UIX.Controls.MenuFlyoutSeparator;
+﻿using PlatformView = StereoKit.UIX.Controls.MenuFlyoutSeparator;
 
 namespace StereoKit.Maui.Handlers
 {
@@ -8,4 +7,3 @@ namespace StereoKit.Maui.Handlers
 		protected override PlatformView CreatePlatformElement() => new();
 	}
 }
-#endif

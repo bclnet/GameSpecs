@@ -1,13 +1,12 @@
-﻿#if MENU2
-using System;
+﻿using System;
 
-namespace StereoKit.UI.Controls
+namespace StereoKit.UIX.Controls
 {
     public class MenuFlyoutItem
     {
-        public Action<object, EventArgs> Click { get; internal set; }
-        public object Icon { get; internal set; }
-        public string Text { get; internal set; }
+        public Action<object, EventArgs> Click { get; set; }
+        public object Icon { get; set; }
+        public string Text { get; set; }
+        public void UpdateIsEnabled(bool isEnabled) { }
     }
 }
-#endif

@@ -1,5 +1,4 @@
-﻿#if MENU2
-using Microsoft.Maui;
+﻿using Microsoft.Maui;
 using PlatformView = StereoKit.UIX.Controls.MenuFlyoutItem;
 
 namespace StereoKit.Maui.Handlers
@@ -8,9 +7,9 @@ namespace StereoKit.Maui.Handlers
     {
         public static IPropertyMapper<IMenuFlyoutItem, ISKMenuFlyoutItemHandler> Mapper = new PropertyMapper<IMenuFlyoutItem, ISKMenuFlyoutItemHandler>(ElementMapper)
         {
-            [nameof(IMenuFlyoutSubItem.Text)] = MapText,
-            [nameof(IMenuElement.Source)] = MapSource,
-            [nameof(IMenuElement.IsEnabled)] = MapIsEnabled
+            //[nameof(IMenuFlyoutSubItem.Text)] = MapText,
+            //[nameof(IMenuElement.Source)] = MapSource,
+            //[nameof(IMenuElement.IsEnabled)] = MapIsEnabled
         };
 
         public static CommandMapper<IMenuFlyoutItem, ISKMenuFlyoutItemHandler> CommandMapper = new(ElementCommandMapper);
@@ -22,4 +21,3 @@ namespace StereoKit.Maui.Handlers
         PlatformView ISKMenuFlyoutItemHandler.PlatformView => PlatformView;
     }
 }
-#endif

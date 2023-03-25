@@ -1,11 +1,9 @@
 ﻿using Microsoft.Maui;
-using Microsoft.Maui.Handlers;
-using System;
 using PlatformView = StereoKit.UIX.Controls.ActivityIndicator;
 
 namespace StereoKit.Maui.Handlers
 {
-    public partial class SKActivityIndicatorHandler : ViewHandler<IActivityIndicator, PlatformView>
+    public partial class SKActivityIndicatorHandler : SKViewHandler<IActivityIndicator, PlatformView>
     {
         protected override PlatformView CreatePlatformView() => new();
 

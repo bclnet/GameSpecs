@@ -1,21 +1,60 @@
 Context
 ===
 
-Family Context
+Context provides the interface for interacting with this service
+
+* Resource - a uri formated resource with a path and game component
+* Family - represents a family of games by a shared aspect
+* FamilyGame - represents a single game
+* FamilyManager - a static interface for the service
+* FamilyPlatform - represents the current platform
+* PakFile - represents a games collection of assets
+
+### Loading an asset:
+**service locates all installed games**
+* windows searches registry for installed games
+* linux searches installed clients for installed games: Steam, GOG, BattleNet
+* a fixed location of `/Games` folder is searched for games
+
+**(*optional*) initiate a game platform: `UnityPlatform.Startup()`**
+* initiates the game platform, uses a default platform if none specified
+
+**get a family reference: `var family = FamilyManager.GetFamily("ID")`**
+* returns the specified family
+
+**open a game specific archive file: `var pakFile = family.OpenPakFile("game:/Archive#ID")`**
+* opens the specified pakfile
+* urls have the following parts
+
+#### URL
+
+
+**load a game specific asset: `var obj = await pakFile.LoadFileObjectAsync<object>("Path")`**
+* a
+* b
+* c
+
+**service parses game objects for the specifed resource: textures, models, levels, etc**
+* a
+* b
+* c
+
+**service adapts the game objects to the current platform: unity, unreal, etc**
+* a
+* b
+* c
+
+**platform now contains the specified game asset**
+* a
+* b
+* c
+
+**additionally the service provides a collection of applications**
+* a
+* b
+* c
 
 ---
-
-
-### Location (find installed games)
-    First step is locating installed games
-    Location definition by platform. For instance windows usually uses registration entries.
-
-### Uniform Resource Location (url)
-    TBD
-
-### Runtime (c++ vs .net)
-    dotnet runtime
-    Hosted manage for unreal or native
 
 ### Family
 

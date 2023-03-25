@@ -1,8 +1,6 @@
-﻿#if MENU2
-namespace StereoKit.UI.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class MenuFlyout
     {
     }
 }
-#endif

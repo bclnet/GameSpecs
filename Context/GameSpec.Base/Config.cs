@@ -1,5 +1,5 @@
 ﻿//#define AC
-//#define Arkane
+#define Arkane
 //#define Bioware
 //#define Blizzard
 //#define Cry
@@ -13,7 +13,7 @@
 //#define Rsi
 //#define Unity
 //#define Unreal
-#define Valve
+//#define Valve
 
 namespace GameSpec
 {
@@ -44,7 +44,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //AF
-            //ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
+            ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
             //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp", //AF:Texture.bmp
             //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
@@ -52,11 +52,11 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Arkane",
-            //GameId = "AF", // Arx Fatalis [open, read, texture:GL]
+            GameId = "AF", // Arx Fatalis [open, read, texture:GL]
             //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
             //GameId = "D", // Dishonored [unreal]
             //GameId = "D2", // Dishonored 2 [open, read]
-            GameId = "P", // Prey [open, read]
+            //GameId = "P", // Prey [open, read]
             //GameId = "D:DOTO", // Dishonored: Death of the Outsider
             //GameId = "W:YB", // Wolfenstein: Youngblood
             //GameId = "W:CP", // Wolfenstein: Cyberpilot

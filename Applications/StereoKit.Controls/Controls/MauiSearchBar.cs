@@ -1,6 +1,6 @@
 ﻿namespace StereoKit.UIX.Controls
 {
-    public class MenuFlyoutSeparator
+    public class MauiSearchBar : View
     {
     }
 }

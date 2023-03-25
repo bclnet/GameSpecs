@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace StereoKit.Maui
 {
-    public static partial class MauiExtensions
+    static partial class MauiExtensions
     {
         static readonly MethodInfo? InvokeMethod = typeof(CommandMapper).GetMethod("Invoke", BindingFlags.Instance | BindingFlags.NonPublic);
 

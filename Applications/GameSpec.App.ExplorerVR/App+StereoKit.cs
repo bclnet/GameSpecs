@@ -56,12 +56,11 @@ namespace GameSpec.App.Explorer
             //    }
             //}
 
-            await Initialize(args);
+            Initialize(args);
         }
 
-        public async Task Initialize(string[] args)
+        public void Initialize(string[] args)
         {
-            await Startup(args);
             var floorMat = new Material(Shader.FromFile("floor_shader.hlsl"))
             {
                 Transparency = Transparency.Blend,

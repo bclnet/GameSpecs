@@ -1,10 +1,8 @@
 ﻿using CommandLine;
 using GameSpec.App.Explorer.Views;
 using Microsoft.Maui.Controls;
-using StereoKit;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace GameSpec.App.Explorer
@@ -42,7 +40,7 @@ namespace GameSpec.App.Explorer
 #endif
         }
 
-        public async Task Startup(string[] args)
+        public async Task Startup()
         {
             if (await HasPermissions()) return;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
@@ -79,7 +77,7 @@ namespace GameSpec.App.Explorer
         int RunDefault(DefaultOptions opts)
         {
             var page = (MainPage)MainPage;
-            //page.OnFirstLoad();
+            page.OnFirstLoad();
             return 0;
         }
 

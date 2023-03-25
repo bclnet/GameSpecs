@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-android</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<UseMaui>true</UseMaui>
 	</PropertyGroup>
@@ -12,6 +13,14 @@
 	  <MauiCss Remove="Hosting_\**" />
 	  <MauiXaml Remove="Hosting_\**" />
 	  <None Remove="Hosting_\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Controls\Hosting\SKAppHostBuilderExtensions.Last.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Controls\Hosting\SKAppHostBuilderExtensions.Last.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

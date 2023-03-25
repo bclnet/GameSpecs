@@ -1,8 +1,9 @@
+using Microsoft.Maui;
 using PlatformView = System.Object;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
-    public partial class SKApplicationHandler : ElementHandler<IApplication, PlatformView>
+    public partial class SKApplicationHandler : SKElementHandler<IApplication, PlatformView>
 	{
 		protected override PlatformView CreatePlatformElement() => new();
 

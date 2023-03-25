@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui;
 using System;
-using PlatformView = StereoKit.Maui.Controls.MauiRefreshView;
+using PlatformView = StereoKit.UIX.Controls.MauiRefreshView;
 
 namespace StereoKit.Maui.Handlers
 {

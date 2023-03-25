@@ -4,7 +4,7 @@ Game Specs
 Game Specs is an open-source, cross-platform solution for delivering game assets as a service.
 
 ## [Applications](Applications/Readme.md)
-Multiple applicates are included in GameEstate to make it easier to work with the game assets.
+Multiple applicates are included in GameSpecs to make it easier to work with the game assets.
 
 ## [Context](Context/Readme.md)
 Family Context

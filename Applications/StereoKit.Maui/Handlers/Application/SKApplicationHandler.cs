@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
-using StereoKit.Maui;
+using Microsoft.Maui;
 
-namespace Microsoft.Maui.Handlers
+namespace StereoKit.Maui.Handlers
 {
     public partial class SKApplicationHandler
 	{

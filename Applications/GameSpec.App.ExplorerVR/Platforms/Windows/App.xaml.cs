@@ -29,10 +29,12 @@ namespace GameSpec.App.Explorer.WinUI
         {
             if (running) return;
             running = true;
+            var app = Explorer.App.Instance;
+
+            app.Startup().Wait();
 
             Task.Run(() =>
             {
-                var app = Explorer.App.Instance;
                 app.PlatformStartup().Wait();
 
                 // Now pass execution over to StereoKit

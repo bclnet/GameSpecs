@@ -3,12 +3,6 @@ Game Specs
 
 Game Specs is an open-source, cross-platform solution for delivering game assets as a service.
 
-### High level steps:
-1. locate installed games.
-2. open game specific archive files.
-3. parse game objects from specific file formats for textures, models, levels.
-4. adapt game objects to a gaming platform like unity.
-
 ### Game Specs Benefits:
 * Portable (windows, apple, linux, mobile, intel, arm)
 * Loads textures, models, animations, sounds, and levels
@@ -19,6 +13,13 @@ Game Specs is an open-source, cross-platform solution for delivering game assets
 * Includes a desktop app to explore assets
 * Includes a command line interface to export assets (list, unpack, shred)
 * *future:* Usage tracking (think Spotify)
+
+### Components:
+1. Context - the interface for interacting with this service
+2. Family - the grouping of games by a shared aspect
+3. Platform - endpoints for using game assets like unity, unreal, etc
+4. Application - a collection of application to interact with
+
 
 ## [Applications](Documents/Applications/Readme.md)
 Multiple applications are included in GameSpecs to make it easier to work with the game assets.
@@ -33,7 +34,27 @@ The following are the current applications:
 | [Unreal Plugin](Documents/Applications/Unreal%20Plugin/Readme.md)       | A Unreal plugin.
 
 ## [Context](Documents/Context/Readme.md)
-Family Context
+Context provides the interface for interacting with this service
+
+* Resource - a uri formated resource with a path and game component
+* Family - represents a family of games by a shared aspect
+* FamilyGame - represents a single game
+* FamilyManager - a static interface for the service
+* FamilyPlatform - represents the current platform
+* PakFile - represents a games collection of assets
+
+
+### Loading an asset:
+1. service locates all installed games
+2. (*optional*) initiate a game platform: `UnityPlatform.Startup()`
+3. get a family reference: `var family = FamilyManager.GetFamily("ID")`
+4. open a game specific archive file: `var pakFile = family.OpenPakFile("game:/Archive#ID")`
+5. load a game specific asset: `var obj = await pakFile.LoadFileObjectAsync<object>("Path");`
+6. service parses game objects for the specifed resource: textures, models, levels, etc
+7. service adapts the game objects to the current platform: unity, unreal, etc
+8. platform now contains the specified game asset
+9. additionally the service provides a collection of applications
+
 
 ## [Families](docs/Families/Readme.md)
 Families are the primary grouping mechanism for interacting with the asset services.
@@ -117,7 +138,7 @@ The following are the current games:
 | [D3](https://us.shop.battle.net/en-us/product/diablo-iii) | Diablo III | - | - | -- -- -- | -- -- -- | -- -- --
 | [HS](https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft) | Hearthstone | - | - | -- -- -- | -- -- -- | -- -- --
 | [HOTS]() | Heroes of the Storm | - | - | -- -- -- | -- -- -- | -- -- --
-| [CB](https://us.shop.battle.net/en-us/family/crash-bandicoot-4) | Crash Bandicoot™ 4: It’s About Time | - | - | -- -- -- | -- -- -- | -- -- --
+| [CB](https://us.shop.battle.net/en-us/family/crash-bandicoot-4) | Crash Bandicootï¿½ 4: Itï¿½s About Time | - | - | -- -- -- | -- -- -- | -- -- --
 | [DI](https://diabloimmortal.blizzard.com/en-us/) | Diablo Immortal | - | - | -- -- -- | -- -- -- | -- -- --
 | [OW2](https://us.shop.battle.net/en-us/product/overwatch) | Overwatch 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [D4](https://diablo4.blizzard.com/en-us/) | Diablo IV | - | - | -- -- -- | -- -- -- | -- -- --
@@ -202,7 +223,7 @@ The following are the current games:
 | [FalloutNV](https://store.steampowered.com/app/22380) | Fallout New Vegas | - | - | -- -- -- | -- -- -- | -- -- --
 | [Skyrim](https://store.steampowered.com/app/72850) | The Elder Scrolls V: Skyrim | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout4](https://store.steampowered.com/app/377160) | Fallout 4 | - | - | -- -- -- | -- -- -- | -- -- --
-| [SkyrimSE](https://store.steampowered.com/app/489830) | The Elder Scrolls V: Skyrim – Special Edition | - | - | -- -- -- | -- -- -- | -- -- --
+| [SkyrimSE](https://store.steampowered.com/app/489830) | The Elder Scrolls V: Skyrim ï¿½ Special Edition | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout:S](https://store.steampowered.com/app/588430) | Fallout Shelter | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout4VR](https://store.steampowered.com/app/611660) | Fallout 4 VR | - | - | -- -- -- | -- -- -- | -- -- --
 | [SkyrimVR](https://store.steampowered.com/app/611670) | The Elder Scrolls V: Skyrim VR | - | - | -- -- -- | -- -- -- | -- -- --
