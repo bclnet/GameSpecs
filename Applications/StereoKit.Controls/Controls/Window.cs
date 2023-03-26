@@ -8,5 +8,10 @@ namespace StereoKit.UIX.Controls
         {
             Console.WriteLine("HERE");
         }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

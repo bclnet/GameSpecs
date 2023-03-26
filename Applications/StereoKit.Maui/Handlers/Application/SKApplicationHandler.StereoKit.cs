@@ -1,14 +1,20 @@
 using Microsoft.Maui;
-using PlatformView = System.Object;
+using Microsoft.Maui.Handlers;
+using StereoKit.UIX.Controls;
+using PlatformView = StereoKit.UIX.Application;
 
 namespace StereoKit.Maui.Handlers
 {
     public partial class SKApplicationHandler : SKElementHandler<IApplication, PlatformView>
 	{
-		protected override PlatformView CreatePlatformElement() => new();
-
-		public static void MapTerminate(SKApplicationHandler handler, IApplication application, object? args) { }
-		public static void MapOpenWindow(SKApplicationHandler handler, IApplication application, object? args) { }
-		public static void MapCloseWindow(SKApplicationHandler handler, IApplication application, object? args) { }
+		public static void MapTerminate(SKApplicationHandler handler, IApplication application, object? args)
+			=> handler.PlatformView.Exit();
+        public static void MapOpenWindow(SKApplicationHandler handler, IApplication application, object? args)
+			=> handler.PlatformView?.CreatePlatformWindow(application, args as OpenWindowRequest);
+        public static void MapCloseWindow(SKApplicationHandler handler, IApplication application, object? args)
+		{
+            if (args is IWindow window)
+                (window.Handler?.PlatformView as Window)?.Close();
+        }
 	}
 }

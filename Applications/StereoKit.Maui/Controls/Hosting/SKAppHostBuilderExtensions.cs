@@ -52,51 +52,51 @@ namespace Microsoft.Maui.Controls.Hosting
         {
             //handlersCollection.AddHandler<CollectionView, CollectionViewHandler>();
             //handlersCollection.AddHandler<CarouselView, CarouselViewHandler>();
-            handlersCollection.AddHandler<Application, SKApplicationHandler>();
-            handlersCollection.AddHandler<ActivityIndicator, SKActivityIndicatorHandler>();
-            handlersCollection.AddHandler<BoxView, SKShapeViewHandler>();
-            handlersCollection.AddHandler<Button, SKButtonHandler>();
-            handlersCollection.AddHandler<CheckBox, SKCheckBoxHandler>();
-            handlersCollection.AddHandler<DatePicker, SKDatePickerHandler>();
-            handlersCollection.AddHandler<Editor, SKEditorHandler>();
-            handlersCollection.AddHandler<Entry, SKEntryHandler>();
-            handlersCollection.AddHandler<GraphicsView, SKGraphicsViewHandler>();
-            handlersCollection.AddHandler<Image, SKImageHandler>();
-            handlersCollection.AddHandler<Label, SKLabelHandler>();
-            handlersCollection.AddHandler<Layout, SKLayoutHandler>();
-            handlersCollection.AddHandler<Picker, SKPickerHandler>();
-            handlersCollection.AddHandler<ProgressBar, SKProgressBarHandler>();
-            handlersCollection.AddHandler<ScrollView, SKScrollViewHandler>();
-            handlersCollection.AddHandler<SearchBar, SKSearchBarHandler>();
-            handlersCollection.AddHandler<Slider, SKSliderHandler>();
-            handlersCollection.AddHandler<Stepper, SKStepperHandler>();
-            handlersCollection.AddHandler<Switch, SKSwitchHandler>();
-            handlersCollection.AddHandler<TimePicker, SKTimePickerHandler>();
-            handlersCollection.AddHandler<Page, SKPageHandler>();
-            handlersCollection.AddHandler<WebView, SKWebViewHandler>();
-            handlersCollection.AddHandler<Border, SKBorderHandler>();
-            handlersCollection.AddHandler<IContentView, SKContentViewHandler>();
-            handlersCollection.AddHandler<Shapes.Ellipse, SKShapeViewHandler>();
+            handlersCollection.AddHandler<Application, ApplicationHandler>();
+            //handlersCollection.AddHandler<ActivityIndicator, SKActivityIndicatorHandler>();
+            //handlersCollection.AddHandler<BoxView, SKShapeViewHandler>();
+            //handlersCollection.AddHandler<Button, SKButtonHandler>();
+            //handlersCollection.AddHandler<CheckBox, SKCheckBoxHandler>();
+            //handlersCollection.AddHandler<DatePicker, SKDatePickerHandler>();
+            //handlersCollection.AddHandler<Editor, SKEditorHandler>();
+            //handlersCollection.AddHandler<Entry, SKEntryHandler>();
+            //handlersCollection.AddHandler<GraphicsView, SKGraphicsViewHandler>();
+            //handlersCollection.AddHandler<Image, SKImageHandler>();
+            //handlersCollection.AddHandler<Label, SKLabelHandler>();
+            //handlersCollection.AddHandler<Layout, SKLayoutHandler>();
+            //handlersCollection.AddHandler<Picker, SKPickerHandler>();
+            //handlersCollection.AddHandler<ProgressBar, SKProgressBarHandler>();
+            //handlersCollection.AddHandler<ScrollView, SKScrollViewHandler>();
+            //handlersCollection.AddHandler<SearchBar, SKSearchBarHandler>();
+            //handlersCollection.AddHandler<Slider, SKSliderHandler>();
+            //handlersCollection.AddHandler<Stepper, SKStepperHandler>();
+            //handlersCollection.AddHandler<Switch, SKSwitchHandler>();
+            //handlersCollection.AddHandler<TimePicker, SKTimePickerHandler>();
+            //handlersCollection.AddHandler<Page, SKPageHandler>();
+            //handlersCollection.AddHandler<WebView, SKWebViewHandler>();
+            //handlersCollection.AddHandler<Border, SKBorderHandler>();
+            //handlersCollection.AddHandler<IContentView, SKContentViewHandler>();
+            //handlersCollection.AddHandler<Shapes.Ellipse, SKShapeViewHandler>();
             //handlersCollection.AddHandler<Shapes.Line, SKLineHandler>();
             //handlersCollection.AddHandler<Shapes.Path, SKPathHandler>();
             //handlersCollection.AddHandler<Shapes.Polygon, SKPolygonHandler>();
             //handlersCollection.AddHandler<Shapes.Polyline, SKPolylineHandler>();
             //handlersCollection.AddHandler<Shapes.Rectangle, SKRectangleHandler>();
             //handlersCollection.AddHandler<Shapes.RoundRectangle, SKRoundRectangleHandler>();
-            handlersCollection.AddHandler<Window, SKWindowHandler>();
-            handlersCollection.AddHandler<ImageButton, SKImageButtonHandler>();
-            handlersCollection.AddHandler<IndicatorView, SKIndicatorViewHandler>();
-            handlersCollection.AddHandler<RadioButton, SKRadioButtonHandler>();
-            handlersCollection.AddHandler<RefreshView, SKRefreshViewHandler>();
-            handlersCollection.AddHandler<SwipeItem, SKSwipeItemMenuItemHandler>();
-            handlersCollection.AddHandler<SwipeView, SKSwipeViewHandler>();
+            //handlersCollection.AddHandler<Window, SKWindowHandler>();
+            //handlersCollection.AddHandler<ImageButton, SKImageButtonHandler>();
+            //handlersCollection.AddHandler<IndicatorView, SKIndicatorViewHandler>();
+            //handlersCollection.AddHandler<RadioButton, SKRadioButtonHandler>();
+            //handlersCollection.AddHandler<RefreshView, SKRefreshViewHandler>();
+            //handlersCollection.AddHandler<SwipeItem, SKSwipeItemMenuItemHandler>();
+            //handlersCollection.AddHandler<SwipeView, SKSwipeViewHandler>();
 
 #pragma warning disable CA1416 //  'MenuBarHandler', MenuFlyoutSubItemHandler, MenuFlyoutSubItemHandler, MenuBarItemHandler is only supported on: 'ios' 13.0 and later
-            handlersCollection.AddHandler<MenuBar, SKMenuBarHandler>();
-            handlersCollection.AddHandler<MenuFlyoutSubItem, SKMenuFlyoutSubItemHandler>();
-            handlersCollection.AddHandler<MenuFlyoutSeparator, SKMenuFlyoutSeparatorHandler>();
-            handlersCollection.AddHandler<MenuFlyoutItem, SKMenuFlyoutItemHandler>();
-            handlersCollection.AddHandler<MenuBarItem, SKMenuBarItemHandler>();
+            //handlersCollection.AddHandler<MenuBar, SKMenuBarHandler>();
+            //handlersCollection.AddHandler<MenuFlyoutSubItem, SKMenuFlyoutSubItemHandler>();
+            //handlersCollection.AddHandler<MenuFlyoutSeparator, SKMenuFlyoutSeparatorHandler>();
+            //handlersCollection.AddHandler<MenuFlyoutItem, SKMenuFlyoutItemHandler>();
+            //handlersCollection.AddHandler<MenuBarItem, SKMenuBarItemHandler>();
 #pragma warning restore CA1416
 
 #if WINDOWS || ANDROID || IOS || MACCATALYST || TIZEN
@@ -114,7 +114,7 @@ namespace Microsoft.Maui.Controls.Hosting
 #endif
 
 #if WINDOWS || MACCATALYST
-            handlersCollection.AddHandler(typeof(MenuFlyout), typeof(SKMenuFlyoutHandler));
+            //handlersCollection.AddHandler(typeof(MenuFlyout), typeof(SKMenuFlyoutHandler));
 #endif
 
 #if IOS || MACCATALYST
@@ -134,10 +134,10 @@ namespace Microsoft.Maui.Controls.Hosting
 #endif
 #endif
 #if WINDOWS || ANDROID || TIZEN
-            handlersCollection.AddHandler<NavigationPage, SKNavigationViewHandler>();
-            handlersCollection.AddHandler<Toolbar, SKToolbarHandler>();
-            handlersCollection.AddHandler<FlyoutPage, SKFlyoutViewHandler>();
-            handlersCollection.AddHandler<TabbedPage, SKTabbedViewHandler>();
+            //handlersCollection.AddHandler<NavigationPage, SKNavigationViewHandler>();
+            //handlersCollection.AddHandler<Toolbar, SKToolbarHandler>();
+            //handlersCollection.AddHandler<FlyoutPage, SKFlyoutViewHandler>();
+            //handlersCollection.AddHandler<TabbedPage, SKTabbedViewHandler>();
 #endif
 
 #if WINDOWS

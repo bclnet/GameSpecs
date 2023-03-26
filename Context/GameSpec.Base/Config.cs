@@ -1,5 +1,5 @@
 ﻿//#define AC
-#define Arkane
+//#define Arkane
 //#define Bioware
 //#define Blizzard
 //#define Cry
