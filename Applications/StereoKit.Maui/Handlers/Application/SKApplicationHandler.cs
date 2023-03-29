@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
 using System;
-using PlatformView = StereoKit.UIX.Application;
+using PlatformView = StereoKit.Maui.WinUIApplication;
 
 namespace StereoKit.Maui.Handlers
 {
@@ -32,7 +32,7 @@ namespace StereoKit.Maui.Handlers
 		ILogger? Logger =>
 			_logger ??= MauiContext?.Services.CreateLogger<SKApplicationHandler>();
 
-        protected override PlatformView CreatePlatformElement() =>
-            MauiContext?.Services.GetService<PlatformView>() ?? throw new InvalidOperationException($"MauiContext did not have a valid application.");
+		protected override PlatformView CreatePlatformElement() => new();
+            //MauiContext?.Services.GetService<PlatformView>() ?? throw new InvalidOperationException($"MauiContext did not have a valid application.");
     }
 }

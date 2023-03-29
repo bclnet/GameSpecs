@@ -1,8 +1,9 @@
-﻿<maui:MauiWinUIApplication
+﻿<maui2:MauiWinUISKApplication
     x:Class="GameSpec.App.Explorer.WinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:maui="using:Microsoft.Maui"
+    xmlns:maui2="using:StereoKit.Maui"
     xmlns:local="using:GameSpec.App.Explorer.WinUI">
 
-</maui:MauiWinUIApplication>
+</maui2:MauiWinUISKApplication>

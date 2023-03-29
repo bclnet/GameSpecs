@@ -1,7 +1,7 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
-using StereoKit;
+﻿using Microsoft.Maui.Hosting;
+using Microsoft.Maui;
 using System.Threading.Tasks;
+using StereoKit.Maui;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -11,7 +11,7 @@ namespace GameSpec.App.Explorer.WinUI
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public partial class App : MauiWinUIApplication
+    public partial class App : MauiWinUISKApplication
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -38,7 +38,7 @@ namespace GameSpec.App.Explorer.WinUI
                 app.PlatformStartup().Wait();
 
                 // Now pass execution over to StereoKit
-                SK.Run(app.Step, () => Log.Info("Done"));
+                StereoKit.SK.Run(app.Step, () => StereoKit.Log.Info("Done"));
             });
         }
     }
