@@ -1,7 +1,7 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 using StereoKit.Maui.Platform;
-using PlatformView = StereoKit.UIX.Views.LayoutPanel;
+using PlatformView = StereoKit.Maui.Platform.LayoutViewGroup;
 
 namespace StereoKit.Maui.Handlers
 {

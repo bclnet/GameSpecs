@@ -4,7 +4,7 @@ using NView = StereoKit.UIX.Controls.View;
 
 namespace StereoKit.Maui
 {
-    public interface ISKPlatformViewHandler : IViewHandler, IDisposable
+    public interface ISKPlatformViewHandler : IViewHandler
 	{
 		new NView? PlatformView { get; }
 

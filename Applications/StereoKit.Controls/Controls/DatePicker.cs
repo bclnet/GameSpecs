@@ -1,7 +1,11 @@
-﻿namespace StereoKit.UIX.Controls
+﻿using System;
+
+namespace StereoKit.UIX.Controls
 {
     public class DatePicker : View
     {
+        public DatePicker() => Console.WriteLine("Controls: DatePicker");
+
         string? _value;
 
         public void Step()

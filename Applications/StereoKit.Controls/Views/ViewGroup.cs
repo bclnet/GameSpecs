@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace StereoKit.UIX.Controls
 {
-    public class ViewGroup
+    public class ViewGroup : View
     {
-        public IList<object> Children { get; private set; }
+        public ObservableCollection<object> Children { get; set; }
+        public object Child { get; set; }
     }
 }

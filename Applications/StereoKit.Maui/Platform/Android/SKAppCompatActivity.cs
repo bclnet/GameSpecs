@@ -31,7 +31,9 @@ namespace StereoKit.Maui
             base.OnCreate(savedInstanceState);
             Microsoft.Maui.ApplicationModel.Platform.Init(this, savedInstanceState);
 
-            Console.WriteLine($"1: {Handle}");
+            // start sk-thread
+            var app = (MauiSKApplication)Application;
+            app.StartSKThread(Handle);
         }
 
 #pragma warning disable CA1416 // Validate platform compatibility

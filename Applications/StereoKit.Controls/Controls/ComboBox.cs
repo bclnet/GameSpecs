@@ -1,7 +1,11 @@
-﻿namespace StereoKit.UIX.Controls
+﻿using System;
+
+namespace StereoKit.UIX.Controls
 {
     public class ComboBox : View
     {
+        public ComboBox() => Console.WriteLine("Controls: ComboBox");
+
         string? _value;
 
         public void Step()

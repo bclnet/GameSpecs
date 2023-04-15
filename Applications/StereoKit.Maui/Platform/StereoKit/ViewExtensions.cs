@@ -1,82 +1,296 @@
-using Microsoft.Maui;
-using StereoKit.UIX.Controls;
+using System;
+using System.Numerics;
 using System.Threading.Tasks;
+using Microsoft.Maui.Graphics;
+using static Microsoft.Maui.Primitives.Dimension;
+using NView = StereoKit.UIX.Controls.View;
+using MRect = Microsoft.Maui.Graphics.Rect;
+using DSizeF = System.Drawing.SizeF;
+using Microsoft.Maui;
+using Microsoft.Maui.Platform;
+using StereoKit.UIX.Utils;
+using StereoKit.UIX.Controls;
+using StereoKit.Maui.Graphics;
 
 namespace StereoKit.Maui.Platform
 {
     public static partial class ViewExtensions
-	{
-		public static void UpdateIsEnabled(this View platformView, IView view) { }
+    {
+        public static void UpdateIsEnabled(this NView platformView, IView view)
+           => platformView.IsEnabled = view.IsEnabled;
 
-		public static void Focus(this View platformView, FocusRequest request) { }
+        public static void Focus(this NView platformView, FocusRequest request)
+            => request.IsFocused = FocusManager.Instance.SetCurrentFocusView(platformView);
 
-		public static void Unfocus(this View platformView, IView view) { }
+        public static void Unfocus(this NView platformView, IView view)
+        {
+            if (FocusManager.Instance.GetCurrentFocusView() == platformView)
+                FocusManager.Instance.ClearFocus();
+        }
 
-		public static void UpdateVisibility(this View platformView, IView view) { }
+        public static void UpdateVisibility(this NView platformView, IView view)
+        {
+            if (view.Visibility.ToPlatformVisibility())
+            {
+                platformView.Show();
+                //platformView.Layout?.RequestLayout();
+            }
+            else platformView.Hide();
+        }
 
-		public static Task UpdateBackgroundImageSourceAsync(this View platformView, IImageSource? imageSource, IImageSourceServiceProvider? provider)
-			=> Task.CompletedTask;
+        public static bool ToPlatformVisibility(this Visibility visibility)
+            => visibility switch
+            {
+                Visibility.Hidden => false,
+                Visibility.Collapsed => false,
+                _ => true,
+            };
 
-		public static void UpdateBackground(this View platformView, IView view) { }
+        //public static void UpdateBackground(this ContentViewGroup platformView, IBorderView border)
+        //    => (platformView.GetParent() as WrapperView)?.UpdateBackground(border.Background);
 
-		public static void UpdateClipsToBounds(this View platformView, IView view) { }
+        public static void UpdateBackground(this NView platformView, IView view)
+        {
+            //if (view.Background is ImageSourcePaint image)
+            //{
+            //    var provider = view.Handler?.GetRequiredService<IImageSourceServiceProvider>();
+            //    platformView.UpdateBackgroundImageSourceAsync(image.ImageSource, provider)
+            //        .FireAndForget();
+            //    return;
+            //}
 
-		public static void UpdateAutomationId(this View platformView, IView view) { }
+            var paint = view.Background;
 
-		public static void UpdateClip(this View platformView, IView view) { }
+            if (platformView is WrapperView wrapperView)
+                wrapperView.UpdateBackground(paint);
+            else if (platformView.GetParent() is WrapperView parent)
+            {
+                parent.UpdateBackground(paint);
+                platformView.BackgroundColor = Color.BlackTransparent;
+            }
+            else if (paint is not null)
+                platformView.UpdateBackgroundColor(paint.ToSKPlatform());
+        }
 
-		public static void UpdateShadow(this View platformView, IView view) { }
+        public static void UpdateBackground(this NView platformView, Paint? paint)
+        {
+            if (paint == null)
+                return;
 
-		public static void UpdateBorder(this View platformView, IView view) { }
+            if (platformView is WrapperView wrapperView)
+                wrapperView.UpdateBackground(paint);
+            else if (paint is not null)
+                platformView.UpdateBackgroundColor(paint.ToSKPlatform());
+        }
 
-		public static void UpdateOpacity(this View platformView, IView view) { }
+        //public static async Task UpdateBackgroundImageSourceAsync(this NView platformView, IImageSource? imageSource, IImageSourceServiceProvider? provider)
+        //{
+        //    if (provider == null)
+        //        return;
 
-		public static void UpdateSemantics(this View platformView, IView view) { }
+        //    if (platformView is WrapperView wrapperView && wrapperView.Content != null)
+        //    {
+        //        await UpdateBackgroundImageSourceAsync(wrapperView.Content, imageSource, provider);
+        //        return;
+        //    }
 
-		public static void UpdateFlowDirection(this View platformView, IView view) { }
+        //    if (imageSource != null)
+        //    {
+        //        var service = provider.GetRequiredImageSourceService(imageSource);
+        //        var result = await service.GetImageAsync(imageSource);
 
-		public static void UpdateTranslationX(this View platformView, IView view) { }
+        //        if (result != null)
+        //        {
+        //            var bg = new ImageVisual
+        //            {
+        //                URL = result.Value.ResourceUrl,
+        //                FittingMode = FittingModeType.ScaleToFill
+        //            };
+        //            platformView.Background = bg.OutputVisualMap;
+        //        }
+        //    }
+        //}
 
-		public static void UpdateTranslationY(this View platformView, IView view) { }
+        public static void UpdateBorder(this NView platformView, IView view)
+        {
+            if (view is IBorder border && platformView is WrapperView wrapperView)
+                wrapperView.Border = border.Border;
+        }
 
-		public static void UpdateScale(this View platformView, IView view) { }
+        public static void UpdateOpacity(this NView platformView, IView view)
+            => platformView.Opacity = (float)view.Opacity;
 
-		public static void UpdateRotation(this View platformView, IView view) { }
+        public static void UpdateClip(this NView platformView, IView view)
+        {
+            if (platformView is WrapperView wrapper)
+                wrapper.Clip = view.Clip;
+        }
 
-		public static void UpdateRotationX(this View platformView, IView view) { }
+        public static void UpdateShadow(this NView platformView, IView view)
+        {
+            //if (platformView is WrapperView wrapper)
+            //    wrapper.Shadow = view.Shadow;
+        }
 
-		public static void UpdateRotationY(this View platformView, IView view) { }
+        public static void UpdateAutomationId(this NView platformView, IView view)
+        {
+            //TODO: EvasObject.AutomationId is supported from tizen60.
+            //platformView.AutomationId = view.AutomationId;
+        }
 
-		public static void UpdateAnchorX(this View platformView, IView view) { }
+        public static void UpdateSemantics(this NView platformView, IView view) { }
 
-		public static void UpdateAnchorY(this View platformView, IView view) { }
+        public static void InvalidateMeasure(this NView platformView, IView view)
+        {
+            //if (platformView is LayoutViewGroup layoutViewGroup)
+            //    layoutViewGroup.SetNeedMeasureUpdate();
+            //else if (platformView is ViewGroup viewGroup)
+            //    viewGroup.MarkChanged();
+            //else if (view.ToPlatform().GetParent() is ViewGroup parentViewGroup)
+            //    parentViewGroup.MarkChanged();
+            //else
+            //    platformView.Layout?.RequestLayout();
+        }
 
-		public static void InvalidateMeasure(this View platformView, IView view) { }
+        public static void UpdateWidth(this NView platformView, IView view)
+            => UpdateSize(platformView, view);
 
-		public static void UpdateWidth(this View platformView, IView view) { }
+        public static void UpdateHeight(this NView platformView, IView view)
+            => UpdateSize(platformView, view);
 
-		public static void UpdateHeight(this View platformView, IView view) { }
+        public static void UpdateMinimumWidth(this NView platformView, IView view)
+            => platformView.MinimumSize = new DSizeF(view.MinimumWidth.ToScaledPixel(), platformView.MinimumSize.Height);
 
-		public static void UpdateMinimumHeight(this View platformView, IView view) { }
+        public static void UpdateMinimumHeight(this NView platformView, IView view)
+            => platformView.MinimumSize = new DSizeF(platformView.MinimumSize.Width, view.MinimumHeight.ToScaledPixel());
 
-		public static void UpdateMaximumHeight(this View platformView, IView view) { }
+        public static void UpdateMaximumWidth(this NView platformView, IView view)
+        {
+            // empty on purpose
+            // NUI MaximumSize is not working properly
+        }
 
-		public static void UpdateMinimumWidth(this View platformView, IView view) { }
+        public static void UpdateMaximumHeight(this NView platformView, IView view)
+        {
+            // empty on purpose
+            // NUI MaximumSize is not working properly
+        }
 
-		public static void UpdateMaximumWidth(this View platformView, IView view) { }
+        public static void UpdateInputTransparent(this NView platformView, IViewHandler handler, IView view)
+            => platformView.Sensitive = !view.InputTransparent;
 
-		internal static Microsoft.Maui.Graphics.Rect GetPlatformViewBounds(this IView view) => view.Frame;
+        public static void UpdateSize(NView platformView, IView view)
+        {
+            if (!IsExplicitSet(view.Width) || !IsExplicitSet(view.Height))
+                // Ignore the initial setting of the value; the initial layout will take care of it
+                return;
+            // Updating the frame (assuming it's an actual change) will kick off a layout update
+            // Handling of the default (-1) width/height will be taken care of by GetDesiredSize
+            platformView.UpdateSize(new DSizeF((float)view.Width, (float)view.Height));
+        }
 
-		internal static System.Numerics.Matrix4x4 GetViewTransform(this IView view) => new System.Numerics.Matrix4x4();
+        //public static void UpdateToolTip(this NView platformView, ToolTip? tooltip) { }
 
-		internal static Microsoft.Maui.Graphics.Rect GetBoundingBox(this IView view) => view.Frame;
+        //internal static Rect GetPlatformViewBounds(this IView view)
+        //{
+        //    var platformView = view?.ToPlatform();
+        //    if (platformView == null)
+        //        return new Rect();
 
-		internal static object? GetParent(this View? view)
-			=> null;
+        //    return platformView.GetPlatformViewBounds();
+        //}
 
-		internal static IWindow? GetHostedWindow(this IView? view)
-			=> null;
+        //internal static Rect GetPlatformViewBounds(this NView platformView)
+        //{
+        //    if (platformView == null)
+        //        return new Rect();
+        //    var screenPosition = platformView.ScreenPosition;
+        //    return new TRect(screenPosition.X, screenPosition.Y, platformView.SizeWidth, platformView.SizeHeight).ToDP();
+        //}
 
-		public static void UpdateInputTransparent(this View nativeView, IViewHandler handler, IView view) { }
-	}
+        //internal static Matrix4x4 GetViewTransform(this IView view)
+        //{
+        //    var platformView = view?.ToPlatform();
+        //    if (platformView == null)
+        //        return new Matrix4x4();
+        //    return platformView.GetViewTransform();
+        //}
+
+        //internal static Matrix4x4 GetViewTransform(this NView platformView)
+        //    => new Matrix4x4();
+
+        //internal static Graphics.Rect GetBoundingBox(this IView view)
+        //    => view.ToPlatform().GetBoundingBox();
+
+        //internal static Graphics.Rect GetBoundingBox(this NView? platformView)
+        //{
+        //    if (platformView == null)
+        //        return new Rect();
+
+        //    return platformView.GetPlatformViewBounds();
+        //}
+
+        internal static NView? GetParent(this NView? view)
+            => view?.GetParent() as NView;
+
+        //internal static bool IsLoaded(this NView view) => view.IsOnWindow;
+
+        //internal static IDisposable OnLoaded(this NView view, Action action)
+        //{
+        //    if (view.IsLoaded())
+        //    {
+        //        action();
+        //        return new ActionDisposable(() => { });
+        //    }
+
+        //    EventHandler? routedEventHandler = null;
+        //    ActionDisposable disposable = new ActionDisposable(() =>
+        //    {
+        //        if (routedEventHandler != null)
+        //            view.AddedToWindow -= routedEventHandler;
+        //    });
+
+        //    routedEventHandler = (_, __) =>
+        //    {
+        //        disposable.Dispose();
+        //        action();
+        //    };
+
+        //    view.AddedToWindow += routedEventHandler;
+        //    return disposable;
+        //}
+
+        //internal static IDisposable OnUnloaded(this NView view, Action action)
+        //{
+        //    if (!view.IsLoaded())
+        //    {
+        //        action();
+        //        return new ActionDisposable(() => { });
+        //    }
+
+        //    EventHandler? routedEventHandler = null;
+        //    ActionDisposable disposable = new ActionDisposable(() =>
+        //    {
+        //        if (routedEventHandler != null)
+        //            view.RemovedFromWindow -= routedEventHandler;
+        //    });
+
+        //    routedEventHandler = (_, __) =>
+        //    {
+        //        disposable.Dispose();
+        //        action();
+        //    };
+
+        //    view.RemovedFromWindow += routedEventHandler;
+        //    return disposable;
+        //}
+
+        //internal static bool NeedsContainer(this IView? view)
+        //{
+        //    if (view is IBorderView border)
+        //        return border?.Shape != null || border?.Stroke != null;
+
+        //    return false;
+        //}
+    }
 }

@@ -1,7 +1,11 @@
-﻿namespace StereoKit.UIX.Controls
+﻿using System;
+
+namespace StereoKit.UIX.Controls
 {
     public class CheckBox : View
     {
+        public CheckBox() => Console.WriteLine("Controls: CheckBox");
+
         bool _checked;
         public bool IsChecked
         {

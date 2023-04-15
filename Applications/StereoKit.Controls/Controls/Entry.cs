@@ -1,7 +1,11 @@
-﻿namespace StereoKit.UIX.Controls
+﻿using System;
+
+namespace StereoKit.UIX.Controls
 {
     public class Entry : View
     {
+        public Entry() => Console.WriteLine("Controls: Entry");
+
         string? _text;
         public string? Text
         {

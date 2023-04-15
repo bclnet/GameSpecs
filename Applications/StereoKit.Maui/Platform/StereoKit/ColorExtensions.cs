@@ -1,13 +1,12 @@
 ﻿using Microsoft.Maui.Graphics;
-using TColor = StereoKit.Color;
-using NColor = StereoKit.Color;
+using MColor = Microsoft.Maui.Graphics.Color;
 
 namespace StereoKit.Maui.Platform
 {
     public static class ColorExtensions
     {
-        //public static TColor ToPlatform(this Color c)
-        //    => c == null ? TColor.Default : new TColor(c.Red, c.Green, c.Blue, c.Alpha);
+        public static Color ToPlatform(this MColor c)
+            => c == null ? Color.Black : new Color(c.Red, c.Green, c.Blue, c.Alpha);
 
         //public static NColor? ToNUIColor(this Color c)
         //    => c == null ? null : new NColor(c.Red, c.Green, c.Blue, c.Alpha);
