@@ -10,7 +10,7 @@ namespace GameSpec.App.Explorer
 {
     partial class App : ISKApplication
     {
-        public SKSettings Settings { get; } = new()
+        public SKSettings Settings { get; set; } = new()
         {
             appName = "StereoKit C#",
             assetsFolder = "Assets",

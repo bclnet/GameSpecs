@@ -7,6 +7,7 @@ using StereoKit.Maui.LifecycleEvents;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Platform;
 
 namespace StereoKit.Maui
 {
@@ -75,9 +76,9 @@ namespace StereoKit.Maui
 
             Application = Services.GetRequiredService<IApplication>();
 
-            //this.SetApplicationHandler(Application, applicationContext);
+            this.SetApplicationHandler(Application, applicationContext);
 
-            //this.CreatePlatformWindow(Application, args);
+            this.CreatePlatformWindow(Application, args);
 
             Services.InvokeLifecycleEvents<WindowsLifecycle.OnLaunched>(del => del(this, args));
 

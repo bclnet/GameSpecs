@@ -10,10 +10,11 @@ using Microsoft.Maui.Devices;
 using Microsoft.Maui.LifecycleEvents;
 using StereoKit.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
+using StereoKit;
 
 namespace StereoKit.Maui
 {
-	public partial class MauiAppCompatActivity
+	public partial class MauiSKAppCompatActivity
 	{
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent? data)
 		{
@@ -96,6 +97,7 @@ namespace StereoKit.Maui
 
 		protected override void OnDestroy()
 		{
+            SK.Quit();
 			base.OnDestroy();
 
 			MauiSKApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnDestroy>(del => del(this));
