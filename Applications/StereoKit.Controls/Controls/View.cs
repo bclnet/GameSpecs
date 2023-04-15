@@ -5,8 +5,6 @@ namespace StereoKit.UIX.Controls
 {
     public class View : IDisposable
     {
-        public View() => Console.WriteLine("Controls: View");
-
         public bool IsEnabled { get; set; }
         public SizeF Measured { get; set; }
         public SizeF MinimumSize { get; set; }
@@ -21,6 +19,10 @@ namespace StereoKit.UIX.Controls
         public SizeF Size { get; set; }
         public Rect Bounds { get; set; }
         public bool Sensitive { get; set; }
+        public LayoutParamPolicies WidthSpecification { get; set; }
+        public LayoutParamPolicies HeightSpecification { get; set; }
+        public ResizePolicyType HeightResizePolicy { get; set; }
+        public ResizePolicyType WidthResizePolicy { get; set; }
 
         public event Action<object?, EventArgs> LayoutUpdated;
 

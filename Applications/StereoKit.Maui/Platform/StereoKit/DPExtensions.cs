@@ -2,13 +2,14 @@
 using Microsoft.Maui.Graphics;
 using MRect = Microsoft.Maui.Graphics.Rect;
 using DSizeF = System.Drawing.SizeF;
+using Microsoft.Maui.Devices;
 
 namespace StereoKit.Maui.Platform
 {
     public static class DPExtensions
     {
         const double DPI = 160.0;
-        const double ScalingFactor = 1.0;
+        internal const double ScalingFactor = 1.0; // DeviceInfo.ScalingFactor;
 
         public static MRect ToDP(this Rect rect)
             => new(ConvertToScaledDP(rect.x), ConvertToScaledDP(rect.y), ConvertToScaledDP(rect.width), ConvertToScaledDP(rect.height));
