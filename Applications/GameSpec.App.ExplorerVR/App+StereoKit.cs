@@ -1,5 +1,6 @@
 ﻿using GameSpec.App.Explorer.Tools;
 using StereoKit;
+using StereoKit.Maui;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,12 +8,9 @@ using Color = StereoKit.Color;
 
 namespace GameSpec.App.Explorer
 {
-    partial class App
+    partial class App : ISKApplication
     {
-        delegate uint XR_xrConvertTimeToWin32PerformanceCounterKHR(ulong instance, long time, out long performanceCounter);
-        static XR_xrConvertTimeToWin32PerformanceCounterKHR xrConvertTimeToWin32PerformanceCounterKHR;
-
-        public SKSettings Settings = new()
+        public SKSettings Settings { get; } = new()
         {
             appName = "StereoKit C#",
             assetsFolder = "Assets",
@@ -23,43 +21,8 @@ namespace GameSpec.App.Explorer
 
         Model floorMesh;
         Matrix floorTr;
-        string startTest = "welcome";
 
-        public async Task PlatformStartup()
-        {
-            // args
-            Tests.IsTesting = Array.IndexOf(args, "-test") != -1;
-            Tests.MakeScreenshots = Array.IndexOf(args, "-noscreens") == -1;
-            if (Array.IndexOf(args, "-screenfolder") != -1) Tests.ScreenshotRoot = args[Array.IndexOf(args, "-screenfolder") + 1];
-            if (Array.IndexOf(args, "-start") != -1) startTest = args[Array.IndexOf(args, "-start") + 1];
-            if (Tests.IsTesting)
-            {
-                Settings.displayPreference = DisplayMode.Flatscreen;
-                Settings.disableUnfocusedSleep = true;
-            }
-
-            // Preload the StereoKit library for access to Time.Scale before initialization occurs.
-            SK.PreLoadLibrary();
-            //Time.Scale = 1;
-            Log.Subscribe(OnLog);
-
-            // Initialize StereoKit, and the app
-            //Backend.OpenXR.RequestExt("XR_KHR_win32_convert_performance_counter_time");
-            if (!SK.Initialize(Settings)) Environment.Exit(1);
-            //if (Backend.XRType == BackendXRType.OpenXR && Backend.OpenXR.ExtEnabled("XR_KHR_win32_convert_performance_counter_time"))
-            //{
-            //    xrConvertTimeToWin32PerformanceCounterKHR = Backend.OpenXR.GetFunction<XR_xrConvertTimeToWin32PerformanceCounterKHR>("xrConvertTimeToWin32PerformanceCounterKHR");
-            //    if (xrConvertTimeToWin32PerformanceCounterKHR != null)
-            //    {
-            //        xrConvertTimeToWin32PerformanceCounterKHR(Backend.OpenXR.Instance, Backend.OpenXR.Time, out long counter);
-            //        Log.Info($"XrTime: {counter}");
-            //    }
-            //}
-
-            Initialize(args);
-        }
-
-        public void Initialize(string[] args)
+        public void Initialize()
         {
             var floorMat = new Material(Shader.FromFile("floor_shader.hlsl"))
             {
@@ -80,7 +43,7 @@ namespace GameSpec.App.Explorer
             if (!Tests.IsTesting) SK.AddStepper(new RenderCamera(new Pose(0.3f, 0, .5f, Quat.FromAngles(0, -90, 0)), 1000, 1000));
         }
 
-        public void Step()
+        public void OnStep()
         {
             CheckFocus();
 
@@ -135,7 +98,7 @@ namespace GameSpec.App.Explorer
         static readonly List<string> logList = new();
         static string logText = "";
 
-        static void OnLog(LogLevel level, string text)
+        public void OnLog(LogLevel level, string text)
         {
             if (logList.Count > 15) logList.RemoveAt(logList.Count - 1);
             logList.Insert(0, text.Length < 100 ? text : text[..100] + "...\n");

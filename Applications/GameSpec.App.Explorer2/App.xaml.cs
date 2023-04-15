@@ -28,10 +28,9 @@ namespace GameSpec.App.Explorer
             InitializeComponent();
             Instance = this;
             MainPage = new AppShell();
-            if (FamilyPlatform.PlatformOS != FamilyPlatform.OS.Android) Startup();
         }
 
-        public static void Startup()
+        protected override void OnStart()
         {
             if (!HasPermissions()) return;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
@@ -40,6 +39,7 @@ namespace GameSpec.App.Explorer
                 (TestOptions opts) => Instance.RunTest(opts),
                 (OpenOptions opts) => Instance.RunOpen(opts),
                 errs => Instance.RunError(errs));
+            base.OnStart();
         }
 
         #region Options

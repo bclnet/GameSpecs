@@ -81,11 +81,11 @@ namespace GameSpec.App.Explorer.Views
 
         #region Menu
 
-        async void OpenPage_Click(object sender, EventArgs e)
+        void OpenPage_Click(object sender, EventArgs e)
         {
             var openPage = new OpenPage();
             //App.Instance.MainPage = openPage;
-            //await Navigation.PushModalAsync(openPage);
+            //Navigation.PushModalAsync(openPage);
         }
 
         void OptionsPage_Click(object sender, EventArgs e)

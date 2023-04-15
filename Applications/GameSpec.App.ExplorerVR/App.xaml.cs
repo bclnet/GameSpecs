@@ -34,21 +34,18 @@ namespace GameSpec.App.Explorer
             InitializeComponent();
             Instance = this;
             MainPage = new MainPage();
-
-#if !__ANDROID__
-            Explorer.WinUI.App.Run();
-#endif
         }
 
-        public async Task Startup()
+        protected override void OnStart()
         {
-            if (await HasPermissions()) return;
+            if (HasPermissions().Result) return;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
             .MapResult(
                 (DefaultOptions opts) => Instance.RunDefault(opts),
                 (TestOptions opts) => Instance.RunTest(opts),
                 (OpenOptions opts) => Instance.RunOpen(opts),
                 errs => Instance.RunError(errs));
+            base.OnStart();
         }
 
         #region Options
@@ -83,6 +80,17 @@ namespace GameSpec.App.Explorer
 
         int RunTest(TestOptions opts)
         {
+            //    Tests.IsTesting = Array.IndexOf(args, "-test") != -1;
+            //    Tests.MakeScreenshots = Array.IndexOf(args, "-noscreens") == -1;
+            //    if (Array.IndexOf(args, "-screenfolder") != -1) Tests.ScreenshotRoot = args[Array.IndexOf(args, "-screenfolder") + 1];
+            //    if (Array.IndexOf(args, "-start") != -1) startTest = args[Array.IndexOf(args, "-start") + 1];
+            //    if (Tests.IsTesting)
+            //    {
+            //        Settings.displayPreference = DisplayMode.Flatscreen;
+            //        Settings.disableUnfocusedSleep = true;
+            //    }
+            // string startTest = "welcome";
+
             var page = (MainPage)MainPage;
             page.OnFirstLoad();
             return 0;

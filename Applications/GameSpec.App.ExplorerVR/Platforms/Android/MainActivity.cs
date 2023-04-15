@@ -33,7 +33,7 @@ namespace GameSpec.App.Explorer
             base.OnCreate(savedInstanceState);
             Microsoft.Maui.ApplicationModel.Platform.Init(this, savedInstanceState);
 
-            MainApplication.Run(Handle);
+            //MainApplication.Run(Handle);
         }
 
 #pragma warning disable CA1416 // Validate platform compatibility

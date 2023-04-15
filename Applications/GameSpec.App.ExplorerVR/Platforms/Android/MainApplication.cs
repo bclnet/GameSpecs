@@ -15,21 +15,21 @@ namespace GameSpec.App.Explorer
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
-        static bool running = false;
-        internal static void Run(IntPtr activityHandle)
-        {
-            if (running) return;
-            running = true;
+        //static bool running = false;
+        //internal static void Run(IntPtr activityHandle)
+        //{
+        //    if (running) return;
+        //    running = true;
 
-            var app = App.Instance;
-            app.Settings.androidActivity = activityHandle;
-            app.PlatformStartup().Wait();
-            // Now pass execution over to StereoKit
-            //Task.Run(() =>
-            //{
-            SK.Run(app.Step, () => Log.Info("Done"));
-            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
-            //});
-        }
+        //    var app = App.Instance;
+        //    app.Settings.androidActivity = activityHandle;
+        //    app.PlatformStartup().Wait();
+        //    // Now pass execution over to StereoKit
+        //    //Task.Run(() =>
+        //    //{
+        //    SK.Run(app.OnStep, () => Log.Info("Done"));
+        //    Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+        //    //});
+        //}
     }
 }
