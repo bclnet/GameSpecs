@@ -34,7 +34,6 @@ namespace StereoKit.Maui.Platform
                 throw new InvalidOperationException($"Unable to convert {view} to {typeof(PlatformView)}");
 
             return view.ToSKPlatform() ?? throw new InvalidOperationException($"Unable to convert {view} to {typeof(PlatformView)}");
-
         }
     }
 }

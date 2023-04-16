@@ -46,5 +46,9 @@ namespace StereoKit.UIX.Controls
         public void UpdateSize(SizeF size) => Size = size;
 
         public void RequestLayout() { }
+
+        public View GetParent() => Parent;
+
+        public virtual void OnStep(object? arg) { }
     }
 }

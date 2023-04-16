@@ -7,24 +7,6 @@ using StereoKit.Maui.Platform;
 
 namespace StereoKit.Maui
 {
-    public class NavigationStack
-    {
-        public LayoutParamPolicies HeightSpecification { get; internal set; }
-        public LayoutParamPolicies WidthSpecification { get; internal set; }
-        public ResizePolicyType WidthResizePolicy { get; internal set; }
-        public ResizePolicyType HeightResizePolicy { get; internal set; }
-
-        internal void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void Push(View content, bool v)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public static partial class WindowExtensions
     {
         static Dictionary<Window, NavigationStack> s_modalStacks = new Dictionary<Window, NavigationStack>();

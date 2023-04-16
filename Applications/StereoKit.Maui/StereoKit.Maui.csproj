@@ -16,14 +16,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Controls\Hosting\SKAppHostBuilderExtensions.Last.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Controls\Hosting\SKAppHostBuilderExtensions.Last.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="StereoKit" Version="0.3.7-preview.9" />
 	</ItemGroup>
 

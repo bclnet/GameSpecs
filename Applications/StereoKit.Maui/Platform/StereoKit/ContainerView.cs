@@ -6,43 +6,43 @@ using NView = StereoKit.UIX.Controls.View;
 
 namespace StereoKit.Maui.Platform
 {
-	public class ContainerView : ViewGroup, IReloadHandler
-	{
-		readonly IMauiContext? _context;
+    public class ContainerView : ViewGroup, IReloadHandler
+    {
+        readonly IMauiContext? _context;
 
-		IElement? _view;
+        IElement? _view;
 
-		public ContainerView(IMauiContext context)
-			=> _context = context;
+        public ContainerView(IMauiContext context)
+            => _context = context;
 
-		public IElement? CurrentView
-		{
-			get => _view;
-			set => SetView(value);
-		}
+        public IElement? CurrentView
+        {
+            get => _view;
+            set => SetView(value);
+        }
 
-		public NView? CurrentPlatformView { get; private set; }
+        public NView? CurrentPlatformView { get; private set; }
 
-		void SetView(IElement? view, bool forceRefresh = false)
-		{
-			if (view == _view && !forceRefresh)
-				return;
+        void SetView(IElement? view, bool forceRefresh = false)
+        {
+            if (view == _view && !forceRefresh)
+                return;
 
-			_view = view;
+            _view = view;
 
-			if (_view is IHotReloadableView ihr)
-			{
-				ihr.ReloadHandler = this;
-				MauiHotReloadHelper.AddActiveView(ihr);
-			}
+            if (_view is IHotReloadableView ihr)
+            {
+                ihr.ReloadHandler = this;
+                MauiHotReloadHelper.AddActiveView(ihr);
+            }
 
-			Children.Clear();
-			CurrentPlatformView = null;
+            Children.Clear();
+            CurrentPlatformView = null;
 
-			if (_view != null)
-			{
-				_ = _context ?? throw new ArgumentNullException(nameof(_context));
-				var nativeView = _view.ToSKPlatform(_context);
+            if (_view != null)
+            {
+                _ = _context ?? throw new ArgumentNullException(nameof(_context));
+                var nativeView = _view.ToSKPlatform(_context);
                 nativeView.WidthSpecification = LayoutParamPolicies.MatchParent;
                 nativeView.HeightSpecification = LayoutParamPolicies.MatchParent;
                 Children.Add(nativeView);
@@ -50,6 +50,12 @@ namespace StereoKit.Maui.Platform
             }
         }
 
-		public void Reload() => SetView(CurrentView, true);
-	}
+        public void Reload() => SetView(CurrentView, true);
+
+        public override void OnStep(object? arg)
+        {
+            foreach (var s in Children)
+                s.OnStep(null);
+        }
+    }
 }

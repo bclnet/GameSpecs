@@ -4,8 +4,11 @@ using Microsoft.Maui;
 using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
 using StereoKit.Maui.LifecycleEvents;
+using StereoKit.Maui.Platform;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
+using NWindow = StereoKit.UIX.Controls.Window;
 
 namespace StereoKit.Maui
 {
@@ -43,32 +46,30 @@ namespace StereoKit.Maui
             SK.Run(OnStep, () => Log.Info("Done"));
         }
 
-        static Pose demoSelectPose = new(new Vec3(0, 0, -0.6f), Quat.LookDir(-Vec3.Forward));
-
         public virtual void OnStep()
         {
-            // Make a window for demo selection
-            UI.WindowBegin("Demos", ref demoSelectPose, new Vec2(50 * U.cm, 0));
-            UI.Label("Label");
-            UI.Label("Label");
-            UI.WindowEnd();
-
-
+            foreach (var w in Application.Windows)
+                if (w.ToSKPlatform() is NWindow window)
+                    window.OnStep(window.GetModalStack());
             var app = (ISKApplication)Application;
             app.OnStep();
         }
 
         protected void StartSKThread() => Task.Run(SKThread);
 
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
-        {
-            base.OnLaunched(args);
-            StartSKThread();
-        }
+        //protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        //{
+        //    base.OnLaunched(args);
+        //    StartSKThread();
+        //}
 
-        /*
+        MethodInfo DeploymentManagerAutoInitializer_LogIfFailedMethod = typeof(IApplication).Assembly.GetType("Microsoft.Maui.DeploymentManagerAutoInitializer")!.GetMethod("LogIfFailed")!;
+
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+#if true
+            base.OnLaunched(args);
+#else
             // Windows running on a different thread will "launch" the app again
             if (Application != null)
             {
@@ -86,21 +87,21 @@ namespace StereoKit.Maui
 
             Services = applicationContext.Services;
 
-            //DeploymentManagerAutoInitializer.LogIfFailed(Services);
+            DeploymentManagerAutoInitializer_LogIfFailedMethod.Invoke(null, new[] { Services });
 
             Services.InvokeLifecycleEvents<WindowsLifecycle.OnLaunching>(del => del(this, args));
 
             Application = Services.GetRequiredService<IApplication>();
 
-            //this.SetApplicationHandler(Application, applicationContext);
+            this.SetApplicationHandler(Application, applicationContext);
 
-            //this.CreatePlatformWindow(Application, args);
+            this.CreatePlatformWindow(Application, args);
 
             Services.InvokeLifecycleEvents<WindowsLifecycle.OnLaunched>(del => del(this, args));
+#endif
 
             StartSKThread();
         }
-        */
     }
 }
 #endif
