@@ -25,7 +25,7 @@ namespace GameSpec
         /// </summary>
         public interface IFileSystem
         {
-            string[] GetDirectories(string path, string searchPattern);
+            string[] GetDirectories(string path, string searchPattern, bool recursive);
             string[] GetFiles(string path, string searchPattern);
         }
 
@@ -34,7 +34,7 @@ namespace GameSpec
         /// </summary>
         class StandardSystem : IFileSystem
         {
-            public string[] GetDirectories(string path, string searchPattern) => Directory.GetDirectories(path, searchPattern);
+            public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(path, searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
             public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
         }
 
@@ -146,10 +146,10 @@ namespace GameSpec
                 var searchPattern = Path.GetDirectoryName(pathOrPattern);
                 if (searchPattern.Contains('*'))
                 {
-                    foreach (var directory in fileSystem.GetDirectories(path, searchPattern))
+                    foreach (var directory in fileSystem.GetDirectories(path, searchPattern, searchPattern.Contains("**")))
                         foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, gamePath, Path.GetFileName(pathOrPattern)))
                             yield return found;
-                    yield break;
+                    pathOrPattern = Path.GetFileName(pathOrPattern);
                 }
                 // file
                 var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;

@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Capcom\GameSpec.Capcom.Platform\GameSpec.Capcom.Platform.csproj" />
+    <ProjectReference Include="..\..\Capcom\GameSpec.Capcom\GameSpec.Capcom.csproj" />
     <ProjectReference Include="..\..\Context\GameSpec.All\GameSpec.All.csproj" />
   </ItemGroup>
 

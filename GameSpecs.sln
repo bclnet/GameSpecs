@@ -312,6 +312,36 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StereoKit.Maui", "Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StereoKit.Controls", "Applications\StereoKit.Controls\StereoKit.Controls.csproj", "{A749475C-9614-4E58-AFA7-5C61BF81C372}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontier", "Frontier", "{8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}"
+	ProjectSection(SolutionItems) = preProject
+		Frontier\FrontierFamily.json = Frontier\FrontierFamily.json
+		Documents\Families\Frontier\Readme.md = Documents\Families\Frontier\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Capcom", "Capcom", "{6F41E78D-790E-461B-8B66-94569F6E4291}"
+	ProjectSection(SolutionItems) = preProject
+		Capcom\CapcomFamily+N-R.json = Capcom\CapcomFamily+N-R.json
+		Capcom\CapcomFamily+T-Z.json = Capcom\CapcomFamily+T-Z.json
+		Capcom\CapcomFamily+M.json = Capcom\CapcomFamily+M.json
+		Capcom\CapcomFamily+E–L.json = Capcom\CapcomFamily+E–L.json
+		Capcom\CapcomFamily+0–D.json = Capcom\CapcomFamily+0–D.json
+		Capcom\CapcomFamily+S.json = Capcom\CapcomFamily+S.json
+		Capcom\CapcomFamily.json = Capcom\CapcomFamily.json
+		Documents\Families\Capcom\Readme.md = Documents\Families\Capcom\Readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Frontier", "Frontier\GameSpec.Frontier\GameSpec.Frontier.csproj", "{3DBBC1EF-1817-4A75-84AB-291B8444D925}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Frontier.Platform", "Frontier\GameSpec.Frontier.Platform\GameSpec.Frontier.Platform.csproj", "{6DC2ABAB-15A2-4958-AAD5-0232AA1A6A8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.FrontierTests", "Frontier\GameSpec.FrontierTests\GameSpec.FrontierTests.csproj", "{E33A30AA-236F-4324-9CD8-21D3DF5B7CE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Capcom", "Capcom\GameSpec.Capcom\GameSpec.Capcom.csproj", "{BD8BD213-5556-4A94-B00B-5BBD936A973C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Capcom.Platform", "Capcom\GameSpec.Capcom.Platform\GameSpec.Capcom.Platform.csproj", "{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CapcomTests", "Capcom\GameSpec.CapcomTests\GameSpec.CapcomTests.csproj", "{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -662,6 +692,30 @@ Global
 		{A749475C-9614-4E58-AFA7-5C61BF81C372}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A749475C-9614-4E58-AFA7-5C61BF81C372}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A749475C-9614-4E58-AFA7-5C61BF81C372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DBBC1EF-1817-4A75-84AB-291B8444D925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DBBC1EF-1817-4A75-84AB-291B8444D925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DBBC1EF-1817-4A75-84AB-291B8444D925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DBBC1EF-1817-4A75-84AB-291B8444D925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC2ABAB-15A2-4958-AAD5-0232AA1A6A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC2ABAB-15A2-4958-AAD5-0232AA1A6A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC2ABAB-15A2-4958-AAD5-0232AA1A6A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC2ABAB-15A2-4958-AAD5-0232AA1A6A8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E33A30AA-236F-4324-9CD8-21D3DF5B7CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33A30AA-236F-4324-9CD8-21D3DF5B7CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33A30AA-236F-4324-9CD8-21D3DF5B7CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33A30AA-236F-4324-9CD8-21D3DF5B7CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8BD213-5556-4A94-B00B-5BBD936A973C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8BD213-5556-4A94-B00B-5BBD936A973C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8BD213-5556-4A94-B00B-5BBD936A973C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8BD213-5556-4A94-B00B-5BBD936A973C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -756,6 +810,12 @@ Global
 		{C2FD23CD-3C62-45B2-B627-C86444061453} = {0911DDF1-E514-4BCF-915A-49999D5D168C}
 		{BA578499-B91A-4F68-8967-9B12B315EF11} = {0911DDF1-E514-4BCF-915A-49999D5D168C}
 		{A749475C-9614-4E58-AFA7-5C61BF81C372} = {0911DDF1-E514-4BCF-915A-49999D5D168C}
+		{3DBBC1EF-1817-4A75-84AB-291B8444D925} = {8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}
+		{6DC2ABAB-15A2-4958-AAD5-0232AA1A6A8C} = {8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}
+		{E33A30AA-236F-4324-9CD8-21D3DF5B7CE0} = {8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}
+		{BD8BD213-5556-4A94-B00B-5BBD936A973C} = {6F41E78D-790E-461B-8B66-94569F6E4291}
+		{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6} = {6F41E78D-790E-461B-8B66-94569F6E4291}
+		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C} = {6F41E78D-790E-461B-8B66-94569F6E4291}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

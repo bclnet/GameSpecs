@@ -70,43 +70,43 @@
       "P:O": {
         "key": "Steam:22180",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22180",
-        "dir": "",
+        "dir": "Penumbra: Overture",
         "path": "main"
       },
       "P:BP": {
         "key": "Steam:22120",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22120",
-        "dir": "",
+        "dir": "Penumbra: Black Plague",
         "path": "main"
       },
       "P:R": {
         "key": "Steam:22140",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22140",
-        "dir": "",
+        "dir": "Penumbra: Requiem",
         "path": "main"
       },
       "A:TDD": {
         "key": "Steam:57300",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 57300",
-        "dir": "",
+        "dir": "Amnesia: The Dark Descent",
         "path": "main"
       },
       "A:AMFP": {
         "key": "Steam:239200",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 239200",
-        "dir": "",
+        "dir": "Amnesia: A Machine for Pigs",
         "path": "main"
       },
       "SOMA": {
         "key": "Steam:282140",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282140",
-        "dir": "",
+        "dir": "SOMA",
         "path": "main"
       },
       "A:R": {
         "key": "Steam:999220",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 999220",
-        "dir": "",
+        "dir": "Amnesia: Rebirth",
         "path": "main"
       }
     }

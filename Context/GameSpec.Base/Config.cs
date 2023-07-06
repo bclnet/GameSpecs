@@ -2,9 +2,11 @@
 //#define Arkane
 //#define Bioware
 //#define Blizzard
+//#define Capcom
 //#define Cry
 //#define Cryptic
 //#define Cyanide
+//#define Frontier
 //#define Hpl
 //#define Id
 //#define IW
@@ -97,6 +99,15 @@ namespace GameSpec
             //GameId = "OW2", // Overwatch 2
             //Missing: GameId = "D4", // Diablo IV
         };
+#elif Capcom
+        static string[] FamilyKeys = new[] { "Capcom", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new()
+        {
+            ForceOpen = true,
+            Family = "Capcom",
+            GameId = "XX", // XX
+        };
 #elif Cry
         static string[] FamilyKeys = new[] { "Cry", "Unknown" };
 
@@ -135,9 +146,18 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             ForceOpen = true,
-            Family = "Cry",
+            Family = "Cyanide",
             GameId = "Council", // Council
             GameId = "Werewolf:TA", // Werewolf: The Apocalypse - Earthblood
+        };
+#elif Frontier
+        static string[] FamilyKeys = new[] { "Frontier", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new()
+        {
+            ForceOpen = false,
+            Family = "Frontier",
+            GameId = "ED"
         };
 #elif Hpl
         static string[] FamilyKeys = new[] { "Hpl", "Unknown" };
@@ -363,7 +383,7 @@ namespace GameSpec
             //GameId = "HL:Alyx", // Half-Life: Alyx [open, read, texture:GL, model:GL]
         };
 #else
-        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Cry", "Cryptic", "Cyanide", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
+        static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Capcom", "Cry", "Cryptic", "Cyanide", "Frontier", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
         public static DefaultOptions AppDefaultOptions = new() { };
 #endif

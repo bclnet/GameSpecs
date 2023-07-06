@@ -218,17 +218,17 @@
       "Q:L": {
         "key": "Steam:282440",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282440",
-        "dir": "xx"
+        "dir": "Quake Live"
       },
       "R": {
         "key": "Steam:0",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
-        "dir": "xx"
+        "dir": "Rage"
       },
       "D": {
         "key": "Steam:0",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
-        "dir": "xx"
+        "dir": "Doom"
       },
       "D:VFR": {
         "key": "Steam:650000",
@@ -238,17 +238,17 @@
       "R2": {
         "key": "Steam:0",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
-        "dir": "xx"
+        "dir": "Rage 2"
       },
       "D:E": {
         "key": "Steam:0",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
-        "dir": "xx"
+        "dir": "Doom Eternal"
       },
       "Q:C": {
         "key": "Steam:611500",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611500",
-        "dir": "xx"
+        "dir": "Quake Champions"
       }
     }
   }

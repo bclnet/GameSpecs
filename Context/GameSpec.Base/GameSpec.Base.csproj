@@ -10,9 +10,11 @@
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
     <EmbeddedResource Include="..\..\Blizzard\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
+    <EmbeddedResource Include="..\..\Capcom\CapcomFamily.json" Link="Families\CapcomFamily.json" />
     <EmbeddedResource Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
     <EmbeddedResource Include="..\..\Cryptic\CrypticFamily.json" Link="Families\CrypticFamily.json" />
     <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
+    <EmbeddedResource Include="..\..\Frontier\FrontierFamily.json" Link="Families\FrontierFamily.json" />
     <EmbeddedResource Include="..\..\Hpl\HplFamily.json" Link="Families\HplFamily.json" />
     <EmbeddedResource Include="..\..\Id\IdFamily.json" Link="Families\IdFamily.json" />
     <EmbeddedResource Include="..\..\IW\IWFamily.json" Link="Families\IWFamily.json" />
