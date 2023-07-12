@@ -81,7 +81,7 @@ namespace GameSpec.Formats
         public object UnityFormat => TextureUnityFormat.RGB24;
         public object GLFormat => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte);
         public int NumMipMaps => pixels.Length;
-        public byte[] this[int index]
+        public Span<byte> this[int index]
         {
             get
             {

@@ -5,7 +5,7 @@ using System;
 namespace GameSpec.Graphics
 {
     //was:Types/Renderer/MaterialLoader
-    public class OpenGLTextureBuilder : AbstractTextureBuilder<int>
+    public unsafe class OpenGLTextureBuilder : AbstractTextureBuilder<int>
     {
         public void Release()
         {
@@ -54,14 +54,14 @@ namespace GameSpec.Graphics
             {
                 var internalFormat = (InternalFormat)glFormat;
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
-                for (var i = info.NumMipMaps - 1; i >= 0; i--)
+                //for (var i = info.NumMipMaps - 1; i >= 0; i--)
+                for (var i = 0; i < info.NumMipMaps; i++)
                 {
                     var width = info.Width >> i;
                     var height = info.Height >> i;
                     var pixels = info[i];
                     if (pixels == null) return DefaultTexture;
-
-                    GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, pixels.Length, pixels);
+                    fixed (byte* data = pixels) GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, pixels.Length, (IntPtr)data);
                 }
             }
             else if (info.GLFormat is ValueTuple<TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType> glPixelFormat)
@@ -70,18 +70,19 @@ namespace GameSpec.Graphics
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
                 var format = (PixelFormat)glPixelFormat.Item2;
                 var type = (PixelType)glPixelFormat.Item3;
-                for (var i = info.NumMipMaps - 1; i >= 0; i--)
+                //for (var i = info.NumMipMaps - 1; i >= 0; i--)
+                for (var i = 0; i < info.NumMipMaps; i++)
                 {
                     var width = info.Width >> i;
                     var height = info.Height >> i;
                     var pixels = info[i];
                     if (pixels == null) return DefaultTexture;
 
-                    GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, pixels);
+                    fixed (byte* data = pixels) GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, (IntPtr)data);
                 }
             }
             else throw new NotImplementedException();
-            
+
             if (info is IDisposable disposable) disposable.Dispose();
 
             if (MaxTextureMaxAnisotropy >= 4)

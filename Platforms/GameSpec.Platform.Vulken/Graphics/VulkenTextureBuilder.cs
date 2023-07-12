@@ -4,7 +4,7 @@ using System;
 
 namespace GameSpec.Graphics
 {
-    public class VulkenTextureBuilder : AbstractTextureBuilder<int>
+    public unsafe class VulkenTextureBuilder : AbstractTextureBuilder<int>
     {
         public void Release()
         {
@@ -60,7 +60,7 @@ namespace GameSpec.Graphics
                     var bytes = info[i];
                     if (bytes == null) return DefaultTexture;
 
-                    GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, bytes.Length, bytes);
+                    fixed (byte* data = bytes) GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, bytes.Length, (IntPtr)data);
                 }
             }
             else if (info.GLFormat is ValueTuple<TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType> glPixelFormat)
@@ -77,7 +77,7 @@ namespace GameSpec.Graphics
                     var bytes = info[i];
                     if (bytes == null) return DefaultTexture;
 
-                    GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, bytes);
+                    fixed (byte* data = bytes) GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, (IntPtr)data);
                 }
             }
             else throw new NotImplementedException();

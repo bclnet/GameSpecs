@@ -30,73 +30,76 @@ namespace GameSpec.Valve.Formats.Blocks
             var textureResource = await fileLoader.LoadFileObjectAsync<DATATexture>(atlasPath + "_c");
             if (textureResource == null) return;
 
-            var width = Data.GetInt32("m_nWidth");
-            var height = Data.GetInt32("m_nHeight");
-
-            var texture = textureResource as ITexture;
-            var texWidth = texture.Width;
-            var texHeight = texture.Height;
-            var texPixels = texture[0];
-
-            FlexData = new Dictionary<string, Vector3[]>();
-
-            // Some vmorf_c may be another old struct(NTROValue, eg: models/heroes/faceless_void/faceless_void_body.vmdl_c). the latest struct is IKeyValueCollection.
-            var morphDatas = GetMorphKeyValueCollection(Data, "m_morphDatas");
-            if (morphDatas == null || !morphDatas.Any()) return;
-
-            var bundleTypes = GetMorphKeyValueCollection(Data, "m_bundleTypes").Select(kv => ParseBundleType(kv.Value)).ToArray();
-
-            foreach (var pair in morphDatas)
+            LocalFunction();
+            // Note the use of a local non-async function so you can use `Span<T>`
+            void LocalFunction()
             {
-                if (pair.Value is not IDictionary<string, object> morphData) continue;
+                var width = Data.GetInt32("m_nWidth");
+                var height = Data.GetInt32("m_nHeight");
 
-                var morphName = morphData.Get<string>("m_name");
-                if (string.IsNullOrEmpty(morphName)) continue; // Exist some empty names may need skip.
+                FlexData = new Dictionary<string, Vector3[]>();
+                var texture = textureResource as ITexture;
+                var texWidth = texture.Width;
+                var texHeight = texture.Height;
+                var texPixels = texture[0];
+                // Some vmorf_c may be another old struct(NTROValue, eg: models/heroes/faceless_void/faceless_void_body.vmdl_c). the latest struct is IKeyValueCollection.
+                var morphDatas = GetMorphKeyValueCollection(Data, "m_morphDatas");
+                if (morphDatas == null || !morphDatas.Any()) return;
 
-                var rectData = new Vector3[height * width];
-                rectData.Initialize();
+                var bundleTypes = GetMorphKeyValueCollection(Data, "m_bundleTypes").Select(kv => ParseBundleType(kv.Value)).ToArray();
 
-                var morphRectDatas = morphData.GetSub("m_morphRectDatas");
-                foreach (var morphRectData in morphRectDatas)
+                foreach (var pair in morphDatas)
                 {
-                    var rect = morphRectData.Value as IDictionary<string, object>;
-                    var xLeftDst = rect.GetInt32("m_nXLeftDst");
-                    var yTopDst = rect.GetInt32("m_nYTopDst");
-                    var rectWidth = (int)Math.Round(rect.GetFloat("m_flUWidthSrc") * texWidth, 0);
-                    var rectHeight = (int)Math.Round(rect.GetFloat("m_flVHeightSrc") * texHeight, 0);
-                    var bundleDatas = rect.GetSub("m_bundleDatas");
+                    if (pair.Value is not IDictionary<string, object> morphData) continue;
 
-                    foreach (var bundleData in bundleDatas)
+                    var morphName = morphData.Get<string>("m_name");
+                    if (string.IsNullOrEmpty(morphName)) continue; // Exist some empty names may need skip.
+
+                    var rectData = new Vector3[height * width];
+                    rectData.Initialize();
+
+                    var morphRectDatas = morphData.GetSub("m_morphRectDatas");
+                    foreach (var morphRectData in morphRectDatas)
                     {
-                        var bundleKey = int.Parse(bundleData.Key, CultureInfo.InvariantCulture);
+                        var rect = morphRectData.Value as IDictionary<string, object>;
+                        var xLeftDst = rect.GetInt32("m_nXLeftDst");
+                        var yTopDst = rect.GetInt32("m_nYTopDst");
+                        var rectWidth = (int)Math.Round(rect.GetFloat("m_flUWidthSrc") * texWidth, 0);
+                        var rectHeight = (int)Math.Round(rect.GetFloat("m_flVHeightSrc") * texHeight, 0);
+                        var bundleDatas = rect.GetSub("m_bundleDatas");
 
-                        // We currently only support Position. TODO: Add Normal support for gltf
-                        if (bundleTypes[bundleKey] != MorphBundleType.PositionSpeed) continue;
+                        foreach (var bundleData in bundleDatas)
+                        {
+                            var bundleKey = int.Parse(bundleData.Key, CultureInfo.InvariantCulture);
 
-                        var bundle = bundleData.Value as IDictionary<string, object>;
-                        var rectU = (int)Math.Round(bundle.GetFloat("m_flULeftSrc") * texWidth, 0);
-                        var rectV = (int)Math.Round(bundle.GetFloat("m_flVTopSrc") * texHeight, 0);
-                        var ranges = bundle.Get<float[]>("m_ranges");
-                        var offsets = bundle.Get<float[]>("m_offsets");
+                            // We currently only support Position. TODO: Add Normal support for gltf
+                            if (bundleTypes[bundleKey] != MorphBundleType.PositionSpeed) continue;
 
-                        throw new NotImplementedException();
-                        //for (var row = rectV; row < rectV + rectHeight; row++)
-                        //    for (var col = rectU; col < rectU + rectWidth; col++)
-                        //    {
-                        //        var colorIndex = row * texWidth + col;
-                        //        var color = texPixels[colorIndex];
-                        //        var dstI = row - rectV + yTopDst;
-                        //        var dstJ = col - rectU + xLeftDst;
+                            var bundle = bundleData.Value as IDictionary<string, object>;
+                            var rectU = (int)Math.Round(bundle.GetFloat("m_flULeftSrc") * texWidth, 0);
+                            var rectV = (int)Math.Round(bundle.GetFloat("m_flVTopSrc") * texHeight, 0);
+                            var ranges = bundle.Get<float[]>("m_ranges");
+                            var offsets = bundle.Get<float[]>("m_offsets");
 
-                        //        rectData[dstI * width + dstJ] = new Vector3(
-                        //            color.Red / 255f * ranges[0] + offsets[0],
-                        //            color.Green / 255f * ranges[1] + offsets[1],
-                        //            color.Blue / 255f * ranges[2] + offsets[2]
-                        //        );
-                        //    }
+                            throw new NotImplementedException();
+                            //for (var row = rectV; row < rectV + rectHeight; row++)
+                            //    for (var col = rectU; col < rectU + rectWidth; col++)
+                            //    {
+                            //        var colorIndex = row * texWidth + col;
+                            //        var color = texPixels[colorIndex];
+                            //        var dstI = row - rectV + yTopDst;
+                            //        var dstJ = col - rectU + xLeftDst;
+
+                            //        rectData[dstI * width + dstJ] = new Vector3(
+                            //            color.Red / 255f * ranges[0] + offsets[0],
+                            //            color.Green / 255f * ranges[1] + offsets[1],
+                            //            color.Blue / 255f * ranges[2] + offsets[2]
+                            //        );
+                            //    }
+                        }
                     }
+                    FlexData.Add(morphName, rectData);
                 }
-                FlexData.Add(morphName, rectData);
             }
         }
 
