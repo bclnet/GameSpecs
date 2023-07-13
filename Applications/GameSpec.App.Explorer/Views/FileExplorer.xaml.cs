@@ -105,6 +105,7 @@ namespace GameSpec.App.Explorer.Views
             get => _selectedItem;
             set
             {
+                if (_selectedItem == value) return;
                 _selectedItem = value;
                 try
                 {

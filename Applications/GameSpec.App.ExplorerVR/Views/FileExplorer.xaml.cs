@@ -97,11 +97,21 @@ namespace GameSpec.App.Explorer.Views
             {
                 if (_selectedItem == value) return;
                 _selectedItem = value;
-                OnFileInfo(value?.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
+                try
+                {
+                    OnFileInfo(value?.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
+                }
+                catch (Exception ex)
+                {
+                    OnFileInfo(new[] {
+                        new MetadataInfo($"EXCEPTION: {ex.Message}"),
+                        new MetadataInfo(ex.StackTrace),
+                    });
+                }
             }
         }
 
-        public void OnFileInfo(List<MetadataInfo> infos)
+        public void OnFileInfo(IEnumerable<MetadataInfo> infos)
         {
             FileContent.Instance.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             FileInfo.Infos = infos?.Where(x => x.Name != null).ToList();
