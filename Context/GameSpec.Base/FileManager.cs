@@ -142,17 +142,17 @@ namespace GameSpec
             }
             foreach (var path in paths)
             {
+                var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;
                 // folder
                 var searchPattern = Path.GetDirectoryName(pathOrPattern);
                 if (searchPattern.Contains('*'))
                 {
-                    foreach (var directory in fileSystem.GetDirectories(path, searchPattern, searchPattern.Contains("**")))
-                        foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, gamePath, Path.GetFileName(pathOrPattern)))
+                    foreach (var directory in fileSystem.GetDirectories(searchPath, searchPattern, searchPattern.Contains("**")))
+                        foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, ".", Path.GetFileName(pathOrPattern)))
                             yield return found;
                     pathOrPattern = Path.GetFileName(pathOrPattern);
                 }
                 // file
-                var searchPath = gamePath != "." ? Path.Combine(path, gamePath) : path;
                 if (!pathOrPattern.Contains('*')) yield return Path.Combine(searchPath, pathOrPattern);
                 else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
             }

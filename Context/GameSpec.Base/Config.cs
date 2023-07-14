@@ -2,7 +2,7 @@
 //#define Arkane
 //#define Bioware
 //#define Blizzard
-//#define Capcom
+#define Capcom
 //#define Cry
 //#define Cryptic
 //#define Cyanide
@@ -104,7 +104,7 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new()
         {
-            ForceOpen = true,
+            ForceOpen = false,
             Family = "Capcom",
             GameId = "XX", // XX
         };
