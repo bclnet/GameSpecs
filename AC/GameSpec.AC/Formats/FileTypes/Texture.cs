@@ -79,7 +79,7 @@ namespace GameSpec.AC.Formats.FileTypes
             _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
         };
         public int NumMipMaps => 1;
-        public byte[] this[int index]
+        public Span<byte> this[int index]
         {
             get
             {

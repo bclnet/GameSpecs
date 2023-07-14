@@ -224,38 +224,33 @@ namespace GameSpec.IW.Formats
                 : new[] { new Range(0, size) };
             r.Seek(mipsBase);
             Body = r.ReadBytes(size);
+            Format = Header.Format switch
+            {
+                FORMAT.ARGB32 => ((TextureGLFormat.Rgba, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedInt8888Reversed), TextureUnityFormat.RGBA32),
+                FORMAT.RGB24 => (TextureGLFormat.Rgb, TextureUnityFormat.Unknown),
+                FORMAT.DXT1 => (TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureUnityFormat.DXT1),
+                FORMAT.DXT2 => (TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown),
+                FORMAT.DXT3 => (TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown),
+                FORMAT.DXT5 => (TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureUnityFormat.DXT5),
+                _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{Header.Format}"),
+            };
         }
 
         HEADER Header;
         VERSION Version;
         Range[] Mips;
         byte[] Body;
+        (object gl, object unity) Format;
 
         public IDictionary<string, object> Data => null;
         public int Width => (int)Header.Width;
         public int Height => (int)Header.Height;
         public int Depth => 0;
         public TextureFlags Flags => (Header.Flags & FLAGS.CUBEMAP) != 0 ? TextureFlags.CUBE_TEXTURE : 0;
-        public object UnityFormat => Header.Format switch
-        {
-            FORMAT.ARGB32 => TextureUnityFormat.RGBA32,
-            FORMAT.DXT1 => TextureUnityFormat.DXT1,
-            //FORMAT.DXT3 => TextureUnityFormat.DXT3,
-            FORMAT.DXT5 => TextureUnityFormat.DXT5,
-            _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{Header.Format}"),
-        };
-        public object GLFormat => Header.Format switch
-        {
-            FORMAT.ARGB32 => (TextureGLFormat.Rgba, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedInt8888Reversed),
-            FORMAT.RGB24 => TextureGLFormat.Rgb,
-            FORMAT.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
-            FORMAT.DXT2 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
-            FORMAT.DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
-            FORMAT.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
-            _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{Header.Format}"),
-        };
+        public object UnityFormat => Format.unity;
+        public object GLFormat => Format.gl;
         public int NumMipMaps => Mips.Length;
-        public byte[] this[int index]
+        public Span<byte> this[int index]
         {
             get => Mips.Length > 1
                 ? Body.AsSpan(Mips[index]).ToArray()

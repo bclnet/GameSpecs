@@ -30,7 +30,7 @@ namespace GameSpec
         {
             var family = FamilyManager.GetFamily(familyName);
             var resource = family.ParseResource(new Uri(uri));
-            Assert.AreEqual(game, resource.Game);
+            Assert.AreEqual(game, resource.Game.Id);
             Assert.AreEqual(options, resource.Options);
             Assert.AreEqual(pathsFound, resource.Paths.Length);
             var pakFile = family.OpenPakFile(new Uri(uri));

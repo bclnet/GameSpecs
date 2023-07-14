@@ -20,9 +20,9 @@ namespace GameSpec.Formats
         {
             Format = Path.GetExtension(f.Path).ToLowerInvariant() switch
             {
-                ".bmp" => Formats.Bmp,
-                ".jpg" => Formats.Jpg,
-                ".tga" => Formats.Tga,
+                ".bmp" => (Formats.Bmp, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24),
+                ".jpg" => (Formats.Jpg, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24),
+                ".tga" => (Formats.Tga, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24),
                 _ => throw new ArgumentOutOfRangeException(nameof(f.Path), Path.GetExtension(f.Path)),
             };
             var sourceData = r.ReadBytes((int)f.FileSize);
@@ -32,29 +32,17 @@ namespace GameSpec.Formats
         }
 
         Bitmap Image;
-        Formats Format;
+        (Formats x, object gl, object unity) Format;
 
         public IDictionary<string, object> Data => null;
         public int Width { get; }
         public int Height { get; }
         public int Depth => 0;
         public TextureFlags Flags => 0;
-        public object UnityFormat => Format switch
-        {
-            Formats.Jpg or
-            Formats.Bmp or
-            Formats.Tga => TextureUnityFormat.RGB24,
-            _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
-        };
-        public object GLFormat => Format switch
-        {
-            Formats.Jpg or
-            Formats.Bmp or
-            Formats.Tga => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
-            _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
-        };
+        public object UnityFormat => Format.unity;
+        public object GLFormat => Format.gl;
         public int NumMipMaps => 1;
-        public byte[] this[int index]
+        public Span<byte> this[int index]
         {
             get
             {

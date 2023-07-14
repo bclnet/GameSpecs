@@ -134,7 +134,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         void ITexture.MoveToData() => Reader.BaseStream.Position = Offset + Size;
 
-        byte[] ITexture.this[int index]
+        Span<byte> ITexture.this[int index]
         {
             get
             {
