@@ -20,7 +20,7 @@ namespace GameSpec
         public ITextureManager<int> TextureManager => throw new NotImplementedException();
         public IMaterialManager<object, int> MaterialManager => throw new NotImplementedException();
         public IShaderManager<object> ShaderManager => throw new NotImplementedException();
-        public int LoadTexture(string path, out IDictionary<string, object> data) => throw new NotImplementedException();
+        public int LoadTexture(string path, out IDictionary<string, object> data, Range? range = null) => throw new NotImplementedException();
         public void PreloadTexture(string path) => throw new NotImplementedException();
         public object CreateObject(string path, out IDictionary<string, object> data) => throw new NotImplementedException();
         public void PreloadObject(string path) => throw new NotImplementedException();

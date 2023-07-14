@@ -42,20 +42,20 @@ namespace GameSpec.Graphics
             0.9f, 0.2f, 0.8f, 1f,
         });
 
-        public override int BuildTexture(ITexture info)
+        public override int BuildTexture(ITexture info, Range? range = null)
         {
             var id = GL.GenTexture();
+            var numMipMaps = Math.Max(1, info.NumMipMaps);
 
             GL.BindTexture(TextureTarget.Texture2D, id);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, info.NumMipMaps - 1);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, numMipMaps - 1);
             info.MoveToData();
 
             if (info.GLFormat is TextureGLFormat glFormat)
             {
                 var internalFormat = (InternalFormat)glFormat;
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
-                //for (var i = info.NumMipMaps - 1; i >= 0; i--)
-                for (var i = 0; i < info.NumMipMaps; i++)
+                for (var i = 0; i < numMipMaps; i++) //for (var i = numMipMaps - 1; i >= 0; i--)
                 {
                     var width = info.Width >> i;
                     var height = info.Height >> i;
@@ -70,8 +70,7 @@ namespace GameSpec.Graphics
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
                 var format = (PixelFormat)glPixelFormat.Item2;
                 var type = (PixelType)glPixelFormat.Item3;
-                //for (var i = info.NumMipMaps - 1; i >= 0; i--)
-                for (var i = 0; i < info.NumMipMaps; i++)
+                for (var i = 0; i < numMipMaps; i++) //for (var i = numMipMaps - 1; i >= 0; i--)
                 {
                     var width = info.Width >> i;
                     var height = info.Height >> i;

@@ -1,8 +1,10 @@
 ﻿using GameSpec.Formats;
+using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
 
@@ -45,11 +47,12 @@ namespace GameSpec.Rsi.Formats
                     FileSize = entry.Size,
                     Tag = entry,
                 };
-                if (metadata.Path.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) { } // metadata.Pak = new SubPakFile(source.Estate, source.Game, metadata.Path);
-                else if (metadata.Path.EndsWith(".dds", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadata.Path, metadata);
+                if (metadata.Path.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) { } // metadata.Pak = new SubPakFile(source.Game, metadata.Path);
+                else if (metadata.Path.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadata.Path, metadata);
                 else if (metadata.Path[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {
                     var parentPath = metadata.Path[..(metadata.Path.IndexOf(".dds", StringComparison.OrdinalIgnoreCase) + 4)];
+                    if (metadata.Path.EndsWith("a")) parentPath += ".a";
                     var parts = partsByPath.TryGetValue(parentPath, out var z) ? z : null;
                     if (parts == null) partsByPath.Add(parentPath, parts = new SortedList<string, FileMetadata>());
                     parts.Add(metadata.Path, metadata);
@@ -59,7 +62,7 @@ namespace GameSpec.Rsi.Formats
             }
 
             // process links
-            if (partsByPath.Count != 0)
+            if (partsByPath.Count > 0)
                 foreach (var kv in partsByPath) if (parentByPath.TryGetValue(kv.Key, out var parent)) parent.Parts = kv.Value.Values;
             return Task.CompletedTask;
         }
@@ -92,6 +95,14 @@ namespace GameSpec.Rsi.Formats
                 if (!input.CanRead) { Log($"Unable to read stream for file: {file.Path}"); exception?.Invoke(file, $"Unable to read stream for file: {file.Path}"); return Task.FromResult(System.IO.Stream.Null); }
                 var s = new MemoryStream();
                 input.CopyTo(s);
+                if (file.Parts != null)
+                    foreach (var part in file.Parts.Reverse())
+                    {
+                        var entry2 = (ZipEntry)part.Tag;
+                        using var input2 = pak.GetInputStream(entry2);
+                        if (!input2.CanRead) { Log($"Unable to read stream for file: {file.Path}"); exception?.Invoke(file, $"Unable to read stream for file: {part.Path}"); return Task.FromResult(System.IO.Stream.Null); }
+                        input2.CopyTo(s);
+                    }
                 s.Position = 0;
                 return Task.FromResult((Stream)s);
             }
@@ -106,6 +117,13 @@ namespace GameSpec.Rsi.Formats
             {
                 using var s = pak.GetInputStream(entry);
                 data.CopyTo(s);
+                if (file.Parts != null)
+                    foreach (var part in file.Parts.Reverse())
+                    {
+                        var entry2 = (ZipEntry)part.Tag;
+                        using var s2 = pak.GetInputStream(entry);
+                        data.CopyTo(s2);
+                    }
             }
             catch (Exception e) { exception?.Invoke(file, $"Exception: {e.Message}"); }
             return Task.CompletedTask;

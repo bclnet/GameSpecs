@@ -1,5 +1,6 @@
 ﻿using OpenStack;
 using OpenStack.Graphics;
+using System;
 
 namespace GameSpec.Graphics
 {
@@ -12,7 +13,7 @@ namespace GameSpec.Graphics
         }
 
         public abstract Texture DefaultTexture { get; }
-        public abstract Texture BuildTexture(ITexture info);
+        public abstract Texture BuildTexture(ITexture info, Range? range = null);
         public abstract Texture BuildSolidTexture(int width, int height, float[] rgba);
         public abstract Texture BuildNormalMap(Texture source, float strength);
     }

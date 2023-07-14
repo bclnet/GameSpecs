@@ -2,7 +2,7 @@
 //#define Arkane
 //#define Bioware
 //#define Blizzard
-#define Capcom
+//#define Capcom
 //#define Cry
 //#define Cryptic
 //#define Cyanide
@@ -12,8 +12,8 @@
 //#define IW
 //#define Origin
 //#define Red
-//#define Rsi
-#define Tes
+#define Rsi
+//#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -262,12 +262,13 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new()
         {
-            // ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
-            // ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
+            ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
+            //ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
+            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
 
             ForceOpen = true,
             Family = "Rsi",
-            //GameId = "StarCitizen", // Star Citizen
+            GameId = "StarCitizen", // Star Citizen
         };
 #elif Tes
         static string[] FamilyKeys = new[] { "Tes", "Unknown" };

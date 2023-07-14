@@ -857,14 +857,14 @@ namespace GameSpec.Red.Formats
                                 ddsHeader.dwPitchOrLinearSize = (uint)(bs[(int)fmt] * ((tex.Width + 3) / 4) * ((tex.Height + 3) / 4));
                                 ddsHeader.dwFlags = DDSD.LINEARSIZE;
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                if (fmt == FORMAT.DXT1 || fmt == FORMAT.DXT1a) ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT1;
-                                else if (fmt == FORMAT.DXT3) ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT3;
-                                else if (fmt == FORMAT.DXT5) ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT5;
-                                else if (fmt == FORMAT.DXT5n) ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT5;
-                                else if (fmt == FORMAT.BC4) ddsHeader.ddspf.dwFourCC = DDS_HEADER.ATI1;
-                                else if (fmt == FORMAT.DXT3) ddsHeader.ddspf.dwFourCC = DDS_HEADER.ATI2;
+                                if (fmt == FORMAT.DXT1 || fmt == FORMAT.DXT1a) ddsHeader.ddspf.dwFourCC = FourCC.DXT1;
+                                else if (fmt == FORMAT.DXT3) ddsHeader.ddspf.dwFourCC = FourCC.DXT3;
+                                else if (fmt == FORMAT.DXT5) ddsHeader.ddspf.dwFourCC = FourCC.DXT5;
+                                else if (fmt == FORMAT.DXT5n) ddsHeader.ddspf.dwFourCC = FourCC.DXT5;
+                                else if (fmt == FORMAT.BC4) ddsHeader.ddspf.dwFourCC = FourCC.ATI1;
+                                else if (fmt == FORMAT.DXT3) ddsHeader.ddspf.dwFourCC = FourCC.ATI2;
                             }
-                            w.Write(DDS_HEADER.DDS_);
+                            w.Write(DDS_HEADER.MAGIC);
                             w.WriteT(ddsHeader, sizeof(DDS_HEADER));
 
                             void Read(long position)

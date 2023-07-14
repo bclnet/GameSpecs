@@ -21,12 +21,12 @@ namespace GameSpec.Graphics
 
         public Texture DefaultTexture => Builder.DefaultTexture;
 
-        public Texture LoadTexture(object key, out IDictionary<string, object> data)
+        public Texture LoadTexture(object key, out IDictionary<string, object> data, Range? range = null)
         {
             if (CachedTextures.TryGetValue(key, out var cache)) { data = cache.data; return cache.texture; }
             // Load & cache the texture.
             var info = key is ITexture z ? z : LoadTexture(key);
-            var texture = info != null ? Builder.BuildTexture(info) : Builder.DefaultTexture;
+            var texture = info != null ? Builder.BuildTexture(info, range) : Builder.DefaultTexture;
             data = info?.Data;
             CachedTextures[key] = (texture, data);
             return texture;

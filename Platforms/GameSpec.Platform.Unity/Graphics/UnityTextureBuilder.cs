@@ -11,7 +11,7 @@ namespace GameSpec.Graphics
 
         Texture2D BuildAutoTexture() => new Texture2D(4, 4);
 
-        public override Texture2D BuildTexture(ITexture info)
+        public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
             var tex = new Texture2D(info.Width, info.Height, (TextureFormat)info.UnityFormat, info.NumMipMaps, false);
             //if (info.Bytes != null)

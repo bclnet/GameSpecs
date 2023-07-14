@@ -417,27 +417,27 @@ namespace GameSpec.Tes.Formats
                         {
                             case DXGI_FORMAT.BC1_UNORM:
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT1;
+                                ddsHeader.ddspf.dwFourCC = FourCC.DXT1;
                                 ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height / 2U); // 4bpp
                                 break;
                             case DXGI_FORMAT.BC2_UNORM:
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT3;
+                                ddsHeader.ddspf.dwFourCC = FourCC.DXT3;
                                 ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
                                 break;
                             case DXGI_FORMAT.BC3_UNORM:
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = DDS_HEADER.DXT5;
+                                ddsHeader.ddspf.dwFourCC = FourCC.DXT5;
                                 ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
                                 break;
                             case DXGI_FORMAT.BC5_UNORM:
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = DDS_HEADER.ATI2;
+                                ddsHeader.ddspf.dwFourCC = FourCC.ATI2;
                                 ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
                                 break;
                             case DXGI_FORMAT.BC1_UNORM_SRGB:
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = DDS_HEADER.DX10;
+                                ddsHeader.ddspf.dwFourCC = FourCC.DX10;
                                 ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height / 2); // 4bpp
                                 break;
                             case DXGI_FORMAT.BC3_UNORM_SRGB:
@@ -446,7 +446,7 @@ namespace GameSpec.Tes.Formats
                             case DXGI_FORMAT.BC7_UNORM:
                             case DXGI_FORMAT.BC7_UNORM_SRGB:
                                 ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = DDS_HEADER.DX10;
+                                ddsHeader.ddspf.dwFourCC = FourCC.DX10;
                                 ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
                                 break;
                             case DXGI_FORMAT.R8G8B8A8_UNORM:
@@ -477,7 +477,7 @@ namespace GameSpec.Tes.Formats
                                 break;
                             default: throw new ArgumentOutOfRangeException(nameof(tex.Format), $"Unsupported DDS header format. File: {file.Path}");
                         }
-                        w.Write(DDS_HEADER.DDS_);
+                        w.Write(DDS_HEADER.MAGIC);
                         w.WriteT(ddsHeader, sizeof(DDS_HEADER));
                         switch ((DXGI_FORMAT)tex.Format)
                         {

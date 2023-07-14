@@ -1,6 +1,7 @@
 ﻿using GameSpec.Graphics;
 using OpenStack.Graphics;
 using StereoKit;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace GameSpec
         public ITextureManager<Tex> TextureManager => _textureManager;
         public IMaterialManager<Material, Tex> MaterialManager => _materialManager;
         public IShaderManager<Shader> ShaderManager => _shaderManager;
-        public Tex LoadTexture(string path, out IDictionary<string, object> data) => _textureManager.LoadTexture(path, out data);
+        public Tex LoadTexture(string path, out IDictionary<string, object> data, Range? range = null) => _textureManager.LoadTexture(path, out data, range);
         public void PreloadTexture(string path) => _textureManager.PreloadTexture(path);
         public object CreateObject(string path, out IDictionary<string, object> data) => _objectManager.CreateObject(path, out data);
         public void PreloadObject(string path) => _objectManager.PreloadObject(path);

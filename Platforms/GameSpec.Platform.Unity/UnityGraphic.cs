@@ -1,5 +1,6 @@
 ﻿using GameSpec.Graphics;
 using OpenStack.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -37,7 +38,7 @@ namespace GameSpec
         public ITextureManager<Texture2D> TextureManager => _textureManager;
         public IMaterialManager<Material, Texture2D> MaterialManager => _materialManager;
         public IShaderManager<Shader> ShaderManager => _shaderManager;
-        public Texture2D LoadTexture(string path, out IDictionary<string, object> data) => _textureManager.LoadTexture(path, out data);
+        public Texture2D LoadTexture(string path, out IDictionary<string, object> data, Range? range = null) => _textureManager.LoadTexture(path, out data, range);
         public void PreloadTexture(string path) => _textureManager.PreloadTexture(path);
         public GameObject CreateObject(string path, out IDictionary<string, object> data) => _objectManager.CreateObject(path, out data);
         public void PreloadObject(string path) => _objectManager.PreloadObject(path);

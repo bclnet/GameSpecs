@@ -15,11 +15,12 @@ namespace GameSpec.Rsi.Formats
         internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
-                var x when x == ".cfg" || x == ".txt" => (0, BinaryTxt.Factory),
-                var x when x == ".xml" => (DataOption.Stream, CryXmlFile.Factory),
+                ".cfg" or ".txt" => (0, BinaryTxt.Factory),
+                ".xml" => (DataOption.Stream, CryXmlFile.Factory),
                 ".dds" => (0, BinaryDds.Factory),
+                ".a" => (0, BinaryDdsA.Factory),
                 ".dcb" => (0, ForgeFile.Factory),
-                var x when x == ".soc" || x == ".cgf" || x == ".cga" || x == ".chr" || x == ".skin" || x == ".anim" => (DataOption.Model, CryFile.Factory),
+                ".soc" or ".cgf" or ".cga" or ".chr" or ".skin" or ".anim" => (DataOption.Model, CryFile.Factory),
                 _ => (0, null),
             };
     }

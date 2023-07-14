@@ -1,3 +1,4 @@
+using GameSpec.Metadata;
 using OpenStack;
 using OpenStack.Graphics;
 using OpenStack.Graphics.Controls;
@@ -6,9 +7,12 @@ using OpenStack.Graphics.Renderer1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
+using static GameSpec.Formats.Unknown.IUnknownFileObject;
 
 namespace GameSpec.App.Explorer.Controls1
 {
@@ -42,6 +46,16 @@ namespace GameSpec.App.Explorer.Controls1
             set => SetValue(SourceProperty, value);
         }
 
+        protected override void HandleResize()
+        {
+            var source = Source is ITexture z ? z
+                : Source is IRedirected<ITexture> y ? y.Value
+                : null;
+            if (source == null) return;
+            Camera.SetViewportSize(source.Width, source.Height);
+            RecalculatePositions();
+        }
+
         void OnProperty()
         {
             if (Graphic == null || Source == null) return;
@@ -51,9 +65,7 @@ namespace GameSpec.App.Explorer.Controls1
                 : null;
             if (source == null) return;
 
-#if true
-            Camera.SetViewportSize(source.Width, source.Height);
-#endif
+            HandleResize();
             Camera.SetLocation(new Vector3(200));
             Camera.LookAt(new Vector3(0));
 
@@ -61,7 +73,7 @@ namespace GameSpec.App.Explorer.Controls1
             Renderers.Add(new TextureRenderer(graphic, texture));
         }
 
-        readonly HashSet<TextureRenderer> Renderers  = new();
+        readonly HashSet<TextureRenderer> Renderers = new();
 
         void OnPaint(object sender, RenderEventArgs e)
         {

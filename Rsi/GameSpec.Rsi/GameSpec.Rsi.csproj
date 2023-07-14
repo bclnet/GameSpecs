@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpZipLib.P4k" Version="1.0.1" />
+    <PackageReference Include="SharpZipLib.P4k" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

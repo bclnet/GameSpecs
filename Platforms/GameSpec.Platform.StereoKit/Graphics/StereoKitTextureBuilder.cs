@@ -36,7 +36,7 @@ namespace GameSpec.Graphics
             0.9f, 0.2f, 0.8f, 1f,
         });
 
-        public override Tex BuildTexture(ITexture info)
+        public override Tex BuildTexture(ITexture info, Range? range = null)
         {
             return default;
         }

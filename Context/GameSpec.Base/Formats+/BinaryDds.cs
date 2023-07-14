@@ -14,17 +14,17 @@ namespace GameSpec.Formats
 
         BinaryReader _r;
 
-        public BinaryDds() { }
-        public BinaryDds(BinaryReader r)
+        //public BinaryDds() { }
+        public BinaryDds(BinaryReader r, bool readMagic = true)
         {
             _r = r;
-            Buffer = DDS_HEADER.Read(r, out Header, out HeaderDXT10, out Format);
+            Buffer = DDS_HEADER.Read(r, readMagic, out Header, out HeaderDXT10, out Format);
             Offset = 0;
         }
 
         DDS_HEADER Header;
         DDS_HEADER_DXT10? HeaderDXT10;
-        (int block, object gl, object unity) Format;
+        (object type, int blockSize, object gl, object unity) Format;
         byte[] Buffer;
         int Offset;
 
@@ -42,8 +42,9 @@ namespace GameSpec.Formats
             {
                 int w = (int)Header.dwWidth >> index, h = (int)Header.dwHeight >> index;
                 if (w == 0 || h == 0) return null;
-                var size = ((w + 3) / 4) * ((h + 3) / 4) * Format.block;
-                var r = Buffer.AsSpan(Offset, size); 
+                var size = ((w + 3) / 4) * ((h + 3) / 4) * Format.blockSize;
+                var remaining = Buffer.Length - Offset;
+                var r = remaining > 0 ? Buffer.AsSpan(Offset, Math.Min(size, remaining)) : null; 
                 Offset += size;
                 return r;
             }
@@ -54,6 +55,7 @@ namespace GameSpec.Formats
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
+                new MetadataInfo($"Format: {Format.type}"),
                 new MetadataInfo($"Width: {Width}"),
                 new MetadataInfo($"Height: {Height}"),
                 new MetadataInfo($"Mipmaps: {NumMipMaps}"),

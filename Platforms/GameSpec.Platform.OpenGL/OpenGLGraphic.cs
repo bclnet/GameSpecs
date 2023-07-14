@@ -3,6 +3,7 @@ using OpenStack;
 using OpenStack.Graphics;
 using OpenStack.Graphics.OpenGL.Renderer1;
 using OpenStack.Graphics.Renderer1;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace GameSpec
         public ITextureManager<int> TextureManager => _textureManager;
         public IMaterialManager<GLRenderMaterial, int> MaterialManager => _materialManager;
         public IShaderManager<Shader> ShaderManager => _shaderManager;
-        public int LoadTexture(string path, out IDictionary<string, object> data) => _textureManager.LoadTexture(path, out data);
+        public int LoadTexture(string path, out IDictionary<string, object> data, Range? range = null) => _textureManager.LoadTexture(path, out data, range);
         public void PreloadTexture(string path) => _textureManager.PreloadTexture(path);
         public object CreateObject(string path, out IDictionary<string, object> data) => _objectManager.CreateObject(path, out data);
         public void PreloadObject(string path) => _objectManager.PreloadObject(path);
