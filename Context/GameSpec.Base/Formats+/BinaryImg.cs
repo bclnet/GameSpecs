@@ -15,7 +15,7 @@ namespace GameSpec.Formats
 
         enum Formats { Bmp, Jpg, Tga }
 
-        public BinaryImg() { }
+        //public BinaryImg() { }
         public BinaryImg(BinaryReader r, FileMetadata f)
         {
             Format = Path.GetExtension(f.Path).ToLowerInvariant() switch
@@ -55,7 +55,7 @@ namespace GameSpec.Formats
             }
             set => throw new NotImplementedException();
         }
-        public void MoveToData() { }
+        public void MoveToData(out bool forward) => forward = true;
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),

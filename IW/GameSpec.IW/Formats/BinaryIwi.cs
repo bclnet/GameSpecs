@@ -192,7 +192,7 @@ namespace GameSpec.IW.Formats
             }
         }
 
-        public BinaryIwi() { }
+        //public BinaryIwi() { }
         public BinaryIwi(BinaryReader r)
         {
             _r = r;
@@ -257,7 +257,7 @@ namespace GameSpec.IW.Formats
                 : Body;
             set => throw new NotImplementedException();
         }
-        public void MoveToData() { }
+        public void MoveToData(out bool forward) => forward = true;
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),

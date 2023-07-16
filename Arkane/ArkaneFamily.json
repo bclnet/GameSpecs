@@ -37,8 +37,8 @@
       "engine": "Void",
       "url": "https://www.gog.com/index.php/game/dishonored_2",
       "date": "2016-11-11",
-      "pak": "game:/game1.index#D2",
-      "pak_": "game:/*.index#D2",
+      "pakx": "game:/game1.index#D2",
+      "pak": "game:/*.index#D2",
       "status": [ "open", "read" ]
     },
     "P": {

@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using GameSpec.App.Explorer.Views;
+using OpenStack.Graphics.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace GameSpec.App.Explorer
 
         void Application_Startup(object sender, StartupEventArgs e)
         {
+            //GLViewerControl.ShowConsole = true;
             //var args = e.Args;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
             .MapResult(

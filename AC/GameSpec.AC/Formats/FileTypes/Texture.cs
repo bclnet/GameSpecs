@@ -186,7 +186,7 @@ namespace GameSpec.AC.Formats.FileTypes
             }
             set => throw new NotImplementedException();
         }
-        public void MoveToData() { }
+        public void MoveToData(out bool forward) => forward = true;
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {

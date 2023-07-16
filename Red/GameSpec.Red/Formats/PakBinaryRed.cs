@@ -67,7 +67,7 @@ namespace GameSpec.Red.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) { Open(); }
+            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]

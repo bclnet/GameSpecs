@@ -19,7 +19,6 @@ namespace GameSpec.Formats
         {
             _r = r;
             Buffer = DDS_HEADER.Read(r, readMagic, out Header, out HeaderDXT10, out Format);
-            Offset = 0;
         }
 
         DDS_HEADER Header;
@@ -44,15 +43,15 @@ namespace GameSpec.Formats
                 if (w == 0 || h == 0) return null;
                 var size = ((w + 3) / 4) * ((h + 3) / 4) * Format.blockSize;
                 var remaining = Buffer.Length - Offset;
-                var r = remaining > 0 ? Buffer.AsSpan(Offset, Math.Min(size, remaining)) : null; 
+                var r = remaining > 0 ? Buffer.AsSpan(Offset, Math.Min(size, remaining)) : null;
                 Offset += size;
                 return r;
             }
             set => throw new NotImplementedException();
         }
-        public void MoveToData() { }
+        public void MoveToData(out bool forward) { forward = true; Offset = 0; }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new() {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
                 new MetadataInfo($"Format: {Format.type}"),

@@ -39,6 +39,7 @@ namespace GameSpec.App.Explorer
         protected override void OnStart()
         {
             if (HasPermissions().Result) return;
+            //GLViewerControl.ShowConsole = true;
             Parser.Default.ParseArguments<DefaultOptions, TestOptions, OpenOptions>(args)
             .MapResult(
                 (DefaultOptions opts) => Instance.RunDefault(opts),

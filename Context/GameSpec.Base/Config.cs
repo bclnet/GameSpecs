@@ -47,7 +47,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new()
         {
             //AF
-            ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
+            //ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
             //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp", //AF:Texture.bmp
             //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
@@ -55,7 +55,7 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Arkane",
-            GameId = "AF", // Arx Fatalis [open, read, texture:GL]
+            //GameId = "AF", // Arx Fatalis [open, read, texture:GL]
             //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
             //GameId = "D", // Dishonored [unreal]
             //GameId = "D2", // Dishonored 2 [open, read]
@@ -262,7 +262,7 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new()
         {
-            ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
+            //ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
             //ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
             //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
 
@@ -337,7 +337,7 @@ namespace GameSpec
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
             //Dota2
-            ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
@@ -349,7 +349,7 @@ namespace GameSpec
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
             //HL:Alyx
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
@@ -366,7 +366,7 @@ namespace GameSpec
             //GameId = "CS:CZ", // Counter-Strike: Condition Zero [open, read]
             //GameId = "HL:Src", // Half-Life: Source [open, read]
             //GameId = "CS:Src", // Counter-Strike: Source [open, read]
-            GameId = "HL2", // Half-Life 2 [open, read]
+            //GameId = "HL2", // Half-Life 2 [open, read]
             //GameId = "HL2:DM", // Half-Life 2: Deathmatch [open, read]
             //GameId = "HL:DM:Src", // Half-Life Deathmatch: Source [open, read]
             //GameId = "HL2:E1", // Half-Life 2: Episode One [open, read]
@@ -382,7 +382,7 @@ namespace GameSpec
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read, texture:GL, model:GL]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]
-            //GameId = "HL:Alyx", // Half-Life: Alyx [open, read, texture:GL, model:GL]
+            GameId = "HL:Alyx", // Half-Life: Alyx [open, read, texture:GL, model:GL]
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Capcom", "Cry", "Cryptic", "Cyanide", "Frontier", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };

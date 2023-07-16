@@ -20,41 +20,42 @@ namespace GameSpec.Metadata
             var root = new List<MetadataItem>();
             string currentPath = null;
             List<MetadataItem> currentFolder = null;
-            foreach (var file in pakMultiFile.Files.OrderBy(x => x.Path))
-            {
-                // skip empty
-                if (string.IsNullOrEmpty(file.Path)) continue;
-
-                // folder
-                var fileFolder = Path.GetDirectoryName(file.Path);
-                if (currentPath != fileFolder)
+            if (pakMultiFile.Files != null)
+                foreach (var file in pakMultiFile.Files.OrderBy(x => x.Path))
                 {
-                    currentPath = fileFolder;
-                    currentFolder = root;
-                    if (!string.IsNullOrEmpty(fileFolder))
-                        foreach (var folder in fileFolder.Split('\\'))
-                        {
-                            var found = currentFolder.Find(x => x.Name == folder && x.PakFile == null);
-                            if (found != null) currentFolder = found.Items;
-                            else { found = new MetadataItem(folder, manager.FolderIcon); currentFolder.Add(found); currentFolder = found.Items; }
-                        }
-                }
+                    // skip empty
+                    if (string.IsNullOrEmpty(file.Path)) continue;
 
-                // extract pak
-                if (file.Pak != null)
-                {
-                    var children = await GetPakFilesAsync(manager, file.Pak);
-                    currentFolder.Add(new MetadataItem(Path.GetFileName(file.Path), manager.PackageIcon, file, children) { PakFile = pakFile });
-                    continue;
-                }
+                    // folder
+                    var fileFolder = Path.GetDirectoryName(file.Path);
+                    if (currentPath != fileFolder)
+                    {
+                        currentPath = fileFolder;
+                        currentFolder = root;
+                        if (!string.IsNullOrEmpty(fileFolder))
+                            foreach (var folder in fileFolder.Split('\\'))
+                            {
+                                var found = currentFolder.Find(x => x.Name == folder && x.PakFile == null);
+                                if (found != null) currentFolder = found.Items;
+                                else { found = new MetadataItem(folder, manager.FolderIcon); currentFolder.Add(found); currentFolder = found.Items; }
+                            }
+                    }
 
-                // file
-                var fileName = Path.GetFileName(file.Path);
-                var fileNameForIcon = pakFile.FileMask?.Invoke(fileName) ?? fileName;
-                var extentionForIcon = Path.GetExtension(fileNameForIcon);
-                if (extentionForIcon.Length > 0) extentionForIcon = extentionForIcon.Substring(1);
-                currentFolder.Add(new MetadataItem(fileName, manager.GetIcon(extentionForIcon), file) { PakFile = pakFile });
-            }
+                    // extract pak
+                    if (file.Pak != null)
+                    {
+                        var children = await GetPakFilesAsync(manager, file.Pak);
+                        currentFolder.Add(new MetadataItem(Path.GetFileName(file.Path), manager.PackageIcon, file, children) { PakFile = pakFile });
+                        continue;
+                    }
+
+                    // file
+                    var fileName = Path.GetFileName(file.Path);
+                    var fileNameForIcon = pakFile.FileMask?.Invoke(fileName) ?? fileName;
+                    var extentionForIcon = Path.GetExtension(fileNameForIcon);
+                    if (extentionForIcon.Length > 0) extentionForIcon = extentionForIcon.Substring(1);
+                    currentFolder.Add(new MetadataItem(fileName, manager.GetIcon(extentionForIcon), file) { PakFile = pakFile });
+                }
             return root;
         }
     }

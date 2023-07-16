@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static GameSpec.Formats.Unknown.IUnknownFileObject;
 using static OpenStack.Debug;
 
 namespace GameSpec.Rsi.Formats
@@ -23,6 +24,15 @@ namespace GameSpec.Rsi.Formats
         class SubPakFile : BinaryPakManyFile
         {
             public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
+
+            public override Task ReadAsync(BinaryReader r, ReadStage stage)
+            {
+                var pak = new P4kFile(r.BaseStream, null);
+                foreach (ZipEntry entry in pak)
+                {
+                }
+                return base.ReadAsync(r, stage);
+            }
         }
 
         PakBinaryP4k() => Key = DefaultKey;
@@ -47,7 +57,7 @@ namespace GameSpec.Rsi.Formats
                     FileSize = entry.Size,
                     Tag = entry,
                 };
-                if (metadata.Path.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) { } // metadata.Pak = new SubPakFile(source.Game, metadata.Path);
+                if (metadata.Path.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(source.Game, metadata.Path);
                 else if (metadata.Path.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadata.Path, metadata);
                 else if (metadata.Path[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {

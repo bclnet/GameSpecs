@@ -1,3 +1,4 @@
+using MathNet.Numerics.LinearAlgebra.Factorization;
 using OpenStack.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -44,24 +45,41 @@ namespace GameSpec.Graphics
         public override int BuildTexture(ITexture info, Range? range = null)
         {
             var id = GL.GenTexture();
+            var numMipMaps = Math.Max(1, info.NumMipMaps);
+            var start = range?.Start.Value ?? 0;
+            var end = numMipMaps - 1;
 
             GL.BindTexture(TextureTarget.Texture2D, id);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, info.NumMipMaps - 1);
-            info.MoveToData();
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, end - start);
+            info.MoveToData(out var forward);
 
+            static bool CompressedTexImage2D(ITexture info, int i, InternalFormat internalFormat)
+            {
+                var width = info.Width >> i;
+                var height = info.Height >> i;
+                var pixels = info[i];
+                if (pixels == null) return false;
+                fixed (byte* data = pixels) GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, pixels.Length, (IntPtr)data);
+                return true;
+            }
+
+            static bool TexImage2D(ITexture info, int i, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
+            {
+                var width = info.Width >> i;
+                var height = info.Height >> i;
+                var pixels = info[i];
+                if (pixels == null) return false;
+                fixed (byte* data = pixels) GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, (IntPtr)data);
+                return true;
+            }
+
+            for (var i = 0; i < start; i++) { var _ = info[i]; }
             if (info.GLFormat is TextureGLFormat glFormat)
             {
                 var internalFormat = (InternalFormat)info.GLFormat;
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
-                for (var i = info.NumMipMaps - 1; i >= 0; i--)
-                {
-                    var width = info.Width >> i;
-                    var height = info.Height >> i;
-                    var bytes = info[i];
-                    if (bytes == null) return DefaultTexture;
-
-                    fixed (byte* data = bytes) GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, bytes.Length, (IntPtr)data);
-                }
+                if (forward) for (var i = start; i <= end; i++) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
+                else for (var i = end; i >= start; i--) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
             }
             else if (info.GLFormat is ValueTuple<TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType> glPixelFormat)
             {
@@ -69,16 +87,8 @@ namespace GameSpec.Graphics
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
                 var format = (PixelFormat)glPixelFormat.Item2;
                 var type = (PixelType)glPixelFormat.Item3;
-
-                for (var i = info.NumMipMaps - 1; i >= 0; i--)
-                {
-                    var width = info.Width >> i;
-                    var height = info.Height >> i;
-                    var bytes = info[i];
-                    if (bytes == null) return DefaultTexture;
-
-                    fixed (byte* data = bytes) GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, (IntPtr)data);
-                }
+                if (forward) for (var i = start; i < numMipMaps; i++) { if (!TexImage2D(info, i, internalFormat, format, type)) return DefaultTexture; }
+                else for (var i = end; i >= start; i--) { if (!TexImage2D(info, i, internalFormat, format, type)) return DefaultTexture; }
             }
             else throw new NotImplementedException();
 
@@ -126,5 +136,7 @@ namespace GameSpec.Graphics
         }
 
         public override int BuildNormalMap(int source, float strength) => throw new NotImplementedException();
+
+        public override void DeleteTexture(int id) => GL.DeleteTexture(id);
     }
 }

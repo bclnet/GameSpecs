@@ -35,7 +35,7 @@
                 <control1:GLMaterialViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
             <DataTemplate x:Key="ParticleTemplate" DataType="{x:Type model:MetadataContent}">
-                <control1:GLParticleViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}},Path=Graphic}" Margin="3,3,3,3" />
+                <control1:GLParticleViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
             <DataTemplate x:Key="TextureTemplate" DataType="{x:Type model:MetadataContent}">
                 <control1:GLTextureViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />

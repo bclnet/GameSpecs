@@ -19,6 +19,10 @@ namespace GameSpec.Graphics
             Builder = builder;
         }
 
+        public Texture BuildSolidTexture(int width, int height, params float[] rgba) => Builder.BuildSolidTexture(width, height, rgba);
+
+        public Texture BuildNormalMap(Texture source, float strength) => Builder.BuildNormalMap(source, strength);
+
         public Texture DefaultTexture => Builder.DefaultTexture;
 
         public Texture LoadTexture(object key, out IDictionary<string, object> data, Range? range = null)
@@ -39,6 +43,13 @@ namespace GameSpec.Graphics
             if (!PreloadTasks.ContainsKey(path)) PreloadTasks[path] = PakFile.LoadFileObjectAsync<ITexture>(path);
         }
 
+        public void DeleteTexture(object key)
+        {
+            if (!CachedTextures.TryGetValue(key, out var cache)) return;
+            Builder.DeleteTexture(cache.texture);
+            CachedTextures.Remove(key);
+        }
+
         ITexture LoadTexture(object key)
         {
             Assert(!CachedTextures.ContainsKey(key));
@@ -52,9 +63,5 @@ namespace GameSpec.Graphics
                 default: throw new ArgumentOutOfRangeException(nameof(key), $"{key}");
             }
         }
-
-        public Texture BuildSolidTexture(int width, int height, params float[] rgba) => Builder.BuildSolidTexture(width, height, rgba);
-
-        public Texture BuildNormalMap(Texture source, float strength) => Builder.BuildNormalMap(source, strength);
     }
 }

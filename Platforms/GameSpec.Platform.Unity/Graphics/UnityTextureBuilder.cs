@@ -9,7 +9,7 @@ namespace GameSpec.Graphics
         Texture2D _defaultTexture;
         public override Texture2D DefaultTexture => _defaultTexture != null ? _defaultTexture : _defaultTexture = BuildAutoTexture();
 
-        Texture2D BuildAutoTexture() => new Texture2D(4, 4);
+        Texture2D BuildAutoTexture() => new(4, 4);
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
@@ -44,5 +44,7 @@ namespace GameSpec.Graphics
             normalTexture.Apply();
             return normalTexture;
         }
+
+        public override void DeleteTexture(Texture2D id) { }
     }
 }

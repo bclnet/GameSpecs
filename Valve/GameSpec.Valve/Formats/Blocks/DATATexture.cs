@@ -132,7 +132,7 @@ namespace GameSpec.Valve.Formats.Blocks
         };
         int ITexture.NumMipMaps => NumMipMaps;
 
-        void ITexture.MoveToData() => Reader.BaseStream.Position = Offset + Size;
+        void ITexture.MoveToData(out bool forward) { forward = false; Reader.BaseStream.Position = Offset + Size; }
 
         Span<byte> ITexture.this[int index]
         {

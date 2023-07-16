@@ -47,5 +47,7 @@ namespace GameSpec.Graphics
         }
 
         public override Tex BuildNormalMap(Tex source, float strength) => throw new NotImplementedException();
+
+        public override void DeleteTexture(Tex id) { }
     }
 }

@@ -5,6 +5,8 @@ using GameSpec.Capcom.Transforms;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System;
 
 namespace GameSpec.Capcom
 {
@@ -20,12 +22,33 @@ namespace GameSpec.Capcom
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CapcomPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryCapcom.Instance, tag)
+        public CapcomPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            GetObjectFactoryFactory = game.Engine switch
+            {
+                "Unity" => Unity.Formats.FormatExtensions.GetObjectFactoryFactory,
+                _ => FormatExtensions.GetObjectFactoryFactory,
+            };
             Open();
         }
+
+        #region GetPackBinary
+
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
+
+        static PakBinary GetPackBinary(FamilyGame game)
+            => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game));
+
+        static PakBinary PackBinaryFactory(FamilyGame game)
+            => game.Engine switch
+            {
+                "Capcom" => PakBinaryCapcom.Instance,
+                "Unity" => Unity.Formats.PakBinaryUnity.Instance,
+                _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
+            };
+
+        #endregion
 
         #region Transforms
 
