@@ -12,8 +12,8 @@
 //#define IW
 //#define Origin
 //#define Red
-#define Rsi
-//#define Tes
+//#define Rsi
+#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -278,7 +278,7 @@ namespace GameSpec
             ForceOpen = true,
             Family = "Tes",
             //GameId = "Fallout2", // Fallout 2
-            //GameId = "Morrowind", // The Elder Scrolls III: Morrowind
+            GameId = "Morrowind", // The Elder Scrolls III: Morrowind
             //GameId = "Oblivion", // The Elder Scrolls IV: Oblivion
             //GameId = "Fallout3", // Fallout 3
             //GameId = "FalloutNV", // Fallout New Vegas

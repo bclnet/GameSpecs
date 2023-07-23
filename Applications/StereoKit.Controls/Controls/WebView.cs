@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class WebView : View
     {
-        public WebView() => Console.WriteLine("Controls: WebView");
+        public override void OnStep(object? arg)
+            => UI.Label("WEBVIEW");
     }
 }

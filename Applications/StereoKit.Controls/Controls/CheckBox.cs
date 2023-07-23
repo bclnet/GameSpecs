@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class CheckBox : View
     {
-        public CheckBox() => Console.WriteLine("Controls: CheckBox");
-
         bool _checked;
         public bool IsChecked
         {
@@ -15,7 +11,7 @@ namespace StereoKit.UIX.Controls
 
         public Color Color { get; internal set; }
 
-        public void Step()
+        public override void OnStep(object? arg)
         {
             UI.Toggle("CheckBox", ref _checked);
         }

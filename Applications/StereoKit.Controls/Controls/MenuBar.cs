@@ -2,9 +2,5 @@
 {
     public class MenuBar
     {
-        public void Step()
-        {
-            UI.Label("MenuBar");
-        }
     }
 }

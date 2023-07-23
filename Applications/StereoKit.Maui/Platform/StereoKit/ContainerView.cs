@@ -51,11 +51,5 @@ namespace StereoKit.Maui.Platform
         }
 
         public void Reload() => SetView(CurrentView, true);
-
-        public override void OnStep(object? arg)
-        {
-            foreach (var s in Children)
-                s.OnStep(null);
-        }
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class Editor : View
     {
-        public Editor() => Console.WriteLine("Controls: Editor");
-
         public string Text { get; internal set; }
         public object TextColor { get; internal set; }
         public object HorizontalTextAlignment { get; internal set; }
@@ -14,9 +10,7 @@ namespace StereoKit.UIX.Controls
         public string? FontFamily { get; internal set; }
         public string Placeholder { get; internal set; }
 
-        public void Step()
-        {
-            UI.Label("Editor");
-        }
+        public override void OnStep(object? arg)
+            => UI.Label(Text);
     }
 }

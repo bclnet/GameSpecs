@@ -131,6 +131,7 @@ namespace GameSpec.App.Explorer.Views
         {
             if (e.NewValue is TreeViewItem item && item.Items.Count > 0) (item.Items[0] as TreeViewItem).IsSelected = true;
             else if (e.NewValue is MetadataItem itemNode && itemNode.PakFile != null && SelectedItem != itemNode) SelectedItem = itemNode;
+            e.Handled = true;
         }
 
         void OnReady()

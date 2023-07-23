@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class ScrollViewer : View
     {
-        public ScrollViewer() => Console.WriteLine("Controls: ScrollViewer");
+        public override void OnStep(object? arg)
+            => UI.Label("SCOLLVIEWER");
     }
 }

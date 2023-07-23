@@ -1,14 +1,10 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class Image : View
     {
-        public Image() => Console.WriteLine("Controls: Image");
-
-        public void Step()
+        public override void OnStep(object? arg)
         {
-            UI.Label("Image");
+            UI.Label("IMAGE");
             //UI.Image();
         }
     }

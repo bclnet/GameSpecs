@@ -2,10 +2,7 @@
 
 namespace StereoKit.UIX.Views
 {
-    public class ContentView : View
+    public class ContentView : ViewGroup
     {
-        public override void OnStep(object? arg)
-        {
-        }
     }
 }

@@ -1,14 +1,10 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class Label : View
     {
-        public Label() => Console.WriteLine("Controls: Label");
+        public string Text { get; set; }
 
-        public void Step()
-        {
-            UI.Label("Label");
-        }
+        public override void OnStep(object? arg)
+            => UI.Label(Text);
     }
 }

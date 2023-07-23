@@ -83,6 +83,7 @@ namespace GameSpec.App.Explorer.Views
         {
             var parameter = ((TappedEventArgs)args).Parameter;
             if (parameter is MetadataItem item && item.PakFile != null) SelectedItem = item;
+            //e.Handled = true;
         }
 
         MetadataItem _selectedItem;

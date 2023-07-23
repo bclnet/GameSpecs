@@ -85,13 +85,13 @@ namespace GameSpec.App.Explorer.Views
         {
             var openPage = new OpenPage();
             //App.Instance.MainPage = openPage;
-            //Navigation.PushModalAsync(openPage);
+            Navigation.PushAsync(openPage).Wait();
         }
 
         void OptionsPage_Click(object sender, EventArgs e)
         {
             var optionsPage = new OptionsPage();
-            Navigation.PushModalAsync(optionsPage).Wait();
+            //Navigation.PushAsync(optionsPage).Wait();
         }
 
         void WorldMap_Click(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace GameSpec.App.Explorer.Views
         void AboutPage_Click(object sender, EventArgs e)
         {
             var aboutPage = new AboutPage();
-            Navigation.PushModalAsync(aboutPage).Wait();
+            //Navigation.PushModalAsync(aboutPage).Wait();
         }
 
         void Guide_Click(object sender, EventArgs e)

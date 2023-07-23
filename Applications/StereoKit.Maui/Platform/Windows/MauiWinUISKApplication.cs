@@ -9,6 +9,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using NWindow = StereoKit.UIX.Controls.Window;
+using MApplication = Microsoft.Maui.Controls.Application;
 
 namespace StereoKit.Maui
 {
@@ -65,6 +66,8 @@ namespace StereoKit.Maui
 
         MethodInfo DeploymentManagerAutoInitializer_LogIfFailedMethod = typeof(IApplication).Assembly.GetType("Microsoft.Maui.DeploymentManagerAutoInitializer")!.GetMethod("LogIfFailed")!;
 
+        MApplication _application;
+
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
 #if true
@@ -99,8 +102,10 @@ namespace StereoKit.Maui
 
             Services.InvokeLifecycleEvents<WindowsLifecycle.OnLaunched>(del => del(this, args));
 #endif
-
+            _application = MApplication.Current;
+            
             StartSKThread();
+            typeof(MApplication).GetMethod("OnStart", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(_application, null);
         }
     }
 }

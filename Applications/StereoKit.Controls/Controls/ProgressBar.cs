@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class ProgressBar : View
     {
-        public ProgressBar() => Console.WriteLine("Controls: ProgressBar");
+        public override void OnStep(object? arg)
+            => UI.Label("PROGRESSBAR");
     }
 }

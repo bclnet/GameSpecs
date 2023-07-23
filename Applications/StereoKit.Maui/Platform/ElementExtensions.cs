@@ -28,10 +28,14 @@ namespace StereoKit.Maui.Platform
 
         public static PlatformView ToSKPlatform(this IElement view, IMauiContext context)
         {
-            var handler = view.ToHandler(context);
+			//try
+			{
+				var handler = view.ToHandler(context);
 
-            if (handler.PlatformView is not PlatformView result)
-                throw new InvalidOperationException($"Unable to convert {view} to {typeof(PlatformView)}");
+				if (handler.PlatformView is not PlatformView result)
+					throw new InvalidOperationException($"Unable to convert {view} to {typeof(PlatformView)}");
+			}
+			//catch (Exception ex) { }
 
             return view.ToSKPlatform() ?? throw new InvalidOperationException($"Unable to convert {view} to {typeof(PlatformView)}");
         }

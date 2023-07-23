@@ -23,7 +23,7 @@ namespace StereoKit.Maui.Handlers
 
         public static CommandMapper<ILabel, ISKLabelHandler> CommandMapper = new(ViewCommandMapper);
 
-        public SKLabelHandler() : base(Mapper) { }
+        public SKLabelHandler() : base(Mapper, CommandMapper) { }
 
         public SKLabelHandler(IPropertyMapper? mapper) : base(mapper ?? Mapper, CommandMapper) { }
 

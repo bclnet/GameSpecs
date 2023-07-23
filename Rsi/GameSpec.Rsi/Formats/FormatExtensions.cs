@@ -16,7 +16,7 @@ namespace GameSpec.Rsi.Formats
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 ".cfg" or ".txt" => (0, BinaryTxt.Factory),
-                ".xml" => (DataOption.Stream, CryXmlFile.Factory),
+                ".mtl" or ".xml" => (DataOption.Stream, CryXmlFile.Factory),
                 ".dds" => (0, BinaryDds.Factory),
                 ".a" => (0, BinaryDdsA.Factory),
                 ".dcb" => (0, ForgeFile.Factory),

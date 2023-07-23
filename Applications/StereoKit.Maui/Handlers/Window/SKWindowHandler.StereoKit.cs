@@ -29,7 +29,7 @@ namespace StereoKit.Maui.Handlers
             //    window.VisualDiagnosticsOverlay.Initialize();
         }
         public static void MapX(ISKWindowHandler handler, IWindow view) => handler.PlatformView?.UpdateX(view);
-        public static void MapY(ISKWindowHandler handler, IWindow view)=> handler.PlatformView?.UpdateY(view);
+        public static void MapY(ISKWindowHandler handler, IWindow view) => handler.PlatformView?.UpdateY(view);
         public static void MapWidth(ISKWindowHandler handler, IWindow view) => handler.PlatformView?.UpdateWidth(view);
         public static void MapHeight(ISKWindowHandler handler, IWindow view) => handler.PlatformView?.UpdateHeight(view);
 

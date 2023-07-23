@@ -1,15 +1,17 @@
 ﻿using GameSpec.Formats;
+using GameSpec.Metadata;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace GameSpec.Cry.Formats
 {
-    public class CryXmlFile : XmlDocument, IHaveStream
+    public class CryXmlFile : XmlDocument, IHaveStream, IGetMetadataInfo
     {
         class Node
         {
@@ -26,6 +28,10 @@ namespace GameSpec.Cry.Formats
 
         public static Task<object> Factory(BinaryReader r, FileMetadata m, PakFile s)
             => Task.FromResult((object)new CryXmlFile(r, false));
+
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new() {
+            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = this }),
+        };
 
         public CryXmlFile(string inFile, bool writeLog = false) : this(new BinaryReader(File.OpenRead(inFile)), writeLog) { }
         public CryXmlFile(byte[] bytes, bool writeLog = false) : this(new BinaryReader(new MemoryStream(bytes)), writeLog) { }
@@ -153,6 +159,17 @@ namespace GameSpec.Cry.Formats
                 if (xmlMap.ContainsKey(node.ParentNodeId)) xmlMap[node.ParentNodeId].AppendChild(element);
                 else AppendChild(element);
             }
+        }
+
+        public override string ToString()
+        {
+            using var s = new MemoryStream();
+            using var w = new XmlTextWriter(s, Encoding.Unicode) { Formatting = Formatting.Indented };
+            WriteContentTo(w);
+            w.Flush();
+            s.Flush();
+            s.Position = 0;
+            return new StreamReader(s).ReadToEnd();
         }
 
         public static TObject Deserialize<TObject>(Stream inStream) where TObject : class

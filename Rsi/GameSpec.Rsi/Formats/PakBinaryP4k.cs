@@ -1,12 +1,11 @@
 ﻿using GameSpec.Formats;
-using ICSharpCode.SharpZipLib.Tar;
+using GameSpec.Metadata;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static GameSpec.Formats.Unknown.IUnknownFileObject;
 using static OpenStack.Debug;
 
 namespace GameSpec.Rsi.Formats
@@ -15,7 +14,7 @@ namespace GameSpec.Rsi.Formats
     /// PakBinaryP4k
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public unsafe class PakBinaryP4k : PakBinary
+    public class PakBinaryP4k : PakBinary
     {
         public static readonly PakBinary Instance = new PakBinaryP4k();
         static readonly byte[] DefaultKey = new byte[] { 0x5E, 0x7A, 0x20, 0x02, 0x30, 0x2E, 0xEB, 0x1A, 0x3B, 0xB6, 0x17, 0xC3, 0x0F, 0xDE, 0x1E, 0x47 };
@@ -23,15 +22,21 @@ namespace GameSpec.Rsi.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
-
-            public override Task ReadAsync(BinaryReader r, ReadStage stage)
+            public Stream Stream;
+            public SubPakFile(P4kFile pak, FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag)
             {
-                var pak = new P4kFile(r.BaseStream, null);
-                foreach (ZipEntry entry in pak)
-                {
-                }
-                return base.ReadAsync(r, stage);
+                UseBinaryReader = false;
+                var entry = (ZipEntry)Tag;
+                Stream = pak.GetInputStream(entry.ZipFileIndex);
+                GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
+                GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+                Open();
+            }
+
+            public async override Task ReadAsync(BinaryReader r, ReadStage stage)
+            {
+                using var r2 = new BinaryReader(Stream);
+                await PakBinary.ReadAsync(this, r2, stage);
             }
         }
 
@@ -57,15 +62,16 @@ namespace GameSpec.Rsi.Formats
                     FileSize = entry.Size,
                     Tag = entry,
                 };
-                if (metadata.Path.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(source.Game, metadata.Path);
-                else if (metadata.Path.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadata.Path.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadata.Path, metadata);
-                else if (metadata.Path[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
+                var metadataPath = metadata.Path;
+                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(pak, source.Game, metadataPath, metadata.Tag);
+                else if (metadataPath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadataPath, metadata);
+                else if (metadataPath.Length > 8 && metadataPath[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {
-                    var parentPath = metadata.Path[..(metadata.Path.IndexOf(".dds", StringComparison.OrdinalIgnoreCase) + 4)];
-                    if (metadata.Path.EndsWith("a")) parentPath += ".a";
+                    var parentPath = metadataPath[..(metadataPath.IndexOf(".dds", StringComparison.OrdinalIgnoreCase) + 4)];
+                    if (metadataPath.EndsWith("a")) parentPath += ".a";
                     var parts = partsByPath.TryGetValue(parentPath, out var z) ? z : null;
                     if (parts == null) partsByPath.Add(parentPath, parts = new SortedList<string, FileMetadata>());
-                    parts.Add(metadata.Path, metadata);
+                    parts.Add(metadataPath, metadata);
                     continue;
                 }
                 files.Add(metadata);
@@ -101,7 +107,7 @@ namespace GameSpec.Rsi.Formats
             var entry = (ZipEntry)file.Tag;
             try
             {
-                using var input = pak.GetInputStream(entry);
+                using var input = pak.GetInputStream(entry.ZipFileIndex);
                 if (!input.CanRead) { Log($"Unable to read stream for file: {file.Path}"); exception?.Invoke(file, $"Unable to read stream for file: {file.Path}"); return Task.FromResult(System.IO.Stream.Null); }
                 var s = new MemoryStream();
                 input.CopyTo(s);
@@ -109,7 +115,7 @@ namespace GameSpec.Rsi.Formats
                     foreach (var part in file.Parts.Reverse())
                     {
                         var entry2 = (ZipEntry)part.Tag;
-                        using var input2 = pak.GetInputStream(entry2);
+                        using var input2 = pak.GetInputStream(entry2.ZipFileIndex);
                         if (!input2.CanRead) { Log($"Unable to read stream for file: {file.Path}"); exception?.Invoke(file, $"Unable to read stream for file: {part.Path}"); return Task.FromResult(System.IO.Stream.Null); }
                         input2.CopyTo(s);
                     }

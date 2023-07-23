@@ -1,12 +1,8 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class Button : View
     {
-        public Button() => Console.WriteLine("Controls: Button");
-
-        public void Step()
+        public override void OnStep(object? arg)
         {
             UI.Button("Button");
         }

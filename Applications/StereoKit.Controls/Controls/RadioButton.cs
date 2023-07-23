@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class RadioButton : View
     {
-        public RadioButton() => Console.WriteLine("Controls: RadioButton");
+        public override void OnStep(object? arg)
+            => UI.Label("RADIOBUTTON");
     }
 }

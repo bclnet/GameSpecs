@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class Entry : View
     {
-        public Entry() => Console.WriteLine("Controls: Entry");
-
         string? _text;
         public string? Text
         {
@@ -13,7 +9,7 @@ namespace StereoKit.UIX.Controls
             set => _text = value;
         }
 
-        public void Step()
+        public override void OnStep(object? arg)
         {
             UI.Label("Entry");
             UI.Input("id", ref _text);

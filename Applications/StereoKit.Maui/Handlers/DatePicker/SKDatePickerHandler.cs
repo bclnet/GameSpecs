@@ -19,7 +19,7 @@ namespace StereoKit.Maui.Handlers
 
         public static CommandMapper<IPicker, ISKDatePickerHandler> CommandMapper = new(ViewCommandMapper);
 
-        public SKDatePickerHandler() : base(Mapper) { }
+        public SKDatePickerHandler() : base(Mapper, CommandMapper) { }
 
         public SKDatePickerHandler(IPropertyMapper? mapper) : base(mapper ?? Mapper, CommandMapper) { }
 

@@ -13,7 +13,7 @@ namespace StereoKit.Maui.Handlers
 
 		public static CommandMapper<ICheckBox, SKCheckBoxHandler> CommandMapper = new(ViewCommandMapper);
 
-		public SKCheckBoxHandler() : base(Mapper) { }
+		public SKCheckBoxHandler() : base(Mapper, CommandMapper) { }
 
 		public SKCheckBoxHandler(IPropertyMapper? mapper) : base(mapper ?? Mapper, CommandMapper) { }
 

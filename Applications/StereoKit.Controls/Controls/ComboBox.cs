@@ -1,16 +1,11 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class ComboBox : View
     {
-        public ComboBox() => Console.WriteLine("Controls: ComboBox");
-
         string? _value;
 
-        public void Step()
+        public override void OnStep(object? arg)
         {
-            UI.Label("ComboBox");
             UI.Input("id", ref _value);
         }
     }

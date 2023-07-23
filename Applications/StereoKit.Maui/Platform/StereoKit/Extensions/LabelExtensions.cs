@@ -1,12 +1,13 @@
-﻿using Microsoft.Maui.Graphics;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Graphics;
 using StereoKit.UIX.Controls;
 
 namespace StereoKit.Maui.Platform
 {
     public static class LabelExtensions
     {
-        //public static void UpdateText(this Label platformLabel, ILabel label)
-        //    => platformLabel.Text = label.Text ?? "";
+        public static void UpdateText(this Label platformLabel, ILabel label)
+            => platformLabel.Text = label.Text ?? "";
 
         //public static void UpdateTextColor(this Label platformLabel, ILabel label)
         //    => platformLabel.TextColor = label.TextColor == null ? NColor.Black : label.TextColor.ToPlatform();

@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace StereoKit.UIX.Controls
+﻿namespace StereoKit.UIX.Controls
 {
     public class TimePicker : View
     {
-        public TimePicker() => Console.WriteLine("Controls: TimePicker");
+        public override void OnStep(object? arg)
+            => UI.Label("TIMEPICKER");
     }
 }

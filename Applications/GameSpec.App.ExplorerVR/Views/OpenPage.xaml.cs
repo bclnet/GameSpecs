@@ -127,6 +127,7 @@ namespace GameSpec.App.Explorer.Views
         {
             var mainPage = new MainPage();
             mainPage.Open(FamilySelectedItem, PakUris);
+            //App.Instance.MainPage = mainPage;
             await Navigation.PushAsync(mainPage);
         }
 
