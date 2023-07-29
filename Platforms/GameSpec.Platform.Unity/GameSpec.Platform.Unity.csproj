@@ -15,18 +15,18 @@
 
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\Context\Native\Unity\UnityEngine.dll</HintPath>
+      <HintPath>..\..\Platforms\Unity\2022.3.5f1\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(OS)' == 'Windows_NT'">
-    <Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Base.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)GameSpec.Platform.Unity.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+    <Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)OpenStack.*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
   </Target>
 
-  <Target Name="Plugins" Condition="'$(OS)' == 'Windows_NT'">
+  <!--<Target Name="Plugins" Condition="'$(OS)' == 'Windows_NT'">
     <Exec Command="xcopy /Y &quot;..\..\Context\Native\Unity\Plugins\x64\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\x64\&quot;" />
     <Exec Command="xcopy /Y &quot;..\..\Context\Native\Unity\Plugins\x86\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\x86\&quot;" />
     <Exec Command="xcopy /Y &quot;..\..\Context\Native\Unity\Plugins\*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
-  </Target>
+  </Target>-->
   
 </Project>

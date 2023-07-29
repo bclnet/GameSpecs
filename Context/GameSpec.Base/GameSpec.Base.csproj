@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Native\x64\oo2ext_7_win64.dll" Link="oo2ext_7_win64.dll">
+    <None Include="..\..\Platforms\Native\x64\oo2ext_7_win64.dll" Link="oo2ext_7_win64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

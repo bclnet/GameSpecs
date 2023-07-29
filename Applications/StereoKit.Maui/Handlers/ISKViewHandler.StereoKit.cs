@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui;
-using System;
 using NView = StereoKit.UIX.Controls.View;
 
 namespace StereoKit.Maui
