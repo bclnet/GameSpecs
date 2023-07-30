@@ -66,7 +66,7 @@ namespace GameSpec.AC.Formats.Models
         public byte Index { get; set; }
         public uint AnimationId { get; set; }
 
-        public PropertiesAnimPart Clone() => new()
+        public PropertiesAnimPart Clone() => new PropertiesAnimPart
         {
             Index = Index,
             AnimationId = AnimationId
@@ -106,7 +106,7 @@ namespace GameSpec.AC.Formats.Models
         public uint LevelFromCP { get; set; }
         public uint CPSpent { get; set; }
 
-        public PropertiesAttribute Clone() => new()
+        public PropertiesAttribute Clone() => new PropertiesAttribute
         {
             InitLevel = InitLevel,
             LevelFromCP = LevelFromCP,
@@ -121,7 +121,7 @@ namespace GameSpec.AC.Formats.Models
         public uint CPSpent { get; set; }
         public uint CurrentLevel { get; set; }
 
-        public PropertiesAttribute2nd Clone() => new()
+        public PropertiesAttribute2nd Clone() => new PropertiesAttribute2nd
         {
             InitLevel = InitLevel,
             LevelFromCP = LevelFromCP,
@@ -158,7 +158,7 @@ namespace GameSpec.AC.Formats.Models
         public float MRB { get; set; }
         public float LRB { get; set; }
 
-        public PropertiesBodyPart Clone() => new()
+        public PropertiesBodyPart Clone() => new PropertiesBodyPart
         {
             DType = DType,
             DVal = DVal,
@@ -193,7 +193,7 @@ namespace GameSpec.AC.Formats.Models
         public int MaxNumPages { get; set; }
         public int MaxNumCharsPerPage { get; set; }
 
-        public PropertiesBook Clone() => new()
+        public PropertiesBook Clone() => new PropertiesBook
         {
             MaxNumPages = MaxNumPages,
             MaxNumCharsPerPage = MaxNumCharsPerPage,
@@ -208,7 +208,7 @@ namespace GameSpec.AC.Formats.Models
         public bool IgnoreAuthor { get; set; }
         public string PageText { get; set; }
 
-        public PropertiesBookPageData Clone() => new()
+        public PropertiesBookPageData Clone() => new PropertiesBookPageData
         {
             AuthorId = AuthorId,
             AuthorName = AuthorName,
@@ -274,7 +274,7 @@ namespace GameSpec.AC.Formats.Models
         public float Shade { get; set; }
         public bool TryToBond { get; set; }
 
-        public PropertiesCreateList Clone() => new()
+        public PropertiesCreateList Clone() => new PropertiesCreateList
         {
             DestinationType = DestinationType,
             WeenieClassId = WeenieClassId,
@@ -370,7 +370,7 @@ namespace GameSpec.AC.Formats.Models
         public float? AnglesY { get; set; }
         public float? AnglesZ { get; set; }
 
-        public PropertiesEmoteAction Clone() => new()
+        public PropertiesEmoteAction Clone() => new PropertiesEmoteAction
         {
             Type = Type,
             Delay = Delay,
@@ -661,7 +661,7 @@ namespace GameSpec.AC.Formats.Models
         public float? AnglesY { get; set; }
         public float? AnglesZ { get; set; }
 
-        public PropertiesGenerator Clone() => new()
+        public PropertiesGenerator Clone() => new PropertiesGenerator
         {
             Probability = Probability,
             WeenieClassId = WeenieClassId,
@@ -690,7 +690,7 @@ namespace GameSpec.AC.Formats.Models
         public ushort Offset { get; set; }
         public ushort Length { get; set; }
 
-        public PropertiesPalette Clone() => new()
+        public PropertiesPalette Clone() => new PropertiesPalette
         {
             SubPaletteId = SubPaletteId,
             Offset = Offset,
@@ -736,7 +736,7 @@ namespace GameSpec.AC.Formats.Models
         public float RotationY { get; set; }
         public float RotationZ { get; set; }
 
-        public PropertiesPosition Clone() => new()
+        public PropertiesPosition Clone() => new PropertiesPosition
         {
             ObjCellId = ObjCellId,
             PositionX = PositionX,
@@ -758,7 +758,7 @@ namespace GameSpec.AC.Formats.Models
         public uint ResistanceAtLastCheck { get; set; }
         public double LastUsedTime { get; set; }
 
-        public PropertiesSkill Clone() => new()
+        public PropertiesSkill Clone() => new PropertiesSkill
         {
             LevelFromPP = LevelFromPP,
             SAC = SAC,
@@ -775,7 +775,7 @@ namespace GameSpec.AC.Formats.Models
         public uint OldTexture { get; set; }
         public uint NewTexture { get; set; }
 
-        public PropertiesTextureMap Clone() => new()
+        public PropertiesTextureMap Clone() => new PropertiesTextureMap
         {
             PartIndex = PartIndex,
             OldTexture = OldTexture,

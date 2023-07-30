@@ -14,18 +14,26 @@ namespace GameSpec.Valve.Formats.Blocks
 
     public readonly struct PhonemeTag
     {
-        public float StartTime { get; init; }
-        public float EndTime { get; init; }
-        public ushort PhonemeCode { get; init; }
+        internal PhonemeTag(float startTime, float endTime, ushort phonemeCode)
+        {
+            StartTime = startTime; 
+            EndTime = endTime;
+            PhonemeCode = phonemeCode;
+        }
+        public float StartTime { get; }
+        public float EndTime { get; }
+        public ushort PhonemeCode { get; }
     }
 
     public class Sentence
     {
-        public bool ShouldVoiceDuck { get; init; }
-
-        public PhonemeTag[] RunTimePhonemes { get; init; }
-
-        public EmphasisSample[] EmphasisSamples { get; init; }
+        internal Sentence(PhonemeTag[] runTimePhonemes)
+        {
+            RunTimePhonemes = runTimePhonemes;
+        }
+        public bool ShouldVoiceDuck { get;}
+        public PhonemeTag[] RunTimePhonemes { get; }
+        public EmphasisSample[] EmphasisSamples { get; }
     }
 
     //was:Resource/ResourceTypes/Sound
@@ -155,7 +163,7 @@ namespace GameSpec.Valve.Formats.Blocks
             var sentenceOffset = (long)r.ReadUInt32();
             r.Skip(4);
             if (sentenceOffset != 0) sentenceOffset = r.BaseStream.Position + sentenceOffset;
-            
+
             r.Skip(4); // Skipping over m_pHeader
             StreamingDataSize = r.ReadUInt32();
 
@@ -185,19 +193,11 @@ namespace GameSpec.Valve.Formats.Blocks
             var a = r.ReadInt32(); // numEmphasisSamples ?
             var b = r.ReadInt32(); // Sentence.ShouldVoiceDuck ?
             // Skip sounds that have these
-            if (a != 0 || b != 0)  return;
-            Sentence = new Sentence
-            {
-                RunTimePhonemes = new PhonemeTag[numPhonemeTags]
-            };
+            if (a != 0 || b != 0) return;
+            Sentence = new Sentence(new PhonemeTag[numPhonemeTags]);
             for (var i = 0; i < numPhonemeTags; i++)
             {
-                Sentence.RunTimePhonemes[i] = new PhonemeTag
-                {
-                    StartTime = r.ReadSingle(),
-                    EndTime = r.ReadSingle(),
-                    PhonemeCode = r.ReadUInt16()
-                };
+                Sentence.RunTimePhonemes[i] = new PhonemeTag(r.ReadSingle(), r.ReadSingle(), r.ReadUInt16());
                 r.Skip(2);
             }
         }
@@ -287,21 +287,21 @@ namespace GameSpec.Valve.Formats.Blocks
         public override string ToString()
         {
             var b = new StringBuilder();
-            b.AppendLine(CultureInfo.InvariantCulture, $"SoundType: {SoundType}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"Sample Rate: {SampleRate}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"Bits: {Bits}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"SampleSize: {SampleSize}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"SampleCount: {SampleCount}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"Format: {AudioFormat}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"Channels: {Channels}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"LoopStart: ({TimeSpan.FromSeconds(LoopStart)}) {LoopStart}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"LoopEnd: ({TimeSpan.FromSeconds(LoopEnd)}) {LoopEnd}");
-            b.AppendLine(CultureInfo.InvariantCulture, $"Duration: {TimeSpan.FromSeconds(Duration)} ({Duration})");
-            b.AppendLine(CultureInfo.InvariantCulture, $"StreamingDataSize: {StreamingDataSize}");
+            b.AppendLine($"SoundType: {SoundType}");
+            b.AppendLine($"Sample Rate: {SampleRate}");
+            b.AppendLine($"Bits: {Bits}");
+            b.AppendLine($"SampleSize: {SampleSize}");
+            b.AppendLine($"SampleCount: {SampleCount}");
+            b.AppendLine($"Format: {AudioFormat}");
+            b.AppendLine($"Channels: {Channels}");
+            b.AppendLine($"LoopStart: ({TimeSpan.FromSeconds(LoopStart)}) {LoopStart}");
+            b.AppendLine($"LoopEnd: ({TimeSpan.FromSeconds(LoopEnd)}) {LoopEnd}");
+            b.AppendLine($"Duration: {TimeSpan.FromSeconds(Duration)} ({Duration})");
+            b.AppendLine($"StreamingDataSize: {StreamingDataSize}");
             if (Sentence != null)
             {
-                b.AppendLine(CultureInfo.InvariantCulture, $"Sentence[{Sentence.RunTimePhonemes.Length}]:");
-                foreach (var phoneme in Sentence.RunTimePhonemes) b.AppendLine(CultureInfo.InvariantCulture, $"\tPhonemeTag(StartTime={phoneme.StartTime}, EndTime={phoneme.EndTime}, PhonemeCode={phoneme.PhonemeCode})");
+                b.AppendLine($"Sentence[{Sentence.RunTimePhonemes.Length}]:");
+                foreach (var phoneme in Sentence.RunTimePhonemes) b.AppendLine($"\tPhonemeTag(StartTime={phoneme.StartTime}, EndTime={phoneme.EndTime}, PhonemeCode={phoneme.PhonemeCode})");
             }
             return b.ToString();
         }

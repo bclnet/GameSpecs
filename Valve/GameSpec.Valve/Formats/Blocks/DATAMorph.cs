@@ -50,7 +50,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
                 foreach (var pair in morphDatas)
                 {
-                    if (pair.Value is not IDictionary<string, object> morphData) continue;
+                    if (!(pair.Value is IDictionary<string, object> morphData)) continue;
 
                     var morphName = morphData.Get<string>("m_name");
                     if (string.IsNullOrEmpty(morphName)) continue; // Exist some empty names may need skip.

@@ -10,7 +10,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public static class StringToken
         {
             public const uint MURMUR2SEED = 0x31415926; // PI
-            static readonly ConcurrentDictionary<string, uint> Lookup = new();
+            static readonly ConcurrentDictionary<string, uint> Lookup = new ConcurrentDictionary<string, uint>();
             public static Dictionary<uint, string> InvertedTable
             {
                 get

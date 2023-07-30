@@ -17,9 +17,9 @@ namespace GameSpec.Valve.Formats.Animations.SegmentDecoders
             {
                 var offset = i * (3 * 2);
                 return new Vector3(
-                    (float)BitConverter.ToHalf(data.Slice(offset + (0 * 2))),
-                    (float)BitConverter.ToHalf(data.Slice(offset + (1 * 2))),
-                    (float)BitConverter.ToHalf(data.Slice(offset + (2 * 2)))
+                    (float)BitConverterX.ToHalf(data.Slice(offset + (0 * 2))),
+                    (float)BitConverterX.ToHalf(data.Slice(offset + (1 * 2))),
+                    (float)BitConverterX.ToHalf(data.Slice(offset + (2 * 2)))
                 );
             }).ToArray();
         }

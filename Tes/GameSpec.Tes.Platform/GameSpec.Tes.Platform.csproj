@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -18,5 +18,9 @@
 	  <HintPath>..\..\Platforms\Unity\2023.2.0b2\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Tes*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+  </Target>
 
 </Project>

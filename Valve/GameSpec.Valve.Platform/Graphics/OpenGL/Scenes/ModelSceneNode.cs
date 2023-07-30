@@ -27,8 +27,8 @@ namespace GameSpec.Valve.Graphics.OpenGL.Scenes
         public IEnumerable<RenderableMesh> RenderableMeshes => ActiveMeshRenderers;
         public string ActiveSkin;
 
-        readonly List<RenderableMesh> MeshRenderers = new();
-        readonly List<Animation> Animations = new();
+        readonly List<RenderableMesh> MeshRenderers = new List<RenderableMesh>();
+        readonly List<Animation> Animations = new List<Animation>();
         Dictionary<string, string> SkinMaterials;
 
         int AnimationTexture = -1;
@@ -40,7 +40,7 @@ namespace GameSpec.Valve.Graphics.OpenGL.Scenes
         public ModelSceneNode(Scene scene, IValveModel model, string skin = null, bool loadAnimations = true) : base(scene)
         {
             Model = model;
-            AnimationController = new(model.Skeleton);
+            AnimationController = new AnimationController(model.Skeleton);
 
             if (skin != null) SetSkin(skin);
 

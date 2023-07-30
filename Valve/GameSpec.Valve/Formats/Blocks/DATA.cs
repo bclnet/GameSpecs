@@ -94,7 +94,7 @@ namespace GameSpec.Valve.Formats.Blocks
         //: Resource.ConstructResourceType()
         internal static DATA Factory(BinaryPak source) => source.DataType switch
         {
-            ResourceType.Panorama or ResourceType.PanoramaScript or ResourceType.PanoramaTypescript or ResourceType.PanoramaDynamicImages or ResourceType.PanoramaVectorGraphic => new DATAPanorama(),
+            var x when x == ResourceType.Panorama || x == ResourceType.PanoramaScript || x == ResourceType.PanoramaTypescript || x == ResourceType.PanoramaDynamicImages || x == ResourceType.PanoramaVectorGraphic => new DATAPanorama(),
             ResourceType.PanoramaStyle => new DATAPanoramaStyle(),
             ResourceType.PanoramaLayout => new DATAPanoramaLayout(),
             ResourceType.Sound => new DATASound(),
@@ -109,7 +109,7 @@ namespace GameSpec.Valve.Formats.Blocks
             ResourceType.Particle => new DATAParticleSystem(),
             ResourceType.PostProcessing => new DATAPostProcessing(),
             ResourceType.ResourceManifest => new DATAResourceManifest(),
-            ResourceType.SboxManagedResource or ResourceType.ArtifactItem => new DATAPlaintext(),
+            var x when x == ResourceType.SboxManagedResource || x == ResourceType.ArtifactItem => new DATAPlaintext(),
             ResourceType.PhysicsCollisionMesh => new DATAPhysAggregateData(),
             ResourceType.Mesh => new DATAMesh(source),
             //ResourceType.Mesh => source.Version != 0 ? new DATABinaryKV3() : source.ContainsBlockType<NTRO>() ? new DATABinaryNTRO() : new DATA(),
@@ -166,7 +166,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 "VectorGraphic" => ResourceType.PanoramaVectorGraphic,
                 "VData" => ResourceType.VData,
                 "DotaItem" => ResourceType.ArtifactItem,
-                "SBData" or "ManagedResourceCompiler" => ResourceType.SboxManagedResource, // This is without the "Compile" prefix
+                var x when x == "SBData" || x == "ManagedResourceCompiler" => ResourceType.SboxManagedResource, // This is without the "Compile" prefix
                 _ => Enum.TryParse(identifier, false, out ResourceType resourceType) ? resourceType : ResourceType.Unknown,
             };
         }

@@ -1,5 +1,6 @@
 using OpenStack.Graphics.Renderer1.Animations;
 using System;
+using SystemX;
 using System.Numerics;
 
 namespace GameSpec.Valve.Formats.Animations.SegmentDecoders
@@ -19,7 +20,7 @@ namespace GameSpec.Valve.Formats.Animations.SegmentDecoders
             var pos = 0;
             for (var i = 0; i < elements; i++)
                 foreach (var j in wantedElements)
-                    Data[pos++] = BitConverter.ToHalf(data.Slice(i * stride + j * elementSize, elementSize));
+                    Data[pos++] = BitConverterX.ToHalf(data.Slice(i * stride + j * elementSize, elementSize));
         }
 
         public override void Read(int frameIndex, Frame outFrame)

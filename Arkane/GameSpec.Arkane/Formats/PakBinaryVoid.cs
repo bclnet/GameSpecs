@@ -19,7 +19,7 @@ namespace GameSpec.Arkane.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
+            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             if (Path.GetExtension(source.FilePath) != ".index") throw new FormatException("must be a .index file");
             var files2 = multiSource.Files = new List<FileMetadata>();

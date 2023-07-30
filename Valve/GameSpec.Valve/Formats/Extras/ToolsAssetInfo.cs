@@ -15,7 +15,7 @@ namespace GameSpec.Valve.Formats.Extras
         public ToolsAssetInfo() { }
         public ToolsAssetInfo(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new() {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = ToString() }),
             new MetadataInfo("ToolsAssetInfo", items: new List<MetadataInfo> {
                 new MetadataInfo($"Mods: {Mods.Count}"),
@@ -28,15 +28,15 @@ namespace GameSpec.Valve.Formats.Extras
             }),
         };
 
-        public readonly List<string> Mods = new();
-        public readonly List<string> Directories = new();
-        public readonly List<string> Filenames = new();
-        public readonly List<string> Extensions = new();
-        public readonly List<string> EditInfoKeys = new();
-        public readonly List<string> MiscStrings = new();
-        public readonly List<string> ConstructedFilepaths = new();
-        public readonly List<string> UnknownSoundField1 = new();
-        public readonly List<string> UnknownSoundField2 = new();
+        public readonly List<string> Mods = new List<string>();
+        public readonly List<string> Directories = new List<string>();
+        public readonly List<string> Filenames = new List<string>();
+        public readonly List<string> Extensions = new List<string>();
+        public readonly List<string> EditInfoKeys = new List<string>();
+        public readonly List<string> MiscStrings = new List<string>();
+        public readonly List<string> ConstructedFilepaths = new List<string>();
+        public readonly List<string> UnknownSoundField1 = new List<string>();
+        public readonly List<string> UnknownSoundField2 = new List<string>();
 
         public void Read(BinaryReader r)
         {

@@ -49,16 +49,16 @@ namespace GameSpec.AC.Formats.FileTypes
             SurfacePixelFormat.PFID_DXT1 => TextureUnityFormat.DXT1,
             //SurfacePixelFormat.PFID_DXT3 => TextureUnityFormat.DXT3,
             SurfacePixelFormat.PFID_DXT5 => TextureUnityFormat.DXT5,
-            SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG or
-            SurfacePixelFormat.PFID_R8G8B8 or
-            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 or
-            SurfacePixelFormat.PFID_INDEX16 or
-            SurfacePixelFormat.PFID_A8 or
-            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA or
-            SurfacePixelFormat.PFID_P8 or
-            SurfacePixelFormat.PFID_R5G6B5 => TextureUnityFormat.RGB24,
-            SurfacePixelFormat.PFID_A8R8G8B8 or
-            SurfacePixelFormat.PFID_A4R4G4B4 => TextureUnityFormat.RGBA32,
+            var x when x == SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG ||
+            x == SurfacePixelFormat.PFID_R8G8B8 ||
+            x == SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 ||
+            x == SurfacePixelFormat.PFID_INDEX16 ||
+            x == SurfacePixelFormat.PFID_A8 ||
+            x == SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA ||
+            x == SurfacePixelFormat.PFID_P8 ||
+            x == SurfacePixelFormat.PFID_R5G6B5 => TextureUnityFormat.RGB24,
+            var x when x == SurfacePixelFormat.PFID_A8R8G8B8 ||
+            x == SurfacePixelFormat.PFID_A4R4G4B4 => TextureUnityFormat.RGBA32,
             _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
         };
         public object GLFormat => Format switch
@@ -66,16 +66,16 @@ namespace GameSpec.AC.Formats.FileTypes
             SurfacePixelFormat.PFID_DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
             SurfacePixelFormat.PFID_DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
             SurfacePixelFormat.PFID_DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
-            SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG or
-            SurfacePixelFormat.PFID_R8G8B8 or
-            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 or
-            SurfacePixelFormat.PFID_A8 or
-            SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA or
-            SurfacePixelFormat.PFID_R5G6B5 => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
-            SurfacePixelFormat.PFID_INDEX16 or
-            SurfacePixelFormat.PFID_P8 or
-            SurfacePixelFormat.PFID_A8R8G8B8 or
-            SurfacePixelFormat.PFID_A4R4G4B4 => (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
+            var x when x == SurfacePixelFormat.PFID_CUSTOM_RAW_JPEG ||
+            x == SurfacePixelFormat.PFID_R8G8B8 ||
+            x == SurfacePixelFormat.PFID_CUSTOM_LSCAPE_R8G8B8 ||
+            x == SurfacePixelFormat.PFID_A8 ||
+            x == SurfacePixelFormat.PFID_CUSTOM_LSCAPE_ALPHA ||
+            x == SurfacePixelFormat.PFID_R5G6B5 => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            var x when x == SurfacePixelFormat.PFID_INDEX16 ||
+            x == SurfacePixelFormat.PFID_P8 ||
+            x == SurfacePixelFormat.PFID_A8R8G8B8 ||
+            x == SurfacePixelFormat.PFID_A4R4G4B4 => (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
             _ => throw new ArgumentOutOfRangeException(nameof(Format), $"{Format}"),
         };
         public int NumMipMaps => 1;

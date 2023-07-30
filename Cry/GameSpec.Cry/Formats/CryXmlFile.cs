@@ -29,7 +29,7 @@ namespace GameSpec.Cry.Formats
         public static Task<object> Factory(BinaryReader r, FileMetadata m, PakFile s)
             => Task.FromResult((object)new CryXmlFile(r, false));
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new() {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = this }),
         };
 

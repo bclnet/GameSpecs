@@ -22,7 +22,7 @@ namespace GameSpec.Valve.Formats.OpenGL
         // Contains metadata that can't be captured by manipulating the scene itself. Returned from Load().
         public class LoadResult
         {
-            public readonly HashSet<string> DefaultEnabledLayers = new();
+            public readonly HashSet<string> DefaultEnabledLayers = new HashSet<string>();
             public readonly IDictionary<string, Matrix4x4> CameraMatrices = new Dictionary<string, Matrix4x4>();
             public Vector3? GlobalLightPosition;
             public DATAWorld Skybox;

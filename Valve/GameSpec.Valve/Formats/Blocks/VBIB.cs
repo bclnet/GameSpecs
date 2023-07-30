@@ -171,7 +171,7 @@ namespace GameSpec.Valve.Formats.Blocks
                     }
                 case DXGI_FORMAT.R16G16_FLOAT:
                     {
-                        result = new[] { (float)BitConverter.ToHalf(vertexBuffer.Data, offset), (float)BitConverter.ToHalf(vertexBuffer.Data, offset + 2) };
+                        result = new[] { (float)BitConverterX.ToHalf(vertexBuffer.Data, offset), (float)BitConverterX.ToHalf(vertexBuffer.Data, offset + 2) };
                         return result;
                     }
                 case DXGI_FORMAT.R32_FLOAT:

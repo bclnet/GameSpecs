@@ -27,7 +27,7 @@ namespace GameSpec.AC.Data
                     || Location.IndexOf(str, StringComparison.OrdinalIgnoreCase) != -1;
         }
 
-        public readonly static Dictionary<string, Row> Table = new();
+        public readonly static Dictionary<string, Row> Table = new Dictionary<string, Row>();
 
         public static void Load()
         {

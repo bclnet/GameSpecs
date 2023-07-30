@@ -75,7 +75,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public class Entity
         {
-            public Dictionary<uint, EntityProperty> Properties { get; } = new();
+            public Dictionary<uint, EntityProperty> Properties { get; } = new Dictionary<uint, EntityProperty>();
             public List<IDictionary<string, object>> Connections { get; internal set; }
             public T Get<T>(string name) => Get<T>(StringToken.Get(name));
             public EntityProperty Get(string name) => Get(StringToken.Get(name));
@@ -118,7 +118,7 @@ namespace GameSpec.Valve.Formats.Blocks
                         EntityFieldType.Integer => r.ReadInt32(),
                         EntityFieldType.UInt => r.ReadUInt32(),
                         EntityFieldType.Integer64 => r.ReadUInt64(),
-                        EntityFieldType.Vector or EntityFieldType.QAngle => new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()),
+                        var x when x == EntityFieldType.Vector || x == EntityFieldType.QAngle => new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()),
                         EntityFieldType.CString => r.ReadZUTF8(), // null term variable
                         _ => throw new ArgumentOutOfRangeException(nameof(type), $"Unknown type {type}"),
                     }
@@ -140,7 +140,7 @@ namespace GameSpec.Valve.Formats.Blocks
             var index = 0;
             foreach (var entity in GetEntities())
             {
-                b.AppendLine(CultureInfo.InvariantCulture, $"===={index++}====");
+                b.AppendLine($"===={index++}====");
                 foreach (var property in entity.Properties)
                 {
                     var value = property.Value.Data;
@@ -158,7 +158,7 @@ namespace GameSpec.Valve.Formats.Blocks
                         if (!unknownKeys.ContainsKey(property.Key)) unknownKeys.Add(property.Key, 1);
                         else unknownKeys[property.Key]++;
                     }
-                    b.AppendLine(CultureInfo.InvariantCulture, $"{key,-30} {property.Value.Type.ToString(),-10} {value}");
+                    b.AppendLine($"{key,-30} {property.Value.Type.ToString(),-10} {value}");
                 }
 
                 if (entity.Connections != null)
@@ -166,7 +166,7 @@ namespace GameSpec.Valve.Formats.Blocks
                     {
                         b.Append('@'); b.Append(connection.Get<string>("m_outputName")); b.Append(' ');
                         var delay = connection.GetFloat("m_flDelay");
-                        if (delay > 0) b.Append(CultureInfo.InvariantCulture, $"Delay={delay} ");
+                        if (delay > 0) b.Append($"Delay={delay} ");
                         var timesToFire = connection.GetInt32("m_nTimesToFire");
                         if (timesToFire == 1) b.Append("OnlyOnce ");
                         else if (timesToFire != -1) throw new ArgumentOutOfRangeException(nameof(timesToFire), $"Unexpected times to fire {timesToFire}");
@@ -183,7 +183,7 @@ namespace GameSpec.Valve.Formats.Blocks
             {
                 b.AppendLine($"@@@@@ UNKNOWN KEY LOOKUPS:");
                 b.AppendLine($"If you know what these are, add them to EntityLumpKnownKeys.cs");
-                foreach (var unknownKey in unknownKeys) b.AppendLine(CultureInfo.InvariantCulture, $"key={unknownKey.Key} hits={unknownKey.Value}");
+                foreach (var unknownKey in unknownKeys) b.AppendLine($"key={unknownKey.Key} hits={unknownKey.Value}");
             }
             return b.ToString();
         }

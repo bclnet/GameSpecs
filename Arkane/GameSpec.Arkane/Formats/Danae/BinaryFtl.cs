@@ -76,7 +76,7 @@ namespace GameSpec.Arkane.Formats.Danae
             public Vector3 Norm;
 
             public static implicit operator E_VERTEX(FTL_VERTEX s)
-                => new()
+                => new E_VERTEX
                 {
                     Vert = s.Vert,
                     V = s.V,
@@ -102,7 +102,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 if (name.Contains("water")) poly |= POLY.WATER | POLY.TRANS;
                 else if (name.Contains("spider_web")) poly |= POLY.WATER | POLY.TRANS;
                 else if (name.Contains("[metal]")) poly |= POLY.METAL;
-                return new()
+                return new E_TEXTURE
                 {
                     Path = s.Name,
                     Poly = poly,
@@ -126,7 +126,7 @@ namespace GameSpec.Arkane.Formats.Danae
             public Vector3 Nrmls0; public Vector3 Nrmls1; public Vector3 Nrmls2;
             public float Temp;
             public static implicit operator E_FACE(FTL_FACE s)
-                => new()
+                => new E_FACE
                 {
                     FaceType = s.FaceType,
                     TexId = s.TexId,
@@ -151,7 +151,7 @@ namespace GameSpec.Arkane.Formats.Danae
             public int Trash; // Indexes;
             public float Size;
             public static implicit operator E_GROUPLIST(FTL_GROUPLIST s)
-                => new()
+                => new E_GROUPLIST
                 {
                     Name = s.Name,
                     Origin = s.Origin,
@@ -169,7 +169,7 @@ namespace GameSpec.Arkane.Formats.Danae
             public int Act; //action
             public int Sfx; //sfx
             public static implicit operator E_ACTIONLIST(FTL_ACTIONLIST s)
-                => new()
+                => new E_ACTIONLIST
                 {
                     Name = s.Name,
                     Idx = s.Idx,
@@ -186,7 +186,7 @@ namespace GameSpec.Arkane.Formats.Danae
             public int NumSelected;
             public int Trash; //Selected;
             public static implicit operator E_SELECTIONS(FTL_SELECTIONS s)
-                => new()
+                => new E_SELECTIONS
                 {
                     Name = s.Name,
                     NumSelected = s.NumSelected,

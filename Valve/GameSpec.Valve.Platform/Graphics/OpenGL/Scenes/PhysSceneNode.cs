@@ -217,7 +217,7 @@ namespace GameSpec.Valve.Graphics.OpenGL.Scenes
         }
 
         static Matrix4x4 Matrix4x4FromArray(float[] a)
-            => new(a[0], a[4], a[8], 0,
+            => new Matrix4x4(a[0], a[4], a[8], 0,
                 a[1], a[5], a[9], 0,
                 a[2], a[6], a[10], 0,
                 a[3], a[7], a[11], 1);

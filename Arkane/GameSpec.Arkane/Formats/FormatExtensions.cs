@@ -15,9 +15,9 @@ namespace GameSpec.Arkane.Formats
         internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
-                ".txt" or ".ini" or ".asl" => (0, BinaryTxt.Factory),
+                var x when x == ".txt" || x == ".ini" || x == ".asl" => (0, BinaryTxt.Factory),
                 ".wav" => (0, BinarySnd.Factory),
-                ".bmp" or ".jpg" or ".tga" => (0, BinaryImg.Factory),
+                var x when x == ".bmp" || x == ".jpg" || x == ".tga" => (0, BinaryImg.Factory),
                 ".dds" => (0, BinaryDds.Factory),
                 // Danae (AF)
                 ".ftl" => (0, BinaryFtl.Factory),

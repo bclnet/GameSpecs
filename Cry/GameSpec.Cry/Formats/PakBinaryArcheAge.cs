@@ -36,7 +36,7 @@ namespace GameSpec.Cry.Formats
 
         public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
         {
-            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
+            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files;
 

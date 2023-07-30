@@ -316,7 +316,8 @@ namespace GameSpec.Valve.Formats.Blocks
                 else if (b.Key == VTexExtraData.SHEET && CompressedMips != null)
                     w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
             }
-            if (Format is not VTexFormat.JPEG_DXT5 and not VTexFormat.JPEG_RGBA8888 and not VTexFormat.PNG_DXT5 and not VTexFormat.PNG_RGBA8888)
+            //if (Format is not VTexFormat.JPEG_DXT5 and not VTexFormat.JPEG_RGBA8888 and not VTexFormat.PNG_DXT5 and not VTexFormat.PNG_RGBA8888)
+            if (!(Format is VTexFormat.JPEG_DXT5 || Format is VTexFormat.JPEG_RGBA8888 || Format is VTexFormat.PNG_DXT5 || Format is VTexFormat.PNG_RGBA8888))
                 for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureHelper.GetMipmapTrueDataSize(GLFormat, Width, Height, Depth, j)}");
             return w.ToString();
         }

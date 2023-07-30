@@ -41,10 +41,10 @@ namespace GameSpec.Tes.Formats
                 // tes
                 "Morrowind" => TesFormat.TES3,
                 "Oblivion" => TesFormat.TES4,
-                "Skyrim" or "SkyrimSE" or "SkyrimVR" => TesFormat.TES5,
+                var x when x == "Skyrim" || x == "SkyrimSE" || x == "SkyrimVR" => TesFormat.TES5,
                 // fallout
-                "Fallout3" or "FalloutNV" => TesFormat.TES4,
-                "Fallout4" or "Fallout4VR" => TesFormat.TES5,
+                var x when x == "Fallout3" || x == "FalloutNV" => TesFormat.TES4,
+                var x when x == "Fallout4" || x == "Fallout4VR" => TesFormat.TES5,
                 _ => throw new ArgumentOutOfRangeException(nameof(game), game),
             };
 

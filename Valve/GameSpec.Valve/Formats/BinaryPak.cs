@@ -143,7 +143,7 @@ namespace GameSpec.Valve.Formats
 
         public bool TryGetBlockType<T>(out T value) where T : Block => (value = (T)Blocks.Find(b => typeof(T).IsAssignableFrom(b.GetType()))) != null;
 
-        public readonly List<Block> Blocks = new();
+        public readonly List<Block> Blocks = new List<Block>();
 
         public ResourceType DataType;
 

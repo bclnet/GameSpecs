@@ -13,7 +13,7 @@
 //#define Origin
 //#define Red
 //#define Rsi
-//#define Tes
+#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -275,6 +275,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            ForcePath = "bookart/boethiah_256.dds",
+
             ForceOpen = true,
             Family = "Tes",
             //GameId = "Fallout2", // Fallout 2

@@ -32,7 +32,7 @@ namespace GameSpec.Cry
 
         #region GetPackBinary
 
-        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new();
+        static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
         static PakBinary GetPackBinary(FamilyGame game)
             => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game));

@@ -19,7 +19,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public override string ToString() => ToString(true);
 
         public string ToString(bool applySourceMapIfPresent)
-            => (applySourceMapIfPresent && SourceMap != default && SourceMap.Data.Get<object>("DBITSLC") is not null)
+            => (applySourceMapIfPresent && SourceMap != default && !(SourceMap.Data.Get<object>("DBITSLC") is null))
                 ? Encoding.UTF8.GetString(PanoramaSourceMapDecode(Data, SourceMap.Data))
                 : base.ToString();
 
