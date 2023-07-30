@@ -73,6 +73,7 @@ namespace GameSpec.Formats
             public ushort CharWidth;
         }
 
+        public byte[] RawBytes => null;
         public IDictionary<string, object> Data => null;
         public int Width => width;
         public int Height => height;

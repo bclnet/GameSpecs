@@ -13,13 +13,25 @@ namespace GameSpec.Graphics
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
-            var tex = new Texture2D(info.Width, info.Height, (TextureFormat)info.UnityFormat, info.NumMipMaps, false);
-            //if (info.Bytes != null)
-            //{
-            //    tex.LoadRawTextureData(info.Bytes);
-            //    tex.Apply();
-            //    tex.Compress(true);
-            //}
+            Texture2D tex;
+            if (info.UnityFormat is TextureUnityFormat unityFormat)
+            {
+                var textureFormat = (TextureFormat)unityFormat;
+                tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
+                if (info.RawBytes != null)
+                {
+                    tex.LoadRawTextureData(info.RawBytes);
+                    tex.Apply();
+                    tex.Compress(true);
+                }
+            }
+            else if (info.UnityFormat is ValueTuple<TextureUnityFormat> unityPixelFormat)
+            {
+                var textureFormat = (TextureFormat)unityPixelFormat.Item1;
+                tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
+            }
+            else throw new NotImplementedException();
+
             return tex;
         }
 

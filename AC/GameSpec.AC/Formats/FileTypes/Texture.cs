@@ -39,6 +39,7 @@ namespace GameSpec.AC.Formats.FileTypes
             }
         }
 
+        public byte[] RawBytes => null;
         public IDictionary<string, object> Data => null;
         public int Width { get; }
         public int Height { get; }

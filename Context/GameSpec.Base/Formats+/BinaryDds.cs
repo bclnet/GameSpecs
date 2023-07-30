@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
+// https://github.com/paroj/nv_dds/blob/master/nv_dds.cpp
 namespace GameSpec.Formats
 {
     public class BinaryDds : ITexture, IGetMetadataInfo
@@ -31,6 +32,7 @@ namespace GameSpec.Formats
         public int Width => (int)Header.dwWidth;
         public int Height => (int)Header.dwHeight;
         public int Depth => 0;
+        public byte[] RawBytes => Buffer;
         public TextureFlags Flags => 0;
         public object UnityFormat => Format.unity;
         public object GLFormat => Format.gl;

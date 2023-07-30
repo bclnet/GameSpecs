@@ -242,6 +242,7 @@ namespace GameSpec.IW.Formats
         byte[] Body;
         (object gl, object unity) Format;
 
+        public byte[] RawBytes => null;
         public IDictionary<string, object> Data => null;
         public int Width => (int)Header.Width;
         public int Height => (int)Header.Height;

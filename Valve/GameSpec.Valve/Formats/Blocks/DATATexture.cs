@@ -89,6 +89,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         #region ITextureInfo
 
+        byte[] ITexture.RawBytes => null;
         IDictionary<string, object> ITexture.Data => null;
         int ITexture.Width => Width;
         int ITexture.Height => Height;

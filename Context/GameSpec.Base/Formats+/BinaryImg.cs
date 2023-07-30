@@ -25,7 +25,7 @@ namespace GameSpec.Formats
                 ".tga" => (Formats.Tga, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24),
                 _ => throw new ArgumentOutOfRangeException(nameof(f.Path), Path.GetExtension(f.Path)),
             };
-            var sourceData = r.ReadBytes((int)f.FileSize);
+            var sourceData = RawBytes = r.ReadBytes((int)f.FileSize);
             Image = new Bitmap(new MemoryStream(sourceData));
             Width = Image.Width;
             Height = Image.Height;
@@ -34,6 +34,7 @@ namespace GameSpec.Formats
         Bitmap Image;
         (Formats x, object gl, object unity) Format;
 
+        public byte[] RawBytes { get; }
         public IDictionary<string, object> Data => null;
         public int Width { get; }
         public int Height { get; }

@@ -275,7 +275,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForcePath = "bookart/boethiah_256.dds",
+            //ForcePath = "bookart/boethiah_256.dds",
+            ForcePath = "icons/handtohand.dds",
 
             ForceOpen = true,
             Family = "Tes",
