@@ -1,6 +1,6 @@
 ﻿//using UnityEngine;
 
-//namespace GameEstate.Core.UI
+//namespace GameEstate.Engine.UI
 //{
 //    [RequireComponent(typeof(Canvas))]
 //    public class UIManager : MonoBehaviour

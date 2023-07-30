@@ -41,7 +41,7 @@ namespace GameSpec.StoreManagers
             const uint Magic28 = 0x07564428;
             const uint Magic27 = 0x07564427;
             public EUniverse Universe;
-            public List<App> Apps = new();
+            public List<App> Apps = new List<App>();
 
             /// <summary>
             /// Opens and reads the given filename.
@@ -106,7 +106,7 @@ namespace GameSpec.StoreManagers
             const uint Magic28 = 0x06565528;
             const uint Magic27 = 0x06565527;
             public EUniverse Universe;
-            public List<Package> Packages = new();
+            public List<Package> Packages = new List<Package>();
 
             /// <summary>
             /// Opens and reads the given filename.
@@ -152,9 +152,9 @@ namespace GameSpec.StoreManagers
 
         public class AcfStruct
         {
-            public static AcfStruct Read(string path) => File.Exists(path) ? new (File.ReadAllText(path)) : null;
-            public Dictionary<string, AcfStruct> Get = new();
-            public Dictionary<string, string> Value = new();
+            public static AcfStruct Read(string path) => File.Exists(path) ? new AcfStruct(File.ReadAllText(path)) : null;
+            public Dictionary<string, AcfStruct> Get = new Dictionary<string, AcfStruct>();
+            public Dictionary<string, string> Value = new Dictionary<string, string>();
 
             public AcfStruct(string region)
             {

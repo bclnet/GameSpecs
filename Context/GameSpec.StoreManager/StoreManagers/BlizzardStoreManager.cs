@@ -13,7 +13,7 @@ namespace GameSpec.StoreManagers
     /// </summary>
     internal static class BlizzardStoreManager
     {
-        static Dictionary<string, string> AppPaths = new();
+        static Dictionary<string, string> AppPaths = new Dictionary<string, string>();
 
         public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
             => AppPaths.TryGetValue(key, out path);
@@ -48,7 +48,7 @@ namespace GameSpec.StoreManagers
                 var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Battle.net", "Agent");
                 return dbPath;
             }
-            else if (RuntimeInformation.RuntimeIdentifier.StartsWith("android-")) return null;
+            else if (RuntimeInformation.OSDescription.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

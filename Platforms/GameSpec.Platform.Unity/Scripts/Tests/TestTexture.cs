@@ -47,7 +47,6 @@ namespace Tests
             return obj;
         }
 
-        void MakeCursor(string path)
-            => Cursor.SetCursor(Graphic.LoadTexture(path, out var _), Vector2.zero, CursorMode.Auto);
+        void MakeCursor(string path) => Cursor.SetCursor(Graphic.LoadTexture(path, out var _), Vector2.zero, CursorMode.Auto);
     }
 }

@@ -13,7 +13,7 @@ namespace GameSpec.StoreManagers
     /// </summary>
     internal static class EpicStoreManager
     {
-        static Dictionary<string, string> AppPaths = new();
+        static Dictionary<string, string> AppPaths = new Dictionary<string, string>();
 
         public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
             => AppPaths.TryGetValue(key, out path);
@@ -31,7 +31,7 @@ namespace GameSpec.StoreManagers
                 var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
                 if (key != null && key.GetValue("SteamPath") is string steamPath) return steamPath;
             }
-            else if (RuntimeInformation.RuntimeIdentifier.StartsWith("android-")) return null;
+            else if (RuntimeInformation.OSDescription.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

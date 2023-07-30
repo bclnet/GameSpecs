@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class UnityTest : UnityEngine.MonoBehaviour
 {
+    public enum TestTest
+    {
+        Texture,
+        Object,
+        Cell,
+        Engine,
+    }
+
     AbstractTest Test;
 
     [Header("Pak Settings")]
@@ -12,22 +20,23 @@ public class UnityTest : UnityEngine.MonoBehaviour
     public string Pak3Uri;
 
     [Header("Test Params")]
-    public UnityTestTest Type = UnityTestTest.Object;
+    public TestTest Type = TestTest.Object;
     public string Param1 = "meshes/x/ex_common_balcony_01.nif";
+    //public string Param1 = "meshes/x/ex_common_balcony_01.nif";
     public string Param2;
     public string Param3;
     public string Param4;
 
     public void Awake()
     {
-        switch (Type)
+        Test = Type switch
         {
-            case UnityTestTest.Texture: Test = new TestTexture(this); break;
-            case UnityTestTest.Object: Test = new TestObject(this); break;
-            case UnityTestTest.Cell: Test = new TestCell(this); break;
-            case UnityTestTest.Engine: Test = new TestEngine(this); break;
-            default: Test = new TestObject(this); break;
-        }
+            TestTest.Texture => new TestTexture(this),
+            TestTest.Object => new TestObject(this),
+            TestTest.Cell => new TestCell(this),
+            TestTest.Engine => new TestEngine(this),
+            _ => new TestObject(this),
+        };
     }
 
     public void OnDestroy() => Test?.Dispose();

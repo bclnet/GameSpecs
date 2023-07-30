@@ -261,7 +261,7 @@ namespace GameSpec
             foreach (var prop in z.EnumerateObject())
                 if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("key", out z))
                     foreach (var key in z.GetStringOrArray())
-                        if (!Paths.ContainsKey(prop.Name) && StoreManager.TryGetPathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : null, out var path)) AddPath(prop, path);
+                        if (!Paths.ContainsKey(prop.Name) && StoreManager.TryGetPathByKey(key, prop, prop.Value.TryGetProperty(key, out z) ? z : (JsonElement?)null, out var path)) AddPath(prop, path);
         }
 
         protected void AddApplicationByRegistry(JsonElement elem)
@@ -270,7 +270,7 @@ namespace GameSpec
             foreach (var prop in z.EnumerateObject())
                 if (!Paths.ContainsKey(prop.Name) && prop.Value.TryGetProperty("reg", out z))
                     foreach (var reg in z.GetStringOrArray())
-                        if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : null, out var path)) AddPath(prop, path);
+                        if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(reg, prop, prop.Value.TryGetProperty(reg, out z) ? z : (JsonElement?)null, out var path)) AddPath(prop, path);
         }
 
         protected void AddDirect(JsonElement elem)

@@ -14,7 +14,7 @@ namespace GameSpec.Formats
     [DebuggerDisplay("{Name}")]
     public abstract class BinaryPakFile : PakFile
     {
-        readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> BinaryReaders = new();
+        readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> BinaryReaders = new ConcurrentDictionary<string, GenericPool<BinaryReader>>();
         public readonly string FilePath;
         public readonly PakBinary PakBinary;
         public object Tag;
@@ -22,14 +22,14 @@ namespace GameSpec.Formats
         // state
         public bool UseBinaryReader = true;
         public Func<string, string> FileMask;
-        public readonly Dictionary<string, string> Params = new();
+        public readonly Dictionary<string, string> Params = new Dictionary<string, string>();
         public uint Magic;
         public uint Version;
         public object CryptKey;
 
         // metadata
         protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
-        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new();
+        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>>();
 
         // object-factory
         protected Func<FileMetadata, FamilyGame, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;

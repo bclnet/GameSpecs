@@ -113,7 +113,7 @@ namespace GameSpec
         /// <summary>
         /// Create family manager.
         /// </summary>
-        internal static FileManager CreateFileManager() => new();
+        internal static FileManager CreateFileManager() => new FileManager();
 
         /// <summary>
         /// Parses the family.
@@ -201,7 +201,7 @@ namespace GameSpec
             return familyGame;
         }
 
-        static FamilyGame ParseOtherGame(Family family, string id, JsonElement elem) => new()
+        static FamilyGame ParseOtherGame(Family family, string id, JsonElement elem) => new FamilyGame
         {
             Family = family,
             Id = id,
@@ -209,20 +209,20 @@ namespace GameSpec
             Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : family.Engine
         };
 
-        static Edition ParseGameEdition(string edition, JsonElement elem) => new()
+        static Edition ParseGameEdition(string edition, JsonElement elem) => new Edition
         {
             Id = edition,
             Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
             Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null,
         };
 
-        static DownloadableContent ParseGameDownloadableContent(string edition, JsonElement elem) => new()
+        static DownloadableContent ParseGameDownloadableContent(string edition, JsonElement elem) => new DownloadableContent
         {
             Id = edition,
             Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
         };
 
-        static Locale ParseGameLocal(string edition, JsonElement elem) => new()
+        static Locale ParseGameLocal(string edition, JsonElement elem) => new Locale
         {
             Id = edition,
             Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),

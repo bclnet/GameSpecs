@@ -10,8 +10,8 @@ namespace GameSpec.Graphics
     {
         readonly PakFile PakFile;
         readonly AbstractTextureBuilder<Texture> Builder;
-        readonly Dictionary<object, (Texture texture, IDictionary<string, object> data)> CachedTextures = new();
-        readonly Dictionary<object, Task<ITexture>> PreloadTasks = new();
+        readonly Dictionary<object, (Texture texture, IDictionary<string, object> data)> CachedTextures = new Dictionary<object, (Texture texture, IDictionary<string, object> data)>();
+        readonly Dictionary<object, Task<ITexture>> PreloadTasks = new Dictionary<object, Task<ITexture>>();
 
         public TextureManager(PakFile pakFile, AbstractTextureBuilder<Texture> builder)
         {

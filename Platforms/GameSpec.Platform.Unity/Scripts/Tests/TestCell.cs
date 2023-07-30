@@ -1,7 +1,4 @@
-﻿using GameSpec.Core;
-using System;
-
-namespace Tests
+﻿namespace Tests
 {
     //static Estate Estate = EstateManager.GetEstate("Tes");
     //static TesUnityPakFile PakFile = new TesUnityPakFile(Estate.OpenPakFile(new Uri("game:/Morrowind.bsa#Morrowind")));
@@ -11,7 +8,7 @@ namespace Tests
     ////static TesUnityPakFile PakFile = new TesUnityPakFile(Estate.OpenPakFile(new Uri("game:/Skyrim.esm#SkyrimVR")));
     ////static TesUnityPakFile PakFile = new TesUnityPakFile(Estate.OpenPakFile(new Uri("game:/Fallout4.esm#Fallout4")));
     ////static TesUnityPakFile PakFile = new TesUnityPakFile(Estate.OpenPakFile(new Uri("Fallout4.esm#Fallout4VR")));
-    
+
     public class TestCell : AbstractTest
     {
         public TestCell(UnityTest test) : base(test) { }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Reference Include="UnityEngine">
-	  <HintPath>..\..\Platforms\Unity\2022.3.5f1\UnityEngine.dll</HintPath>
+	  <HintPath>..\..\Platforms\Unity\2023.2.0b2\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 

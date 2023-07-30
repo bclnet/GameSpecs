@@ -51,7 +51,7 @@ namespace GameSpec.Formats
         }
         public void MoveToData(out bool forward) { forward = true; Offset = 0; }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new() {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
                 new MetadataInfo($"Format: {Format.type}"),

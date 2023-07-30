@@ -13,7 +13,7 @@ namespace GameSpec
         /// <summary>
         /// An empty family.
         /// </summary>
-        public static readonly Family Empty = new()
+        public static readonly Family Empty = new Family
         {
             Id = string.Empty,
             Name = "Empty",

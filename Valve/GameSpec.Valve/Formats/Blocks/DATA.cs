@@ -14,46 +14,46 @@ namespace GameSpec.Valve.Formats.Blocks
         public enum ResourceType //was:Resource/Enums/ResourceType
         {
             Unknown = 0,
-            [Extension("vanim")] Animation,
-            [Extension("vagrp")] AnimationGroup,
-            [Extension("vanmgrph")] AnimationGraph,
-            [Extension("valst")] ActionList,
-            [Extension("vseq")] Sequence,
-            [Extension("vpcf")] Particle,
-            [Extension("vmat")] Material,
-            [Extension("vmks")] Sheet,
-            [Extension("vmesh")] Mesh,
-            [Extension("vtex")] Texture,
-            [Extension("vmdl")] Model,
-            [Extension("vphys")] PhysicsCollisionMesh,
-            [Extension("vsnd")] Sound,
-            [Extension("vmorf")] Morph,
-            [Extension("vrman")] ResourceManifest,
-            [Extension("vwrld")] World,
-            [Extension("vwnod")] WorldNode,
-            [Extension("vvis")] WorldVisibility,
-            [Extension("vents")] EntityLump,
-            [Extension("vsurf")] SurfaceProperties,
-            [Extension("vsndevts")] SoundEventScript,
-            [Extension("vmix")] VMix,
-            [Extension("vsndstck")] SoundStackScript,
-            [Extension("vfont")] BitmapFont,
-            [Extension("vrmap")] ResourceRemapTable,
-            [Extension("vcdlist")] ChoreoSceneFileData,
+            [ExtensionX("vanim")] Animation,
+            [ExtensionX("vagrp")] AnimationGroup,
+            [ExtensionX("vanmgrph")] AnimationGraph,
+            [ExtensionX("valst")] ActionList,
+            [ExtensionX("vseq")] Sequence,
+            [ExtensionX("vpcf")] Particle,
+            [ExtensionX("vmat")] Material,
+            [ExtensionX("vmks")] Sheet,
+            [ExtensionX("vmesh")] Mesh,
+            [ExtensionX("vtex")] Texture,
+            [ExtensionX("vmdl")] Model,
+            [ExtensionX("vphys")] PhysicsCollisionMesh,
+            [ExtensionX("vsnd")] Sound,
+            [ExtensionX("vmorf")] Morph,
+            [ExtensionX("vrman")] ResourceManifest,
+            [ExtensionX("vwrld")] World,
+            [ExtensionX("vwnod")] WorldNode,
+            [ExtensionX("vvis")] WorldVisibility,
+            [ExtensionX("vents")] EntityLump,
+            [ExtensionX("vsurf")] SurfaceProperties,
+            [ExtensionX("vsndevts")] SoundEventScript,
+            [ExtensionX("vmix")] VMix,
+            [ExtensionX("vsndstck")] SoundStackScript,
+            [ExtensionX("vfont")] BitmapFont,
+            [ExtensionX("vrmap")] ResourceRemapTable,
+            [ExtensionX("vcdlist")] ChoreoSceneFileData,
             // All Panorama* are compiled just as CompilePanorama
-            [Extension("vtxt")] Panorama, // vtxt is not a real extension
-            [Extension("vcss")] PanoramaStyle,
-            [Extension("vxml")] PanoramaLayout,
-            [Extension("vpdi")] PanoramaDynamicImages,
-            [Extension("vjs")] PanoramaScript,
-            [Extension("vts")] PanoramaTypescript,
-            [Extension("vsvg")] PanoramaVectorGraphic,
-            [Extension("vpsf")] ParticleSnapshot,
-            [Extension("vmap")] Map,
-            [Extension("vpost")] PostProcessing,
-            [Extension("vdata")] VData,
-            [Extension("item")] ArtifactItem,
-            [Extension("sbox")] SboxManagedResource, // TODO: Managed resources can have any extension
+            [ExtensionX("vtxt")] Panorama, // vtxt is not a real extension
+            [ExtensionX("vcss")] PanoramaStyle,
+            [ExtensionX("vxml")] PanoramaLayout,
+            [ExtensionX("vpdi")] PanoramaDynamicImages,
+            [ExtensionX("vjs")] PanoramaScript,
+            [ExtensionX("vts")] PanoramaTypescript,
+            [ExtensionX("vsvg")] PanoramaVectorGraphic,
+            [ExtensionX("vpsf")] ParticleSnapshot,
+            [ExtensionX("vmap")] Map,
+            [ExtensionX("vpost")] PostProcessing,
+            [ExtensionX("vdata")] VData,
+            [ExtensionX("item")] ArtifactItem,
+            [ExtensionX("sbox")] SboxManagedResource, // TODO: Managed resources can have any extension
         }
 
         public IDictionary<string, object> AsKeyValue()
@@ -125,7 +125,7 @@ namespace GameSpec.Valve.Formats.Blocks
             {
                 if (typeValue == ResourceType.Unknown) continue;
                 var type = typeof(ResourceType).GetMember(typeValue.ToString())[0];
-                var typeExt = (ExtensionAttribute)type.GetCustomAttributes(typeof(ExtensionAttribute), false)[0];
+                var typeExt = (ExtensionXAttribute)type.GetCustomAttributes(typeof(ExtensionXAttribute), false)[0];
                 if (typeExt.Extension == extension) return typeValue;
             }
             return ResourceType.Unknown;

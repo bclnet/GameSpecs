@@ -58,9 +58,9 @@ namespace GameSpec
         /// </summary>
         public static readonly OS PlatformOS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? OS.Windows
             : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? OS.OSX
-            : RuntimeInformation.RuntimeIdentifier.StartsWith("android-") ? OS.Android
+            : RuntimeInformation.OSDescription.StartsWith("android-") ? OS.Android
             : RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? OS.Linux
-            : throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform), RuntimeInformation.RuntimeIdentifier);
+            : throw new ArgumentOutOfRangeException(nameof(RuntimeInformation.IsOSPlatform), RuntimeInformation.OSDescription);
 
         /// <summary>
         /// Gets or sets the platform graphics factory.
@@ -70,7 +70,7 @@ namespace GameSpec
         /// <summary>
         /// Gets the platform startups.
         /// </summary>
-        public static readonly List<Func<bool>> Startups = new();
+        public static readonly List<Func<bool>> Startups = new List<Func<bool>>();
 
         /// <summary>
         /// Determines if in a test host.

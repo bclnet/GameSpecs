@@ -14,7 +14,7 @@ namespace GameSpec.StoreManagers
     /// </summary>
     internal static class SteamStoreManager
     {
-        static Dictionary<string, string> AppPaths = new();
+        static Dictionary<string, string> AppPaths = new Dictionary<string, string>();
 
         static SteamStoreManager()
         {
@@ -29,7 +29,7 @@ namespace GameSpec.StoreManagers
                 {
                     var appManifest = AcfStruct.Read(Path.Join(path, "steamapps", $"appmanifest_{appId}.acf"));
                     if (appManifest == null) { continue; }
-                    var appPath = Path.Join(path, "steamapps", "common", appManifest.Get["AppState"].Value["installdir"]);
+                    var appPath = Path.Join(path, "steamapps", Path.Join("common", appManifest.Get["AppState"].Value["installdir"]));
                     if (Directory.Exists(appPath)) AppPaths.Add(appId, appPath);
                 }
             }
@@ -45,7 +45,7 @@ namespace GameSpec.StoreManagers
                 var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
                 if (key != null && key.GetValue("SteamPath") is string path) return path;
             }
-            else if (RuntimeInformation.RuntimeIdentifier.StartsWith("android-")) return null;
+            else if (RuntimeInformation.OSDescription.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -69,9 +69,9 @@ namespace GameSpec.StoreManagers
 
         public class AcfStruct
         {
-            public static AcfStruct Read(string path) => File.Exists(path) ? new(File.ReadAllText(path)) : null;
-            public Dictionary<string, AcfStruct> Get = new();
-            public Dictionary<string, string> Value = new();
+            public static AcfStruct Read(string path) => File.Exists(path) ? new AcfStruct(File.ReadAllText(path)) : null;
+            public Dictionary<string, AcfStruct> Get = new Dictionary<string, AcfStruct>();
+            public Dictionary<string, string> Value = new Dictionary<string, string>();
 
             public AcfStruct(string region)
             {

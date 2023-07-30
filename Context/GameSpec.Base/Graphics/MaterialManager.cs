@@ -13,8 +13,8 @@ namespace GameSpec.Graphics
     {
         readonly PakFile PakFile;
         readonly AbstractMaterialBuilder<Material, Texture> Builder;
-        readonly Dictionary<object, (Material material, IDictionary<string, object> data)> CachedMaterials = new();
-        readonly Dictionary<object, Task<IMaterial>> PreloadTasks = new();
+        readonly Dictionary<object, (Material material, IDictionary<string, object> data)> CachedMaterials = new Dictionary<object, (Material material, IDictionary<string, object> data)>();
+        readonly Dictionary<object, Task<IMaterial>> PreloadTasks = new Dictionary<object, Task<IMaterial>>();
 
         public ITextureManager<Texture> TextureManager { get; }
 

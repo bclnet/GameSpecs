@@ -1,7 +1,7 @@
 ﻿//using UnityEngine;
 //using UnityEngine.UI;
 
-//namespace GameEstate.Core.UI
+//namespace GameEstate.Engine.UI
 //{
 //    public class UIInteractiveText : MonoBehaviour
 //    {

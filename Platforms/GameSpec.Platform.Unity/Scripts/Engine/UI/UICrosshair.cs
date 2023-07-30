@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace GameSpec.Core.UI
+namespace GameSpec.Engine.UI
 {
     [RequireComponent(typeof(Image))]
     public class UICrosshair : MonoBehaviour

@@ -13,7 +13,7 @@
 //#define Origin
 //#define Red
 //#define Rsi
-#define Tes
+//#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -25,7 +25,7 @@ namespace GameSpec
 #if AC
         static string[] FamilyKeys = new[] { "AC", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //ForcePath = "TabooTable/0E00001E.taboo", // Ac:Data
             //ForcePath = "Texture/06000133.tex", // AC:Texture.R8G8B8
@@ -44,7 +44,7 @@ namespace GameSpec
 #elif Arkane
         static string[] FamilyKeys = new[] { "Arkane", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //AF
             //ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
@@ -69,7 +69,7 @@ namespace GameSpec
 #elif Bioware
         static string[] FamilyKeys = new[] { "Bioware", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe", SWTOR:Unknown
 
@@ -83,7 +83,7 @@ namespace GameSpec
 #elif Blizzard
         static string[] FamilyKeys = new[] { "Blizzard", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Blizzard",
@@ -103,7 +103,7 @@ namespace GameSpec
 #elif Capcom
         static string[] FamilyKeys = new[] { "Capcom", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = false,
             Family = "Capcom",
@@ -112,7 +112,7 @@ namespace GameSpec
 #elif Cry
         static string[] FamilyKeys = new[] { "Cry", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
             
@@ -131,7 +131,7 @@ namespace GameSpec
 #elif Cryptic
         static string[] FamilyKeys = new[] { "Cryptic", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
             
@@ -144,7 +144,7 @@ namespace GameSpec
 #elif Cyanide
         static string[] FamilyKeys = new[] { "Cyanide", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Cyanide",
@@ -154,7 +154,7 @@ namespace GameSpec
 #elif Frontier
         static string[] FamilyKeys = new[] { "Frontier", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = false,
             Family = "Frontier",
@@ -163,7 +163,7 @@ namespace GameSpec
 #elif Hpl
         static string[] FamilyKeys = new[] { "Hpl", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Hpl",
@@ -178,7 +178,7 @@ namespace GameSpec
 #elif Id
         static string[] FamilyKeys = new[] { "Id", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Id",
@@ -197,7 +197,7 @@ namespace GameSpec
 #elif IW
         static string[] FamilyKeys = new[] { "IW", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //ForcePath = "iw_08.iwd/images/155_cannon.iwi", //COD2:Texture
             //ForcePath = "mp_farm.ff/images/155_cannon.iwi", //COD4:Texture
@@ -224,7 +224,7 @@ namespace GameSpec
 #elif Lith
         static string[] FamilyKeys = new[] { "Lith", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Lith",
@@ -237,7 +237,7 @@ namespace GameSpec
 #elif Origin
         static string[] FamilyKeys = new[] { "Origin", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Origin",
@@ -247,7 +247,7 @@ namespace GameSpec
 #elif Red
         static string[] FamilyKeys = new[] { "Red", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Red",
@@ -260,7 +260,7 @@ namespace GameSpec
 #elif Rsi
         static string[] FamilyKeys = new[] { "Rsi", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
             //ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
@@ -273,7 +273,7 @@ namespace GameSpec
 #elif Tes
         static string[] FamilyKeys = new[] { "Tes", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Tes",
@@ -296,7 +296,7 @@ namespace GameSpec
 #elif Unity
         static string[] FamilyKeys = new[] { "Unity", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Unity",
@@ -309,7 +309,7 @@ namespace GameSpec
 #elif Unreal
         static string[] FamilyKeys = new[] { "Unreal", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
             Family = "Unreal",
@@ -322,7 +322,7 @@ namespace GameSpec
 #elif Valve
         static string[] FamilyKeys = new[] { "Valve", "Unknown" };
 
-        public static DefaultOptions AppDefaultOptions = new()
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //HL
             //ForcePath = "cached.wad:LOADING.pic", //Picture
@@ -387,7 +387,9 @@ namespace GameSpec
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Capcom", "Cry", "Cryptic", "Cyanide", "Frontier", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };
 
-        public static DefaultOptions AppDefaultOptions = new() { };
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+        };
 #endif
     }
 }

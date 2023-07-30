@@ -3,7 +3,7 @@
 //using UnityEngine.UI;
 ////using UnityEngine.Experimental.UIElements;
 
-//namespace GameEstate.Core.UI
+//namespace GameEstate.Engine.UI
 //{
 //    public static class UIUtils
 //    {

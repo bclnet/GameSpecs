@@ -14,9 +14,9 @@ namespace Compression
         static short[] litcnt = new short[MAXBITS + 1], litsym = new short[256];      // litcode memory
         static short[] lencnt = new short[MAXBITS + 1], lensym = new short[16];       // lencode memory
         static short[] distcnt = new short[MAXBITS + 1], distsym = new short[64];     // distcode memory
-        static huffman litcode = new() { count = litcnt, symbol = litsym };        // length code
-        static huffman lencode = new() { count = lencnt, symbol = lensym };        // length code
-        static huffman distcode = new() { count = distcnt, symbol = distsym };     // distance code
+        static huffman litcode = new huffman { count = litcnt, symbol = litsym };        // length code
+        static huffman lencode = new huffman { count = lencnt, symbol = lensym };        // length code
+        static huffman distcode = new huffman { count = distcnt, symbol = distsym };     // distance code
         static readonly byte[] litlen = {
             11, 124, 8, 7, 28, 7, 188, 13, 76, 4, 10, 8, 12, 10, 12, 10, 8, 23, 8,
             9, 7, 6, 7, 8, 7, 6, 55, 8, 23, 24, 12, 11, 7, 9, 11, 12, 6, 7, 22, 5,
