@@ -38,10 +38,10 @@ namespace GameSpec.Valve.Formats.Blocks
                 var height = Data.GetInt32("m_nHeight");
 
                 FlexData = new Dictionary<string, Vector3[]>();
-                var texture = textureResource as ITexture;
+                var texture = textureResource; // as ITexture;
                 var texWidth = texture.Width;
                 var texHeight = texture.Height;
-                var texPixels = texture[0];
+                var texPixels = texture.ReadOne(0);
                 // Some vmorf_c may be another old struct(NTROValue, eg: models/heroes/faceless_void/faceless_void_body.vmdl_c). the latest struct is IKeyValueCollection.
                 var morphDatas = GetMorphKeyValueCollection(Data, "m_morphDatas");
                 if (morphDatas == null || !morphDatas.Any()) return;

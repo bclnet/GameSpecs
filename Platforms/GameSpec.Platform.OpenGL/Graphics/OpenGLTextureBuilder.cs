@@ -52,37 +52,38 @@ namespace GameSpec.Graphics
 
             GL.BindTexture(TextureTarget.Texture2D, id);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, end - start);
-            info.MoveToData(out var forward);
+            var bytes = info.Begin((int)FamilyPlatform.Type.OpenGL, out var fmt, out var ranges, out var forward);
 
-            static bool CompressedTexImage2D(ITexture info, int i, InternalFormat internalFormat)
+            bool CompressedTexImage2D(ITexture info, int i, InternalFormat internalFormat)
             {
+                var range = ranges != null ? ranges[i] : Range.All;
+                if (range.Start.Value == -1) return false;
                 var width = info.Width >> i;
                 var height = info.Height >> i;
-                var pixels = info[i];
-                if (pixels == null) return false;
+                var pixels = bytes.AsSpan(range);
                 fixed (byte* data = pixels) GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, pixels.Length, (IntPtr)data);
                 return true;
             }
 
-            static bool TexImage2D(ITexture info, int i, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
+            bool TexImage2D(ITexture info, int i, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
             {
+                var range = ranges != null ? ranges[i] : Range.All;
+                if (range.Start.Value == -1) return false;
                 var width = info.Width >> i;
                 var height = info.Height >> i;
-                var pixels = info[i];
-                if (pixels == null) return false;
+                var pixels = bytes.AsSpan(range);
                 fixed (byte* data = pixels) GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, (IntPtr)data);
                 return true;
             }
 
-            for (var i = 0; i < start; i++) { var _ = info[i]; }
-            if (info.GLFormat is TextureGLFormat glFormat)
+            if (fmt is TextureGLFormat glFormat)
             {
                 var internalFormat = (InternalFormat)glFormat;
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
                 if (forward) for (var i = start; i <= end; i++) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
                 else for (var i = end; i >= start; i--) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
             }
-            else if (info.GLFormat is ValueTuple<TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType> glPixelFormat)
+            else if (fmt is ValueTuple<TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType> glPixelFormat)
             {
                 var internalFormat = (PixelInternalFormat)glPixelFormat.Item1;
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
@@ -94,6 +95,7 @@ namespace GameSpec.Graphics
             else throw new NotImplementedException();
 
             if (info is IDisposable disposable) disposable.Dispose();
+            info.End();
 
             if (MaxTextureMaxAnisotropy >= 4)
             {

@@ -1,9 +1,11 @@
 using GameSpec.Formats;
+using MathNet.Numerics.LinearAlgebra.Factorization;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using static GameSpec.Valve.Formats.Blocks.DATATexture.VTexFormat;
 
 namespace GameSpec.Valve.Formats.Blocks
 {
@@ -89,64 +91,45 @@ namespace GameSpec.Valve.Formats.Blocks
 
         #region ITextureInfo
 
-        byte[] ITexture.RawBytes => null;
+        (VTexFormat type, object gl, object vulken, object unity, object unreal) TexFormat;
+        byte[] Bytes;
+        Range[] Mips;
+
         IDictionary<string, object> ITexture.Data => null;
         int ITexture.Width => Width;
         int ITexture.Height => Height;
         int ITexture.Depth => Depth;
-        TextureFlags ITexture.Flags => (TextureFlags)Flags;
-        public object UnityFormat => Format switch
-        {
-            VTexFormat.DXT1 => null,
-            //TextureFormat.DXT3 => null,
-            VTexFormat.DXT5 => null,
-            VTexFormat.ETC2 => null,
-            VTexFormat.ETC2_EAC => null,
-            VTexFormat.ATI1N => null,
-            VTexFormat.ATI2N => null,
-            VTexFormat.BC6H => null,
-            VTexFormat.BC7 => null,
-            VTexFormat.RGBA8888 => null,
-            VTexFormat.RGBA16161616F => null,
-            VTexFormat.I8 => null,
-            _ => null,
-        };
-        public object GLFormat => Format switch
-        {
-            VTexFormat.DXT1 => TextureGLFormat.CompressedRgbaS3tcDxt1Ext,
-            //TextureFormat.DXT3 => TextureGLFormat.CompressedRgbaS3tcDxt3Ext,
-            VTexFormat.DXT5 => TextureGLFormat.CompressedRgbaS3tcDxt5Ext,
-            VTexFormat.ETC2 => TextureGLFormat.CompressedRgb8Etc2,
-            VTexFormat.ETC2_EAC => TextureGLFormat.CompressedRgba8Etc2Eac,
-            VTexFormat.ATI1N => TextureGLFormat.CompressedRedRgtc1,
-            VTexFormat.ATI2N => TextureGLFormat.CompressedRgRgtc2,
-            VTexFormat.BC6H => TextureGLFormat.CompressedRgbBptcUnsignedFloat,
-            VTexFormat.BC7 => TextureGLFormat.CompressedRgbaBptcUnorm,
-            VTexFormat.RGBA8888 => (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), //TextureGLFormat.Rgba8,
-            VTexFormat.RGBA16161616F => (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), //TextureGLFormat.Rgba16f,
-            VTexFormat.I8 => TextureGLFormat.Intensity8, //(TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
-            VTexFormat.R16 => (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort),
-            VTexFormat.R16F => (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float),
-            VTexFormat.RG1616 => (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort),
-            VTexFormat.RG1616F => (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float),
-            _ => null,
-        };
         int ITexture.NumMipMaps => NumMipMaps;
+        TextureFlags ITexture.Flags => (TextureFlags)Flags;
 
-        void ITexture.MoveToData(out bool forward) { forward = false; Reader.BaseStream.Position = Offset + Size; }
-
-        Span<byte> ITexture.this[int index]
+        byte[] ITexture.Begin(int platform, out object format, out Range[] mips, out bool forward)
         {
-            get
+            forward = false;
+            Reader.BaseStream.Position = Offset + Size;
+
+            var bytes = new byte[NumMipMaps][];
+            Mips = new Range[NumMipMaps];
+            for (var i = NumMipMaps - 1; i >= 0; i--)
             {
-                var uncompressedSize = TextureHelper.GetMipmapTrueDataSize(GLFormat, Width, Height, Depth, index);
-                if (!IsActuallyCompressedMips) return Reader.ReadBytes(uncompressedSize);
-                var compressedSize = CompressedMips[index];
-                if (compressedSize >= uncompressedSize) return Reader.ReadBytes(uncompressedSize);
-                return Reader.DecompressLz4(compressedSize, uncompressedSize);
+                bytes[i] = ReadOne(i);
+                throw new NotImplementedException();
+                Mips[i] = new Range(0, 0);
             }
-            set => throw new NotImplementedException();
+
+            format = (FamilyPlatform.Type)platform switch
+            {
+                FamilyPlatform.Type.OpenGL => TexFormat.gl,
+                FamilyPlatform.Type.Unity => TexFormat.unity,
+                FamilyPlatform.Type.Unreal => TexFormat.unreal,
+                FamilyPlatform.Type.Vulken => TexFormat.vulken,
+                FamilyPlatform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
+                _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
+            };
+            mips = Mips;
+            forward = false; //: change
+            return Bytes;
         }
+        void ITexture.End() { }
 
         #endregion
 
@@ -213,6 +196,36 @@ namespace GameSpec.Valve.Formats.Blocks
                 }
             }
             DataOffset = Offset + Size;
+
+            TexFormat = Format switch
+            {
+                DXT1 => (DXT1, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                //DXT3 => (DXT3, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                DXT5 => (DXT5, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                ETC2 => (ETC2, TextureGLFormat.CompressedRgb8Etc2, TextureGLFormat.CompressedRgb8Etc2, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                ETC2_EAC => (ETC2_EAC, TextureGLFormat.CompressedRgba8Etc2Eac, TextureGLFormat.CompressedRgba8Etc2Eac, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                ATI1N => (ATI1N, TextureGLFormat.CompressedRedRgtc1, TextureGLFormat.CompressedRedRgtc1, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                ATI2N => (ATI2N, TextureGLFormat.CompressedRgRgtc2, TextureGLFormat.CompressedRgRgtc2, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                BC6H => (BC6H, TextureGLFormat.CompressedRgbBptcUnsignedFloat, TextureGLFormat.CompressedRgbBptcUnsignedFloat, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                BC7 => (BC7, TextureGLFormat.CompressedRgbaBptcUnorm, TextureGLFormat.CompressedRgbaBptcUnorm, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                RGBA8888 => (RGBA8888, (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown), //TextureGLFormat.Rgba8
+                RGBA16161616F => (RGBA16161616F, (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown), //TextureGLFormat.Rgba16f
+                I8 => (I8, TextureGLFormat.Intensity8, TextureGLFormat.Intensity8, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown), //(TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte)
+                R16 => (R16, (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort), (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                R16F => (R16F, (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float), (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                RG1616 => (RG1616, (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort), (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                RG1616F => (RG1616F, (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float), (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                _ => (Format, null, null, null, null),
+            };
+        }
+
+        public byte[] ReadOne(int index)
+        {
+            var uncompressedSize = TextureHelper.GetMipmapTrueDataSize(TexFormat.gl, Width, Height, Depth, index);
+            if (!IsActuallyCompressedMips) return Reader.ReadBytes(uncompressedSize);
+            var compressedSize = CompressedMips[index];
+            if (compressedSize >= uncompressedSize) return Reader.ReadBytes(uncompressedSize);
+            return Reader.DecompressLz4(compressedSize, uncompressedSize);
         }
 
         public TextureSequences GetSpriteSheetData()
@@ -310,22 +323,19 @@ namespace GameSpec.Valve.Formats.Blocks
             foreach (var b in ExtraData)
             {
                 w.WriteLine($"{"",-12}   [ Entry {entry++}: VTEX_EXTRA_DATA_{b.Key} - {b.Value.Length} bytes ]");
-                if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE && CompressedMips != null)
-                    w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
-                else if (b.Key == VTexExtraData.CUBEMAP_RADIANCE_SH && RadianceCoefficients != null)
-                    w.WriteLine($"{"",-16}   [ {RadianceCoefficients.Length} coefficients, sized: {string.Join(", ", RadianceCoefficients)} ]");
-                else if (b.Key == VTexExtraData.SHEET && CompressedMips != null)
-                    w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
+                if (b.Key == VTexExtraData.COMPRESSED_MIP_SIZE && CompressedMips != null) w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
+                else if (b.Key == VTexExtraData.CUBEMAP_RADIANCE_SH && RadianceCoefficients != null) w.WriteLine($"{"",-16}   [ {RadianceCoefficients.Length} coefficients, sized: {string.Join(", ", RadianceCoefficients)} ]");
+                else if (b.Key == VTexExtraData.SHEET && CompressedMips != null) w.WriteLine($"{"",-16}   [ {CompressedMips.Length} mips, sized: {string.Join(", ", CompressedMips)} ]");
             }
-            //if (Format is not VTexFormat.JPEG_DXT5 and not VTexFormat.JPEG_RGBA8888 and not VTexFormat.PNG_DXT5 and not VTexFormat.PNG_RGBA8888)
-            if (!(Format is VTexFormat.JPEG_DXT5 || Format is VTexFormat.JPEG_RGBA8888 || Format is VTexFormat.PNG_DXT5 || Format is VTexFormat.PNG_RGBA8888))
-                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureHelper.GetMipmapTrueDataSize(GLFormat, Width, Height, Depth, j)}");
+            //if (Format is not JPEG_DXT5 and not JPEG_RGBA8888 and not PNG_DXT5 and not PNG_RGBA8888)
+            if (!(Format is JPEG_DXT5 || Format is JPEG_RGBA8888 || Format is PNG_DXT5 || Format is PNG_RGBA8888))
+                for (var j = 0; j < NumMipMaps; j++) w.WriteLine($"Mip level {j} - buffer size: {TextureHelper.GetMipmapTrueDataSize(TexFormat.gl, Width, Height, Depth, j)}");
             return w.ToString();
         }
 
         public int CalculateTextureDataSize()
         {
-            if (Format == VTexFormat.PNG_DXT5 || Format == VTexFormat.PNG_RGBA8888) return TextureHelper.CalculatePngSize(Reader, DataOffset);
+            if (Format == PNG_DXT5 || Format == PNG_RGBA8888) return TextureHelper.CalculatePngSize(Reader, DataOffset);
             var bytes = 0;
             if (CompressedMips != null) bytes = CompressedMips.Sum();
             else for (var j = 0; j < NumMipMaps; j++) bytes += CalculateBufferSizeForMipLevel(j);
@@ -334,13 +344,13 @@ namespace GameSpec.Valve.Formats.Blocks
 
         int CalculateBufferSizeForMipLevel(int mipLevel)
         {
-            var (bytesPerPixel, _) = TextureHelper.GetBlockSize(GLFormat);
+            var (bytesPerPixel, _) = TextureHelper.GetBlockSize(TexFormat.gl);
             var width = TextureHelper.MipLevelSize(Width, mipLevel);
             var height = TextureHelper.MipLevelSize(Height, mipLevel);
             var depth = TextureHelper.MipLevelSize(Depth, mipLevel);
             if ((Flags & VTexFlags.CUBE_TEXTURE) != 0) bytesPerPixel *= 6;
-            if (Format == VTexFormat.DXT1 || Format == VTexFormat.DXT5 || Format == VTexFormat.BC6H || Format == VTexFormat.BC7 ||
-                Format == VTexFormat.ETC2 || Format == VTexFormat.ETC2_EAC || Format == VTexFormat.ATI1N)
+            if (Format == DXT1 || Format == DXT5 || Format == BC6H || Format == BC7 ||
+                Format == ETC2 || Format == ETC2_EAC || Format == ATI1N)
             {
                 var misalign = width % 4;
                 if (misalign > 0) width += 4 - misalign;

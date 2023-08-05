@@ -1,12 +1,14 @@
 using GameSpec.Formats;
 using GameSpec.Metadata;
 using OpenStack.Graphics;
+using OpenStack.Graphics.DirectX;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using static GameSpec.IW.Formats.BinaryIwi.FORMAT;
 
 namespace GameSpec.IW.Formats
 {
@@ -16,8 +18,6 @@ namespace GameSpec.IW.Formats
     public class BinaryIwi : ITexture, IGetMetadataInfo
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryIwi(r));
-
-        BinaryReader _r;
 
         public enum VERSION : byte
         {
@@ -183,86 +183,92 @@ namespace GameSpec.IW.Formats
             /// </summary>
             public void Verify()
             {
-                if (Width == 0 || Height == 0)
-                    throw new FormatException($"Invalid DDS file header");
-                if (Format >= FORMAT.DXT1 && Format <= FORMAT.DXT5 && Width != MathX.NextPower(Width) && Height != MathX.NextPower(Height))
-                    throw new FormatException($"DXT images must have power-of-2 dimensions..");
-                if (Format > FORMAT.DXT5)
-                    throw new FormatException($"Unknown Format: {Format}");
+                if (Width == 0 || Height == 0) throw new FormatException($"Invalid DDS file header");
+                if (Format >= DXT1 && Format <= DXT5 && Width != MathX.NextPower(Width) && Height != MathX.NextPower(Height)) throw new FormatException($"DXT images must have power-of-2 dimensions..");
+                if (Format > DXT5) throw new FormatException($"Unknown Format: {Format}");
+            }
+
+            public static byte[] Read(BinaryReader r, out HEADER header, out Range[] ranges, out (FORMAT type, object gl, object vulken, object unity, object unreal) format)
+            {
+                var magic = r.ReadUInt32();
+                var version = (VERSION)(magic >> 24);
+                magic <<= 8;
+                if (magic != HEADER.MAGIC) throw new FormatException($"Invalid IWI file magic: {magic}.");
+                if (version == VERSION.CODMW2) r.Seek(8);
+                header = r.ReadT<HEADER>(SizeOf);
+                header.Verify();
+
+                // read mips offsets
+                r.Seek(version switch
+                {
+                    VERSION.COD2 => 0xC,
+                    VERSION.COD4 => 0xC,
+                    VERSION.CODMW2 => 0x10,
+                    VERSION.CODBO1 => 0x10,
+                    VERSION.CODBO2 => 0x20,
+                    _ => throw new FormatException($"Invalid IWI Version: {version}."),
+                });
+
+                var mips = r.ReadTArray<int>(sizeof(int), version < VERSION.CODBO1 ? 4 : 8);
+                var mipsLength = mips[0] == mips[1] || mips[0] == mips[^1] ? 1 : mips.Length - 1;
+                var mipsBase = mipsLength == 1 ? (int)r.Position() : mips[^1];
+                var size = (int)(r.BaseStream.Length - mipsBase);
+                ranges = mipsLength > 1
+                    ? Enumerable.Range(0, mipsLength).Select(i => new Range(mips[i + 1] - mipsBase, mips[i] - mipsBase)).ToArray()
+                    : new[] { new Range(0, size) };
+                r.Seek(mipsBase);
+                format = header.Format switch
+                {
+                    ARGB32 => (ARGB32, (TextureGLFormat.Rgba, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedInt8888Reversed), (TextureGLFormat.Rgba, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedInt8888Reversed), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32),
+                    RGB24 => (RGB24, TextureGLFormat.Rgb, TextureGLFormat.Rgb, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                    DXT1 => (DXT1, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureUnityFormat.DXT1, TextureUnityFormat.DXT1),
+                    DXT2 => (DXT2, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                    DXT3 => (DXT3, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                    DXT5 => (DXT5, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureUnityFormat.DXT5, TextureUnityFormat.DXT5),
+                    _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{header.Format}"),
+                };
+                return r.ReadBytes(size);
             }
         }
 
-        //public BinaryIwi() { }
         public BinaryIwi(BinaryReader r)
         {
-            _r = r;
-            var magic = r.ReadUInt32();
-            Version = (VERSION)(magic >> 24);
-            magic <<= 8;
-            if (magic != HEADER.MAGIC) throw new FormatException($"Invalid IWI file magic: {magic}.");
-            if (Version == VERSION.CODMW2) r.Seek(8);
-            Header = r.ReadT<HEADER>(HEADER.SizeOf);
-            Header.Verify();
-
-            // read mips offsets
-            r.Seek(Version switch
-            {
-                VERSION.COD2 => 0xC,
-                VERSION.COD4 => 0xC,
-                VERSION.CODMW2 => 0x10,
-                VERSION.CODBO1 => 0x10,
-                VERSION.CODBO2 => 0x20,
-                _ => throw new FormatException($"Invalid IWI Version: {Version}."),
-            });
-
-            var mips = r.ReadTArray<int>(sizeof(int), Version < VERSION.CODBO1 ? 4 : 8);
-            var mipsLength = mips[0] == mips[1] || mips[0] == mips[^1] ? 1 : mips.Length - 1;
-            var mipsBase = mipsLength == 1 ? (int)r.Position() : mips[^1];
-            var size = (int)(r.BaseStream.Length - mipsBase);
-            Mips = mipsLength > 1
-                ? Enumerable.Range(0, mipsLength).Select(i => new Range(mips[i + 1] - mipsBase, mips[i] - mipsBase)).ToArray()
-                : new[] { new Range(0, size) };
-            r.Seek(mipsBase);
-            Body = r.ReadBytes(size);
-            Format = Header.Format switch
-            {
-                FORMAT.ARGB32 => ((TextureGLFormat.Rgba, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedInt8888Reversed), TextureUnityFormat.RGBA32),
-                FORMAT.RGB24 => (TextureGLFormat.Rgb, TextureUnityFormat.Unknown),
-                FORMAT.DXT1 => (TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureUnityFormat.DXT1),
-                FORMAT.DXT2 => (TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown),
-                FORMAT.DXT3 => (TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown),
-                FORMAT.DXT5 => (TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureUnityFormat.DXT5),
-                _ => throw new ArgumentOutOfRangeException(nameof(Header.Format), $"{Header.Format}"),
-            };
+            Bytes = HEADER.Read(r, out Header, out Mips, out Format);
         }
 
         HEADER Header;
-        VERSION Version;
         Range[] Mips;
-        byte[] Body;
-        (object gl, object unity) Format;
+        byte[] Bytes;
+        (FORMAT type, object gl, object vulken, object unity, object unreal) Format;
 
-        public byte[] RawBytes => null;
         public IDictionary<string, object> Data => null;
-        public int Width => (int)Header.Width;
-        public int Height => (int)Header.Height;
+        public int Width => Header.Width;
+        public int Height => Header.Height;
         public int Depth => 0;
-        public TextureFlags Flags => (Header.Flags & FLAGS.CUBEMAP) != 0 ? TextureFlags.CUBE_TEXTURE : 0;
-        public object UnityFormat => Format.unity;
-        public object GLFormat => Format.gl;
         public int NumMipMaps => Mips.Length;
-        public Span<byte> this[int index]
+        public TextureFlags Flags => (Header.Flags & FLAGS.CUBEMAP) != 0 ? TextureFlags.CUBE_TEXTURE : 0;
+
+        public byte[] Begin(int platform, out object format, out Range[] ranges, out bool forward)
         {
-            get => Mips.Length > 1
-                ? Body.AsSpan(Mips[index]).ToArray()
-                : Body;
-            set => throw new NotImplementedException();
+            format = (FamilyPlatform.Type)platform switch
+            {
+                FamilyPlatform.Type.OpenGL => Format.gl,
+                FamilyPlatform.Type.Unity => Format.unity,
+                FamilyPlatform.Type.Unreal => Format.unreal,
+                FamilyPlatform.Type.Vulken => Format.vulken,
+                FamilyPlatform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
+                _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
+            };
+            ranges = Mips;
+            forward = true;
+            return Bytes;
         }
-        public void MoveToData(out bool forward) => forward = true;
+        public void End() { }
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("DDS Texture", items: new List<MetadataInfo> {
+            new MetadataInfo("Texture", items: new List<MetadataInfo> {
+                new MetadataInfo($"Format: {Format.type}"),
                 new MetadataInfo($"Width: {Header.Width}"),
                 new MetadataInfo($"Height: {Header.Height}"),
                 new MetadataInfo($"Mipmaps: {Mips.Length}"),

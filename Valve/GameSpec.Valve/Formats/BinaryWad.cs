@@ -12,27 +12,34 @@ namespace GameSpec.Formats
     // https://github.com/tmp64/BSPRenderer
     public unsafe class BinaryWad : ITexture, IGetMetadataInfo
     {
+        struct CharInfo
+        {
+            public ushort StartOffset;
+            public ushort CharWidth;
+        }
+
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryWad(r, f));
 
-        public BinaryWad(BinaryReader r, FileMetadata f) => Read(r, f);
+        enum Formats : byte
+        {
+            None = 0,
+            Tex2 = 0x40,
+            Pic = 0x42,
+            Tex = 0x43,
+            Fnt = 0x45
+        }
 
-        string name;
-        int width;
-        int height;
-        byte[][] pixels;
-        byte[] palette;
-
-        public void Read(BinaryReader r, FileMetadata f)
+        public BinaryWad(BinaryReader r, FileMetadata f)
         {
             var type = Path.GetExtension(f.Path) switch
             {
-                ".tex2" => 0x40,
-                ".pic" => 0x42,
-                ".tex" => 0x43,
-                ".fnt" => 0x45,
-                _ => 0
+                ".tex2" => Formats.Tex2,
+                ".pic" => Formats.Pic,
+                ".tex" => Formats.Tex,
+                ".fnt" => Formats.Fnt,
+                _ => Formats.None
             };
-            if (type == 0x42)
+            if (type == Formats.Tex2)
             {
                 width = (int)r.ReadUInt32();
                 height = (int)r.ReadUInt32();
@@ -42,7 +49,7 @@ namespace GameSpec.Formats
                 r.Skip(2);
                 //r.EnsureComplete();
             }
-            else if (type == 0x40 || type == 0x43)
+            else if (type == Formats.Tex2 || type == Formats.Tex)
             {
                 name = r.ReadFAString(16); // r.Skip(16); // Skip name
                 width = (int)r.ReadUInt32();
@@ -54,7 +61,7 @@ namespace GameSpec.Formats
                 palette = r.ReadBytes(r.ReadUInt16());
                 //r.EnsureComplete();
             }
-            else if (type == 0x45)
+            else if (type == Formats.Fnt)
             {
                 width = 0x100;
                 r.ReadUInt32();
@@ -65,27 +72,36 @@ namespace GameSpec.Formats
             // validate
             if (width > 0x1000 || height > 0x1000) throw new FormatException("Texture width or height exceeds maximum size!");
             else if (width == 0 || height == 0) throw new FormatException("Texture width and height must be larger than 0!");
+
+            Format = type switch
+            {
+                Formats.Tex2 => (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24),
+                var x when x == Formats.Tex2 || x == Formats.Tex => (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24),
+                Formats.Fnt => (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24),
+                _ => throw new ArgumentOutOfRangeException(nameof(type), $"{type}"),
+            };
         }
 
-        struct CharInfo
-        {
-            public ushort StartOffset;
-            public ushort CharWidth;
-        }
+        string name;
+        int width;
+        int height;
+        byte[][] pixels;
+        byte[] palette;
 
-        public byte[] RawBytes => null;
+        (Formats type, object gl, object vulken, object unity, object unreal) Format;
+
         public IDictionary<string, object> Data => null;
         public int Width => width;
         public int Height => height;
         public int Depth => 0;
-        public TextureFlags Flags => 0;
-        public object UnityFormat => TextureUnityFormat.RGB24;
-        public object GLFormat => (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte);
         public int NumMipMaps => pixels.Length;
-        public Span<byte> this[int index]
+        public TextureFlags Flags => 0;
+
+        public byte[] Begin(int platform, out object format, out Range[] mips, out bool forward)
         {
-            get
+            void FlattenPalette(int index)
             {
+                // flatten pallate
                 var source = pixels[index];
                 var data = new byte[width * height * 3];
                 fixed (byte* _ = data)
@@ -97,15 +113,28 @@ namespace GameSpec.Formats
                         _[pi + 1] = palette[pa + 1];
                         _[pi + 2] = palette[pa + 2];
                     }
-                return data;
+                //return data;
             }
-            set => throw new NotImplementedException();
+
+            format = (FamilyPlatform.Type)platform switch
+            {
+                FamilyPlatform.Type.OpenGL => Format.gl,
+                FamilyPlatform.Type.Unity => Format.unity,
+                FamilyPlatform.Type.Unreal => Format.unreal,
+                FamilyPlatform.Type.Vulken => Format.vulken,
+                FamilyPlatform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
+                _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
+            };
+            mips = null;
+            forward = true;
+            return null;
         }
-        public void MoveToData(out bool forward) => forward = true;
+        public void End() { }
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
+                new MetadataInfo($"Format: {Format.type}"),
                 new MetadataInfo($"Width: {Width}"),
                 new MetadataInfo($"Height: {Height}"),
                 new MetadataInfo($"Mipmaps: {NumMipMaps}"),

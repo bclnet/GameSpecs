@@ -1,31 +1,30 @@
 using OpenStack.Graphics;
 using System;
 using UnityEngine;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GameSpec.Graphics
 {
     public class UnityTextureBuilder : AbstractTextureBuilder<Texture2D>
     {
         Texture2D _defaultTexture;
-        public override Texture2D DefaultTexture => _defaultTexture != null ? _defaultTexture : _defaultTexture = BuildAutoTexture();
+        public override Texture2D DefaultTexture => _defaultTexture ??= BuildAutoTexture();
 
         Texture2D BuildAutoTexture() => new Texture2D(4, 4);
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
             Texture2D tex;
-            if (info.UnityFormat is TextureUnityFormat unityFormat)
+            var bytes = info.Begin((int)FamilyPlatform.Type.Unity, out var format, out _, out _);
+            if (format is TextureUnityFormat unityFormat)
             {
                 var textureFormat = (TextureFormat)unityFormat;
                 tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
-                if (info.RawBytes != null)
-                {
-                    tex.LoadRawTextureData(info.RawBytes);
-                    tex.Apply();
-                    tex.Compress(true);
-                }
+                tex.LoadRawTextureData(bytes);
+                tex.Apply();
+                tex.Compress(true);
             }
-            else if (info.UnityFormat is ValueTuple<TextureUnityFormat> unityPixelFormat)
+            else if (format is ValueTuple<TextureUnityFormat> unityPixelFormat)
             {
                 var textureFormat = (TextureFormat)unityPixelFormat.Item1;
                 tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
@@ -57,6 +56,6 @@ namespace GameSpec.Graphics
             return normalTexture;
         }
 
-        public override void DeleteTexture(Texture2D id) { }
+        public override void DeleteTexture(Texture2D id) => UnityEngine.Object.Destroy(id);
     }
 }

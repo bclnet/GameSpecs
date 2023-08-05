@@ -1,51 +1,56 @@
-﻿using OpenStack.Graphics;
-using System.Collections.Generic;
+﻿using System.Drawing;
+using System.Numerics;
+using UnrealEngine.Framework;
 
 namespace Tests
 {
-    // game:/Morrowind.bsa#Morrowind
-    // http://192.168.1.3/ASSETS/Morrowind/Morrowind.bsa#Morrowind
-    // game:/Skyrim*#SkyrimVR
-    // game:/Fallout4*#Fallout4VR
     public class TestTexture : AbstractTest
     {
-        class FixedMaterialInfo : IFixedMaterial
-        {
-            public string Name { get; set; }
-            public string ShaderName { get; set; }
-            public IDictionary<string, bool> GetShaderArgs() => null;
-            public IDictionary<string, object> Data { get; set; }
-            public string MainFilePath { get; set; }
-            public string DarkFilePath { get; set; }
-            public string DetailFilePath { get; set; }
-            public string GlossFilePath { get; set; }
-            public string GlowFilePath { get; set; }
-            public string BumpFilePath { get; set; }
-            public bool AlphaBlended { get; set; }
-            public int SrcBlendMode { get; set; }
-            public int DstBlendMode { get; set; }
-            public bool AlphaTest { get; set; }
-            public float AlphaCutoff { get; set; }
-            public bool ZWrite { get; set; }
-        }
+        //class FixedMaterialInfo : IFixedMaterial
+        //{
+        //    public string Name { get; set; }
+        //    public string ShaderName { get; set; }
+        //    public IDictionary<string, bool> GetShaderArgs() => null;
+        //    public IDictionary<string, object> Data { get; set; }
+        //    public string MainFilePath { get; set; }
+        //    public string DarkFilePath { get; set; }
+        //    public string DetailFilePath { get; set; }
+        //    public string GlossFilePath { get; set; }
+        //    public string GlowFilePath { get; set; }
+        //    public string BumpFilePath { get; set; }
+        //    public bool AlphaBlended { get; set; }
+        //    public int SrcBlendMode { get; set; }
+        //    public int DstBlendMode { get; set; }
+        //    public bool AlphaTest { get; set; }
+        //    public float AlphaCutoff { get; set; }
+        //    public bool ZWrite { get; set; }
+        //}
 
         public TestTexture(UnrealTest test) : base(test) { }
 
         public override void Start()
         {
-            //if (!string.IsNullOrEmpty(Test.Param1)) MakeTexture(Test.Param1);
-            //if (!string.IsNullOrEmpty(Test.Param2)) MakeCursor(Test.Param2);
+            if (!string.IsNullOrEmpty(Test.Param1)) MakeTexture(Test.Param1);
         }
 
-        //GameObject MakeTexture(string path)
-        //{
-        //    var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //    var materialProps = new FixedMaterialInfo { MainFilePath = path };
-        //    var meshRenderer = obj.GetComponent<MeshRenderer>();
-        //    meshRenderer.material = Graphic.MaterialManager.LoadMaterial(materialProps, out var _);
-        //    return obj;
-        //}
+        Actor MakeTexture(string path)
+        {
+            //World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
 
-        //void MakeCursor(string path) => Cursor.SetCursor(Graphic.LoadTexture(path, out var _), Vector2.zero, CursorMode.Auto);
+            var texture = Texture2D.Load("/Game/Scene/BasicTexture");
+
+            var obj = new Actor();
+            var mesh = new StaticMeshComponent(obj, setAsRoot: true);
+            mesh.SetStaticMesh(StaticMesh.Plane);
+            mesh.SetMaterial(0, Material.Load("/Game/Scene/TextureMaterial"));
+            mesh.CreateAndSetMaterialInstanceDynamic(0).SetTextureParameterValue("Texture", texture);
+            mesh.SetWorldLocation(new Vector3(-800.0f, 0.0f, 0.0f));
+            mesh.SetWorldRotation(Maths.Euler(90.0f, 0.0f, 90.0f));
+
+            //Debug.AddOnScreenMessage(-1, 5.0f, Color.PowderBlue, "Texture size: " + texture.GetSize());
+            //Debug.AddOnScreenMessage(-1, 5.0f, Color.PowderBlue, "Pixel format: " + texture.GetPixelFormat());
+
+            return obj;
+        }
     }
 }

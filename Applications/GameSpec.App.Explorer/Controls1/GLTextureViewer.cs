@@ -44,15 +44,16 @@ namespace GameSpec.App.Explorer.Controls1
             set => SetValue(SourceProperty, value);
         }
 
-        //protected override void HandleResize()
-        //{
-        //    var source = Source is ITexture z ? z
-        //        : Source is IRedirected<ITexture> y ? y.Value
-        //        : null;
-        //    if (source == null) return;
-        //    Camera.SetViewportSize(source.Width, source.Height);
-        //    RecalculatePositions();
-        //}
+        protected override void HandleResize()
+        {
+            var source = Source is ITexture z ? z
+                : Source is IRedirected<ITexture> y ? y.Value
+                : null;
+            if (source == null) return;
+            if (source.Width > 1024 || source.Height > 1024) { base.HandleResize(); return; }
+            Camera.SetViewportSize(source.Width, source.Height);
+            RecalculatePositions();
+        }
 
         void OnProperty()
         {

@@ -40,10 +40,9 @@ namespace Tests
 
         GameObject MakeTexture(string path)
         {
-            var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            var materialProps = new FixedMaterialInfo { MainFilePath = path };
+            var obj = GameObject.CreatePrimitive(PrimitiveType.Plane);
             var meshRenderer = obj.GetComponent<MeshRenderer>();
-            meshRenderer.material = Graphic.MaterialManager.LoadMaterial(materialProps, out var _);
+            meshRenderer.material = Graphic.MaterialManager.LoadMaterial(new FixedMaterialInfo { MainFilePath = path }, out var _);
             return obj;
         }
 
