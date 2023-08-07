@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests
+namespace GameSpecUnreal.Tests
 {
     public abstract class AbstractTest : IDisposable
     {
@@ -32,6 +32,6 @@ namespace Tests
 
         public abstract void Start();
 
-        public virtual void Update() { }
+        public virtual void Update(float deltaTime) { }
     }
 }

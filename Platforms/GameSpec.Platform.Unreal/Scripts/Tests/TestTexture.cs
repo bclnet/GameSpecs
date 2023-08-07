@@ -1,8 +1,7 @@
-﻿using System.Drawing;
-using System.Numerics;
+﻿using System.Numerics;
 using UnrealEngine.Framework;
 
-namespace Tests
+namespace GameSpecUnreal.Tests
 {
     public class TestTexture : AbstractTest
     {
