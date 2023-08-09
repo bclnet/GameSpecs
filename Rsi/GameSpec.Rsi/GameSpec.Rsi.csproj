@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SharpZipLib.GameSpecs\ICSharpCode.SharpZipLib.Pk4\ICSharpCode.SharpZipLib.P4k.csproj" />
+    <PackageReference Include="SharpZipLib.P4k" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
     <ProjectReference Include="..\..\Cry\GameSpec.Cry\GameSpec.Cry.csproj" />
   </ItemGroup>
