@@ -41,6 +41,7 @@ namespace Tests
         GameObject MakeTexture(string path)
         {
             var obj = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            obj.transform.rotation = Quaternion.Euler(180f, 0f, 0f);
             var meshRenderer = obj.GetComponent<MeshRenderer>();
             meshRenderer.material = Graphic.MaterialManager.LoadMaterial(new FixedMaterialInfo { MainFilePath = path }, out var _);
             return obj;
