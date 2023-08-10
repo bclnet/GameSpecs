@@ -63,10 +63,10 @@ namespace GameSpec.AC.Formats.FileTypes
         public int Width { get; }
         public int Height { get; }
         public int Depth => 0;
-        public int NumMipMaps => 1;
+        public int MipMaps => 1;
         public TextureFlags Flags => 0;
 
-        public byte[] Begin(int platform, out object format, out Range[] mips, out bool forward)
+        public byte[] Begin(int platform, out object format, out Range[] mips)
         {
             byte[] Expand()
             {
@@ -183,7 +183,6 @@ namespace GameSpec.AC.Formats.FileTypes
             };
             var bytes = Expand();
             mips = new[] { Range.All };
-            forward = true;
             return bytes;
         }
         public void End() { }

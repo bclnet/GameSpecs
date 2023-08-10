@@ -38,10 +38,10 @@ namespace GameSpec.Formats
         public int Width { get; }
         public int Height { get; }
         public int Depth => 0;
-        public int NumMipMaps => 1;
+        public int MipMaps => 1;
         public TextureFlags Flags => 0;
 
-        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges, out bool forward)
+        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             void ConvertToBmp()
             {
@@ -64,7 +64,6 @@ namespace GameSpec.Formats
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             ranges = null;
-            forward = true;
             return Bytes;
         }
         public void End() { }

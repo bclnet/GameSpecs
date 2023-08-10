@@ -13,10 +13,10 @@
 //#define Origin
 //#define Red
 //#define Rsi
-#define Tes
+//#define Tes
 //#define Unity
 //#define Unreal
-//#define Valve
+#define Valve
 
 namespace GameSpec
 {
@@ -275,8 +275,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "bookart/boethiah_256.dds",
-            ForcePath = "icons/handtohand.dds",
+            ForcePath = "bookart/boethiah_256.dds",
+            //ForcePath = "icons/handtohand.dds",
 
             ForceOpen = true,
             Family = "Tes",

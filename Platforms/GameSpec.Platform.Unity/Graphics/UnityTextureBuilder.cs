@@ -1,7 +1,7 @@
 using OpenStack.Graphics;
+using OpenStack.Graphics.DirectX;
 using System;
 using UnityEngine;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GameSpec.Graphics
 {
@@ -15,11 +15,16 @@ namespace GameSpec.Graphics
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
             Texture2D tex;
-            var bytes = info.Begin((int)FamilyPlatform.Type.Unity, out var format, out _, out _);
+            var bytes = info.Begin((int)FamilyPlatform.Type.Unity, out var format, out _);
             if (format is TextureUnityFormat unityFormat)
             {
+                if (unityFormat == TextureUnityFormat.DXT3_POLYFILL)
+                {
+                    unityFormat = TextureUnityFormat.DXT5;
+                    DxtUtil2.ConvertDxt3ToDtx5(bytes, info.Width, info.Height, info.MipMaps);
+                }
                 var textureFormat = (TextureFormat)unityFormat;
-                tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
+                tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
                 tex.LoadRawTextureData(bytes);
                 tex.Apply();
                 tex.Compress(true);
@@ -27,7 +32,7 @@ namespace GameSpec.Graphics
             else if (format is ValueTuple<TextureUnityFormat> unityPixelFormat)
             {
                 var textureFormat = (TextureFormat)unityPixelFormat.Item1;
-                tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
+                tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
             }
             else throw new NotImplementedException();
 

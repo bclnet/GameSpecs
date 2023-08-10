@@ -71,9 +71,10 @@ namespace GameSpec.App.Explorer.Controls1
             graphic.TextureManager.DeleteTexture(source);
             var texture = graphic.TextureManager.LoadTexture(source, out _, range);
             Renderers.Clear();
-            Renderers.Add(new TextureRenderer(graphic, texture));
+            Renderers.Add(new TextureRenderer(graphic, texture) { Background = background });
         }
 
+        bool background;
         Range range = 0..;
         readonly HashSet<TextureRenderer> Renderers = new();
 
@@ -83,19 +84,30 @@ namespace GameSpec.App.Explorer.Controls1
             foreach (var renderer in Renderers) renderer.Render(e.Camera, RenderPass.Both);
         }
 
-        bool PrevPress, NextPress, ResetPress;
+        Key[] Keys = new[] { Key.A, Key.Z, Key.Space, Key.Q };
+        HashSet<Key> KeyDowns = new();
+
         public void HandleInput(KeyboardState keyboardState)
         {
-            if (!PrevPress && keyboardState.IsKeyDown(Key.A)) PrevPress = true;
-            else if (PrevPress && keyboardState.IsKeyUp(Key.A)) { PrevPress = false; MovePrev(); }
-            if (!NextPress && keyboardState.IsKeyDown(Key.Z)) NextPress = true;
-            else if (NextPress && keyboardState.IsKeyUp(Key.Z)) { NextPress = false; MoveNext(); }
-            if (!ResetPress && keyboardState.IsKeyDown(Key.Space)) ResetPress = true;
-            else if (ResetPress && keyboardState.IsKeyUp(Key.Space)) { ResetPress = false; MoveReset(); }
+            foreach (var key in Keys)
+                if (!KeyDowns.Contains(key) && keyboardState.IsKeyDown(key)) KeyDowns.Add(key);
+            foreach (var key in KeyDowns)
+                if (keyboardState.IsKeyUp(key))
+                {
+                    KeyDowns.Remove(key);
+                    switch (key)
+                    {
+                        case Key.A: MovePrev(); break;
+                        case Key.Z: MoveNext(); ; break;
+                        case Key.Space: MoveReset(); break;
+                        case Key.Q: ToggleBackground(); break;
+                    }
+                }
         }
 
         void MoveReset() { range = 0..; OnProperty(); }
         void MoveNext() { if (range.Start.Value < 10) range = new(range.Start.Value + 1, range.End); OnProperty(); }
         void MovePrev() { if (range.Start.Value > 0) range = new(range.Start.Value - 1, range.End); OnProperty(); }
+        void ToggleBackground() { background = !background; OnProperty(); }
     }
 }

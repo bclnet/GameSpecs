@@ -99,21 +99,24 @@ namespace GameSpec.Valve.Formats.Blocks
         int ITexture.Width => Width;
         int ITexture.Height => Height;
         int ITexture.Depth => Depth;
-        int ITexture.NumMipMaps => NumMipMaps;
+        int ITexture.MipMaps => NumMipMaps;
         TextureFlags ITexture.Flags => (TextureFlags)Flags;
 
-        byte[] ITexture.Begin(int platform, out object format, out Range[] mips, out bool forward)
+        byte[] ITexture.Begin(int platform, out object format, out Range[] mips)
         {
-            forward = false;
             Reader.BaseStream.Position = Offset + Size;
 
-            var bytes = new byte[NumMipMaps][];
-            Mips = new Range[NumMipMaps];
-            for (var i = NumMipMaps - 1; i >= 0; i--)
+            using (var b = new MemoryStream())
             {
-                bytes[i] = ReadOne(i);
-                throw new NotImplementedException();
-                Mips[i] = new Range(0, 0);
+                Mips = new Range[NumMipMaps];
+                var lastLength = 0;
+                for (var i = NumMipMaps - 1; i >= 0; i--)
+                {
+                    b.Write(ReadOne(i));
+                    Mips[i] = new Range(lastLength, (int)b.Length);
+                    lastLength = (int)b.Length;
+                }
+                Bytes = b.ToArray();
             }
 
             format = (FamilyPlatform.Type)platform switch
@@ -126,7 +129,6 @@ namespace GameSpec.Valve.Formats.Blocks
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             mips = Mips;
-            forward = false; //: change
             return Bytes;
         }
         void ITexture.End() { }

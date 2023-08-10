@@ -40,10 +40,10 @@ namespace GameSpec.Formats
         public int Width => (int)Header.dwWidth;
         public int Height => (int)Header.dwHeight;
         public int Depth => 0;
-        public int NumMipMaps => (int)Header.dwMipMapCount;
+        public int MipMaps => (int)Header.dwMipMapCount;
         public TextureFlags Flags => 0;
 
-        public byte[] Begin(int platform, out object format, out Range[] mips, out bool forward)
+        public byte[] Begin(int platform, out object format, out Range[] mips)
         {
             format = (FamilyPlatform.Type)platform switch
             {
@@ -55,7 +55,6 @@ namespace GameSpec.Formats
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             mips = Mips;
-            forward = true;
             return Bytes;
         }
         public void End() { }
@@ -66,7 +65,7 @@ namespace GameSpec.Formats
                 new MetadataInfo($"Format: {Format.type}"),
                 new MetadataInfo($"Width: {Width}"),
                 new MetadataInfo($"Height: {Height}"),
-                new MetadataInfo($"Mipmaps: {NumMipMaps}"),
+                new MetadataInfo($"Mipmaps: {MipMaps}"),
             }),
         };
     }

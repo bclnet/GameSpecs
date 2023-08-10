@@ -245,10 +245,10 @@ namespace GameSpec.IW.Formats
         public int Width => Header.Width;
         public int Height => Header.Height;
         public int Depth => 0;
-        public int NumMipMaps => Mips.Length;
+        public int MipMaps => Mips.Length;
         public TextureFlags Flags => (Header.Flags & FLAGS.CUBEMAP) != 0 ? TextureFlags.CUBE_TEXTURE : 0;
 
-        public byte[] Begin(int platform, out object format, out Range[] ranges, out bool forward)
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (FamilyPlatform.Type)platform switch
             {
@@ -260,7 +260,6 @@ namespace GameSpec.IW.Formats
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             ranges = Mips;
-            forward = true;
             return Bytes;
         }
         public void End() { }
