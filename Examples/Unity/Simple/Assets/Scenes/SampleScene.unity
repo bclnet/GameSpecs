@@ -314,7 +314,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1012678386, guid: 153ae710055e03241b9442d97c936c2a, type: 3}
+  m_Script: {fileID: -1012678386, guid: ba2afe6cfbcbd924f8d7de20b5cba76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1595681933
@@ -358,15 +358,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1595681933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 679276684, guid: 153ae710055e03241b9442d97c936c2a, type: 3}
+  m_Script: {fileID: 679276684, guid: ba2afe6cfbcbd924f8d7de20b5cba76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Family: Tes
-  PakUri: game:/Morrowind.bsa#Morrowind
+  Family: Valve
+  PakUri: game:/pak01_dir.vpk#HL:Alyx
   Pak2Uri: 
   Pak3Uri: 
   Type: 0
-  Param1: bookart/boethiah_256.dds
+  Param1: textures/dev/albedo_chart.vtex_c
   Param2: 
   Param3: 
   Param4: 

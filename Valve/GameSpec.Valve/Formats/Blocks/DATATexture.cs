@@ -1,5 +1,4 @@
 using GameSpec.Formats;
-using MathNet.Numerics.LinearAlgebra.Factorization;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
@@ -201,22 +200,22 @@ namespace GameSpec.Valve.Formats.Blocks
 
             TexFormat = Format switch
             {
-                DXT1 => (DXT1, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                //DXT3 => (DXT3, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                DXT5 => (DXT5, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                ETC2 => (ETC2, TextureGLFormat.CompressedRgb8Etc2, TextureGLFormat.CompressedRgb8Etc2, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                ETC2_EAC => (ETC2_EAC, TextureGLFormat.CompressedRgba8Etc2Eac, TextureGLFormat.CompressedRgba8Etc2Eac, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                ATI1N => (ATI1N, TextureGLFormat.CompressedRedRgtc1, TextureGLFormat.CompressedRedRgtc1, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                ATI2N => (ATI2N, TextureGLFormat.CompressedRgRgtc2, TextureGLFormat.CompressedRgRgtc2, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                BC6H => (BC6H, TextureGLFormat.CompressedRgbBptcUnsignedFloat, TextureGLFormat.CompressedRgbBptcUnsignedFloat, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                BC7 => (BC7, TextureGLFormat.CompressedRgbaBptcUnorm, TextureGLFormat.CompressedRgbaBptcUnorm, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                RGBA8888 => (RGBA8888, (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown), //TextureGLFormat.Rgba8
-                RGBA16161616F => (RGBA16161616F, (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown), //TextureGLFormat.Rgba16f
+                DXT1 => (DXT1, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureGLFormat.CompressedRgbaS3tcDxt1Ext, TextureUnityFormat.DXT1, TextureUnrealFormat.DXT1),
+                //DXT3 => (DXT3, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureGLFormat.CompressedRgbaS3tcDxt3Ext, TextureUnityFormat.DXT3_POLYFILL, TextureUnrealFormat.DXT3),
+                DXT5 => (DXT5, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureGLFormat.CompressedRgbaS3tcDxt5Ext, TextureUnityFormat.DXT5, TextureUnrealFormat.DXT5),
+                ETC2 => (ETC2, TextureGLFormat.CompressedRgb8Etc2, TextureGLFormat.CompressedRgb8Etc2, TextureUnityFormat.ETC2_RGBA8Crunched, TextureUnrealFormat.ETC2RGB),
+                ETC2_EAC => (ETC2_EAC, TextureGLFormat.CompressedRgba8Etc2Eac, TextureGLFormat.CompressedRgba8Etc2Eac, TextureUnityFormat.Unknown, TextureUnrealFormat.Unknown),
+                ATI1N => (ATI1N, TextureGLFormat.CompressedRedRgtc1, TextureGLFormat.CompressedRedRgtc1, TextureUnityFormat.BC4, TextureUnrealFormat.BC4),
+                ATI2N => (ATI2N, TextureGLFormat.CompressedRgRgtc2, TextureGLFormat.CompressedRgRgtc2, TextureUnityFormat.BC5, TextureUnrealFormat.BC5),
+                BC6H => (BC6H, TextureGLFormat.CompressedRgbBptcUnsignedFloat, TextureGLFormat.CompressedRgbBptcUnsignedFloat, TextureUnityFormat.BC6H, TextureUnrealFormat.BC6H),
+                BC7 => (BC7, TextureGLFormat.CompressedRgbaBptcUnorm, TextureGLFormat.CompressedRgbaBptcUnorm, TextureUnityFormat.BC7, TextureUnrealFormat.BC7),
+                RGBA8888 => (RGBA8888, (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnrealFormat.R8G8B8A8),
+                RGBA16161616F => (RGBA16161616F, (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), (TextureGLFormat.Rgba16f, TextureGLPixelFormat.Rgba, TextureGLPixelType.Float), TextureUnityFormat.RGBAFloat, TextureUnrealFormat.FloatRGBA),
                 I8 => (I8, TextureGLFormat.Intensity8, TextureGLFormat.Intensity8, TextureUnityFormat.Unknown, TextureUnityFormat.Unknown), //(TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte)
-                R16 => (R16, (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort), (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                R16F => (R16F, (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float), (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                RG1616 => (RG1616, (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort), (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
-                RG1616F => (RG1616F, (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float), (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float), TextureUnityFormat.Unknown, TextureUnityFormat.Unknown),
+                R16 => (R16, (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort), (TextureGLFormat.R16, TextureGLPixelFormat.Red, TextureGLPixelType.UnsignedShort), TextureUnityFormat.R16, TextureUnrealFormat.R16UInt),
+                R16F => (R16F, (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float), (TextureGLFormat.R16f, TextureGLPixelFormat.Red, TextureGLPixelType.Float), TextureUnityFormat.RFloat, TextureUnrealFormat.R16F),
+                RG1616 => (RG1616, (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort), (TextureGLFormat.Rg16, TextureGLPixelFormat.Rg, TextureGLPixelType.UnsignedShort), TextureUnityFormat.RG16, TextureUnrealFormat.R16G16UInt),
+                RG1616F => (RG1616F, (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float), (TextureGLFormat.Rg16f, TextureGLPixelFormat.Rg, TextureGLPixelType.Float), TextureUnityFormat.RGFloat, TextureUnrealFormat.R16G16UInt),
                 _ => (Format, null, null, null, null),
             };
         }

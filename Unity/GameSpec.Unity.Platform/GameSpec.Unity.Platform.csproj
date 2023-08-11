@@ -15,8 +15,12 @@
 
   <ItemGroup>
     <Reference Include="UnityEngine">
-	  <HintPath>..\..\Platforms\Unity\2023.2.0b2\UnityEngine.dll</HintPath>
+       <HintPath>..\..\Platforms\Unity\2023.2.0b3\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+	
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Unity*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+  </Target>
+	
 </Project>
