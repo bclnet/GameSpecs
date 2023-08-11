@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Valve*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+	<Exec Command="xcopy /Y &quot;$(TargetDir)GameSpec.Valve*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)GameSpec.Valve*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unreal\Simple\Managed\&quot;" />
   </Target>
 
 </Project>

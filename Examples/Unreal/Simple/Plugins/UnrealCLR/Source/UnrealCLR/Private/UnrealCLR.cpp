@@ -1,5 +1,5 @@
 /*
- *  Unreal Engine .NET 6 integration
+ *  Unreal Engine .NET 7 integration
  *  Copyright (c) 2021 Stanislav Denisov
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,19 +28,19 @@
 DEFINE_LOG_CATEGORY(LogUnrealCLR);
 
 void UnrealCLR::Module::StartupModule() {
-	#define HOSTFXR_VERSION "6.0.1"
+	#define HOSTFXR_VERSION "7.0.10"
 	#define HOSTFXR_WINDOWS "hostfxr.dll"
 	#define HOSTFXR_MAC "libhostfxr.dylib"
 	#define HOSTFXR_LINUX "libhostfxr.so"
 
 	#ifdef UNREALCLR_WINDOWS
-		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/Win64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_WINDOWS
+		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/win-x64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_WINDOWS
 		#define UNREALCLR_PLATFORM_STRING(string) string
 	#elif defined(UNREALCLR_MAC)
-		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/Mac/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_MAC
+		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/osx-x64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_MAC
 		#define UNREALCLR_PLATFORM_STRING(string) TCHAR_TO_ANSI(string)
 	#elif defined(UNREALCLR_UNIX)
-		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/Linux/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_LINUX
+		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/linux-x64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_LINUX
 		#define UNREALCLR_PLATFORM_STRING(string) TCHAR_TO_ANSI(string)
 	#else
 		#error "Unknown platform"

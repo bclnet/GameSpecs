@@ -1,5 +1,7 @@
 ﻿using System.Numerics;
 using UnrealEngine.Framework;
+using FDebug = UnrealEngine.Framework.Debug;
+using FLogLevel = UnrealEngine.Framework.LogLevel;
 
 namespace GameSpecUnreal.Tests
 {
@@ -36,14 +38,15 @@ namespace GameSpecUnreal.Tests
         {
             //World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
 
-            var texture = Texture2D.Load("/Game/Scene/BasicTexture");
+            FDebug.Log(FLogLevel.Warning, "HERE");
+            var texture = Texture2D.Load("/Game/Scenes/BasicTexture");
 
             var obj = new Actor();
             var mesh = new StaticMeshComponent(obj, setAsRoot: true);
             mesh.SetStaticMesh(StaticMesh.Plane);
-            mesh.SetMaterial(0, Material.Load("/Game/Scene/TextureMaterial"));
+            mesh.SetMaterial(0, Material.Load("/Game/Scenes/TextureMaterial"));
             mesh.CreateAndSetMaterialInstanceDynamic(0).SetTextureParameterValue("Texture", texture);
-            mesh.SetWorldLocation(new Vector3(-800.0f, 0.0f, 0.0f));
+            mesh.SetWorldLocation(new Vector3(800.0f, 0.0f, 0.0f));
             mesh.SetWorldRotation(Maths.Euler(90.0f, 0.0f, 90.0f));
 
             //Debug.AddOnScreenMessage(-1, 5.0f, Color.PowderBlue, "Texture size: " + texture.GetSize());

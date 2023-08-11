@@ -13,10 +13,10 @@
 //#define Origin
 //#define Red
 //#define Rsi
-//#define Tes
+#define Tes
 //#define Unity
 //#define Unreal
-#define Valve
+//#define Valve
 
 namespace GameSpec
 {

@@ -1,5 +1,5 @@
 /*
- *  Unreal Engine .NET 6 integration 
+ *  Unreal Engine .NET 7 integration 
  *  Copyright (c) 2021 Stanislav Denisov
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -63,11 +63,11 @@ public class UnrealCLR : ModuleRules {
 			string runtimePath = null;
 
 			if (Target.Platform == UnrealTargetPlatform.Win64)
-				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/Win64");
+				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/win-x64");
 			else if (Target.Platform == UnrealTargetPlatform.Linux)
-				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/Linux");
+				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/linux-x64");
 			else if (Target.Platform == UnrealTargetPlatform.Mac)
-				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/Mac");
+				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/osx-x64");
 			else
 				throw new Exception("Unknown platform");
 

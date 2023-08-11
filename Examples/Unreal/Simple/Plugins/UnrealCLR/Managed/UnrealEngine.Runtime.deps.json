@@ -1,21 +1,21 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v6.0",
+    "name": ".NETCoreApp,Version=v7.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v6.0": {
+    ".NETCoreApp,Version=v7.0": {
       "UnrealEngine.Runtime/1.0.0": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.NetAnalyzers": "6.0.0",
+          "Microsoft.CodeAnalysis.NetAnalyzers": "7.0.0",
           "UnrealEngine.Plugins": "1.0.0.0"
         },
         "runtime": {
           "UnrealEngine.Runtime.dll": {}
         }
       },
-      "Microsoft.CodeAnalysis.NetAnalyzers/6.0.0": {},
+      "Microsoft.CodeAnalysis.NetAnalyzers/7.0.0": {},
       "UnrealEngine.Plugins/1.0.0.0": {
         "runtime": {
           "UnrealEngine.Plugins.dll": {
@@ -48,12 +48,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.CodeAnalysis.NetAnalyzers/6.0.0": {
+    "Microsoft.CodeAnalysis.NetAnalyzers/7.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cjG06LMeOADNUeCUaklOfVgrnVkLy80H5PVll4QHDUXv+C+6G9rHczrNdWjfb3xKv3Ts9s4UsP6J2ZWe52Gz4Q==",
-      "path": "microsoft.codeanalysis.netanalyzers/6.0.0",
-      "hashPath": "microsoft.codeanalysis.netanalyzers.6.0.0.nupkg.sha512"
+      "sha512": "sha512-Khlc9eqD9Dqn9C483beBm9NvVLF1atZng9AWc6ujeXyw2xdhDaaTKQ3Nq57r2tGMVle/pIvoNs5lCgTkQ0eB4g==",
+      "path": "microsoft.codeanalysis.netanalyzers/7.0.0",
+      "hashPath": "microsoft.codeanalysis.netanalyzers.7.0.0.nupkg.sha512"
     },
     "UnrealEngine.Plugins/1.0.0.0": {
       "type": "reference",
