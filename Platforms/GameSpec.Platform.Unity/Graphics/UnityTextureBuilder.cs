@@ -2,6 +2,7 @@ using OpenStack.Graphics;
 using OpenStack.Graphics.DirectX;
 using System;
 using UnityEngine;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GameSpec.Graphics
 {
@@ -14,7 +15,6 @@ namespace GameSpec.Graphics
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
-            Texture2D tex;
             var bytes = info.Begin((int)FamilyPlatform.Type.Unity, out var format, out _);
             if (format is TextureUnityFormat unityFormat)
             {
@@ -24,19 +24,19 @@ namespace GameSpec.Graphics
                     DxtUtil2.ConvertDxt3ToDtx5(bytes, info.Width, info.Height, info.MipMaps);
                 }
                 var textureFormat = (TextureFormat)unityFormat;
-                tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
+                var tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
                 tex.LoadRawTextureData(bytes);
                 tex.Apply();
                 tex.Compress(true);
+                return tex;
             }
             else if (format is ValueTuple<TextureUnityFormat> unityPixelFormat)
             {
                 var textureFormat = (TextureFormat)unityPixelFormat.Item1;
-                tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
+                var tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
+                return tex;
             }
-            else throw new NotImplementedException();
-
-            return tex;
+            else throw new ArgumentOutOfRangeException(nameof(format), $"{format}");
         }
 
         public override Texture2D BuildSolidTexture(int width, int height, float[] rgba) => throw new NotImplementedException();

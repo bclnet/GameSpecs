@@ -2818,9 +2818,9 @@
             A texture asset
             </summary>
         </member>
-        <member name="M:UnrealEngine.Framework.Texture2D.#ctor(System.String)">
+        <member name="M:UnrealEngine.Framework.Texture2D.#ctor(System.Int32,System.Int32,UnrealEngine.Framework.PixelFormat,System.String)">
             <summary>
-            Creates a texture asset from a raw PNG, JPEG, BMP, or EXR image file
+            Creates a transient texture asset
             </summary>
         </member>
         <member name="M:UnrealEngine.Framework.Texture2D.#ctor(System.Byte[],System.Int32)">

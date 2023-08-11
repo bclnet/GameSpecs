@@ -38,8 +38,8 @@ namespace GameSpecUnreal.Tests
         {
             //World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
 
-            FDebug.Log(FLogLevel.Warning, "HERE");
-            var texture = Texture2D.Load("/Game/Scenes/BasicTexture");
+            //var texture = Texture2D.Load("/Game/Scenes/BasicTexture");
+            var texture = Graphic.TextureManager.LoadTexture(path, out var _);
 
             var obj = new Actor();
             var mesh = new StaticMeshComponent(obj, setAsRoot: true);

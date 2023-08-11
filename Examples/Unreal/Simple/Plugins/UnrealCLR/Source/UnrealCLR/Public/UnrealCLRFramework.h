@@ -770,6 +770,7 @@ namespace UnrealCLRFramework {
 	}
 
 	namespace Texture2D {
+		static UTexture2D* CreateTransient(int SizeX, int SizeY, EPixelFormat Format, const char* Name);
 		static UTexture2D* CreateFromFile(const char* FilePath);
 		static UTexture2D* CreateFromBuffer(const uint8* Buffer, int32 Length);
 		static bool HasAlphaChannel(UTexture2D* Texture2D);

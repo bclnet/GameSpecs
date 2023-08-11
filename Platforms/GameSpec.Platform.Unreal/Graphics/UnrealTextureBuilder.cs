@@ -34,30 +34,20 @@ namespace GameSpec.Graphics
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
-            throw new NotImplementedException();
-            //Texture2D tex;
-            //var bytes = info.Begin((int)FamilyPlatform.Type.Unity, out var format, out _, out _);
-            //if (format is TextureUnityFormat unityFormat)
-            //{
-            //    var textureFormat = (TextureFormat)unityFormat;
-            //    tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
-            //    tex.LoadRawTextureData(bytes);
-            //    tex.Apply();
-            //    tex.Compress(true);
-            //}
-            //else if (format is ValueTuple<TextureUnityFormat> unityPixelFormat)
-            //{
-            //    var textureFormat = (TextureFormat)unityPixelFormat.Item1;
-            //    tex = new Texture2D(info.Width, info.Height, textureFormat, info.NumMipMaps, false);
-            //}
-            //else throw new NotImplementedException();
-
-            //return tex;
+            var bytes = info.Begin((int)FamilyPlatform.Type.Unreal, out var format, out _);
+            if (format is TextureUnrealFormat unrealFormat)
+            {
+                var pixelFormat = (PixelFormat)unrealFormat;
+                //var tex = new Texture2D(info.Width, info.Height, pixelFormat, "Name");
+                return null;
+                //return tex;
+            }
+            else throw new ArgumentOutOfRangeException(nameof(format), $"{format}");
         }
 
         public override Texture2D BuildSolidTexture(int width, int height, float[] pixels)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override Texture2D BuildNormalMap(Texture2D source, float strength)
