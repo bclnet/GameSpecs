@@ -46,7 +46,7 @@ namespace GameSpecUnreal.Tests
             mesh.SetStaticMesh(StaticMesh.Plane);
             mesh.SetMaterial(0, Material.Load("/Game/Scenes/TextureMaterial"));
             mesh.CreateAndSetMaterialInstanceDynamic(0).SetTextureParameterValue("Texture", texture);
-            mesh.SetWorldLocation(new Vector3(800.0f, 0.0f, 0.0f));
+            mesh.SetWorldLocation(new Vector3(200.0f, 0.0f, 90.0f));
             mesh.SetWorldRotation(Maths.Euler(90.0f, 0.0f, 90.0f));
 
             //Debug.AddOnScreenMessage(-1, 5.0f, Color.PowderBlue, "Texture size: " + texture.GetSize());
