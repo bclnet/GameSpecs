@@ -12,8 +12,8 @@
 //#define IW
 //#define Origin
 //#define Red
-//#define Rsi
-#define Tes
+#define Rsi
+//#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -262,6 +262,7 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            ForcePath = "Data/Game.dcb", //StarCitizen:Dataforge
             //ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
             //ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
             //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
@@ -275,8 +276,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForcePath = "bookart/boethiah_256.dds",
-            //ForcePath = "icons/handtohand.dds",
+            //ForcePath = "bookart/boethiah_256.dds",
+            ForcePath = "icons/handtohand.dds",
 
             ForceOpen = true,
             Family = "Tes",

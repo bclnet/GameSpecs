@@ -342,6 +342,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Capcom.Platform", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CapcomTests", "Capcom\GameSpec.CapcomTests\GameSpec.CapcomTests.csproj", "{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Rsi.Viewer", "Rsi\GameSpec.Rsi.Viewer\GameSpec.Rsi.Viewer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -716,6 +718,10 @@ Global
 		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED929375-9174-4087-8BB0-86350999FA57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED929375-9174-4087-8BB0-86350999FA57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED929375-9174-4087-8BB0-86350999FA57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED929375-9174-4087-8BB0-86350999FA57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -816,6 +822,7 @@ Global
 		{BD8BD213-5556-4A94-B00B-5BBD936A973C} = {6F41E78D-790E-461B-8B66-94569F6E4291}
 		{7AD97344-2AD0-4B9B-B5F5-D5E688B6CFF6} = {6F41E78D-790E-461B-8B66-94569F6E4291}
 		{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C} = {6F41E78D-790E-461B-8B66-94569F6E4291}
+		{ED929375-9174-4087-8BB0-86350999FA57} = {228CD927-3DD3-45AA-9529-B703AC15A1AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

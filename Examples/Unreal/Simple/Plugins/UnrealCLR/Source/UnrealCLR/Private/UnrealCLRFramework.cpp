@@ -2274,8 +2274,8 @@ namespace UnrealCLRFramework {
 	}
 
 	namespace Texture2D {
-		UTexture2D* CreateTransient(int SizeX, int SizeY, EPixelFormat Format, const char* Name) {
-			return UTexture2D::CreateTransient(SizeX, SizeY, Format, FName(UTF8_TO_TCHAR(Name)));
+		UTexture2D* CreateTransient(int32 SizeX, int32 SizeY, EPixelFormat Format, const char* Name) {
+			return nullptr; // UTexture2D::CreateTransient(SizeX, SizeY, Format, FName(UTF8_TO_TCHAR(Name)));
 		}
 
 		UTexture2D* CreateFromFile(const char* FilePath) {

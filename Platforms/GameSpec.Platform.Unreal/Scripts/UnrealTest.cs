@@ -22,7 +22,8 @@ namespace GameSpecUnreal
 
         //[Header("Test Params")]
         public TestTest Type = TestTest.Texture;
-        public string Param1 = "bookart/boethiah_256.dds";
+        public string Param1 = "icons/handtohand.dds";
+        //public string Param1 = "bookart/boethiah_256.dds";
         //public string Param1 = "meshes/x/ex_common_balcony_01.nif";
         public string Param2;
         public string Param3;

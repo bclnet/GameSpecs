@@ -60,16 +60,32 @@ public class UnrealCLR : ModuleRules {
 				"UnrealEd"
 			});
 		} else {
-			string runtimePath = null;
+			string runtimeArch = null;
+			if (Target.Platform == UnrealTargetPlatform.Win64) {
+				if (Target.Architecture == UnrealArch.X64)
+					runtimeArch = "win-x64";
+				else if (Target.Architecture == UnrealArch.Arm64)
+					runtimeArch = "win-arm64";
+				else
+					throw new Exception($"Unknown architecture: {Target.Architecture}");
+			} else if (Target.Platform == UnrealTargetPlatform.Linux) {
+				if (Target.Architecture == UnrealArch.X64)
+					runtimeArch = "linux-x64";
+				else if (Target.Architecture == UnrealArch.Arm64)
+					runtimeArch = "linux-arm64";
+				else
+					throw new Exception($"Unknown architecture: {Target.Architecture}");
+			} else if (Target.Platform == UnrealTargetPlatform.Mac) {
+				if (Target.Architecture == UnrealArch.X64)
+					runtimeArch = "osx-x64";
+				else if (Target.Architecture == UnrealArch.Arm64)
+					runtimeArch = "osx-arm64";
+				else
+					throw new Exception($"Unknown architecture: {Target.Architecture}");
+			} else
+				throw new Exception($"Unknown platform: {Target.Platform}");
 
-			if (Target.Platform == UnrealTargetPlatform.Win64)
-				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/win-x64");
-			else if (Target.Platform == UnrealTargetPlatform.Linux)
-				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/linux-x64");
-			else if (Target.Platform == UnrealTargetPlatform.Mac)
-				runtimePath = Path.Combine(ModuleDirectory, "../../Runtime/osx-x64");
-			else
-				throw new Exception("Unknown platform");
+			string runtimePath = Path.Combine(ModuleDirectory, $"../../Runtime/{runtimeArch}");
 
 			string[] files = Directory.GetFiles(runtimePath, "*.*", SearchOption.AllDirectories);
 

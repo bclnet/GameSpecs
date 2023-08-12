@@ -2,7 +2,6 @@ using OpenStack.Graphics;
 using OpenStack.Graphics.DirectX;
 using System;
 using UnityEngine;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GameSpec.Graphics
 {
@@ -30,16 +29,16 @@ namespace GameSpec.Graphics
                 tex.Compress(true);
                 return tex;
             }
-            else if (format is ValueTuple<TextureUnityFormat> unityPixelFormat)
-            {
-                var textureFormat = (TextureFormat)unityPixelFormat.Item1;
-                var tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
-                return tex;
-            }
+            //else if (format is ValueTuple<TextureUnityFormat> unityPixelFormat)
+            //{
+            //    var textureFormat = (TextureFormat)unityPixelFormat.Item1;
+            //    var tex = new Texture2D(info.Width, info.Height, textureFormat, info.MipMaps, false);
+            //    return tex;
+            //}
             else throw new ArgumentOutOfRangeException(nameof(format), $"{format}");
         }
 
-        public override Texture2D BuildSolidTexture(int width, int height, float[] rgba) => throw new NotImplementedException();
+        public override Texture2D BuildSolidTexture(int width, int height, float[] rgba) => new Texture2D(width, height);
 
         public override Texture2D BuildNormalMap(Texture2D source, float strength)
         {

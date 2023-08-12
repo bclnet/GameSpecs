@@ -17,7 +17,7 @@ namespace GameSpec.Rsi.Formats
         public async Task LoadFileObjectAsync(PakFile source, string sampleFile)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            var file = await source.LoadFileObjectAsync<ForgeFile>(sampleFile);
+            var file = await source.LoadFileObjectAsync<DataForgeFile>(sampleFile);
         }
     }
 }

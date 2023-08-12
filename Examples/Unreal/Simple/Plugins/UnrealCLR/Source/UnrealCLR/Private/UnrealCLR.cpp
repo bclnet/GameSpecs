@@ -34,17 +34,40 @@ void UnrealCLR::Module::StartupModule() {
 	#define HOSTFXR_LINUX "libhostfxr.so"
 
 	#ifdef UNREALCLR_WINDOWS
-		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/win-x64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_WINDOWS
+		#if UNREALCLR_X64
+			#define HOSTFXR_ARCH "win-x64"
+		#elif UNREALCLR_ARM64
+			#define HOSTFXR_ARCH "win-arm64"
+		#else
+			#error "Unknown architecture"
+		#endif
+		#define HOSTFXR_LIB HOSTFXR_WINDOWS
 		#define UNREALCLR_PLATFORM_STRING(string) string
 	#elif defined(UNREALCLR_MAC)
-		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/osx-x64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_MAC
+		#if UNREALCLR_X64
+			#define HOSTFXR_ARCH "osx-x64"
+		#elif UNREALCLR_ARM64
+			#define HOSTFXR_ARCH "osx-arm64"
+		#else
+			#error "Unknown architecture"
+		#endif
+		#define HOSTFXR_LIB HOSTFXR_MAC
 		#define UNREALCLR_PLATFORM_STRING(string) TCHAR_TO_ANSI(string)
 	#elif defined(UNREALCLR_UNIX)
-		#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/linux-x64/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_LINUX
+		#if UNREALCLR_X64
+			#define HOSTFXR_ARCH "linux-x64"
+		#elif UNREALCLR_ARM64
+			#define HOSTFXR_ARCH "linux-arm64"
+		#else
+			#error "Unknown architecture"
+		#endif
+		#define HOSTFXR_LIB HOSTFXR_LINUX
 		#define UNREALCLR_PLATFORM_STRING(string) TCHAR_TO_ANSI(string)
 	#else
 		#error "Unknown platform"
 	#endif
+
+	#define HOSTFXR_PATH "Plugins/UnrealCLR/Runtime/" HOSTFXR_ARCH "/host/fxr/" HOSTFXR_VERSION "/" HOSTFXR_LIB
 
 	UnrealCLR::Status = UnrealCLR::StatusType::Stopped;
 	UnrealCLR::ProjectPath = FPaths::ConvertRelativePathToFull(FPaths::ProjectDir());

@@ -7,26 +7,6 @@ namespace GameSpecUnreal.Tests
 {
     public class TestTexture : AbstractTest
     {
-        //class FixedMaterialInfo : IFixedMaterial
-        //{
-        //    public string Name { get; set; }
-        //    public string ShaderName { get; set; }
-        //    public IDictionary<string, bool> GetShaderArgs() => null;
-        //    public IDictionary<string, object> Data { get; set; }
-        //    public string MainFilePath { get; set; }
-        //    public string DarkFilePath { get; set; }
-        //    public string DetailFilePath { get; set; }
-        //    public string GlossFilePath { get; set; }
-        //    public string GlowFilePath { get; set; }
-        //    public string BumpFilePath { get; set; }
-        //    public bool AlphaBlended { get; set; }
-        //    public int SrcBlendMode { get; set; }
-        //    public int DstBlendMode { get; set; }
-        //    public bool AlphaTest { get; set; }
-        //    public float AlphaCutoff { get; set; }
-        //    public bool ZWrite { get; set; }
-        //}
-
         public TestTexture(UnrealTest test) : base(test) { }
 
         public override void Start()

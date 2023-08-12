@@ -34,13 +34,18 @@ namespace GameSpec.Graphics
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
+            Debug.Log(LogLevel.Display, "BuildTexture");
             var bytes = info.Begin((int)FamilyPlatform.Type.Unreal, out var format, out _);
             if (format is TextureUnrealFormat unrealFormat)
             {
                 var pixelFormat = (PixelFormat)unrealFormat;
-                //var tex = new Texture2D(info.Width, info.Height, pixelFormat, "Name");
-                return null;
+                Debug.Log(LogLevel.Display, $"bytes: {bytes.Length}");
+                Debug.Log(LogLevel.Display, $"Width: {info.Width}");
+                Debug.Log(LogLevel.Display, $"Height: {info.Height}");
+                Debug.Log(LogLevel.Display, $"PixelFormat: {pixelFormat}");
+                //var tex = new Texture2D(info.Width, info.Height, pixelFormat, "Texture");
                 //return tex;
+                return null;
             }
             else throw new ArgumentOutOfRangeException(nameof(format), $"{format}");
         }

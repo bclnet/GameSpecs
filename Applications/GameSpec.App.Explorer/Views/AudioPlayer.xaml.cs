@@ -47,32 +47,32 @@ namespace GameSpec.App.Explorer.Views
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(nameof(Stream), typeof(Stream), typeof(AudioPlayer),
-            new PropertyMetadata((d, e) => (d as AudioPlayer).LoadSound()));
-        public Stream Stream
+        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(nameof(Source), typeof(Stream), typeof(AudioPlayer),
+            new PropertyMetadata((d, e) => (d as AudioPlayer).Load()));
+        public Stream Source
         {
-            get => GetValue(StreamProperty) as Stream;
-            set => SetValue(StreamProperty, value);
+            get => GetValue(SourceProperty) as Stream;
+            set => SetValue(SourceProperty, value);
         }
 
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(nameof(Format), typeof(string), typeof(AudioPlayer),
-             new PropertyMetadata((d, e) => (d as AudioPlayer).LoadSound()));
+             new PropertyMetadata((d, e) => (d as AudioPlayer).Load()));
         public string Format
         {
             get => GetValue(FormatProperty) as string;
             set => SetValue(FormatProperty, value);
         }
 
-        void LoadSound()
+        void Load()
         {
-            if (Format != null && Stream != null)
+            if (Format != null && Source != null)
                 try
                 {
                     WaveStream = Format.ToLowerInvariant() switch
                     {
-                        ".wav" => new WaveFileReader(Stream),
-                        ".mp3" => new Mp3FileReader(Stream, wf => new Mp3FrameDecompressor(wf)),
-                        ".aac" => new StreamMediaFoundationReader(Stream),
+                        ".wav" => new WaveFileReader(Source),
+                        ".mp3" => new Mp3FileReader(Source, wf => new Mp3FrameDecompressor(wf)),
+                        ".aac" => new StreamMediaFoundationReader(Source),
                         _ => throw new ArgumentOutOfRangeException(nameof(Format), Format),
                     };
                     WaveOut.Init(WaveStream);

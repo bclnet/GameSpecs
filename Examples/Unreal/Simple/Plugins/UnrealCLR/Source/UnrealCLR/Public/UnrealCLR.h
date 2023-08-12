@@ -101,6 +101,16 @@
 	#define UNREALCLR_MAC 3
 #endif
 
+// https://stackoverflow.com/questions/152016/detecting-cpu-architecture-compile-time
+#if defined(__x86_64__) || defined(_M_X64)
+	#define UNREALCLR_X64 1        
+#elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86)
+	#define UNREALCLR_X86 1
+#elif defined(__aarch64__) || defined(_M_ARM64)
+	#define UNREALCLR_ARM64 1
+#endif
+
+
 #define UNREALCLR_NONE
 #define UNREALCLR_BRACKET_LEFT (
 #define UNREALCLR_BRACKET_RIGHT )

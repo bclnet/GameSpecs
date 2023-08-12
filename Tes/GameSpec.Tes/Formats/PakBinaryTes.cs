@@ -316,7 +316,7 @@ namespace GameSpec.Tes.Formats
                 }
 
                 // read-all names
-                foreach (var file in files) file.Path = $"{file.Path}/{r.ReadZString()}";
+                foreach (var file in files) file.Path = $"{file.Path}/{r.ReadCString()}";
             }
 
             // Morrowind

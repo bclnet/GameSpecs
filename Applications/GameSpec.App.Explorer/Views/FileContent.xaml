@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:views="clr-namespace:GameSpec.App.Explorer.Views"
              xmlns:control1="clr-namespace:GameSpec.App.Explorer.Controls1"
              xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
@@ -26,7 +27,7 @@
                 <DataGrid VerticalAlignment="Top" ItemsSource="{Binding Value}" Margin="5,5,5,5" />
             </DataTemplate>
             <DataTemplate x:Key="AudioPlayerTemplate" DataType="{x:Type model:MetadataContent}">
-                <views:AudioPlayer Stream="{Binding Value}" Format="{Binding Tag}" Margin="5,5,5,5" />
+                <views:AudioPlayer Source="{Binding Value}" Format="{Binding Tag}" Margin="5,5,5,5" />
             </DataTemplate>
             <DataTemplate x:Key="ImageTemplate" DataType="{x:Type model:MetadataContent}">
                 <Image MaxWidth="{Binding MaxWidth}" MaxHeight="{Binding MaxHeight}" Margin="5,5,5,5" />
@@ -45,6 +46,9 @@
             </DataTemplate>
             <DataTemplate x:Key="WorldTemplate" DataType="{x:Type model:MetadataContent}">
                 <control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
+            </DataTemplate>
+            <DataTemplate x:Key="CustomTemplate" DataType="{x:Type model:MetadataContent}">
+                <views:Custom Source="{Binding Value}" Margin="3,3,3,3" />
             </DataTemplate>
         </Grid.Resources>
 
@@ -90,6 +94,9 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Type}" Value="World">
                                         <Setter Property="ContentTemplate" Value="{StaticResource WorldTemplate}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding EngineType}" Value="{x:Type sys:ICustomFormatter}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource CustomTemplate}" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource NullTemplate}" />

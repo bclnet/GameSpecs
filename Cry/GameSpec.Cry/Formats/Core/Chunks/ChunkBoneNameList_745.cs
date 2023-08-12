@@ -10,7 +10,7 @@ namespace GameSpec.Cry.Formats.Core.Chunks
         {
             base.Read(r);
 
-            BoneNames = r.ReadZString().Split(' ').ToList();
+            BoneNames = r.ReadCString().Split(' ').ToList();
         }
     }
 }
