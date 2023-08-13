@@ -16,6 +16,13 @@ namespace GameSpec
     /// <seealso cref="System.IDisposable" />
     public abstract class PakFile : IDisposable
     {
+        public enum PakStatus { Opening, Opened, Closing, Closed }
+
+        /// <summary>
+        /// Gets the status
+        /// </summary>
+        public volatile PakStatus Status = PakStatus.Closed;
+
         /// <summary>
         /// Gets the pak family.
         /// </summary>
@@ -64,6 +71,11 @@ namespace GameSpec
         /// Closes this instance.
         /// </summary>
         public abstract void Close();
+
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
+        public abstract void Open();
 
         /// <summary>
         /// Determines whether this instance contains the item.

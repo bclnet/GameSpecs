@@ -38,6 +38,11 @@ namespace GameSpec.Formats
         }
 
         /// <summary>
+        /// Opens this instance.
+        /// </summary>
+        public override void Open() { }
+
+        /// <summary>
         /// Determines whether the specified file path contains file.
         /// </summary>
         /// <param name="filePath">The file path.</param>
@@ -141,7 +146,7 @@ namespace GameSpec.Formats
         {
             var root = new List<MetadataItem>();
             foreach (var pakFile in PakFiles.Where(x => x.Valid))
-                root.Add(new MetadataItem(pakFile.Name, manager.PackageIcon, children: await pakFile.GetMetadataItemsAsync(manager)) { PakFile = pakFile });
+                root.Add(new MetadataItem(pakFile, pakFile.Name, manager.PackageIcon, children: await pakFile.GetMetadataItemsAsync(manager)) { PakFile = pakFile });
             return root;
         }
 

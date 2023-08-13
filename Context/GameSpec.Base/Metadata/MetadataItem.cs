@@ -23,14 +23,16 @@ namespace GameSpec.Metadata
             public override string ToString() => Name;
         }
 
+        public object Source { get; }
         public string Name { get; }
         public object Icon { get; }
         public object Tag { get; }
         public List<MetadataItem> Items { get; private set; }
         public PakFile PakFile { get; set; }
 
-        public MetadataItem(string name, object icon, object tag = null, List<MetadataItem> children = null)
+        public MetadataItem(object source, string name, object icon, object tag = null, List<MetadataItem> children = null)
         {
+            Source = source;
             Name = name;
             Icon = icon;
             Tag = tag;

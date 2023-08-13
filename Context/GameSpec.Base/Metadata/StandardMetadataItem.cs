@@ -37,7 +37,7 @@ namespace GameSpec.Metadata
                             {
                                 var found = currentFolder.Find(x => x.Name == folder && x.PakFile == null);
                                 if (found != null) currentFolder = found.Items;
-                                else { found = new MetadataItem(folder, manager.FolderIcon); currentFolder.Add(found); currentFolder = found.Items; }
+                                else { found = new MetadataItem(file, folder, manager.FolderIcon); currentFolder.Add(found); currentFolder = found.Items; }
                             }
                     }
 
@@ -45,7 +45,7 @@ namespace GameSpec.Metadata
                     if (file.Pak != null)
                     {
                         var children = await GetPakFilesAsync(manager, file.Pak);
-                        currentFolder.Add(new MetadataItem(Path.GetFileName(file.Path), manager.PackageIcon, file, children) { PakFile = pakFile });
+                        currentFolder.Add(new MetadataItem(file, Path.GetFileName(file.Path), manager.PackageIcon, children: children) { PakFile = pakFile });
                         continue;
                     }
 
@@ -54,7 +54,7 @@ namespace GameSpec.Metadata
                     var fileNameForIcon = pakFile.FileMask?.Invoke(fileName) ?? fileName;
                     var extentionForIcon = Path.GetExtension(fileNameForIcon);
                     if (extentionForIcon.Length > 0) extentionForIcon = extentionForIcon.Substring(1);
-                    currentFolder.Add(new MetadataItem(fileName, manager.GetIcon(extentionForIcon), file) { PakFile = pakFile });
+                    currentFolder.Add(new MetadataItem(file, fileName, manager.GetIcon(extentionForIcon)) { PakFile = pakFile });
                 }
             return root;
         }

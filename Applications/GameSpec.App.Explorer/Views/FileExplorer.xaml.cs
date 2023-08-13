@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using GameSpec.Metadata;
+using GameSpec.Formats;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace GameSpec.App.Explorer.Views
 {
@@ -44,7 +47,7 @@ namespace GameSpec.App.Explorer.Views
             {
                 if (d is not FileExplorer fileExplorer || e.NewValue is not PakFile pakFile) return;
                 fileExplorer.NodeFilters = pakFile.GetMetadataItemFiltersAsync(Resource).Result;
-                fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result;
+                fileExplorer.Nodes = new ObservableCollection<MetadataItem>(fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result.ToList());
                 fileExplorer.SelectedItem = string.IsNullOrEmpty(fileExplorer.OpenPath) ? null : fileExplorer.FindByPath(fileExplorer.OpenPath);
 
                 fileExplorer.OnReady();
@@ -71,8 +74,8 @@ namespace GameSpec.App.Explorer.Views
 
         void OnNodeFilterKeyUp(object sender, KeyEventArgs e)
         {
-            if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = PakNodes;
-            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.Text))).Where(x => x != null).ToList();
+            if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = new ObservableCollection<MetadataItem>(PakNodes);
+            else Nodes = new ObservableCollection<MetadataItem>(PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.Text))).Where(x => x != null));
             //var view = (CollectionView)CollectionViewSource.GetDefaultView(Node.ItemsSource);
             //view.Filter = o =>
             //{
@@ -86,14 +89,14 @@ namespace GameSpec.App.Explorer.Views
         {
             if (e.AddedItems.Count <= 0) return;
             var filter = e.AddedItems[0] as MetadataItem.Filter;
-            if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = PakNodes;
-            else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).Where(x => x != null).ToList();
+            if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = new ObservableCollection<MetadataItem>(PakNodes);
+            else Nodes = new ObservableCollection<MetadataItem>(PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).Where(x => x != null));
         }
 
         List<MetadataItem> PakNodes;
 
-        List<MetadataItem> _nodes;
-        public List<MetadataItem> Nodes
+        ObservableCollection<MetadataItem> _nodes;
+        public ObservableCollection<MetadataItem> Nodes
         {
             get => _nodes;
             set { _nodes = value; OnPropertyChanged(); }
@@ -109,6 +112,13 @@ namespace GameSpec.App.Explorer.Views
                 _selectedItem = value;
                 try
                 {
+                    var pak = (value?.Source as FileMetadata)?.Pak;
+                    if (pak != null && pak.Status == PakFile.PakStatus.Closed)
+                    {
+                        pak.Open();
+                        value.Items.AddRange(pak.GetMetadataItemsAsync(Resource).Result);
+                        OnNodeFilterKeyUp(null, null);
+                    }
                     OnFileInfo(value?.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
                 }
                 catch (Exception ex)

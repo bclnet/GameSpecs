@@ -627,6 +627,7 @@ namespace GameSpec.Rsi.Formats
 
         public BinaryDcb(BinaryReader r)
         {
+            return;
             R = r;
             r.Skip(4);
             FileVersion = r.ReadInt32();

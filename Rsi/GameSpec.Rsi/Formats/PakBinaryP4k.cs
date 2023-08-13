@@ -30,7 +30,7 @@ namespace GameSpec.Rsi.Formats
                 Stream = pak.GetInputStream(entry.ZipFileIndex);
                 GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
                 GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-                Open();
+                //Open();
             }
 
             public async override Task ReadAsync(BinaryReader r, ReadStage stage)

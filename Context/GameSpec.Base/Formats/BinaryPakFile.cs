@@ -63,8 +63,10 @@ namespace GameSpec.Formats
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        protected virtual void Open()
+        public override void Open()
         {
+            if (Status != PakStatus.Closed) return;
+            Status = PakStatus.Opening;
             var watch = new Stopwatch();
             watch.Start();
             if (UseBinaryReader) GetBinaryReader()?.Action(async r => await ReadAsync(r, PakBinary.ReadStage.File));
@@ -72,6 +74,7 @@ namespace GameSpec.Formats
             Process();
             Log($"Opening: {Name} @ {watch.ElapsedMilliseconds}ms");
             watch.Stop();
+            Status = PakStatus.Opened;
         }
 
         /// <summary>
@@ -87,10 +90,12 @@ namespace GameSpec.Formats
         /// </summary>
         public override void Close()
         {
+            Status = PakStatus.Closing;
             foreach (var r in BinaryReaders.Values) r.Dispose();
             BinaryReaders.Clear();
             if (Tag is IDisposable disposableTag) disposableTag.Dispose();
             Tag = null;
+            Status = PakStatus.Closed;
         }
 
         /// <summary>
@@ -310,7 +315,7 @@ namespace GameSpec.Formats
         /// <exception cref="NotImplementedException"></exception>
         public override async Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
         {
-            if (!(item.Tag is FileMetadata file)) return null;
+            if (!(item.Source is FileMetadata file)) return null;
             List<MetadataInfo> nodes = null;
             var obj = await LoadFileObjectAsync<object>(file);
             if (obj is IGetMetadataInfo info) nodes = info.GetInfoNodes(manager, file);
