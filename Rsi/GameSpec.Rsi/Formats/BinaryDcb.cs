@@ -745,7 +745,7 @@ namespace GameSpec.Rsi.Formats
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
         {
             var nodes = new List<MetadataInfo> {
-                new MetadataInfo(null, new MetadataContent { EngineType = typeof(ICustomFormatter), Type = "DataForgeApp", Name = Path.GetFileName(file.Path), Value = this }),
+                new MetadataInfo(null, new MetadataContent { EngineType = typeof(ICustomFormatter), Type = "DataForge", Name = Path.GetFileName(file.Path), Value = this }),
                 new MetadataInfo("DatabasePak", items: new List<MetadataInfo> {
                     new MetadataInfo($"FileVersion: {FileVersion}"),
                 })

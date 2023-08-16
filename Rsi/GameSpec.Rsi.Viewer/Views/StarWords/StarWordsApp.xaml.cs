@@ -16,14 +16,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 
-namespace GameSpec.Rsi.Views
+namespace GameSpec.Rsi.Views.StarWords
 {
     /// <summary>
-    /// Interaction logic for DataForgeApp.xaml
+    /// Interaction logic for StarWordsApp.xaml
     /// </summary>
-    public partial class DataForgeApp : UserControl, INotifyPropertyChanged
+    public partial class StarWordsApp : UserControl, INotifyPropertyChanged
     {
-        public DataForgeApp() => InitializeComponent();
+        public StarWordsApp() => InitializeComponent();
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
