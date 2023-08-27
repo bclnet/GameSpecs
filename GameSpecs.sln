@@ -342,7 +342,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Capcom.Platform", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CapcomTests", "Capcom\GameSpec.CapcomTests\GameSpec.CapcomTests.csproj", "{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Rsi.Viewer", "Rsi\GameSpec.Rsi.Viewer\GameSpec.Rsi.Viewer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Rsi.Explorer", "Rsi\GameSpec.Rsi.Explorer\GameSpec.Rsi.Explorer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

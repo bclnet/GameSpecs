@@ -10,6 +10,16 @@ namespace GameSpec
     public class FamilyGame
     {
         /// <summary>
+        /// An empty family game.
+        /// </summary>
+        public static readonly FamilyGame Empty = new FamilyGame
+        {
+            Family = Family.Empty,
+            Id = "Empty",
+            Name = "Empty",
+        };
+
+        /// <summary>
         /// The game edition.
         /// </summary>
         public class Edition

@@ -1,4 +1,5 @@
-﻿using OpenStack;
+﻿using GameSpec.Unknown;
+using OpenStack;
 using System;
 using System.Collections.Generic;
 using static GameSpec.Resource;
@@ -13,7 +14,7 @@ namespace GameSpec
         /// <summary>
         /// An empty family.
         /// </summary>
-        public static readonly Family Empty = new Family
+        public static readonly Family Empty = new UnknownFamily
         {
             Id = string.Empty,
             Name = "Empty",
@@ -144,6 +145,12 @@ namespace GameSpec
         /// </summary>
         /// <returns></returns>
         public IDictionary<string, FamilyGame> OtherGames { get; set; }
+
+        /// <summary>
+        /// Gets the family apps.
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, FamilyApp> Apps { get; set; }
 
         /// <summary>
         /// Gets or sets the family file manager.

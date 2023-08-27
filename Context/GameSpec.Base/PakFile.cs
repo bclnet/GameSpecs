@@ -1,6 +1,7 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
+using GameSpec.Unknown;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,11 @@ namespace GameSpec
     /// <seealso cref="System.IDisposable" />
     public abstract class PakFile : IDisposable
     {
+        /// <summary>
+        /// An empty family.
+        /// </summary>
+        public static PakFile Empty = new UnknownPakFile(FamilyGame.Empty, "Empty");
+
         public enum PakStatus { Opening, Opened, Closing, Closed }
 
         /// <summary>

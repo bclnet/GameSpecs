@@ -262,7 +262,10 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForcePath = "Data/dedicated.cfg", //StarCitizen:Dataforge
+            //ForcePath = "app:DataForge",
+            ForcePath = "app:StarWords",
+            //ForcePath = "app:Subsumption",
+            //ForcePath = "Data/dedicated.cfg",
             //ForcePath = "Data/Game.dcb", //StarCitizen:Dataforge
             //ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
             //ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture

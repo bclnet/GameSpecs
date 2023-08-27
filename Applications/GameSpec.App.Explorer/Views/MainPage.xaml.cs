@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GameSpec.Metadata;
+using GameSpec.Unknown;
+using MimeKit;
+using Org.BouncyCastle.Cms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,6 +28,7 @@ namespace GameSpec.App.Explorer.Views
     {
         public string Name { get; set; }
         public PakFile PakFile { get; set; }
+        public IList<FamilyApp> AppList { get; set; }
         public string Text { get; set; }
         public string OpenPath { get; set; }
     }
@@ -33,6 +38,7 @@ namespace GameSpec.App.Explorer.Views
     /// </summary>
     public partial class MainPage : Window, INotifyPropertyChanged
     {
+        public static MetadataManager Manager = new ResourceManagerProvider();
         public static MainPage Instance;
 
         public MainPage()
@@ -57,8 +63,10 @@ namespace GameSpec.App.Explorer.Views
                 Status.WriteLine($"Opening {pakUri}");
                 PakFiles.Add(family.OpenPakFile(pakUri));
             }
+            FamilyApps = family.Apps;
             Status.WriteLine("Done");
-            OnOpenedAsync(path).Wait();
+            OnOpenedAsync(family, path).Wait();
+            OnReady();
             return this;
         }
 
@@ -70,23 +78,48 @@ namespace GameSpec.App.Explorer.Views
         }
 
         public readonly IList<PakFile> PakFiles = new List<PakFile>();
+        public IDictionary<string, FamilyApp> FamilyApps;
 
-        public Task OnOpenedAsync(string path = null)
+        public Task OnOpenedAsync(Family family, string path = null)
         {
-            MainTabControl.SelectedIndex = 0;
+            MainTabControl.SelectedIndex = 0; // family.Apps != null ? 1 : 0;
             var tabs = PakFiles.Where(x => x != null).Select(pakFile => new ExplorerMainTab
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
                 OpenPath = path,
             }).ToList();
-            tabs.Add(new ExplorerMainTab
-            {
-                Name = "Information",
-                Text = @"Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-            });
+            var firstPakFile = tabs.FirstOrDefault()?.PakFile ?? PakFile.Empty;
+            if (FamilyApps != null)
+                tabs.Add(new ExplorerMainTab
+                {
+                    Name = "Apps",
+                    PakFile = firstPakFile,
+                    AppList = FamilyApps.Values.ToList(),
+                    Text = "Choose an application.",
+                    OpenPath = path,
+                });
+            if (family.Description != null)
+                tabs.Add(new ExplorerMainTab
+                {
+                    Name = "Information",
+                    Text = family.Description,
+                    OpenPath = path,
+                });
             MainTabs = tabs;
             return Task.CompletedTask;
+        }
+
+        void App_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var app = (FamilyApp)button.DataContext;
+            app.OpenAsync(app.ExplorerType, Manager).Wait();
+        }
+
+        void OnReady()
+        {
+            if (!string.IsNullOrEmpty(Config.ForcePath) && Config.ForcePath.StartsWith("app:") && FamilyApps != null && FamilyApps.TryGetValue(Config.ForcePath[4..], out var app)) App_Click(new Button { DataContext = app }, null);
         }
 
         #region Menu

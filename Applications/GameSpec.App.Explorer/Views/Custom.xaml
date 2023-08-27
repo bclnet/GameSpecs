@@ -4,9 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
-             xmlns:rsiDataForge="clr-namespace:GameSpec.Rsi.Views.DataForge;assembly=GameSpec.Rsi.Viewer"
-             xmlns:rsiStarWords="clr-namespace:GameSpec.Rsi.Views.StarWords;assembly=GameSpec.Rsi.Viewer"
-             xmlns:rsiSubsumption="clr-namespace:GameSpec.Rsi.Views.Subsumption;assembly=GameSpec.Rsi.Viewer"
+             xmlns:rsiDataForge="clr-namespace:GameSpec.Rsi.Apps.DataForge;assembly=GameSpec.Rsi.Explorer"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200">
     <Grid>
@@ -20,13 +18,7 @@
                 </ScrollViewer>
             </DataTemplate>
             <DataTemplate x:Key="DataForgeTemplate" DataType="{x:Type model:MetadataContent}">
-                <rsiDataForge:DataForgeApp Margin="5,5,5,5" />
-            </DataTemplate>
-            <DataTemplate x:Key="StarWordsTemplate" DataType="{x:Type model:MetadataContent}">
-                <rsiStarWords:StarWordsApp Margin="5,5,5,5" />
-            </DataTemplate>
-            <DataTemplate x:Key="SubsumptionTemplate" DataType="{x:Type model:MetadataContent}">
-                <rsiSubsumption:SubsumptionApp Margin="5,5,5,5" />
+                <rsiDataForge:NoteControl Margin="5,5,5,5" />
             </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding}">
@@ -36,12 +28,6 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Type}" Value="DataForge">
                             <Setter Property="ContentTemplate" Value="{StaticResource DataForgeTemplate}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Type}" Value="StarWords">
-                            <Setter Property="ContentTemplate" Value="{StaticResource StarWordsTemplate}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Type}" Value="Subsumption">
-                            <Setter Property="ContentTemplate" Value="{StaticResource SubsumptionTemplate}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
                             <Setter Property="ContentTemplate" Value="{StaticResource NullTemplate}" />

@@ -17,10 +17,21 @@
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width=".1*" />
         </Grid.ColumnDefinitions>
-
         <Grid.Resources>
             <DataTemplate x:Key="FileExplorer" DataType="{x:Type views:ExplorerMainTab}">
                 <views:FileExplorer x:Name="PakFileExplorer" OpenPath="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Content.OpenPath}" PakFile="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Content.PakFile}" Margin="0,0,10,10" />
+            </DataTemplate>
+            <DataTemplate x:Key="AppList" DataType="{x:Type views:ExplorerMainTab}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}" Margin="5,5,5,5" />
+                    <ItemsControl ItemsSource="{Binding AppList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Name}" Click="App_Click"  />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="TextBlock" DataType="{x:Type views:ExplorerMainTab}">
                 <ScrollViewer>
@@ -62,8 +73,11 @@
                     <ContentControl Content="{Binding}">
                         <ContentControl.Style>
                             <Style TargetType="ContentControl">
-                                <Setter Property="ContentTemplate" Value="{StaticResource FileExplorer}" />
+                                <Setter Property="ContentTemplate" Value="{StaticResource AppList}" />
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AppList}" Value="{x:Null}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource FileExplorer}" />
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding PakFile}" Value="{x:Null}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource TextBlock}" />
                                     </DataTrigger>

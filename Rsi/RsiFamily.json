@@ -16,10 +16,19 @@
   },
   "apps": {
     "DataForge": {
+      "name": "DataForge",
+      "familyAppType": "GameSpec.Rsi.Apps.DataForgeApp, GameSpec.Rsi",
+      "explorerAppType": "GameSpec.Rsi.Apps.DataForge.App, GameSpec.Rsi.Explorer"
     },
     "StarWords": {
+      "name": "StarWords",
+      "familyAppType": "GameSpec.Rsi.Apps.StarWordsApp, GameSpec.Rsi",
+      "explorerAppType": "GameSpec.Rsi.Apps.StarWords.App, GameSpec.Rsi.Explorer"
     },
     "Subsumption": {
+      "name": "Subsumption",
+      "familyAppType": "GameSpec.Rsi.Apps.SubsumptionApp, GameSpec.Rsi",
+      "explorerAppType": "GameSpec.Rsi.Apps.Subsumption.App, GameSpec.Rsi.Explorer"
     }
   },
   "fileManager": {

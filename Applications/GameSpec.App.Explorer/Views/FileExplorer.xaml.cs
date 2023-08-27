@@ -49,7 +49,6 @@ namespace GameSpec.App.Explorer.Views
                 fileExplorer.NodeFilters = pakFile.GetMetadataItemFiltersAsync(Resource).Result;
                 fileExplorer.Nodes = new ObservableCollection<MetadataItem>(fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result.ToList());
                 fileExplorer.SelectedItem = string.IsNullOrEmpty(fileExplorer.OpenPath) ? null : fileExplorer.FindByPath(fileExplorer.OpenPath);
-
                 fileExplorer.OnReady();
             }));
         public PakFile PakFile
@@ -146,7 +145,7 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = FindByPath(Config.ForcePath);
+            if (!string.IsNullOrEmpty(Config.ForcePath) && !Config.ForcePath.StartsWith("app:")) SelectedItem = FindByPath(Config.ForcePath);
         }
     }
 }

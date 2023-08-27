@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\_default.png" />
+    <None Remove="Resources\Icons\_folder.png" />
+    <None Remove="Resources\Icons\_openFile.png" />
+    <None Remove="Resources\Icons\_package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Apps\DataForgeApp.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons\_default.png" />
+    <EmbeddedResource Include="Resources\Icons\_folder.png" />
+    <EmbeddedResource Include="Resources\Icons\_openFile.png" />
+    <EmbeddedResource Include="Resources\Icons\_package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameSpec.Rsi\GameSpec.Rsi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Apps\StarWords\App.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Apps\Subsumption\App.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

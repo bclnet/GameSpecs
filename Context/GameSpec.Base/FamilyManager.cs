@@ -149,6 +149,7 @@ namespace GameSpec
                 family.FileManager = fileManager;
                 family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, familyGameType, locations, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
                 family.OtherGames = elem.TryGetProperty("other-games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseOtherGame(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
+                family.Apps = elem.TryGetProperty("apps", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseApp(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 return family;
             }
             catch (Exception e)
@@ -227,6 +228,18 @@ namespace GameSpec
             Id = edition,
             Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
         };
+
+        static FamilyApp ParseApp(Family family, string id, JsonElement elem)
+        {
+            var familyAppType = elem.TryGetProperty("familyAppType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyAppType", z.GetString()) : null;
+            var familyApp = familyAppType != null ? (FamilyApp)Activator.CreateInstance(familyAppType) : throw new ArgumentOutOfRangeException("familyAppType", familyAppType.ToString());
+            familyApp.Family = family;
+            familyApp.Id = id;
+            familyApp.Name = (elem.TryGetProperty("name", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
+            familyApp.ExplorerType = elem.TryGetProperty("explorerAppType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("explorerAppType", z.GetString()) : null;
+            familyApp.Explorer2Type = elem.TryGetProperty("explorer2AppType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("explorer2AppType", z.GetString()) : null;
+            return familyApp;
+        }
 
         #endregion
     }
