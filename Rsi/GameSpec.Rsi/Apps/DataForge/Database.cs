@@ -19,8 +19,8 @@ namespace GameSpec.Rsi.Apps.DataForge
 
         public static void CreateNode(MetadataManager manager, List<Node> nodes, string k, List<Obj> v)
         {
-            var parts = k.Split("_");
-            var pathTake = parts.Length > 3 ? 3 : 1;
+            var parts = k.Split(".");
+            var pathTake = 1; // parts.Length > 3 ? 3 : 1;
             var path = string.Join('/', parts.Take(pathTake));
             var icon = manager.FolderIcon;
             var node = Paths.TryGetValue(path, out var z) ? z : CreatePath(nodes, path, icon);
@@ -69,7 +69,9 @@ namespace GameSpec.Rsi.Apps.DataForge
             var obj = await pakFile.LoadFileObjectAsync<BinaryDcb>($"Data/Game.dcb");
             var valueMap = obj.ValueMap;
             var structTypes = obj.StructTypes;
-            foreach (var (key, value) in obj.DataMap)
+            //foreach (var (key, value) in obj.DataMap)
+            //    Node.CreateNode(manager, Nodes, structTypes[key].GetName(valueMap), value);
+            foreach (var (key, value) in obj.RecordMap)
                 Node.CreateNode(manager, Nodes, structTypes[key].GetName(valueMap), value);
         }
     }

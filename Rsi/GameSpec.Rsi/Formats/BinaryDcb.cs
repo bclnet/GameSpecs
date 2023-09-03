@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Obj = System.Collections.Generic.Dictionary<string, object>;
+using Record = System.Collections.Generic.Dictionary<string, object>;
 
 namespace GameSpec.Rsi.Formats
 {
@@ -221,32 +222,33 @@ namespace GameSpec.Rsi.Formats
 
             // read datamap
             if (DataMapV1s != null)
-                foreach (var map in DataMapV1s)
+                foreach (var m in DataMapV1s)
                 {
-                    DataMap[map.StructIndex] = new List<Obj>();
-                    ref StructType_ s = ref StructTypes[map.StructIndex];
-                    for (var i = 0; i < map.StructCount; i++)
+                    DataMap[m.StructIndex] = new List<Obj>();
+                    ref StructType_ s = ref StructTypes[m.StructIndex];
+                    for (var i = 0; i < m.StructCount; i++)
                     {
                         var node = ReadStruct(r, ref s);
                         node["__name"] = s.GetName(ValueMap);
-                        DataMap[map.StructIndex].Add(node);
+                        DataMap[m.StructIndex].Add(node);
                         DataTable.Add(node);
                     }
                 }
             else
-                foreach (var map in DataMapV0s)
+                foreach (var m in DataMapV0s)
                 {
-                    DataMap[map.StructIndex] = new List<Obj>();
-                    ref StructType_ s = ref StructTypes[map.StructIndex];
-                    for (var i = 0; i < map.StructCount; i++)
+                    DataMap[m.StructIndex] = new List<Obj>();
+                    ref StructType_ s = ref StructTypes[m.StructIndex];
+                    for (var i = 0; i < m.StructCount; i++)
                     {
                         var node = ReadStruct(r, ref s);
                         node["__name"] = s.GetName(ValueMap);
-                        DataMap[map.StructIndex].Add(node);
+                        DataMap[m.StructIndex].Add(node);
                         DataTable.Add(node);
                     }
                 }
 
+            // flatten datamap
             //            foreach (var map in Require_ClassMapping)
             //                if (map.StructIndex == 0xFFFF)
             //#if NONULL
@@ -264,8 +266,31 @@ namespace GameSpec.Rsi.Formats
             //                    map.Node.ParentNode.ReplaceChild(bugged, map.Node);
             //                }
 
+            // read records
+            if (RecordTypeV1s != null)
+                foreach (var t in RecordTypeV1s)
+                {
+                    var record = ReadRecord(t.NameOffset, t.StructIndex, t.VariantIndex, t.OtherIndex);
+                    RecordMap[t.NameOffset].Add(record);
+                    RecordTable.Add(record);
+                }
+            else
+                foreach (var t in RecordTypeV0s)
+                {
+                    var record = ReadRecord(t.NameOffset, t.StructIndex, t.VariantIndex, t.OtherIndex);
+                    RecordMap[t.NameOffset].Add(record);
+                    RecordTable.Add(record);
+                }
+
             sw.Stop();
             Debug.Write($"Elapsed={sw.Elapsed}");
+        }
+
+        Record ReadRecord(uint nameOffset, uint structIndex, ushort variantIndex, ushort otherIndex)
+        {
+            var obj = DataMap[structIndex][variantIndex];
+            obj.Add("x_name", ValueMap[nameOffset]);
+            return obj;
         }
 
         Obj ReadStruct(BinaryReader r, ref StructType_ s)
@@ -439,10 +464,14 @@ namespace GameSpec.Rsi.Formats
         readonly string[] Values;
 
         internal readonly Dictionary<uint, string> ValueMap = new Dictionary<uint, string>();
+
         internal readonly Dictionary<uint, List<Obj>> DataMap = new Dictionary<uint, List<Obj>>();
         readonly List<Obj> DataTable = new List<Obj>();
 
-        public class ClassMapping
+        internal readonly Dictionary<uint, List<Obj>> RecordMap = new Dictionary<uint, List<Obj>>();
+        readonly List<Record> RecordTable = new List<Record>();
+
+        class ClassMapping
         {
             public object Node;
             public ushort StructIndex;
