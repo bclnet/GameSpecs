@@ -19,10 +19,10 @@
         </Grid.RowDefinitions>
         <Grid.Resources>
             <DataTemplate x:Key="Document" DataType="{x:Type views:ContentTab}">
-                <views:DocumentView Document="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Content.Document}" Margin="0,0,10,10" />
+                <views:DocumentView Document="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Content.Document}" Margin="0,0,0,0" />
             </DataTemplate>
             <DataTemplate x:Key="Dashboard" DataType="{x:Type views:ContentTab}">
-                <views:DashboardView Margin="0,0,10,10" />
+                <views:DashboardView Margin="0,0,0,0" />
             </DataTemplate>
         </Grid.Resources>
         
@@ -39,14 +39,17 @@
             </MenuItem>
         </Menu>
 
-        <views:Navigator x:Name="Navigator" Grid.Column="0" Grid.Row="1" Margin="0,0,10,10" />
+        <views:Navigator x:Name="Navigator" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10" />
         
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Center" />
 
-        <TabControl Grid.Column="2" Grid.Row="1" Margin="0,0,0,10" ItemsSource="{Binding ContentTabs}" VerticalAlignment="Top">
+        <TabControl x:Name="Tabs" Grid.Column="2" Grid.Row="1" Margin="0,0,0,0" ItemsSource="{Binding ContentTabs}" VerticalAlignment="Stretch">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type views:ContentTab}" >
-                    <TextBlock Text="{Binding Name}" />
+                    <StackPanel Orientation="Horizontal" Height="21" Width="100" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding Name}" />
+                        <Image Source="pack://application:,,,/Resources/Icons/_default.png" Width="20" Height="20" MouseDown="OnContentTabClose"/>
+                    </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>

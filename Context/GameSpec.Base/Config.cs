@@ -262,8 +262,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "app:DataForge",
-            ForcePath = "app:StarWords",
+            ForcePath = "app:DataForge",
+            //ForcePath = "app:StarWords",
             //ForcePath = "app:Subsumption",
             //ForcePath = "Data/dedicated.cfg",
             //ForcePath = "Data/Game.dcb", //StarCitizen:Dataforge

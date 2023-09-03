@@ -23,6 +23,7 @@ namespace GameSpec.Rsi.Apps.StarWords.Views
     /// </summary>
     public class ContentTab
     {
+        public bool Fixed { get; set; }
         public string Name { get; set; }
         public object Document { get; set; }
     }
@@ -42,16 +43,22 @@ namespace GameSpec.Rsi.Apps.StarWords.Views
             DataContext = this;
             App = app;
             Navigator.Nodes = new ObservableCollection<Node>(app.Db.Nodes);
+            ContentTabs.Add(new ContentTab { Fixed = false, Name = "Dashboard" });
+            Tabs.SelectedIndex = 0;
+            Tabs.ItemsSource = ContentTabs;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        IList<ContentTab> _contentTabs;
-        public IList<ContentTab> ContentTabs
+        public void AddContentTab(ContentTab contentTab)
         {
-            get => _contentTabs;
-            set { _contentTabs = value; OnPropertyChanged(); }
+            ContentTabs.Add(contentTab);
+            Tabs.SelectedIndex = ContentTabs.Count - 1;
         }
+
+        void OnContentTabClose(object sender, MouseButtonEventArgs e) => ContentTabs.RemoveAt(Tabs.SelectedIndex);
+
+        public ObservableCollection<ContentTab> ContentTabs = new ObservableCollection<ContentTab>();
     }
 }

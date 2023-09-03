@@ -20,7 +20,7 @@ namespace GameSpec.Rsi.Formats
                 var x when x == ".mtl" || x == ".xml" => (DataOption.Stream, CryXmlFile.Factory),
                 ".dds" => (0, BinaryDds.Factory),
                 ".a" => (0, BinaryDdsA.Factory),
-                //".dcb" => (0, BinaryDcb.Factory),
+                ".dcb" => (0, BinaryDcb.Factory),
                 var x when x == ".soc" || x == ".cgf" || x == ".cga" || x == ".chr" || x == ".skin" || x == ".anim" => (DataOption.Model, CryFile.Factory),
                 _ => (0, null),
             };

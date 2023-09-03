@@ -6,6 +6,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500">
     <Grid>
-        <Label Content="DocumentView" />
+        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="LocId" Binding="{Binding Path=LocId}" MinWidth="50" />
+                <DataGridTextColumn Header="English Text" Binding="{Binding Path=English}" MinWidth="50" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" MinWidth="50" />
+                <DataGridTextColumn Header="Label" Binding="{Binding Path=Label}" MinWidth="50" />
+                <DataGridTextColumn Header="Use" Binding="{Binding Path=Use}" MinWidth="50" />
+                <DataGridTextColumn MinWidth="50" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

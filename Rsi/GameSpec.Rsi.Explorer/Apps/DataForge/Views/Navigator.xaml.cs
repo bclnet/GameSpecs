@@ -16,7 +16,7 @@ using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 using static GameSpec.Formats.Unknown.IUnknownFileObject;
 
-namespace GameSpec.Rsi.Apps.StarWords.Views
+namespace GameSpec.Rsi.Apps.DataForge.Views
 {
     /// <summary>
     /// Interaction logic for Navigator.xaml
@@ -59,12 +59,12 @@ namespace GameSpec.Rsi.Apps.StarWords.Views
 
         void OnNodeDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source is TreeViewItem item && item.DataContext is Node node)
-                MainPage.Instance.AddContentTab(new ContentTab
-                {
-                    Name = node.Name,
-                    Document = node.Entities,
-                });
+            //if (e.Source is TreeViewItem item && item.DataContext is Node node)
+            //    MainPage.Instance.AddContentTab(new ContentTab
+            //    {
+            //        Name = node.Name,
+            //        Document = node.Entities,
+            //    });
         }
     }
 }

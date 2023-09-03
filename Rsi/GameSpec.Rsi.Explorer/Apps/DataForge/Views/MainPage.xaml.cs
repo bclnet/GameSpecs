@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -31,6 +32,7 @@ namespace GameSpec.Rsi.Apps.DataForge.Views
             Instance = this;
             DataContext = this;
             App = app;
+            Navigator.Nodes = new ObservableCollection<Node>(app.Db.Nodes);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
