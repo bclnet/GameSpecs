@@ -50,7 +50,7 @@ namespace GameSpec.App.Explorer.Controls1
                 : Source is IRedirected<ITexture> y ? y.Value
                 : null;
             if (source == null) return;
-            if (source.Width > 1024 || source.Height > 1024) { base.HandleResize(); return; }
+            if (source.Width > 1024 || source.Height > 1024 || false) { base.HandleResize(); return; }
             Camera.SetViewportSize(source.Width, source.Height);
             RecalculatePositions();
         }

@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Linq;
 using ZstdNet;
+using static Compression.Lzss;
 using Decoder = SevenZip.Compression.LZMA.Decoder;
 
 namespace GameSpec.Formats
@@ -135,6 +136,13 @@ namespace GameSpec.Formats
             using var os = new MemoryStream(newLength);
             decoder.Decompress(fileData, os);
             return os.ToArray();
+        }
+
+        public static byte[] DecompressLzss(this BinaryReader r, int length, int newLength)
+        {
+            using var stream = new Lzss.BinaryReaderE(new MemoryStream(r.ReadBytes(length)));
+            byte[] numArray = new Lzss(stream, newLength).Decompress();
+            return numArray;
         }
     }
 }

@@ -1,4 +1,4 @@
-#define NONULL
+//#define NONULL
 
 using GameSpec.Formats;
 using GameSpec.Metadata;
@@ -10,7 +10,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Obj = System.Collections.Generic.Dictionary<string, object>;
-using Record = System.Collections.Generic.Dictionary<string, object>;
 
 namespace GameSpec.Rsi.Formats
 {
@@ -164,7 +163,15 @@ namespace GameSpec.Rsi.Formats
         #endregion
 
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDcb(r));
-        //public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDcb_LNG(r));
+
+        public class Record
+        {
+            public string Name { get; set; }
+            public string FileName { get; set; }
+            public Obj Obj { get; set; }
+            public int Other { get; set; }
+            public Guid Hash { get; internal set; }
+        }
 
         public BinaryDcb(BinaryReader r)
         {
@@ -248,50 +255,53 @@ namespace GameSpec.Rsi.Formats
                     }
                 }
 
-            // flatten datamap
-            //            foreach (var map in Require_ClassMapping)
-            //                if (map.StructIndex == 0xFFFF)
-            //#if NONULL
-            //                    map.Node.ParentNode.RemoveChild(map.Node);
-            //#else
-            //                    map.Node.ParentNode.ReplaceChild(CreateObj("null"), map.Node);
-            //#endif
-            //                else if (DataMap.TryGetValue(map.StructIndex, out var z) && z.Count > map.RecordIndex)
-            //                    map.Node.ParentNode.ReplaceChild(DataMap[map.StructIndex][map.RecordIndex], map.Node);
-            //                else
-            //                {
-            //                    var bugged = CreateObj("bugged");
-            //                    bugged.Add("__class", $"{map.StructIndex:X8}");
-            //                    bugged.Add("__index", $"{map.RecordIndex:X8}");
-            //                    map.Node.ParentNode.ReplaceChild(bugged, map.Node);
-            //                }
+            // remap datamap
+            foreach (var m in Remap_Class)
+                m.Map(m.StructIndex == 0xFFFF ? null
+                    : DataMap.TryGetValue(m.StructIndex, out var z) && z.Count > m.Index ? (object)z
+                    : new Obj {
+                            { "__name", "bugged" },
+                            { "__class", $"{m.StructIndex:X8}" },
+                            { "__index", $"{m.Index:X8}" }
+                    }, m.I);
+            foreach (var m in Remap_Strong)
+            {
+                var strong = Value_Strongs[m.Index];
+                if (strong.Index == 0xFFFFFFFF) m.Map(null, m.I);
+                else m.Map(DataMap[strong.StructType][(int)strong.Index], m.I);
+            }
+            foreach (var m in Remap_Weak1)
+            {
+                var weak = Value_Weaks[m.Index];
+                m.Map(weak.Index == 0xFFFFFFFF ? 0
+                    : (object)new WeakReference(DataMap[weak.StructType][(int)weak.Index]), m.I);
+            }
+            foreach (var m in Remap_Weak2)
+                m.Map(m.StructIndex == 0xFFFF ? null
+                    : m.Index == -1 ? (object)new WeakReference(DataMap[m.StructIndex].FirstOrDefault())
+                    : new WeakReference(DataMap[m.StructIndex][m.Index]), m.I);
 
             // read records
             if (RecordTypeV1s != null)
                 foreach (var t in RecordTypeV1s)
-                {
-                    var record = ReadRecord(t.NameOffset, t.StructIndex, t.VariantIndex, t.OtherIndex);
-                    RecordMap[t.NameOffset].Add(record);
-                    RecordTable.Add(record);
-                }
+                    RecordTable.Add(ReadRecord(t.NameOffset, t.FileNameOffset, t.StructIndex, t.Hash, t.VariantIndex, t.OtherIndex));
             else
                 foreach (var t in RecordTypeV0s)
-                {
-                    var record = ReadRecord(t.NameOffset, t.StructIndex, t.VariantIndex, t.OtherIndex);
-                    RecordMap[t.NameOffset].Add(record);
-                    RecordTable.Add(record);
-                }
+                    RecordTable.Add(ReadRecord(t.NameOffset, uint.MaxValue, t.StructIndex, t.Hash, t.VariantIndex, t.OtherIndex));
 
             sw.Stop();
             Debug.Write($"Elapsed={sw.Elapsed}");
         }
 
-        Record ReadRecord(uint nameOffset, uint structIndex, ushort variantIndex, ushort otherIndex)
-        {
-            var obj = DataMap[structIndex][variantIndex];
-            obj.Add("x_name", ValueMap[nameOffset]);
-            return obj;
-        }
+        Record ReadRecord(uint nameOffset, uint fileNameOffset, uint structIndex, Guid hash, ushort variantIndex, ushort otherIndex)
+            => new Record
+            {
+                Name = ValueMap[nameOffset],
+                FileName = fileNameOffset != uint.MaxValue ? ValueMap[fileNameOffset] : null,
+                Hash = hash,
+                Obj = DataMap[structIndex][variantIndex],
+                Other = otherIndex,
+            };
 
         Obj ReadStruct(BinaryReader r, ref StructType_ s)
         {
@@ -323,10 +333,7 @@ namespace GameSpec.Rsi.Formats
                     }
                     else if (node.DataType == EDataType.StrongPointer)
                     {
-                        o = CreateObj();
-                        o.Add($"{o.Count}", CreateObj($"{node.DataType}"));
-                        obj.Add(nodeName, o);
-                        Require_ClassMapping.Add(new ClassMapping { Node = o, StructIndex = (ushort)r.ReadUInt32(), RecordIndex = (int)r.ReadUInt32() });
+                        Remap_Class.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() });
                     }
                     else
                     {
@@ -335,15 +342,8 @@ namespace GameSpec.Rsi.Formats
                         {
                             case EDataType.Reference: value = r.ReadT<Reference_>(sizeof(Reference_)); break;
                             case EDataType.Locale: value = ValueMap[r.ReadUInt32()]; break;
-                            case EDataType.StrongPointer: value = r.ReadT<Pointer_>(sizeof(Pointer_)); break;
-                            case EDataType.WeakPointer:
-                                {
-                                    Pointer_ ptr;
-                                    value = ptr = r.ReadT<Pointer_>(sizeof(Pointer_));
-                                    var attribute = new KeyValuePair<string, object>(node.GetName(ValueMap), value);
-                                    Require_WeakMapping2.Add(new ClassMapping { Node = value, StructIndex = (ushort)ptr.StructType, RecordIndex = (int)ptr.Index });
-                                    break;
-                                }
+                            case EDataType.StrongPointer: Remap_Strong.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() }); continue;
+                            case EDataType.WeakPointer: Remap_Weak2.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() }); continue;
                             case EDataType.String: value = ValueMap[r.ReadUInt32()]; break;
                             case EDataType.Boolean: value = r.ReadByte() != 0; break;
                             case EDataType.Single: value = r.ReadSingle(); break;
@@ -357,7 +357,7 @@ namespace GameSpec.Rsi.Formats
                             case EDataType.UInt16: value = r.ReadUInt16(); break;
                             case EDataType.UInt32: value = r.ReadUInt32(); break;
                             case EDataType.UInt64: value = r.ReadUInt64(); break;
-                            case EDataType.Enum: var value2 = EnumTypes[node.StructIndex].GetName(ValueMap); value = ValueMap[r.ReadUInt32()]; break;
+                            case EDataType.Enum: value = ValueMap[r.ReadUInt32()]; break;
                             default: throw new NotImplementedException();
                         }
                         obj.Add(nodeName, value);
@@ -388,24 +388,16 @@ namespace GameSpec.Rsi.Formats
                             case EDataType.UInt64: value[i] = Value_UInt64s[firstIndex + i]; break;
                             case EDataType.Byte: value[i] = Value_UInt8s[firstIndex + i]; break;
                             case EDataType.Class:
-                                o = CreateObj($"{node.DataType}");
-                                value[i] = o;
-                                Require_ClassMapping.Add(new ClassMapping { Node = o, StructIndex = node.StructIndex, RecordIndex = (int)(firstIndex + i) });
+                                Remap_Class.Add(new Remap { Map = (v, i) => value[i] = v, I = i, StructIndex = node.StructIndex, Index = (int)(firstIndex + i) });
                                 break;
                             case EDataType.StrongPointer:
-                                o = CreateObj($"{node.DataType}");
-                                value[i] = o;
-                                Require_StrongMapping.Add(new ClassMapping { Node = o, StructIndex = node.StructIndex, RecordIndex = (int)(firstIndex + i) });
+                                Remap_Strong.Add(new Remap { Map = (v, i) => value[i] = v, I = i, StructIndex = node.StructIndex, Index = (int)(firstIndex + i) });
                                 break;
                             case EDataType.WeakPointer:
-                                o = CreateObj("WeakPointer");
-                                o.Add(nodeName, null);
-                                value[i] = o;
-                                Require_WeakMapping1.Add(new ClassMapping { Node = o, StructIndex = node.StructIndex, RecordIndex = (int)(firstIndex + i) });
+                                Remap_Weak1.Add(new Remap { Map = (v, i) => value[i] = v, I = i, StructIndex = node.StructIndex, Index = (int)(firstIndex + i) });
                                 break;
                             default:
                                 throw new NotImplementedException("HERE");
-
                                 //var obj2 = CreateObj($"{node.DataType}");
                                 //obj2.Add("x_child", (firstIndex + i).ToString());
                                 //obj2.Add("x_parent", node.StructIndex.ToString());
@@ -435,7 +427,7 @@ namespace GameSpec.Rsi.Formats
         readonly bool IsLegacy;
         readonly int FileVersion;
 
-        internal readonly StructType_[] StructTypes;
+        readonly StructType_[] StructTypes;
         readonly PropertyType_[] PropertyTypes;
         readonly EnumType_[] EnumTypes;
         readonly DataMapV0_[] DataMapV0s;
@@ -463,24 +455,24 @@ namespace GameSpec.Rsi.Formats
         readonly Lookup_[] Value_EnumOptions;
         readonly string[] Values;
 
-        internal readonly Dictionary<uint, string> ValueMap = new Dictionary<uint, string>();
+        readonly Dictionary<uint, string> ValueMap = new Dictionary<uint, string>();
 
-        internal readonly Dictionary<uint, List<Obj>> DataMap = new Dictionary<uint, List<Obj>>();
+        readonly Dictionary<uint, List<Obj>> DataMap = new Dictionary<uint, List<Obj>>();
         readonly List<Obj> DataTable = new List<Obj>();
 
-        internal readonly Dictionary<uint, List<Obj>> RecordMap = new Dictionary<uint, List<Obj>>();
-        readonly List<Record> RecordTable = new List<Record>();
+        public readonly List<Record> RecordTable = new List<Record>();
 
-        class ClassMapping
+        class Remap
         {
-            public object Node;
+            public Action<object, int> Map;
+            public int I;
             public ushort StructIndex;
-            public int RecordIndex;
+            public int Index;
         }
 
-        readonly List<ClassMapping> Require_ClassMapping = new List<ClassMapping>();
-        readonly List<ClassMapping> Require_StrongMapping = new List<ClassMapping>();
-        readonly List<ClassMapping> Require_WeakMapping1 = new List<ClassMapping>();
-        readonly List<ClassMapping> Require_WeakMapping2 = new List<ClassMapping>();
+        readonly List<Remap> Remap_Class = new List<Remap>();
+        readonly List<Remap> Remap_Strong = new List<Remap>();
+        readonly List<Remap> Remap_Weak1 = new List<Remap>();
+        readonly List<Remap> Remap_Weak2 = new List<Remap>();
     }
 }

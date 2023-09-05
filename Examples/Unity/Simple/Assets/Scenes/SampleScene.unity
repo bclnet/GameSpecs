@@ -361,12 +361,12 @@ MonoBehaviour:
   m_Script: {fileID: 679276684, guid: ba2afe6cfbcbd924f8d7de20b5cba76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Family: Valve
-  PakUri: game:/pak01_dir.vpk#HL:Alyx
+  Family: Tes
+  PakUri: game:/*.dat#Fallout2
   Pak2Uri: 
   Pak3Uri: 
   Type: 0
-  Param1: textures/dev/albedo_chart.vtex_c
+  Param1: art/intrface/death.frm
   Param2: 
   Param3: 
   Param4: 

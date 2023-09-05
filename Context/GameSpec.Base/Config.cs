@@ -12,8 +12,8 @@
 //#define IW
 //#define Origin
 //#define Red
-#define Rsi
-//#define Tes
+//#define Rsi
+#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -280,11 +280,23 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            // Game:Fallout
+            //ForcePath = "CRITTER.DAT:ART/CRITTERS/CRITTERS.LST",
+            //ForcePath = "MASTER.DAT:ART/BACKGRND/BACK1.FRM",
+            //ForcePath = "MASTER.DAT:ART/ITEMS/ALIEN1.FRM",
+            //ForcePath = "MASTER.DAT:COLOR.PAL",
+            // Game:Fallout2
+            //ForcePath = "master.dat:art/backgrnd/BACK1.FRM",
+            //ForcePath = "master.dat:art/splash/SPLASH0.rix",
+            //ForcePath = "master.dat:art/intrface/death.frm",
+            //ForcePath = "master.dat:art/intrface/DP.FRM",
+            // Game:Morrowind
             //ForcePath = "bookart/boethiah_256.dds",
-            ForcePath = "icons/handtohand.dds",
+            //ForcePath = "icons/handtohand.dds",
 
             ForceOpen = true,
             Family = "Tes",
+            //GameId = "Fallout", // Fallout
             //GameId = "Fallout2", // Fallout 2
             GameId = "Morrowind", // The Elder Scrolls III: Morrowind
             //GameId = "Oblivion", // The Elder Scrolls IV: Oblivion

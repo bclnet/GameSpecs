@@ -84,12 +84,9 @@ namespace GameSpec.Graphics
                 //    glFormat = TextureGLFormat.CompressedRgbaS3tcDxt5Ext;
                 //    DxtUtil2.ConvertDxt3ToDtx5(bytes, info.Width, info.Height, info.MipMaps);
                 //}
-
                 var internalFormat = (InternalFormat)glFormat;
                 if (internalFormat == 0) { Console.Error.WriteLine("Unsupported texture, using default"); return DefaultTexture; }
                 for (var i = start; i <= end; i++) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
-                //if (forward) for (var i = start; i <= end; i++) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
-                //else for (var i = end; i >= start; i--) { if (!CompressedTexImage2D(info, i, internalFormat)) return DefaultTexture; }
             }
             else if (fmt is ValueTuple<TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType> glPixelFormat)
             {
@@ -98,8 +95,6 @@ namespace GameSpec.Graphics
                 var format = (PixelFormat)glPixelFormat.Item2;
                 var type = (PixelType)glPixelFormat.Item3;
                 for (var i = start; i < numMipMaps; i++) { if (!TexImage2D(info, i, internalFormat, format, type)) return DefaultTexture; }
-                //if (forward) for (var i = start; i < numMipMaps; i++) { if (!TexImage2D(info, i, internalFormat, format, type)) return DefaultTexture; }
-                //else for (var i = end; i >= start; i--) { if (!TexImage2D(info, i, internalFormat, format, type)) return DefaultTexture; }
             }
             else throw new NotImplementedException();
 

@@ -2,9 +2,7 @@
 using GameSpec.Rsi.Formats;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Obj = System.Collections.Generic.Dictionary<string, object>;
 
 namespace GameSpec.Rsi.Apps.DataForge
 {
@@ -17,14 +15,12 @@ namespace GameSpec.Rsi.Apps.DataForge
         public List<Node> Items { get; } = new List<Node>();
         public List<Entity> Entities { get; } = new List<Entity>();
 
-        public static void CreateNode(MetadataManager manager, List<Node> nodes, string k, List<Obj> v)
+        public static void CreateNode(MetadataManager manager, List<Node> nodes, BinaryDcb.Record v)
         {
-            var parts = k.Split(".");
-            var pathTake = 1; // parts.Length > 3 ? 3 : 1;
-            var path = string.Join('/', parts.Take(pathTake));
+            var path = v.FileName?[21..] ?? v.Name;
             var icon = manager.FolderIcon;
             var node = Paths.TryGetValue(path, out var z) ? z : CreatePath(nodes, path, icon);
-            node.Entities.Add(new Entity { Name = k, Value = v });
+            node.Entities.Add(new Entity { Name = v.Name, Value = v });
         }
 
         static Node CreatePath(List<Node> nodes, string path, object icon)
@@ -49,7 +45,7 @@ namespace GameSpec.Rsi.Apps.DataForge
     public class Entity
     {
         public string Name { get; set; }
-        public List<Obj> Value { get; set; }
+        public BinaryDcb.Record Value { get; set; }
     }
 
     /// <summary>
@@ -67,12 +63,8 @@ namespace GameSpec.Rsi.Apps.DataForge
             family = FamilyManager.GetFamily("Rsi");
             pakFile = family.OpenPakFile(new Uri("game:/Data.p4k#StarCitizen"));
             var obj = await pakFile.LoadFileObjectAsync<BinaryDcb>($"Data/Game.dcb");
-            var valueMap = obj.ValueMap;
-            var structTypes = obj.StructTypes;
-            //foreach (var (key, value) in obj.DataMap)
-            //    Node.CreateNode(manager, Nodes, structTypes[key].GetName(valueMap), value);
-            foreach (var (key, value) in obj.RecordMap)
-                Node.CreateNode(manager, Nodes, structTypes[key].GetName(valueMap), value);
+            foreach (var value in obj.RecordTable)
+                Node.CreateNode(manager, Nodes, value);
         }
     }
 }

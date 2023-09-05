@@ -4,7 +4,10 @@ using GameSpec.Metadata;
 using GameSpec.Tes.Formats;
 using GameSpec.Tes.Transforms;
 using GameSpec.Transforms;
+using Google.Protobuf;
 using OpenStack.Graphics;
+using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
@@ -58,9 +61,14 @@ namespace GameSpec.Tes
         #region GetPackBinary
 
         static PakBinary GetPackBinary(string extension)
-            => extension != ".esm"
-            ? PakBinaryTes.Instance
-            : PakBinaryTesEsm.Instance;
+            => extension.ToLowerInvariant() switch
+            {
+                ".bsa" => PakBinaryTesBsa.Instance,
+                ".ba2" => PakBinaryTesBa2.Instance,
+                ".dat" => PakBinaryTesDat.Instance,
+                ".esm" => PakBinaryTesEsm.Instance,
+                _ => throw new ArgumentOutOfRangeException(nameof(extension)),
+            };
 
         #endregion
 
