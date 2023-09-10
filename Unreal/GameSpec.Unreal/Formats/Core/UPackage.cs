@@ -1,4 +1,5 @@
-﻿using GameSpec.Unreal.Formats.Core;
+﻿#define STRICT
+using GameSpec.Unreal.Formats.Core;
 using OpenStack;
 using System;
 using System.Collections.Generic;
@@ -321,7 +322,6 @@ namespace GameSpec.Unreal.Formats.Core
             }
         }
 
-
         public struct CompressedChunk
         {
             public int UncompressedOffset;
@@ -378,6 +378,8 @@ namespace GameSpec.Unreal.Formats.Core
         public UName[] Names; // List of unique unreal names.
         public UExport[] Exports; // List of info about exported objects.
         public UImport[] Imports; // List of info about imported objects.
+
+        public IBufferDecoder Decoder;
 
         public UPackage(BinaryReader r)
         {
@@ -527,18 +529,18 @@ namespace GameSpec.Unreal.Formats.Core
                 if (isEncrypted)
                 {
                     // TODO: Use a stream wrapper instead; but this is blocked by an overly intertwined use of PackageStream.
-                    //if (LicenseeVersion >= 33) Decoder = new CryptoDecoderAA2();
-                    //else
-                    //{
-                    //    var nonePosition = NamesOffset;
-                    //    r.Seek(nonePosition, SeekOrigin.Begin);
-                    //    var scrambledNoneLength = r.ReadByte();
-                    //    var decoderKey = scrambledNoneLength;
-                    //    r.Seek(nonePosition, SeekOrigin.Begin);
-                    //    var unscrambledNoneLength = r.ReadByte();
-                    //    Debug.Assert((unscrambledNoneLength & 0x3F) == 5);
-                    //    Decoder = new CryptoDecoderWithKeyAA2(decoderKey);
-                    //}
+                    if (LicenseeVersion >= 33) Decoder = new CryptoDecoderAA2();
+                    else
+                    {
+                        var nonePosition = NamesOffset;
+                        r.Seek(nonePosition, SeekOrigin.Begin);
+                        var scrambledNoneLength = r.ReadByte();
+                        var decoderKey = scrambledNoneLength;
+                        r.Seek(nonePosition, SeekOrigin.Begin);
+                        var unscrambledNoneLength = r.ReadByte();
+                        Debug.Assert((unscrambledNoneLength & 0x3F) == 5);
+                        Decoder = new CryptoDecoderWithKeyAA2(decoderKey);
+                    }
                 }
 
                 // Always one
@@ -608,7 +610,7 @@ namespace GameSpec.Unreal.Formats.Core
                         Console.Error.WriteLine("Couldn't parse DependenciesTable");
                         Console.Error.WriteLine(ex.ToString());
 #if STRICT
-                        throw new UnrealException("Couldn't parse DependenciesTable", ex);
+                        throw new Exception("Couldn't parse DependenciesTable", ex);
 #endif
                     }
                 }
@@ -636,7 +638,7 @@ namespace GameSpec.Unreal.Formats.Core
                     Console.Error.WriteLine("Couldn't parse ImportExportGuidsTable");
                     Console.Error.WriteLine(ex.ToString());
 #if STRICT
-                        throw new UnrealException("Couldn't parse ImportExportGuidsTable", ex);
+                    throw new Exception("Couldn't parse ImportExportGuidsTable", ex);
 #endif
                 }
             }
@@ -653,7 +655,7 @@ namespace GameSpec.Unreal.Formats.Core
                     Console.Error.WriteLine("Couldn't parse ThumbnailTable");
                     Console.Error.WriteLine(ex.ToString());
 #if STRICT
-                    throw new UnrealException("Couldn't parse ThumbnailTable", ex);
+                    throw new Exception("Couldn't parse ThumbnailTable", ex);
 #endif
                 }
             }
