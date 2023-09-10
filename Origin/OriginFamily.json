@@ -12,15 +12,15 @@
       "url": "https://uo.com/client-download/",
       "pak": "game:/*.idx#UO"
     },
-    "UltimaIX": {
+    "U9": {
       "name": "Ultima IX",
       "url": "https://www.gog.com/en/game/ultima_9_ascension",
-      "pak": "game:/*.flx#UltimaIX"
+      "pak": "game:/*.flx#U9"
     }
   },
   "fileManager": {
     "application": {
-      "UltimaOnline": {
+      "UO": {
         "key": "Unknown:UltimaOnline",
         "reg": [
           "Origin Worlds Online/Ultima Online/KR Legacy Beta",
@@ -44,7 +44,7 @@
         ],
         "dir": [ "Ultima Online Classic", "Ultima Online Enhanced" ]
       },
-      "UltimaIX": {
+      "U9": {
         "key": [ "GOG:1207659093" ],
         "reg": [ "GOG.com/GOGULTIMA9", "GOG.com/Games/1207659093" ],
         "dir": "Ultima 9",
@@ -52,7 +52,7 @@
       }
     },
     "filters": {
-      "UltimaOnline": {
+      "UO": {
         "Animation": "",
         "Artwork": "",
         "Fonts": "",

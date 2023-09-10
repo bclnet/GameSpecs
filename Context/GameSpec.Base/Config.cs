@@ -1,5 +1,5 @@
 ﻿//#define AC
-//#define Arkane
+#define Arkane
 //#define Bioware
 //#define Blizzard
 //#define Capcom
@@ -13,7 +13,7 @@
 //#define Origin
 //#define Red
 //#define Rsi
-#define Tes
+//#define Tes
 //#define Unity
 //#define Unreal
 //#define Valve
@@ -57,7 +57,7 @@ namespace GameSpec
             Family = "Arkane",
             //GameId = "AF", // Arx Fatalis [open, read, texture:GL]
             //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
-            //GameId = "D", // Dishonored [unreal]
+            GameId = "D", // Dishonored [unreal]
             //GameId = "D2", // Dishonored 2 [open, read]
             //GameId = "P", // Prey [open, read]
             //GameId = "D:DOTO", // Dishonored: Death of the Outsider
@@ -297,8 +297,8 @@ namespace GameSpec
             ForceOpen = true,
             Family = "Tes",
             //GameId = "Fallout", // Fallout
-            //GameId = "Fallout2", // Fallout 2
-            GameId = "Morrowind", // The Elder Scrolls III: Morrowind
+            GameId = "Fallout2", // Fallout 2
+            //GameId = "Morrowind", // The Elder Scrolls III: Morrowind
             //GameId = "Oblivion", // The Elder Scrolls IV: Oblivion
             //GameId = "Fallout3", // Fallout 3
             //GameId = "FalloutNV", // Fallout New Vegas

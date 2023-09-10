@@ -1,3 +1,5 @@
+//#define HTTPTEST
+
 using GameSpec.Formats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -5,27 +7,34 @@ using static GameSpec.Resource;
 
 namespace GameSpec
 {
+    [TestClass]
     public class ResourceTests
     {
         const string GAME = "game:";
-        const string FILE_Oblivion = "file:///D:/Program%20Files%20(x86)/Steam/steamapps/common/Oblivion";
+        const string FILE_Oblivion = "file:///G:/SteamLibrary/steamapps/common/Oblivion";
         const string DIR_Oblivion = "file:////192.168.1.3/User/_SERVE/Assets/Oblivion";
+#if HTTPTEST
         const string HTTP_Oblivion = "http://192.168.1.3/Estates/Oblivion";
+#endif
 
         [DataTestMethod]
         [DataRow("Tes", $"{GAME}/Oblivion*.bsa/#Oblivion")]
+#if HTTPTEST
         [DataRow("Tes", $"{HTTP_Oblivion}/Oblivion*.bsa#Oblivion")]
+#endif
         public void ShouldThrow(string familyName, string uri)
             => Assert.ThrowsException<ArgumentOutOfRangeException>(() => FamilyManager.GetFamily(familyName).ParseResource(new Uri(uri)));
 
         [DataTestMethod]
-        [DataRow("Tes", $"game:/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
-        [DataRow("Tes", $"{FILE_Oblivion}/Data/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
-        [DataRow("Tes", $"{FILE_Oblivion}/Data/Oblivion%20-%20Meshes.bsa#Oblivion", "Oblivion", 0, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
-        //[DataRow("Tes", $"{DIR_Oblivion}/Oblivion*.bsa/#Oblivion", "Oblivion", PakOption.Stream, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
-        //[DataRow("Tes", $"{DIR_Oblivion}/Oblivion%20-%20Meshes.bsa/#Oblivion", "Oblivion", PakOption.Stream, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
-        [DataRow("Tes", $"{HTTP_Oblivion}/Oblivion*.bsa/#Oblivion", "Oblivion", PakOption.Stream, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
-        [DataRow("Tes", $"{HTTP_Oblivion}/Oblivion%20-%20Meshes.bsa/#Oblivion", "Oblivion", PakOption.Stream, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 2059)]
+        [DataRow("Tes", $"game:/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+        [DataRow("Tes", $"{FILE_Oblivion}/Data/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+        [DataRow("Tes", $"{FILE_Oblivion}/Data/Oblivion%20-%20Meshes.bsa#Oblivion", "Oblivion", 0, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+        //[DataRow("Tes", $"{DIR_Oblivion}/Oblivion*.bsa/#Oblivion", "Oblivion", PakOption.Stream, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+        //[DataRow("Tes", $"{DIR_Oblivion}/Oblivion%20-%20Meshes.bsa/#Oblivion", "Oblivion", PakOption.Stream, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+#if HTTPTEST
+        [DataRow("Tes", $"{HTTP_Oblivion}/Oblivion*.bsa/#Oblivion", "Oblivion", PakOption.Stream, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+        [DataRow("Tes", $"{HTTP_Oblivion}/Oblivion%20-%20Meshes.bsa/#Oblivion", "Oblivion", PakOption.Stream, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+#endif
         public void Resource(string familyName, string uri, string game, PakOption options, int pathsFound, string firstPak, string sampleFile, int sampleFileSize)
         {
             var family = FamilyManager.GetFamily(familyName);

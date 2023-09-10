@@ -443,8 +443,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "GameObject\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1413
-    y: 231
+    x: 0
+    y: 21
     width: 321
     height: 552
   m_SerializedDataModeController:
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 73
+    y: 19
     width: 219
     height: 588
   m_SerializedDataModeController:
@@ -555,8 +555,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 220
-    y: 73
+    x: 221
+    y: 19
     width: 1699
     height: 588
   m_SerializedDataModeController:
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.28691325, y: -0.14102805, z: 0.042746898, w: -0.9465578}
     speed: 2
-    m_Value: {x: -0.28691223, y: -0.14102754, z: 0.042746745, w: -0.9465544}
+    m_Value: {x: -0.28691328, y: -0.14102805, z: 0.042746898, w: -0.9465578}
   m_Size:
     m_Target: 1.2870929
     speed: 2
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 682
+    y: 628
     width: 1920
     height: 327
   m_SerializedDataModeController:

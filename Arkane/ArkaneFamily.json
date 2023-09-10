@@ -29,7 +29,9 @@
       "engine": "Unreal",
       "url": "https://www.gog.com/en/game/dishonored_definitive_edition",
       "date": "2012-10-12",
-      "pak": "game:/*TOC.txt#D",
+      "pak": "game:/WrittenNotes_twk_SF.upk#D",
+      "pakxx": "game:/*.(tfc:upk)#D",
+      "pakx": "game:/*.(pck|INT)#D",
       "status": [ "unreal" ]
     },
     "D2": {
@@ -106,7 +108,7 @@
         "key": "GOG:1701063787",
         "reg": "GOG.com/Games/1701063787",
         "dir": "Dishonored",
-        "path": "DishonoredGame"
+        "path": "DishonoredGame/CookedPCConsole"
       },
       "D2": {
         "key": "GOG:1431426311",

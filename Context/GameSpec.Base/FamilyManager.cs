@@ -43,7 +43,7 @@ namespace GameSpec
                     if (family != null) Families.Add(family.Id, family);
                 }
             Unknown = GetFamily("Unknown");
-            UnknownPakFile = Unknown.OpenPakFile(null);
+            UnknownPakFile = Unknown.OpenPakFile(null, throwOnError: false);
         }
 
         /// <summary>
@@ -236,8 +236,8 @@ namespace GameSpec
             familyApp.Family = family;
             familyApp.Id = id;
             familyApp.Name = (elem.TryGetProperty("name", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
-            familyApp.ExplorerType = elem.TryGetProperty("explorerAppType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("explorerAppType", z.GetString()) : null;
-            familyApp.Explorer2Type = elem.TryGetProperty("explorer2AppType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("explorer2AppType", z.GetString()) : null;
+            familyApp.ExplorerType = elem.TryGetProperty("explorerAppType", out z) ? Type.GetType(z.GetString(), false) : null;
+            familyApp.Explorer2Type = elem.TryGetProperty("explorer2AppType", out z) ? Type.GetType(z.GetString(), false) : null;
             return familyApp;
         }
 

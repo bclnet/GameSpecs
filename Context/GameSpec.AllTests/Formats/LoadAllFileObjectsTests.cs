@@ -10,7 +10,7 @@ namespace GameSpec.Formats
     {
         [DataTestMethod]
         [DataRow("AC:AC")]
-        [DataRow("Arkane:Dishonored2")]
+        [DataRow("Arkane:D2")]
         [DataRow("Cry:MWO")]
         [DataRow("Cyanide:TheCouncil")]
         [DataRow("Origin:#UltimaOnline")]
@@ -30,15 +30,14 @@ namespace GameSpec.Formats
         [DataRow("Tes:Fallout4VR")]
         [DataRow("Tes:Fallout76")]
         [DataRow("Valve:Dota2")]
-        public async Task LoadAllFileObjects(string pak) => await LoadAllFileObjectsAsync(TestHelper.Paks[pak].Value);
-
-        static async Task LoadAllFileObjectsAsync(PakFile source)
+        public async Task LoadAllFileObjectsAsync(string pak)
         {
+            var source = TestHelper.Paks[pak].Value;
             if (source is MultiPakFile multiPak)
                 foreach (var p in multiPak.PakFiles)
                 {
-                    if (p is not BinaryPakFile pak) throw new InvalidOperationException("multiPak not a BinaryPakFile");
-                    await ExportAsync(pak);
+                    if (p is not BinaryPakFile z) throw new InvalidOperationException("multiPak not a BinaryPakFile");
+                    await ExportAsync(z);
                 }
             else await ExportAsync(source);
         }

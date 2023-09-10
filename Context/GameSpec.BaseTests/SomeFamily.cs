@@ -15,8 +15,8 @@ namespace GameSpec
         public const string FamilyJson =
 @"{
     'id': 'Some',
-    'name': 'Some Estate',
-    'pakFileType': 'GameEstate.Some+PakFile, GameEstateTests',
+    'name': 'Some Family',
+    'pakFileType': 'GameSpec.Some+SomePakFile, GameSpec.BaseTests',
     'games': {
         'Found': {
             'name': 'Found',
@@ -48,5 +48,9 @@ namespace GameSpec
             public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
             public override Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
         }
+
+        public const string FileManagerJson =
+@"{
+}";
     }
 }

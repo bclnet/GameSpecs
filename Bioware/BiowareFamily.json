@@ -57,7 +57,7 @@
     },
     "ME": {
       "name": "Mass Effect",
-      "url": "https://store.steampowered.com/app/1328670",
+      "url": "https://store.steampowered.com/app/17460",
       "date": "2005-05-12",
       "pak": "game:/*.key#ME"
     },
@@ -213,9 +213,9 @@
         "dir": "Jade Empire"
       },
       "ME": {
-        "key": "Steam:1328670",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670",
-        "dir": "Mass Effect Legendary Edition"
+        "key": "Steam:17460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 17460",
+        "dir": "Mass Effect"
       },
       "NWN2": {
         "key": "GOG:1207659162",
