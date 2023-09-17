@@ -1,14 +1,16 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using static GameSpec.Unreal.Formats.Core.UPackage;
 using static GameSpec.Unreal.Formats.Core.UPackage.Gen;
 
 namespace GameSpec.Unreal.Formats.Core
 {
     static class ReaderExtensions
     {
-        public static int ReadIndex(this BinaryReader r, int version)
+        public static int ReadUIndex(this BinaryReader r, UPackage package)
         {
-            if (version >= UPackage.VIndexDeprecated) return r.ReadInt32();
+            if (package.Version >= VIndexDeprecated) return r.ReadInt32();
             const byte isIndiced = 0x40; // 7th bit
             const byte isNegative = 0x80; // 8th bit
             const byte value = 0xFF - isIndiced - isNegative; // 3F
@@ -37,26 +39,75 @@ namespace GameSpec.Unreal.Formats.Core
                 : (index << 6) + (b0 & value);
         }
 
-        public static string ReadUString(this BinaryReader r, int version, UPackage.BuildAttribute buildAttrib)
+        public static UName ReadUNameReference(this BinaryReader r, UPackage package)
         {
-            var unfixedSize = r.ReadIndex(version);
-            if (buildAttrib.Gen == Vengeance && version >= 135) unfixedSize = -unfixedSize;
+            var index = r.ReadUIndex(package);
+            if (package.Version >= VNameNumbered || package.Build == BuildName.BioShock)
+            {
+                var num = r.ReadInt32() - 1;
+                return package.Names[index];
+            }
+            return package.Names[index];
+        }
+        //public static UName ReadUNameReference(this BinaryReader r, UPackage package, out int num)
+        //{
+        //    var index = r.ReadUIndex(package);
+        //    if (package.Version >= VNameNumbered || package.Build == BuildName.BioShock)
+        //    {
+        //        num = r.ReadInt32() - 1;
+        //        return package.Names[index];
+        //    }
+        //    num = -1;
+        //    return package.Names[index];
+        //}
+
+        public static string ReadUString(this BinaryReader r, UPackage package)
+        {
+            var unfixedSize = r.ReadUIndex(package);
+            if (package.BuildAttrib.Gen == Vengeance && package.Version >= 135) unfixedSize = -unfixedSize;
             var size = unfixedSize < 0 ? -unfixedSize : unfixedSize;
             if (unfixedSize > 0) // ANSI
             {
-                var chars = new byte[size];
-                for (var i = 0; i < chars.Length; ++i) chars[i] = r.ReadByte();
-                return chars[size - 1] == '\0'
-                    ? Encoding.ASCII.GetString(chars, 0, chars.Length - 1)
-                    : Encoding.ASCII.GetString(chars, 0, chars.Length);
+                var b = new byte[size];
+                for (var i = 0; i < b.Length; ++i) b[i] = r.ReadByte();
+                return b[size - 1] == '\0'
+                    ? Encoding.ASCII.GetString(b, 0, b.Length - 1)
+                    : Encoding.ASCII.GetString(b, 0, b.Length);
             }
             if (unfixedSize < 0) // UNICODE
             {
-                var chars = new char[size];
-                for (var i = 0; i < chars.Length; ++i) chars[i] = (char)r.ReadInt16();
-                return chars[size - 1] == '\0' ? new string(chars, 0, chars.Length - 1) : new string(chars);
+                var b = new char[size];
+                for (var i = 0; i < b.Length; ++i) b[i] = (char)r.ReadInt16();
+                return b[size - 1] == '\0' ? new string(b, 0, b.Length - 1) : new string(b);
             }
             return string.Empty;
+        }
+
+        public static string ReadUAnsi(this BinaryReader r)
+        {
+            var b = new List<byte>();
+        nextChar:
+            var c = r.ReadByte();
+            if (c != '\0')
+            {
+                b.Add(c);
+                goto nextChar;
+            }
+            return Encoding.UTF8.GetString(b.ToArray());
+        }
+
+        public static string ReadUUnicode(this BinaryReader r)
+        {
+            var b = new List<byte>();
+        nextWord:
+            var w = r.ReadInt16();
+            if (w != 0)
+            {
+                b.Add((byte)(w >> 8));
+                b.Add((byte)(w & 0x00FF));
+                goto nextWord;
+            }
+            return Encoding.Unicode.GetString(b.ToArray());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿#define STRICT
-using GameSpec.Unreal.Formats.Core;
 using OpenStack;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using static GameSpec.Unreal.Formats.Core.UPackage.Gen;
 
 // https://eliotvu.com/page/unreal-package-file-format
@@ -96,7 +96,7 @@ namespace GameSpec.Unreal.Formats.Core
         Protected = 0x80000000U,
     }
 
-    public class UPackage
+    public partial class UPackage
     {
         const int VSizePrefixDeprecated = 64;
         internal const int VIndexDeprecated = 178;
@@ -105,6 +105,7 @@ namespace GameSpec.Unreal.Formats.Core
         const int VHeaderSize = 249;
         const int VGroup = 269;
         const int VCompression = 334;
+        internal const int VNameNumbered = 343;
         const int VPackageSource = 482;
         const int VAdditionalPackagesToCook = 516;
         const int VTextureAllocations = 767;
@@ -229,11 +230,13 @@ namespace GameSpec.Unreal.Formats.Core
 
         public class UName
         {
+            public static implicit operator string(UName a) => a?.Text;
+            public string Text => Name; // Number > Numeric? $"{_NameItem.Name}_{_Number}" : _NameItem.Name;
+
             /// <summary>
             /// Object Name
             /// </summary>
             public string Name = string.Empty;
-
             /// <summary>
             /// Object Flags, such as LoadForEdit, LoadForServer, LoadForClient
             /// </summary>
@@ -242,37 +245,36 @@ namespace GameSpec.Unreal.Formats.Core
             /// 64bit in UE3
             /// </value>
             public ulong Flags;
+            public int Size;
+            public int Index;
 
-            public UName(BinaryReader r, BuildName build, BuildAttribute buildAttrib, int version, int licenseeVersion)
+            public UName(BinaryReader r, UPackage package, int index)
             {
-                Name = DeserializeName(r, build, buildAttrib, version, licenseeVersion);
+                var position = (int)r.BaseStream.Position;
+                Name = DeserializeName(r, package);
                 Debug.Assert(Name.Length <= 1024, "Maximum name length exceeded! Possible corrupt or unsupported package.");
-                if (build == BuildName.BioShock)
+                if (package.Build == BuildName.BioShock)
                 {
                     Flags = r.ReadUInt64();
                     return;
                 }
-                Flags = version >= UExport.VObjectFlagsToUlong
+                Flags = package.Version >= UExportItem.VObjectFlagsToUlong
                     ? r.ReadUInt64()
                     : r.ReadUInt32();
-
-
-                //    var nameEntry = new UName { Offset = (int)stream.Position, Index = i };
-                //    nameEntry.Deserialize(stream);
-                //    nameEntry.Size = (int)(stream.Position - nameEntry.Offset);
-
+                Size = (int)(r.BaseStream.Position - position);
+                Index = index;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            string DeserializeName(BinaryReader r, BuildName build, BuildAttribute buildAttrib, int version, int licenseeVersion)
+            string DeserializeName(BinaryReader r, UPackage package)
             {
                 // Very old packages use a simple Ansi encoding.
-                if (version < VSizePrefixDeprecated) return r.ReadASCIIString();
+                if (package.Version < VSizePrefixDeprecated) return r.ReadUAnsi();
                 // Names are not encrypted in AAA/AAO 2.6 (LicenseeVersion 32)
-                if (build == BuildName.AA2 && licenseeVersion >= 33 && Decoder is CryptoDecoderAA2)
+                if (package.Build == BuildName.AA2 && package.LicenseeVersion >= 33 && package.Decoder is CryptoDecoderAA2)
                 {
                     // Thanks to @gildor2, decryption code transpiled from https://github.com/gildor2/UEViewer, 
-                    var length = r.ReadIndex(version); Debug.Assert(length < 0);
+                    var length = r.ReadUIndex(package); Debug.Assert(length < 0);
                     var size = -length;
 
                     const byte n = 5;
@@ -289,62 +291,173 @@ namespace GameSpec.Unreal.Formats.Core
 
                     var str = new string(buffer, 0, buffer.Length - 1);
                     // Part of name ?
-                    var number = r.ReadIndex(version);
+                    var number = r.ReadUIndex(package);
                     //Debug.Assert(number == 0, "Unknown value");
                     return str;
                 }
-                return r.ReadUString(version, buildAttrib);
+                return r.ReadUString(package);
             }
         }
 
-        public class UImport
+        public class UObjectItem
         {
-            public UImport(BinaryReader r, int version)
+            public UPackage Owner;
+            public UName ObjectName;
+            public int ClassIndex;
+            public int OuterIndex;
+        }
+
+        public class UImportItem : UObjectItem
+        {
+            public UName PackageName;
+            public UName ClassName2;
+            public string ClassName => ClassName2;
+            public int Size;
+            public UImportItem(BinaryReader r, UPackage package)
             {
-                //var imp = new UImport { Offset = (int)stream.Position, Index = i, Owner = this };
-                //imp.Deserialize(stream);
-                //imp.Size = (int)(stream.Position - imp.Offset);
+                Owner = package;
+                var position = (int)r.BaseStream.Position;
+
+                // Not attested in packages of LicenseeVersion 32
+                if (package.Build == BuildName.AA2 && package.LicenseeVersion >= 33)
+                {
+                    PackageName = r.ReadUNameReference(package);
+                    ClassName2 = r.ReadUNameReference(package);
+                    ClassIndex = ClassName2.Index;
+                    var unkByte = r.ReadByte(); Debug.Log($"unkByte: {unkByte}");
+                    ObjectName = r.ReadUNameReference(package);
+                    OuterIndex = r.ReadInt32(); // ObjectIndex, though always written as 32bits regardless of build.
+                    goto return_;
+                }
+
+                PackageName = r.ReadUNameReference(package);
+                ClassName2 = r.ReadUNameReference(package);
+                ClassIndex = ClassName2.Index;
+                OuterIndex = r.ReadInt32(); // ObjectIndex, though always written as 32bits regardless of build.
+                ObjectName = r.ReadUNameReference(package);
+
+            return_:
+                Size = (int)(r.BaseStream.Position - position);
             }
         }
 
-        public class UExport
+        public class UExportItem : UObjectItem
         {
             const int VArchetype = 220;
             internal const int VObjectFlagsToUlong = 195;
             const int VSerialSizeConditionless = 249;
             const int VNetObjects = 322;
 
-            public UExport(BinaryReader r, int version)
-            {
-                //var exp = new UExport { Offset = (int)stream.Position, Index = i, Owner = this };
-                //exp.Deserialize(stream);
-                //exp.Size = (int)(stream.Position - exp.Offset);
-            }
-        }
+            public int SuperIndex; // Object index to the Super(parent) object of structs.
 
-        public struct CompressedChunk
-        {
-            public int UncompressedOffset;
-            public int UncompressedSize;
-            public int CompressedOffset;
-            public int CompressedSize;
-            public CompressedChunk(BinaryReader r, BuildName build, int licenseeVersion)
+            public string ClassName => ClassIndex != 0 ? Owner.GetObjectItem(ClassIndex).ObjectName : "Class";
+            public ulong ObjectFlags; // Object flags, such as Public, Protected and Private. 32bit aligned.
+            public int ArchetypeIndex; // Object index.
+            public int SerialSize; // Object size in bytes.
+            public int SerialOffset; // Object offset in bytes. Starting from the beginning of a file.
+            public uint ExportFlags;
+            public int Size;
+
+            public UExportItem(BinaryReader r, UPackage package)
             {
-                if (build == BuildName.RocketLeague && licenseeVersion >= 22)
+                Owner = package;
+                var version = package.Version;
+                var position = (int)r.BaseStream.Position;
+
+                // Not attested in packages of LicenseeVersion 32
+                if (package.Build == BuildName.AA2 && package.LicenseeVersion >= 33)
                 {
-                    UncompressedOffset = (int)r.ReadInt64();
-                    CompressedOffset = (int)r.ReadInt64();
-                    goto streamStandardSize;
+                    SuperIndex = r.ReadUIndex(package);
+                    var unkInt = r.ReadInt32(); Debug.Log($"unkInt: {unkInt}");
+                    ClassIndex = r.ReadUIndex(package);
+                    OuterIndex = r.ReadInt32();
+                    ObjectFlags = ~r.ReadUInt32();
+                    ObjectName = r.ReadUNameReference(package);
+                    goto streamSerialSize;
                 }
-                UncompressedOffset = r.ReadInt32();
-                CompressedOffset = r.ReadInt32();
-            streamStandardSize:
-                UncompressedSize = r.ReadInt32();
-                CompressedSize = r.ReadInt32();
+                ClassIndex = r.ReadUIndex(package);
+                SuperIndex = r.ReadUIndex(package);
+                OuterIndex = r.ReadInt32(); // ObjectIndex, though always written as 32bits regardless of build.
+                if (package.Build == BuildName.BioShock && version >= 132) r.Skip(sizeof(int));
+                ObjectName = r.ReadUNameReference(package);
+                if (version >= VArchetype) ArchetypeIndex = r.ReadInt32();
+
+                if (package.BuildAttrib.Gen == RSS) r.Skip(sizeof(int));
+
+                // Like UE3 but without the shifting of flags
+                if (package.Build == BuildName.BioShock && package.LicenseeVersion >= 40)
+                {
+                    ObjectFlags = r.ReadUInt64();
+                    goto streamSerialSize;
+                }
+                ObjectFlags = r.ReadUInt32();
+                if (version >= VObjectFlagsToUlong) ObjectFlags = (ObjectFlags << 32) | r.ReadUInt32();
+
+                streamSerialSize:
+                SerialSize = r.ReadUIndex(package);
+                if (SerialSize > 0 || version >= VSerialSizeConditionless)
+                {
+                    // FIXME: Can't change SerialOffset to 64bit due UE Explorer.
+                    if (package.Build == BuildName.RocketLeague && package.LicenseeVersion >= 22)
+                    {
+                        SerialOffset = r.ReadUIndex(package);
+                        goto streamExportFlags;
+                    }
+                    SerialOffset = r.ReadUIndex(package);
+                }
+                // Overlaps with Tribes: Vengeance (130)
+                if (package.Build == BuildName.BioShock && version >= 130) r.Skip(sizeof(int));
+                if (version < 220)
+                    goto return_;
+
+                if (version < 543 && package.Build != BuildName.AlphaProtcol && (package.Build != BuildName.Transformers || package.LicenseeVersion < 37))
+                {
+                    // NameToObject
+                    var componentMapCount = r.ReadInt32();
+                    r.Skip(componentMapCount * 12);
+                }
+
+                if (version < 247)
+                    goto return_;
+
+                streamExportFlags:
+                ExportFlags = r.ReadUInt32();
+                if (version < VNetObjects)
+                    return;
+                if (package.Build == BuildName.Transformers && package.LicenseeVersion >= 116)
+                {
+                    var flag = r.ReadByte();
+                    if (flag == 0)
+                        goto return_;
+                }
+                if (package.Build == BuildName.Bioshock_Infinite)
+                {
+                    var unk = r.ReadUInt32();
+                    if (unk == 1)
+                    {
+                        var flags = r.ReadUInt32();
+                        if ((flags & 1) != 0x0) r.ReadUInt32();
+                        r.Skip(16); // guid
+                        r.ReadUInt32(); // 01000020
+                    }
+                    goto return_;
+                }
+                if (package.Build != BuildName.MKKE)
+                {
+                    // Array of objects
+                    var netObjectCount = r.ReadInt32();
+                    r.Skip(netObjectCount * 4);
+                }
+                r.Skip(16); // Package guid
+                if (version > 486) // 475? 486(> Stargate Worlds)
+                    r.Skip(4); // Package flags
+
+                return_:
+                Size = (int)(r.BaseStream.Position - position);
             }
         }
 
-        const uint MAGIC = 0x9e2a83c1;
+        internal const uint MAGIC = 0x9e2a83c1;
 
         public uint Magic;
         public ushort Version; public ushort LicenseeVersion;
@@ -376,10 +489,16 @@ namespace GameSpec.Unreal.Formats.Core
         public CompressedChunk[] CompressedChunks; // List of compressed chunks throughout the package.
 
         public UName[] Names; // List of unique unreal names.
-        public UExport[] Exports; // List of info about exported objects.
-        public UImport[] Imports; // List of info about imported objects.
+        public UExportItem[] Exports; // List of info about exported objects.
+        public UImportItem[] Imports; // List of info about imported objects.
 
         public IBufferDecoder Decoder;
+
+        public UObjectItem GetObjectItem(int tableIndex)
+            => tableIndex < 0
+                ? Imports[-tableIndex - 1]
+                : tableIndex > 0 ? (UObjectItem)Exports[tableIndex - 1]
+                : null;
 
         public UPackage(BinaryReader r)
         {
@@ -398,11 +517,10 @@ namespace GameSpec.Unreal.Formats.Core
                 }
                 HeaderSize = r.ReadInt32(); Debug.Log($"Header Size: {HeaderSize}");
             }
-            if (Version >= VGroup) Group = r.ReadUString(Version, BuildAttrib); // UPK content category e.g. Weapons, Sounds or Meshes.
+            if (Version >= VGroup) Group = r.ReadUString(this); // UPK content category e.g. Weapons, Sounds or Meshes.
             PackageFlags = (PackageFlags)r.ReadUInt32(); Debug.Log($"Package Flags: {PackageFlags}"); // Bitflags such as AllowDownload.
             ReadTableCounts(r);
             ReadExtra(r);
-            ReadTableData(r);
         }
 
         void ReadTableCounts(BinaryReader r)
@@ -468,14 +586,14 @@ namespace GameSpec.Unreal.Formats.Core
                 if (Version >= VCompression)
                 {
                     CompressionFlags = r.ReadUInt32(); Debug.Log($"CompressionFlags: {CompressionFlags}");
-                    CompressedChunks = r.ReadTArray(r => new CompressedChunk(r, Build, LicenseeVersion), r.ReadIndex(Version));
+                    CompressedChunks = r.ReadTArray(r => new CompressedChunk(r, Build, LicenseeVersion), r.ReadUIndex(this));
                 }
 
                 if (Version >= VPackageSource) { var packageSource = r.ReadUInt32(); Debug.Log($"PackageSource: {packageSource}"); }
 
                 if (Version >= VAdditionalPackagesToCook)
                 {
-                    var additionalPackagesToCook = r.ReadTArray(r => r.ReadUString(Version, BuildAttrib), r.ReadIndex(Version));
+                    var additionalPackagesToCook = r.ReadTArray(r => r.ReadUString(this), r.ReadUIndex(this));
                     if (Build == BuildName.DCUO)
                     {
                         var realNameOffset = (int)r.BaseStream.Position;
@@ -561,6 +679,7 @@ namespace GameSpec.Unreal.Formats.Core
                 //    stream.Skip(12);
                 //}
             }
+            ReadTableData(r);
         }
 
         void ReadTableData(BinaryReader r)
@@ -570,7 +689,8 @@ namespace GameSpec.Unreal.Formats.Core
             if (NamesCount > 0)
             {
                 r.Seek(NamesOffset, SeekOrigin.Begin);
-                Names = r.ReadTArray(r => new UName(r, Build, BuildAttrib, Version, LicenseeVersion), NamesCount);
+                var i = 0;
+                Names = r.ReadTArray(r => new UName(r, this, i++), NamesCount);
                 if (Build == BuildName.Spellborn && Names[0].Name == "DRFORTHEWIN") Names[0].Name = "None";
             }
 
@@ -578,14 +698,14 @@ namespace GameSpec.Unreal.Formats.Core
             if (ImportsCount > 0)
             {
                 r.Seek(ImportsOffset, SeekOrigin.Begin);
-                Imports = r.ReadTArray(r => new UImport(r, Version), ImportsCount);
+                Imports = r.ReadTArray(r => new UImportItem(r, this), ImportsCount);
             }
 
             // Read Export Table
             if (ExportsCount > 0)
             {
                 r.Seek(ExportsOffset, SeekOrigin.Begin);
-                Exports = r.ReadTArray(r => new UExport(r, Version), ImportsCount);
+                Exports = r.ReadTArray(r => new UExportItem(r, this), ExportsCount);
                 if (DependsOffset > 0)
                 {
                     try
@@ -598,17 +718,15 @@ namespace GameSpec.Unreal.Formats.Core
                         for (var i = 0; i < dependsCount; ++i)
                         {
                             // DependencyList, index to import table
-                            var count = r.ReadInt32(); // -1 in DCUO?
-                            var imports = new int[count];
-                            for (var j = 0; j < count; ++j) imports[j] = r.ReadInt32();
+                            var imports = r.ReadL32Array<int>(sizeof(int));  // -1 in DCUO?
                             dependsMap.Add(imports);
                         }
                     }
                     catch (Exception ex)
                     {
                         // Errors shouldn't be fatal here because this feature is not necessary for our purposes.
-                        Console.Error.WriteLine("Couldn't parse DependenciesTable");
-                        Console.Error.WriteLine(ex.ToString());
+                        Debug.Log("Couldn't parse DependenciesTable");
+                        Debug.Log(ex.ToString());
 #if STRICT
                         throw new Exception("Couldn't parse DependenciesTable", ex);
 #endif
@@ -622,7 +740,7 @@ namespace GameSpec.Unreal.Formats.Core
                 {
                     for (var i = 0; i < ImportGuidsCount; ++i)
                     {
-                        var levelName = r.ReadUString(Version, BuildAttrib);
+                        var levelName = r.ReadUString(this);
                         var guidCount = r.ReadInt32();
                         r.Skip(guidCount * 16);
                     }
@@ -635,8 +753,8 @@ namespace GameSpec.Unreal.Formats.Core
                 catch (Exception ex)
                 {
                     // Errors shouldn't be fatal here because this feature is not necessary for our purposes.
-                    Console.Error.WriteLine("Couldn't parse ImportExportGuidsTable");
-                    Console.Error.WriteLine(ex.ToString());
+                    Debug.Log("Couldn't parse ImportExportGuidsTable");
+                    Debug.Log(ex.ToString());
 #if STRICT
                     throw new Exception("Couldn't parse ImportExportGuidsTable", ex);
 #endif
@@ -652,15 +770,16 @@ namespace GameSpec.Unreal.Formats.Core
                 catch (Exception ex)
                 {
                     // Errors shouldn't be fatal here because this feature is not necessary for our purposes.
-                    Console.Error.WriteLine("Couldn't parse ThumbnailTable");
-                    Console.Error.WriteLine(ex.ToString());
+                    Debug.Log("Couldn't parse ThumbnailTable");
+                    Debug.Log(ex.ToString());
 #if STRICT
                     throw new Exception("Couldn't parse ThumbnailTable", ex);
 #endif
                 }
             }
-
-            Debug.Assert(r.BaseStream.Position <= int.MaxValue);
+#if STRICT
+            Debug.Assert(HeaderSize == r.BaseStream.Position);
+#endif
             HeaderSize = (int)r.BaseStream.Position;
         }
     }

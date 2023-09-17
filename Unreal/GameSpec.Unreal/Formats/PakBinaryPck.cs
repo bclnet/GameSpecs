@@ -1,9 +1,13 @@
 ﻿using GameSpec.Formats;
-using GameSpec.Unreal.Formats.Core;
+using GameSpec.Unreal.Formats.Core2;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
+// https://www.gildor.org/en/projects/umodel
+// https://github.com/gildor2/UEViewer
+// https://www.gildor.org/smf/index.php/topic,297.0.html
 namespace GameSpec.Unreal.Formats
 {
     /// <summary>
@@ -19,7 +23,15 @@ namespace GameSpec.Unreal.Formats
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
-            var header = new UPackage(r);
+            List<FileMetadata> files;
+            multiSource.Files = files = new List<FileMetadata>();
+            var header = new FPackageFileSummary(r);
+            //if (header.Exports != null)
+            //    foreach (var item in header.Exports)
+            //        files.Add(new FileMetadata
+            //        {
+            //            Path = $"{item.ClassName} {item.ObjectName.Text}",
+            //        });
 
             return Task.CompletedTask;
         }

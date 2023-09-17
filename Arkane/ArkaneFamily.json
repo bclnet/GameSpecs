@@ -29,7 +29,7 @@
       "engine": "Unreal",
       "url": "https://www.gog.com/en/game/dishonored_definitive_edition",
       "date": "2012-10-12",
-      "pak": "game:/WrittenNotes_twk_SF.upk#D",
+      "pak": "game:/CharTextures.tfc#D",
       "pakxx": "game:/*.(tfc:upk)#D",
       "pakx": "game:/*.(pck|INT)#D",
       "status": [ "unreal" ]
