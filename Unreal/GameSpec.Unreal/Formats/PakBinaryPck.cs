@@ -1,5 +1,6 @@
 ﻿using GameSpec.Formats;
-using GameSpec.Unreal.Formats.Core2;
+using GameSpec.Unreal.Formats.OldWay;
+using GameSpec.Unreal.Formats.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,13 +26,18 @@ namespace GameSpec.Unreal.Formats
 
             List<FileMetadata> files;
             multiSource.Files = files = new List<FileMetadata>();
-            var header = new FPackageFileSummary(r);
-            //if (header.Exports != null)
-            //    foreach (var item in header.Exports)
-            //        files.Add(new FileMetadata
-            //        {
-            //            Path = $"{item.ClassName} {item.ObjectName.Text}",
-            //        });
+            //var header1 = new UPackage(r); r.BaseStream.Position = 0;
+            var header = new Core.UPackage(r, source.FilePath);
+            if (header.Exports != null)
+            {
+                foreach (var item in header.Exports)
+                    files.Add(new FileMetadata
+                    {
+                        Path = $"{header.GetClassNameFor(item)}/{item.ObjectName}",
+                        Position = item.SerialOffset,
+                        FileSize = item.SerialSize,
+                    });
+            }
 
             return Task.CompletedTask;
         }

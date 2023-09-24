@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 
-namespace GameSpec.Unreal.Formats.Core
+namespace GameSpec.Unreal.Formats.OldWay
 {
     partial class UPackage
     {

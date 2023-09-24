@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace GameSpec.Unreal.Formats.Core
+namespace GameSpec.Unreal.Formats.OldWay
 {
     public static class CryptoCore
     {
