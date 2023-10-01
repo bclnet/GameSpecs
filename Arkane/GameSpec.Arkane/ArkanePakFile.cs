@@ -49,7 +49,7 @@ namespace GameSpec.Arkane
                 "Danae" => PakBinaryDanae.Instance,
                 "Void" => PakBinaryVoid.Instance,
                 "Cry" => Cry.Formats.PakBinaryCry3.Instance,
-                "Unreal" => Unreal.Formats.PakBinaryXyz.Instance,
+                "Unreal" => Unreal.Formats.PakBinaryPck.Instance,
                 "Valve" => Valve.Formats.PakBinaryVpk.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
             };

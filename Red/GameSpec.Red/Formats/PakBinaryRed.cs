@@ -740,7 +740,7 @@ namespace GameSpec.Red.Formats
                             r.Seek((long)offset.Offset);
                             var buf = offset.PhysicalSize == offset.VirtualSize
                                 ? r.ReadBytes((int)offset.PhysicalSize)
-                                : r.DecompressOodleLZ((int)offset.PhysicalSize, (int)offset.VirtualSize);
+                                : r.DecompressOodle((int)offset.PhysicalSize, (int)offset.VirtualSize);
                             fileData.Write(buf, 0, buf.Length);
                         }
                     }

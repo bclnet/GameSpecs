@@ -4,23 +4,23 @@ using System;
 namespace GameSpec
 {
     [TestClass]
-    public class EstateManagerTests
+    public class FamilyManagerTests
     {
         [TestMethod]
-        public void EstatesIsZero()
+        public void ShouldFamily()
         {
-            Assert.AreEqual(0, FamilyManager.Families.Count);
+            Assert.AreEqual(1, FamilyManager.Families.Count);
         }
 
         [TestMethod]
-        public void GetEstate()
+        public void ShouldGetFamily()
         {
             Assert.ThrowsException<ArgumentNullException>(() => FamilyManager.GetFamily(null));
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => FamilyManager.GetFamily("Missing"));
         }
 
         [TestMethod]
-        public void ParseEstate()
+        public void ShouldParseFamily()
         {
             Assert.ThrowsException<ArgumentNullException>(() => FamilyManager.ParseFamily(null));
             Assert.IsNotNull(FamilyManager.ParseFamily(Some.FamilyJson.Replace("'", "\"")));

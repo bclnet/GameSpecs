@@ -45,11 +45,13 @@ namespace GameSpec.Formats
         /// <summary>
         /// Determines whether the specified file path contains file.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="path">The path.</param>
         /// <returns>
         ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Contains(string filePath) => PakFiles.Any(x => x.Valid && x.Contains(filePath));
+        public override bool Contains(string path) => FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath)
+            .Any(x => x.Valid && x.Contains(nextPath));
+
         /// <summary>
         /// Determines whether the specified fileId contains file.
         /// </summary>
@@ -70,17 +72,27 @@ namespace GameSpec.Formats
             get { var count = 0; foreach (var pakFile in PakFiles) count += pakFile.Count; return count; }
         }
 
+        IList<PakFile> FilterPakFiles(string path, out string nextPath)
+        {
+            if (!path.StartsWith('>')) { nextPath = path; return PakFiles; }
+            var paths = path[1..].Split(new[] { ':' }, 2);
+            if (paths.Length != 2) throw new ArgumentException("missing :", nameof(path));
+            path = paths[0];
+            nextPath = paths[1];
+            return PakFiles.Where(x => x.Name.StartsWith(path)).ToList();
+        }
+
         /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="path">The path.</param>
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{filePath}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(string filePath, DataOption option = 0, Action<FileMetadata, string> exception = null) =>
-            (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(filePath)) ?? throw new FileNotFoundException($"Could not find file \"{filePath}\"."))
-            .LoadFileDataAsync(filePath, option, exception);
+        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
+        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null) =>
+            (FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{path}\"."))
+            .LoadFileDataAsync(nextPath, option, exception);
         /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
@@ -88,7 +100,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{filePath}\".</exception>
+        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{fileId}\".</exception>
         public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileMetadata, string> exception = null) =>
             (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(fileId)) ?? throw new FileNotFoundException($"Could not find file \"{fileId}\"."))
             .LoadFileDataAsync(fileId, option, exception);
@@ -99,20 +111,20 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{filePath}\".</exception>
+        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
         public override Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
 
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="path">The path.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException">Could not find file \"{filePath}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(string filePath, Action<FileMetadata, string> exception) =>
-            (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(filePath)) ?? throw new FileNotFoundException($"Could not find file \"{filePath}\"."))
-            .LoadFileObjectAsync<T>(filePath, exception);
+        /// <exception cref="FileNotFoundException">Could not find file \"{path}\".</exception>
+        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception) =>
+            (FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{path}\"."))
+            .LoadFileObjectAsync<T>(nextPath, exception);
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
@@ -120,7 +132,7 @@ namespace GameSpec.Formats
         /// <param name="fileId">The fileId.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException">Could not find file \"{filePath}\".</exception>
+        /// <exception cref="FileNotFoundException">Could not find file \"{fileId}\".</exception>
         public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception) =>
             (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(fileId)) ?? throw new FileNotFoundException($"Could not find file \"{fileId}\"."))
             .LoadFileObjectAsync<T>(fileId, exception);
@@ -131,7 +143,7 @@ namespace GameSpec.Formats
         /// <param name="file">The file.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException">Could not find file \"{filePath}\".</exception>
+        /// <exception cref="FileNotFoundException">Could not find file \"{path}\".</exception>
         public override Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception) => throw new NotSupportedException();
 
         #region Metadata
