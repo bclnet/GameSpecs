@@ -84,12 +84,12 @@ namespace GameSpec.Unreal.Formats.Core
         public FCompressedChunkHeader(BinaryReader r, UPackage Ar)
         {
             Tag = r.ReadUInt32();
-            if (Tag == FPackageFileSummary.TAG_REV) Ar.ReverseBytes = !Ar.ReverseBytes;
+            if (Tag == TAG_REV) Ar.ReverseBytes = !Ar.ReverseBytes;
             else if (Ar.Game == Berkanix && Tag == 0xF2BAC156) goto tag_ok;
             else if (Ar.Game == Hawken && Tag == 0xEA31928C) goto tag_ok;
             else if (/*Ar.Game == MMH7 && */ Tag == 0x4D4D4837) goto tag_ok;        // Might & Magic Heroes 7
             else if (Tag == 0x7E4A8BCA) goto tag_ok; // iStorm
-            else Debug.Assert(Tag == FPackageFileSummary.TAG);
+            else Debug.Assert(Tag == TAG);
             if (Ar.Game == MK && Ar.ArVer >= 677) goto int64_offsets;  // MK X
             if (Ar.Game >= UE4_BASE) goto int64_offsets;
             goto tag_ok;
@@ -152,9 +152,6 @@ namespace GameSpec.Unreal.Formats.Core
 
     partial class FPackageFileSummary
     {
-        public const uint TAG = 0x9e2a83c1;
-        public const uint TAG_REV = 0xc1832a9e;
-
         UPackage Ar;
         uint Tag;
         uint LegacyVersion;
@@ -222,8 +219,7 @@ namespace GameSpec.Unreal.Formats.Core
                 return;
             }
 
-            if (Version == TAG || Version == 0x20000)
-                throw new Exception("Fully compressed package header?");
+            if (Version == TAG || Version == 0x20000) throw new Exception("Fully compressed package header?");
 
             FileVersion = (ushort)(Version & 0xFFFF);
             LicenseeVersion = (ushort)(Version >> 16);

@@ -12,23 +12,23 @@ namespace GameSpec.Unreal.Formats.Core
     class LineageStream : Stream
     {
         public const int LINEAGE_HEADER_SIZE = 28;
-        Stream b;
+        Stream B;
         byte XorKey;
-        public LineageStream(BinaryReader r, byte xorKey) { b = r.BaseStream; XorKey = xorKey; }
+        public LineageStream(BinaryReader r, byte xorKey) { B = r.BaseStream; XorKey = xorKey; }
 
-        public override bool CanRead => b.CanRead;
-        public override bool CanSeek => b.CanSeek;
-        public override bool CanWrite => b.CanWrite;
-        public override long Length => b.Length;
+        public override bool CanRead => B.CanRead;
+        public override bool CanSeek => B.CanSeek;
+        public override bool CanWrite => B.CanWrite;
+        public override long Length => B.Length;
         public override long Position
         {
-            get => b.Position;
-            set => b.Position = value;
+            get => B.Position;
+            set => B.Position = value;
         }
-        public override void Flush() => b.Flush();
+        public override void Flush() => B.Flush();
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
-            var r = b.Read(buffer, offset, count);
+            var r = B.Read(buffer, offset, count);
             int i; byte* p;
             if (XorKey != 0)
                 fixed (byte* data = &buffer[offset])
@@ -37,29 +37,29 @@ namespace GameSpec.Unreal.Formats.Core
                 }
             return r;
         }
-        public override long Seek(long offset, SeekOrigin origin) => b.Seek(offset, origin);
-        public override void SetLength(long value) => b.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => b.Write(buffer, offset, count);
+        public override long Seek(long offset, SeekOrigin origin) => B.Seek(offset, origin);
+        public override void SetLength(long value) => B.SetLength(value);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     class BattleTerrStream : Stream
     {
-        Stream b;
-        public BattleTerrStream(BinaryReader r) => b = r.BaseStream;
+        Stream B;
+        public BattleTerrStream(BinaryReader r) => B = r.BaseStream;
 
-        public override bool CanRead => b.CanRead;
-        public override bool CanSeek => b.CanSeek;
-        public override bool CanWrite => b.CanWrite;
-        public override long Length => b.Length;
+        public override bool CanRead => B.CanRead;
+        public override bool CanSeek => B.CanSeek;
+        public override bool CanWrite => B.CanWrite;
+        public override long Length => B.Length;
         public override long Position
         {
-            get => b.Position;
-            set => b.Position = value;
+            get => B.Position;
+            set => B.Position = value;
         }
-        public override void Flush() => b.Flush();
+        public override void Flush() => B.Flush();
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
-            var r = b.Read(buffer, offset, count);
+            var r = B.Read(buffer, offset, count);
             int i; byte* p;
             fixed (byte* data = &buffer[offset])
                 for (i = 0, p = data; i < count; i++, p++)
@@ -73,30 +73,30 @@ namespace GameSpec.Unreal.Formats.Core
                 }
             return r;
         }
-        public override long Seek(long offset, SeekOrigin origin) => b.Seek(offset, origin);
-        public override void SetLength(long value) => b.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => b.Write(buffer, offset, count);
+        public override long Seek(long offset, SeekOrigin origin) => B.Seek(offset, origin);
+        public override void SetLength(long value) => B.SetLength(value);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     class AA2Stream : Stream
     {
-        Stream b;
-        public AA2Stream(BinaryReader r) => b = r.BaseStream;
+        Stream B;
+        public AA2Stream(BinaryReader r) => B = r.BaseStream;
 
-        public override bool CanRead => b.CanRead;
-        public override bool CanSeek => b.CanSeek;
-        public override bool CanWrite => b.CanWrite;
-        public override long Length => b.Length;
+        public override bool CanRead => B.CanRead;
+        public override bool CanSeek => B.CanSeek;
+        public override bool CanWrite => B.CanWrite;
+        public override long Length => B.Length;
         public override long Position
         {
-            get => b.Position;
-            set => b.Position = value;
+            get => B.Position;
+            set => B.Position = value;
         }
-        public override void Flush() => b.Flush();
+        public override void Flush() => B.Flush();
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
-            var StartPos = (int)b.Position;
-            var r = b.Read(buffer, offset, count);
+            var StartPos = (int)B.Position;
+            var r = B.Read(buffer, offset, count);
             int i; byte* p;
             fixed (byte* data = &buffer[offset])
                 for (i = 0, p = data; i < count; i++, p++)
@@ -110,40 +110,40 @@ namespace GameSpec.Unreal.Formats.Core
                 }
             return r;
         }
-        public override long Seek(long offset, SeekOrigin origin) => b.Seek(offset, origin);
-        public override void SetLength(long value) => b.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => b.Write(buffer, offset, count);
+        public override long Seek(long offset, SeekOrigin origin) => B.Seek(offset, origin);
+        public override void SetLength(long value) => B.SetLength(value);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     class BnSStream : Stream
     {
         const string key = "qiffjdlerdoqymvketdcl0er2subioxq";
-        Stream b;
-        public BnSStream(BinaryReader r) => b = r.BaseStream;
+        Stream B;
+        public BnSStream(BinaryReader r) => B = r.BaseStream;
 
-        public override bool CanRead => b.CanRead;
-        public override bool CanSeek => b.CanSeek;
-        public override bool CanWrite => b.CanWrite;
-        public override long Length => b.Length;
+        public override bool CanRead => B.CanRead;
+        public override bool CanSeek => B.CanSeek;
+        public override bool CanWrite => B.CanWrite;
+        public override long Length => B.Length;
         public override long Position
         {
-            get => b.Position;
-            set => b.Position = value;
+            get => B.Position;
+            set => B.Position = value;
         }
-        public override void Flush() => b.Flush();
+        public override void Flush() => B.Flush();
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
-            var Pos = (int)b.Position;
-            var r = b.Read(buffer, offset, count);
+            var Pos = (int)B.Position;
+            var r = B.Read(buffer, offset, count);
             // Note: similar code exists in DecryptBladeAndSoul()
             int i; byte* p;
             fixed (byte* data = &buffer[offset])
                 for (i = 0, p = data; i < count; i++, p++, Pos++) *p ^= (byte)key[Pos % 32];
             return r;
         }
-        public override long Seek(long offset, SeekOrigin origin) => b.Seek(offset, origin);
-        public override void SetLength(long value) => b.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => b.Write(buffer, offset, count);
+        public override long Seek(long offset, SeekOrigin origin) => B.Seek(offset, origin);
+        public override void SetLength(long value) => B.SetLength(value);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 
         static void DecodeBnSPointer(ref int Value, uint Code1, uint Code2, int Index)
             => Value = (int)(ROR32((uint)Value, (int)((Index + Code2) & 0x1F)) ^ ROR32(Code1, Index % 32));
@@ -163,7 +163,7 @@ namespace GameSpec.Unreal.Formats.Core
 
     class DunDefStream
     {
-        void PatchDunDefExports(FObjectExport[] Exps, FPackageFileSummary Summary)
+        static void PatchDunDefExports(FObjectExport[] Exps, FPackageFileSummary Summary)
         {
             // Dungeon Defenders has nullified ExportOffset entries starting from some version.
             // Let's recover them.
@@ -183,24 +183,24 @@ namespace GameSpec.Unreal.Formats.Core
             0xFE, 0xF2, 0x35, 0x2E, 0x12, 0xFF, 0x47, 0x8A,
             0xE1, 0x2D, 0x53, 0xE2, 0x21, 0xA3, 0x74, 0xA8
         };
-        Stream b;
+        Stream B;
         public int Threshold = 0x7FFFFFFF;
-        public NurienStream(BinaryReader r) => b = r.BaseStream;
+        public NurienStream(BinaryReader r) => B = r.BaseStream;
 
-        public override bool CanRead => b.CanRead;
-        public override bool CanSeek => b.CanSeek;
-        public override bool CanWrite => b.CanWrite;
-        public override long Length => b.Length;
+        public override bool CanRead => B.CanRead;
+        public override bool CanSeek => B.CanSeek;
+        public override bool CanWrite => B.CanWrite;
+        public override long Length => B.Length;
         public override long Position
         {
-            get => b.Position;
-            set => b.Position = value;
+            get => B.Position;
+            set => B.Position = value;
         }
-        public override void Flush() => b.Flush();
+        public override void Flush() => B.Flush();
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
-            var Pos = (int)b.Position;
-            var r = b.Read(buffer, offset, count);
+            var Pos = (int)B.Position;
+            var r = B.Read(buffer, offset, count);
             if (Pos >= Threshold) return r; // only first Threshold bytes are compressed (package headers)
             int i; byte* p;
             fixed (byte* data = &buffer[offset])
@@ -211,9 +211,9 @@ namespace GameSpec.Unreal.Formats.Core
                 }
             return r;
         }
-        public override long Seek(long offset, SeekOrigin origin) => b.Seek(offset, origin);
-        public override void SetLength(long value) => b.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => b.Write(buffer, offset, count);
+        public override long Seek(long offset, SeekOrigin origin) => B.Seek(offset, origin);
+        public override void SetLength(long value) => B.SetLength(value);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     class RocketLeagueStream : Stream
@@ -224,25 +224,25 @@ namespace GameSpec.Unreal.Formats.Core
             0x7F, 0xE5, 0x00, 0xB7, 0x7F, 0xA5, 0xFA, 0xB2,
             0x93, 0xE2, 0xF2, 0x4E, 0x6B, 0x17, 0xE7, 0x79
         };
-        Stream b;
+        Stream B;
         int EncryptionStart;
         int EncryptionEnd;
-        public RocketLeagueStream(BinaryReader r) => b = r.BaseStream;
+        public RocketLeagueStream(BinaryReader r) => B = r.BaseStream;
 
-        public override bool CanRead => b.CanRead;
-        public override bool CanSeek => b.CanSeek;
-        public override bool CanWrite => b.CanWrite;
-        public override long Length => b.Length;
+        public override bool CanRead => B.CanRead;
+        public override bool CanSeek => B.CanSeek;
+        public override bool CanWrite => B.CanWrite;
+        public override long Length => B.Length;
         public override long Position
         {
-            get => b.Position;
-            set => b.Position = value;
+            get => B.Position;
+            set => B.Position = value;
         }
-        public override void Flush() => b.Flush();
+        public override void Flush() => B.Flush();
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
-            var Pos = (int)b.Position;
-            var r = b.Read(buffer, offset, count);
+            var Pos = (int)B.Position;
+            var r = B.Read(buffer, offset, count);
 
             // Check if any of the data read was encrypted
             if (Pos + count <= EncryptionStart || Pos >= EncryptionEnd) return r;
@@ -260,6 +260,7 @@ namespace GameSpec.Unreal.Formats.Core
             int EncryptedOffset = StartOffset - BlockStartOffset;
 
             // Decrypt and copy
+            throw new NotImplementedException();
             //byte* EncryptedBuffer = (byte*)(appMalloc(EncryptedSize));
             //Reader->Seek(EncryptionStart + BlockStartOffset);
             //Reader->Serialize(EncryptedBuffer, EncryptedSize);
@@ -274,12 +275,12 @@ namespace GameSpec.Unreal.Formats.Core
             // optimize it.
 
             // Restore position
-            b.Position = Pos + count;
+            B.Position = Pos + count;
             return r;
         }
-        public override long Seek(long offset, SeekOrigin origin) => b.Seek(offset, origin);
-        public override void SetLength(long value) => b.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => b.Write(buffer, offset, count);
+        public override long Seek(long offset, SeekOrigin origin) => B.Seek(offset, origin);
+        public override void SetLength(long value) => B.SetLength(value);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     unsafe class UE3Stream : Stream
@@ -326,8 +327,7 @@ namespace GameSpec.Unreal.Formats.Core
         public unsafe override int Read(byte[] buffer, int offset, int count)
         {
             if (Stopper > 0 && Position_ + offset + count > Stopper) throw new Exception($"Serializing behind stopper ({Position_:X}+{offset}+{count:X} > {Stopper:X})");
-
-            int bufferOffset = 0;
+            var bufferOffset = 0;
             while (true)
             {
                 // check for valid buffer
@@ -340,7 +340,7 @@ namespace GameSpec.Unreal.Formats.Core
                     Position_ += ToCopy;
                     count -= ToCopy;
                     bufferOffset += ToCopy;
-                    if (count == 0) return bufferOffset;                                      // copied enough
+                    if (count == 0) return bufferOffset; // copied enough
                 }
                 // here: data/size points outside of loaded Buffer
                 PrepareBuffer((int)Position_);
@@ -371,8 +371,7 @@ namespace GameSpec.Unreal.Formats.Core
                 B.Read(Buffer_, 0, Size);
                 return;
             }
-
-            if (Chunk != CurrentChunk)
+            else if (Chunk != CurrentChunk)
             {
                 // serialize compressed chunk header
                 B.Position = Chunk.CompressedOffset;
@@ -390,8 +389,7 @@ namespace GameSpec.Unreal.Formats.Core
                 else if (Chunk.CompressedSize != Chunk.UncompressedSize) ChunkHeader = new FCompressedChunkHeader(R, Ar);
                 else
                 {
-                    // have seen such block in Borderlands: chunk has CompressedSize==UncompressedSize
-                    // and has no compression; no such code in original engine
+                    // have seen such block in Borderlands: chunk has CompressedSize==UncompressedSize and has no compression; no such code in original engine
                     ChunkHeader.BlockSize = -1; // mark as uncompressed (checked below)
                     ChunkHeader.Sum.CompressedSize = ChunkHeader.Sum.UncompressedSize = Chunk.UncompressedSize;
                     ChunkHeader.Blocks = new[] {
@@ -454,12 +452,11 @@ namespace GameSpec.Unreal.Formats.Core
 
         static COMPRESS DetectCompressionMethod(byte[] CompressedBuffer)
         {
-            var b1 = CompressedBuffer[0];
-            var b2 = CompressedBuffer[1];
-            return b1 == 0x78 && (b2 == 0x9C || b2 == 0xDA) ? COMPRESS.ZLIB               // b1=CMF: 7=32k buffer (CINFO), 8=deflate (CM), b2=FLG
+            byte b1 = CompressedBuffer[0], b2 = CompressedBuffer[1];
+            return b1 == 0x78 && (b2 == 0x9C || b2 == 0xDA) ? COMPRESS.ZLIB // b1=CMF: 7=32k buffer (CINFO), 8=deflate (CM), b2=FLG
                 : (b1 == 0x8C || b1 == 0xCC) && (b2 == 5 || b2 == 6 || b2 == 10 || b2 == 11 || b2 == 12) ? COMPRESS.OODLE
-                : GForceGame >= UE4_BASE ? COMPRESS.LZ4       // in most cases UE4 games are using either oodle or lz4 - the first one is explicitly recognizable
-                : COMPRESS.LZO;       // LZO was used only with UE3 games as standard compression method
+                : GForceGame >= UE4_BASE ? COMPRESS.LZ4 // in most cases UE4 games are using either oodle or lz4 - the first one is explicitly recognizable
+                : COMPRESS.LZO; // LZO was used only with UE3 games as standard compression method
         }
 
         int appDecompress(byte[] CompressedBuffer, int CompressedSize, byte[] UncompressedBuffer, int UncompressedSize, COMPRESS Flags)
@@ -470,12 +467,12 @@ namespace GameSpec.Unreal.Formats.Core
                 // It is strange, but this game has 2 Flags both used for LZ4 - probably they were used for different compression settings of the same algorithm.
                 if (Flags == COMPRESS.LZX || Flags == (COMPRESS)32) Flags = COMPRESS.LZ4;
             }
-            if (GForceGame == BladeNSoul && Flags == COMPRESS.LZO_ENC_BNS) // note: GForceGame is required (to not pass 'Game' here)
+            else if (GForceGame == BladeNSoul && Flags == COMPRESS.LZO_ENC_BNS) // note: GForceGame is required (to not pass 'Game' here)
             {
                 DecryptBladeAndSoul(CompressedBuffer, CompressedSize);
                 Flags = COMPRESS.LZO; // overide compression
             }
-            if (GForceGame == Smite)
+            else if (GForceGame == Smite)
             {
                 if ((Flags & (COMPRESS)512) != 0)
                 {
@@ -484,20 +481,21 @@ namespace GameSpec.Unreal.Formats.Core
                 }
                 if (Flags == COMPRESS.XXX) Flags = COMPRESS.OODLE; // Overide compression, appeared in late 2019 builds
             }
-            if (GForceGame == MassEffectLE)
+            else if (GForceGame == MassEffectLE)
             {
                 if (Flags == (COMPRESS)0x400) Flags = COMPRESS.OODLE;
             }
-            if (GForceGame == TaoYuan) // note: GForceGame is required (to not pass 'Game' here);
+            else if (GForceGame == TaoYuan) // note: GForceGame is required (to not pass 'Game' here);
             {
                 DecryptTaoYuan(CompressedBuffer, CompressedSize);
             }
-            if ((GForceGame == DevilsThird) && (Flags & COMPRESS.XXX) != 0)
+            else if ((GForceGame == DevilsThird) && (Flags & COMPRESS.XXX) != 0)
             {
                 DecryptDevlsThird(CompressedBuffer, CompressedSize);
                 // override compression
                 Flags &= ~COMPRESS.XXX;
             }
+
             if (Flags == COMPRESS.FIND && FoundCompression >= 0)
             {
                 // Do not detect compression multiple times: there were cases (Sea of Thieves) when
@@ -559,6 +557,6 @@ namespace GameSpec.Unreal.Formats.Core
 
         public override long Seek(long offset, SeekOrigin origin) => origin == SeekOrigin.Begin ? B.Seek(offset - PositionOffset, origin) : B.Seek(offset, origin);
         public override void SetLength(long value) => B.SetLength(value);
-        public override void Write(byte[] buffer, int offset, int count) => B.Write(buffer, offset, count);
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 }

@@ -29,11 +29,11 @@
       "engine": "Unreal",
       "url": "https://www.gog.com/en/game/dishonored_definitive_edition",
       "date": "2012-10-12",
-      "pakxx": "game:/*.upk#D",
-      "pak": "game:/Abbey_01_Keys_SF.upk#D",
-      "pak2": "game:/CharTextures.tfc#D",
-      "pakxx": "game:/*.(tfc:upk)#D",
-      "pakx": "game:/*.(pck|INT)#D",
+      "pak": "game:/*.upk#D",
+      "pakx1": "game:/Abbey_01_Keys_SF.upk#D",
+      "pakx2": "game:/CharTextures.tfc#D",
+      "pakx3": "game:/*.(tfc:upk)#D",
+      "pakx4": "game:/*.(pck|INT)#D",
       "status": [ "unreal" ]
     },
     "D2": {

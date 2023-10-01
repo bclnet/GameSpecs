@@ -93,7 +93,7 @@ namespace GameSpec.Unreal.Formats.Core
                 if (SerialSize != 0) SerialOffset = r.ReadCompactIndex(Ar);
                 return;
             }
-            if (Ar.Game == Bioshock)
+            else if (Ar.Game == Bioshock)
             {
                 ClassIndex = r.ReadCompactIndex(Ar);
                 SuperIndex = r.ReadCompactIndex(Ar);
@@ -107,7 +107,7 @@ namespace GameSpec.Unreal.Formats.Core
                 if (Ar.ArVer >= 130) r.Skip(sizeof(int));           // unknown
                 return;
             }
-            if (Ar.Game == RepCommando && Ar.ArVer >= 151)
+            else if (Ar.Game == RepCommando && Ar.ArVer >= 151)
             {
                 ClassIndex = r.ReadCompactIndex(Ar);
                 SuperIndex = r.ReadCompactIndex(Ar);
@@ -119,7 +119,7 @@ namespace GameSpec.Unreal.Formats.Core
                 SerialOffset = r.ReadInt32();
                 return;
             }
-            if (Ar.Game == AA2)
+            else if (Ar.Game == AA2)
             {
                 SuperIndex = r.ReadCompactIndex(Ar);
                 r.Skip(sizeof(int));
@@ -166,8 +166,6 @@ namespace GameSpec.Unreal.Formats.Core
     {
         unsafe void LoadNames2(BinaryReader r, UPackage Ar)
         {
-            // Unreal engine 1 and 2 code
-
             // Korean games sometimes uses Unicode strings, so use FString for serialization
             string nameStr;
             for (var i = 0; i < Summary.NameCount; i++)
@@ -186,7 +184,7 @@ namespace GameSpec.Unreal.Formats.Core
                     Names[i] = new string(buf, 0, len);
                     goto dword_flags;
                 }
-                if ((Game == UC1 && ArLicenseeVer >= 28) || (Game == Pariah && (ArLicenseeVer & 0x3F) >= 28))
+                else if ((Game == UC1 && ArLicenseeVer >= 28) || (Game == Pariah && (ArLicenseeVer & 0x3F) >= 28))
                 {
                     // used uint16 + char[] instead of FString
                     char* buf = stackalloc char[MAX_FNAME_LEN];
@@ -196,7 +194,7 @@ namespace GameSpec.Unreal.Formats.Core
                     Names[i] = new string(buf, 0, len);
                     goto dword_flags;
                 }
-                if (Game == SplinterCell && ArLicenseeVer >= 85)
+                else if (Game == SplinterCell && ArLicenseeVer >= 85)
                 {
                     char* buf = stackalloc char[256];
                     var len = r.ReadByte();
@@ -204,16 +202,16 @@ namespace GameSpec.Unreal.Formats.Core
                     Names[i] = new string(buf, 0, len);
                     goto dword_flags;
                 }
-                if (Game == SplinterCellConv && ArVer >= 68)
+                else if (Game == SplinterCellConv && ArVer >= 68)
                 {
                     char* buf = stackalloc char[MAX_FNAME_LEN];
                     var len = r.ReadCompactIndex(Ar);
                     Debug.Assert(len < MAX_FNAME_LEN);
                     r.BaseStream.Read(new Span<byte>(buf, len));
                     Names[i] = new string(buf, 0, len);
-                    goto done;
+                    continue;
                 }
-                if (Game == AA2)
+                else if (Game == AA2)
                 {
                     char* buf = stackalloc char[MAX_FNAME_LEN];
                     var len = r.ReadCompactIndex(Ar);
@@ -245,12 +243,9 @@ namespace GameSpec.Unreal.Formats.Core
 
             qword_flags:
                 r.Skip(sizeof(ulong)); // 64-bit flags
-                goto done;
+                continue;
             dword_flags:
                 r.Skip(sizeof(uint)); // 32-bit flags
-                goto done;
-            done:
-                Debug.WriteLine($"Name[{i}]: \"{Names[i]}\"");
             }
         }
     }

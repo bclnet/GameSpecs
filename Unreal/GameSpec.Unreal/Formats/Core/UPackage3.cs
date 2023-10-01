@@ -12,23 +12,23 @@ namespace GameSpec.Unreal.Formats.Core
         void Serialize3(BinaryReader r)
         {
             if (Ar.Game == Batman4) { Ar.ArLicenseeVer &= 0x7FFF; LicenseeVersion &= 0x7FFF; } // higher bit is used for something else, and it's set to 1
-            if (Ar.Game == R6Vegas2)
+            else if (Ar.Game == R6Vegas2)
             {
                 if (Ar.ArLicenseeVer >= 48) r.Skip(sizeof(int));
                 if (Ar.ArLicenseeVer >= 49) r.Skip(sizeof(int));
             }
-            if (Ar.Game == Huxley && Ar.ArLicenseeVer >= 8)
+            else if (Ar.Game == Huxley && Ar.ArLicenseeVer >= 8)
             {
                 r.Skip(sizeof(int)); // 0xFEFEFEFE
                 if (Ar.ArLicenseeVer >= 17) r.Skip(sizeof(int)); // unknown used field
             }
-            if (Ar.Game == Transformers)
+            else if (Ar.Game == Transformers)
             {
                 if (Ar.ArLicenseeVer >= 181) r.Skip(sizeof(int) * 4);
                 if (Ar.ArLicenseeVer >= 55) r.Skip(sizeof(int)); // always 0x4BF1EB6B? (not true for later game versions)
             }
-            if (Ar.Game == MortalOnline && Ar.ArLicenseeVer >= 1) r.Skip(sizeof(int));
-            if (Ar.Game == Bioshock3 && Ar.ArLicenseeVer >= 66) r.Skip(sizeof(int));
+            else if (Ar.Game == MortalOnline && Ar.ArLicenseeVer >= 1) r.Skip(sizeof(int));
+            else if (Ar.Game == Bioshock3 && Ar.ArLicenseeVer >= 66) r.Skip(sizeof(int));
 
             HeadersSize = Ar.ArVer >= 249 ? r.ReadInt32() : 0;
 
@@ -111,15 +111,15 @@ namespace GameSpec.Unreal.Formats.Core
                 }
             }
             if (Ar.Game == Wheelman && midwayVer >= 23) r.Skip(sizeof(int));
-            if (Ar.Game == Strangle && Ar.ArVer >= 375) r.Skip(sizeof(int));
+            else if (Ar.Game == Strangle && Ar.ArVer >= 375) r.Skip(sizeof(int));
             // de-obfuscate NameCount for Tera
-            if (Ar.Game == Tera && (PackageFlags & PKG_Cooked) != 0) NameCount -= NameOffset;
+            else if (Ar.Game == Tera && (PackageFlags & PKG_Cooked) != 0) NameCount -= NameOffset;
             if (Ar.ArVer >= 415) DependsOffset = r.ReadInt32();
             if (Ar.Game == Bioshock3) { r.Skip(sizeof(int)); goto read_unk38; }
-            if (Ar.Game == DunDef && (PackageFlags & PKG_Cooked) != 0) r.Skip(sizeof(int));
+            else if (Ar.Game == DunDef && (PackageFlags & PKG_Cooked) != 0) r.Skip(sizeof(int));
             if (Ar.ArVer >= 623) { f38 = r.ReadInt32(); f3C = r.ReadInt32(); f40 = r.ReadInt32(); }
             if (Ar.Game == GoWU) goto guid;
-            if (Ar.Game == Transformers && Ar.ArVer >= 535) { r.Skip(sizeof(int)); goto read_unk38; }
+            else if (Ar.Game == Transformers && Ar.ArVer >= 535) { r.Skip(sizeof(int)); goto read_unk38; }
             if (Ar.ArVer >= 584) r.Skip(sizeof(int));
             read_unk38:
 
@@ -180,7 +180,7 @@ namespace GameSpec.Unreal.Formats.Core
 #endif
             var AA3Obfuscator = 0;
             if (Ar.Game == AA3) AA3Obfuscator = r.ReadInt32();
-            if (Ar.Game == Wheelman)
+            else if (Ar.Game == Wheelman)
             {
                 // Wheelman has special code for quick serialization of FObjectExport struc
                 // using a single Serialize(&S, 0x64) call
@@ -227,10 +227,10 @@ namespace GameSpec.Unreal.Formats.Core
                 var unk = r.ReadInt32();
                 if (unk != 0) r.Seek(unk * 12);
             }
-            if (Ar.Game == Huxley && Ar.ArLicenseeVer >= 22) r.Skip(sizeof(int));
-            if (Ar.Game == AlphaProtocol && Ar.ArLicenseeVer >= 53) goto ue3_export_flags; // no ComponentMap
-            if (Ar.Game == Transformers && Ar.ArLicenseeVer >= 37) goto ue3_export_flags;  // no ComponentMap
-            if (Ar.Game == MK)
+            else if (Ar.Game == Huxley && Ar.ArLicenseeVer >= 22) r.Skip(sizeof(int));
+            else if (Ar.Game == AlphaProtocol && Ar.ArLicenseeVer >= 53) goto ue3_export_flags; // no ComponentMap
+            else if (Ar.Game == Transformers && Ar.ArLicenseeVer >= 37) goto ue3_export_flags;  // no ComponentMap
+            else if (Ar.Game == MK)
             {
                 if (Ar.ArVer >= 677)
                 {
@@ -244,7 +244,7 @@ namespace GameSpec.Unreal.Formats.Core
                     goto ue3_export_flags; // Injustice, version unknown
                 }
             }
-            if (Ar.Game == RocketLeague && Ar.ArLicenseeVer >= 22)
+            else if (Ar.Game == RocketLeague && Ar.ArLicenseeVer >= 22)
             {
                 // Rocket League has 64-bit SerialOffset in LicenseeVer >= 22, skip HIDWORD
                 var SerialOffsetUpper = r.ReadInt32();
@@ -263,13 +263,13 @@ namespace GameSpec.Unreal.Formats.Core
                 if (someFlag == 0) return;
                 // else - continue serialization of remaining fields
             }
-            if (Ar.Game == MK && Ar.ArVer >= 446)
+            else if (Ar.Game == MK && Ar.ArVer >= 446)
             {
                 // removed generations (NetObjectCount)
                 Guid = r.ReadGuid();
                 return;
             }
-            if (Ar.Game == Bioshock3)
+            else if (Ar.Game == Bioshock3)
             {
                 var flag = r.ReadInt32();
                 if (flag == 0) return;              // stripped some fields
@@ -280,7 +280,7 @@ namespace GameSpec.Unreal.Formats.Core
                 Guid = r.ReadGuid();
             }
             if (Ar.Game == Undertow && Ar.ArVer >= 431) U3unk6C = r.ReadInt32(); // partially upgraded?
-            if (Ar.Game == ArmyOf2) return;
+            else if (Ar.Game == ArmyOf2) return;
             if (Ar.ArVer >= 475) U3unk6C = r.ReadInt32();
             if (Ar.Game == AA3)
             {
@@ -292,7 +292,7 @@ namespace GameSpec.Unreal.Formats.Core
                 SerialSize ^= AA3Obfuscator;
                 SerialOffset ^= AA3Obfuscator;
             }
-            if (Ar.Game == Thief4 && (ExportFlags & 8) != 0) r.Skip(sizeof(int));
+            else if (Ar.Game == Thief4 && (ExportFlags & 8) != 0) r.Skip(sizeof(int));
         }
     }
 
@@ -313,15 +313,15 @@ namespace GameSpec.Unreal.Formats.Core
                     Names[i] = new string(buf, 0, len);
                     goto qword_flags;
                 }
-                if (Game == R6Vegas2 && ArLicenseeVer >= 71)
+                else if (Game == R6Vegas2 && ArLicenseeVer >= 71)
                 {
                     var buf = stackalloc char[256];
                     var len = r.ReadByte();
                     r.BaseStream.Read(new Span<byte>(buf, len));
                     Names[i] = new string(buf, 0, len);
-                    goto done;
+                    continue;
                 }
-                if (Game == Transformers && ArLicenseeVer >= 181) // Transformers: Fall of Cybertron; no real version in code
+                else if (Game == Transformers && ArLicenseeVer >= 181) // Transformers: Fall of Cybertron; no real version in code
                 {
                     var buf = stackalloc char[MAX_FNAME_LEN];
                     var len = r.ReadInt32();
@@ -345,15 +345,14 @@ namespace GameSpec.Unreal.Formats.Core
                     skip = (skip ^ 7) & 0xF;
                     r.Seek(skip);
                 }
-
-                if (Game == Wheelman) goto dword_flags;
-                if (Game >= MassEffect && Game <= MassEffectLE)
+                else if (Game == Wheelman) goto dword_flags;
+                else if (Game >= MassEffect && Game <= MassEffectLE)
                 {
-                    if (ArLicenseeVer >= 142) goto done;            // ME3, no flags
+                    if (ArLicenseeVer >= 142) continue;            // ME3, no flags
                     if (ArLicenseeVer >= 102) goto dword_flags;     // ME2
                 }
-                if (Game == MK && ArVer >= 677) goto done;     // no flags for MK X
-                if (Game == MetroConflict)
+                else if (Game == MK && ArVer >= 677) continue;      // no flags for MK X
+                else if (Game == MetroConflict)
                 {
                     var TrashLen = ArLicenseeVer < 3 ? 0
                         : ArLicenseeVer < 16 ? nameStr.Length ^ 7
@@ -367,12 +366,9 @@ namespace GameSpec.Unreal.Formats.Core
 
             qword_flags:
                 r.Skip(sizeof(ulong)); // 64-bit flags
-                goto done;
+                continue;
             dword_flags:
                 r.Skip(sizeof(uint)); // 32-bit flags
-                goto done;
-            done:
-                Debug.WriteLine($"Name[{i}]: \"{Names[i]}\"");
             }
         }
     }

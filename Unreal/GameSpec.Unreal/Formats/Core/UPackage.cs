@@ -14,14 +14,12 @@ namespace GameSpec.Unreal.Formats.Core
         public static COMPRESS GForceCompMethod = 0;
 
         public Game Game;
-
-        Platform Platform;
-
+        public Platform Platform;
         public int ArVer;
         public int ArLicenseeVer;
-        //public bool IsLoading;
         public bool ReverseBytes;
         bool IsFullyCompressed;
+        BinaryReader Loader;
 
         // Package structures
         string Filename;
@@ -36,6 +34,8 @@ namespace GameSpec.Unreal.Formats.Core
             Filename = Path.GetFileName(path);
             r = CreateLoader(r);
             Summary = new FPackageFileSummary(r, this);
+
+#if DEBUG_VERBOSE
             var packageLine = $"Loading package: {Filename} Ver: {ArVer}/{ArLicenseeVer} ";
             if (Game >= UE3)
             {
@@ -47,8 +47,9 @@ namespace GameSpec.Unreal.Formats.Core
             Debug.WriteLine($"Names: {Summary.NameCount} Exports: {Summary.ExportCount} Imports: {Summary.ImportCount} Game: {Game}");
             Debug.WriteLine($"Flags: {Summary.PackageFlags}, Name offset: {Summary.NameOffset}, Export offset: {Summary.ExportOffset}, Import offset: {Summary.ImportOffset}");
             for (var i = 0; i < Summary.CompressedChunks.Length; i++) Debug.WriteLine($"chunk[{i}]: {Summary.CompressedChunks[i]}");
+#endif
 
-            r = ReplaceLoader(r);
+            r = ReplaceLoader(Loader);
 
             LoadNames(r);
             LoadImports(r);
@@ -104,7 +105,7 @@ namespace GameSpec.Unreal.Formats.Core
                 // to get encryption key, can check 1st byte
                 var b = r.ReadByte();
                 // for Ver111 XorKey==0xAC for Lineage or ==0x42 for Exteel, for Ver121 computed from filename
-                var XorKey = (byte)(b ^ (FPackageFileSummary.TAG & 0xFF));
+                var XorKey = (byte)(b ^ (TAG & 0xFF));
                 Game = Lineage2;
                 return new BinaryReader(new LineageStream(r, XorKey));
             }
@@ -125,12 +126,12 @@ namespace GameSpec.Unreal.Formats.Core
 
             // Code for loading UE3 "fully compressed packages"
             var checkDword1 = r.ReadUInt32();
-            if (checkDword1 == FPackageFileSummary.TAG_REV)
+            if (checkDword1 == TAG_REV)
             {
                 ReverseBytes = true;
                 if (GForcePlatform == Platform.UNKNOWN) Platform = Platform.XBOX360;            // default platform for "ReverseBytes" mode is PLATFORM_XBOX360
             }
-            else if (checkDword1 != FPackageFileSummary.TAG)
+            else if (checkDword1 != TAG)
             {
                 // fully compressed package always starts with package tag
                 r.Seek(0);
@@ -142,19 +143,16 @@ namespace GameSpec.Unreal.Formats.Core
 
             // Check if this is a fully compressed package. UE3 by itself checks if there's .uncompressed_size with text contents
             // file exists next to the package file.
-            if (checkDword2 == FPackageFileSummary.TAG || checkDword2 == 0x20000 || checkDword2 == 0x10000)    // seen 0x10000 in Enslaved/PS3
+            if (checkDword2 == TAG || checkDword2 == 0x20000 || checkDword2 == 0x10000)    // seen 0x10000 in Enslaved/PS3
             {
-                //!! NOTES:
-                //!! - MKvsDC/X360 Core.u and Engine.u uses LZO instead of LZX (LZO and LZX are not auto-detected with COMPRESS_FIND)
+                //!! NOTES: MKvsDC/X360 Core.u and Engine.u uses LZO instead of LZX (LZO and LZX are not auto-detected with COMPRESS_FIND)
                 // this is a fully compressed package
                 var H = new FCompressedChunkHeader(r, this);
                 var Chunks = new[]{
                     new FCompressedChunk
                     {
-                        UncompressedOffset = 0,
-                        UncompressedSize = H.Sum.UncompressedSize,
-                        CompressedOffset = 0,
-                        CompressedSize = H.Sum.CompressedSize,
+                        UncompressedOffset = 0, UncompressedSize = H.Sum.UncompressedSize,
+                        CompressedOffset = 0, CompressedSize = H.Sum.CompressedSize,
                     }
                 };
                 COMPRESS CompMethod = GForceCompMethod;
@@ -169,8 +167,6 @@ namespace GameSpec.Unreal.Formats.Core
         BinaryReader ReplaceLoader(BinaryReader r)
         {
             // Current FArchive position is after FPackageFileSummary
-
-            // BIOSHOCK
             if ((Game == Bioshock) && (Summary.PackageFlags & 0x20000) != 0)
             {
                 // Bioshock has a special flag indicating compression. Compression table follows the package summary.
@@ -193,9 +189,7 @@ namespace GameSpec.Unreal.Formats.Core
                 // Replace Loader for reading compressed Bioshock archives.
                 return new BinaryReader(new UE3Stream(r, this, COMPRESS.ZLIB, Chunks));
             }
-
-            // AA2
-            if (Game == AA2)
+            else if (Game == AA2)
             {
                 // America's Army 2 has encryption after FPackageFileSummary
                 if (ArLicenseeVer >= 19)
@@ -205,9 +199,7 @@ namespace GameSpec.Unreal.Formats.Core
                 }
                 return r;
             }
-
-            // ROCKET_LEAGUE
-            if (Game == RocketLeague && (Summary.PackageFlags & PKG_Cooked) != 0)
+            else if (Game == RocketLeague && (Summary.PackageFlags & PKG_Cooked) != 0)
             {
                 throw new NotImplementedException();
                 //    // Rocket League has an encrypted header after FPackageFileSummary containing the name/import/export tables and a compression table.
@@ -247,22 +239,18 @@ namespace GameSpec.Unreal.Formats.Core
                 //    RocketReader->EncryptionEnd = RocketReader->EncryptionStart + CompressedChunkInfoOffset;
                 //    return r;
             }
-
-            // NURIEN
             // Nurien has encryption in header, and no encryption after
-            if (r.BaseStream is NurienStream z)
+            else if (r.BaseStream is NurienStream z)
             {
                 z.Threshold = Summary.HeadersSize;
                 return r;
             }
-
-            // UE3
-            if (Game >= UE3 && Summary.CompressionFlags != 0 && Summary.CompressedChunks.Length != 0)
+            else if (Game >= UE3 && Summary.CompressionFlags != 0 && Summary.CompressedChunks.Length != 0)
             {
                 if (IsFullyCompressed) throw new Exception($"Fully compressed package {Filename} has additional compression table");
                 return new BinaryReader(new UE3Stream(r, this, Summary.CompressionFlags, Summary.CompressedChunks)); // replace Loader with special reader for compressed UE3 archives
             }
-            return r;
+            else return r;
         }
 
         void LoadNames(BinaryReader r)
@@ -280,7 +268,9 @@ namespace GameSpec.Unreal.Formats.Core
             if (Summary.ImportCount == 0) return;
             r.Seek(Summary.ImportOffset);
             Imports = r.ReadTArray(r => new FObjectImport(r, this), (int)Summary.ImportCount);
+#if DEBUG_VERBOSE
             for (var i = 0; i < Summary.ImportCount; i++) Debug.WriteLine($"Import[{i}]: {Imports[i]}");
+#endif
         }
 
         void PatchBnSExports(FObjectExport[] exp, FPackageFileSummary summary) { }
@@ -293,7 +283,9 @@ namespace GameSpec.Unreal.Formats.Core
             Exports = r.ReadTArray(r => new FObjectExport(r, this), (int)Summary.ExportCount);
             if (Game == BladeNSoul && (Summary.PackageFlags & 0x08000000) != 0) PatchBnSExports(Exports, Summary);
             if (Game == DunDef) PatchDunDefExports(Exports, Summary);
+#if DEBUG_VERBOSE
             for (var i = 0; i < Summary.ExportCount; i++) Debug.WriteLine($"Export[{i}]: {GetClassNameFor(Exports[i])} {Exports[i]}");
+#endif
         }
 
         // Process Event Driven Loader packages: such packages are split into 2 pieces: .uasset with headers

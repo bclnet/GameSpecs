@@ -1,5 +1,5 @@
 ﻿//#define AC
-#define Arkane
+//#define Arkane
 //#define Bioware
 //#define Blizzard
 //#define Capcom
@@ -15,7 +15,7 @@
 //#define Rsi
 //#define Tes
 //#define Unity
-//#define Unreal
+#define Unreal
 //#define Valve
 
 namespace GameSpec
@@ -333,7 +333,7 @@ namespace GameSpec
         {
             ForceOpen = true,
             Family = "Unreal",
-            //GameId = "BioShock", // BioShock
+            GameId = "BioShock", // BioShock
             //GameId = "BioShockR", // BioShock Remastered
             //GameId = "BioShock2", // BioShock 2
             //GameId = "BioShock2R", // BioShock 2 Remastered
