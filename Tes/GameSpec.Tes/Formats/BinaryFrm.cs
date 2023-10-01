@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Tes.Formats
 {
-    public class BinaryFrm : IGetMetadataInfo, ITexture
+    public class BinaryFrm : IGetMetadataInfo, ITexture, ITextureMultiple
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryFrm(r, f, s));
 
@@ -89,10 +89,7 @@ namespace GameSpec.Tes.Formats
             Format = ((TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnrealFormat.R8G8B8A8);
 
             // select a frame
-            var frameIndex = 0;
-            Bytes = Frames[frameIndex].b;
-            Width = Frames[frameIndex].f.Width;
-            Height = Frames[frameIndex].f.Height;
+            FrameSelect(0);
         }
 
         public FrmHeader Header;
@@ -121,6 +118,15 @@ namespace GameSpec.Tes.Formats
             return Bytes;
         }
         public void End() { }
+
+        public int Fps => Header.Fps;
+        public int FrameMaxIndex => Frames.Length == 1 ? 1 : Header.FramesPerDirection;
+        public void FrameSelect(int index)
+        {
+            Bytes = Frames[index].b;
+            Width = Frames[index].f.Width;
+            Height = Frames[index].f.Height;
+        }
 
         List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
