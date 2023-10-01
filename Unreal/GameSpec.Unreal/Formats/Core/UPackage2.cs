@@ -34,7 +34,7 @@ namespace GameSpec.Unreal.Formats.Core
                 if (Ar.ArLicenseeVer >= 85) r.Skip(sizeof(int));
                 goto generations;   // skip Guid
             }
-            if (Ar.Game == SplinterCell)
+            else if (Ar.Game == SplinterCell)
             {
                 r.Skip(4); // 0xFF0ADDE
                 var tmp2 = r.ReadArray(Ar, r => r.ReadByte());
@@ -51,7 +51,7 @@ namespace GameSpec.Unreal.Formats.Core
                 ImportOffset ^= 0xA9B999DF ^ 0x003E9BE;
                 return; // other data is useless for us, and they are encrypted too
             }
-            if (Ar.Game == EOS && Ar.ArLicenseeVer >= 49) goto generations;
+            else if (Ar.Game == EOS && Ar.ArLicenseeVer >= 49) goto generations;
 
             // Guid and generations
             if (Ar.ArVer < 68)

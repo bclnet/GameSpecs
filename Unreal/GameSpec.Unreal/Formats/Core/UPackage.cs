@@ -19,7 +19,7 @@ namespace GameSpec.Unreal.Formats.Core
         public int ArLicenseeVer;
         public bool ReverseBytes;
         bool IsFullyCompressed;
-        BinaryReader Loader;
+        //BinaryReader Loader;
 
         // Package structures
         string Filename;
@@ -49,7 +49,7 @@ namespace GameSpec.Unreal.Formats.Core
             for (var i = 0; i < Summary.CompressedChunks.Length; i++) Debug.WriteLine($"chunk[{i}]: {Summary.CompressedChunks[i]}");
 #endif
 
-            r = ReplaceLoader(Loader);
+            r = ReplaceLoader(r);
 
             LoadNames(r);
             LoadImports(r);

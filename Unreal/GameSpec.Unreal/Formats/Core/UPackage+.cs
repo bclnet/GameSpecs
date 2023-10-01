@@ -81,6 +81,7 @@ namespace GameSpec.Unreal.Formats.Core
         public int BlockSize;                       // maximal size of uncompressed block
         public FCompressedChunkBlock Sum;          // summary for the whole compressed block
         public FCompressedChunkBlock[] Blocks;
+        public FCompressedChunkHeader() { }
         public FCompressedChunkHeader(BinaryReader r, UPackage Ar)
         {
             Tag = r.ReadUInt32();
@@ -235,7 +236,7 @@ namespace GameSpec.Unreal.Formats.Core
             if (Ar.Game >= UE3) Serialize3(r);
             else Serialize2(r);
 
-            Console.WriteLine($"EngVer:{EngineVersion} CookVer:{CookerVersion} CompF:{CompressionFlags} CompCh:{CompressedChunks.Length}");
+            Console.WriteLine($"EngVer:{EngineVersion} CookVer:{CookerVersion} CompF:{CompressionFlags} CompCh:{CompressedChunks?.Length}");
             Console.WriteLine($"Names:{NameOffset}[{NameCount}] Exports:{ExportOffset}[{ExportCount}] Imports:{ImportOffset}[{ImportCount}]");
             Console.WriteLine($"HeadersSize:{HeadersSize} Group:{PackageGroup} DependsOffset:{DependsOffset} U60:{U3unk60}");
 

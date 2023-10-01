@@ -378,11 +378,14 @@ namespace GameSpec.Unreal.Formats.Core
                 if (Ar.Game == Bioshock)
                 {
                     var CompressedSize = R.ReadInt32();
-                    ChunkHeader.Blocks = new[] {
-                        new FCompressedChunkBlock
-                        {
-                            UncompressedSize = Ar.ArLicenseeVer >= 57 ? R.ReadInt32() : 32768, //?? Bioshock 2; no version code found
-                            CompressedSize = CompressedSize,
+                    ChunkHeader = new FCompressedChunkHeader
+                    {
+                        Blocks = new[] {
+                            new FCompressedChunkBlock
+                            {
+                                UncompressedSize = Ar.ArLicenseeVer >= 57 ? R.ReadInt32() : 32768, //?? Bioshock 2; no version code found
+                                CompressedSize = CompressedSize,
+                            }
                         }
                     };
                 }
@@ -390,15 +393,18 @@ namespace GameSpec.Unreal.Formats.Core
                 else
                 {
                     // have seen such block in Borderlands: chunk has CompressedSize==UncompressedSize and has no compression; no such code in original engine
-                    ChunkHeader.BlockSize = -1; // mark as uncompressed (checked below)
-                    ChunkHeader.Sum.CompressedSize = ChunkHeader.Sum.UncompressedSize = Chunk.UncompressedSize;
-                    ChunkHeader.Blocks = new[] {
-                        new FCompressedChunkBlock
-                        {
-                            UncompressedSize = Chunk.UncompressedSize,
-                            CompressedSize = Chunk.UncompressedSize,
+                    ChunkHeader = new FCompressedChunkHeader
+                    {
+                        BlockSize = -1, // mark as uncompressed (checked below)
+                        Blocks = new[] {
+                            new FCompressedChunkBlock
+                            {
+                                UncompressedSize = Chunk.UncompressedSize,
+                                CompressedSize = Chunk.UncompressedSize,
+                            }
                         }
                     };
+                    ChunkHeader.Sum.CompressedSize = ChunkHeader.Sum.UncompressedSize = Chunk.UncompressedSize;
                 }
                 ChunkDataPos = (int)R.BaseStream.Position;
                 CurrentChunk = Chunk;

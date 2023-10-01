@@ -4,6 +4,9 @@ using static GameSpec.Unreal.Formats.Core.VERUE4;
 using System;
 using System.IO;
 
+// https://www.gildor.org/en/projects/umodel
+// https://github.com/gildor2/UEViewer
+// https://www.gildor.org/smf/index.php/topic,297.0.html
 namespace GameSpec.Unreal.Formats.Core
 {
     #region Enums

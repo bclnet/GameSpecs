@@ -1,14 +1,9 @@
 ﻿using GameSpec.Formats;
-using GameSpec.Unreal.Formats.OldWay;
-using GameSpec.Unreal.Formats.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-// https://www.gildor.org/en/projects/umodel
-// https://github.com/gildor2/UEViewer
-// https://www.gildor.org/smf/index.php/topic,297.0.html
 namespace GameSpec.Unreal.Formats
 {
     /// <summary>
@@ -26,7 +21,6 @@ namespace GameSpec.Unreal.Formats
 
             List<FileMetadata> files;
             multiSource.Files = files = new List<FileMetadata>();
-            //var header1 = new UPackage(r); r.BaseStream.Position = 0;
             var header = new Core.UPackage(r, source.FilePath);
             if (header.Exports != null)
             {

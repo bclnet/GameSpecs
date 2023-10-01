@@ -125,7 +125,14 @@ namespace GameSpec.Formats
             while ((count = inflater.Inflate(buffer)) > 0) s.Write(buffer, 0, count);
             return s.ToArray();
         }
-        public static int DecompressZlib(byte[] source, int sourceSize, byte[] target, int targetSize) => throw new NotImplementedException();
+        public static int DecompressZlib(byte[] source, int sourceSize, byte[] target, int targetSize)
+        {
+            var inflater = new Inflater(false);
+            inflater.SetInput(source, 0, sourceSize);
+            var r = inflater.Inflate(target, 0, targetSize);
+            if (r == 0) throw new Exception("HERE");
+            return r;
+        }
         public static byte[] DecompressZlib2(this BinaryReader r, int length, int newLength)
         {
             var fileData = r.ReadBytes(length);

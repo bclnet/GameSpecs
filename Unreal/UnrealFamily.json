@@ -7,30 +7,55 @@
   "familyType": "GameSpec.Unreal.UnrealFamily, GameSpec.Unreal",
   "pakFileType": "GameSpec.Unreal.UnrealPakFile, GameSpec.Unreal",
   "games": {
+    "Unreal1": {
+      "name": "Unreal 1",
+      "pak": "game:/*.upk#Unreal1"
+    },
+    "TWoT": {
+      "name": "The Wheel of Time",
+      "url": "https://www.gog.com/en/game/the_wheel_of_time",
+      "pak": "game:/*.upk#TWoT"
+    },
+    "DeusEx": {
+      "name": "DeusEx",
+      "url": "https://www.gog.com/en/game/deus_ex",
+      "pak": "game:/*.upk#DeusEx"
+    },
+    "Rune": {
+      "name": "Rune",
+      "url": "https://www.gog.com/en/game/rune_classic",
+      "pak": "game:/*.upk#Rune"
+    },
+    "Undying": {
+      "name": "Clive Barker's Undying",
+      "url": "https://www.gog.com/en/game/clive_barkers_undying",
+      "pak": "game:/*.upk#Undying"
+    },
     "BioShock": {
       "name": "BioShock",
       "url": "https://store.steampowered.com/app/7670",
-      "pak": "game:/Data.x#BioShock"
+      "pak": "game:/*.(bsm:u)#BioShock",
+      "path": [ "Maps", "System" ]
     },
     "BioShockR": {
       "name": "BioShock Remastered",
       "url": "https://store.steampowered.com/app/409710",
-      "pak": "game:/Data.x#BioShockR"
+      "pak": "game:/*.upk#BioShockR"
     },
     "BioShock2": {
       "name": "BioShock 2",
       "url": "https://store.steampowered.com/app/8850",
-      "pak": "game:/Data.x#BioShock2"
+      "pak": "game:/*.upk#BioShock2"
     },
     "BioShock2R": {
       "name": "BioShock 2 Remastered",
       "url": "https://store.steampowered.com/app/409720",
-      "pak": "game:/Data.x#BioShock2R"
+      "pak": "game:/*.upk#BioShock2R"
     },
     "BioShock:Inf": {
       "name": "BioShock Infinite",
       "url": "https://store.steampowered.com/app/8870",
-      "pak": "game:/Data.x#BioShock:Inf"
+      "pak": "game:/*.upk#BioShock:Inf"
     }
   },
   "fileManager": {
