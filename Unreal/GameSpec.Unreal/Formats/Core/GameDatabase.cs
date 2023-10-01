@@ -170,16 +170,6 @@ namespace GameSpec.Unreal.Formats.Core
         public static int GAME_UE4_GET_MINOR(Game x) => (x - UE4_BASE) >> 4;	// reverse operation for GAME_UE4(x)
         public const int GAME_ENGINE = 0xFFF0000; // mask for game engine
 
-        // Note: there's no conflicts between UE3 and UE4 flags - some obsoleve UE3 flags are marked as unused in UE4,
-        // and some UE4 flags are missing in UE3 just because bitmask is not fully used there.
-        // UE3 flags
-        public const uint PKG_Cooked = 0x00000008;       // UE3
-        public const uint PKG_StoreCompressed = 0x02000000;      // UE3, deprecated in UE4.16
-
-        // UE4 flags
-        public const uint PKG_UnversionedProperties = 0x00002000;        // UE4.25+
-        public const uint PKG_FilterEditorOnly = 0x80000000;		// UE4
-
         readonly static (string, string, Game)[] GListOfGames = {
 		#region Unreal engine 1
 			("Unreal engine 1", "ue1", UE1),
@@ -355,6 +345,30 @@ namespace GameSpec.Unreal.Formats.Core
     {
         const int PACKAGE_V2 = 100;
         const int PACKAGE_V3 = 180;
+
+        // UE3 compression flags; may be used for other engines, so keep it outside of #if UNREAL3 block
+        public enum COMPRESS : int
+        {
+            None = -1,
+            ZLIB = 1,
+            LZO = 2,
+            LZX = 4,
+            XXX = 8,
+            LZO_ENC_BNS = 8,    // encrypted LZO
+            Custom = 4,         // UE4.20-4.21
+            FIND = 0xFF,        // use this flag for appDecompress when exact compression method is not known
+            LZ4 = 0xFE,         // custom umodel's constant
+            OODLE = 0xFD,		// custom umodel's constant
+        }
+
+        // Note: there's no conflicts between UE3 and UE4 flags - some obsoleve UE3 flags are marked as unused in UE4,
+        // and some UE4 flags are missing in UE3 just because bitmask is not fully used there.
+        // UE3 flags
+        public const uint PKG_Cooked = 0x00000008;                      // UE3
+        public const uint PKG_StoreCompressed = 0x02000000;             // UE3, deprecated in UE4.16
+        // UE4 flags
+        public const uint PKG_UnversionedProperties = 0x00002000;       // UE4.25+
+        public const uint PKG_FilterEditorOnly = 0x80000000;		    // UE4
 
         public void DetectGame()
         {

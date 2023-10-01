@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,13 @@ namespace GameSpec.Unreal.Formats.Core
 {
     static class ReaderExtensions
     {
+        public static byte ROL8(byte value, int count) => (byte)((value << count) | (value >> (8 - count)));
+        public static byte ROR8(byte value, int count) => (byte)((value >> count) | (value << (8 - count)));
+        public static ushort ROL16(ushort value, int count) => (ushort)((value << count) | (value >> (16 - count)));
+        public static ushort ROR16(ushort value, int count) => (ushort)((value >> count) | (value << (16 - count)));
+        public static uint ROL32(uint value, int count) => (value << count) | (value >> (32 - count));
+        public static uint ROR32(uint value, int count) => (value >> count) | (value << (32 - count));
+
         static bool GameUsesCompactIndex(UPackage Ar)
             => Ar.Engine >= UE3 ? false
             : Ar.Engine == UE2X && Ar.ArVer >= 145 ? false

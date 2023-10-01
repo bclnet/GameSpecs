@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using static GameSpec.Unreal.Formats.Core.Game;
-using static GameSpec.Unreal.Formats.Core.GameDatabase;
+using static GameSpec.Unreal.Formats.Core.UPackage;
+
 namespace GameSpec.Unreal.Formats.Core
 {
     partial class FPackageFileSummary
@@ -72,7 +73,7 @@ namespace GameSpec.Unreal.Formats.Core
                 r.ReadGuid();
                 r.ReadInt32();
                 EngineVersion = r.ReadInt32();
-                CompressionFlags = r.ReadInt32();
+                CompressionFlags = (COMPRESS)r.ReadInt32();
                 CompressedChunks = r.ReadArray(Ar, r => new FCompressedChunk(r, Ar));
                 // drop everything else in FPackageFileSummary
                 return;
@@ -153,7 +154,7 @@ namespace GameSpec.Unreal.Formats.Core
             }
             if (Ar.ArVer >= 334)
             {
-                CompressionFlags = r.ReadInt32();
+                CompressionFlags = (COMPRESS)r.ReadInt32();
                 CompressedChunks = r.ReadArray(Ar, r => new FCompressedChunk(r, Ar));
             }
             if (Ar.ArVer >= 482) U3unk60 = r.ReadInt32();

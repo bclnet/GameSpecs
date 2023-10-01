@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using static GameSpec.Unreal.Formats.Core.Game;
 using static GameSpec.Unreal.Formats.Core.UPackage;
+using static GameSpec.Unreal.Formats.Core.ReaderExtensions;
+
 namespace GameSpec.Unreal.Formats.Core
 {
     partial class FPackageFileSummary
@@ -251,7 +253,5 @@ namespace GameSpec.Unreal.Formats.Core
                 Debug.WriteLine($"Name[{i}]: \"{Names[i]}\"");
             }
         }
-
-        public static ushort ROR16(ushort value, int count) => (ushort)((value >> count) | (value << (16 - count)));
     }
 }

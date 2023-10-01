@@ -24,12 +24,13 @@ namespace GameSpec.Unreal.Formats.Core
         }
     }
 
-    struct FCompressedChunk
+    class FCompressedChunk
     {
         public int UncompressedOffset;
         public int UncompressedSize;
         public int CompressedOffset;
         public int CompressedSize;
+        public FCompressedChunk() { }
         public FCompressedChunk(BinaryReader r, UPackage Ar)
         {
             if ((Ar.Game == MK && Ar.ArVer >= 677) || (Ar.Game == RocketLeague && Ar.ArLicenseeVer >= 22))
@@ -52,6 +53,75 @@ namespace GameSpec.Unreal.Formats.Core
         public override string ToString() => $"comp={CompressedOffset:X}+{CompressedSize:X}, uncomp={UncompressedOffset:X}+{UncompressedSize:X}";
     }
 
+    class FCompressedChunkBlock
+    {
+        public int CompressedSize;
+        public int UncompressedSize;
+        public FCompressedChunkBlock() { }
+        public FCompressedChunkBlock(BinaryReader r, UPackage Ar)
+        {
+            if (Ar.Game == MK && Ar.ArVer >= 677) goto int64_offsets;   // MK X
+            if (Ar.Game >= UE4_BASE) goto int64_offsets;
+            CompressedSize = r.ReadInt32();
+            UncompressedSize = r.ReadInt32();
+            return;
+        int64_offsets:
+            // UE4 has 64-bit values here
+            var CompressedSize64 = r.ReadInt64();
+            var UncompressedSize64 = r.ReadInt64();
+            Debug.Assert((CompressedSize64 | UncompressedSize64) <= 0x7FFFFFFF); // we're using 32 bit values
+            CompressedSize = (int)CompressedSize64;
+            UncompressedSize = (int)UncompressedSize64;
+        }
+    }
+
+    class FCompressedChunkHeader
+    {
+        public uint Tag;
+        public int BlockSize;                       // maximal size of uncompressed block
+        public FCompressedChunkBlock Sum;          // summary for the whole compressed block
+        public FCompressedChunkBlock[] Blocks;
+        public FCompressedChunkHeader(BinaryReader r, UPackage Ar)
+        {
+            Tag = r.ReadUInt32();
+            if (Tag == FPackageFileSummary.TAG_REV) Ar.ReverseBytes = !Ar.ReverseBytes;
+            else if (Ar.Game == Berkanix && Tag == 0xF2BAC156) goto tag_ok;
+            else if (Ar.Game == Hawken && Tag == 0xEA31928C) goto tag_ok;
+            else if (/*Ar.Game == MMH7 && */ Tag == 0x4D4D4837) goto tag_ok;        // Might & Magic Heroes 7
+            else if (Tag == 0x7E4A8BCA) goto tag_ok; // iStorm
+            else Debug.Assert(Tag == FPackageFileSummary.TAG);
+            if (Ar.Game == MK && Ar.ArVer >= 677) goto int64_offsets;  // MK X
+            if (Ar.Game >= UE4_BASE) goto int64_offsets;
+            goto tag_ok;
+
+        int64_offsets:
+            // Tag and BlockSize are really FCompressedChunkBlock, which has 64-bit integers here.
+            var Pad = r.ReadInt32();
+            var BlockSize64 = r.ReadInt64();
+            Debug.Assert((Pad == 0) && (BlockSize64 <= 0x7FFFFFFF));
+            BlockSize = (int)BlockSize64;
+            goto summary;
+
+        tag_ok:
+            BlockSize = r.ReadInt32();
+
+        summary:
+            Sum = new FCompressedChunkBlock(r, Ar);
+            BlockSize = 0x20000;
+            Blocks = new FCompressedChunkBlock[(Sum.UncompressedSize + 0x20000 - 1) / 0x20000];   // optimized for block size 0x20000
+            int i = 0, CompSize = 0, UncompSize = 0;
+            while (CompSize < Sum.CompressedSize && UncompSize < Sum.UncompressedSize)
+            {
+                var Block = Blocks[i++] = new FCompressedChunkBlock(r, Ar);
+                CompSize += Block.CompressedSize;
+                UncompSize += Block.UncompressedSize;
+            }
+            // check header; seen one package where sum(Block.CompressedSize) < H.CompressedSize, but UncompressedSize is exact
+            Debug.Assert(/*CompSize == CompressedSize &&*/ UncompSize == Sum.UncompressedSize);
+            if (Blocks.Length > 1) BlockSize = Blocks[0].UncompressedSize;
+        }
+    }
+
     [DebuggerDisplay("{Major}.{Minor}.{Patch}")]
     struct FEngineVersion
     {
@@ -68,10 +138,10 @@ namespace GameSpec.Unreal.Formats.Core
     {
         Guid Key;
         int Version;
-        void Do(BinaryReader ar)
-        {
-            //return Ar << V.Key << V.Version;
-        }
+        //void Do(BinaryReader ar)
+        //{
+        //    //return Ar << V.Key << V.Version;
+        //}
     }
 
     struct FCustomVersionContainer
@@ -82,8 +152,8 @@ namespace GameSpec.Unreal.Formats.Core
 
     partial class FPackageFileSummary
     {
-        const uint TAG = 0x9e2a83c1;
-        const uint TAG_REV = 0xc1832a9e;
+        public const uint TAG = 0x9e2a83c1;
+        public const uint TAG_REV = 0xc1832a9e;
 
         UPackage Ar;
         uint Tag;
@@ -106,7 +176,7 @@ namespace GameSpec.Unreal.Formats.Core
         int f40;
         public int EngineVersion;
         int CookerVersion;
-        public int CompressionFlags;
+        public COMPRESS CompressionFlags;
         public FCompressedChunk[] CompressedChunks;
         int U3unk60;
         long BulkDataStartOffset;
@@ -269,7 +339,7 @@ namespace GameSpec.Unreal.Formats.Core
             if (Ar.Game == MK && Ar.ArVer >= 677) r.Skip(16); // MK X
         }
 
-        public override string ToString() => "{ClassName}'{ObjectName}'";
+        public override string ToString() => $"{ClassName}'{ObjectName}'";
     }
 
     partial class UPackage
