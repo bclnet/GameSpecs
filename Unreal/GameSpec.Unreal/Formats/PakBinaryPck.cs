@@ -22,17 +22,16 @@ namespace GameSpec.Unreal.Formats
             List<FileMetadata> files;
             multiSource.Files = files = new List<FileMetadata>();
             var header = new Core.UPackage(r, source.FilePath);
-            if (header.Exports != null)
-            {
-                foreach (var item in header.Exports)
-                    files.Add(new FileMetadata
-                    {
-                        Path = $"{header.GetClassNameFor(item)}/{item.ObjectName}",
-                        Position = item.SerialOffset,
-                        FileSize = item.SerialSize,
-                    });
-            }
-
+            if (header.Exports == null) return Task.CompletedTask;
+            var R = header.R;
+            foreach (var item in header.Exports)
+                files.Add(new FileMetadata
+                {
+                    Path = $"{header.GetClassNameFor(item)}/{item.ObjectName}",
+                    Position = item.SerialOffset,
+                    FileSize = item.SerialSize,
+                    Tag = R,
+                });
             return Task.CompletedTask;
         }
 
@@ -41,7 +40,9 @@ namespace GameSpec.Unreal.Formats
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {
-            return null;
+            var R = (BinaryReader)file.Tag;
+            R.Seek(file.Position);
+            return Task.FromResult((Stream)new MemoryStream(R.ReadBytes((int)file.FileSize)));
         }
 
         public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null)

@@ -19,7 +19,7 @@ namespace GameSpec.Unreal.Formats.Core
         public int ArLicenseeVer;
         public bool ReverseBytes;
         bool IsFullyCompressed;
-        //BinaryReader Loader;
+        public BinaryReader R;
 
         // Package structures
         string Filename;
@@ -56,6 +56,7 @@ namespace GameSpec.Unreal.Formats.Core
             LoadExports(r);
 
             ProcessEventDrivenFile(r);
+            R = r;
         }
 
         bool VerifyName(ref string nameStr, int nameIndex)

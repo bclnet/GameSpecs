@@ -135,6 +135,12 @@ namespace GameSpec
         public PakOption Pak2Options { get; set; }
 
         /// <summary>
+        /// Gets the family engines.
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, FamilyEngine> Engines { get; set; }
+
+        /// <summary>
         /// Gets the family games.
         /// </summary>
         /// <returns></returns>

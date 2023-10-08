@@ -331,9 +331,11 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForceOpen = true,
+            //ForceOpen = true,
             Family = "Unreal",
-            GameId = "BioShock", // BioShock
+            GameId = "UE1", // Unreal
+
+            //GameId = "BioShock", // BioShock
             //GameId = "BioShockR", // BioShock Remastered
             //GameId = "BioShock2", // BioShock 2
             //GameId = "BioShock2R", // BioShock 2 Remastered

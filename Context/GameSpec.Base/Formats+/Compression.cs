@@ -36,7 +36,7 @@ namespace GameSpec.Formats
             LZ4Codec.Decode(fileData, newFileData);
             return newFileData;
         }
-        public static int DecompressLz4(byte[] source, int sourceSize, byte[] target, int targetSize) => LZ4Codec.Decode(source, 0, sourceSize, target, 0, targetSize);
+        public static int DecompressLz4(byte[] source, byte[] target) => LZ4Codec.Decode(source, 0, source.Length, target, 0, target.Length);
         #endregion
 
         #region Lzo
@@ -45,10 +45,10 @@ namespace GameSpec.Formats
             using var fs = new LzoStream(r.BaseStream, CompressionMode.Decompress);
             return fs.ReadBytes(newLength);
         }
-        public static int DecompressLzo(byte[] source, int sourceSize, byte[] target, int targetSize)
+        public static int DecompressLzo(byte[] source, byte[] target)
         {
             using var fs = new LzoStream(new MemoryStream(source), CompressionMode.Decompress);
-            var r = fs.ReadBytes(targetSize);
+            var r = fs.ReadBytes(target.Length);
             Buffer.BlockCopy(r, 0, target, 0, r.Length);
             return r.Length;
         }
@@ -60,7 +60,7 @@ namespace GameSpec.Formats
             var fileData = r.ReadBytes(length);
             return Lzf.Decompress(fileData, buffer);
         }
-        public static int DecompressLzf(byte[] source, int sourceSize, byte[] target, int targetSize) => Lzf.Decompress(source, target);
+        public static int DecompressLzf(byte[] source, byte[] target) => Lzf.Decompress(source, target);
         //public static byte[] DecompressLzm(this BinaryReader r, int length, int newLength)
         //{
         //    var data = r.ReadBytes(length);
@@ -90,12 +90,12 @@ namespace GameSpec.Formats
             if (unpackedSize != newLength) throw new FormatException($"Unpacked size does not match real size. {unpackedSize} vs {newLength}");
             return newFileData;
         }
-        public static int DecompressOodle(byte[] source, int sourceSize, byte[] target, int targetSize) => OodleLZ.Decompress(source, target);
+        public static int DecompressOodle(byte[] source, byte[] target) => OodleLZ.Decompress(source, target);
         #endregion
 
         #region Snappy
         public static byte[] DecompressSnappy(this BinaryReader r, int length, int newLength) => throw new NotSupportedException();
-        public static int DecompressSnappy(byte[] source, int sourceSize, byte[] target, int targetSize) => throw new NotSupportedException();
+        public static int DecompressSnappy(byte[] source, byte[] target) => throw new NotSupportedException();
         #endregion
 
         #region Zstd
@@ -104,10 +104,10 @@ namespace GameSpec.Formats
             using var fs = new DecompressionStream(r.BaseStream);
             return fs.ReadBytes(newLength);
         }
-        public static int DecompressZstd(byte[] source, int sourceSize, byte[] target, int targetSize)
+        public static int DecompressZstd(byte[] source, byte[] target)
         {
             using var fs = new DecompressionStream(new MemoryStream(source));
-            var r = fs.ReadBytes(targetSize);
+            var r = fs.ReadBytes(target.Length);
             Buffer.BlockCopy(r, 0, target, 0, r.Length);
             return r.Length;
         }
@@ -125,13 +125,11 @@ namespace GameSpec.Formats
             while ((count = inflater.Inflate(buffer)) > 0) s.Write(buffer, 0, count);
             return s.ToArray();
         }
-        public static int DecompressZlib(byte[] source, int sourceSize, byte[] target, int targetSize)
+        public static int DecompressZlib(byte[] source, byte[] target)
         {
             var inflater = new Inflater(false);
-            inflater.SetInput(source, 0, sourceSize);
-            var r = inflater.Inflate(target, 0, targetSize);
-            if (r == 0) throw new Exception("HERE");
-            return r;
+            inflater.SetInput(source, 0, source.Length);
+            return inflater.Inflate(target, 0, target.Length);
         }
         public static byte[] DecompressZlib2(this BinaryReader r, int length, int newLength)
         {
@@ -180,7 +178,7 @@ namespace GameSpec.Formats
             decoder.Code(s, os, fileData.Length, newLength, null);
             return os.ToArray();
         }
-        public static int DecompressLzma(byte[] source, int sourceSize, byte[] target, int targetSize) => throw new NotImplementedException();
+        public static int DecompressLzma(byte[] source, byte[] target) => throw new NotImplementedException();
         #endregion
 
         #region Blast
@@ -193,7 +191,7 @@ namespace GameSpec.Formats
             decoder.Decompress(fileData, os);
             return os.ToArray();
         }
-        public static int DecompressBlast(byte[] source, int sourceSize, byte[] target, int targetSize) => throw new NotImplementedException();
+        public static int DecompressBlast(byte[] source, byte[] target) => throw new NotImplementedException();
         #endregion
 
         #region Lzss
@@ -203,7 +201,7 @@ namespace GameSpec.Formats
             var numArray = new Lzss(stream, newLength).Decompress();
             return numArray;
         }
-        public static int DecompressLzss(byte[] source, int sourceSize, byte[] target, int targetSize) => throw new NotImplementedException();
+        public static int DecompressLzss(byte[] source, byte[] target) => throw new NotImplementedException();
         #endregion
     }
 }

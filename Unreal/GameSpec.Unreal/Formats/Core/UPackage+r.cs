@@ -516,33 +516,34 @@ namespace GameSpec.Unreal.Formats.Core
             }
 
         restart_decompress:
+            if (CompressedBuffer.Length != CompressedSize || UncompressedBuffer.Length != UncompressedSize) throw new Exception("Internal error");
+
             int newLen;
             switch (Flags)
             {
                 case COMPRESS.LZO:
-                    newLen = DecompressLzo(CompressedBuffer, CompressedSize, UncompressedBuffer, UncompressedSize);
+                    newLen = DecompressLzo(CompressedBuffer, UncompressedBuffer);
                     if (newLen != UncompressedSize) throw new Exception($"len mismatch: {newLen} != {UncompressedSize}");
                     return newLen;
                 case COMPRESS.ZLIB:
-                    newLen = DecompressZlib(CompressedBuffer, CompressedSize, UncompressedBuffer, UncompressedSize);
+                    newLen = DecompressZlib(CompressedBuffer, UncompressedBuffer);
                     if (newLen <= 0) throw new Exception($"zlib uncompress({CompressedSize},{UncompressedSize}) returned {newLen}");
-                    else if (newLen != UncompressedSize) throw new Exception($"len mismatch: {newLen} != {UncompressedSize}"); // needed by Bioshock
                     return newLen;
                 case COMPRESS.LZX:
 #if SUPPORT_XBOX360
-                    //appDecompressLZX(CompressedBuffer, CompressedSize, UncompressedBuffer, UncompressedSize);
+                    //appDecompressLZX(CompressedBuffer, UncompressedBuffer);
                     return UncompressedSize;
 #else
                     throw new Exception("appDecompress: Lzx compression is not supported");
 #endif
                 case COMPRESS.LZ4:
-                    newLen = DecompressLz4(CompressedBuffer, CompressedSize, UncompressedBuffer, UncompressedSize);
+                    newLen = DecompressLz4(CompressedBuffer, UncompressedBuffer);
                     if (newLen <= 0) throw new Exception($"LZ4_decompress_safe returned {newLen}");
                     else if (newLen != UncompressedSize) throw new Exception($"lz4 len mismatch: {newLen} != {UncompressedSize}");
                     return newLen;
                 // defined for supported engine versions, it means - some games may need Oodle decompression
                 case COMPRESS.OODLE:
-                    newLen = DecompressOodle(CompressedBuffer, CompressedSize, UncompressedBuffer, UncompressedSize);
+                    newLen = DecompressOodle(CompressedBuffer, UncompressedBuffer);
                     return UncompressedSize;
                 // Unknown compression flags
                 default:

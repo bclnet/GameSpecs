@@ -246,26 +246,26 @@ namespace GameSpec.Unreal.Formats.Core
 
     public partial class FObjectExport
     {
-        public int ClassIndex;                   // object reference
-        public int PackageIndex;             // object reference
+        public int ClassIndex;              // object reference
+        public int PackageIndex;            // object reference
         public FName ObjectName;
         public int SerialSize;
         public int SerialOffset;
-        UObject Object;                    // not serialized, filled by object loader
+        //UObject Object;                     // not serialized, filled by object loader
 #if !USE_COMPACT_PACKAGE_STRUCTS
-        int SuperIndex;                   // object reference
+        int SuperIndex;                     // object reference
         uint ObjectFlags;
 #endif
-        public uint ExportFlags;             // EF_* flags
+        public uint ExportFlags;            // EF_* flags
 #if !USE_COMPACT_PACKAGE_STRUCTS
-        uint ObjectFlags2;                // really, 'uint64 ObjectFlags'
+        uint ObjectFlags2;                  // really, 'uint64 ObjectFlags'
         int Archetype;
-        //TMap<FName, int> ComponentMap;			-- this field was removed from UE3, so serialize it as a temporary variable when needed
-        int[] NetObjectCount;           // generations
+        //TMap<FName, int> ComponentMap;	-- this field was removed from UE3, so serialize it as a temporary variable when needed
+        int[] NetObjectCount;               // generations
         Guid Guid;
         int PackageFlags;
         int U3unk6C;
-        int TemplateIndex;                // UE4
+        int TemplateIndex;                  // UE4
 #endif
         // In UE4.26 IoStore package structure is different, 'ClassIndex' is replaced with global
         // script object index.

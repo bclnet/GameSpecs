@@ -134,6 +134,7 @@ namespace GameSpec
                 if (elem.TryGetProperty("fileManager", out var z)) fileManager.ParseFileManager(z);
                 var locations = fileManager.Paths;
                 var familyType = elem.TryGetProperty("familyType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", z.GetString()) : null;
+                var familyEngineType = elem.TryGetProperty("familyEngineType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyEngineType", z.GetString()) : null;
                 var familyGameType = elem.TryGetProperty("familyGameType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyGameType", z.GetString()) : null;
                 var family = familyType != null ? (Family)Activator.CreateInstance(familyType) : new Family();
                 family.Id = (elem.TryGetProperty("id", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("id");
@@ -147,6 +148,7 @@ namespace GameSpec
                 family.Pak2Options = elem.TryGetProperty("pak2Options", out z) ? Enum.TryParse<PakOption>(z.GetString(), true, out z1) ? z1 : throw new ArgumentOutOfRangeException("pak2Options", z.GetString()) : 0;
                 family.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : null;
                 family.FileManager = fileManager;
+                family.Engines = elem.TryGetProperty("engines", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseEngine(family, familyEngineType, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGame(family, familyGameType, locations, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
                 family.OtherGames = elem.TryGetProperty("other-games", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseOtherGame(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 family.Apps = elem.TryGetProperty("apps", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseApp(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
@@ -178,6 +180,15 @@ namespace GameSpec
             }
             else throw new ArgumentOutOfRangeException(nameof(str), str);
             return true;
+        }
+
+        static FamilyEngine ParseEngine(Family family, Type familyEngineType, string id, JsonElement elem)
+        {
+            var familyEngine = familyEngineType != null ? (FamilyEngine)Activator.CreateInstance(familyEngineType) : new FamilyEngine();
+            familyEngine.Family = family;
+            familyEngine.Id = id;
+            familyEngine.Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
+            return familyEngine;
         }
 
         static FamilyGame ParseGame(Family family, Type familyGameType, IDictionary<string, HashSet<string>> locations, string id, JsonElement elem)
