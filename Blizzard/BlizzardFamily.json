@@ -5,15 +5,16 @@
   "description": "Blizzard file formats",
   "url": "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games",
   "familyType": "GameSpec.Blizzard.BlizzardFamily, GameSpec.Blizzard",
-  "pakFileType": "GameSpec.Blizzard.BlizzardPakFile, GameSpec.Blizzard",
-  "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
   "games": {
+    "*": {
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
+      "pak": "game:/"
+    },
     "SC": {
       "name": "StarCraft",
       "url": "https://us.shop.battle.net/en-us/product/starcraft",
       "date": "1998-03-31",
       "tags": "TBD",
-      "pak": "game:/#SC",
       "editions": {
         "s1": { "name": "Starcraft I" },
         "s1t": { "name": "Starcraft I PTR" }
@@ -24,7 +25,6 @@
       "url": "https://us.shop.battle.net/en-us/product/diablo_ii_resurrected",
       "date": "2000-06-29",
       "tags": "TBD",
-      "pak": "game:/#D2R",
       "editions": {
         "osi": { "name": "Diablo 2: Resurrected" },
         "osib": { "name": "Diablo 2: Resurrected Beta" }
@@ -35,7 +35,6 @@
       "url": "https://us.shop.battle.net/en-us/product/warcraft-iii-reforged",
       "date": "2002-07-03",
       "tags": "TBD",
-      "pak": "game:/#W3",
       "editions": {
         "w3": { "name": "Warcraft III" },
         "w3t": { "name": "Warcraft III PTR" },
@@ -47,7 +46,6 @@
       "url": "https://us.shop.battle.net/en-us/family/world-of-warcraft",
       "date": "2004-11-23",
       "tags": "TBD",
-      "pak": "game:/#WOW",
       "editions": {
         "wow": { "name": "WoW Retail" },
         "wowt": { "name": "WoW Retail PTR" },
@@ -60,7 +58,6 @@
     "WOWC": {
       "name": "World of Warcraft: Classic",
       "url": "https://us.shop.battle.net/en-us/family/world-of-warcraft-classic",
-      "pak": "game:/#WOWC",
       "editions": {
         "wow_classic": { "name": "WoW Classic" },
         "wow_classic_ptr": { "name": "WoW Classic PTR" },
@@ -75,7 +72,6 @@
       "url": "https://us.shop.battle.net/en-us/product/starcraft-ii",
       "date": "2010-07-27",
       "tags": "",
-      "pak": "game:/#SC2",
       "editions": {
         "s2": { "name": "Starcraft II Retail" },
         "s2t": { "name": "Starcraft II PTR" },
@@ -87,7 +83,6 @@
       "url": "https://us.shop.battle.net/en-us/product/diablo-iii",
       "date": "2012-05-15",
       "tags": "",
-      "pak": "game:/#D3",
       "editions": {
         "d3": { "name": "Diablo III Retail" },
         "d3t": { "name": "Diablo III PTR" },
@@ -99,7 +94,6 @@
       "url": "https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft",
       "date": "2014-03-11",
       "tags": "",
-      "pak": "game:/#HS",
       "editions": {
         "hsb": { "name": "Hearthstone Retail" }
       }
@@ -109,7 +103,6 @@
       "url": "",
       "date": "2013-11-05",
       "tags": "",
-      "pak": "game:/#HOTS",
       "editions": {
         "hero": { "name": "Heroes of the Storm Retail" },
         "herot": { "name": "Heroes of the Storm PTR" }
@@ -119,7 +112,6 @@
       "name": "Crash Bandicoot™ 4: It’s About Time",
       "url": "https://us.shop.battle.net/en-us/family/crash-bandicoot-4",
       "date": "2020-10-02",
-      "pak": "game:/#CB",
       "editions": {
         "wlby": { "name": "Crash Bandicoot 4" }
       }
@@ -129,7 +121,6 @@
       "url": "https://diabloimmortal.blizzard.com/en-us/",
       "date": "2022-06-02",
       "tags": "",
-      "pak": "game:/#DI",
       "editions": {
         "anbs": { "name": "Diablo Immortal" },
         "anbsdev": { "name": "Diablo Immortal (Dev)" }
@@ -140,7 +131,6 @@
       "url": "https://us.shop.battle.net/en-us/product/overwatch",
       "date": "2022-10-04",
       "tags": "",
-      "pak": "game:/#OW2",
       "editions": {
         "pro": { "name": "Overwatch" }
       }
@@ -150,7 +140,6 @@
       "url": "https://diablo4.blizzard.com/en-us/",
       "date": "2023-06-06",
       "tags": "",
-      "pak": "game:/#D4",
       "editions": {
         "d4": { "name": "Diablo IV Retail" },
         "d4t": { "name": "Diablo IV PTR" },

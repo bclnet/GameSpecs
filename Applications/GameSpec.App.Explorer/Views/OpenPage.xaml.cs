@@ -99,7 +99,7 @@ namespace GameSpec.App.Explorer.Views
         void FamilyGame_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = (FamilyGame)FamilyGame.SelectedItem;
-            PakUris = selected?.Paks;
+            PakUris = selected?.ToPaks();
         }
 
         void PakUriFile_Click(object sender, RoutedEventArgs e)

@@ -5,13 +5,13 @@
   "description": "RSI formats used in StarCitizen",
   "url": "https://en.wikipedia.org/wiki/Star_Citizen",
   "familyType": "GameSpec.Rsi.RsiFamily, GameSpec.Rsi",
-  "pakFileType": "GameSpec.Rsi.RsiPakFile, GameSpec.Rsi",
   "games": {
     "StarCitizen": {
+      "pakFileType": "GameSpec.Rsi.RsiPakFile, GameSpec.Rsi",
       "name": "Star Citizen",
       "url": "https://robertsspaceindustries.com/playstarcitizen",
-      "pak": "game:/Data.p4k#StarCitizen",
-      "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47"
+      "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47",
+      "pak": "game:/Data.p4k"
     }
   },
   "apps": {

@@ -5,31 +5,33 @@
   "description": "BioWare used the Bioware Engine",
   "url": "https://en.wikipedia.org/wiki/List_of_BioWare_video_games",
   "familyType": "GameSpec.Bioware.BiowareFamily, GameSpec.Bioware",
-  "pakFileType": "GameSpec.Bioware.BiowarePakFile, GameSpec.Bioware",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Bioware.BiowarePakFile, GameSpec.Bioware",
+      "pak": "game:/*"
+    },
     "SS": {
       "name": "Shattered Steel",
       "url": "https://www.gog.com/en/game/shattered_steel",
-      "date": "1996-09-30",
-      "pak": "game:/*#SS"
+      "date": "1996-09-30"
     },
     "BG": {
       "name": "Baldur's Gate",
       "url": "https://www.gog.com/en/game/baldurs_gate_enhanced_edition",
       "date": "2013-01-16",
-      "pak": "game:/*.key#BG"
+      "pakExt": ".key"
     },
     "MDK2": {
       "name": "MDK2",
       "url": "https://www.gog.com/en/game/mdk_2",
       "date": "2000-05-30",
-      "pak": "game:/*.zip#MDK2"
+      "pakExt": ".zip"
     },
     "BG2": {
       "name": "Baldur's Gate II: Shadows of Amn",
       "url": "https://www.gog.com/en/game/baldurs_gate_2_enhanced_edition",
       "date": "2013-11-15",
-      "pak": "game:/*.key#BG2"
+      "pakExt": ".key"
     },
     "NWN": {
       "name": "Neverwinter Nights",
@@ -38,7 +40,7 @@
         "https://www.gog.com/en/game/neverwinter_nights_enhanced_edition_pack"
       ],
       "date": "2018-03-27",
-      "pak": "game:/*.key#NWN"
+      "pakExt": ".key"
     },
     "KotOR": {
       "name": "Star Wars: Knights of the Old Republic",
@@ -47,19 +49,19 @@
         "https://www.gog.com/en/game/star_wars_knights_of_the_old_republic"
       ],
       "date": "2003-11-19",
-      "pak": "game:/*.key#KotOR"
+      "pakExt": ".key"
     },
     "JE": {
       "name": "Jade Empire",
       "url": "https://www.gog.com/en/game/jade_empire_special_edition",
       "date": "2005-05-12",
-      "pak": "game:/*.key#JE"
+      "pakExt": ".key"
     },
     "ME": {
       "name": "Mass Effect",
       "url": "https://store.steampowered.com/app/17460",
       "date": "2005-05-12",
-      "pak": "game:/*.key#ME"
+      "pakExt": ".key"
     },
     "NWN2": {
       "name": "Neverwinter Nights 2",
@@ -67,25 +69,22 @@
       "url": "https://www.gog.com/en/game/neverwinter_nights_2_complete",
       "date": "2006-10-31",
       "tag": "Electron Engine",
-      "pak": "game:/*.zip#NWN2"
+      "pakExt": ".zip"
     },
     "DA:O": {
       "name": "Dragon Age: Origins",
       "url": "https://store.steampowered.com/app/47810",
-      "date": "2010-10-26",
-      "pak": "game:/*#DA:O"
+      "date": "2010-10-26"
     },
     "ME2": {
       "name": "Mass Effect 2",
       "url": "https://store.steampowered.com/app/24980",
-      "date": "2010-01-26",
-      "pak": "game:/*#ME2"
+      "date": "2010-01-26"
     },
     "DA2": {
       "name": "Dragon Age II",
       "url": "https://store.steampowered.com/app/1238040",
-      "date": "2011-03-08",
-      "pak": "game:/*#DA2"
+      "date": "2011-03-08"
     },
     "SWTOR": {
       "name": "Star Wars: The Old Republic",
@@ -93,37 +92,32 @@
       "url": "https://store.steampowered.com/app/1286830",
       "date": "2011-12-20",
       "tags": "StarWars",
-      "pak": "game:/*.tor#SWTOR"
+      "pakExt": ".tor"
     },
     "ME3": {
       "name": "Mass Effect 3",
       "url": "https://store.steampowered.com/app/1238020",
-      "date": "2010-01-26",
-      "pak": "game:/*#ME3"
+      "date": "2010-01-26"
     },
     "DA:I": {
       "name": "Dragon Age: Inquisition",
       "url": "https://store.steampowered.com/app/1222690",
-      "date": "2014-11-18",
-      "pak": "game:/*#DA:I"
+      "date": "2014-11-18"
     },
     "ME:A": {
       "name": "Mass Effect: Andromeda",
       "url": "https://store.steampowered.com/app/1238000",
-      "date": "2017-03-20",
-      "pak": "game:/*#ME:A"
+      "date": "2017-03-20"
     },
     "A": {
       "name": "Anthem",
       "url": "https://www.ea.com/games/anthem/buy/pc",
-      "date": "2019-02-21",
-      "pak": "game:/*#A"
+      "date": "2019-02-21"
     },
     "ME:LE": {
       "name": "Mass Effect: Legendary Edition",
       "url": "https://store.steampowered.com/app/1328670",
-      "date": "2021-05-14",
-      "pak": "game:/*#ME:LE"
+      "date": "2021-05-14"
     },
     "DA:D": {
       "name": "Dragon Age: Dreadwolf (future)",

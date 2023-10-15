@@ -5,32 +5,32 @@
   "description": "LithTech is a game engine developed by Monolith Productions and comparable with the Quake and Unreal engines",
   "url": "https://en.wikipedia.org/wiki/LithTech",
   "familyType": "GameSpec.Lith.LithFamily, GameSpec.Lith",
-  "pakFileType": "GameSpec.Lith.LithPakFile, GameSpec.Lith",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Lith.LithPakFile, GameSpec.Lith",
+      "pakExt": ".Arch1",
+      "pak": "game:/"
+    },
     "FEAR": {
       "name": "F.E.A.R.",
       "url": "https://store.steampowered.com/app/21090",
-      "pak": "game:/*.Arch00#FEAR"
+      "pakEtx": ".Arch00"
     },
     "FEAR:EP": {
       "name": "F.E.A.R.: Extraction Point",
-      "url": "https://store.steampowered.com/app/21110",
-      "pak": "game:/*.Arch1#FEAR:EP"
+      "url": "https://store.steampowered.com/app/21110"
     },
     "FEAR:PM": {
       "name": "F.E.A.R.: Perseus Mandate",
-      "url": "https://store.steampowered.com/app/21120",
-      "pak": "game:/*.Arch1#FEAR:PM"
+      "url": "https://store.steampowered.com/app/21120"
     },
     "FEAR2": {
       "name": "F.E.A.R. 2: Project Origin",
-      "url": "https://store.steampowered.com/app/16450",
-      "pak": "game:/*.Arch1#FEAR2"
+      "url": "https://store.steampowered.com/app/16450"
     },
     "FEAR3": {
       "name": "F.E.A.R. 3",
-      "url": "https://store.steampowered.com/app/21100",
-      "pak": "game:/*.Arch1#FEAR3"
+      "url": "https://store.steampowered.com/app/21100"
     }
   },
   "fileManager": {

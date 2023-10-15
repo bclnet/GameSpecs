@@ -5,32 +5,31 @@
   "description": "Unity formats",
   "url": "https://steamdb.info/tech/Engine/Unity/",
   "familyType": "GameSpec.Unity.UnityFamily, GameSpec.Unity",
-  "pakFileType": "GameSpec.Unity.UnityPakFile, GameSpec.Unity",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Unity.UnityPakFile, GameSpec.Unity",
+      "pakExt": ".assets",
+      "pak": "game:/"
+    },
     "AmongUs": {
       "name": "Among Us",
-      "url": "https://store.steampowered.com/app/945360",
-      "pak": "game:/*.assets#AmongUs"
+      "url": "https://store.steampowered.com/app/945360"
     },
     "Cities": {
       "name": "Cities: Skylines",
-      "url": "https://store.steampowered.com/app/255710",
-      "pak": "game:/*.assets#Cities"
+      "url": "https://store.steampowered.com/app/255710"
     },
     "Tabletop": {
       "name": "Tabletop Simulator",
-      "url": "https://store.steampowered.com/app/286160",
-      "pak": "game:/*.assets#Tabletop"
+      "url": "https://store.steampowered.com/app/286160"
     },
     "UBoat": {
       "name": "Destroyer: The U-Boat Hunter",
-      "url": "https://store.steampowered.com/app/1272010",
-      "pak": "game:/*.assets#UBoat"
+      "url": "https://store.steampowered.com/app/1272010"
     },
     "7D2D": {
       "name": "7 Days to Die",
-      "url": "https://store.steampowered.com/app/251570",
-      "pak": "game:/*.assets#7D2D"
+      "url": "https://store.steampowered.com/app/251570"
     }
   },
   "fileManager": {

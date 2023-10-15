@@ -5,25 +5,28 @@
   "description": "Frontier Games file formats",
   "url": "https://en.wikipedia.org/wiki/Frontier_Developments",
   "familyType": "GameSpec.Frontier.FrontierFamily, GameSpec.Frontier",
-  "pakFileType": "GameSpec.Frontier.FrontierPakFile, GameSpec.Frontier",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Frontier.FrontierPakFile, GameSpec.Frontier",
+      "pakExt": ".ovl"
+    },
     "LW": {
       "name": "LostWinds",
       "url": [ "https://store.steampowered.com/app/447780", "https://en.wikipedia.org/wiki/LostWinds" ],
       "date": "2008-05-12",
-      "pak": "game:/**/*.ovl#LW"
+      "pak": "game:/**/*.ovl"
     },
     "LW2": {
       "name": "LostWinds 2: Winter of the Melodias",
       "url": [ "https://store.steampowered.com/app/447800", "https://en.wikipedia.org/wiki/LostWinds_2:_Winter_of_the_Melodias" ],
       "date": "2009-10-09",
-      "pak": "game:/**/*.ovl#LW2"
+      "pak": "game:/**/*.ovl"
     },
     "ED": {
       "name": "Elite: Dangerous",
       "url": [ "https://store.steampowered.com/app/359320", "https://en.wikipedia.org/wiki/Elite_Dangerous" ],
       "date": "2014-12-16",
-      "pak": "game:/**/*.ovl#ED",
+      "pak": "game:/**/*.ovl",
       "pathx": [ "elite-dangerous-odyssey-64" ],
       "dlc": {
         "Odyssey": {

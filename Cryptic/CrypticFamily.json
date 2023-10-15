@@ -5,27 +5,29 @@
   "description": "Cryptic Studios is an American video game developer specializing in massively multiplayer online role-playing games. It is headquartered in Los Gatos, California and was a wholly owned Perfect World subsidiary,[2] and is now owned by Embracer Group through its subsidiary Gearbox Entertainment.",
   "url": "https://en.wikipedia.org/wiki/Cryptic_Studios",
   "familyType": "GameSpec.Cryptic.CrypticFamily, GameSpec.Cryptic",
-  "pakFileType": "GameSpec.Cryptic.CrypticPakFile, GameSpec.Cryptic",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Cryptic.CrypticPakFile, GameSpec.Cryptic",
+      "pak": "game:/"
+    },
     "CO": {
       "name": "Champions Online",
       "date": "2009-09-01",
       "url": "https://store.steampowered.com/app/9880",
-      "pak": "game:/*.hogg#CO",
+      "pakExt": ".hogg",
       "status": [ "open", "read" ]
     },
     "STO": {
       "name": "Star Trek Online",
       "date": "2010-02-02",
       "url": "https://store.steampowered.com/app/9900",
-      "pak": "game:/*.hogg#STO",
+      "pakExt": ".hogg",
       "status": [ "open", "read" ]
     },
     "NVW": {
       "name": "Neverwinter",
       "date": "2013-12-05",
       "url": "https://store.steampowered.com/app/109600",
-      "pak": "game:/*#NVW",
       "status": [ "open", "read" ]
     }
   },
@@ -33,8 +35,7 @@
     "COH": {
       "name": "City of Heroes",
       "url": "https://en.wikipedia.org/wiki/City_of_Heroes",
-      "date": "2004-05-28",
-      "pak": "game:/*#COH"
+      "date": "2004-05-28"
     },
     "MTG": {
       "name": "Magic: The Gathering",

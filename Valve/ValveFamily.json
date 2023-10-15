@@ -3,18 +3,22 @@
   "name": "Valve",
   "studio": "",
   "description": "Valve formats used by Source/Source 2",
-  "engine": "Valve",
   "url": "https://en.wikipedia.org/wiki/List_of_Valve_games",
   "familyType": "GameSpec.Valve.ValveFamily, GameSpec.Valve",
-  "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
+      "engine": "Valve",
+      "searchBy": "pak",
+      "pakExt": ".wad",
+      "pak": "game:/"
+    },
     "HL": {
       "name": "Half-Life",
       "engine": "Valve1",
       "url": "https://store.steampowered.com/app/70",
       "date": "1998-11-08",
       "tags": "HalfLife",
-      "pak": "game:/*.wad#HL",
       "path": [ "valve", "valve_hd" ],
       "status": [ "open", "read", "texture:GL" ]
     },
@@ -24,7 +28,6 @@
       "url": "https://store.steampowered.com/app/20",
       "date": "1999-04-01",
       "tags": "TeamFortress",
-      "pak": "game:/*.wad#TF",
       "path": "tfc",
       "status": [ "open", "read", "texture:GL" ]
     },
@@ -34,7 +37,6 @@
       "url": "https://store.steampowered.com/app/20",
       "date": "1999-11-01",
       "tags": "HalfLife",
-      "pak": "game:/*.wad#HL:OF",
       "path": [ "gearbox", "gearbox_hd" ],
       "status": [ "open", "read" ]
     },
@@ -44,7 +46,6 @@
       "url": "https://store.steampowered.com/app/10",
       "date": "2000-11-01",
       "tags": "CounterStrike",
-      "pak": "game:/*.wad#CS",
       "path": "cstrike",
       "status": [ "open", "read" ]
     },
@@ -54,7 +55,6 @@
       "url": "https://store.steampowered.com/app/60",
       "date": "2000-11-01",
       "tags": "",
-      "pak": "game:/*.wad#Ricochet",
       "path": "ricochet",
       "status": [ "open", "read" ]
     },
@@ -64,7 +64,6 @@
       "url": "https://store.steampowered.com/app/40",
       "date": "2001-06-01",
       "tags": "HalfLife",
-      "pak": "game:/*.wad#DM",
       "path": "dmc",
       "status": [ "open", "read" ]
     },
@@ -74,7 +73,6 @@
       "url": "https://store.steampowered.com/app/130",
       "date": "2001-06-01",
       "tags": "HalfLife",
-      "pak": "game:/*.wad#HL:BS",
       "path": "bshift",
       "status": [ "open", "read" ]
     },
@@ -84,7 +82,6 @@
       "url": "https://store.steampowered.com/app/30",
       "date": "2003-05-01",
       "tags": "DayOfDefeat",
-      "pak": "game:/*.wad#DOD",
       "path": "dod",
       "status": [ "open", "read" ]
     },
@@ -94,16 +91,17 @@
       "url": "https://store.steampowered.com/app/80",
       "date": "2004-05-01",
       "tags": "CounterStrike",
-      "pak": "game:/*.wad#CS:CZ",
       "path": "czero",
       "status": [ "open", "read" ]
+    },
+    "*2": {
+      "pakExt": "dir.vpk"
     },
     "HL:Src": {
       "name": "Half-Life: Source",
       "url": "https://store.steampowered.com/app/280",
       "date": "2004-06-01",
       "tags": "HalfLife",
-      "pak": "game:/*_dir.vpk#HL:Src",
       "path": [ "platform", "hl1" ],
       "status": [ "open", "read" ]
     },
@@ -112,7 +110,6 @@
       "url": "https://store.steampowered.com/app/240",
       "date": "2004-11-01",
       "tags": "CounterStrike",
-      "pak": "game:/*_dir.vpk#CS:Src",
       "path": [ "platform", "hl2", "cstrike" ],
       "status": [ "open", "read" ]
     },
@@ -121,7 +118,6 @@
       "url": "https://store.steampowered.com/app/220",
       "date": "2004-11-16",
       "tags": "HalfLife2",
-      "pak": "game:/*_dir.vpk#HL2",
       "path": [ "platform", "hl2" ],
       "status": [ "open", "read" ]
     },
@@ -130,7 +126,6 @@
       "url": "https://store.steampowered.com/app/320",
       "date": "2004-11-01",
       "tags": "HalfLife2",
-      "pak": "game:/*_dir.vpk#HL2:DM",
       "path": [ "platform", "hl2", "hl2mp" ],
       "status": [ "open", "read" ]
     },
@@ -139,7 +134,6 @@
       "url": "https://store.steampowered.com/app/360",
       "date": "2006-05-01",
       "tags": "HalfLife",
-      "pak": "game:/*_dir.vpk#HL:DM:Src",
       "path": [ "platform", "hl2", "hl1mp" ],
       "status": [ "open", "read" ]
     },
@@ -148,7 +142,6 @@
       "url": "https://store.steampowered.com/app/380",
       "date": "2006-06-01",
       "tags": "HalfLife2",
-      "pak": "game:/*_dir.vpk#HL2:E1",
       "path": [ "platform", "hl2", "episodic" ],
       "status": [ "open", "read" ]
     },
@@ -158,7 +151,6 @@
       "date": "2007-10-10",
       "tags": "Portal",
       "path": [ "portal", "hl2" ],
-      "pak": "game:/*_dir.vpk#Portal",
       "status": [ "open", "read" ]
     },
     "HL2:E2": {
@@ -167,7 +159,6 @@
       "date": "2007-10-10",
       "tags": "HalfLife2",
       "path": [ "ep2", "hl2" ],
-      "pak": "game:/*_dir.vpk#HL2:E2",
       "status": [ "open", "read" ]
     },
     "TF2": {
@@ -176,7 +167,6 @@
       "date": "2007-10-10",
       "tags": "TeamFortress",
       "path": [ "tf", "hl2" ],
-      "pak": "game:/*_dir.vpk#TF2",
       "status": [ "open", "read" ]
     },
     "L4D": {
@@ -185,7 +175,6 @@
       "date": "2008-11-17",
       "tags": "Left4Dead",
       "path": [ "platform", "hl2", "left4dead" ],
-      "pak": "game:/*_dir.vpk#L4D",
       "status": [ "open", "read" ]
     },
     "L4D2": {
@@ -193,21 +182,11 @@
       "url": "https://store.steampowered.com/app/550",
       "date": "2009-11-16",
       "tags": "Left4Dead",
-      "pak": "game:/*_dir.vpk#L4D2",
       "path": [ "platform", "hl2", "left4dead2", "update" ],
       "dlc": {
-        "dlc1": {
-          "name": "dlc1",
-          "path": "left4dead2_dlc1"
-        },
-        "dlc2": {
-          "name": "dlc2",
-          "path": "left4dead2_dlc2"
-        },
-        "dlc3": {
-          "name": "dlc3",
-          "path": "left4dead2_dlc3"
-        }
+        "dlc1": { "name": "dlc1", "path": "left4dead2_dlc1" },
+        "dlc2": { "name": "dlc2", "path": "left4dead2_dlc2" },
+        "dlc3": { "name": "dlc3", "path": "left4dead2_dlc3" }
       },
       "status": [ "open", "read" ]
     },
@@ -216,7 +195,6 @@
       "url": "https://store.steampowered.com/app/300",
       "date": "2010-07-12",
       "tags": "DayOfDefeat",
-      "pak": "game:/*_dir.vpk#DOD:Src",
       "path": [ "platform", "hl2", "dod" ],
       "status": [ "open", "read" ]
     },
@@ -225,7 +203,6 @@
       "url": "https://store.steampowered.com/app/620",
       "date": "2011-04-18",
       "tags": "Portal",
-      "pak": "game:/*_dir.vpk#Portal2",
       "path": [ "platform", "portal2", "portal2_dlc1", "portal2_dlc2", "update" ],
       "status": [ "open", "read" ]
     },
@@ -234,7 +211,6 @@
       "url": "https://store.steampowered.com/app/730",
       "date": "2012-08-21",
       "tags": "CounterStrike",
-      "pak": "game:/*_dir.vpk#CS:GO",
       "path": [ "csgo", "platform" ],
       "status": [ "open", "read" ]
     },
@@ -243,113 +219,34 @@
       "url": "https://store.steampowered.com/app/570",
       "date": "2013-07-09",
       "tags": "Dota",
-      "pak": "game:/*_dir.vpk#D2",
       "path": [ "core", "dota" ],
       "dlc": {
-        "addon_template": {
-          "name": "koreana",
-          "path": "dota_addons/addon_template"
-        },
-        "adventure_example": {
-          "name": "adventure_example",
-          "path": "dota_addons/adventure_example"
-        },
-        "aghanim": {
-          "name": "aghanim",
-          "path": "dota_addons/aghanim"
-        },
-        "cavern": {
-          "name": "cavern",
-          "path": "dota_addons/cavern"
-        },
-        "conquest": {
-          "name": "conquest",
-          "path": "dota_addons/conquest"
-        },
-        "diretide2020": {
-          "name": "diretide2020",
-          "path": "dota_addons/diretide2020"
-        },
-        "dungeon": {
-          "name": "dungeon",
-          "path": "dota_addons/dungeon"
-        },
-        "frostivus_2017": {
-          "name": "frostivus_2017",
-          "path": "dota_addons/frostivus_2017"
-        },
-        "hero_demo": {
-          "name": "hero_demo",
-          "path": "dota_addons/hero_demo"
-        },
-        "holdout": {
-          "name": "holdout",
-          "path": "dota_addons/holdout"
-        },
-        "holdout_example": {
-          "name": "holdout_example",
-          "path": "dota_addons/holdout_example"
-        },
-        "jungle_spirits_2019": {
-          "name": "jungle_spirits_2019",
-          "path": "dota_addons/jungle_spirits_2019"
-        },
-        "last_hit_trainer": {
-          "name": "last_hit_trainer",
-          "path": "dota_addons/last_hit_trainer"
-        },
-        "lua_ability_example": {
-          "name": "lua_ability_example",
-          "path": "dota_addons/lua_ability_example"
-        },
-        "manyplayer_example": {
-          "name": "manyplayer_example",
-          "path": "dota_addons/manyplayer_example"
-        },
-        "nemestice": {
-          "name": "nemestice",
-          "path": "dota_addons/nemestice"
-        },
-        "new_bloom_2017": {
-          "name": "schinese",
-          "path": "dota_addons/workshop_testbed"
-        },
-        "npx_2019": {
-          "name": "npx_2019",
-          "path": "dota_addons/npx_2019"
-        },
-        "overthrow": {
-          "name": "overthrow",
-          "path": "dota_addons/overthrow"
-        },
-        "rpg_example": {
-          "name": "rpg_example",
-          "path": "dota_addons/rpg_example"
-        },
-        "tutorial_assist_game": {
-          "name": "tutorial_assist_game",
-          "path": "dota_addons/tutorial_assist_game"
-        },
-        "tutorial_basics": {
-          "name": "tutorial_basics",
-          "path": "dota_addons/tutorial_basics"
-        },
-        "ui_example": {
-          "name": "ui_example",
-          "path": "dota_addons/ui_example"
-        },
-        "winter_2018": {
-          "name": "winter_2018",
-          "path": "dota_addons/winter_2018"
-        },
-        "winter2022": {
-          "name": "winter2022",
-          "path": "dota_addons/winter2022"
-        },
-        "workshop_testbed": {
-          "name": "workshop_testbed",
-          "path": "dota_addons/workshop_testbed"
-        }
+        "addon_template": { "name": "koreana", "path": "dota_addons/addon_template" },
+        "adventure_example": { "name": "adventure_example", "path": "dota_addons/adventure_example" },
+        "aghanim": { "name": "aghanim", "path": "dota_addons/aghanim" },
+        "cavern": { "name": "cavern", "path": "dota_addons/cavern" },
+        "conquest": { "name": "conquest", "path": "dota_addons/conquest" },
+        "diretide2020": { "name": "diretide2020", "path": "dota_addons/diretide2020" },
+        "dungeon": { "name": "dungeon", "path": "dota_addons/dungeon" },
+        "frostivus_2017": { "name": "frostivus_2017", "path": "dota_addons/frostivus_2017" },
+        "hero_demo": { "name": "hero_demo", "path": "dota_addons/hero_demo" },
+        "holdout": { "name": "holdout", "path": "dota_addons/holdout" },
+        "holdout_example": { "name": "holdout_example", "path": "dota_addons/holdout_example" },
+        "jungle_spirits_2019": { "name": "jungle_spirits_2019", "path": "dota_addons/jungle_spirits_2019" },
+        "last_hit_trainer": { "name": "last_hit_trainer", "path": "dota_addons/last_hit_trainer" },
+        "lua_ability_example": { "name": "lua_ability_example", "path": "dota_addons/lua_ability_example" },
+        "manyplayer_example": { "name": "manyplayer_example", "path": "dota_addons/manyplayer_example" },
+        "nemestice": { "name": "nemestice", "path": "dota_addons/nemestice" },
+        "new_bloom_2017": { "name": "schinese", "path": "dota_addons/workshop_testbed" },
+        "npx_2019": { "name": "npx_2019", "path": "dota_addons/npx_2019" },
+        "overthrow": { "name": "overthrow", "path": "dota_addons/overthrow" },
+        "rpg_example": { "name": "rpg_example", "path": "dota_addons/rpg_example" },
+        "tutorial_assist_game": { "name": "tutorial_assist_game", "path": "dota_addons/tutorial_assist_game" },
+        "tutorial_basics": { "name": "tutorial_basics", "path": "dota_addons/tutorial_basics" },
+        "ui_example": { "name": "ui_example", "path": "dota_addons/ui_example" },
+        "winter_2018": { "name": "winter_2018", "path": "dota_addons/winter_2018" },
+        "winter2022": { "name": "winter2022", "path": "dota_addons/winter2022" },
+        "workshop_testbed": { "name": "workshop_testbed", "path": "dota_addons/workshop_testbed" }
       },
       "locales": {
         "ko": { "name": "koreana" },
@@ -363,7 +260,6 @@
       "url": "https://store.steampowered.com/app/450390",
       "date": "2016-05-05",
       "tags": "VR",
-      "pak": "game:/*_dir.vpk#TheLab:RR",
       "path": [ "core", "portal2_imported", "vr" ],
       "status": [ "open", "read", "texture:GL", "model:GL" ]
     },
@@ -373,7 +269,7 @@
       "url": "https://store.steampowered.com/app/450390",
       "date": "2016-05-05",
       "tags": "VR",
-      "pak": "game:/*.assets#TheLab:SS",
+      "pakExt": ".assets",
       "status": [ "!unity" ]
     },
     "TheLab:TL": {
@@ -382,7 +278,7 @@
       "url": "https://store.steampowered.com/app/450390",
       "date": "2016-05-05",
       "tags": "VR",
-      "pak": "game:/*.assets#TheLab:TL",
+      "pakExt": ".assets",
       "status": [ "!unity" ]
     },
     "HL:Alyx": {
@@ -390,7 +286,6 @@
       "url": "https://store.steampowered.com/app/546560",
       "date": "2020-03-23",
       "tags": "HalfLife VR",
-      "pak": "game:/*_dir.vpk#HL:Alyx",
       "path": [ "core", "hlvr" ],
       "status": [ "open", "read", "texture:GL", "model:GL" ]
     }

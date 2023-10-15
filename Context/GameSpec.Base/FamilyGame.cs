@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using static GameSpec.FamilyManager;
 using static GameSpec.Resource;
 
 namespace GameSpec
@@ -85,13 +88,25 @@ namespace GameSpec
         /// </summary>
         public string Engine { get; set; }
         /// <summary>
-        /// Gets or sets the pak options.
+        /// Gets or sets the game type.
         /// </summary>
-        public PakOption PakOptions { get; set; }
+        public Type GameType { get; set; }
         /// <summary>
-        /// Gets or sets the pak2 options.
+        /// Gets or sets the search by.
         /// </summary>
-        public PakOption Pak2Options { get; set; }
+        public SearchBy SearchBy { get; set; }
+        /// <summary>
+        /// Gets or sets the pakFile type.
+        /// </summary>
+        public Type PakFileType { get; set; }
+        /// <summary>
+        /// Gets or sets the pak option.
+        /// </summary>
+        public PakOption PakOption { get; set; }
+        /// <summary>
+        /// Gets or sets the pak etxs.
+        /// </summary>
+        public IList<string> PakEtxs { get; set; }
         /// <summary>
         /// Gets or sets the paks.
         /// </summary>
@@ -151,6 +166,11 @@ namespace GameSpec
         /// Ensures this instance.
         /// </summary>
         public virtual FamilyGame Ensure() => this;
+
+        /// <summary>
+        /// Converts the Paks to Application Paks.
+        /// </summary>
+        public IList<Uri> ToPaks() => Paks.Select(x => new Uri($"{x}#{Id}")).ToList();
 
         #region FileSystem
 

@@ -1,10 +1,10 @@
 ﻿namespace GameSpec.Tes
 {
     /// <summary>
-    /// TesFamilyGame
+    /// TesGame
     /// </summary>
     /// <seealso cref="GameSpec.FamilyGame" />
-    public class TesFamilyGame : FamilyGame
+    public class TesGame : FamilyGame
     {
         /// <summary>
         /// Ensures this instance.

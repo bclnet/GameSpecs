@@ -5,8 +5,6 @@
   "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call",
   "description": "The file formats used in Asheron's Call",
   "familyType": "GameSpec.AC.ACFamily, GameSpec.AC",
-  "familyGameType": "GameSpec.AC.ACFamilyGame, GameSpec.AC",
-  "pakFileType": "GameSpec.AC.ACPakFile, GameSpec.AC",
   "games": {
     "AC": {
       "name": "Asheron's Call",
@@ -15,8 +13,11 @@
         "http://content.turbine.com/sites/clientdl/ac1/ac1install.exe",
         "http://www.thwargle.com/"
       ],
-      "pak": "game:/*.dat#AC",
-      "pakx": "game:/client_portal.dat#AC",
+      "gameType": "GameSpec.AC.ACGame, GameSpec.AC",
+      "pakFileType": "GameSpec.AC.ACPakFile, GameSpec.AC",
+      "pakExt": ".dat",
+      "pak": "game:/",
+      "pakx": "game:/client_portal.dat",
       "status": [ "open", "read", "texture:GL" ]
     }
   },

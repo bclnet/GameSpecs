@@ -5,21 +5,24 @@
   "description": "Cyanide Formats",
   "url": "https://en.wikipedia.org/wiki/Cyanide_(company)",
   "familyType": "GameSpec.Cyanide.CyanideFamily, GameSpec.Cyanide",
-  "pakFileType": "GameSpec.Cyanide.CyanidePakFile, GameSpec.Cyanide",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Cyanide.CyanidePakFile, GameSpec.Cyanide",
+      "pak": "game:/"
+    },
     "TC": {
       "name": "The Council",
       "url": [ "https://store.steampowered.com/app/287630", "https://www.gog.com/en/game/the_council" ],
       "date": "2018-03-13",
       "tags": "",
-      "pak": "game:/*.cpk#TC",
-      "pak2": "game:/*.bsa#TC"
+      "pakExt": ".cpk",
+      "pak2": "game:/*.bsa"
     },
     "Werewolf:TA": {
       "name": "Werewolf: The Apocalypse - Earthblood",
       "url": "https://store.steampowered.com/app/679110",
       "date": "2022-02-07",
-      "pak": "game:/*.pak#Werewolf:TA"
+      "pakExt": ".pak"
     }
   },
   "fileManager": {

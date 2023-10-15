@@ -8,24 +8,28 @@
   "description": "REDengine file formats including the Witcher Series",
   "url": "https://en.wikipedia.org/wiki/CD_Projekt",
   "familyType": "GameSpec.Red.RedFamily, GameSpec.Red",
-  "pakFileType": "GameSpec.Red.RedPakFile, GameSpec.Red",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Red.RedPakFile, GameSpec.Red",
+      "pak": "game:/"
+    },
     "Witcher": {
       "name": "The Witcher Enhanced Edition",
       "engine": "Aurora",
       "url": "https://www.gog.com/en/game/the_witcher",
-      //"pak": "game:/*.key#Witcher"
-      "pak": "game:/main.key#Witcher"
-      //"pakZ": "game:/attackeffects.2da#Witcher",
-      //"pak": "game:/dialog_3.tlk#Witcher",
+      "pakExt": ".key",
+      //"pak": "game:/*.key"
+      "pak": "game:/main.key"
+      //"pakZ": "game:/attackeffects.2da",
+      //"pak": "game:/dialog_3.tlk",
     },
     "Witcher2": {
       "name": "The Witcher 2",
       "engine": "REDengine",
       "url": "https://www.gog.com/en/game/the_witcher_2",
-      "pak": "game:/*#Witcher2",
-      "pak_": "game:/base_scripts.dzip#Witcher2",
-      "pak2": "game:/br0.w2strings#Witcher2"
+      "pak": "game:/*",
+      "pak_": "game:/base_scripts.dzip",
+      "pak2": "game:/br0.w2strings"
     },
     "Witcher3": {
       "name": "The Witcher 3: Wild Hunt",
@@ -34,23 +38,23 @@
         "https://www.gog.com/en/game/the_witcher_3_wild_hunt",
         "https://www.gog.com/en/game/the_witcher_3_wild_hunt_game_of_the_year_edition"
       ],
-      "pak": "game:/content0/texture.cache#Witcher3",
-      "pak0": "game:/content0/bundles/xml.bundle#Witcher3",
-      "pak1": "game:/content0/ar.w3strings#Witcher3"
+      "pak": "game:/content0/texture.cache",
+      "pak0": "game:/content0/bundles/xml.bundle",
+      "pak1": "game:/content0/ar.w3strings"
     },
     "CP77": {
       "name": "Cyberpunk 2077",
       "url": "https://store.steampowered.com/app/1091500",
-      "pak": "game:/basegame_2_mainmenu.archive#CP77",
-      "pak1": "game:/lang_en_text.archive#CP77"
-      //"pak": "game:/lang_en_voice.archive#CP77"
-      //"pak": "game:/*.archive#CP77"
+      "pakExt": ".archive",
+      "pak": "game:/basegame_2_mainmenu.archive",
+      "pak1": "game:/lang_en_text.archive"
+      //"pak": "game:/lang_en_voice.archive"
+      //"pak": "game:/*.archive"
     },
     "Witcher4": {
       "name": "The Witcher 4 Polaris (future)",
       "url": "https://en.wikipedia.org/wiki/The_Witcher_(video_game_series)",
-      "engine": "Unreal",
-      "pak": "game:/*#Witcher4"
+      "engine": "Unreal"
     }
   },
   "fileManager": {

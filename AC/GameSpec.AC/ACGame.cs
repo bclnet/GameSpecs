@@ -1,10 +1,10 @@
 ﻿namespace GameSpec.AC
 {
     /// <summary>
-    /// ACFamilyGame
+    /// ACGame
     /// </summary>
     /// <seealso cref="GameSpec.FamilyGame" />
-    public class ACFamilyGame : FamilyGame
+    public class ACGame : FamilyGame
     {
         /// <summary>
         /// Ensures this instance.

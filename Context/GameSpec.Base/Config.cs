@@ -15,8 +15,8 @@
 //#define Rsi
 //#define Tes
 //#define Unity
-#define Unreal
-//#define Valve
+//#define Unreal
+#define Valve
 
 namespace GameSpec
 {
@@ -377,9 +377,9 @@ namespace GameSpec
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
 
-            ForceOpen = true,
+            //ForceOpen = true,
             Family = "Valve",
-            //GameId = "HL", // Half-Life [open, read, texture:GL]
+            GameId = "HL", // Half-Life [open, read, texture:GL]
             //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
@@ -404,7 +404,7 @@ namespace GameSpec
             //GameId = "TheLab:RR", // The Lab: Robot Repair [open, read, texture:GL, model:GL]
             //GameId = "TheLab:SS", // The Lab: Secret Shop [!unity]
             //GameId = "TheLab:TL", // The Lab: The Lab [!unity]
-            GameId = "HL:Alyx", // Half-Life: Alyx [open, read, texture:GL, model:GL]
+            //GameId = "HL:Alyx", // Half-Life: Alyx [open, read, texture:GL, model:GL]
         };
 #else
         static string[] FamilyKeys = new[] { "AC", "Arkane", "Bioware", "Blizzard", "Capcom", "Cry", "Cryptic", "Cyanide", "Frontier", "Hpl", "Id", "IW", "Lith", "Origin", "Red", "Rsi", "Tes", "Unity", "Unknown", "Unreal", "Valve" };

@@ -5,118 +5,118 @@
   "description": "Infinity Ward file formats",
   "url": "https://en.wikipedia.org/wiki/IW_(game_engine)",
   "familyType": "GameSpec.IW.IWFamily, GameSpec.IW",
-  "pakFileType": "GameSpec.IW.IWPakFile, GameSpec.IW",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.IW.IWPakFile, GameSpec.IW",
+      "pakExt": ".iwd",
+      "pak": "game:/"
+    },
     "COD": {
       "name": "Call of Duty",
       "url": [ "https://store.steampowered.com/app/2620", "https://store.steampowered.com/app/2640" ],
       "date": "2003-10-29",
-      "tags": "WorldWarII COD",
-      "pak": "game:/*.iwd#COD"
+      "tags": "WorldWarII COD"
     },
     "COD2": {
       "name": "Call of Duty 2",
       "url": "https://store.steampowered.com/app/2630",
       "date": "2005-10-25",
-      "tags": "WorldWarII COD2",
-      "pak": "game:/*.iwd#COD2"
+      "tags": "WorldWarII COD2"
     },
     "COD4": {
       "name": "Call of Duty 4: Modern Warfare",
       "url": "https://store.steampowered.com/app/7940",
       "date": "2007-11-07",
       "tags": "ModernWarfare COD4",
-      "pak": "game:/*.iwd#COD4",
-      "pakx": "game:/mp_backlot_load.ff#COD4",
-      "paky": "game:/*.(iwd:ff)#COD4"
+      "pak": "game:/*.iwd",
+      "pakx": "game:/mp_backlot_load.ff",
+      "paky": "game:/*.(iwd:ff)"
     },
     "WaW": {
       "name": "Call of Duty: World at War",
       "url": "https://store.steampowered.com/app/10090",
       "date": "2008-11-11",
       "tags": "BlackOps COD:WaW",
-      "pak": "game:/mp_makin_day_load.ff#WaW",
-      "pakx": "game:/ber3.ff#WaW",
-      "pak_": "game:/*.ff#WaW",
-      "paky": "game:/*.(iwd:ff)#WaW"
+      "pak": "game:/mp_makin_day_load.ff",
+      "pakx": "game:/ber3.ff",
+      "pak_": "game:/*.ff",
+      "paky": "game:/*.(iwd:ff)"
     },
     "MW2": {
       "name": "Call of Duty: Modern Warfare 2",
       "url": "https://store.steampowered.com/app/10180",
       "date": "2009-11-11",
       "tags": "ModernWarfare MW2",
-      "pakx": "game:/*.(iwd:ff)#MW2",
-      "pak": "game:/*.(iwd:ff)#MW2"
+      "pakx": "game:/*.(iwd:ff)",
+      "pak": "game:/*.(iwd:ff)"
     },
     "BO": {
       "name": "Call of Duty: Black Ops",
       "url": "https://store.steampowered.com/app/42700",
       "date": "2010-11-09",
       "tags": "BlackOps COD:BO",
-      "pak": "game:/*.(iwd:ff)#BO",
-      "key": "aes:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d"
+      "key": "aes:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d",
+      "pak": "game:/*.(iwd:ff)"
     },
     "MW3": {
       "name": "Call of Duty: Modern Warfare 3",
       "url": "https://store.steampowered.com/app/42680",
       "date": "2011-11-08",
       "tags": "ModernWarfare MW3",
-      "pak": "game:/*.(iwd:ff)#MW3"
+      "pak": "game:/*.(iwd:ff)"
     },
     "BO2": {
       "name": "Call of Duty: Black Ops II",
       "url": "https://store.steampowered.com/app/202970",
       "date": "2012-05-01",
       "tags": "BlackOps COD:BO2",
-      "pak": "game:/*.ff#COD:BO2",
-      "pakx": "game:/karma_gump_checkin.ff#BO2",
-      "key": "aes:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE"
+      "key": "aes:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE",
+      "pak": "game:/*.ff",
+      "pakx": "game:/karma_gump_checkin.ff"
     },
     "Ghosts": {
       "name": "Call of Duty: Ghosts",
       "url": "https://store.steampowered.com/app/209160",
       "date": "2013-11-05",
-      "tags": "Standalone Ghosts",
-      "pak": "game:/*.iwd#Ghosts"
+      "tags": "Standalone Ghosts"
     },
     "AW": {
       "name": "Call of Duty: Advanced Warfare",
       "url": "https://store.steampowered.com/app/209650",
       "date": "2014-11-04",
       "tags": "Standalone COD:AW",
-      "pak": "game:/*.(iwd:ff)#AW"
+      "pak": "game:/*.(iwd:ff)"
     },
     "BO3": {
       "name": "Call of Duty: Black Ops III",
       "url": "https://store.steampowered.com/app/311210",
       "date": "2015-11-06",
       "tags": "BlackOps COD:BO3",
-      "pak_": "game:/*.(xpak,ff)#BO3",
-      "pak": "game:/*.xpak#BO3"
+      "pak_": "game:/*.(xpak,ff)",
+      "pak": "game:/*.xpak"
     },
     "IW": {
       "name": "Call of Duty: Infinite Warfare",
       "url": "https://store.steampowered.com/app/292730",
       "date": "2016-11-04",
-      "tags": "Standalone COD:IW",
-      "pak": "game:/*.iwd#IW"
+      "tags": "Standalone COD:IW"
     },
     "WWII": {
       "name": "Call of Duty: WWII",
       "url": "https://store.steampowered.com/app/476600",
       "date": "2017-11-03",
       "tags": "WorldWarII WWII",
-      "pak": "game:/ui.ff#WWII",
-      "pakx": "game:/xpakfile1.pak#WWII",
-      "pak_": "game:/*.(pak:ff)#WWII"
+      "pak": "game:/ui.ff",
+      "pakx": "game:/xpakfile1.pak",
+      "pak_": "game:/*.(pak:ff)"
     },
     "BO4": {
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
       "name": "Call of Duty: Black Ops 4",
       "url": "https://us.shop.battle.net/en-us/product/call-of-duty-black-ops-4",
       "date": "2018-10-12",
       "tags": "BlackOps COD:BO4",
-      "pak": "game:/*.ff#BO4",
-      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
+      "pak": "game:/*.ff",
       "editions": {
         "viper": { "name": "Call of Duty: Black Ops 4" }
       }
@@ -125,27 +125,24 @@
       "name": "Call of Duty: Modern Warfare",
       "url": "https://store.steampowered.com/app/393080",
       "date": "2019-10-25",
-      "tags": "ModernWarfare MW",
-      "pak": "game:/*.iwd#MW"
+      "tags": "ModernWarfare MW"
     },
     "BOCW": {
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
       "name": "Call of Duty: Black Ops Cold War",
       "url": "https://us.shop.battle.net/en-us/product/call-of-duty-black-ops-cold-war",
       "date": "2020-11-13",
       "tags": "BlackOps BOCW",
-      "pak": "game:/#BOCW",
-      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
       "editions": {
         "zeus": { "name": "Call of Duty: Black Ops Cold War" }
       }
     },
     "Vanguard": {
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
       "name": "Call of Duty: Vanguard",
       "url": "https://us.shop.battle.net/en-us/product/call-of-duty-vanguard",
       "date": "2021-11-05",
       "tags": "WorldWarII Vanguard",
-      "pak": "game:/#Vanguard",
-      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
       "editions": {
         "fore": { "name": "Call of Duty: Vanguard" }
       }
@@ -155,10 +152,10 @@
       "url": "https://store.steampowered.com/app/1938090",
       "date": "2022-10-28",
       "tags": "ModernWarfare COD:MW2",
-      "pak": "game:/*.ff#COD:MW2",
+      "pak": "game:/*.ff",
       "pak_": [
-        "game:/*.xpak#COD:MW2",
-        "game:/*.ff#COD:MW2"
+        "game:/*.xpak",
+        "game:/*.ff"
       ]
     }
   },
@@ -166,13 +163,11 @@
     "COD3": {
       "name": "Call of Duty 3",
       "date": "2006-11-07",
-      "tags": "WorldWarII COD3 XBox",
-      "pak": "game:/*.iwd#COD3"
+      "tags": "WorldWarII COD3 XBox"
     },
     "007:QoS": {
       "name": "007: Quantum of Solace",
-      "date": "2008-10-31",
-      "pak": "game:/*.iwd#007:QoS"
+      "date": "2008-10-31"
     }
   },
   "fileManager": {

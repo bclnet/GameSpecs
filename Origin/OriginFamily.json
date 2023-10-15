@@ -5,17 +5,20 @@
   "description": "Origin Systems file formats",
   "url": "https://en.wikipedia.org/wiki/Origin_Systems",
   "familyType": "GameSpec.Origin.OriginFamily, GameSpec.Origin",
-  "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin",
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin",
+      "pak": "game:/"
+    },
     "UO": {
       "name": "Ultima Online",
       "url": "https://uo.com/client-download/",
-      "pak": "game:/*.idx#UO"
+      "pakExt": ".idx"
     },
     "U9": {
       "name": "Ultima IX",
       "url": "https://www.gog.com/en/game/ultima_9_ascension",
-      "pak": "game:/*.flx#U9"
+      "pakExt": ".flx"
     }
   },
   "fileManager": {

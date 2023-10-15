@@ -1,7 +1,6 @@
 ﻿using GameSpec.Metadata;
 using System;
 using System.Reflection;
-using System.Resources;
 using System.Threading.Tasks;
 
 namespace GameSpec
@@ -9,7 +8,7 @@ namespace GameSpec
     /// <summary>
     /// FamilyApp
     /// </summary>
-    public abstract class FamilyApp
+    public class FamilyApp
     {
         /// <summary>
         /// Gets or sets the family.

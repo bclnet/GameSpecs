@@ -4,79 +4,84 @@
   "studio": "Epic Games",
   "description": "Unreal formats",
   "url": "https://wiki.beyondunreal.com/List_of_Unreal_Engine_games",
-  "engine": "Unreal",
   "familyType": "GameSpec.Unreal.UnrealFamily, GameSpec.Unreal",
-  "pakFileType": "GameSpec.Unreal.UnrealPakFile, GameSpec.Unreal",
   "engines": {
     "Unreal": {
-      "name": "Unreal Engine",
-      "paths": [ "Animations", "Maps", "Sounds", "StaticMeshes", "System", "Systextures", "XboxTextures", "XboxAnimations", "Textures" ]
+      "name": "Unreal Engine"
     }
   },
   "games": {
+    "*": {
+      "pakFileType": "GameSpec.Unreal.UnrealPakFile, GameSpec.Unreal",
+      "engine": "Unreal",
+      "paths": [ "Animations", "Maps", "Sounds", "StaticMeshes", "System", "Systextures", "XboxTextures", "XboxAnimations", "Textures" ],
+      "pak": "game:/"
+    },
     "UE1": {
       "name": "Unreal",
       "url": "https://oldgamesdownload.com/unreal",
       "date": "1998-01-01",
-      "pak": "game:/*#UE1"
+      "pakExt": ".xx"
     },
     "TWoT": {
       "name": "The Wheel of Time",
       "url": "https://www.gog.com/en/game/the_wheel_of_time",
       "date": "1999-11-15",
-      "pak": "game:/*.upk#TWoT"
+      "pakExt": ".upk"
     },
     "DeusEx": {
       "name": "Deus Ex™ GOTY Edition",
       "url": "https://www.gog.com/en/game/deus_ex",
       "date": "2000-06-22",
-      "pak": "game:/*.upk#DeusEx"
+      "pakExt": ".upk"
     },
     "DeusEx:MD": {
       "name": "Deus Ex: Mankind Divided",
       "url": "https://www.gog.com/en/game/deus_ex_mankind_divided",
       "date": "2016-08-23",
-      "pak": "game:/*.upk#DeusEx:MD"
+      "pakExt": ".upk"
     },
     "DeusEx2:IW": {
       "name": "Deus Ex 2: Invisible War",
       "url": "https://www.gog.com/en/game/deus_ex_invisible_war",
       "date": "2003-12-02",
-      "pak": "game:/*.upk#DeusEx2:IW"
+      "pakExt": ".upk"
     },
     "DeusEx:HR": {
       "name": "Deus Ex: Human Revolution - Director’s Cut",
       "url": "https://www.gog.com/en/game/deus_ex_human_revolution_directors_cut",
       "date": "2013-10-25",
-      "pak": "game:/*.upk#DeusEx:HR"
+      "pakExt": ".upk"
     },
     "Rune": {
       "name": "Rune",
       "url": "https://www.gog.com/en/game/rune_classic",
       "date": "2000-11-18",
-      "pak": "game:/*.upk#Rune"
+      "pakExt": ".upk"
     },
     "Undying": {
       "name": "Clive Barker's Undying",
       "url": "https://www.gog.com/en/game/clive_barkers_undying",
       "date": "2001-02-19",
-      "pak": "game:/*.upk#Undying"
+      "pakExt": ".upk"
     },
-
+    "*2": {
+      "pak": "game:/"
+    },
     "UT2K": {
       "name": "Unreal Tournament 2003",
       "url": "https://oldgamesdownload.com/unreal-tournament-2003/",
-      "pak": "game:/*.upk#UE1"
+      "pakExt": ".upk"
     },
     "UE2": {
       "name": "Unreal II: The Awakening",
       "url": "https://store.steampowered.com/app/13200/Unreal_2_The_Awakening/",
       "date": "2003-02-03",
-      "pak": "game:/*.upk#UE2"
+      "pakExt": ".upk"
     },
-
-
-
+    "*3": {
+      "pak": "game:/"
+    },
     "BioShock": {
       "name": "BioShock",
       "url": "https://store.steampowered.com/app/7670",
@@ -86,22 +91,22 @@
     "BioShockR": {
       "name": "BioShock Remastered",
       "url": "https://store.steampowered.com/app/409710",
-      "pak": "game:/*.upk#BioShockR"
+      "pakExt": ".upk"
     },
     "BioShock2": {
       "name": "BioShock 2",
       "url": "https://store.steampowered.com/app/8850",
-      "pak": "game:/*.upk#BioShock2"
+      "pakExt": ".upk"
     },
     "BioShock2R": {
       "name": "BioShock 2 Remastered",
       "url": "https://store.steampowered.com/app/409720",
-      "pak": "game:/*.upk#BioShock2R"
+      "pakExt": ".upk"
     },
     "BioShock:Inf": {
       "name": "BioShock Infinite",
       "url": "https://store.steampowered.com/app/8870",
-      "pak": "game:/*.upk#BioShock:Inf"
+      "pakExt": ".upk"
     }
   },
   "fileManager": {
@@ -157,7 +162,6 @@
         "dir": "Clive Barkers Undying",
         "path": ""
       },
-
       "BioShock": {
         "key": "Steam:7670",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",

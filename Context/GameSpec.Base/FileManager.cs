@@ -81,17 +81,18 @@ namespace GameSpec
         /// <returns></returns>
         public virtual Resource ParseResource(Family family, Uri uri, bool throwOnError = true)
         {
-            if (uri == null) return new Resource { Game = new FamilyGame() };
-            var fragment = uri.Fragment?[(uri.Fragment.Length != 0 ? 1 : 0)..];
-            var game = family.GetGame(fragment);
-            var fileSystem = game.CreateFileSystem();
-            var r = new Resource { Game = game };
-            // game-scheme
-            if (string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase)) r.Paths = FindGameFilePaths(family, fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{game.Id}: unable to locate game resources") : Array.Empty<string>());
-            // file-scheme
-            else if (uri.IsFile) r.Paths = GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id}: unable to locate file resources") : Array.Empty<string>());
-            // network-scheme
-            else r.Paths = GetHttpFilePaths(uri, out r.Host, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id}: unable to locate network resources") : Array.Empty<string>());
+            if (uri == null || string.IsNullOrEmpty(uri.Fragment)) return new Resource { Game = new FamilyGame() };
+            var r = new Resource { Game = family.GetGame(uri.Fragment[1..]) };
+            var game = r.Game;
+            var fileSystem = r.Game.CreateFileSystem();
+            var paths =
+                // game-scheme
+                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? FindGameFilePaths(family, fileSystem, r.Game, uri.LocalPath[1..]) ?? (throwOnError ? throw new ArgumentOutOfRangeException(nameof(r.Game), $"{game.Id}: unable to locate game resources") : Array.Empty<string>())
+                // file-scheme
+                : uri.IsFile ? GetLocalFilePaths(uri.LocalPath, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id}: unable to locate file resources") : Array.Empty<string>())
+                // network-scheme
+                : GetHttpFilePaths(uri, out r.Host, out r.Options) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id}: unable to locate network resources") : Array.Empty<string>());
+            r.Paths = Ignores.TryGetValue(game.Id, out var ignores) ? paths.Where(file => !ignores.Contains(Path.GetFileName(file))).ToArray() : paths;
             return r;
         }
 
@@ -105,7 +106,7 @@ namespace GameSpec
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">pathOrPattern</exception>
         /// <exception cref="ArgumentOutOfRangeException">pathOrPattern</exception>
-        public string[] FindGameFilePaths(Family family, IFileSystem fileSystem, FamilyGame game, string pathOrPattern)
+        internal string[] FindGameFilePaths(Family family, IFileSystem fileSystem, FamilyGame game, string pathOrPattern)
         {
             fileSystem ??= DefaultSystem;
             if (game == null) return null;
@@ -114,19 +115,20 @@ namespace GameSpec
             // search folder
             var searchPattern = Path.GetFileName(pathOrPattern);
             if (string.IsNullOrEmpty(searchPattern)) throw new ArgumentOutOfRangeException(nameof(pathOrPattern), pathOrPattern);
-            return Paths.TryGetValue(game.Id, out var paths)
-                ? ExpandGameFilePaths(game, fileSystem, Ignores.TryGetValue(game.Id, out var ignores) ? ignores : null, paths, pathOrPattern).ToArray()
+            var r = Paths.TryGetValue(game.Id, out var paths)
+                ? ExpandGameFilePaths(game, fileSystem, paths, pathOrPattern).ToArray()
                 : null;
+            return r;
         }
 
-        static IEnumerable<string> ExpandGameFilePaths(FamilyGame game, IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string pathOrPattern)
+        static IEnumerable<string> ExpandGameFilePaths(FamilyGame game, IFileSystem fileSystem, HashSet<string> paths, string pathOrPattern)
         {
             foreach (var gamePath in game.Paths ?? new[] { "." })
-                foreach (var path in ExpandAndSearchPaths(fileSystem, ignore, paths, gamePath, pathOrPattern))
+                foreach (var path in ExpandAndSearchPaths(fileSystem, paths, gamePath, pathOrPattern))
                     yield return path;
         }
 
-        static IEnumerable<string> ExpandAndSearchPaths(IFileSystem fileSystem, HashSet<string> ignore, HashSet<string> paths, string gamePath, string pathOrPattern)
+        static IEnumerable<string> ExpandAndSearchPaths(IFileSystem fileSystem, HashSet<string> paths, string gamePath, string pathOrPattern)
         {
             // expand
             int expandStartIdx, expandMidIdx, expandEndIdx;
@@ -136,7 +138,7 @@ namespace GameSpec
                 expandStartIdx < expandEndIdx)
             {
                 foreach (var expand in pathOrPattern.Substring(expandStartIdx + 1, expandEndIdx - expandStartIdx - 1).Split(':'))
-                    foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, paths, gamePath, pathOrPattern.Remove(expandStartIdx, expandEndIdx - expandStartIdx + 1).Insert(expandStartIdx, expand)))
+                    foreach (var found in ExpandAndSearchPaths(fileSystem, paths, gamePath, pathOrPattern.Remove(expandStartIdx, expandEndIdx - expandStartIdx + 1).Insert(expandStartIdx, expand)))
                         yield return found;
                 yield break;
             }
@@ -148,13 +150,13 @@ namespace GameSpec
                 if (searchPattern.Contains('*'))
                 {
                     foreach (var directory in fileSystem.GetDirectories(searchPath, searchPattern, searchPattern.Contains("**")))
-                        foreach (var found in ExpandAndSearchPaths(fileSystem, ignore, new HashSet<string> { directory }, ".", Path.GetFileName(pathOrPattern)))
+                        foreach (var found in ExpandAndSearchPaths(fileSystem, new HashSet<string> { directory }, ".", Path.GetFileName(pathOrPattern)))
                             yield return found;
                     pathOrPattern = Path.GetFileName(pathOrPattern);
                 }
                 // file
                 if (!pathOrPattern.Contains('*')) yield return Path.Combine(searchPath, pathOrPattern);
-                else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) if (ignore == null || !ignore.Contains(Path.GetFileName(file))) yield return file;
+                else foreach (var file in fileSystem.GetFiles(searchPath, pathOrPattern)) yield return file;
             }
         }
 
