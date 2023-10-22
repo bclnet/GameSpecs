@@ -133,7 +133,7 @@ namespace GameSpec
         /// <returns></returns>
         internal static PakFile CreatePakFile(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError)
         {
-            if (fileSystem is HostSystem k) throw new NotImplementedException(); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
+            if (fileSystem is HostSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
             searchPattern = game.CreateSearchPatterns(searchPattern) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id} missing PakExts") : (string)null);
             if (searchPattern == null) return null;
             var pakFiles = new List<PakFile>();
