@@ -15,5 +15,9 @@
         {
             throw new System.NotImplementedException();
         }
+        public string GetFile(string path)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

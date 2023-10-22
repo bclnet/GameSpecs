@@ -9,14 +9,14 @@ namespace GameSpec.App
     {
         public static async Task ImportAsync(Family family, Resource resource, string filePath, int from, DataOption option)
         {
-            foreach (var path in resource.Paths)
-            {
-                using var pak = family.OpenPakFile(resource.Game, new[] { path }) as BinaryPakFile;
-                if (pak == null) throw new InvalidOperationException("Pak not a BinaryPakFile");
+            //foreach (var path in resource.Paths)
+            //{
+            //    using var pak = family.OpenPakFile(resource.Game, new[] { path }) as BinaryPakFile;
+            //    if (pak == null) throw new InvalidOperationException("Pak not a BinaryPakFile");
 
-                // import pak
-                var w = await ImportPakAsync(filePath, from, path, option, pak);
-            }
+            //    // import pak
+            //    var w = await ImportPakAsync(filePath, from, path, option, pak);
+            //}
         }
 
         static async Task<BinaryWriter> ImportPakAsync(string filePath, int from, string path, DataOption option, BinaryPakFile pak)

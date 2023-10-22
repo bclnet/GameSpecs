@@ -13,6 +13,9 @@
       "name": "Assassin's Creed Origins",
       "url": "https://store.steampowered.com/app/582160"
     },
+    "APP": {
+      "name": "Application"
+    },
     "CAT": {
       "name": "Catalog",
       "pak": "game:/main.yaml"
@@ -20,9 +23,8 @@
   },
   "fileManager": {
     "direct": {
-      "CAT": {
-        "path": "%AppPath%/catalogs"
-      }
+      "APP": { "path": "%AppPath%" },
+      "CAT": { "path": "%AppPath%/catalogs" }
     },
     "application": { }
   }

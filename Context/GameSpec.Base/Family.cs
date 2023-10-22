@@ -2,6 +2,7 @@
 using OpenStack;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace GameSpec
 {
@@ -147,14 +148,11 @@ namespace GameSpec
         /// Opens the family pak file.
         /// </summary>
         /// <param name="game">The game.</param>
-        /// <param name="paths">The file paths.</param>
-        /// <param name="index">The index.</param>
+        /// <param name="path">The file path.</param>
+        /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(FamilyGame game, string[] paths, bool throwOnError = true) => FamilyManager.CreatePakFile(
-            game ?? throw new ArgumentNullException(nameof(game)),
-            throwOnError && (paths == null || paths.Length == 0) ? throw new ArgumentOutOfRangeException(nameof(paths)) : paths,
-            null, game.PakOption, throwOnError);
+        public PakFile OpenPakFile(FamilyGame game, string path, string searchPattern, bool throwOnError = true) => FamilyManager.CreatePakFile(game ?? throw new ArgumentNullException(nameof(game)), game.CreateFileSystem(path), searchPattern, throwOnError);
 
         /// <summary>
         /// Opens the family pak file.
@@ -162,10 +160,7 @@ namespace GameSpec
         /// <param name="resource">The resource.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => FamilyManager.CreatePakFile(
-            resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)),
-            throwOnError && (resource.Paths == null || resource.Paths.Length == 0) ? throw new ArgumentOutOfRangeException(nameof(resource.Paths)) : resource.Paths,
-            resource.Host, resource.Options, throwOnError);
+        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError);
 
         /// <summary>
         /// Opens the family pak file.
@@ -177,10 +172,7 @@ namespace GameSpec
         public PakFile OpenPakFile(Uri uri, bool throwOnError = true)
         {
             var resource = FileManager.ParseResource(this, uri);
-            return FamilyManager.CreatePakFile(
-                resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)),
-                throwOnError && (resource.Paths == null || resource.Paths.Length == 0) ? throw new ArgumentOutOfRangeException(nameof(resource.Paths)) : resource.Paths,
-                resource.Host, resource.Options, throwOnError);
+            return FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError);
         }
 
         #endregion

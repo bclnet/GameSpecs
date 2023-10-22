@@ -40,9 +40,9 @@ namespace GameSpec.App.Cli
                 Console.WriteLine($"\nGames:");
                 foreach (var game in family.Games.Values) Console.WriteLine($"{game.Name}{(game.Found ? " -> " + string.Join(',', game.Paks) : null)}");
                 Console.WriteLine("\nLocations:");
-                var locations = family.FileManager.Paths;
-                if (locations.Count == 0) { Console.WriteLine($"No locations found for estate {opts.Family}."); return Task.FromResult(0); }
-                foreach (var location in locations) Console.WriteLine($"{family.GetGame(location.Key)} - {string.Join(", ", location.Value)}");
+                var paths = family.FileManager.Paths;
+                if (paths.Count == 0) { Console.WriteLine($"No locations found for estate {opts.Family}."); return Task.FromResult(0); }
+                foreach (var path in paths) Console.WriteLine($"{family.GetGame(path.Key)} - {string.Join(", ", path.Value)}");
                 return Task.FromResult(0);
             }
 

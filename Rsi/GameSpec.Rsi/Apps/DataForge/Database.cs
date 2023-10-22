@@ -61,7 +61,7 @@ namespace GameSpec.Rsi.Apps.DataForge
         public async Task OpenAsync(MetadataManager manager)
         {
             family = FamilyManager.GetFamily("Rsi");
-            pakFile = family.OpenPakFile(new Uri("game:/Data.p4k#StarCitizen"));
+            pakFile = family.OpenPakFile(new Uri("game:/#StarCitizen"));
             var obj = await pakFile.LoadFileObjectAsync<BinaryDcb>($"Data/Game.dcb");
             foreach (var value in obj.RecordTable)
                 Node.CreateNode(manager, Nodes, value);

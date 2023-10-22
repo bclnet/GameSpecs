@@ -16,8 +16,10 @@ namespace GameSpec
 @"{
     'id': 'Some',
     'name': 'Some Family',
-    'pakFileType': 'GameSpec.Some+SomePakFile, GameSpec.BaseTests',
     'games': {
+        '*': {
+            'pakFileType': 'GameSpec.Some+SomePakFile, GameSpec.BaseTests'
+        },
         'Found': {
             'name': 'Found',
             'pak': 'game:/path#Found'

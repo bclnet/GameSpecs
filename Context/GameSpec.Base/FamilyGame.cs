@@ -1,9 +1,9 @@
-﻿using System;
+﻿using GameSpec.Formats;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using static GameSpec.FamilyManager;
-using static GameSpec.Resource;
+using static GameSpec.FileManager;
 
 namespace GameSpec
 {
@@ -96,29 +96,29 @@ namespace GameSpec
         /// </summary>
         public SearchBy SearchBy { get; set; }
         /// <summary>
+        /// Gets or sets the pak option.
+        /// </summary>
+        public GameOption Option { get; set; }
+        /// <summary>
         /// Gets or sets the pakFile type.
         /// </summary>
         public Type PakFileType { get; set; }
         /// <summary>
-        /// Gets or sets the pak option.
-        /// </summary>
-        public PakOption PakOption { get; set; }
-        /// <summary>
         /// Gets or sets the pak etxs.
         /// </summary>
-        public IList<string> PakEtxs { get; set; }
+        public string[] PakExts { get; set; }
         /// <summary>
         /// Gets or sets the paks.
         /// </summary>
-        public IList<Uri> Paks { get; set; }
+        public Uri[] Paks { get; set; }
         /// <summary>
         /// Gets or sets the dats.
         /// </summary>
-        public IList<Uri> Dats { get; set; }
+        public Uri[] Dats { get; set; }
         /// <summary>
         /// Gets or sets the Paths.
         /// </summary>
-        public IList<string> Paths { get; set; }
+        public string[] Paths { get; set; }
         /// <summary>
         /// Gets or sets the key.
         /// </summary>
@@ -177,8 +177,68 @@ namespace GameSpec
         /// <summary>
         /// Creates the game file system.
         /// </summary>
+        /// <param name="paths">The paths.</param>
         /// <returns></returns>
-        public FileManager.IFileSystem CreateFileSystem() => FileSystemType != null ? (FileManager.IFileSystem)Activator.CreateInstance(FileSystemType) : null;
+        public IFileSystem CreateFileSystem(string root) => FileSystemType != null ? (IFileSystem)Activator.CreateInstance(FileSystemType, root) : new StandardSystem(root);
+
+        /// <summary>
+        /// Create pak file.
+        /// </summary>
+        /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public PakFile CreatePakFile(IFileSystem fileSystem, object value) => value switch
+        {
+            string path when IsPakFile(path) => (PakFile)Activator.CreateInstance(PakFileType ?? throw new InvalidOperationException($"{Id} missing PakFileType"), this, fileSystem, path),
+            string path => throw new InvalidOperationException($"{Id} missing PakFileType"),
+            string[] paths when paths.Length == 1 && IsPakFile(paths[0]) => CreatePakFile(fileSystem, paths[0]),
+            //string[] paths => new ManyPakFile(this, "Many", paths),
+            IList<PakFile> pakFiles when pakFiles.Count == 1 => pakFiles[0],
+            IList<PakFile> pakFiles => new MultiPakFile(this, "Multi", pakFiles),
+            null => null,
+            _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
+        };
+
+        /// <summary>
+        /// Create pak file.
+        /// </summary>
+        /// <param name="pakFiles">The pak files.</param>
+        /// <returns></returns>
+        //public PakFile CreatePakFile(IList<PakFile> pakFiles) => new MultiPakFile(this, "Many", pakFiles);
+
+        /// <summary>
+        /// Is pak file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        public bool IsPakFile(string path) => PakExts.Any(path.EndsWith);
+
+        /// <summary>
+        /// Creates the search patterns.
+        /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <returns></returns>
+        public string CreateSearchPatterns(string searchPattern)
+        {
+            if (string.IsNullOrEmpty(searchPattern))
+            {
+                if (PakExts == null || PakExts.Length == 0) return (string)null;
+                return SearchBy switch
+                {
+                    SearchBy.Pak => PakExts.Length == 1 ? $"*{PakExts[0]}" : $"(*{string.Join(":", PakExts)})",
+                    SearchBy.TopDir => "*/*",
+                    SearchBy.AllDir => "**/*",
+                    _ => throw new ArgumentOutOfRangeException(nameof(SearchBy), $"{SearchBy}"),
+                };
+            }
+            return null;
+            //string ext;
+            //if (string.IsNullOrEmpty(searchPattern)) {
+            //    string.Join(PakEtxs).Select(x => x)
+            //        }
+            //    : !string.IsNullOrEmpty(ext = Path.GetExtension(searchPattern)) ? PakEtxs?.Select(x => x + ext).ToArray()
+            //    : new string[] { searchPattern };
+        }
 
         #endregion
     }

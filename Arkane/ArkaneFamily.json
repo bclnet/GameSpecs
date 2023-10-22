@@ -24,8 +24,7 @@
       "engine": "Valve",
       "url": "https://store.steampowered.com/app/2100",
       "date": "2006-10-25",
-      "pakExt": ".vpk",
-      "pak": "game:/*_dir.vpk",
+      "pakExt": "dir.vpk",
       "status": [ "open", "read" ]
     },
     "D": {
@@ -68,13 +67,15 @@
       "name": "Wolfenstein: Youngblood",
       "engine": "idTech6",
       "url": "https://store.steampowered.com/app/1056960",
-      "date": "2019-07-25"
+      "date": "2019-07-25",
+      "pakExt": ".xyz"
     },
     "W:CP": {
       "name": "Wolfenstein: Cyberpilot",
       "engine": "idTech6",
       "url": "https://store.steampowered.com/app/1056970",
-      "date": "2019-07-25"
+      "date": "2019-07-25",
+      "pakExt": ".xyz"
     },
     "DL": {
       "name": "Deathloop",

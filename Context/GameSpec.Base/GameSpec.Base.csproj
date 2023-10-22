@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FileManager+Last.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
@@ -33,6 +37,7 @@
     <None Include="..\..\Platforms\Native\x64\oo2ext_7_win64.dll" Link="oo2ext_7_win64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="FileManager+Last.cs" />
   </ItemGroup>
 
   <ItemGroup>

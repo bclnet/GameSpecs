@@ -371,13 +371,13 @@ namespace GameSpec
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
             //HL:Alyx
-            ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
+            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
             //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
             //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
 
-            //ForceOpen = true,
+            ForceOpen = true,
             Family = "Valve",
             GameId = "HL", // Half-Life [open, read, texture:GL]
             //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]

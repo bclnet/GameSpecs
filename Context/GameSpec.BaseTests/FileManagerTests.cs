@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Text.Json;
 
 namespace GameSpec
@@ -8,19 +9,15 @@ namespace GameSpec
     {
         static readonly Family Family = FamilyManager.Unknown;
 
-        [TestMethod]
-        public void ShouldParseResource()
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("game:/#APP")]
+        [DataRow("file:///C:/#APP")]
+        [DataRow("https://localhost#APP")]
+        public void ShouldParseResource(string uri)
         {
             var fileManager = Family.FileManager;
-            Assert.IsNotNull(fileManager.ParseResource(Family, null, false));
-        }
-
-        [TestMethod]
-        public void ShouldFindGameFilePaths()
-        {
-            var fileManager = Family.FileManager;
-            Assert.IsFalse(fileManager.HasPaths);
-            Assert.IsNull(fileManager.FindGameFilePaths(Family, null, Family.GetGame("CAT"), null));
+            Assert.IsNotNull(fileManager.ParseResource(Family, uri != null ? new Uri(uri) : null, false));
         }
 
         [TestMethod]

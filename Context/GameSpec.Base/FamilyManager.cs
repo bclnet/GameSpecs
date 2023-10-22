@@ -1,4 +1,4 @@
-﻿using GameSpec.Formats;
+﻿using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using static GameSpec.FamilyGame;
-using static GameSpec.Resource;
+using static GameSpec.FileManager;
 
 namespace GameSpec
 {
@@ -28,6 +28,17 @@ namespace GameSpec
         {
             Pak,
             TopDir,
+            AllDir,
+        }
+
+        /// <summary>
+        /// Game options.
+        /// </summary>
+        [Flags]
+        public enum GameOption
+        {
+            //Paths = 0x1,
+            //Stream = 0x2,
         }
 
         /// <summary>
@@ -52,7 +63,7 @@ namespace GameSpec
                     if (family != null) Families.Add(family.Id, family);
                 }
             Unknown = GetFamily("Unknown");
-            UnknownPakFile = Unknown.OpenPakFile(null, throwOnError: false);
+            UnknownPakFile = Unknown.OpenPakFile(new Uri("game:/#App"), throwOnError: false);
         }
 
         /// <summary>
@@ -61,7 +72,7 @@ namespace GameSpec
         /// <value>
         /// The family.
         /// </value>
-        public static IDictionary<string, Family> Families { get; } = new Dictionary<string, Family>(StringComparer.OrdinalIgnoreCase);
+        public static readonly IDictionary<string, Family> Families = new Dictionary<string, Family>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Gets the specified family.
@@ -71,7 +82,7 @@ namespace GameSpec
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">estateName</exception>
         public static Family GetFamily(string familyName, bool throwOnError = true)
-            => Families.TryGetValue(familyName, out var estate) ? estate
+            => Families.TryGetValue(familyName, out var family) ? family
             : throwOnError ? throw new ArgumentOutOfRangeException(nameof(familyName), familyName) : (Family)null;
 
         #region Pak
@@ -92,24 +103,53 @@ namespace GameSpec
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="value">The value.</param>
-        /// <param name="host">The host.</param>
+        /// <param name="fileSystem">The fileSystem.</param>
         /// <param name="options">The options.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        internal static PakFile CreatePakFile(FamilyGame game, object value, Uri host, PakOption options, bool throwOnError)
+        //internal static PakFile CreatePakFile(FamilyGame game, object value, IFileSystem fileSystem, PakOption options, bool throwOnError)
+        //{
+        //    var family = game.Family;
+        //    return WithPlatformGraphic(value switch
+        //    {
+        //        string path when game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, path, null),
+        //        //string path when (options & PakOption.Stream) != 0 => new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
+        //        string[] paths when (options & PakOption.Paths) != 0 && game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, paths),
+        //        string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], fileSystem, options, throwOnError),
+        //        string[] paths when paths.Length > 1 => new MultiPakFile(game, "Many", paths.Select(path => CreatePakFile(game, path, fileSystem, options, throwOnError)).ToArray()),
+        //        string[] paths when paths.Length == 0 => null,
+        //        null => null,
+        //        _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
+        //    });
+        //}
+
+        /// <summary>
+        /// Create pak file.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="throwOnError">Throws on error.</param>
+        /// <returns></returns>
+        internal static PakFile CreatePakFile(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError)
         {
-            var family = game.Family;
-            return WithPlatformGraphic(value switch
-            {
-                string path when game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, path, null),
-                string path when (options & PakOption.Stream) != 0 => new StreamPakFile(family.FileManager.HostFactory, game, path, host),
-                string[] paths when (options & PakOption.Paths) != 0 && game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, paths),
-                string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], host, options, throwOnError),
-                string[] paths when paths.Length > 1 => new MultiPakFile(game, "Many", paths.Select(path => CreatePakFile(game, path, host, options, throwOnError)).ToArray()),
-                string[] paths when paths.Length == 0 => null,
-                null => null,
-                _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
-            });
+            if (fileSystem is HostSystem k) throw new NotImplementedException(); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
+            searchPattern = game.CreateSearchPatterns(searchPattern) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id} missing PakExts") : (string)null);
+            if (searchPattern == null) return null;
+            var pakFiles = new List<PakFile>();
+            foreach (var paths in game.Family.FileManager.GetGamePaths(game, fileSystem, searchPattern, throwOnError))
+                switch (game.SearchBy)
+                {
+                    case SearchBy.Pak:
+                        foreach (var path in paths)
+                            if (game.IsPakFile(path)) pakFiles.Add(game.CreatePakFile(fileSystem, path));
+                        break;
+                    case SearchBy.AllDir: case SearchBy.TopDir:
+                        pakFiles.Add(game.CreatePakFile(fileSystem, paths));
+                        break;
+                    default: throw new ArgumentOutOfRangeException(nameof(game.SearchBy), $"{game.SearchBy}");
+                }
+            return WithPlatformGraphic(game.CreatePakFile(fileSystem, pakFiles));
         }
 
         #endregion
@@ -139,8 +179,8 @@ namespace GameSpec
                 using var doc = JsonDocument.Parse(json, options);
                 var elem = doc.RootElement;
                 if (elem.TryGetProperty("fileManager", out var z)) fileManager.ParseFileManager(z);
-                var locations = fileManager.Paths;
-                var familyType = elem.TryGetProperty("familyType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", z.GetString()) : null;
+                var paths = fileManager.Paths;
+                var familyType = elem.TryGetProperty("familyType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", $"Unknown type: {z}") : null;
                 var family = familyType != null ? (Family)Activator.CreateInstance(familyType) : new Family();
                 family.Id = (elem.TryGetProperty("id", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("id");
                 family.Name = (elem.TryGetProperty("name", out z) ? z.GetString() : null) ?? throw new ArgumentNullException("name");
@@ -148,7 +188,7 @@ namespace GameSpec
                 family.Description = elem.TryGetProperty("description", out z) ? z.GetString() : string.Empty;
                 family.FileManager = fileManager;
                 family.Engines = elem.TryGetProperty("engines", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseEngine(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
-                family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: ParseGame(ref defaultGame, family, locations, x.Name, x.Value))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value, StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
+                family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: ParseGame(ref defaultGame, family, paths, x.Name, x.Value))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value, StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
                 family.OtherGames = elem.TryGetProperty("other-games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: ParseOtherGame(ref defaultGame, family, x.Name, x.Value))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value, StringComparer.OrdinalIgnoreCase) : null;
                 family.Apps = elem.TryGetProperty("apps", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseApp(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 return family;
@@ -183,7 +223,7 @@ namespace GameSpec
 
         static FamilyEngine ParseEngine(Family family, string id, JsonElement elem)
         {
-            var engineType = elem.TryGetProperty("engineType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("engineType", z.GetString()) : null;
+            var engineType = elem.TryGetProperty("engineType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("engineType", $"Unknown type: {z}") : null;
             var engine = engineType != null ? (FamilyEngine)Activator.CreateInstance(engineType) : new FamilyEngine();
             engine.Family = family;
             engine.Id = id;
@@ -193,21 +233,22 @@ namespace GameSpec
 
         static FamilyGame ParseGame(ref FamilyGame default_, Family family, IDictionary<string, HashSet<string>> locations, string id, JsonElement elem)
         {
-            var gameType = elem.TryGetProperty("gameType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", z.GetString()) : default_?.GameType;
+            var gameType = elem.TryGetProperty("gameType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", $"Unknown type: {z}") : default_?.GameType;
             var game = gameType != null ? (FamilyGame)Activator.CreateInstance(gameType) : new FamilyGame();
             game.GameType = gameType;
             game.Family = family;
             game.Id = id;
             game.Name = elem.TryGetProperty("name", out z) ? z.GetString() : null;
             game.Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : default_?.Engine;
-            game.PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", z.GetString()) : default_?.PakFileType;
-            game.PakOption = elem.TryGetProperty("pakOption", out z) ? Enum.TryParse<PakOption>(z.GetString(), true, out var z1) ? z1 : throw new ArgumentOutOfRangeException("pakOption", z.GetString()) : default_ != null ? default_.PakOption : default;
-            game.PakEtxs = elem.TryGetProperty("pakExt", out z) ? z.GetStringOrArray(x => x) : default_?.PakEtxs;
+            game.SearchBy = elem.TryGetProperty("searchBy", out z) ? Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}") : default_ != null ? default_.SearchBy : default;
+            game.Option = elem.TryGetProperty("option", out z) ? Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}") : default_ != null ? default_.Option : default;
+            game.PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}") : default_?.PakFileType;
+            game.PakExts = elem.TryGetProperty("pakExt", out z) ? z.GetStringOrArray(x => x) : default_?.PakExts;
             game.Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : default_?.Paks;
             game.Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : default_?.Dats;
             game.Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : default_?.Paths;
-            game.Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : null;
-            game.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", z.GetString()) : default_?.FileSystemType;
+            game.Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var zO) ? zO : throw new ArgumentOutOfRangeException("key", z.GetString()) : null;
+            game.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}") : default_?.FileSystemType;
             game.Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameEdition(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
             game.Dlc = elem.TryGetProperty("dlc", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
             game.Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameLocal(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
