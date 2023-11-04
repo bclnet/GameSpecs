@@ -20,10 +20,9 @@ namespace GameSpec.Formats
 
         public PakBinarySharpZip(Family.ByteKey key = null) => Key = key?.Key;
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             source.UseBinaryReader = false;
             var files = multiSource.Files = new List<FileMetadata>();
@@ -44,7 +43,7 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
+        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 

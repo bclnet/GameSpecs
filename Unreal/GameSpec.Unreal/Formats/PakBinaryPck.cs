@@ -14,10 +14,9 @@ namespace GameSpec.Unreal.Formats
     {
         public static readonly PakBinary Instance = new PakBinaryPck();
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             List<FileMetadata> files;
             multiSource.Files = files = new List<FileMetadata>();
@@ -35,17 +34,14 @@ namespace GameSpec.Unreal.Formats
             return Task.CompletedTask;
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
-            => throw new NotImplementedException();
-
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default)
         {
             var R = (BinaryReader)file.Tag;
             R.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(R.ReadBytes((int)file.FileSize)));
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = default, Action<FileMetadata, string> exception = default)
             => throw new NotImplementedException();
     }
 }

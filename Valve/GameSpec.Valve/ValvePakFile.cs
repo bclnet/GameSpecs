@@ -24,29 +24,29 @@ namespace GameSpec.Valve
         /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ValvePakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public ValvePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             PathFinders.Add(typeof(object), FindBinary);
-            Open();
         }
 
-        #region GetPackBinary
+        #region GetPakBinary
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPackBinary(FamilyGame game, string extension)
-            => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game, extension));
+        static PakBinary GetPakBinary(FamilyGame game, string filePath)
+            => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game, filePath != null ? Path.GetExtension(filePath).ToLowerInvariant() : null));
 
-        static PakBinary PackBinaryFactory(FamilyGame game, string extension)
+        static PakBinary PakBinaryFactory(FamilyGame game, string extension)
             => game.Engine switch
             {
                 "Unity" => Unity.Formats.PakBinaryUnity.Instance,
+                "Source" => PakBinaryVpk.Instance,
                 _ => extension switch
                 {
                     ".wad" => PakBinaryWad.Instance,
-                    _ => PakBinaryVpk.Instance,
+                    _ => null,
                 }
             };
 

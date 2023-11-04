@@ -5,9 +5,11 @@ using GameSpec.Unknown;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static OpenStack.Debug;
 
 namespace GameSpec
 {
@@ -45,6 +47,11 @@ namespace GameSpec
         public readonly string Name;
 
         /// <summary>
+        /// Gets the tag.
+        /// </summary>
+        public object Tag;
+
+        /// <summary>
         /// Gets the pak path finders.
         /// </summary>
         public readonly IDictionary<Type, Func<string, string>> PathFinders = new Dictionary<Type, Func<string, string>>();
@@ -53,14 +60,14 @@ namespace GameSpec
         /// Initializes a new instance of the <see cref="PakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
-        /// <exception cref="ArgumentNullException">filePaths
-        /// or
-        /// game</exception>
-        public PakFile(FamilyGame game, string name)
+        /// <param name="name">The name.</param>
+        /// <param name="tag">The tag.</param>
+        public PakFile(FamilyGame game, string name, object tag = null)
         {
             Family = game.Family ?? throw new ArgumentNullException(nameof(game.Family));
             Game = game ?? throw new ArgumentNullException(nameof(game));
             Name = name;
+            Tag = tag;
         }
 
         /// <summary>
@@ -69,19 +76,52 @@ namespace GameSpec
         public virtual bool Valid => true;
 
         /// <summary>
-        /// Closes this instance.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        public abstract void Dispose();
+        public void Dispose()
+        {
+            Close();
+            GC.SuppressFinalize(this);
+        }
+        ~PakFile() => Close();
 
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public abstract void Close();
+        public PakFile Close()
+        {
+            Status = PakStatus.Closing;
+            Closing();
+            if (Tag is IDisposable disposableTag) disposableTag.Dispose();
+            Status = PakStatus.Closed;
+            return this;
+        }
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public abstract void Closing();
 
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        public abstract void Open();
+        public virtual PakFile Open()
+        {
+            if (Status != PakStatus.Closed) return this;
+            Status = PakStatus.Opening;
+            var watch = new Stopwatch();
+            watch.Start();
+            Opening();
+            Log($"Opening: {Name} @ {watch.ElapsedMilliseconds}ms");
+            watch.Stop();
+            Status = PakStatus.Opened;
+            return this;
+        }
+
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
+        public abstract void Opening();
 
         /// <summary>
         /// Determines whether this instance contains the item.

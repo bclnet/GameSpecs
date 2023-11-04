@@ -61,7 +61,7 @@ namespace GameSpec.Bioware.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
+            public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
@@ -215,10 +215,9 @@ namespace GameSpec.Bioware.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files; List<FileMetadata> files2;
 
             // KEY
@@ -251,7 +250,7 @@ namespace GameSpec.Bioware.Formats
                     {
                         Path = path,
                         FileSize = file.FileSize,
-                        Pak = new SubPakFile(source.Game, subPath, (headerKeys, (uint)i)),
+                        Pak = new SubPakFile(source.Game, source.FileSystem, subPath, (headerKeys, (uint)i)),
                     };
                 }
             }

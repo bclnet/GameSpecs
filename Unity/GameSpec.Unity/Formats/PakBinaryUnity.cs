@@ -1772,10 +1772,9 @@ namespace GameSpec.Unity.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             // try-bundle
             var bundleFile = new BundleFile(r);
@@ -1819,7 +1818,7 @@ namespace GameSpec.Unity.Formats
             return Task.CompletedTask;
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
+        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 

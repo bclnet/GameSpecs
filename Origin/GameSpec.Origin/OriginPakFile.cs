@@ -18,18 +18,18 @@ namespace GameSpec.Origin
         /// Initializes a new instance of the <see cref="OriginPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public OriginPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game), tag)
+        public OriginPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
-        #region GetPackBinary
+        #region GetPakBinary
 
-        static PakBinary GetPackBinary(FamilyGame game)
+        static PakBinary GetPakBinary(FamilyGame game)
             => game.Id == "UO"
             ? PakBinaryOriginUO.Instance
             : PakBinaryOriginU9.Instance;

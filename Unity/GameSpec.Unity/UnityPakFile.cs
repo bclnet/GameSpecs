@@ -18,14 +18,13 @@ namespace GameSpec.Unity
         /// Initializes a new instance of the <see cref="UnityPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnityPakFile(FamilyGame game, string filePath, object tag = null)
-            : base(game, filePath, PakBinaryUnity.Instance, tag)
+        public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryUnity.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
         #region Transforms

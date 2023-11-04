@@ -8,7 +8,7 @@ namespace GameSpec.Formats
     /// <summary>
     /// StreamPakFile
     /// </summary>
-    /// <seealso cref="GameEstate.Core.BinaryPakManyFile" />
+    /// <seealso cref="GameSpec.Formats.BinaryPakManyFile" />
     public class StreamPakFile : BinaryPakManyFile
     {
         readonly AbstractHost Host;
@@ -18,33 +18,33 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="address">The host.</param>
-        public StreamPakFile(Func<Uri, string, AbstractHost> factory, FamilyGame game, string filePath, Uri address = null) : base(game, filePath, new PakBinaryCanStream())
+        public StreamPakFile(Func<Uri, string, AbstractHost> factory, FamilyGame game, IFileSystem fileSystem, string filePath, Uri address = null) : base(game, fileSystem, filePath, new PakBinaryCanStream())
         {
             UseBinaryReader = false;
             if (address != null) Host = factory(address, filePath);
-            Open();
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="StreamPakFile" /> class.
         /// </summary>
         /// <param name="parent">The parent.</param>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
-        public StreamPakFile(BinaryPakManyFile parent, FamilyGame game, string filePath) : base(game, filePath, new PakBinaryCanStream())
+        public StreamPakFile(BinaryPakManyFile parent, FamilyGame game, IFileSystem fileSystem, string filePath) : base(game, fileSystem, filePath, new PakBinaryCanStream())
         {
             UseBinaryReader = false;
             Files = parent.Files;
-            Open();
         }
 
         /// <summary>
         /// Reads the asynchronous.
         /// </summary>
         /// <param name="_">The .</param>
-        /// <param name="stage">The stage.</param>
-        public override async Task ReadAsync(BinaryReader _, PakBinary.ReadStage stage)
+        /// <param name="tag">The tag.</param>
+        public override async Task ReadAsync(BinaryReader _, object tag)
         {
             // http pak
             if (Host != null)
@@ -59,20 +59,20 @@ namespace GameSpec.Formats
             var path = FilePath;
             if (string.IsNullOrEmpty(path) || !Directory.Exists(path)) return;
             var setPath = Path.Combine(path, ".set");
-            if (File.Exists(setPath)) using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(this, r, PakBinary.ReadStage._Set);
+            if (File.Exists(setPath)) using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(this, r, "Set");
             var metaPath = Path.Combine(path, ".meta");
-            if (File.Exists(metaPath)) using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(this, r, PakBinary.ReadStage._Meta);
+            if (File.Exists(metaPath)) using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(this, r, "Meta");
             var rawPath = Path.Combine(path, ".raw");
-            if (File.Exists(rawPath)) using (var r = new BinaryReader(File.Open(rawPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(this, r, PakBinary.ReadStage._Raw);
+            if (File.Exists(rawPath)) using (var r = new BinaryReader(File.Open(rawPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(this, r, "Raw");
         }
 
         /// <summary>
         /// Writes the asynchronous.
         /// </summary>
         /// <param name="_">The .</param>
-        /// <param name="stage">The stage.</param>
+        /// <param name="tag">The tag.</param>
         /// <exception cref="NotSupportedException"></exception>
-        public override async Task WriteAsync(BinaryWriter _, PakBinary.WriteStage stage)
+        public override async Task WriteAsync(BinaryWriter _, object tag)
         {
             // http pak
             if (Host != null) throw new NotSupportedException();
@@ -81,11 +81,11 @@ namespace GameSpec.Formats
             var path = FilePath;
             if (!string.IsNullOrEmpty(path) && !Directory.Exists(path)) Directory.CreateDirectory(path);
             var setPath = Path.Combine(path, ".set");
-            using (var w = new BinaryWriter(new FileStream(setPath, FileMode.Create, FileAccess.Write))) await PakBinary.Stream.WriteAsync(this, w, PakBinary.WriteStage._Set);
+            using (var w = new BinaryWriter(new FileStream(setPath, FileMode.Create, FileAccess.Write))) await PakBinary.Stream.WriteAsync(this, w, "Set");
             var metaPath = Path.Combine(path, ".meta");
-            using (var w = new BinaryWriter(new FileStream(metaPath, FileMode.Create, FileAccess.Write))) await PakBinary.Stream.WriteAsync(this, w, PakBinary.WriteStage._Meta);
+            using (var w = new BinaryWriter(new FileStream(metaPath, FileMode.Create, FileAccess.Write))) await PakBinary.Stream.WriteAsync(this, w, "Meta");
             var rawPath = Path.Combine(path, ".raw");
-            if (FilesRawSet != null && FilesRawSet.Count > 0) using (var w = new BinaryWriter(new FileStream(rawPath, FileMode.Create, FileAccess.Write))) await PakBinary.Stream.WriteAsync(this, w, PakBinary.WriteStage._Raw);
+            if (FilesRawSet != null && FilesRawSet.Count > 0) using (var w = new BinaryWriter(new FileStream(rawPath, FileMode.Create, FileAccess.Write))) await PakBinary.Stream.WriteAsync(this, w, "Raw");
             else if (File.Exists(rawPath)) File.Delete(rawPath);
         }
 

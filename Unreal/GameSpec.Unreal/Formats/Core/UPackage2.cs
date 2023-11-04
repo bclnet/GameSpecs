@@ -166,13 +166,14 @@ namespace GameSpec.Unreal.Formats.Core
     {
         unsafe void LoadNames2(BinaryReader r, UPackage Ar)
         {
+            var buf = stackalloc char[MAX_FNAME_LEN];
             // Korean games sometimes uses Unicode strings, so use FString for serialization
             string nameStr;
             for (var i = 0; i < Summary.NameCount; i++)
             {
                 if (ArVer < 64) // UE1
                 {
-                    var buf = stackalloc char[MAX_FNAME_LEN];
+                    //var buf = stackalloc char[MAX_FNAME_LEN];
                     int len;
                     for (len = 0; len < MAX_FNAME_LEN; len++)
                     {
@@ -187,7 +188,7 @@ namespace GameSpec.Unreal.Formats.Core
                 else if ((Game == UC1 && ArLicenseeVer >= 28) || (Game == Pariah && (ArLicenseeVer & 0x3F) >= 28))
                 {
                     // used uint16 + char[] instead of FString
-                    char* buf = stackalloc char[MAX_FNAME_LEN];
+                    //char* buf = stackalloc char[MAX_FNAME_LEN];
                     var len = r.ReadUInt16();
                     Debug.Assert(len < MAX_FNAME_LEN);
                     r.BaseStream.Read(new Span<byte>(buf, len + 1));
@@ -196,7 +197,7 @@ namespace GameSpec.Unreal.Formats.Core
                 }
                 else if (Game == SplinterCell && ArLicenseeVer >= 85)
                 {
-                    char* buf = stackalloc char[256];
+                    //char* buf = stackalloc char[256];
                     var len = r.ReadByte();
                     r.BaseStream.Read(new Span<byte>(buf, len + 1));
                     Names[i] = new string(buf, 0, len);
@@ -204,7 +205,7 @@ namespace GameSpec.Unreal.Formats.Core
                 }
                 else if (Game == SplinterCellConv && ArVer >= 68)
                 {
-                    char* buf = stackalloc char[MAX_FNAME_LEN];
+                    //char* buf = stackalloc char[MAX_FNAME_LEN];
                     var len = r.ReadCompactIndex(Ar);
                     Debug.Assert(len < MAX_FNAME_LEN);
                     r.BaseStream.Read(new Span<byte>(buf, len));
@@ -213,7 +214,7 @@ namespace GameSpec.Unreal.Formats.Core
                 }
                 else if (Game == AA2)
                 {
-                    char* buf = stackalloc char[MAX_FNAME_LEN];
+                    //char* buf = stackalloc char[MAX_FNAME_LEN];
                     var len = r.ReadCompactIndex(Ar);
                     // read as unicode string and decrypt
                     Debug.Assert(len <= 0);

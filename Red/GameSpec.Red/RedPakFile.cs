@@ -18,13 +18,13 @@ namespace GameSpec.Red
         /// Initializes a new instance of the <see cref="RedPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public RedPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryRed.Instance, tag)
+        public RedPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryRed.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
         #region Transforms

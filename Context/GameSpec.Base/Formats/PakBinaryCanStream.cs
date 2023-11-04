@@ -9,14 +9,14 @@ namespace GameSpec.Formats
 {
     public class PakBinaryCanStream : PakBinary
     {
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
-            switch (stage)
+            switch ((string)tag)
             {
-                case ReadStage.File: return Task.CompletedTask;
-                case ReadStage._Set:
+                case null: return Task.CompletedTask;
+                case "Set":
                     {
                         var files = multiSource.Files = new List<FileMetadata>();
                         var data = r.ReadToEnd();
@@ -30,7 +30,7 @@ namespace GameSpec.Formats
                                 files.Add(new FileMetadata { Path = path });
                         return Task.CompletedTask;
                     }
-                case ReadStage._Meta:
+                case "Meta":
                     {
                         source.Process();
 
@@ -64,7 +64,7 @@ namespace GameSpec.Formats
                         }
                         return Task.CompletedTask;
                     }
-                case ReadStage._Raw:
+                case "Raw":
                     {
                         var filesRawSet = multiSource.FilesRawSet = new HashSet<string>();
                         var data = r.ReadToEnd();
@@ -73,18 +73,18 @@ namespace GameSpec.Formats
                         foreach (var line in lines) filesRawSet.Add(line.TrimEnd().Replace('\\', '/'));
                         return Task.CompletedTask;
                     }
-                default: throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
+                default: throw new ArgumentOutOfRangeException(nameof(tag), tag?.ToString());
             }
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
+        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
-            switch (stage)
+            switch ((string)tag)
             {
-                case WriteStage.File: return Task.CompletedTask;
-                case WriteStage._Set:
+                case null: return Task.CompletedTask;
+                case "Set":
                     {
                         var pathAsBytes = Encoding.ASCII.GetBytes($@"C:/{source.Name}/");
                         w.Write(pathAsBytes);
@@ -102,7 +102,7 @@ namespace GameSpec.Formats
                         }
                         return Task.CompletedTask;
                     }
-                case WriteStage._Meta:
+                case "Meta":
                     {
                         // meta
                         var @params = source.Params;
@@ -150,7 +150,7 @@ namespace GameSpec.Formats
                         }
                         return Task.CompletedTask;
                     }
-                case WriteStage._Raw:
+                case "Raw":
                     {
                         if (multiSource.FilesRawSet == null) throw new ArgumentNullException(nameof(multiSource.FilesRawSet));
                         foreach (var file in multiSource.FilesRawSet)
@@ -161,7 +161,7 @@ namespace GameSpec.Formats
                         }
                         return Task.CompletedTask;
                     }
-                default: throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
+                default: throw new ArgumentOutOfRangeException(nameof(tag), tag?.ToString());
             }
         }
     }

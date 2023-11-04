@@ -8,14 +8,13 @@
   "games": {
     "*": {
       "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
-      "engine": "Valve",
-      "searchBy": "pak",
+      "engine": "HL",
+      "searchBy": "AllDir",
       "pakExt": ".wad",
       "pak": "game:/"
     },
     "HL": {
       "name": "Half-Life",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/70",
       "date": "1998-11-08",
       "tags": "HalfLife",
@@ -24,7 +23,6 @@
     },
     "TF": {
       "name": "Team Fortress Classic",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/20",
       "date": "1999-04-01",
       "tags": "TeamFortress",
@@ -33,7 +31,6 @@
     },
     "HL:OF": {
       "name": "Half-Life: Opposing Force",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/20",
       "date": "1999-11-01",
       "tags": "HalfLife",
@@ -42,7 +39,6 @@
     },
     "CS": {
       "name": "Counter-Strike",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/10",
       "date": "2000-11-01",
       "tags": "CounterStrike",
@@ -51,7 +47,6 @@
     },
     "Ricochet": {
       "name": "Ricochet",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/60",
       "date": "2000-11-01",
       "tags": "",
@@ -60,7 +55,6 @@
     },
     "DM": {
       "name": "Deathmatch Classic",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/40",
       "date": "2001-06-01",
       "tags": "HalfLife",
@@ -69,7 +63,6 @@
     },
     "HL:BS": {
       "name": "Half-Life: Blue Shift",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/130",
       "date": "2001-06-01",
       "tags": "HalfLife",
@@ -78,7 +71,6 @@
     },
     "DOD": {
       "name": "Day of Defeat",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/30",
       "date": "2003-05-01",
       "tags": "DayOfDefeat",
@@ -87,7 +79,6 @@
     },
     "CS:CZ": {
       "name": "Counter-Strike: Condition Zero",
-      "engine": "Valve1",
       "url": "https://store.steampowered.com/app/80",
       "date": "2004-05-01",
       "tags": "CounterStrike",
@@ -95,6 +86,7 @@
       "status": [ "open", "read" ]
     },
     "*2": {
+      "engine": "Source",
       "pakExt": "dir.vpk"
     },
     "HL:Src": {

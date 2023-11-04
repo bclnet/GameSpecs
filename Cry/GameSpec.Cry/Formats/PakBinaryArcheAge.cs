@@ -34,10 +34,9 @@ namespace GameSpec.Cry.Formats
 
         #endregion
 
-        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files;
 
             var stream = r.BaseStream;
@@ -84,9 +83,6 @@ namespace GameSpec.Cry.Formats
             }
             return Task.CompletedTask;
         }
-
-        public unsafe override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
-            => throw new NotImplementedException();
 
         public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {

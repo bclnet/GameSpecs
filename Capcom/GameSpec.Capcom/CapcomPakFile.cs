@@ -20,9 +20,10 @@ namespace GameSpec.Capcom
         /// Initializes a new instance of the <see cref="CapcomPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CapcomPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game), tag)
+        public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = game.Engine switch
@@ -30,17 +31,16 @@ namespace GameSpec.Capcom
                 "Unity" => Unity.Formats.FormatExtensions.GetObjectFactoryFactory,
                 _ => FormatExtensions.GetObjectFactoryFactory,
             };
-            Open();
         }
 
-        #region GetPackBinary
+        #region GetPakBinary
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPackBinary(FamilyGame game)
-            => PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game));
+        static PakBinary GetPakBinary(FamilyGame game)
+            => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game));
 
-        static PakBinary PackBinaryFactory(FamilyGame game)
+        static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
                 "Capcom" => PakBinaryCapcom.Instance,

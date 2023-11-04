@@ -23,7 +23,7 @@ namespace GameSpec.Rsi.Formats
         class SubPakFile : BinaryPakManyFile
         {
             public Stream Stream;
-            public SubPakFile(P4kFile pak, FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag)
+            public SubPakFile(P4kFile pak, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
             {
                 UseBinaryReader = false;
                 var entry = (ZipEntry)Tag;
@@ -33,19 +33,18 @@ namespace GameSpec.Rsi.Formats
                 //Open();
             }
 
-            public async override Task ReadAsync(BinaryReader r, ReadStage stage)
+            public async override Task ReadAsync(BinaryReader r, object tag)
             {
                 using var r2 = new BinaryReader(Stream);
-                await PakBinary.ReadAsync(this, r2, stage);
+                await PakBinary.ReadAsync(this, r2, tag);
             }
         }
 
         PakBinaryP4k() => Key = DefaultKey;
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             source.UseBinaryReader = false;
             var files = multiSource.Files = new List<FileMetadata>();
 
@@ -63,7 +62,7 @@ namespace GameSpec.Rsi.Formats
                     Tag = entry,
                 };
                 var metadataPath = metadata.Path;
-                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(pak, source.Game, metadataPath, metadata.Tag);
+                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(pak, source.Game, source.FileSystem, metadataPath, metadata.Tag);
                 else if (metadataPath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadataPath, metadata);
                 else if (metadataPath.Length > 8 && metadataPath[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {
@@ -83,7 +82,7 @@ namespace GameSpec.Rsi.Formats
             return Task.CompletedTask;
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
+        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             source.UseBinaryReader = false;

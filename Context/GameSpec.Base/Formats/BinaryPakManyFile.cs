@@ -27,21 +27,22 @@ namespace GameSpec.Formats
         /// Initializes a new instance of the <see cref="BinaryPakManyFile"/> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="pakBinary">The pak binary.</param>
         /// <param name="tag">The tag.</param>
-        public BinaryPakManyFile(FamilyGame game, string filePath, PakBinary pakBinary, object tag = null) : base(game, filePath, pakBinary, tag) { }
+        public BinaryPakManyFile(FamilyGame game, IFileSystem fileSystem, string filePath, PakBinary pakBinary, object tag = null) : base(game, fileSystem, filePath, pakBinary, tag) { }
 
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public override void Close()
+        public override void Closing()
         {
             Files = null;
             FilesRawSet = null;
             FilesById = null;
             FilesByPath = null;
-            base.Close();
+            base.Closing();
         }
 
         /// <summary>

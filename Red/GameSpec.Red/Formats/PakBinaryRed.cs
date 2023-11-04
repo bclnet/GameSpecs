@@ -67,7 +67,7 @@ namespace GameSpec.Red.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
+            public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
@@ -427,10 +427,9 @@ namespace GameSpec.Red.Formats
         // https://zenhax.com/viewtopic.php?t=3954
         // https://forums.cdprojektred.com/index.php?threads/modding-the-witcher-3-a-collection-of-tools-you-need.64557/
         // https://github.com/rfuzzo/CP77Tools
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             FileMetadata[] files; List<FileMetadata> files2;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(source.FilePath);
@@ -465,7 +464,7 @@ namespace GameSpec.Red.Formats
                             {
                                 Path = path,
                                 FileSize = file.FileSize,
-                                Pak = new SubPakFile(source.Game, subPath, (headerKeys, (uint)i)),
+                                Pak = new SubPakFile(source.Game, source.FileSystem, subPath, (headerKeys, (uint)i)),
                             };
                         }
                     }

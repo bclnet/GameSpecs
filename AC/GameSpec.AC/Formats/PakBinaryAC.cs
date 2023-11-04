@@ -98,10 +98,9 @@ namespace GameSpec.AC.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             var files = multiSource.Files = new List<FileMetadata>();
             r.Seek(DAT_HEADER_OFFSET);

@@ -16,13 +16,12 @@ namespace GameSpec.Unknown
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
-        public UnknownPakFile(FamilyGame game, string name)
-            : base(game, name) { }
-        public override void Dispose() { }
+        public UnknownPakFile(FamilyGame game, string name) : base(game, name) { }
+        //public override void Dispose() { }
 
         public override int Count => 0;
-        public override void Close() { }
-        public override void Open() { }
+        public override void Closing() { }
+        public override void Opening() { }
         public override bool Contains(string path) => false;
         public override bool Contains(int fileId) => false;
         public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();

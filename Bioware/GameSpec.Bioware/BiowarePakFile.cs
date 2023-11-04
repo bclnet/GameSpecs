@@ -20,25 +20,25 @@ namespace GameSpec.Bioware
         /// Initializes a new instance of the <see cref="BiowarePakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BiowarePakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public BiowarePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
-        #region GetPackBinary
+        #region GetPakBinary
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPackBinary(FamilyGame game, string extension)
-            => extension != ".zip"
-            ? PakBinarys.GetOrAdd(game.Id, _ => PackBinaryFactory(game))
-            : PakBinarySystemZip.Instance;
+        static PakBinary GetPakBinary(FamilyGame game, string filePath)
+            => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
+                ? PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game))
+                : PakBinarySystemZip.Instance;
 
-        static PakBinary PackBinaryFactory(FamilyGame game)
+        static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
                 "HeroEngine" => PakBinaryMyp.Instance,

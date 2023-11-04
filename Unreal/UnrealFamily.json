@@ -14,14 +14,15 @@
     "*": {
       "pakFileType": "GameSpec.Unreal.UnrealPakFile, GameSpec.Unreal",
       "engine": "Unreal",
-      "paths": [ "Animations", "Maps", "Sounds", "StaticMeshes", "System", "Systextures", "XboxTextures", "XboxAnimations", "Textures" ],
+      "searchBy": "TopDir",
+      //"paths": [ "Animations", "Maps", "Sounds", "StaticMeshes", "System", "Systextures", "XboxTextures", "XboxAnimations", "Textures" ],
       "pak": "game:/"
     },
     "UE1": {
       "name": "Unreal",
       "url": "https://oldgamesdownload.com/unreal",
       "date": "1998-01-01",
-      "pakExt": ".xx"
+      "pakExt": [ ".unr", ".umx", ".uax", ".u", ".utx" ]
     },
     "TWoT": {
       "name": "The Wheel of Time",

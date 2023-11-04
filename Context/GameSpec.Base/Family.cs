@@ -152,7 +152,7 @@ namespace GameSpec
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(FamilyGame game, string path, string searchPattern, bool throwOnError = true) => FamilyManager.CreatePakFile(game ?? throw new ArgumentNullException(nameof(game)), game.CreateFileSystem(path), searchPattern, throwOnError);
+        public PakFile OpenPakFile(FamilyGame game, string path, string searchPattern, bool throwOnError = true) => FamilyManager.CreatePakFile(game ?? throw new ArgumentNullException(nameof(game)), game.CreateFileSystem(path), searchPattern, throwOnError)?.Open();
 
         /// <summary>
         /// Opens the family pak file.
@@ -160,7 +160,7 @@ namespace GameSpec
         /// <param name="resource">The resource.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError);
+        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError)?.Open();
 
         /// <summary>
         /// Opens the family pak file.
@@ -172,7 +172,7 @@ namespace GameSpec
         public PakFile OpenPakFile(Uri uri, bool throwOnError = true)
         {
             var resource = FileManager.ParseResource(this, uri);
-            return FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError);
+            return FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError)?.Open();
         }
 
         #endregion

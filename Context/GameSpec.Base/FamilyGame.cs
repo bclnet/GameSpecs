@@ -1,9 +1,9 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static GameSpec.FamilyManager;
-using static GameSpec.FileManager;
 
 namespace GameSpec
 {
@@ -179,32 +179,44 @@ namespace GameSpec
         /// </summary>
         /// <param name="paths">The paths.</param>
         /// <returns></returns>
-        public IFileSystem CreateFileSystem(string root) => FileSystemType != null ? (IFileSystem)Activator.CreateInstance(FileSystemType, root) : new StandardSystem(root);
+        public IFileSystem CreateFileSystem(string root) => FileSystemType != null ? (IFileSystem)Activator.CreateInstance(FileSystemType, root) : new StandardFileSystem(root);
 
         /// <summary>
         /// Create pak file.
         /// </summary>
         /// <param name="fileSystem">The fileSystem.</param>
         /// <param name="value">The value.</param>
+        /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public PakFile CreatePakFile(IFileSystem fileSystem, object value) => value switch
+        public PakFile CreatePakFile(IFileSystem fileSystem, object value, object tag = null) => value switch
         {
-            string path when IsPakFile(path) => (PakFile)Activator.CreateInstance(PakFileType ?? throw new InvalidOperationException($"{Id} missing PakFileType"), this, fileSystem, path),
-            string path => throw new InvalidOperationException($"{Id} missing PakFileType"),
-            string[] paths when paths.Length == 1 && IsPakFile(paths[0]) => CreatePakFile(fileSystem, paths[0]),
-            //string[] paths => new ManyPakFile(this, "Many", paths),
+            string path when IsPakFile(path) => CreatePakFileType(fileSystem, path, tag),
+            string path => throw new InvalidOperationException($"{Id} missing {path}"),
+            string[] paths when paths.Length == 1 && IsPakFile(paths[0]) => CreatePakFile(fileSystem, paths[0], tag),
+            string[] paths => new ManyPakFile(CreatePakFileType(fileSystem, "", tag), this, "Many", fileSystem, paths),
             IList<PakFile> pakFiles when pakFiles.Count == 1 => pakFiles[0],
-            IList<PakFile> pakFiles => new MultiPakFile(this, "Multi", pakFiles),
+            IList<PakFile> pakFiles => new MultiPakFile(this, "Multi", fileSystem, pakFiles, tag),
             null => null,
             _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
         };
 
-        /// <summary>
-        /// Create pak file.
-        /// </summary>
-        /// <param name="pakFiles">The pak files.</param>
-        /// <returns></returns>
-        //public PakFile CreatePakFile(IList<PakFile> pakFiles) => new MultiPakFile(this, "Many", pakFiles);
+        public PakFile CreatePakFileType(IFileSystem fileSystem, string path, object tag = null) => (PakFile)Activator.CreateInstance(PakFileType ?? throw new InvalidOperationException($"{Id} missing PakFileType"), this, fileSystem, path, tag);
+
+        //internal static PakFile CreatePakFile(FamilyGame game, object value, IFileSystem fileSystem, PakOption options, bool throwOnError)
+        //{
+        //    var family = game.Family;
+        //    return WithPlatformGraphic(value switch
+        //    {
+        //        string path when game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, path, null),
+        //        //string path when (options & PakOption.Stream) != 0 => new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
+        //        string[] paths when (options & PakOption.Paths) != 0 && game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, paths),
+        //        string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], fileSystem, options, throwOnError),
+        //        string[] paths when paths.Length > 1 => new MultiPakFile(game, "Many", paths.Select(path => CreatePakFile(game, path, fileSystem, options, throwOnError)).ToArray()),
+        //        string[] paths when paths.Length == 0 => null,
+        //        null => null,
+        //        _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
+        //    });
+        //}
 
         /// <summary>
         /// Is pak file.
@@ -222,7 +234,7 @@ namespace GameSpec
         {
             if (string.IsNullOrEmpty(searchPattern))
             {
-                if (PakExts == null || PakExts.Length == 0) return (string)null;
+                if (PakExts == null || PakExts.Length == 0) return null;
                 return SearchBy switch
                 {
                     SearchBy.Pak => PakExts.Length == 1 ? $"*{PakExts[0]}" : $"(*{string.Join(":", PakExts)})",
@@ -232,6 +244,7 @@ namespace GameSpec
                 };
             }
             return null;
+
             //string ext;
             //if (string.IsNullOrEmpty(searchPattern)) {
             //    string.Join(PakEtxs).Select(x => x)

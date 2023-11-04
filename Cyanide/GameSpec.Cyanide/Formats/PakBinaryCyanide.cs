@@ -32,10 +32,9 @@ namespace GameSpec.Cyanide.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
 
             var magic = source.Magic = r.ReadUInt32();
             if (magic != CPK_MAGIC) throw new FormatException("BAD MAGIC");

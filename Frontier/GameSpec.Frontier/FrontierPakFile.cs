@@ -18,13 +18,13 @@ namespace GameSpec.Frontier
         /// Initializes a new instance of the <see cref="FrontierPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public FrontierPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryFrontier.Instance, tag)
+        public FrontierPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryFrontier.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
         #region Transforms

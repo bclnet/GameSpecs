@@ -15,9 +15,9 @@ namespace GameSpec.Formats
     public abstract class BinaryPakFile : PakFile
     {
         readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> BinaryReaders = new ConcurrentDictionary<string, GenericPool<BinaryReader>>();
+        public readonly IFileSystem FileSystem;
         public readonly string FilePath;
         public readonly PakBinary PakBinary;
-        public object Tag;
 
         // state
         public bool UseBinaryReader = true;
@@ -28,11 +28,11 @@ namespace GameSpec.Formats
         public object CryptKey;
 
         // metadata
-        protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
+        internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
         protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>>();
 
         // object-factory
-        protected Func<FileMetadata, FamilyGame, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
+        internal protected Func<FileMetadata, FamilyGame, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakFile" /> class.
@@ -42,39 +42,22 @@ namespace GameSpec.Formats
         /// <param name="pakBinary">The pak binary.</param>
         /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">pakBinary</exception>
-        public BinaryPakFile(FamilyGame game, string filePath, PakBinary pakBinary, object tag = null)
-            : base(game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)))
+        public BinaryPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, PakBinary pakBinary, object tag = default)
+            : base(game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)), tag)
         {
+            FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
             FilePath = filePath ?? throw new ArgumentNullException(nameof(filePath));
-            PakBinary = pakBinary ?? throw new ArgumentNullException(nameof(pakBinary));
-            Tag = tag;
+            PakBinary = pakBinary;
         }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public override void Dispose()
-        {
-            Close();
-            GC.SuppressFinalize(this);
-        }
-        ~BinaryPakFile() => Close();
 
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        public override void Open()
+        public override void Opening()
         {
-            if (Status != PakStatus.Closed) return;
-            Status = PakStatus.Opening;
-            var watch = new Stopwatch();
-            watch.Start();
-            if (UseBinaryReader) GetBinaryReader()?.Action(async r => await ReadAsync(r, PakBinary.ReadStage.File));
-            else ReadAsync(null, PakBinary.ReadStage.File).GetAwaiter().GetResult();
+            if (UseBinaryReader) GetBinaryReader()?.Action(async r => await ReadAsync(r));
+            else ReadAsync(null).GetAwaiter().GetResult();
             Process();
-            Log($"Opening: {Name} @ {watch.ElapsedMilliseconds}ms");
-            watch.Stop();
-            Status = PakStatus.Opened;
         }
 
         /// <summary>
@@ -82,20 +65,16 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns></returns>
-        public GenericPool<BinaryReader> GetBinaryReader(string path = null, int retainInPool = 10)
-            => BinaryReaders.GetOrAdd(path ?? FilePath, filePath => File.Exists(filePath) ? new GenericPool<BinaryReader>(() => new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read)), retainInPool) : null);
+        public GenericPool<BinaryReader> GetBinaryReader(string path = default, int retainInPool = 10)
+            => BinaryReaders.GetOrAdd(path ?? FilePath, filePath => FileSystem.FileExists(filePath) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(filePath), retainInPool) : default);
 
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public override void Close()
+        public override void Closing()
         {
-            Status = PakStatus.Closing;
             foreach (var r in BinaryReaders.Values) r.Dispose();
             BinaryReaders.Clear();
-            if (Tag is IDisposable disposableTag) disposableTag.Dispose();
-            Tag = null;
-            Status = PakStatus.Closed;
         }
 
         /// <summary>
@@ -159,7 +138,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = default, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
         /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
@@ -169,7 +148,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = default, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Loads the file data asynchronous.
@@ -178,7 +157,7 @@ namespace GameSpec.Formats
         /// <param name="option">The file.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default)
             => UseBinaryReader
             ? GetBinaryReader().Func(r => ReadFileDataAsync(r, file, option, exception))
             : ReadFileDataAsync(null, file, option, exception);
@@ -191,7 +170,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
@@ -201,7 +180,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Ensures the file object factory.
@@ -226,7 +205,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override async Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception = null)
+        public override async Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception = default)
         {
             var type = typeof(T);
             var stream = await LoadFileDataAsync(file, 0, exception);
@@ -262,7 +241,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public virtual Task<Stream> ReadFileDataAsync(BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null) => PakBinary.ReadDataAsync(this, r, file, option, exception);
+        public virtual Task<Stream> ReadFileDataAsync(BinaryReader r, FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default) => PakBinary.ReadDataAsync(this, r, file, option, exception);
 
         /// <summary>
         /// Writes the file data asynchronous.
@@ -273,28 +252,28 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public virtual Task WriteFileDataAsync(BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
+        public virtual Task WriteFileDataAsync(BinaryWriter w, FileMetadata file, Stream data, DataOption option = default, Action<FileMetadata, string> exception = default) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
 
         /// <summary>
         /// Reads the asynchronous.
         /// </summary>
         /// <param name="r">The r.</param>
-        /// <param name="stage">The stage.</param>
+        /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public virtual Task ReadAsync(BinaryReader r, PakBinary.ReadStage stage) => PakBinary.ReadAsync(this, r, stage);
+        public virtual Task ReadAsync(BinaryReader r, object tag = default) => PakBinary.ReadAsync(this, r, tag);
 
         /// <summary>
         /// Writes the asynchronous.
         /// </summary>
         /// <param name="w">The w.</param>
-        /// <param name="stage">The stage.</param>
+        /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public virtual Task WriteAsync(BinaryWriter w, PakBinary.WriteStage stage) => PakBinary.WriteAsync(this, w, stage);
+        public virtual Task WriteAsync(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
 
         /// <summary>
         /// Processes this instance.
         /// </summary>
-        public virtual void Process() => PakBinary.Process(this);
+        public virtual void Process() => PakBinary?.Process(this);
 
         #region Metadata
 
@@ -304,7 +283,7 @@ namespace GameSpec.Formats
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager) => Valid && GetMetadataItems != null ? await GetMetadataItems(manager, this) : null;
+        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager) => Valid && GetMetadataItems != null ? await GetMetadataItems(manager, this) : default;
 
         /// <summary>
         /// Gets the explorer information nodes.

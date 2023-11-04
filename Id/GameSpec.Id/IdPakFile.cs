@@ -19,21 +19,21 @@ namespace GameSpec.Id
         /// Initializes a new instance of the <see cref="IdPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public IdPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, GetPackBinary(Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public IdPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
-        #region GetPackBinary
+        #region GetPakBinary
 
-        static PakBinary GetPackBinary(string extension)
-            => extension != ".zip"
-            ? PakBinaryId.Instance
-            : PakBinarySystemZip.Instance;
+        static PakBinary GetPakBinary(FamilyGame game, string filePath)
+            => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
+                ? PakBinaryId.Instance
+                : PakBinarySystemZip.Instance;
 
         #endregion
 

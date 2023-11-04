@@ -21,18 +21,15 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="pakFiles">The packs.</param>
-        public MultiPakFile(FamilyGame game, string name, IList<PakFile> pakFiles) : base(game, name) => PakFiles = pakFiles;
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public override void Dispose() => Close();
+        /// <param name="tag">The tag.</param>
+        public MultiPakFile(FamilyGame game, string name, IFileSystem fileSystem, IList<PakFile> pakFiles, object tag = null) : base(game, name, tag) => PakFiles = pakFiles;
 
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public override void Close()
+        public override void Closing()
         {
             if (PakFiles != null) foreach (var pakFile in PakFiles) pakFile.Close();
         }
@@ -40,7 +37,10 @@ namespace GameSpec.Formats
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        public override void Open() { }
+        public override void Opening()
+        {
+            if (PakFiles != null) foreach (var pakFile in PakFiles) pakFile.Open();
+        }
 
         /// <summary>
         /// Determines whether the specified file path contains file.

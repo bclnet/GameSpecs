@@ -55,10 +55,9 @@ namespace GameSpec.Tes.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var gameId = source.Game.Id;
 
             if (!string.Equals(Path.GetExtension(source.FilePath), ".dat", StringComparison.OrdinalIgnoreCase))
@@ -109,9 +108,6 @@ namespace GameSpec.Tes.Formats
             }
             return Task.CompletedTask;
         }
-
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
-            => throw new NotImplementedException();
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {

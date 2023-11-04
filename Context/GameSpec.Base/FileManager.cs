@@ -16,63 +16,6 @@ namespace GameSpec
     /// </summary>
     public class FileManager
     {
-        //public static readonly IFileSystem DefaultSystem = new StandardSystem();
-
-        /// <summary>
-        /// IFileSystem
-        /// </summary>
-        public interface IFileSystem
-        {
-            string[] GetDirectories(string path, string searchPattern, bool recursive);
-            string[] GetFiles(string path, string searchPattern);
-            string GetFile(string path);
-        }
-
-        /// <summary>
-        /// StandardSystem
-        /// </summary>
-        internal class StandardSystem : IFileSystem
-        {
-            readonly string Root;
-            readonly int Skip;
-            public StandardSystem(string root) { Root = root; Skip = root.Length + 1; }
-            public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(Path.Combine(Root, path), searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(x => x[Skip..]).ToArray();
-            public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(Path.Combine(Root, path), searchPattern).Select(x => x[Skip..]).ToArray();
-            public string GetFile(string path) => File.Exists(path = Path.Combine(Root, path)) ? path[Skip..] : null;
-        }
-
-        /// <summary>
-        /// StandardSystem
-        /// </summary>
-        internal class HostSystem : IFileSystem
-        {
-            public HostSystem(Uri uri)
-            {
-                if (uri == null) throw new ArgumentNullException(nameof(uri));
-                var pathOrPattern = uri.LocalPath;
-                var searchPattern = Path.GetFileName(pathOrPattern);
-                var path = Path.GetDirectoryName(pathOrPattern);
-                // file
-                if (!string.IsNullOrEmpty(searchPattern)) throw new ArgumentOutOfRangeException(nameof(pathOrPattern), pathOrPattern); //: Web single file access to supported.
-                //options = PakOption.Stream;
-                //searchPattern = Path.GetFileName(path);
-                //path = Path.GetDirectoryName(path);
-                //if (path.Contains('*')) throw new NotSupportedException("Web wildcard folder access");
-                //host = new UriBuilder(uri) { Path = $"{path}/", Fragment = null }.Uri;
-                //if (searchPattern.Contains('*'))
-                //{
-                //    var set = new HttpHost(host).GetSetAsync().Result ?? throw new NotSupportedException(".set not found. Web wildcard access");
-                //    var pattern = $"^{Regex.Escape(searchPattern.Replace('*', '%')).Replace("_", ".").Replace("%", ".*")}$";
-                //    return set.Where(x => Regex.IsMatch(x, pattern)).ToArray();
-                //}
-                //return new[] { searchPattern };
-            }
-            public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(path, searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-            public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
-            public string GetFile(string path) => File.Exists(path) ? path : null;
-        }
-
-
         /// <summary>
         /// Gets the host factory.
         /// </summary>
@@ -124,7 +67,7 @@ namespace GameSpec
                 // file-scheme
                 : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? game.CreateFileSystem(uri.LocalPath) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate file resources") : (IFileSystem)null)
                 // network-scheme
-                : !string.IsNullOrEmpty(uri.Host) ? new HostSystem(uri) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate network resources") : (IFileSystem)null);
+                : !string.IsNullOrEmpty(uri.Host) ? new HostFileSystem(uri) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate network resources") : (IFileSystem)null);
             return new Resource { Game = game, FileSystem = fileSystem, SearchPattern = searchPattern };
         }
 

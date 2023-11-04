@@ -203,7 +203,7 @@ namespace GameSpec.IW.Formats
 
         class XSUB_PakFile : BinaryPakManyFile
         {
-            public XSUB_PakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) { Open(); }
+            public XSUB_PakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) { Open(); }
         }
 
         #endregion
@@ -232,10 +232,9 @@ namespace GameSpec.IW.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var files = multiSource.Files = new List<FileMetadata>();
             var extension = Path.GetExtension(source.FilePath);
 

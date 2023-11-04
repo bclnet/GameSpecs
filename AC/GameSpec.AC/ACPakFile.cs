@@ -21,14 +21,14 @@ namespace GameSpec.AC
         /// Initializes a new instance of the <see cref="ACPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ACPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryAC.Instance, tag)
+        public ACPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryAC.Instance, tag)
         {
             Options = PakManyOptions.FilesById;
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
         #region Transforms

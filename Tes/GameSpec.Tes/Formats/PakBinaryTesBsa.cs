@@ -110,10 +110,9 @@ namespace GameSpec.Tes.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             FileMetadata[] files;
 
             // Fallout 4
@@ -192,9 +191,6 @@ namespace GameSpec.Tes.Formats
             else throw new InvalidOperationException("BAD MAGIC");
             return Task.CompletedTask;
         }
-
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage)
-            => throw new NotImplementedException();
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
         {

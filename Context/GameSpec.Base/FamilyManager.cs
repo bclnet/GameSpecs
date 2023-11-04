@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -8,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using static GameSpec.FamilyGame;
-using static GameSpec.FileManager;
 
 namespace GameSpec
 {
@@ -102,42 +100,18 @@ namespace GameSpec
         /// Create pak file.
         /// </summary>
         /// <param name="game">The game.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="fileSystem">The fileSystem.</param>
-        /// <param name="options">The options.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        //internal static PakFile CreatePakFile(FamilyGame game, object value, IFileSystem fileSystem, PakOption options, bool throwOnError)
-        //{
-        //    var family = game.Family;
-        //    return WithPlatformGraphic(value switch
-        //    {
-        //        string path when game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, path, null),
-        //        //string path when (options & PakOption.Stream) != 0 => new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
-        //        string[] paths when (options & PakOption.Paths) != 0 && game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, paths),
-        //        string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], fileSystem, options, throwOnError),
-        //        string[] paths when paths.Length > 1 => new MultiPakFile(game, "Many", paths.Select(path => CreatePakFile(game, path, fileSystem, options, throwOnError)).ToArray()),
-        //        string[] paths when paths.Length == 0 => null,
-        //        null => null,
-        //        _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
-        //    });
-        //}
-
-        /// <summary>
-        /// Create pak file.
-        /// </summary>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The fileSystem.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         internal static PakFile CreatePakFile(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError)
         {
-            if (fileSystem is HostSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
+            if (fileSystem is HostFileSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
             searchPattern = game.CreateSearchPatterns(searchPattern) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id} missing PakExts") : (string)null);
             if (searchPattern == null) return null;
             var pakFiles = new List<PakFile>();
-            foreach (var paths in game.Family.FileManager.GetGamePaths(game, fileSystem, searchPattern, throwOnError))
+            var fileManager = game.Family.FileManager;
+            foreach (var paths in fileManager.GetGamePaths(game, fileSystem, searchPattern, throwOnError))
                 switch (game.SearchBy)
                 {
                     case SearchBy.Pak:

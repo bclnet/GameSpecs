@@ -18,13 +18,13 @@ namespace GameSpec.Cyanide
         /// Initializes a new instance of the <see cref="CyanidePakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CyanidePakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryCyanide.Instance, tag)
+        public CyanidePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryCyanide.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
         #region Transforms

@@ -14,13 +14,12 @@ namespace GameSpec.Arkane.Formats
 
         class SubPakFile : BinaryPakManyFile
         {
-            public SubPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, Instance, tag) => Open();
+            public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             if (Path.GetExtension(source.FilePath) != ".index") throw new FormatException("must be a .index file");
             var files2 = multiSource.Files = new List<FileMetadata>();
 
@@ -44,7 +43,7 @@ namespace GameSpec.Arkane.Formats
                     files2.Add(new FileMetadata
                     {
                         Path = path,
-                        Pak = new SubPakFile(source.Game, path),
+                        Pak = new SubPakFile(source.Game, source.FileSystem, path),
                     });
                 }
                 while (true);

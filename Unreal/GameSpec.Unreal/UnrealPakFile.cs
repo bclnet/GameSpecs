@@ -18,13 +18,13 @@ namespace GameSpec.Unreal
         /// Initializes a new instance of the <see cref="UnrealPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnrealPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryPck.Instance, tag)
+        public UnrealPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryPck.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Open();
         }
 
         #region Transforms

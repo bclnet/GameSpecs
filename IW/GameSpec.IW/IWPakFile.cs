@@ -18,14 +18,14 @@ namespace GameSpec.IW
         /// Initializes a new instance of the <see cref="IWPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public IWPakFile(FamilyGame game, string filePath, object tag = null) : base(game, filePath, PakBinaryIW.Instance, tag)
+        public IWPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryIW.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             UseBinaryReader = false;
-            Open();
         }
 
         #region Transforms

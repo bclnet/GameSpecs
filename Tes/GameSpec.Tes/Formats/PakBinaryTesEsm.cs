@@ -56,10 +56,8 @@ namespace GameSpec.Tes.Formats
         /// <param name="stage">The stage.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">stage</exception>
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
-
             Format = GetFormat(source.Game.Id);
             var recordLevel = 1;
             var filePath = source.FilePath;
@@ -104,15 +102,6 @@ namespace GameSpec.Tes.Formats
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Writes the asynchronous.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="w">The w.</param>
-        /// <param name="stage">The stage.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, WriteStage stage) => throw new NotImplementedException();
 
         // TES3
         Dictionary<string, IRecord> MANYsById;

@@ -15,8 +15,8 @@
 //#define Rsi
 //#define Tes
 //#define Unity
-//#define Unreal
-#define Valve
+#define Unreal
+//#define Valve
 
 namespace GameSpec
 {
@@ -331,7 +331,10 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForceOpen = true,
+            //UE1
+            ForcePath = "Maps/Bluff.unr", //Map
+
+            ForceOpen = true,
             Family = "Unreal",
             GameId = "UE1", // Unreal
 

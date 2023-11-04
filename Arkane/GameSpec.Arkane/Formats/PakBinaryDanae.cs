@@ -11,10 +11,9 @@ namespace GameSpec.Arkane.Formats
     {
         public static readonly PakBinary Instance = new PakBinaryDanae();
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, ReadStage stage)
+        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            if (stage != ReadStage.File) throw new ArgumentOutOfRangeException(nameof(stage), stage.ToString());
             var files = multiSource.Files = new List<FileMetadata>();
             var key = source.Game.Key is Family.ByteKey z ? z.Key : null;
             int keyLength = key.Length, keyIndex = 0;

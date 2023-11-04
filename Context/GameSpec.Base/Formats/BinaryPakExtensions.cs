@@ -46,7 +46,7 @@ namespace GameSpec.Formats
             });
 
             // write pak-raw
-            if ((option & DataOption.Marker) != 0) await new StreamPakFile(pak, source.Game, filePath).WriteAsync(null, PakBinary.WriteStage.File);
+            if ((option & DataOption.Marker) != 0) await new StreamPakFile(pak, source.Game, null, filePath).WriteAsync(null, null);
         }
 
         static async Task ExportFileAsync(FileMetadata file, BinaryPakManyFile pak, string newPath, DataOption option = 0, Action<FileMetadata, string> exception = null)
@@ -100,14 +100,14 @@ namespace GameSpec.Formats
             // read pak
             if (string.IsNullOrEmpty(filePath) || !Directory.Exists(filePath)) { exception?.Invoke(null, $"Directory Missing: {filePath}"); return; }
             var setPath = Path.Combine(filePath, ".set");
-            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, PakBinary.ReadStage._Set);
+            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, "Set");
             var metaPath = Path.Combine(filePath, ".meta");
-            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, PakBinary.ReadStage._Meta);
+            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, "Meta");
             var rawPath = Path.Combine(filePath, ".raw");
-            if (File.Exists(rawPath)) using (var r = new BinaryReader(File.Open(rawPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, PakBinary.ReadStage._Raw);
+            if (File.Exists(rawPath)) using (var r = new BinaryReader(File.Open(rawPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, "Raw");
 
             // write header
-            if (from == 0) await source.PakBinary.WriteAsync(source, w, PakBinary.WriteStage.Header);
+            if (from == 0) await source.PakBinary.WriteAsync(source, w, "Header");
 
             // write files
             Parallel.For(0, pak.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
@@ -122,7 +122,7 @@ namespace GameSpec.Formats
                 // insert file
                 try
                 {
-                    await source.PakBinary.WriteAsync(source, w, PakBinary.WriteStage.File);
+                    await source.PakBinary.WriteAsync(source, w);
                     using (var s = File.Open(newPath, FileMode.Open, FileAccess.Read, FileShare.Read)) await source.WriteFileDataAsync(w, file, s, option, exception);
                     advance?.Invoke(file, index);
                 }
