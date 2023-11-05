@@ -354,7 +354,10 @@ namespace GameSpec
             //ForcePath = "valve/decals.wad:REFLECT1.tex", //Texture
             //ForcePath = "valve/decals.wad:{LARGE#S0.tex", //Texture
             //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture
-            ForcePath = "valve/sprites:640_logo.spr", //Sprite
+            //ForcePath = "valve/sprites:640_logo.spr", //Sprite
+            //TF
+            ForcePath = "cached.wad:CONBACK640.pic", //Texture
+            //ForcePath = "tfc.WAD:{EASTLINE1.pic", //Texture
             //HL2
             //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //CS:GO
@@ -384,8 +387,8 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Valve",
-            GameId = "HL", // Half-Life [open, read, texture:GL]
-            //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
+            //GameId = "HL", // Half-Life [open, read, texture:GL]
+            GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
             //GameId = "HL:BS", // Half-Life: Blue Shift [open, read]

@@ -214,7 +214,7 @@ namespace GameSpec
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns></returns>
-        public bool IsPakFile(string path) => PakExts.Any(path.EndsWith);
+        public bool IsPakFile(string path) => PakExts.Any(x => path.EndsWith(x, StringComparison.OrdinalIgnoreCase));
 
         /// <summary>
         /// Creates the search patterns.
