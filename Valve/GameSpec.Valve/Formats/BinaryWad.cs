@@ -40,7 +40,10 @@ namespace GameSpec.Formats
                 ".fnt" => Formats.Fnt,
                 _ => Formats.None
             };
-            Format = (type, (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32);
+            transparent = Path.GetFileName(f.Path).StartsWith('{');
+            Format = transparent
+                ? (type, (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32)
+                : (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24);
             if (type == Formats.Tex2 || type == Formats.Tex) name = r.ReadFYString(16); // r.Skip(16); // Skip name
             width = (int)r.ReadUInt32();
             height = (int)r.ReadUInt32();
@@ -77,6 +80,7 @@ namespace GameSpec.Formats
             //r.EnsureComplete();
         }
 
+        bool transparent;
         string name;
         int width;
         int height;
@@ -94,7 +98,7 @@ namespace GameSpec.Formats
 
         public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
-            static void FlattenPalette(Span<byte> data, byte[] source, byte[] palette)
+            static void PaletteRgba8(Span<byte> data, byte[] source, byte[] palette)
             {
                 fixed (byte* _ = data)
                     for (int i = 0, pi = 0; i < source.Length; i++, pi += 4)
@@ -105,6 +109,18 @@ namespace GameSpec.Formats
                         _[pi + 1] = palette[pa + 1];
                         _[pi + 2] = palette[pa + 2];
                         _[pi + 3] = 0xFF;
+                    }
+            }
+            static void PaletteRgb8(Span<byte> data, byte[] source, byte[] palette)
+            {
+                fixed (byte* _ = data)
+                    for (int i = 0, pi = 0; i < source.Length; i++, pi += 3)
+                    {
+                        var pa = source[i] * 3;
+                        //if (pa + 3 > palette.Length) continue;
+                        _[pi + 0] = palette[pa + 0];
+                        _[pi + 1] = palette[pa + 1];
+                        _[pi + 2] = palette[pa + 2];
                     }
             }
 
@@ -124,7 +140,8 @@ namespace GameSpec.Formats
             {
                 p = pixels[index];
                 var range = ranges[index] = new Range(offset, offset + p.Length * 4);
-                FlattenPalette(bytes.AsSpan(range), p, palette);
+                if (transparent) PaletteRgba8(bytes.AsSpan(range), p, palette);
+                else PaletteRgb8(bytes.AsSpan(range), p, palette);
             }
             return bytes;
         }

@@ -13,17 +13,21 @@ namespace GameSpec.Formats
     {
         public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryImg(r, f));
 
-        enum Formats { Bmp, Jpg, Tga }
+        enum Formats { Bmp, Gif, Exif, Jpg, Png, Tiff }
 
         public BinaryImg(BinaryReader r, FileMetadata f)
         {
-            Format = Path.GetExtension(f.Path).ToLowerInvariant() switch
+            var formatType = Path.GetExtension(f.Path).ToLowerInvariant() switch
             {
-                ".bmp" => (Formats.Bmp, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnrealFormat.Unknown),
-                ".jpg" => (Formats.Jpg, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.Unknown),
-                ".tga" => (Formats.Tga, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.Unknown),
+                ".bmp" => Formats.Bmp,
+                ".gif" => Formats.Gif,
+                ".exif" => Formats.Exif,
+                ".jpg" => Formats.Jpg,
+                ".png" => Formats.Png,
+                ".tiff" => Formats.Tiff,
                 _ => throw new ArgumentOutOfRangeException(nameof(f.Path), Path.GetExtension(f.Path)),
             };
+            Format = (formatType, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.Unknown);
             Bytes = r.ReadBytes((int)f.FileSize);
             Image = new Bitmap(new MemoryStream(Bytes));
             Width = Image.Width;

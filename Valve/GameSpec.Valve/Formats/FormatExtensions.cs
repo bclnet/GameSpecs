@@ -38,11 +38,18 @@ namespace GameSpec.Valve.Formats
                 //}
                 else return null;
             }
-            return Path.GetExtension(source.Path).ToLowerInvariant() switch
+            return game.Engine switch
             {
-                var x when game.Engine == "HL" && (x == ".pic" || x == ".tex" || x == ".fnt") => (0, BinaryWad.Factory),
-                var x when game.Engine == "HL" && x == ".spr"  => (0, BinarySpr.Factory),
-                _ => (0, BinaryPakFactory),
+                "HL" => Path.GetExtension(source.Path).ToLowerInvariant() switch
+                {
+                    var x when x == ".txt" || x == ".ini" || x == ".asl" => (0, BinaryTxt.Factory),
+                    ".wav" => (0, BinarySnd.Factory),
+                    var x when x == ".bmp" || x == ".jpg" => (0, BinaryImg.Factory),
+                    var x when x == ".pic" || x == ".tex" || x == ".fnt" => (0, BinaryWad.Factory),
+                    ".spr" => (0, BinarySpr.Factory),
+                    _ => default,
+                },
+                _ => (0, BinaryPakFactory)
             };
         }
     }

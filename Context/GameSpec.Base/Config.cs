@@ -356,7 +356,8 @@ namespace GameSpec
             //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture
             //ForcePath = "valve/sprites:640_logo.spr", //Sprite
             //TF
-            ForcePath = "cached.wad:CONBACK640.pic", //Texture
+            ForcePath = "game.tga", //Image
+            //ForcePath = "cached.wad:CONBACK640.pic", //Texture
             //ForcePath = "tfc.WAD:{EASTLINE1.pic", //Texture
             //HL2
             //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
