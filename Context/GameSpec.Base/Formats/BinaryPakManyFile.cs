@@ -22,6 +22,7 @@ namespace GameSpec.Formats
         public HashSet<string> FilesRawSet;
         public ILookup<int, FileMetadata> FilesById { get; private set; }
         public ILookup<string, FileMetadata> FilesByPath { get; private set; }
+        public int VisualPathSkip;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakManyFile"/> class.

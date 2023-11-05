@@ -111,15 +111,15 @@ namespace GameSpec
             if (searchPattern == null) return null;
             var pakFiles = new List<PakFile>();
             var fileManager = game.Family.FileManager;
-            foreach (var paths in fileManager.GetGamePaths(game, fileSystem, searchPattern, throwOnError))
+            foreach (var p in fileManager.GetGamePaths(game, fileSystem, searchPattern, throwOnError))
                 switch (game.SearchBy)
                 {
                     case SearchBy.Pak:
-                        foreach (var path in paths)
-                            if (game.IsPakFile(path)) pakFiles.Add(game.CreatePakFile(fileSystem, path));
+                        foreach (var path in p.paths)
+                            if (game.IsPakFile(path)) pakFiles.Add(game.CreatePakFile(fileSystem, (object)path));
                         break;
                     case SearchBy.AllDir: case SearchBy.TopDir:
-                        pakFiles.Add(game.CreatePakFile(fileSystem, paths));
+                        pakFiles.Add(game.CreatePakFile(fileSystem, p));
                         break;
                     default: throw new ArgumentOutOfRangeException(nameof(game.SearchBy), $"{game.SearchBy}");
                 }

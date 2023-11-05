@@ -31,7 +31,7 @@ namespace GameSpec.App.Explorer.Views
                 if (d is not FileExplorer fileExplorer || n is not PakFile pakFile) return;
                 fileExplorer.NodeFilters = pakFile.GetMetadataItemFiltersAsync(Resource).Result;
                 fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result;
-                fileExplorer.SelectedItem = string.IsNullOrEmpty(fileExplorer.OpenPath) ? null : fileExplorer.FindByPath(fileExplorer.OpenPath);
+                fileExplorer.SelectedItem = string.IsNullOrEmpty(fileExplorer.OpenPath) ? null : fileExplorer.FindByPath(fileExplorer.OpenPath, Resource);
                 fileExplorer.OnReady();
             });
         public PakFile PakFile
@@ -40,11 +40,11 @@ namespace GameSpec.App.Explorer.Views
             set => SetValue(PakFileProperty, value);
         }
 
-        public MetadataItem FindByPath(string path)
+        public MetadataItem FindByPath(string path, MetadataManager manager)
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
             var node = PakNodes.FirstOrDefault(x => x.Name == paths[0]);
-            return paths.Length == 1 ? node : node?.FindByPath(paths[1]);
+            return paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
         }
 
         List<MetadataItem.Filter> _nodeFilters;
@@ -120,7 +120,7 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = FindByPath(Config.ForcePath);
+            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = FindByPath(Config.ForcePath, Resource);
         }
     }
 }

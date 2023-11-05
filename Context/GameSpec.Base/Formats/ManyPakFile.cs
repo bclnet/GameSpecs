@@ -44,13 +44,13 @@ namespace GameSpec.Formats
                 .Select(s => new FileMetadata
                 {
                     Path = s.s.Replace('/', '\\'),
-                    Pak = s.p ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, s.s, null) : default,
+                    Pak = s.p ? (BinaryPakFile)Game.CreatePakFile(FileSystem, s.s, null) : default,
                     FileSize = s.i.Length,
                 }).ToArray();
             return Task.CompletedTask;
         }
 
         public override Task<Stream> ReadFileDataAsync(BinaryReader r, FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default)
-            => file.Pak != null ? Task.FromResult((Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize))) : default;
+            => Task.FromResult(file.Pak == null ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize)) : default);
     }
 }

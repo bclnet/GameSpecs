@@ -15,8 +15,8 @@
 //#define Rsi
 //#define Tes
 //#define Unity
-#define Unreal
-//#define Valve
+//#define Unreal
+#define Valve
 
 namespace GameSpec
 {
@@ -350,9 +350,11 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //HL
-            //ForcePath = "cached.wad:LOADING.pic", //Picture
-            //ForcePath = "decals.wad:REFLECT1.tex", //Texture
-            //ForcePath = "decals.wad:{247.tex", //Texture
+            //ForcePath = "valve/cached.wad:LOADING.pic", //Texture
+            //ForcePath = "valve/decals.wad:REFLECT1.tex", //Texture
+            //ForcePath = "valve/decals.wad:{LARGE#S0.tex", //Texture
+            //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture
+            ForcePath = "valve/sprites:640_logo.spr", //Sprite
             //HL2
             //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
             //CS:GO

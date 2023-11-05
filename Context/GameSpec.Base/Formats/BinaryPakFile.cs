@@ -209,6 +209,7 @@ namespace GameSpec.Formats
         {
             var type = typeof(T);
             var stream = await LoadFileDataAsync(file, 0, exception);
+            if (stream == null) return default;
             var objectFactory = EnsureCachedObjectFactory(file);
             if (objectFactory == FileMetadata.EmptyObjectFactory)
                 return type == typeof(Stream) || type == typeof(object)
@@ -297,7 +298,8 @@ namespace GameSpec.Formats
             if (!(item.Source is FileMetadata file)) return null;
             List<MetadataInfo> nodes = null;
             var obj = await LoadFileObjectAsync<object>(file);
-            if (obj is IGetMetadataInfo info) nodes = info.GetInfoNodes(manager, file);
+            if (obj == null) return null;
+            else if (obj is IGetMetadataInfo info) nodes = info.GetInfoNodes(manager, file);
             else if (obj is Stream stream)
             {
                 var value = GetStringOrBytes(stream);

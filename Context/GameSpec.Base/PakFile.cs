@@ -105,7 +105,7 @@ namespace GameSpec
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        public virtual PakFile Open()
+        public virtual PakFile Open(List<MetadataItem> items = null, MetadataManager manager = null)
         {
             if (Status != PakStatus.Closed) return this;
             Status = PakStatus.Opening;
@@ -115,6 +115,7 @@ namespace GameSpec
             Log($"Opening: {Name} @ {watch.ElapsedMilliseconds}ms");
             watch.Stop();
             Status = PakStatus.Opened;
+            items?.AddRange(GetMetadataItemsAsync(manager).Result);
             return this;
         }
 

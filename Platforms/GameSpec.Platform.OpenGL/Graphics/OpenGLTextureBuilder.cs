@@ -1,8 +1,6 @@
 using OpenStack.Graphics;
-using OpenStack.Graphics.DirectX;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.Transactions;
 
 namespace GameSpec.Graphics
 {

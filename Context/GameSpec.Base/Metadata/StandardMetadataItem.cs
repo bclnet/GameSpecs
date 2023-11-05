@@ -23,11 +23,13 @@ namespace GameSpec.Metadata
             if (pakMultiFile.Files != null)
                 foreach (var file in pakMultiFile.Files.OrderBy(x => x.Path))
                 {
+                    var path = file.Path[pakMultiFile.VisualPathSkip..];
+
                     // skip empty
-                    if (string.IsNullOrEmpty(file.Path)) continue;
+                    if (string.IsNullOrEmpty(path)) continue;
 
                     // folder
-                    var fileFolder = Path.GetDirectoryName(file.Path);
+                    var fileFolder = Path.GetDirectoryName(path);
                     if (currentPath != fileFolder)
                     {
                         currentPath = fileFolder;
@@ -50,7 +52,7 @@ namespace GameSpec.Metadata
                     }
 
                     // file
-                    var fileName = Path.GetFileName(file.Path);
+                    var fileName = Path.GetFileName(path);
                     var fileNameForIcon = pakFile.FileMask?.Invoke(fileName) ?? fileName;
                     var extentionForIcon = Path.GetExtension(fileNameForIcon);
                     if (extentionForIcon.Length > 0) extentionForIcon = extentionForIcon.Substring(1);

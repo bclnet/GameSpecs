@@ -13,6 +13,22 @@ namespace GameSpec
     /// </summary>
     public class FileManager
     {
+        //internal static PakFile CreatePakFile(FamilyGame game, object value, IFileSystem fileSystem, PakOption options, bool throwOnError)
+        //{
+        //    var family = game.Family;
+        //    return WithPlatformGraphic(value switch
+        //    {
+        //        string path when game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, path, null),
+        //        //string path when (options & PakOption.Stream) != 0 => new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
+        //        string[] paths when (options & PakOption.Paths) != 0 && game.PakFileType != null => (PakFile)Activator.CreateInstance(game.PakFileType, game, paths),
+        //        string[] paths when paths.Length == 1 => CreatePakFile(game, paths[0], fileSystem, options, throwOnError),
+        //        string[] paths when paths.Length > 1 => new MultiPakFile(game, "Many", paths.Select(path => CreatePakFile(game, path, fileSystem, options, throwOnError)).ToArray()),
+        //        string[] paths when paths.Length == 0 => null,
+        //        null => null,
+        //        _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
+        //    });
+        //}
+
         /// <summary>
         /// Parses the resource.
         /// </summary>

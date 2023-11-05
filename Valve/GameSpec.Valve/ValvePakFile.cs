@@ -43,11 +43,13 @@ namespace GameSpec.Valve
             {
                 "Unity" => Unity.Formats.PakBinaryUnity.Instance,
                 "Source" => PakBinaryVpk.Instance,
-                _ => extension switch
-                {
-                    ".wad" => PakBinaryWad.Instance,
-                    _ => null,
-                }
+                "HL" => PakBinaryWad.Instance,
+                _ => null,
+                //_ => extension switch
+                //{
+                //    ".wad" => PakBinaryWad.Instance,
+                //    _ => null,
+                //}
             };
 
         #endregion

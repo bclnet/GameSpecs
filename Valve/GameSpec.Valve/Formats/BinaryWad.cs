@@ -3,6 +3,7 @@ using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GameSpec.Formats
@@ -26,60 +27,54 @@ namespace GameSpec.Formats
             Tex2 = 0x40,
             Pic = 0x42,
             Tex = 0x43,
-            Fnt = 0x45
+            Fnt = 0x46
         }
 
         public BinaryWad(BinaryReader r, FileMetadata f)
         {
             var type = Path.GetExtension(f.Path) switch
             {
-                ".tex2" => Formats.Tex2,
                 ".pic" => Formats.Pic,
                 ".tex" => Formats.Tex,
+                ".tex2" => Formats.Tex2,
                 ".fnt" => Formats.Fnt,
                 _ => Formats.None
             };
-            if (type == Formats.Tex2)
-            {
-                width = (int)r.ReadUInt32();
-                height = (int)r.ReadUInt32();
-                var pixelSize = width * height;
-                pixels = new byte[][] { r.ReadBytes(pixelSize) };
-                palette = r.ReadBytes(r.ReadUInt16() * 3);
-                r.Skip(2);
-                //r.EnsureComplete();
-            }
-            else if (type == Formats.Tex2 || type == Formats.Tex)
-            {
-                name = r.ReadFAString(16); // r.Skip(16); // Skip name
-                width = (int)r.ReadUInt32();
-                height = (int)r.ReadUInt32();
-                var pixelSize = width * height;
-                var offsets = new[] { (long)r.ReadUInt32(), (long)r.ReadUInt32(), (long)r.ReadUInt32(), (long)r.ReadUInt32() }; // r.Skip(16); // Skip pixel offsets
-                if (r.Position() != offsets[0]) throw new Exception("BAD OFFSET");
-                pixels = new byte[][] { r.ReadBytes(pixelSize), r.ReadBytes(pixelSize >> 2), r.ReadBytes(pixelSize >> 4), r.ReadBytes(pixelSize >> 8) };
-                palette = r.ReadBytes(r.ReadUInt16());
-                //r.EnsureComplete();
-            }
-            else if (type == Formats.Fnt)
-            {
-                width = 0x100;
-                r.ReadUInt32();
-                r.ReadUInt32();
-                var infoArray = r.ReadTArray<CharInfo>(sizeof(CharInfo), 0x100);
-                pixels = new byte[][] { };
-            }
+            Format = (type, (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32);
+            if (type == Formats.Tex2 || type == Formats.Tex) name = r.ReadFYString(16); // r.Skip(16); // Skip name
+            width = (int)r.ReadUInt32();
+            height = (int)r.ReadUInt32();
+
             // validate
             if (width > 0x1000 || height > 0x1000) throw new FormatException("Texture width or height exceeds maximum size!");
             else if (width == 0 || height == 0) throw new FormatException("Texture width and height must be larger than 0!");
 
-            Format = type switch
+            // read pixel offsets
+            if (type == Formats.Tex2 || type == Formats.Tex)
             {
-                Formats.Tex2 => (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24),
-                var x when x == Formats.Tex2 || x == Formats.Tex => (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24),
-                Formats.Fnt => (type, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.RGB24),
-                _ => throw new ArgumentOutOfRangeException(nameof(type), $"{type}"),
-            };
+                var offsets = new[] { r.ReadUInt32(), r.ReadUInt32(), r.ReadUInt32(), r.ReadUInt32() }; // r.Skip(16); // Skip pixel offsets
+                if (r.BaseStream.Position != offsets[0]) throw new Exception("BAD OFFSET");
+            }
+            else if (type == Formats.Fnt)
+            {
+                width = 0x100;
+                var rowCount = r.ReadUInt32();
+                var rowHeight = r.ReadUInt32();
+                var charInfos = r.ReadTArray<CharInfo>(sizeof(CharInfo), 0x100);
+            }
+
+            // read pixels
+            var pixelSize = width * height;
+            pixels = type == Formats.Tex2 || type == Formats.Tex
+                ? new byte[][] { r.ReadBytes(pixelSize), r.ReadBytes(pixelSize >> 2), r.ReadBytes(pixelSize >> 4), r.ReadBytes(pixelSize >> 8) }
+                : new byte[][] { r.ReadBytes(pixelSize) };
+
+            // read pallet
+            r.Skip(2);
+            palette = r.ReadBytes(0x100 * 3);
+
+            //if (type == Formats.Pic) r.Skip(2);
+            //r.EnsureComplete();
         }
 
         string name;
@@ -97,23 +92,20 @@ namespace GameSpec.Formats
         public int MipMaps => pixels.Length;
         public TextureFlags Flags => 0;
 
-        public byte[] Begin(int platform, out object format, out Range[] mips)
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
-            void FlattenPalette(int index)
+            static void FlattenPalette(Span<byte> data, byte[] source, byte[] palette)
             {
-                // flatten pallate
-                var source = pixels[index];
-                var data = new byte[width * height * 3];
                 fixed (byte* _ = data)
-                    for (int i = 0, pi = 0; i < source.Length; i++, pi += 3)
+                    for (int i = 0, pi = 0; i < source.Length; i++, pi += 4)
                     {
                         var pa = source[i] * 3;
-                        if (pa + 2 > palette.Length) continue;
+                        //if (pa + 3 > palette.Length) continue;
                         _[pi + 0] = palette[pa + 0];
                         _[pi + 1] = palette[pa + 1];
                         _[pi + 2] = palette[pa + 2];
+                        _[pi + 3] = 0xFF;
                     }
-                //return data;
             }
 
             format = (FamilyPlatform.Type)platform switch
@@ -125,8 +117,16 @@ namespace GameSpec.Formats
                 FamilyPlatform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
-            mips = null;
-            return null;
+            var bytes = new byte[pixels.Sum(x => x.Length) * 4];
+            ranges = new Range[pixels.Length];
+            byte[] p;
+            for (int index = 0, offset = 0; index < pixels.Length; index++, offset += p.Length * 4)
+            {
+                p = pixels[index];
+                var range = ranges[index] = new Range(offset, offset + p.Length * 4);
+                FlattenPalette(bytes.AsSpan(range), p, palette);
+            }
+            return bytes;
         }
         public void End() { }
 

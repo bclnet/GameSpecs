@@ -79,14 +79,14 @@ namespace GameSpec
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public IEnumerable<string[]> GetGamePaths(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError = true)
+        public IEnumerable<(string root, string[] paths)> GetGamePaths(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError = true)
         {
             var ignores = Ignores.TryGetValue(game.Id, out var z) ? z : null;
             foreach (var path in game.Paths ?? new[] { "" })
             {
                 var fileSearch = fileSystem.FindPaths(path, searchPattern);
                 if (ignores != null) fileSearch = fileSearch.Where(x => ignores.Contains(Path.GetFileName(x)));
-                yield return fileSearch.ToArray();
+                yield return (path, fileSearch.ToArray());
             }
         }
 

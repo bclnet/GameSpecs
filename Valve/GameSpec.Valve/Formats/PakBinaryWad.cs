@@ -68,7 +68,6 @@ namespace GameSpec.Valve.Formats
                         0x40 => $"{lump.Name}.tex2",
                         0x42 => $"{lump.Name}.pic",
                         0x43 => $"{lump.Name}.tex",
-                        //0x45 => $"{lump.Name}.fnt",
                         0x46 => $"{lump.Name}.fnt",
                         _ => $"{lump.Name}.{lump.Type:x}"
                     },

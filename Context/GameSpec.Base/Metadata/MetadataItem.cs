@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameSpec.Formats;
+using Google.Protobuf.WellKnownTypes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -57,11 +59,12 @@ namespace GameSpec.Metadata
             }
         }
 
-        public MetadataItem FindByPath(string path)
+        public MetadataItem FindByPath(string path, MetadataManager manager)
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
             var node = Items.FirstOrDefault(x => x.Name == paths[0]);
-            return node == null || paths.Length == 1 ? node : node.FindByPath(paths[1]);
+            if (node != null && node.Source is FileMetadata z) z.Pak?.Open(node.Items, manager);
+            return node == null || paths.Length == 1 ? node : node.FindByPath(paths[1], manager);
         }
     }
 }

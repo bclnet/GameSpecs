@@ -1,9 +1,9 @@
-﻿using GameSpec.Metadata;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
+using GameSpec.Transforms;
 using GameSpec.Unity.Formats;
 using GameSpec.Unity.Transforms;
-using GameSpec.Transforms;
 using System.Threading.Tasks;
 
 namespace GameSpec.Unity
@@ -21,7 +21,7 @@ namespace GameSpec.Unity
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryUnity.Instance, tag)
+        public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryUnity.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
