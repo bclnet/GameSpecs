@@ -11,7 +11,7 @@ namespace GameSpec.Formats
     // https://github.com/dreamstalker/rehlds/blob/master/rehlds/engine/model.cpp
     // https://greg-kennedy.com/hl_materials/
     // https://github.com/tmp64/BSPRenderer
-    public unsafe class BinaryWad : ITexture, IGetMetadataInfo
+    public unsafe class BinaryWad3 : ITexture, IGetMetadataInfo
     {
         struct CharInfo
         {
@@ -19,7 +19,7 @@ namespace GameSpec.Formats
             public ushort CharWidth;
         }
 
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryWad(r, f));
+        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryWad3(r, f));
 
         enum Formats : byte
         {
@@ -30,7 +30,7 @@ namespace GameSpec.Formats
             Fnt = 0x46
         }
 
-        public BinaryWad(BinaryReader r, FileMetadata f)
+        public BinaryWad3(BinaryReader r, FileMetadata f)
         {
             var type = Path.GetExtension(f.Path) switch
             {

@@ -350,13 +350,14 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //HL
+            ForcePath = "valve/maps/boot_camp.bsp", //Map
             //ForcePath = "valve/cached.wad:LOADING.pic", //Texture
             //ForcePath = "valve/decals.wad:REFLECT1.tex", //Texture
             //ForcePath = "valve/decals.wad:{LARGE#S0.tex", //Texture
             //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture
             //ForcePath = "valve/sprites:640_logo.spr", //Sprite
             //TF
-            ForcePath = "game.tga", //Image
+            //ForcePath = "game.tga", //Image
             //ForcePath = "cached.wad:CONBACK640.pic", //Texture
             //ForcePath = "tfc.WAD:{EASTLINE1.pic", //Texture
             //HL2
@@ -388,8 +389,8 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Valve",
-            //GameId = "HL", // Half-Life [open, read, texture:GL]
-            GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
+            GameId = "HL", // Half-Life [open, read, texture:GL]
+            //GameId = "TF", // Team Fortress Classic [open, read, texture:GL]
             //GameId = "CS", // Counter-Strike [open, read]
             //GameId = "Ricochet", // Ricochet [open, read]
             //GameId = "HL:BS", // Half-Life: Blue Shift [open, read]
