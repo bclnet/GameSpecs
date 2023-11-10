@@ -1,0 +1,15 @@
+default:
+  font: Helvetica
+  bold: "{* Bold}"
+  mono: Andale Mono
+  prechap: "Chapter "
+  postchap: ""
+  presect: "Section "
+  postsect: ""
+  dql: "“"
+  dqr: "”"
+  con: "Contents"
+  fig: "Figure "
+  tab: "Table "
+  indent: "\\qquad"
+  thanks: "This is the PDF file for the GameSpec book contents. It is licensed under the MIT license."
