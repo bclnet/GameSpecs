@@ -44,7 +44,7 @@ if ARGV.length == 0
   exit
 end
 
-format = ENV['FORMAT'] || 'mobi'
+format = ENV['FORMAT'] || 'epub'
 puts "using .#{format} (you can change it via FORMAT environment variable. try 'mobi' or 'epub')"
 
 ARGV.each do |lang|
@@ -83,7 +83,7 @@ ARGV.each do |lang|
     end
 
     system($ebook_convert_cmd, "gamespec.#{lang}.html", "gamespec.#{lang}.#{format}",
-           '--cover', 'ebooks/cover.png',
+           '--cover', 'epub/cover.png',
            '--authors', authors,
            '--comments', comments,
            '--level1-toc', '//h:h1',
