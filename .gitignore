@@ -29,3 +29,4 @@ obj/
 Temp/
 ipch/
 TestResults/
+__pycache__/

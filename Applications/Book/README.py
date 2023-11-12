@@ -1,4 +1,5 @@
-import os
+import sys, os, re
+sys.path.append('../..')
 from base import getFamilies
 
 def Readme(gamesBody):
@@ -34,6 +35,7 @@ def GamesBody(families):
         for g in f.games:
             b.append(f'| [{g.id}]({g.url}) | {g.name} | {single(g.status, "open")} | {single(g.status, "read")} | {platform(g.status, "texture")} | {platform(g.status, "model")} | {platform(g.status, "level")}\n')
     return ''.join(b)
-body = GamesBody(getFamilies(''))
+families = getFamilies('../../')
+body = GamesBody(families)
 print(body)
 #Readme(body)
