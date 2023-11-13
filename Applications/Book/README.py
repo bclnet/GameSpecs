@@ -16,6 +16,9 @@ def GameFamily(f):
     b = ['\n']
     b.append(f'{f.id}\n')
     b.append(f'name: {f.name}\n')
+    b.append(f'studio: {f.studio}\n')
+    b.append(f'description: {f.description}\n')
+    b.append(f'url: {f.url}\n')
     b.append(f'\n')
     b.append(f'=== Games\n\n')
     for g in f.games:
