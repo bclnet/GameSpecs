@@ -21,48 +21,45 @@ def GameFamily(f):
     b.append(f'url: {f.url}\n')
     b.append(f'\n')
     b.append(f'=== Games\n\n')
-    for g in f.games:
-        b.append(f'{g.id}\n')
-        b.append(f'name: {g.name}\n')
-        b.append(f'engine: {g.engine}\n')
-        b.append(f'url: {g.url}\n')
-        b.append(f'date: {g.date}\n')
-        b.append(f'key: {g.key}\n')
-        b.append(f'pakExt: {g.pakExt}\n')
+    for s in f.games:
+        b.append(f'{s.id}\n')
+        b.append(f'name: {s.name}\n')
+        b.append(f'engine: {s.engine}\n')
+        b.append(f'url: {s.url}\n')
+        b.append(f'date: {s.date}\n')
+        b.append(f'key: {s.key}\n')
+        b.append(f'pakExt: {s.pakExt}\n')
         b.append(f'\n')
     b.append(f'\n')
     b.append(f'=== Other-Games\n\n')
-    for g in f.otherGames:
-        b.append(f'{g.id}\n')
-        b.append(f'name: {g.name}\n')
-        b.append(f'engine: {g.engine}\n')
-        b.append(f'url: {g.url}\n')
-        b.append(f'date: {g.date}\n')
+    for s in f.otherGames:
+        b.append(f'{s.id}\n')
+        b.append(f'name: {s.name}\n')
+        b.append(f'engine: {s.engine}\n')
+        b.append(f'url: {s.url}\n')
+        b.append(f'date: {s.date}\n')
         b.append(f'\n')
     return ''.join(b)
 
     
-def LocateFiles(f):
+def LocateFiles(fm):
     b = ['\n']
-    b.append(f'{f.id}\n')
-    b.append(f'name: {f.name}\n')
-    b.append(f'\n')
     b.append(f'=== Files\n\n')
-    # for g in f.games:
-    #     b.append(f'{g.id}\n')
-    #     b.append(f'name: {g.name}\n')
-    #     b.append(f'engine: {g.engine}\n')
-    #     b.append(f'url: {g.url}\n')
-    #     b.append(f'date: {g.date}\n')
-    #     b.append(f'key: {g.key}\n')
-    #     b.append(f'pakExt: {g.pakExt}\n')
-    #     b.append(f'\n')
+    for s in fm.applications:
+         b.append(f'{s.id}\n')
+         b.append(f'dir: {s.dir}\n')
+         b.append(f'key: {s.key}\n')
+         b.append(f'reg: {s.reg}\n')
+         b.append(f'path: {s.path}\n')
+         b.append(f'\n')
     return ''.join(b)
 
 
 for f in getFamilies('../../'):
     print(f.id)
-    #body = GameFamily(f)
-    #if not f.id.startswith('Capcom'): writeFile(f'book/02-game-families/{f.id}.asc', '=== Table\n', body)
-    body = LocateFiles(f)
-    if not f.id.startswith('Capcom'): writeFile(f'book/03-locate-files/{f.id}.asc', '=== Table\n', body)
+    body = GameFamily(f)
+    if not f.id.startswith('Capcom'):
+        writeFile(f'book/02-game-families/{f.id}.asc', '=== Table\n', body)
+    if f.fileManager != None:
+        body = LocateFiles(f.fileManager)
+        writeFile(f'book/03-locate-files/{f.id}.asc', '=== Table\n', body)

@@ -1,9 +1,12 @@
 import os, json, glob, re
 
 class Family:
-  def __init__(t, id, name, games, otherGames, fileManager):
+  def __init__(t, id, name, studio, description, url, games, otherGames, fileManager):
     t.id = id
     t.name = name
+    t.studio = studio
+    t.description = description
+    t.url = url
     t.games = games
     t.otherGames = otherGames
     t.fileManager = fileManager
