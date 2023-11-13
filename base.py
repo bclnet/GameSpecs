@@ -16,11 +16,14 @@ OtherGames: {[x for x in self.otherGames]}
 '''
 
 class Game:
-  def __init__(t, id, name, engine, url, status):
+  def __init__(t, id, name, engine, url, date, key, pakExt, status):
     t.id = id
     t.name = name
     t.engine = engine
     t.url = url
+    t.date = date
+    t.key = key
+    t.pakExt = pakExt
     t.status = status
 
   def __repr__(self):
@@ -42,7 +45,7 @@ def getFamilies(root):
     families = []
     for file in glob.glob(root + '*/*.json'):
         data = jsonLoad(file)
-        default_ = Game(id=None,name=None,engine=None,url=None,status=None)
+        default_ = Game(id=None,name=None,engine=None,url=None,date=None,key=None,pakExt=None,status=None)
         games = []
         if 'games' in data:
             for id in data['games']:
@@ -52,21 +55,27 @@ def getFamilies(root):
                     name = s['name'] if 'name' in s else None,
                     engine = s['engine'] if 'engine' in s else default_.engine,
                     url = (', '.join(s['url']) if isinstance(s['url'], list) else s['url']) if 'url' in s else [],
+                    date = s['date'] if 'date' in s else None,
+                    key = s['key'] if 'key' in s else None,
+                    pakExt = s['pakExt'] if 'pakExt' in s else default_.pakExt,
                     status = s['status'] if 'status' in s else []
                 )
                 if id.startswith('*'): default_ = game
                 else: games.append(game)
-        default_ = Game(id=None,name=None,engine=None,url=None,status=None)
+        default_ = Game(id=None,name=None,engine=None,url=None,date=None,key=None,pakExt=None,status=None)
         otherGames = []
         if 'other-games' in data:
             for id in data['other-games']:
                 s = data['other-games'][id]
                 game = Game(
                     id = id,
-                    name = s['name'] if 'name' in s else None,
-                    engine = s['engine'] if 'engine' in s else None,
-                    url = None,
-                    status = None
+                     name = s['name'] if 'name' in s else None,
+                    engine = s['engine'] if 'engine' in s else default_.engine,
+                    url = (', '.join(s['url']) if isinstance(s['url'], list) else s['url']) if 'url' in s else [],
+                    date = s['date'] if 'date' in s else None,
+                    key = s['key'] if 'key' in s else None,
+                    pakExt = s['pakExt'] if 'pakExt' in s else default_.pakExt,
+                    status = s['status'] if 'status' in s else []
                 )
                 if id.startswith('*'): default_ = game
                 else: otherGames.append(game)
