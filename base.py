@@ -69,7 +69,7 @@ def getFamilies(root):
                 s = data['other-games'][id]
                 game = Game(
                     id = id,
-                     name = s['name'] if 'name' in s else None,
+                    name = s['name'] if 'name' in s else None,
                     engine = s['engine'] if 'engine' in s else default_.engine,
                     url = (', '.join(s['url']) if isinstance(s['url'], list) else s['url']) if 'url' in s else [],
                     date = s['date'] if 'date' in s else None,
