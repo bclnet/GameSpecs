@@ -2,13 +2,13 @@ import sys, os, re
 sys.path.append('../..')
 from base import getFamilies
 
-def writeFile(path, marker, body):
-    f = open(path, 'r')
+def writeFile(z, path, marker, body):
+    f = open(path, 'r', encoding='utf-8')
     text = f.read()
     f.close()
     head, sep, tail = text.partition(marker)
     text = head + sep + body
-    f = open(path, 'w')
+    f = open(path, 'w', encoding='utf-8')
     f.write(text)
     f.close()
 
@@ -40,7 +40,6 @@ def GameFamily(f):
         b.append(f'date: {s.date}\n')
         b.append(f'\n')
     return ''.join(b)
-
     
 def LocateFiles(fm):
     b = ['\n']
@@ -58,8 +57,7 @@ def LocateFiles(fm):
 for f in getFamilies('../../'):
     print(f.id)
     body = GameFamily(f)
-    if not f.id.startswith('Capcom'):
-        writeFile(f'book/02-game-families/{f.id}.asc', '=== Table\n', body)
+    writeFile(f, f'book/02-game-families/{f.id}.asc', '=== Table\n', body)
     if f.fileManager != None:
         body = LocateFiles(f.fileManager)
-        writeFile(f'book/03-locate-files/{f.id}.asc', '=== Table\n', body)
+        writeFile(f, f'book/03-locate-files/{f.id}.asc', '=== Table\n', body)
