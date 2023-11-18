@@ -3,11 +3,11 @@ output
 
 # build artifacts
 Gemfile.lock
-progit.html
-progit.pdf
-progit.pdfmarks
-progit.epub
-progit.fb2.zip
-progit-kf8.epub
-progit.mobi
+gamespec.html
+gamespec.pdf
+gamespec.pdfmarks
+gamespec.epub
+gamespec.fb2.zip
+gamespec-kf8.epub
+gamespec.mobi
 contributors.txt

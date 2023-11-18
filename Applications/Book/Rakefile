@@ -11,24 +11,44 @@ namespace :book do
   date_string = Time.now.strftime('%Y-%m-%d')
   params = "--attribute revnumber='#{version_string}' --attribute revdate='#{date_string}'"
   header_hash = `git rev-parse --short HEAD`.strip
+  if Gem.win_platform?
+    os_devnull = "nul"
+  else
+    os_devnull = "/dev/null"
+  end
+
+  def bh(cmd)
+    if Gem.win_platform?
+      sh "bash -c \"#{cmd}\""
+    else
+      sh cmd
+    end
+  end
 
   # Check contributors list
   # This checks commit hash stored in the header of list against current HEAD
   def check_contrib
     if File.exist?('book/contributors.txt')
-      current_head_hash = `git rev-parse --short HEAD`.strip
-      header = `head -n 1 book/contributors.txt`.strip
-      # Match regex, then coerce resulting array to string by join
-      header_hash = header.scan(/[a-f0-9]{7,}/).join
-
-      if header_hash == current_head_hash
-        puts "Hash on header of contributors list (#{header_hash}) matches the current HEAD (#{current_head_hash})"
-      else
-        puts "Hash on header of contributors list (#{header_hash}) does not match the current HEAD (#{current_head_hash}), refreshing"
-        sh "rm book/contributors.txt"
+      if Gem.win_platform?
+        sh "del book\\contributors.txt"
         # Reenable and invoke task again
         Rake::Task['book/contributors.txt'].reenable
         Rake::Task['book/contributors.txt'].invoke
+      else
+        current_head_hash = `git rev-parse --short HEAD`.strip
+        header = `head -n 1 book/contributors.txt`.strip
+        # Match regex, then coerce resulting array to string by join
+        header_hash = header.scan(/[a-f0-9]{7,}/).join
+
+        if header_hash == current_head_hash
+          puts "Hash on header of contributors list (#{header_hash}) matches the current HEAD (#{current_head_hash})"
+        else
+          puts "Hash on header of contributors list (#{header_hash}) does not match the current HEAD (#{current_head_hash}), refreshing"
+          sh "rm book/contributors.txt"
+          # Reenable and invoke task again
+          Rake::Task['book/contributors.txt'].reenable
+          Rake::Task['book/contributors.txt'].invoke
+        end
       end
     end
   end
@@ -56,7 +76,7 @@ namespace :book do
   file 'book/contributors.txt' do
       puts 'Generating contributors list'
       sh "echo 'Contributors as of #{header_hash}:\n' > book/contributors.txt"
-      sh "git shortlog -s HEAD | grep -v -E '(Straub|Chacon|dependabot)' | cut -f 2- | sort | column -c 120 >> book/contributors.txt"
+      bh "git shortlog -s HEAD | grep -v -E '(Straub|Chacon|dependabot)' | cut -f 2- | sort | column -c 120 >> book/contributors.txt"
   end
 
   desc 'build HTML format'
@@ -64,8 +84,8 @@ namespace :book do
       check_contrib()
 
       puts 'Converting to HTML...'
-      sh "bundle exec asciidoctor #{params} -a data-uri progit.asc"
-      puts ' -- HTML output at progit.html'
+      sh "bundle exec asciidoctor #{params} -a data-uri gamespec.asc"
+      puts ' -- HTML output at gamespec.html'
 
   end
 
@@ -74,8 +94,8 @@ namespace :book do
       check_contrib()
 
       puts 'Converting to EPub...'
-      sh "bundle exec asciidoctor-epub3 #{params} progit.asc"
-      puts ' -- Epub output at progit.epub'
+      sh "bundle exec asciidoctor-epub3 #{params} gamespec.asc"
+      puts ' -- Epub output at gamespec.epub'
 
   end
 
@@ -84,8 +104,8 @@ namespace :book do
       check_contrib()
 
       puts 'Converting to FB2...'
-      sh "bundle exec asciidoctor-fb2 #{params} progit.asc"
-      puts ' -- FB2 output at progit.fb2.zip'
+      sh "bundle exec asciidoctor-fb2 #{params} gamespec.asc"
+      puts ' -- FB2 output at gamespec.fb2.zip'
 
   end
 
@@ -94,8 +114,8 @@ namespace :book do
       check_contrib()
 
       puts "Converting to Mobi (kf8)..."
-      sh "bundle exec asciidoctor-epub3 #{params} -a ebook-format=kf8 progit.asc"
-      puts " -- Mobi output at progit.mobi"
+      sh "bundle exec asciidoctor-epub3 #{params} -a ebook-format=kf8 gamespec.asc"
+      puts " -- Mobi output at gamespec.mobi"
   end
 
   desc 'build PDF format'
@@ -103,16 +123,16 @@ namespace :book do
       check_contrib()
 
       puts 'Converting to PDF... (this one takes a while)'
-      sh "bundle exec asciidoctor-pdf #{params} progit.asc 2>/dev/null"
-      puts ' -- PDF output at progit.pdf'
+      sh "bundle exec asciidoctor-pdf #{params} gamespec.asc 2>#{os_devnull}"
+      puts ' -- PDF output at gamespec.pdf'
   end
 
   desc 'Check generated books'
   task :check => [:build_html, :build_epub] do
       puts 'Checking generated books'
 
-      sh "htmlproofer progit.html"
-      sh "epubcheck progit.epub"
+      sh "htmlproofer gamespec.html"
+      sh "epubcheck gamespec.epub"
   end
 
   desc 'Clean all generated files'
@@ -120,7 +140,7 @@ namespace :book do
     begin
         puts 'Removing generated files'
 
-        FileList['book/contributors.txt', 'progit.html', 'progit-kf8.epub', 'progit.epub', 'progit.fb2.zip', 'progit.mobi', 'progit.pdf'].each do |file|
+        FileList['book/contributors.txt', 'gamespec.html', 'gamespec-kf8.epub', 'gamespec.epub', 'gamespec.fb2.zip', 'gamespec.mobi', 'gamespec.pdf'].each do |file|
             rm file
 
             # Rescue if file not found
