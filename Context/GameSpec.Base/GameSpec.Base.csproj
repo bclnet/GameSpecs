@@ -10,12 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\..\AC\ACFamily.json" Link="Families\ACFamily.json" />
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
     <EmbeddedResource Include="..\..\Blizzard\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
     <EmbeddedResource Include="..\..\Capcom\CapcomFamily.json" Link="Families\CapcomFamily.json" />
-    <EmbeddedResource Include="..\..\Cry\CryFamily.json" Link="Families\CryFamily.json" />
+    <EmbeddedResource Include="..\..\Crytek\CrytekFamily.json" Link="Families\CrytekFamily.json" />
     <EmbeddedResource Include="..\..\Cryptic\CrypticFamily.json" Link="Families\CrypticFamily.json" />
     <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
     <EmbeddedResource Include="..\..\Frontier\FrontierFamily.json" Link="Families\FrontierFamily.json" />
@@ -31,6 +30,7 @@
     <EmbeddedResource Include="..\..\Unknown\UnknownFamily.json" Link="Families\UnknownFamily.json" />
     <EmbeddedResource Include="..\..\Unreal\UnrealFamily.json" Link="Families\UnrealFamily.json" />
     <EmbeddedResource Include="..\..\Valve\ValveFamily.json" Link="Families\ValveFamily.json" />
+    <EmbeddedResource Include="..\..\WbB\WbBFamily.json" Link="Families\WbBFamily.json" />
   </ItemGroup>
 
   <ItemGroup>

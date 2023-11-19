@@ -120,7 +120,7 @@ namespace :book do
 
   desc 'build PDF format'
   task :build_pdf => 'book/contributors.txt' do
-      check_contrib()
+      # check_contrib()
 
       puts 'Converting to PDF... (this one takes a while)'
       sh "bundle exec asciidoctor-pdf #{params} gamespec.asc 2>#{os_devnull}"

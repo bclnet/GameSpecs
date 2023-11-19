@@ -1,0 +1,5 @@
+Write a section of the introductory chapter for the following:
+
+Decoding Assets
+Decode the game assets into a portable format.
+The individual files that comprise the game assets use proprietary file formats, decoding these formats for each game provides access to the actual asset data.

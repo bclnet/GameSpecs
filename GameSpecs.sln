@@ -37,10 +37,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tes", "Tes", "{7F78A794-57C
 		Tes\TesFamily.json = Tes\TesFamily.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AC", "AC", "{BDE29250-8EA7-47E0-8D67-A58A176B2D30}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WbB", "WbB", "{BDE29250-8EA7-47E0-8D67-A58A176B2D30}"
 	ProjectSection(SolutionItems) = preProject
-		AC\ACFamily.json = AC\ACFamily.json
-		Documents\Families\AC\Readme.md = Documents\Families\AC\Readme.md
+		WbB\WbBFamily.json = WbB\WbBFamily.json
+		Documents\Families\WbB\Readme.md = Documents\Families\WbB\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arkane", "Arkane", "{793BECC6-9830-4CB9-B65C-DBC4C14ADCA4}"
@@ -55,10 +55,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bioware", "Bioware", "{0BE3
 		Documents\Families\Bioware\Readme.md = Documents\Families\Bioware\Readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cry", "Cry", "{D78C77D6-2696-446A-9D13-7FAE6F3255EE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crytek", "Crytek", "{D78C77D6-2696-446A-9D13-7FAE6F3255EE}"
 	ProjectSection(SolutionItems) = preProject
-		Cry\CryFamily.json = Cry\CryFamily.json
-		Documents\Families\Cry\Readme.md = Documents\Families\Cry\Readme.md
+		Crytek\CrytekFamily.json = Crytek\CrytekFamily.json
+		Documents\Families\Crytek\Readme.md = Documents\Families\Crytek\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cyanide", "Cyanide", "{AFEFEEB6-4CAB-4CA3-8FDF-C2C2BDE8C415}"
@@ -103,11 +103,81 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Valve", "Valve", "{B9CFB3F1
 		Valve\ValveFamily.json = Valve\ValveFamily.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.AC", "AC\GameSpec.AC\GameSpec.AC.csproj", "{A5A1B037-867C-4EB9-B4C1-AA87FD81220B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.WbB", "WbB\GameSpec.WbB\GameSpec.WbB.csproj", "{A5A1B037-867C-4EB9-B4C1-AA87FD81220B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Context", "Context", "{6D2DEF34-0211-49A7-B0CE-8AF7AE738D8A}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Context\Readme.md = Documents\Context\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unknown", "Unknown", "{991C1B68-70C3-4A86-8906-98914C9CE114}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Families\Unknown\Readme.md = Documents\Families\Unknown\Readme.md
+		Unknown\UnknownFamily.json = Unknown\UnknownFamily.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lith", "Lith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
+	ProjectSection(SolutionItems) = preProject
+		Lith\LithFamily.json = Lith\LithFamily.json
+		Documents\Families\Lith\Readme.md = Documents\Families\Lith\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IW", "IW", "{557FA17D-0D46-42AE-95E1-8B486EA8822A}"
+	ProjectSection(SolutionItems) = preProject
+		IW\IWFamily.json = IW\IWFamily.json
+		Documents\Families\IW\Readme.md = Documents\Families\IW\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalogs", "catalogs", "{60770ABF-0554-4393-8722-B3C138127B87}"
+	ProjectSection(SolutionItems) = preProject
+		Unknown\catalogs\main.yaml = Unknown\catalogs\main.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hpl", "Hpl", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
+	ProjectSection(SolutionItems) = preProject
+		Hpl\HplFamily.json = Hpl\HplFamily.json
+		Documents\Families\Hpl\Readme.md = Documents\Families\Hpl\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blizzard", "Blizzard", "{389FCD8C-F4E7-4B16-BF62-11B3E075BC4E}"
+	ProjectSection(SolutionItems) = preProject
+		Blizzard\BlizzardFamily.json = Blizzard\BlizzardFamily.json
+		Documents\Families\Blizzard\Readme.md = Documents\Families\Blizzard\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Id", "Id", "{ADDD9C65-49FA-4981-BFA6-545759D762F7}"
+	ProjectSection(SolutionItems) = preProject
+		Id\IdFamily.json = Id\IdFamily.json
+		Documents\Families\Id\Readme.md = Documents\Families\Id\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptic", "Cryptic", "{CB2D9FBD-6D37-4B95-BC2D-65D172F89CEE}"
+	ProjectSection(SolutionItems) = preProject
+		Cryptic\CrypticFamily.json = Cryptic\CrypticFamily.json
+		Documents\Families\Cryptic\Readme.md = Documents\Families\Cryptic\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{6EC2027E-D509-415E-8939-62A2A3C2CE1F}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Platforms\Readme.md = Documents\Platforms\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontier", "Frontier", "{8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}"
+	ProjectSection(SolutionItems) = preProject
+		Frontier\FrontierFamily.json = Frontier\FrontierFamily.json
+		Documents\Families\Frontier\Readme.md = Documents\Families\Frontier\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Capcom", "Capcom", "{6F41E78D-790E-461B-8B66-94569F6E4291}"
+	ProjectSection(SolutionItems) = preProject
+		Capcom\CapcomFamily+0–D.json = Capcom\CapcomFamily+0–D.json
+		Capcom\CapcomFamily+E–L.json = Capcom\CapcomFamily+E–L.json
+		Capcom\CapcomFamily+M.json = Capcom\CapcomFamily+M.json
+		Capcom\CapcomFamily+N-R.json = Capcom\CapcomFamily+N-R.json
+		Capcom\CapcomFamily+S.json = Capcom\CapcomFamily+S.json
+		Capcom\CapcomFamily+T-Z.json = Capcom\CapcomFamily+T-Z.json
+		Capcom\CapcomFamily.json = Capcom\CapcomFamily.json
+		Documents\Families\Capcom\Readme.md = Documents\Families\Capcom\Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Base", "Context\GameSpec.Base\GameSpec.Base.csproj", "{8AA7AF15-6733-430E-AFB6-FFE80598EFDF}"
@@ -116,7 +186,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Arkane", "Arkane\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bioware", "Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj", "{0073A5EA-A7A8-4A9C-BBA7-0731B37695FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cry", "Cry\GameSpec.Cry\GameSpec.Cry.csproj", "{2C3C4F52-8899-47E2-B0F4-72C926B9FB1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Crytek", "Crytek\GameSpec.Crytek\GameSpec.Crytek.csproj", "{2C3C4F52-8899-47E2-B0F4-72C926B9FB1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Physics", "Physics", "{CFD8D658-BE5E-43FF-A6A8-C5282FB494F0}"
 EndProject
@@ -134,7 +204,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{D2430DDB-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.Polyfills", "OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj", "{88DCAFE5-1E2F-4F05-BDC9-F92CD0E8B67C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ACTests", "AC\GameSpec.ACTests\GameSpec.ACTests.csproj", "{0F072B78-5CC2-4EAA-AD65-5FA6BD2D2CE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.WbBTests", "WbB\GameSpec.WbBTests\GameSpec.WbBTests.csproj", "{0F072B78-5CC2-4EAA-AD65-5FA6BD2D2CE7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ArkaneTests", "Arkane\GameSpec.ArkaneTests\GameSpec.ArkaneTests.csproj", "{7308F32B-705C-4E96-A73C-24782DEB2DBD}"
 EndProject
@@ -142,7 +212,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.BiowareTests", "Bi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.BaseTests", "Context\GameSpec.BaseTests\GameSpec.BaseTests.csproj", "{A77B276B-CE12-4215-9BBE-7B03CCD55813}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CryTests", "Cry\GameSpec.CryTests\GameSpec.CryTests.csproj", "{446827FD-70DD-43F4-B041-157830CD65AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CrytekTests", "Crytek\GameSpec.CrytekTests\GameSpec.CrytekTests.csproj", "{446827FD-70DD-43F4-B041-157830CD65AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cyanide", "Cyanide\GameSpec.Cyanide\GameSpec.Cyanide.csproj", "{3043A7F6-2E15-48F5-BC05-436E82D644D4}"
 EndProject
@@ -152,19 +222,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Origin", "Origin\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.OriginTests", "Origin\GameSpec.OriginTests\GameSpec.OriginTests.csproj", "{6753CA8A-D765-4FFD-91C0-E4B4671DA542}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unknown", "Unknown", "{991C1B68-70C3-4A86-8906-98914C9CE114}"
-	ProjectSection(SolutionItems) = preProject
-		Documents\Families\Unknown\Readme.md = Documents\Families\Unknown\Readme.md
-		Unknown\UnknownFamily.json = Unknown\UnknownFamily.json
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.AC.Platform", "AC\GameSpec.AC.Platform\GameSpec.AC.Platform.csproj", "{A8CFC567-7182-417E-BC84-5A90E1A3C805}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.WbB.Platform", "WbB\GameSpec.WbB.Platform\GameSpec.WbB.Platform.csproj", "{A8CFC567-7182-417E-BC84-5A90E1A3C805}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Arkane.Platform", "Arkane\GameSpec.Arkane.Platform\GameSpec.Arkane.Platform.csproj", "{0171784C-957E-46A2-B6D9-DA475D86AE85}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bioware.Platform", "Bioware\GameSpec.Bioware.Platform\GameSpec.Bioware.Platform.csproj", "{AC449BA4-7BB7-4363-93E4-F3FBB381B9A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cry.Platform", "Cry\GameSpec.Cry.Platform\GameSpec.Cry.Platform.csproj", "{EF033256-D6EF-402D-BE2B-87CCDC34A12A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Crytek.Platform", "Crytek\GameSpec.Crytek.Platform\GameSpec.Crytek.Platform.csproj", "{EF033256-D6EF-402D-BE2B-87CCDC34A12A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cyanide.Platform", "Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj", "{8527EEF2-EF88-460C-B56D-F1C511E7E005}"
 EndProject
@@ -208,12 +272,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Valve.Platform", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ValveTests", "Valve\GameSpec.ValveTests\GameSpec.ValveTests.csproj", "{328865E1-04C0-49CB-8CB5-72FFA966C273}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lith", "Lith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
-	ProjectSection(SolutionItems) = preProject
-		Lith\LithFamily.json = Lith\LithFamily.json
-		Documents\Families\Lith\Readme.md = Documents\Families\Lith\Readme.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith", "Lith\GameSpec.Lith\GameSpec.Lith.csproj", "{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith.Platform", "Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj", "{F27DA894-E285-4829-AB0D-3E9C9E7FD763}"
@@ -222,34 +280,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.LithTests", "Lith\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyIO", "OpenStack\Base\OpenStack.PolyIO\OpenStack.PolyIO.csproj", "{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IW", "IW", "{557FA17D-0D46-42AE-95E1-8B486EA8822A}"
-	ProjectSection(SolutionItems) = preProject
-		IW\IWFamily.json = IW\IWFamily.json
-		Documents\Families\IW\Readme.md = Documents\Families\IW\Readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalogs", "catalogs", "{60770ABF-0554-4393-8722-B3C138127B87}"
-	ProjectSection(SolutionItems) = preProject
-		Unknown\catalogs\main.yaml = Unknown\catalogs\main.yaml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hpl", "Hpl", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
-	ProjectSection(SolutionItems) = preProject
-		Hpl\HplFamily.json = Hpl\HplFamily.json
-		Documents\Families\Hpl\Readme.md = Documents\Families\Hpl\Readme.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Hpl.Platform", "Hpl\GameSpec.Hpl.Platform\GameSpec.Hpl.Platform.csproj", "{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.HplTests", "Hpl\GameSpec.HplTests\GameSpec.HplTests.csproj", "{33EDA96D-B689-4195-880C-25EF90C8AF83}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Hpl", "Hpl\GameSpec.Hpl\GameSpec.Hpl.csproj", "{986869A8-BA1E-4301-94AE-DDFD614E2547}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blizzard", "Blizzard", "{389FCD8C-F4E7-4B16-BF62-11B3E075BC4E}"
-	ProjectSection(SolutionItems) = preProject
-		Blizzard\BlizzardFamily.json = Blizzard\BlizzardFamily.json
-		Documents\Families\Blizzard\Readme.md = Documents\Families\Blizzard\Readme.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Blizzard", "Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj", "{C9F07003-E1F4-4D45-9C62-183AAA632AD3}"
 EndProject
@@ -267,12 +302,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CascLib", "..\CascLib\CascL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bioware.Resource", "Bioware\GameSpec.Bioware.Resource\GameSpec.Bioware.Resource.csproj", "{A4C62743-E379-40A9-AF1D-76B664FA08C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Id", "Id", "{ADDD9C65-49FA-4981-BFA6-545759D762F7}"
-	ProjectSection(SolutionItems) = preProject
-		Id\IdFamily.json = Id\IdFamily.json
-		Documents\Families\Id\Readme.md = Documents\Families\Id\Readme.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Id", "Id\GameSpec.Id\GameSpec.Id.csproj", "{893AE238-7783-40D7-BC8F-7B86B27FFCBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Id.Platform", "Id\GameSpec.Id.Platform\GameSpec.Id.Platform.csproj", "{5FFD07F5-DD55-485E-A5AB-0F3718CF2CAC}"
@@ -283,12 +312,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Extra", "Context\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.StoreManager", "Context\GameSpec.StoreManager\GameSpec.StoreManager.csproj", "{3743FD8B-EE65-4581-B702-093A857C145D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptic", "Cryptic", "{CB2D9FBD-6D37-4B95-BC2D-65D172F89CEE}"
-	ProjectSection(SolutionItems) = preProject
-		Cryptic\CrypticFamily.json = Cryptic\CrypticFamily.json
-		Documents\Families\Cryptic\Readme.md = Documents\Families\Cryptic\Readme.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cryptic", "Cryptic\GameSpec.Cryptic\GameSpec.Cryptic.csproj", "{4EB47393-4083-4C1E-997C-00F5775EB126}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cryptic.Platform", "Cryptic\GameSpec.Cryptic.Platform\GameSpec.Cryptic.Platform.csproj", "{C07F80AF-0EF9-4E07-A91A-91213D82F81C}"
@@ -296,11 +319,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CrypticTests", "Cryptic\GameSpec.CrypticTests\GameSpec.CrypticTests.csproj", "{3C32FECD-8298-4C9B-8D2A-4B1C850ABF05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Platform.Vulken", "Platforms\GameSpec.Platform.Vulken\GameSpec.Platform.Vulken.csproj", "{AF223B61-5BB1-4F9D-B22E-9362AA2A26D7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{6EC2027E-D509-415E-8939-62A2A3C2CE1F}"
-	ProjectSection(SolutionItems) = preProject
-		Documents\Platforms\Readme.md = Documents\Platforms\Readme.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.App.Explorer2", "Applications\GameSpec.App.Explorer2\GameSpec.App.Explorer2.csproj", "{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}"
 EndProject
@@ -311,24 +329,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StereoKit.Maui", "Applications\StereoKit.Maui\StereoKit.Maui.csproj", "{BA578499-B91A-4F68-8967-9B12B315EF11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StereoKit.Controls", "Applications\StereoKit.Controls\StereoKit.Controls.csproj", "{A749475C-9614-4E58-AFA7-5C61BF81C372}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontier", "Frontier", "{8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}"
-	ProjectSection(SolutionItems) = preProject
-		Frontier\FrontierFamily.json = Frontier\FrontierFamily.json
-		Documents\Families\Frontier\Readme.md = Documents\Families\Frontier\Readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Capcom", "Capcom", "{6F41E78D-790E-461B-8B66-94569F6E4291}"
-	ProjectSection(SolutionItems) = preProject
-		Capcom\CapcomFamily+0–D.json = Capcom\CapcomFamily+0–D.json
-		Capcom\CapcomFamily+E–L.json = Capcom\CapcomFamily+E–L.json
-		Capcom\CapcomFamily+M.json = Capcom\CapcomFamily+M.json
-		Capcom\CapcomFamily+N-R.json = Capcom\CapcomFamily+N-R.json
-		Capcom\CapcomFamily+S.json = Capcom\CapcomFamily+S.json
-		Capcom\CapcomFamily+T-Z.json = Capcom\CapcomFamily+T-Z.json
-		Capcom\CapcomFamily.json = Capcom\CapcomFamily.json
-		Documents\Families\Capcom\Readme.md = Documents\Families\Capcom\Readme.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Frontier", "Frontier\GameSpec.Frontier\GameSpec.Frontier.csproj", "{3DBBC1EF-1817-4A75-84AB-291B8444D925}"
 EndProject

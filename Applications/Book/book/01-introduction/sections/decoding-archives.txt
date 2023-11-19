@@ -1,0 +1,5 @@
+Write a section of the introductory chapter for the following:
+
+Decoding Archives:
+Decode the game archives which contain the game assets.
+Video games use proprietary file formats to create archive files which hold the many game asset files, decoding these formats for each game provides access to the individual game asset files. 

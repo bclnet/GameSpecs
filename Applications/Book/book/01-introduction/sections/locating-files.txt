@@ -1,0 +1,5 @@
+Write a section of the introductory chapter for the following:
+
+Locating Files:
+Locate the game files for any installed game.
+A combination of Windows Registry entries, Game Store applications, or specific folders help to locate any installed games and file locations.

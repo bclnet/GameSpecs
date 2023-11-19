@@ -1,0 +1,19 @@
+Write the introduction chapter of a technical book with this purpose:
+The video game industry produces game assets every year comprising of textures, models, animations, maps, sounds and other files to define the game assets and logic. Our purpose is to be able to repurpose these assets.
+
+Include the following chapters:
+
+In *Chapter 1*, we will cover Game Families and how games are grouped by family.
+As a categorization games have been grouped into families usually following the game studio as games file formats evolve.
+
+In *Chapter 2*, we will desover how the game files are located on the filesystem using various methods.
+
+*Chapter 3* is about the game archives file formats and how to decode them.
+
+*Chapter 4* will cover the individual game asset formats.
+
+*Chapter 5* will go using the game assets in modern development platforms.
+Platform providers and applications are provided to work with or browse game assets.
+
+End with the following:
+Let's get started.
