@@ -20,7 +20,7 @@ namespace GameSpec.WbB.Formats.Entity
         public readonly uint Category;      // 1 = combat, 2 = other, 3 = magic
         public readonly uint ChargenUse;    // always 1?
         /// <summary>
-        /// This is the minimum SWbB required for usability.
+        /// This is the minimum SAC required for usability.
         /// 1 = Usable when untrained
         /// 2 = Trained or greater required for usability
         /// </summary>

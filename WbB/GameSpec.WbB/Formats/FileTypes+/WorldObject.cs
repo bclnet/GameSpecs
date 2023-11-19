@@ -127,7 +127,7 @@
 
 //        public TreeNode BuildTree()
 //        {
-//            var typeStr = _wo.GetType().ToString().Replace("WbBE.Server.WorldObjects.", "");
+//            var typeStr = _wo.GetType().ToString().Replace("ACE.Server.WorldObjects.", "");
 
 //            var treeView = new TreeNode($"{typeStr}: {_wo.WeenieClassId} - {_wo.Name}");
 

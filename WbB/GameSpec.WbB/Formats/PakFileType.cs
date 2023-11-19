@@ -124,7 +124,7 @@ namespace GameSpec.WbB.Formats
 
         [PakType(PakType.Portal), PakFileExtension("pal"), PakFileIdRange(0x04000000, 0x0400FFFF)] Palette = 10, // DB_TYPE_PALETTE
 
-        [PakType(PakType.Portal), PakFileExtension("texture"), PakFileIdRange(0x05000000, 0x05FFFFFF)] SurfaceTexture = 11, // DB_TYPE_SURFWbBETEXTURE
+        [PakType(PakType.Portal), PakFileExtension("texture"), PakFileIdRange(0x05000000, 0x05FFFFFF)] SurfaceTexture = 11, // DB_TYPE_SURFACETEXTURE
 
         /// <summary>
         /// the 5th dword of these files has values from the following enum:
@@ -141,12 +141,12 @@ namespace GameSpec.WbB.Formats
         ///     16: format (see above)
         ///     20: length
         /// </summary>
-        [PakType(PakType.Portal), PakFileExtension(typeof(FormatExtensions), "TextureExtensionLookup"), PakFileIdRange(0x06000000, 0x07FFFFFF)] Texture = 12, // DB_TYPE_RENDERSURFWbBE
+        [PakType(PakType.Portal), PakFileExtension(typeof(FormatExtensions), "TextureExtensionLookup"), PakFileIdRange(0x06000000, 0x07FFFFFF)] Texture = 12, // DB_TYPE_RENDERSURFACE
 
         /// <summary>
         /// indexed in client as "materials" for some reason
         /// </summary>
-        [PakType(PakType.Portal), PakFileExtension("surface"), PakFileIdRange(0x08000000, 0x0800FFFF)] Surface = 13, // DB_TYPE_SURFWbBE
+        [PakType(PakType.Portal), PakFileExtension("surface"), PakFileIdRange(0x08000000, 0x0800FFFF)] Surface = 13, // DB_TYPE_SURFACE
 
         [PakType(PakType.Portal), PakFileExtension("dsc"), PakFileIdRange(0x09000000, 0x0900FFFF)] MotionTable = 14, // DB_TYPE_MTABLE
 
@@ -192,7 +192,7 @@ namespace GameSpec.WbB.Formats
         /// 2: BYTE Vertex Count
         /// 3: BYTE Poly Type
         /// 4: DWORD Cull Mode - https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.cullmode(v=xnagamestudio.31).aspx
-        ///     NOTE: WbB doesn't seem to fully respect these Cull mode values.  1 appears to be None instead of CCW, and 2 is None.
+        ///     NOTE: AC doesn't seem to fully respect these Cull mode values.  1 appears to be None instead of CCW, and 2 is None.
         /// 8: WORD Front Texture Index
         /// 10: WORD Back Texture Index
         /// 12: VertexCount of:
@@ -300,7 +300,7 @@ namespace GameSpec.WbB.Formats
         /// </summary>
         [PakType(PakType.Portal), PakFileExtension("imp"), PakFileIdRange(0x25000000, 0x25FFFFFF)] DidMapper = 38, // DB_TYPE_DID_MAPPER 
 
-        [PakType(PakType.Portal), PakFileExtension("actionmap"), PakFileIdRange(0x26000000, 0x2600FFFF)] ActionMap = 39, // DB_TYPE_WbBTIONMAP 
+        [PakType(PakType.Portal), PakFileExtension("actionmap"), PakFileIdRange(0x26000000, 0x2600FFFF)] ActionMap = 39, // DB_TYPE_ACTIONMAP 
 
         /// <summary>
         /// indexed as "emp/idmap" in the client
@@ -361,6 +361,6 @@ namespace GameSpec.WbB.Formats
         [PakType(PakType.Portal), PakFileIdRange(0x0E010000, 0x0E01FFFF)] QualityFilter = 108, // DB_TYPE_QUALITY_FILTER_0
         [PakType(PakType.Portal), PakFileIdRange(0x30000000, 0x3000FFFF)] CombatTable = 109, // DB_TYPE_COMBAT_TABLE_0
         [PakType(PakType.Portal), PakFileIdRange(0x38000000, 0x3800FFFF)] ItemMutation = 110, // DB_TYPE_MUTATE_FILTER
-        [PakType(PakType.Portal), PakFileIdRange(0x0E00001D, 0x0E00001D)] ContractTable = 111, // DB_TYPE_CONTRWbBT_TABLE_0
+        [PakType(PakType.Portal), PakFileIdRange(0x0E00001D, 0x0E00001D)] ContractTable = 111, // DB_TYPE_CONTRACT_TABLE_0
     }
 }

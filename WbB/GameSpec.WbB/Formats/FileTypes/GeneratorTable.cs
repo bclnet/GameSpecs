@@ -9,7 +9,7 @@ namespace GameSpec.WbB.Formats.FileTypes
 {
     /// <summary>
     /// Class for reading the File 0x0E00000D from the portal.dat.
-    /// Thanks alot Widgeon of Leafcull for his WbBDataTools which helped understanding this structure.
+    /// Thanks alot Widgeon of Leafcull for his ACDataTools which helped understanding this structure.
     /// And thanks alot to Pea as well whos hard work surely helped in the creation of those Tools too.
     /// </summary>
     [PakFileType(PakFileType.ObjectHierarchy)]

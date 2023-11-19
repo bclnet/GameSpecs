@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 
 namespace GameSpec.WbB.Formats.Props
 {
@@ -71,9 +69,9 @@ namespace GameSpec.WbB.Formats.Props
         // S_CONSTANT: Type:             0x108E, Value: 25, SAVE_9_POSITION
         // S_CONSTANT: Type:             0x108E, Value: 0, UNDEF_POSITION
         // S_CONSTANT: Type:             0x108E, Value: 15, LINKED_LIFESTONE_POSITION
-        // S_CONSTANT: Type:             0x108E, Value: 27, TELEPORTED_CHARWbBTER_POSITION
+        // S_CONSTANT: Type:             0x108E, Value: 27, TELEPORTED_CHARACTER_POSITION
         // S_CONSTANT: Type:             0x108E, Value: 12, PORTAL_SUMMON_LOC_POSITION
-        // S_CONSTANT: Type:             0x108E, Value: 6, WbBTIVATION_MOVE_POSITION
+        // S_CONSTANT: Type:             0x108E, Value: 6, ACTIVATION_MOVE_POSITION
         // S_CONSTANT: Type:             0x108E, Value: 4, SANCTUARY_POSITION
         // S_CONSTANT: Type:             0x108E, Value: 5, HOME_POSITION
         // S_CONSTANT: Type:             0x108E, Value: 8, LINKED_PORTAL_ONE_POSITION

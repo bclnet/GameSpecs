@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public LanguageString(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            CharBuffer = r.ReadC32Encoding(Encoding.Default); //:TODO ?FALLBWbBK
+            CharBuffer = r.ReadC32Encoding(Encoding.Default); //:TODO ?FALLBACK
         }
 
         //: New

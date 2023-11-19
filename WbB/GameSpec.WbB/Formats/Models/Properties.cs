@@ -752,7 +752,7 @@ namespace GameSpec.WbB.Formats.Models
     public class PropertiesSkill
     {
         public ushort LevelFromPP { get; set; }
-        public SkillAdvancementClass SWbB { get; set; }
+        public SkillAdvancementClass SAC { get; set; }
         public uint PP { get; set; }
         public uint InitLevel { get; set; }
         public uint ResistanceAtLastCheck { get; set; }
@@ -761,7 +761,7 @@ namespace GameSpec.WbB.Formats.Models
         public PropertiesSkill Clone() => new PropertiesSkill
         {
             LevelFromPP = LevelFromPP,
-            SWbB = SWbB,
+            SAC = SAC,
             PP = PP,
             InitLevel = InitLevel,
             ResistanceAtLastCheck = ResistanceAtLastCheck,

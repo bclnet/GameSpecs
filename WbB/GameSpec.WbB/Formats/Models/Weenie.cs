@@ -8,7 +8,7 @@ namespace GameSpec.WbB.Formats.Models
 {
     /// <summary>
     /// Only populated collections and dictionaries are initialized.
-    /// We do this to conserve memory in WbBE.Server
+    /// We do this to conserve memory in ACE.Server
     /// Be sure to check for null first.
     /// </summary>
     public interface IWeenie
@@ -36,7 +36,7 @@ namespace GameSpec.WbB.Formats.Models
         ICollection<PropertiesCreateList> PropertiesCreateList { get; set; }
         ICollection<PropertiesEmote> PropertiesEmote { get; set; }
         HashSet<int> PropertiesEventFilter { get; set; }
-        IList<PropertiesGenerator> PropertiesGenerator { get; set; } // Using a list per this: https://github.com/WbBEmulator/WbBE/pull/2616, however, no order is guaranteed for db records
+        IList<PropertiesGenerator> PropertiesGenerator { get; set; } // Using a list per this: https://github.com/ACEmulator/ACE/pull/2616, however, no order is guaranteed for db records
 
         // Properties for creatures
         IDictionary<PropertyAttribute, PropertiesAttribute> PropertiesAttribute { get; set; }
@@ -51,7 +51,7 @@ namespace GameSpec.WbB.Formats.Models
 
     /// <summary>
     /// Only populated collections and dictionaries are initialized.
-    /// We do this to conserve memory in WbBE.Server
+    /// We do this to conserve memory in ACE.Server
     /// Be sure to check for null first.
     /// </summary>
     public class Weenie : IWeenie

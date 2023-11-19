@@ -65,7 +65,7 @@ namespace GameSpec.WbB.Formats.FileTypes
             w.Write(Encoding.ASCII.GetBytes("fmt"));
             w.Write((byte)0x20); // Null ending to the fmt
             w.Write((int)0x10); // 16 ... length of all the above
-            // WbB audio headers start at Format Type, and are usually 18 bytes, with some exceptions notably objectID A000393 which is 30 bytes
+            // AC audio headers start at Format Type, and are usually 18 bytes, with some exceptions notably objectID A000393 which is 30 bytes
             // WAV headers are always 16 bytes from Format Type to end of header, so this extra data is truncated here.
             w.Write(Header.Take(16).ToArray());
             w.Write(Encoding.ASCII.GetBytes("data"));

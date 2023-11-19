@@ -9,7 +9,7 @@ namespace GameSpec.WbB.Formats.Models
 {
     /// <summary>
     /// Only populated collections and dictionaries are initialized.
-    /// We do this to conserve memory in WbBE.Server
+    /// We do this to conserve memory in ACE.Server
     /// Be sure to check for null first.
     /// </summary>
     public class Biota : IWeenie

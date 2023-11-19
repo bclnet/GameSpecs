@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// It contains information on an items model, texture changes, available palette(s) and icons for that item.
     /// </summary>
     /// <remarks>
-    /// Thanks to Steven Nygard and his work on the Mac program WbBDataTools that were used to help debug & verify some of this data.
+    /// Thanks to Steven Nygard and his work on the Mac program ACDataTools that were used to help debug & verify some of this data.
     /// </remarks>
     [PakFileType(PakFileType.Clothing)]
     public class ClothingTable : FileType, IGetMetadataInfo
