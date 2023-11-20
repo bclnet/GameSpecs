@@ -12,9 +12,9 @@ namespace GameSpec.WbB
     public class FormatTests2
     {
         static readonly Family family = FamilyManager.GetFamily("WbB");
-        static readonly PakFile portal = family.OpenPakFile(new Uri("game:/client_portal.dat#WbB"));
-        static readonly PakFile cell = family.OpenPakFile(new Uri("game:/client_cell_1.dat#WbB"));
-        static readonly PakFile localEnglish = family.OpenPakFile(new Uri("game:/client_local_English.dat#WbB"));
+        static readonly PakFile portal = family.OpenPakFile(new Uri("game:/client_portal.dat#AC"));
+        static readonly PakFile cell = family.OpenPakFile(new Uri("game:/client_cell_1.dat#AC"));
+        static readonly PakFile localEnglish = family.OpenPakFile(new Uri("game:/client_local_English.dat#AC"));
 
         [DataTestMethod]
         [DataRow("0E000002")]

@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
-    <ProjectReference Include="..\..\Cry\GameSpec.Crytek\GameSpec.Crytek.csproj" />
+    <ProjectReference Include="..\..\Crytek\GameSpec.Crytek\GameSpec.Crytek.csproj" />
   </ItemGroup>
 
 </Project>

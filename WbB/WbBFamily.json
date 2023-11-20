@@ -37,7 +37,7 @@
       }
     },
     "filters": {
-      "WbB": {
+      "AC": {
         "Landblock": "0xFFFF",
         "LandblockInfo": "0xFFFE",
         "EnvCell": "0x100",

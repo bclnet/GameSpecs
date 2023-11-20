@@ -22,12 +22,12 @@ Abayar's Laboratory | Dungeon | 0x018E037B [11.736 -150.022 0.005] 0.707107 0 0 
 Abayar's Study | Dungeon | 0x01990175 [50.0151 -155.699 0.005] 1 0 0 0
 Abhorrent Vault | Dungeon | 0x02D40260 [70 -20 0.005] 1 0 0 0
 Abyssal Olthoi Chasm | Dungeon | 0x5D4E02EF [70 -18.4296 0.005] 1 0 0 0
-WbB Blue Room Portal | Dungeon | 0x02FA0100 [0 0 0] -0.087156 0 0 -0.996195
-WbB Orange Room Portal | Dungeon | 0x010D0100 [0 0 0] 1 0 0 0
-WbB Purple Room Portal | Dungeon | 0x010E0100 [0 0 0] 1 0 0 0
-WbB Red Room Portal | Dungeon | 0x010F0100 [0 0 0] 1 0 0 0
-WbB Room of Cheese Portal | Dungeon | 0x02F90100 [0 0 0] 1 0 0 0
-WbB Storage Portal | Dungeon | 0x01110108 [10 -10 0] -0.382683 0 0 -0.92388
+AC Blue Room Portal | Dungeon | 0x02FA0100 [0 0 0] -0.087156 0 0 -0.996195
+AC Orange Room Portal | Dungeon | 0x010D0100 [0 0 0] 1 0 0 0
+AC Purple Room Portal | Dungeon | 0x010E0100 [0 0 0] 1 0 0 0
+AC Red Room Portal | Dungeon | 0x010F0100 [0 0 0] 1 0 0 0
+AC Room of Cheese Portal | Dungeon | 0x02F90100 [0 0 0] 1 0 0 0
+AC Storage Portal | Dungeon | 0x01110108 [10 -10 0] -0.382683 0 0 -0.92388
 Access to Crystal Mines | Dungeon | 0x75D70015 [59.981 108.173 430.18] -0.707107 0 0 -0.707107
 Accord Veranda Portal | Dungeon | 0x90000161 [83.74 -93.75 0] 0.39314 0 0 -0.919479
 Accursed Halls Portal | Dungeon | 0x01F90101 [0 -130 -18] 0.906308 0 0 -0.422618
@@ -40,8 +40,8 @@ Acidic Refuge | Dungeon | 0x576C01C1 [14.3607 -40 6.005] -0.707107 0 0 0.707107
 Acolyte's Chamber | Dungeon | 0x00DD0102 [9.51546 -20.0248 0.006] 0.709322 0 0 -0.704884
 Adams' Beach Portal | Dungeon | 0x3DC7001B [74.931 65.051 0.005] -0.364633 0 0 -0.931151
 Adept's Domain Portal | Dungeon | 0x51A3001C [73.558 87.934 38.677] 0.957687 0 0 -0.287812
-Adventurer's Haven | Dungeon | 0x01WbB010C [10.28 -19.9 0] 0.709017 0 0 -0.705191
-Adventurer's Haven Cottages Portal | Dungeon | 0xWbB810024 [101.186 91.024 27.987] -0.924772 0 0 -0.380522
+Adventurer's Haven | Dungeon | 0x01AC010C [10.28 -19.9 0] 0.709017 0 0 -0.705191
+Adventurer's Haven Cottages Portal | Dungeon | 0xAC810024 [101.186 91.024 27.987] -0.924772 0 0 -0.380522
 Advocate Dungeon Portal | Dungeon | 0x018A017F [180 -90 0] 1 0 0 0
 Aerbax Haven | Dungeon | 0x029F017E [60 -610 0] 1 0 0 0
 Aerbax Laboratory | Dungeon | 0x029E0269 [50 -10 6] 0 0 0 -1
@@ -326,10 +326,10 @@ Charged Niche | Dungeon | 0x595E020F [120 -130 0.005] 1 0 0 0
 Charged Refuge | Dungeon | 0x576A01B4 [39.9071 -269.055 0.015] 1 0 0 0
 Charnhold Portal | Dungeon | 0x84B0001D [95.724 113.372 90.005] -0.581896 0 0 -0.813264
 Chi Zou Cottages Portal | Dungeon | 0xD65A003F [168.899 163.348 19.93] -0.396828 0 0 -0.917893
-Citadel Apex | Dungeon | 0xBWbB60015 [58.5 109 382.75] 0 0 0 -1
+Citadel Apex | Dungeon | 0xBAC60015 [58.5 109 382.75] 0 0 0 -1
 Citadel Library | Dungeon | 0x56530113 [31.097 -10.963 0.005] -0.722846 0 0 -0.691009
 Citadel Surface | Dungeon | 0xBBC70025 [102.5 107 71.005] 0.707107 0 0 -0.707107
-Citadel Valley | Dungeon | 0xBWbB7001A [76.659 43.866 160] 0.707107 0 0 -0.707107
+Citadel Valley | Dungeon | 0xBAC7001A [76.659 43.866 160] 0.707107 0 0 -0.707107
 Citadel Valley | Dungeon | 0xBBC60026 [105 130 90] 1 0 0 0
 Citadel Valley | Dungeon | 0xBBC80003 [23.0796 60.7007 160.589] 0.043619 0 0 -0.999048
 Citadel Valley | Dungeon | 0xBBC80012 [60 35 120] 0 0 0 -1
@@ -461,7 +461,7 @@ Deeper Catacombs | Dungeon | 0x57520260 [9.80751 -126.222 0.005] 1 0 0 0
 Deeper Catacombs | Dungeon | 0x57530253 [10.1896 -92.1511 0.005] 1 0 0 0
 Deeper Caves | Dungeon | 0x00D109C7 [160 -150 -14.982] 1 0 0 0
 Deepest Caves | Dungeon | 0x00D102B7 [160 -150 -26.982] 1 0 0 0
-Deepvale Cottages Portal | Dungeon | 0x61WbB001C [72.766 78.076 42.005] 0.838799 0 0 -0.544441
+Deepvale Cottages Portal | Dungeon | 0x61AC001C [72.766 78.076 42.005] 0.838799 0 0 -0.544441
 Defiant Prey Cottages Portal | Dungeon | 0x82C7001E [83.037 123.944 97.743] 0.35033 0 0 -0.936626
 Defiled Temple Asylum | Dungeon | 0x000A0164 [20 -110 0.005] 0.707107 0 0 -0.707107
 Defiled Temple Lower Wing | Dungeon | 0x00080164 [20 -110 0.005] 0.707107 0 0 -0.707107
@@ -642,7 +642,7 @@ Empyrean Foundry Portal | Dungeon | 0x013602B6 [40 -130 0] -0.707107 0 0 -0.7071
 Empyrean Garrison | Dungeon | 0x01610264 [80 -80 0] -0.707107 0 0 -0.707107
 Empyrean Ice Propylaeum | Dungeon | 0x5272014B [30 0 0] 0.707107 0 0 -0.707107
 Empyrean Lightning Propylaeum | Dungeon | 0x5274014B [30 0 0] 0.707107 0 0 -0.707107
-Empyrean Mausoleum Portal | Dungeon | 0x02WbB01D9 [890 -180 -12] 1 0 0 0
+Empyrean Mausoleum Portal | Dungeon | 0x02AC01D9 [890 -180 -12] 1 0 0 0
 Empyrean Shore Villas Portal | Dungeon | 0x4DE70006 [10.453 129.072 0.12] 0.942397 0 0 -0.334498
 Empyrean Workshop | Dungeon | 0x006E055E [104.056 -44.0326 0.005] 0.382683 0 0 -0.92388
 Enchanted Mnemosyne Portal 1 | Dungeon | 0x654C0677 [90 -230 0.005] 1 0 0 0
@@ -696,7 +696,7 @@ Exit Platinum Legion Keep | Dungeon | 0x80940009 [34.7185 9.9537 204.005] -0.305
 Exit portal | Dungeon | 0x5BA0002D [140.001 112.791 31.672] 1 0 0 0
 Exit portal | Dungeon | 0xBBBF001C [75 78 222.3] -0.063661 0 0 -0.997972
 Exit portal | Dungeon | 0xC5D00029 [128.49 5.692 116.108] 0.95567 0 0 -0.294441
-Exit portal | Dungeon | 0xCWbB00002 [15.211 38.706 10.779] 0.811691 0 0 -0.584087
+Exit portal | Dungeon | 0xCAC00002 [15.211 38.706 10.779] 0.811691 0 0 -0.584087
 Exit portal | Dungeon | 0xCAD8002D [127.124 96.307 52.035] 0.373635 0 0 -0.927576
 Exit portal | Dungeon | 0xCBCA003F [181.594 145.919 69.579] -0.195826 0 0 -0.980639
 Exit portal | Dungeon | 0xD2B6000D [32.4 113.1 203.1] -0.999832 0 0 -0.018325
@@ -889,7 +889,7 @@ Gateway Portal | Dungeon | 0x577401ED [230 -40 6.005] -0.258819 0 0 -0.965926
 Gateway Portal | Dungeon | 0x577401ED [230 -40 6.005] -0.258819 0 0 -0.965926
 Gateway Portal | Dungeon | 0x57750270 [19.3695 -40.5341 0.005] -0.386711 0 0 -0.922201
 Gateway Portal | Dungeon | 0x57750270 [19.3695 -40.5341 0.005] -0.386711 0 0 -0.922201
-Gateway Portal | Dungeon | 0x577601WbB [10.944 -95.49 0.005] 0.707107 0 0 -0.707107
+Gateway Portal | Dungeon | 0x577601AC [10.944 -95.49 0.005] 0.707107 0 0 -0.707107
 Gateway to the Halls of Metos | Dungeon | 0x02F50297 [100 -330 0] 1 0 0 0
 Gauntlet Stage 1 | Dungeon | 0x5961010B [20 -100.24 0.005] 1 0 0 0
 Gauntlet Stage 1 | Dungeon | 0x5964010B [20 -100.24 0.005] 1 0 0 0
@@ -1021,7 +1021,7 @@ Holtburg Dungeon | Dungeon | 0x01F60289 [96.7 -10 0] -0.719279 0 0 -0.694721
 Holtburg House Portal | Dungeon | 0xA9B30024 [101.6 92.8 106.7] -0.991445 0 0 -0.130526
 Holtburg Meeting Hall Portal | Dungeon | 0x01250126 [30 -60 6] 1 0 0 0
 Holtburg Portal | Dungeon | 0xAFB60019 [87.4 6.2 99.3] -0.992115 0 0 -0.125333
-Holtburg Redoubt | Dungeon | 0x016301WbB [140 -40 0] -0.707107 0 0 -0.707107
+Holtburg Redoubt | Dungeon | 0x016301AC [140 -40 0] -0.707107 0 0 -0.707107
 Holtburg South Training Academy Portal | Dungeon | 0x0363012F [2.5 -29 0] -0.369747 0 0 -0.929133
 Holtburg West Training Academy Portal | Dungeon | 0x0364012F [2.5 -29 0] -0.369747 0 0 -0.929133
 Holtburg Wilderness Settlement Portal | Dungeon | 0xBAB2001B [84.766 69.389 85.787] 0.94602 0 0 -0.324107
@@ -1035,11 +1035,11 @@ Humid Guruk Caverns | Dungeon | 0x0078055C [30 -100 0.005] 0.921061 0 0 -0.38941
 Humid Hovel | Dungeon | 0x02E4017E [133.337 -1.86382 0] 0.327423 0 0 -0.944878
 Humming Crystal Portal | Dungeon | 0x177B0040 [180 187 560] 0 0 0 -1
 Hunter's Leap | Dungeon | 0x01C60181 [18.566 0.78 0] 0.758532 0 0 -0.651635
-Hunter's Leap | Dungeon | 0xA9WbB0012 [55.2609 28.1386 77.6601] 1 0 0 0
+Hunter's Leap | Dungeon | 0xA9AC0012 [55.2609 28.1386 77.6601] 1 0 0 0
 Ianna Portal | Dungeon | 0x86C00010 [41.933 184.121 119.673] -0.70919 0 0 -0.705018
 Ice Chasm Portal | Dungeon | 0x03A702F6 [160 -120 -30] 1 0 0 0
 Ice Cistern Core | Dungeon | 0x56590170 [40 -130 24.0756] 1 0 0 0
-Ice's Edge Cottages Portal | Dungeon | 0x6WbBF0024 [99.853 90.017 188.005] -0.598989 0 0 -0.800758
+Ice's Edge Cottages Portal | Dungeon | 0x6ACF0024 [99.853 90.017 188.005] -0.598989 0 0 -0.800758
 Icecliff Cottages Portal | Dungeon | 0xE53F0026 [0 0 0] 1 0 0 0
 Iceea Hills Estates Portal | Dungeon | 0xA49F003E [180.351 133.223 121.252] -0.477895 0 0 -0.878417
 Icy Demise | Dungeon | 0x57450109 [20 -10 0.005] 1 0 0 0
@@ -1148,7 +1148,7 @@ JumpToDng8 Portal | Dungeon | 0xE53F0026 [0 0 0] 1 0 0 0
 JumpToDng9 Portal | Dungeon | 0xE53F0026 [0 0 0] 1 0 0 0
 Jungle Shadows | Dungeon | 0x02BB0197 [108.385 -88.606 24] -0.819152 0 0 -0.573577
 K'nath Lair | Dungeon | 0x01930151 [40 -10 0.005] 0.027346 0 0 -0.999626
-Kanasa Portal | Dungeon | 0xWbB3F002D [134 101.12 46.745] -0.791437 0 0 -0.611251
+Kanasa Portal | Dungeon | 0xAC3F002D [134 101.12 46.745] -0.791437 0 0 -0.611251
 Kara | Town | 0xBA170039 [181.2 3.2 167.7] -0.848048 0 0 -0.529919
 Karab Delta Portal | Dungeon | 0x1EAF0011 [56.2 13.3 0.005] 0.963863 0 0 -0.266397
 Karlun's Fort | Dungeon | 0x2AEE0024 [111.74 87.0811 100.005] -0.906796 0 0 0.42157
@@ -1242,7 +1242,7 @@ Lower Empyrean Acid Cistern | Dungeon | 0x526D0251 [150 -120 0] -0.707107 0 0 -0
 Lower Empyrean Fire Cistern | Dungeon | 0x526F01FD [60 -126 0] 0.707107 0 0 -0.707107
 Lower Empyrean Ice Cistern | Dungeon | 0x527101FD [60 -126 0] 0.707107 0 0 -0.707107
 Lower Empyrean Lightning Cistern | Dungeon | 0x52730254 [100 -140 0] -0.707107 0 0 -0.707107
-Lower Empyrean Mausoleum Portal | Dungeon | 0x02WbB02EF [640.2 -140.5 0] -0.999969 0 0 -0.007854
+Lower Empyrean Mausoleum Portal | Dungeon | 0x02AC02EF [640.2 -140.5 0] -0.999969 0 0 -0.007854
 Lower Heart of Darkness Portal | Dungeon | 0x02B201FB [170 -210 6] 1 0 0 0
 Lower Shade Stronghold | Dungeon | 0x02B10138 [220 -150 -240] 1 0 0 0
 Lugian Emmisary One | Dungeon | 0x01F301C6 [130 -90 0] -0.707107 0 0 -0.707107
@@ -1477,7 +1477,7 @@ Northwest Direlands Portal | Dungeon | 0x12860003 [10 68 50] 0.979925 0 0 -0.199
 Norvale Portal | Dungeon | 0xC0D90024 [110.548 81.501 99.634] -0.902142 0 0 -0.43144
 NPK Only Test Portal | Dungeon | 0x828E001E [77.6 122.9 124] -0.529919 0 0 -0.848048
 Nuhmudira's Dungeon | Dungeon | 0x536D0289 [149.243 -129.946 -5.995] -0.707107 0 0 -0.707107
-Nuhmudira's Mansion | Dungeon | 0xWbB7A0151 [58.86 77.605 -3.995] 1 0 0 0
+Nuhmudira's Mansion | Dungeon | 0xAC7A0151 [58.86 77.605 -3.995] 1 0 0 0
 Oboro Portal | Dungeon | 0xB141002B [132.389 53.526 35.037] -0.920041 0 0 -0.391823
 Obsidian Plains | Dungeon | 0x2D2F0034 [147.5 78.6 47.1] 0.446198 0 0 -0.894934
 Obsidian Rim Portal | Dungeon | 0x2E43000C [33 80 7.5] 0.707107 0 0 -0.707107
@@ -1576,7 +1576,7 @@ Plainsview Cottages Portal | Dungeon | 0xA738002B [133.215 65.226 45.106] -0.938
 Planar Academy Headmaster's Rooms | Dungeon | 0x00D60430 [60 -66.4038 60.005] 1 0 0 0
 Planar Academy Lecture Hall | Dungeon | 0x00D603F9 [60 -126.703 48.005] 1 0 0 0
 Plateau Base | Dungeon | 0x48B80001 [20.703 11.361 98.509] -0.798835 0 0 -0.60155
-Plateau Hollow Settlement Portal | Dungeon | 0x4EWbB0022 [113.078 35.952 80.013] -0.91183 0 0 -0.410568
+Plateau Hollow Settlement Portal | Dungeon | 0x4EAC0022 [113.078 35.952 80.013] -0.91183 0 0 -0.410568
 Plateau Portal | Dungeon | 0x49B70021 [100.1 20.8 238.6] -0.587785 0 0 -0.809017
 Plateau Top | Dungeon | 0x49B60008 [13.112 181.23 238.893] -0.981313 0 0 -0.192419
 Plateau Village | Town | 0x49B70021 [100.1 20.8 238.6] -0.587785 0 0 -0.809017
@@ -1929,7 +1929,7 @@ Shendolain Menhir Ring Portal | Dungeon | 0x02D601DA [80 -80 0] 1 0 0 0
 Shendolain Portal | Dungeon | 0x02D70247 [30 -30 -42] 0.382683 0 0 -0.92388
 Shendolain Vestibule Portal | Dungeon | 0x02E00461 [50 -20 -30] 0 0 0 -1
 Shian-To Cottages Portal | Dungeon | 0xDF4C000C [47.279 83.474 22.961] 0.747259 0 0 -0.664533
-Shield of Ispar Villas Portal | Dungeon | 0xWbB4D0024 [102.448 88.621 9.772] 0.861758 0 0 -0.50732
+Shield of Ispar Villas Portal | Dungeon | 0xAC4D0024 [102.448 88.621 9.772] 0.861758 0 0 -0.50732
 Shield of Valor Cottages Portal | Dungeon | 0x55A40023 [97.911 70.48 58.389] -0.601912 0 0 -0.798562
 Shimena Keep Portal | Dungeon | 0xBDF00024 [99 93 12] 1 0 0 0
 Shimmering Apostate Nexus | Dungeon | 0x8B0303FF [110.026 -150.014 -17.995] 1 0 0 0
@@ -2051,7 +2051,7 @@ Stone Face Oasis Villas Portal | Dungeon | 0x9A810024 [116.795 83.956 44.005] -0
 Stone Fists | Dungeon | 0x00B60114 [40 -43 -11.995] 1 0 0 0
 Stone Hollow Portal | Dungeon | 0xE53F0026 [0 0 0] 1 0 0 0
 Stone Scar Settlement Portal | Dungeon | 0x9385002E [138.604 128.251 33.317] -0.556238 0 0 -0.831023
-Stone Scythe Stronghold Portal | Dungeon | 0x56WbB0021 [99.996 15.849 84.684] 0.987429 0 0 -0.158063
+Stone Scythe Stronghold Portal | Dungeon | 0x56AC0021 [99.996 15.849 84.684] 0.987429 0 0 -0.158063
 Stone Triad Dell Portal | Dungeon | 0x80E1002B [134.642 51.009 92.445] -0.963132 0 0 -0.269029
 Stonebend Cottages Portal | Dungeon | 0x9B910036 [154.607 141.638 29.773] -0.349684 0 0 -0.936868
 Stonehold | Town | 0x64D5000B [30 50 78] 0.843391 0 0 -0.5373
@@ -2063,7 +2063,7 @@ Stonerune Cottages Portal | Dungeon | 0x89C90012 [63.074 38.48 104.931] 0.936477
 Storage | POI | 0x01110108 [10 -10 0] -0.382683 0 0 -0.92388
 Stormbrow Portal | Dungeon | 0x9414002B [123.069 69.021 285.984] -0.938872 0 0 -0.344266
 Stormtree Villas Portal | Dungeon | 0x53C50024 [98.44 82.539 58.273] -0.749366 0 0 -0.662156
-Strange Swamp Temple | Dungeon | 0x008603WbB [70 -67.7263 6.005] 1 0 0 0
+Strange Swamp Temple | Dungeon | 0x008603AC [70 -67.7263 6.005] 1 0 0 0
 Strange Tunnel | Dungeon | 0x02AB0160 [110 -10 0] 0.707107 0 0 -0.707107
 Strathelar's Watch Cottages Portal | Dungeon | 0xC7980003 [12.987 68.253 8.005] 0.847192 0 0 -0.531288
 Stronghold | Dungeon | 0x00B7010D [81.1415 -22.509 -24] 0.699462 0 0 -0.714669
@@ -2330,7 +2330,7 @@ Surface | Dungeon | 0xA4210001 [3.52759 12.8707 388.054] 0.906308 0 0 -0.422618
 Surface | Dungeon | 0xA7B3001E [92.3 136.1 30] 0.680721 0 0 -0.732543
 Surface | Dungeon | 0xA7C50012 [66.47 30.2 306.4] 0.879649 0 0 -0.475624
 Surface | Dungeon | 0xA7C50019 [93.9 0.39 296.34] 0.746836 0 0 -0.665009
-Surface | Dungeon | 0xA8WbB0011 [50 8.8 82] 0.760406 0 0 -0.649448
+Surface | Dungeon | 0xA8AC0011 [50 8.8 82] 0.760406 0 0 -0.649448
 Surface | Dungeon | 0xA8B10016 [60.316 128.07 50.6] -0.546548 0 0 -0.837428
 Surface | Dungeon | 0xA8B50040 [187.3 175.4 28] -0.96363 0 0 -0.267238
 Surface | Dungeon | 0xA8BF0010 [28.9924 172.322 86.3651] -0.18277 0 0 0.983156
@@ -2349,7 +2349,7 @@ Surface | Dungeon | 0xAE71001B [73 55 20] -0.866025 0 0 -0.5
 Surface | Dungeon | 0xB070001F [84 156 31.006] 1 0 0 0
 Surface | Dungeon | 0xB0A9000D [24.572 119.75 88.005] -0.049722 0 0 -0.998763
 Surface | Dungeon | 0xB0C00018 [60 180 191.005] 1 0 0 0
-Surface | Dungeon | 0xB1WbB0016 [57.13 123.723 30.005] -0.693471 0 0 -0.720484
+Surface | Dungeon | 0xB1AC0016 [57.13 123.723 30.005] -0.693471 0 0 -0.720484
 Surface | Dungeon | 0xB3EC001D [79.5556 106.523 -0.445] 0.810963 0 0 -0.585097
 Surface | Dungeon | 0xB59D001E [90 128.4 56] 0.748956 0 0 -0.66262
 Surface | Dungeon | 0xB69A0023 [98.622 57.761 33.413] 0.961262 0 0 -0.275637
@@ -2611,7 +2611,7 @@ Surface Portal | Dungeon | 0xA4B40004 [4.344 73.205 121.942] -0.960233 0 0 -0.27
 Surface Portal | Dungeon | 0xA5B7001E [90.619 120.471 96.909] 0.38432 0 0 -0.9232
 Surface Portal | Dungeon | 0xA78E0024 [108 84 38] 0 0 0 -1
 Surface Portal | Dungeon | 0xA8950032 [148.7 32.1 62.5] 0 0 0 -1
-Surface Portal | Dungeon | 0xAWbBC000D [27.4 100 48] 1 0 0 0
+Surface Portal | Dungeon | 0xAACC000D [27.4 100 48] 1 0 0 0
 Surface Portal | Dungeon | 0xAB6B0102 [87.602 69.633 40.805] -0.174834 0 0 -0.984598
 Surface Portal | Dungeon | 0xAE9E0025 [115.8 118.7 90] 0.829038 0 0 -0.559193
 Surface Portal | Dungeon | 0xAFC6015C [102.7 58.6 116.1] 0.173648 0 0 -0.984808
@@ -2702,7 +2702,7 @@ Tanada House of Wind | Dungeon | 0x007B01AD [440 -200 0.005] 1 0 0 0
 Tanada Temple of Black Water | Dungeon | 0x00CD0159 [70 -240 -17.995] 1 0 0 0
 Tanada Toresen Temple | Dungeon | 0x6757027B [170 -170 0.01] 1 0 0 0
 Tanshi Portal | Dungeon | 0xD346001A [92.574 29.647 40.005] -0.995062 0 0 -0.099259
-Taralla Portal | Dungeon | 0xWbBA6002D [140.041 100.202 151.655] -0.745453 0 0 -0.666558
+Taralla Portal | Dungeon | 0xACA6002D [140.041 100.202 151.655] -0.745453 0 0 -0.666558
 Tarn Vinara Villas Portal | Dungeon | 0x5FA2002E [132.363 125.788 42.005] -0.60201 0 0 -0.798488
 Tattered Ridge Portal | Dungeon | 0xB634003C [179.744 81.92 176.941] -0.655743 0 0 -0.754985
 Temple | Dungeon | 0x57560161 [95.0624 -112.097 0.01] 1 0 0 0
@@ -2768,7 +2768,7 @@ Thrungus Hole | Dungeon | 0x002902E7 [264.295 -126.941 0.005] 0.883507 0 0 -0.46
 Thyrinn Cant Cottages Portal | Dungeon | 0x65E50024 [107.129 86.636 58.346] 1 0 0 0
 Tia-Leh Homestead Portal | Dungeon | 0x5BA2001B [87.68 65.841 54.571] -0.908227 0 0 -0.418477
 Timaru | POI | 0x1DB60016 [71.3873 134.291 90.005] 0.707107 0 0 -0.707107
-Tinkelo Hold Villas Portal | Dungeon | 0xWbB950021 [110.167 21.021 81.05] -0.515173 0 0 -0.857086
+Tinkelo Hold Villas Portal | Dungeon | 0xAC950021 [110.167 21.021 81.05] -0.515173 0 0 -0.857086
 Tiny Hive Portal | Dungeon | 0x028902A5 [110 -20 -30] 0 0 0 -1
 Tiofor Deeps Portal | Dungeon | 0x78B20023 [111.668 63.769 89.302] 0.565673 0 0 -0.82463
 To Top of Mt. Syliph | Dungeon | 0x8D8E0037 [159 165.7 224] 0 0 0 -1
@@ -2863,7 +2863,7 @@ Tusker Honeycombs | Dungeon | 0x5A49029F [234.407 0.122795 0.005] 0.642788 0 0 -
 Tusker Lacuna | Dungeon | 0x5949029E [90.2216 -136.362 12.005] 1 0 0 0
 Tusker Lodge | Dungeon | 0x57490102 [50 -150 0.005] 1 0 0 0
 Tusker Lodge | Dungeon | 0xF97F003E [187.876 122.937 46.1508] 1 0 0 0
-Tusker Notch Portal | Dungeon | 0x84WbB0024 [108.657 89.048 104.115] -0.538823 0 0 -0.842419
+Tusker Notch Portal | Dungeon | 0x84AC0024 [108.657 89.048 104.115] -0.538823 0 0 -0.842419
 Tusker Pits | Dungeon | 0x5A4A0275 [83.3614 -140.061 0.005] 1 0 0 0
 Tusker Quarters | Dungeon | 0x5B4A0210 [148.551 -1.84039 0.005] 1 0 0 0
 Tusker Quarters | Dungeon | 0xF67C003D [172.539 112.711 19.4264] 1 0 0 0
@@ -2904,7 +2904,7 @@ Upper Empyrean Acid Cistern | Dungeon | 0x526D0256 [40 -30 6] 0.707107 0 0 -0.70
 Upper Empyrean Fire Cistern | Dungeon | 0x526F0246 [40 -30 6] 0.707107 0 0 -0.707107
 Upper Empyrean Ice Cistern | Dungeon | 0x52710257 [40 -30 6] 0.707107 0 0 -0.707107
 Upper Empyrean Lightning Cistern | Dungeon | 0x52730276 [30 -40 6] 0.707107 0 0 -0.707107
-Upper Empyrean Mausoleum Portal | Dungeon | 0x02WbB02E4 [550.2 -138.1 0] -0.999981 0 0 -0.006109
+Upper Empyrean Mausoleum Portal | Dungeon | 0x02AC02E4 [550.2 -138.1 0] -0.999981 0 0 -0.006109
 Upper Heart of Darkness Portal | Dungeon | 0x02B20251 [190 -190 12] 0 0 0 -1
 Upper Sanctum of Xik Minru | Dungeon | 0x00F0052C [79.9425 -110.048 48.005] -0.711364 0 0 0.702824
 Upper Shade Stronghold | Dungeon | 0x02B10135 [130 -120 -24] -0.707107 0 0 -0.707107

@@ -29,7 +29,7 @@ namespace GameSpec.WbB
             if (loadCell)
                 try
                 {
-                    Cell = new DatabaseCell(family.OpenPakFile(new Uri("game:/client_cell_1.dat#WbB")));
+                    Cell = new DatabaseCell(family.OpenPakFile(new Uri("game:/client_cell_1.dat#AC")));
                     count = Cell.Source.Count;
                     Log($"Successfully opened {Cell} file, containing {count} records, iteration {Cell.GetIteration()}");
                     if (Cell.GetIteration() != ITERATION_CELL) Log($"{Cell} iteration does not match expected end-of-retail version of {ITERATION_CELL}.");
@@ -42,7 +42,7 @@ namespace GameSpec.WbB
 
             try
             {
-                Portal = new DatabasePortal(family.OpenPakFile(new Uri("game:/client_portal.dat#WbB")));
+                Portal = new DatabasePortal(family.OpenPakFile(new Uri("game:/client_portal.dat#AC")));
                 Portal.SkillTable.AddRetiredSkills();
                 count = Portal.Source.Count;
                 Log($"Successfully opened {Portal} file, containing {count} records, iteration {Portal.GetIteration()}");
@@ -54,15 +54,15 @@ namespace GameSpec.WbB
                 Log($"Exception: {ex.Message}");
             }
 
-            // Load the client_highres.dat file. This is not required for WbBE operation, so no exception needs to be generated.
-            HighRes = new Database(family.OpenPakFile(new Uri("game:/client_highres.dat#WbB")));
+            // Load the client_highres.dat file. This is not required for ACE operation, so no exception needs to be generated.
+            HighRes = new Database(family.OpenPakFile(new Uri("game:/client_highres.dat#AC")));
             count = HighRes.Source.Count;
             Log($"Successfully opened {HighRes} file, containing {count} records, iteration {HighRes.GetIteration()}");
             if (HighRes.GetIteration() != ITERATION_HIRES) Log($"{HighRes} iteration does not match expected end-of-retail version of {ITERATION_HIRES}.");
 
             try
             {
-                Language = new DatabaseLanguage(family.OpenPakFile(new Uri("game:/client_local_English.dat#WbB")));
+                Language = new DatabaseLanguage(family.OpenPakFile(new Uri("game:/client_local_English.dat#AC")));
                 count = Language.Source.Count;
                 Log($"Successfully opened {Language} file, containing {count} records, iteration {Language.GetIteration()}");
                 if (Language.GetIteration() != ITERATION_LANGUAGE) Log($"{Language} iteration does not match expected end-of-retail version of {ITERATION_LANGUAGE}.");

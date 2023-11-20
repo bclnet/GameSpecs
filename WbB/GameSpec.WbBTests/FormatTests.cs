@@ -13,9 +13,9 @@ namespace GameSpec.WbB
     public class FormatTests
     {
         static readonly Family family = FamilyManager.GetFamily("WbB");
-        static readonly PakFile cell = family.OpenPakFile(new Uri("game:/client_cell_1.dat#WbB")); const int ExpectedCellCount = 805003;
-        static readonly PakFile portal = family.OpenPakFile(new Uri("game:/client_portal.dat#WbB")); const int ExpectedPortalCount = 79694;
-        static readonly PakFile localEnglish = family.OpenPakFile(new Uri("game:/client_local_English.dat#WbB")); const int ExpectedLocalEnglishCount = 118;
+        static readonly PakFile cell = family.OpenPakFile(new Uri("game:/client_cell_1.dat#AC")); const int ExpectedCellCount = 805003;
+        static readonly PakFile portal = family.OpenPakFile(new Uri("game:/client_portal.dat#AC")); const int ExpectedPortalCount = 79694;
+        static readonly PakFile localEnglish = family.OpenPakFile(new Uri("game:/client_local_English.dat#AC")); const int ExpectedLocalEnglishCount = 118;
 
         [TestMethod]
         public void LoadCellDat_NoExceptions()

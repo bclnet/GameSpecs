@@ -11,7 +11,7 @@ namespace GameSpec.WbB
         [TestMethod]
         public void MapImageBuilder()
         {
-            var output = @"C:\T_\GameEstate\WbBMap.png";
+            var output = @"C:\T_\GameEstate\ACMap.png";
             using var builder = new MapImageBuilder();
             Assert.IsNotNull(builder.MapImage, "Should be not null");
             builder.MapImage.Save(output);
