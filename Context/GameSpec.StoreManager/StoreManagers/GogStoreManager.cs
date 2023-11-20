@@ -49,8 +49,8 @@ namespace GameSpec.StoreManagers
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 var paths = new[] { @"GOG.com\Galaxy" };
                 return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "storage")));
+                    .Select(path => Path.Join(home, path, "storage"))
+                    .FirstOrDefault(Directory.Exists);
                 //var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"SOFTWARE\GOG.com\GalaxyClient\paths") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\GOG.com\GalaxyClient\paths");
                 //if (key != null && key.GetValue("client") is string steamPath) return steamPath;
             }
@@ -58,18 +58,17 @@ namespace GameSpec.StoreManagers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                var paths = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
-                return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "appcache")));
+                return new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" }
+                    .Select(path => Path.Join(home, path, "appcache"))
+                    .FirstOrDefault(Directory.Exists);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = "/Users/Shared";
-                var paths = new[] { "GOG.com/Galaxy" };
-                return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "Storage")));
+                var paths = ;
+                return new[] { "GOG.com/Galaxy" }
+                    .Select(path => Path.Join(home, path, "Storage"))
+                    .FirstOrDefault(Directory.Exists);
             }
             throw new PlatformNotSupportedException();
         }

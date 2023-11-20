@@ -35,18 +35,16 @@ namespace GameSpec.StoreManagers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                var paths = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
-                return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "appcache")));
+                return new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" }
+                    .Select(path => Path.Join(home, path, "appcache"))
+                    .FirstOrDefault(Directory.Exists);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = "/Users/Shared";
-                var paths = new[] { "UnrealEngine/Launcher" };
-                return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "VaultCache")));
+                return new[] { "UnrealEngine/Launcher" }
+                    .Select(path => Path.Join(home, path, "VaultCache"))
+                    .FirstOrDefault(Directory.Exists);
             }
             throw new PlatformNotSupportedException();
         }

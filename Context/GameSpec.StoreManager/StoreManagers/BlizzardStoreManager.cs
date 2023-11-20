@@ -23,7 +23,7 @@ namespace GameSpec.StoreManagers
             var root = GetPath();
             if (root == null) return;
             var dbPath = Path.Combine(root, "product.db");
-            if (!File.Exists(dbPath)) { return; }
+            if (!File.Exists(dbPath)) return;
             using var s = File.OpenRead(dbPath);
             Database data;
             try
@@ -44,26 +44,21 @@ namespace GameSpec.StoreManagers
         static string GetPath()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Battle.net", "Agent");
-                return dbPath;
-            }
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Battle.net", "Agent");
             else if (RuntimeInformation.OSDescription.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                var paths = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
-                return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "appcache")));
+                return new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" }
+                    .Select(path => Path.Join(home, path, "appcache"))
+                    .FirstOrDefault(Directory.Exists);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = "/Users/Shared";
-                var paths = new[] { "Battle.net/Agent" };
-                return paths
-                    .Select(path => Path.Join(home, path))
-                    .FirstOrDefault(steamPath => Directory.Exists(Path.Join(steamPath, "data")));
+                return new[] { "Battle.net/Agent" }
+                    .Select(path => Path.Join(home, path, "data"))
+                    .FirstOrDefault(Directory.Exists);
             }
             throw new PlatformNotSupportedException();
         }
