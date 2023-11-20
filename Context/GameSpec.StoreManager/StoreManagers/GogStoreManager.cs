@@ -24,7 +24,7 @@ namespace GameSpec.StoreManagers
             SetProvider(new SQLite3Provider_e_sqlite3());
             var root = GetPath();
             if (root == null) return;
-            var dbPath = Path.Combine(root, "Storage", "galaxy-2.0.db");
+            var dbPath = Path.Combine(root, "galaxy-2.0.db");
             if (!File.Exists(dbPath)) { return; }
             if (sqlite3_open(dbPath, out var conn) != SQLITE_OK ||
                 sqlite3_prepare_v2(conn, "SELECT productId, installationPath FROM InstalledBaseProducts", out var stmt) != SQLITE_OK) return;
@@ -47,8 +47,7 @@ namespace GameSpec.StoreManagers
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                var paths = new[] { @"GOG.com\Galaxy" };
-                return paths
+                return new[] { @"GOG.com\Galaxy" }
                     .Select(path => Path.Join(home, path, "storage"))
                     .FirstOrDefault(Directory.Exists);
                 //var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"SOFTWARE\GOG.com\GalaxyClient\paths") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\GOG.com\GalaxyClient\paths");
@@ -58,14 +57,13 @@ namespace GameSpec.StoreManagers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                return new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" }
-                    .Select(path => Path.Join(home, path, "appcache"))
+                return new[] { "?GOG?" }
+                    .Select(path => Path.Join(home, path, "storage"))
                     .FirstOrDefault(Directory.Exists);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = "/Users/Shared";
-                var paths = ;
                 return new[] { "GOG.com/Galaxy" }
                     .Select(path => Path.Join(home, path, "Storage"))
                     .FirstOrDefault(Directory.Exists);

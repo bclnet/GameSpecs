@@ -35,7 +35,7 @@ namespace GameSpec.StoreManagers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                return new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" }
+                return new[] { "?Epic?" }
                     .Select(path => Path.Join(home, path, "appcache"))
                     .FirstOrDefault(Directory.Exists);
             }
