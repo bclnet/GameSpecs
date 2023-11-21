@@ -1,4 +1,5 @@
 import os, platform
+import BlizzardProtoDatabase_pb2
 
 class BlizzardStoreManager:
     def __init__(self):
@@ -21,5 +22,14 @@ class BlizzardStoreManager:
         dbPath = os.path.join(root, 'product.db')
         if not os.path.exists(dbPath): return
         print(dbPath)
+        productDb = BlizzardProtoDatabase_pb2.Database()
+        with open(dbPath, 'rb') as f:
+            bytes = f.read()
+            productDb.ParseFromString(bytes)
+            #try: database.ParseFromString(bytes)
+            #except InvalidProtocolBufferException: return None
+            for app in productDb.ProductInstall:
+                appPath = app.Settings.InstallPath
+                if os.path.isdir(appPath): self.appPaths[app.Uid] = appPath
 
 print(BlizzardStoreManager().appPaths)

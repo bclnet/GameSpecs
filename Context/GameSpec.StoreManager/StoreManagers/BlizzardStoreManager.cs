@@ -25,16 +25,16 @@ namespace GameSpec.StoreManagers
             var dbPath = Path.Combine(root, "product.db");
             if (!File.Exists(dbPath)) return;
             using var s = File.OpenRead(dbPath);
-            Database data;
+            Database productDb;
             try
             {
-                data = Database.Parser.ParseFrom(s);
+                productDb = Database.Parser.ParseFrom(s);
             }
             catch (InvalidProtocolBufferException)
             {
-                data = new Database { ProductInstall = { ProductInstall.Parser.ParseFrom(s) } };
+                productDb = new Database { ProductInstall = { ProductInstall.Parser.ParseFrom(s) } };
             }
-            foreach (var app in data.ProductInstall)
+            foreach (var app in productDb.ProductInstall)
             {
                 var appPath = app.Settings.InstallPath;
                 if (Directory.Exists(appPath)) AppPaths.Add(app.Uid, appPath);

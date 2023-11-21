@@ -1,153 +1,152 @@
 syntax = "proto2";
+
 package blizzard;
 
-message ProeductDb {
+message LanguageSetting {
+    required string Language = 1;
+    optional LanguageOption Option = 2;
+}
 
-    message LanguageSetting {
-        required string Language = 1;
-        optional LanguageOption Option = 2;
-    }
+message UserSettings {
+    required string InstallPath = 1;
+    required string PlayRegion = 2;
+    optional ShortcutOption DesktopShortcut = 3;
+    optional ShortcutOption StartmenuShortcut = 4;
+    optional LanguageSettingType LanguageSettings = 5;
+    required string SelectedTextLanguage = 6;
+    required string SelectedSpeechLanguage = 7;
+    repeated LanguageSetting Languages = 8;
+    repeated string AdditionalTags = 9;
+    repeated string VersionBranch = 10;
+    //repeated string AccountCountry = 11;
+    //repeated string GeoIpCountry = 12;
+    //repeated string GameSubfolder = 13;
+}
 
-    message UserSettings {
-        required string InstallPath = 1;
-        required string PlayRegion = 2;
-        optional ShortcutOption DesktopShortcut = 3;
-        optional ShortcutOption StartmenuShortcut = 4;
-        optional LanguageSettingType LanguageSettings = 5;
-        required string SelectedTextLanguage = 6;
-        required string SelectedSpeechLanguage = 7;
-        repeated LanguageSetting Languages = 8;
-        repeated string AdditionalTags = 9;
-        repeated string VersionBranch = 10;
-        //repeated string AccountCountry = 11;
-        //repeated string GeoIpCountry = 12;
-        //repeated string GameSubfolder = 13;
-    }
+message InstallHandshake {
+    required string Product = 1;
+    optional string Uid = 2;
+    optional UserSettings Settings = 3;
+}
 
-    message InstallHandshake {
-        required string Product = 1;
-        optional string Uid = 2;
-        optional UserSettings Settings = 3;
-    }
+message BuildConfig {
+    required string Region = 1;
+    required string BuildConfig_ = 2;
+}
 
-    message BuildConfig {
-        required string Region = 1;
-        required string BuildConfig_ = 2;
-    }
+message BaseProductState {
+    optional bool Installed = 1;
+    optional bool Playable = 2;
+    optional bool UpdateComplete = 3;
+    optional bool BackgroundDownloadAvailable = 4;
+    optional bool BackgroundDownloadComplete = 5;
+    required string CurrentVersion = 6;
+    required string CurrentVersionStr = 7;
+    repeated BuildConfig InstalledBuildConfig = 8;
+    repeated BuildConfig BackgroundDownloadBuildConfig = 9;
+    optional string DecryptionKey = 10;
+    repeated string CompletedInstallActions = 11;
+    //repeated string CompletedBuildKeys = 12;
+    //repeated string CompletedBgdlKeys = 13;
+    //required string ActiveBuildKey = 14;
+    //required string ActiveBgdlKey = 15;
+    //required string ActiveInstallKey = 16;
+    //required string ActiveTagString = 17;
+    //required string IncompleteBuildKey = 18;
+}
 
-    message BaseProductState {
-        optional bool Installed = 1;
-        optional bool Playable = 2;
-        optional bool UpdateComplete = 3;
-        optional bool BackgroundDownloadAvailable = 4;
-        optional bool BackgroundDownloadComplete = 5;
-        required string CurrentVersion = 6;
-        required string CurrentVersionStr = 7;
-        repeated BuildConfig InstalledBuildConfig = 8;
-        repeated BuildConfig BackgroundDownloadBuildConfig = 9;
-        optional string DecryptionKey = 10;
-        repeated string CompletedInstallActions = 11;
-        //repeated string CompletedBuildKeys = 12;
-        //repeated string CompletedBgdlKeys = 13;
-        //required string ActiveBuildKey = 14;
-        //required string ActiveBgdlKey = 15;
-        //required string ActiveInstallKey = 16;
-        //required string ActiveTagString = 17;
-        //required string IncompleteBuildKey = 18;
-    }
+message BackfillProgress {
+    optional double Progress = 1;
+    optional bool BackgroundDownload = 2;
+    optional bool Paused = 3;
+    optional uint64 DownloadLimit = 4;
+}
 
-    message BackfillProgress {
-        optional double Progress = 1;
-        optional bool BackgroundDownload = 2;
-        optional bool Paused = 3;
-        optional uint64 DownloadLimit = 4;
-    }
+message RepairProgress {
+    optional double Progress = 1;
+}
 
-    message RepairProgress {
-        optional double Progress = 1;
-    }
+message UpdateProgress {
+    optional string LastDiscSetUsed = 1;
+    optional double Progress = 2;
+    optional bool DiscIgnored = 3;
+    optional uint64 TotalToDownload = 4;
+    optional uint64 DownloadRemaining = 5 [default = 0];
+}
 
-    message UpdateProgress {
-        optional string LastDiscSetUsed = 1;
-        optional double Progress = 2;
-        optional bool DiscIgnored = 3;
-        optional uint64 TotalToDownload = 4;
-        optional uint64 DownloadRemaining = 5 [default = 0];
-    }
+message CachedProductState {
+    optional BaseProductState BaseProductState = 1;
+    optional BackfillProgress BackfillProgress = 2;
+    optional RepairProgress RepairProgress = 3;
+    optional UpdateProgress UpdateProgress = 4;
+}
 
-    message CachedProductState {
-        optional BaseProductState BaseProductState = 1;
-        optional BackfillProgress BackfillProgress = 2;
-        optional RepairProgress RepairProgress = 3;
-        optional UpdateProgress UpdateProgress = 4;
-    }
+message ProductOperations {
+    optional Operation ActiveOperation = 1 [default = OP_NONE];
+    optional uint64 Priority = 2;
+}
 
-    message ProductOperations {
-        optional Operation ActiveOperation = 1 [default = OP_NONE];
-        optional uint64 Priority = 2;
-    }
+message ProductInstall {
+    optional string Uid = 1;
+    optional string ProductCode = 2;
+    optional UserSettings Settings = 3;
+    optional CachedProductState CachedProductState = 4;
+    optional ProductOperations ProductOperations = 5;
+    //optional string ProductFamily = 6;
+    //optional string Hidden = 7;
+    //optional string PersistentJsonStorage = 8;
+}
 
-    message ProductInstall {
-        optional string Uid = 1;
-        optional string ProductCode = 2;
-        optional UserSettings Settings = 3;
-        optional CachedProductState CachedProductState = 4;
-        optional ProductOperations ProductOperations = 5;
-        //optional string ProductFamily = 6;
-        //optional string Hidden = 7;
-        //optional string PersistentJsonStorage = 8;
-    }
+message ProductConfig {
+    optional string ProductCode = 1;
+    optional string MetadataHash = 2;
+    optional string Timestamp = 3;
+}
 
-    message ProductConfig {
-        optional string ProductCode = 1;
-        optional string MetadataHash = 2;
-        optional string Timestamp = 3;
-    }
+message ActiveProcess {
+    optional string ProcessName = 1;
+    optional int32 Pid = 2;
+    repeated string Uri = 3;
+}
 
-    message ActiveProcess {
-        optional string ProcessName = 1;
-        optional int32 Pid = 2;
-        repeated string Uri = 3;
-    }
+message DownloadSettings {
+    optional int32 DownloadLimit = 1 [default = -1];
+    optional int32 BackfillLimit = 2 [default = -1];
+}
 
-    message DownloadSettings {
-        optional int32 DownloadLimit = 1 [default = -1];
-        optional int32 BackfillLimit = 2 [default = -1];
-    }
+message Database {
+    repeated ProductInstall ProductInstall = 1;
+    repeated InstallHandshake ActiveInstalls = 2;
+    repeated ActiveProcess ActiveProcesses = 3;
+    repeated ProductConfig ProductConfigs = 4;
+    optional DownloadSettings DownloadSettings = 5;
+    //optional int32 VersionSummarySeqn = 6;
+    //repeated string PriorityUidList = 7;
+}
 
-    message Database {
-        repeated ProductInstall ProductInstall = 1;
-        repeated InstallHandshake ActiveInstalls = 2;
-        repeated ActiveProcess ActiveProcesses = 3;
-        repeated ProductConfig ProductConfigs = 4;
-        optional DownloadSettings DownloadSettings = 5;
-        //optional int32 VersionSummarySeqn = 6;
-        //repeated string PriorityUidList = 7;
-    }
+enum LanguageOption {
+    LANGOPTION_NONE = 0;
+    LANGOPTION_TEXT = 1;
+    LANGOPTION_SPEECH = 2;
+    LANGOPTION_TEXT_AND_SPEECH = 3;
+}
 
-    enum LanguageOption {
-        LANGOPTION_NONE = 0;
-        LANGOPTION_TEXT = 1;
-        LANGOPTION_SPEECH = 2;
-        LANGOPTION_TEXT_AND_SPEECH = 3;
-    }
+enum LanguageSettingType {
+    LANGSETTING_NONE = 0;
+    LANGSETTING_SINGLE = 1;
+    LANGSETTING_SIMPLE = 2;
+    LANGSETTING_ADVANCED = 3;
+}
 
-    enum LanguageSettingType {
-        LANGSETTING_NONE = 0;
-        LANGSETTING_SINGLE = 1;
-        LANGSETTING_SIMPLE = 2;
-        LANGSETTING_ADVANCED = 3;
-    }
+enum ShortcutOption {
+    SHORTCUT_NONE = 0;
+    SHORTCUT_USER = 1;
+    SHORTCUT_ALL_USERS = 2;
+}
 
-    enum ShortcutOption {
-        SHORTCUT_NONE = 0;
-        SHORTCUT_USER = 1;
-        SHORTCUT_ALL_USERS = 2;
-    }
-
-    enum Operation {
-        OP_NONE = -1; 
-        OP_UPDATE = 0;
-        OP_BACKFILL = 1;
-        OP_REPAIR = 2;
-    }
+enum Operation {
+    OP_NONE = -1; 
+    OP_UPDATE = 0;
+    OP_BACKFILL = 1;
+    OP_REPAIR = 2;
+}
