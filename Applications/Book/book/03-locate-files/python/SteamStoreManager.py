@@ -6,11 +6,11 @@ class SteamStoreManager:
         def getPath():
             system = platform.system()
             if system == 'Windows':
-                reg = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
-                #aReg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
-                print(r"*** Reading from %s ***" % reg)
-                #return next(iter(x for x in paths if os.path.isdir(x)), None)
-                return None
+                try: key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'SOFTWARE\Valve\Steam', 0, winreg.KEY_READ)
+                except FileNotFoundError:
+                    try: key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SOFTWARE\Valve\Steam', 0, winreg.KEY_READ | winreg.KEY_WOW64_32KEY)
+                    except FileNotFoundError: return None
+                return winreg.QueryValueEx(key, 'SteamPath')[0]
             elif system == 'Linux':
                 home = os.path.expanduser('~')
                 paths = [os.path.join(home, path, 'appcache') for path in ['.steam', '.steam/steam', '.steam/root', '.local/share/Steam']]
@@ -22,6 +22,7 @@ class SteamStoreManager:
             else: raise Exception(f'Unknown platform: {system}')
         self.root = 'test'
         root = getPath()
+        print(root)
         if root == None: return
         dbPath = os.path.join(root, 'galaxy.db')
         if not os.path.exists(dbPath): return
