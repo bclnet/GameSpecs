@@ -15,10 +15,11 @@ class BlizzardStoreManager:
                 paths = [os.path.join(home, path, 'data') for path in ['Battle.net/Agent']]
                 return next(iter(x for x in paths if os.path.isdir(x)), None)
             else: raise Exception(f'Unknown platform: {system}')
-        self.root = 'test'
+        self.appPaths = {}
         root = getPath()
         if root == None: return
         dbPath = os.path.join(root, 'product.db')
         if not os.path.exists(dbPath): return
+        print(dbPath)
 
-print(BlizzardStoreManager().root)
+print(BlizzardStoreManager().appPaths)

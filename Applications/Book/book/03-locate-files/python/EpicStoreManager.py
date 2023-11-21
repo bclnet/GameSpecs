@@ -19,6 +19,7 @@ class EpicStoreManager:
                 paths = [os.path.join(home, path, 'Storage') for path in ['GOG.com/Galaxy']]
                 return next(iter(x for x in paths if os.path.isdir(x)), None)
             else: raise Exception(f'Unknown platform: {system}')
+        self.appPaths = {}
         root = getPath()
         if root == None: return
         dbPath = os.path.join(root, 'galaxy.db')
@@ -27,6 +28,5 @@ class EpicStoreManager:
             with closing(connection.cursor()) as cursor:
                 rows = cursor.execute('SELECT productId, installationPath FROM InstalledBaseProducts').fetchall()
                 print(rows)
-        self.root = 'test'
 
 print(EpicStoreManager().root)

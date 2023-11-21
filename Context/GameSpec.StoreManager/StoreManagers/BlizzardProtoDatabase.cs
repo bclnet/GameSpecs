@@ -99,7 +99,7 @@ namespace GameSpec.StoreManagers {
             "Yi5BZ2VudC5Qcm90b2J1Zg=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameSpec.StoreManagers.LanguageOption), typeof(global::GameSpec.StoreManagers.LanguageSettingType), typeof(global::GameSpec.StoreManagers.ShortcutOption), typeof(global::GameSpec.StoreManagers.Operation), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameSpec.StoreManagers.LanguageOption), typeof(global::GameSpec.StoreManagers.LanguageSettingType), typeof(global::GameSpec.StoreManagers.ShortcutOption), typeof(global::GameSpec.StoreManagers.Operation), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::GameSpec.StoreManagers.LanguageSetting), global::GameSpec.StoreManagers.LanguageSetting.Parser, new[]{ "Language", "Option" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameSpec.StoreManagers.UserSettings), global::GameSpec.StoreManagers.UserSettings.Parser, new[]{ "InstallPath", "PlayRegion", "DesktopShortcut", "StartmenuShortcut", "LanguageSettings", "SelectedTextLanguage", "SelectedSpeechLanguage", "Languages", "AdditionalTags", "VersionBranch", "AccountCountry", "GeoIpCountry", "GameSubfolder" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameSpec.StoreManagers.InstallHandshake), global::GameSpec.StoreManagers.InstallHandshake.Parser, new[]{ "Product", "Uid", "Settings" }, null, null, null, null),

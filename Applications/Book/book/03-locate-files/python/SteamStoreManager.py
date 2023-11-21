@@ -2,6 +2,57 @@ import os, platform
 import winreg
 
 class SteamStoreManager:
+    class AcfStruct:
+        def read(path):
+            if not os.path.exists(path): return None
+            with open(path, 'r') as f:
+                return SteamStoreManager.AcfStruct(f.read())
+        def __init__(self, region):
+            def nextEndOf(str, open, close, startIndex):
+                if open == close: raise Exception('"Open" and "Close" char are equivalent!')
+                openItem = 0; closeItem = 0
+                for i in range(startIndex, len(str)):
+                    if str[i] == open: openItem += 1
+                    if str[i] == close:
+                        closeItem += 1
+                        if closeItem > openItem: return i
+                raise Exception('Not enough closing characters!')
+            self.get = {}
+            self.value = {}
+            lengthOfRegion = len(region); index = 0
+            while (lengthOfRegion > index):
+                firstStart = region.find('"', index)
+                if firstStart == -1: break
+                firstEnd = region.find('"', firstStart + 1)
+                index = firstEnd + 1
+                first = region[firstStart + 1:firstEnd]
+                secondStart = region.find('"', index); secondOpen = region.find('{', index)
+                if secondStart == -1:
+                    self.get[first] = None
+                elif secondOpen == -1 or secondStart < secondOpen:
+                    secondEnd = region.find('"', secondStart + 1)
+                    index = secondEnd + 1
+                    second = region[secondStart + 1:secondEnd]
+                    self.value[first] = second.replace('\\\\', '\\')
+                else:
+                    secondClose = nextEndOf(region, '{', '}', secondOpen + 1)
+                    acfs = SteamStoreManager.AcfStruct(region[secondOpen + 1:secondClose]);
+                    index = secondClose + 1
+                    self.get[first] = acfs
+        def repr(self, depth):
+            b = []
+            for (k,v) in self.value.items():
+                b.append('  '*depth)
+                b.append(f'"{k}": "{v}"\n')
+            for (k,v) in self.get.items():
+                b.append('  '*depth)
+                b.append(f'"{k}" {{\n')
+                b.append('  '*depth)
+                if not v == None: b.append(v.repr(depth + 1))
+                b.append(f'}}\n')
+            return ''.join(b)
+        def __repr__(self): return self.repr(0)
+
     def __init__(self):
         def getPath():
             system = platform.system()
@@ -20,12 +71,18 @@ class SteamStoreManager:
                 paths = [os.path.join(home, path, 'appcache') for path in ['Library/Application Support/Steam']]
                 return next(iter(x for x in paths if os.path.isdir(x)), None)
             else: raise Exception(f'Unknown platform: {system}')
-        self.root = 'test'
+        self.appPaths = {}
         root = getPath()
-        print(root)
         if root == None: return
-        dbPath = os.path.join(root, 'galaxy.db')
-        if not os.path.exists(dbPath): return
-        self.root = 'test'
+        libraryFolders = SteamStoreManager.AcfStruct.read(os.path.join(root, 'steamapps', 'libraryfolders.vdf'))
+        #print(libraryFolders.get['libraryfolders'])
+        for folder in libraryFolders.get['libraryfolders'].get.values():
+             path = folder.value['path']
+             if not os.path.isdir(path): return
+             for appId in folder.get['apps'].value.keys():
+                appManifest = SteamStoreManager.AcfStruct.read(os.path.join(path, 'steamapps', f'appmanifest_{appId}.acf'))
+                if appManifest == None: continue
+                appPath = os.path.join(path, 'steamapps', 'common', appManifest.get['AppState'].value['installdir'])
+                if os.path.isdir(appPath): self.appPaths[appId] = appPath
 
-print(SteamStoreManager().root)
+print(SteamStoreManager().appPaths)
