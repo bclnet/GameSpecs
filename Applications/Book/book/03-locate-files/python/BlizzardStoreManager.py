@@ -4,20 +4,27 @@ def init():
     def getPath():
         system = platform.system()
         if system == 'Windows':
-            return os.path.join(os.getenv('ALLUSERSPROFILE'), 'Battle.net', 'Agent')
+            # windows paths
+            home = os.getenv('ALLUSERSPROFILE')
+            paths = [os.path.join(home, 'Battle.net', 'Agent')]
         elif system == 'Linux':
+            # linux paths
             home = os.path.expanduser('~')
-            paths = [os.path.join(home, path, 'appcache') for path in ['.steam', '.steam/steam', '.steam/root', '.local/share/Steam']]
-            return next(iter(x for x in paths if os.path.isdir(x)), None)
+            search = ['.steam', '.steam/steam', '.steam/root', '.local/share/Steam']
+            paths = [os.path.join(home, path, 'appcache') for path in search]
         elif system == 'Darwin':
+            # mac paths
             home = '/Users/Shared'
-            paths = [os.path.join(home, path, 'data') for path in ['Battle.net/Agent']]
-            return next(iter(x for x in paths if os.path.isdir(x)), None)
+            search = ['Battle.net/Agent']
+            paths = [os.path.join(home, path, 'data') for path in search]
         else: raise Exception(f'Unknown platform: {system}')
+        return next(iter(x for x in paths if os.path.isdir(x)), None)
+    # get product.db path
     root = getPath()
     if root == None: return
     dbPath = os.path.join(root, 'product.db')
     if not os.path.exists(dbPath): return
+    # decode productDb
     productDb = BlizzardProtoDatabase_pb2.Database()
     with open(dbPath, 'rb') as f:
         bytes = f.read()
@@ -25,9 +32,10 @@ def init():
         #try: database.ParseFromString(bytes)
         #except InvalidProtocolBufferException: return None
         for app in productDb.ProductInstall:
+            # add appPath if exists
             appPath = app.Settings.InstallPath
             if os.path.isdir(appPath): blizzardAppPaths[app.Uid] = appPath
 
 blizzardAppPaths = {}
 init()
-print(blizzardAppPaths)
+#print(blizzardAppPaths)
