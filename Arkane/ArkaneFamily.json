@@ -27,6 +27,12 @@
       "pakExt": "dir.vpk",
       "status": [ "open", "read" ]
     },
+    "KS": {
+      "n/a": true,
+      "name": "KarmaStar",
+      "date": "2009-01-01",
+      "tags": "iOS"
+    },
     "D": {
       "name": "Dishonored",
       "engine": "Unreal",
@@ -87,13 +93,6 @@
     "RF": {
       "name": "Redfall (future)",
       "url": "https://bethesda.net/en/game/redfall"
-    }
-  },
-  "other-games": {
-    "KS": {
-      "name": "KarmaStar",
-      "date": "2009-01-01",
-      "tags": "iOS"
     }
   },
   "fileManager": {

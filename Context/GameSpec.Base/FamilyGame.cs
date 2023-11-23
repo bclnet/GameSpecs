@@ -80,6 +80,10 @@ namespace GameSpec
         /// </summary>
         public string Id { get; set; }
         /// <summary>
+        /// Gets or sets if ignored.
+        /// </summary>
+        public bool Ignore { get; set; }
+        /// <summary>
         /// Gets or sets the game name.
         /// </summary>
         public string Name { get; set; }

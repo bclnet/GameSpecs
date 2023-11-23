@@ -10,6 +10,41 @@
       "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
       "pak": "game:/"
     },
+    "TDAROS": {
+      "n/a": true,
+      "name": "The Death and Return of Superman",
+      "date": "1994-08-01"
+    },
+    "B": {
+      "n/a": true,
+      "name": "Blackthorne",
+      "date": "1994-09-01"
+    },
+    "W1": {
+      "n/a": true,
+      "name": "Warcraft: Orcs & Humans",
+      "date": "1994-11-23"
+    },
+    "JLTF": {
+      "n/a": true,
+      "name": "Justice League Task Force",
+      "date": "1995-04-01"
+    },
+    "W2": {
+      "n/a": true,
+      "name": "Warcraft II: Tides of Darkness",
+      "date": "1995-12-09"
+    },
+    "D1": {
+      "n/a": true,
+      "name": "Diablo",
+      "date": "1997-01-03"
+    },
+    "TLV2": {
+      "n/a": true,
+      "name": "The Lost Vikings 2",
+      "date": "1997-02-27"
+    },
     "SC": {
       "name": "StarCraft",
       "url": "https://us.shop.battle.net/en-us/product/starcraft",
@@ -19,6 +54,11 @@
         "s1": { "name": "Starcraft I" },
         "s1t": { "name": "Starcraft I PTR" }
       }
+    },
+    "D2": {
+      "n/a": true,
+      "name": "Diablo II",
+      "date": "2000-06-29"
     },
     "D2R": {
       "name": "Diablo II: Resurrected",
@@ -89,6 +129,16 @@
         "d3b": { "name": "Diablo III Beta" }
       }
     },
+    "HOTS": {
+      "name": "Heroes of the Storm",
+      "url": "",
+      "date": "2013-11-05",
+      "tags": "",
+      "editions": {
+        "hero": { "name": "Heroes of the Storm Retail" },
+        "herot": { "name": "Heroes of the Storm PTR" }
+      }
+    },
     "HS": {
       "name": "Hearthstone",
       "url": "https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft",
@@ -98,14 +148,13 @@
         "hsb": { "name": "Hearthstone Retail" }
       }
     },
-    "HOTS": {
-      "name": "Heroes of the Storm",
-      "url": "",
-      "date": "2013-11-05",
-      "tags": "",
+    "OW": {
+      "n/a": true,
+      "name": "Overwatch",
+      "url": "https://us.shop.battle.net/en-us/family/overwatch",
+      "date": "2016-05-24",
       "editions": {
-        "hero": { "name": "Heroes of the Storm Retail" },
-        "herot": { "name": "Heroes of the Storm PTR" }
+        "pro": { "name": "Overwatch" }
       }
     },
     "CB": {
@@ -145,50 +194,9 @@
         "d4t": { "name": "Diablo IV PTR" },
         "d4b": { "name": "Diablo IV Beta" }
       }
-    }
-  },
-  "other-games": {
-    "TDAROS": {
-      "name": "The Death and Return of Superman",
-      "date": "1994-08-01"
-    },
-    "B": {
-      "name": "Blackthorne",
-      "date": "1994-09-01"
-    },
-    "W1": {
-      "name": "Warcraft: Orcs & Humans",
-      "date": "1994-11-23"
-    },
-    "JLTF": {
-      "name": "Justice League Task Force",
-      "date": "1995-04-01"
-    },
-    "W2": {
-      "name": "Warcraft II: Tides of Darkness",
-      "date": "1995-12-09"
-    },
-    "D1": {
-      "name": "Diablo",
-      "date": "1997-01-03"
-    },
-    "TLV2": {
-      "name": "The Lost Vikings 2",
-      "date": "1997-02-27"
-    },
-    "OW": {
-      "name": "Overwatch",
-      "url": "https://us.shop.battle.net/en-us/family/overwatch",
-      "date": "2016-05-24",
-      "editions": {
-        "pro": { "name": "Overwatch" }
-      }
-    },
-    "D2": {
-      "name": "Diablo II",
-      "date": "2000-06-29"
     },
     "Other": {
+      "n/a": true,
       "name": "Other",
       "editions": {
         "dst2": { "name": "Destiny 2" },

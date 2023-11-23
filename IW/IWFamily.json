@@ -23,6 +23,12 @@
       "date": "2005-10-25",
       "tags": "WorldWarII COD2"
     },
+    "COD3": {
+      "n/a": true,
+      "name": "Call of Duty 3",
+      "date": "2006-11-07",
+      "tags": "WorldWarII COD3 XBox"
+    },
     "COD4": {
       "name": "Call of Duty 4: Modern Warfare",
       "url": "https://store.steampowered.com/app/7940",
@@ -31,6 +37,11 @@
       "pak": "game:/*.iwd",
       "pakx": "game:/mp_backlot_load.ff",
       "paky": "game:/*.(iwd:ff)"
+    },
+    "007:QoS": {
+      "n/a": true,
+      "name": "007: Quantum of Solace",
+      "date": "2008-10-31"
     },
     "WaW": {
       "name": "Call of Duty: World at War",
@@ -157,17 +168,6 @@
         "game:/*.xpak",
         "game:/*.ff"
       ]
-    }
-  },
-  "other-games": {
-    "COD3": {
-      "name": "Call of Duty 3",
-      "date": "2006-11-07",
-      "tags": "WorldWarII COD3 XBox"
-    },
-    "007:QoS": {
-      "name": "007: Quantum of Solace",
-      "date": "2008-10-31"
     }
   },
   "fileManager": {

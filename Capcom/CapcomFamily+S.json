@@ -1,7 +1,10 @@
 ﻿{
   "id": "Capcom+S",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_S",
-  "other-games": {
+  "games": {
+    "*": {
+      "n/a": true
+    },
     "SamuraiSword": {
       "name": "Samurai Sword",
       "date": "November 15, 1988"

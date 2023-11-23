@@ -1,7 +1,10 @@
 ﻿{
   "id": "Capcom+0-D",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_0%E2%80%93D",
-  "other-games": {
+  "games": {
+    "*": {
+      "n/a": true
+    },
     "1941:CA": {
       "name": "1941: Counter Attack",
       "url": "https://en.wikipedia.org/wiki/1941:_Counter_Attack",

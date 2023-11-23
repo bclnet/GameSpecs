@@ -1,7 +1,10 @@
 ﻿{
   "id": "Capcom+N-R",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_N%E2%80%93R",
-  "other-games": {
+  "games": {
+    "*": {
+      "n/a": true
+    },
     "NamcoxCapcom": {
       "name": "Namco × Capcom",
       "url": "https://en.wikipedia.org/wiki/Namco_%C3%97_Capcom",

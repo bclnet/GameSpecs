@@ -10,6 +10,101 @@
       "pakFileType": "GameSpec.Frontier.FrontierPakFile, GameSpec.Frontier",
       "pakExt": ".ovl"
     },
+    "FE": {
+      "n/a": true,
+      "name": "Frontier: First Encounters",
+      "url": "https://en.wikipedia.org/wiki/Frontier:_First_Encounters",
+      "date": "1995-05-01"
+    },
+    "DX": {
+      "n/a": true,
+      "name": "Darxide",
+      "url": "https://en.wikipedia.org/wiki/Darxide",
+      "date": "1996-01-01"
+    },
+    "V2K": {
+      "n/a": true,
+      "name": "V2000",
+      "url": "https://en.wikipedia.org/wiki/Zarch#V2000",
+      "date": "1998-01-01"
+    },
+    "IF": {
+      "n/a": true,
+      "name": "Infestation",
+      "date": "2000-00-01"
+    },
+    "DX:EMP": {
+      "n/a": true,
+      "name": "Darxide EMP",
+      "url": "https://en.wikipedia.org/wiki/Darxide",
+      "date": "2003-01-01"
+    },
+    "RTX": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon (Xbox port)",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_(video_game)",
+      "date": "2003-01-01"
+    },
+    "WG:PZ": {
+      "n/a": true,
+      "name": "Wallace & Gromit in Project Zoo",
+      "url": "https://en.wikipedia.org/wiki/Wallace_%26_Gromit_in_Project_Zoo",
+      "date": "2003-10-03"
+    },
+    "DL": {
+      "n/a": true,
+      "name": "Dog's Life",
+      "url": "https://en.wikipedia.org/wiki/Dog%27s_Life",
+      "date": "2003-10-31"
+    },
+    "RT2:WW": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 2: Wacky Worlds",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_2",
+      "date": "2003-01-01"
+    },
+    "RT2:TT": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 2: Time Twister",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_2",
+      "date": "2003-01-01"
+    },
+    "RT3": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 3",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
+      "date": "2004-01-01"
+    },
+    "RT3:S": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 3: Soaked!",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
+      "date": "2005-01-01"
+    },
+    "RT3:W": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 3: Wild!",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
+      "date": "2005-01-01"
+    },
+    "WG:TCotWR": {
+      "n/a": true,
+      "name": "Wallace & Gromit: The Curse of the Were-Rabbit",
+      "url": "https://en.wikipedia.org/wiki/Wallace_%26_Gromit:_The_Curse_of_the_Were-Rabbit_(video_game)",
+      "date": "2005-10-07"
+    },
+    "TV": {
+      "n/a": true,
+      "name": "Thrillville",
+      "url": "https://en.wikipedia.org/wiki/Thrillville",
+      "date": "2006-11-21"
+    },
+    "TV:OtR": {
+      "n/a": true,
+      "name": "Thrillville: Off the Rails",
+      "url": "https://en.wikipedia.org/wiki/Thrillville:_Off_the_Rails",
+      "date": "2007-10-16"
+    },
     "LW": {
       "name": "LostWinds",
       "url": [ "https://store.steampowered.com/app/447780", "https://en.wikipedia.org/wiki/LostWinds" ],
@@ -21,6 +116,46 @@
       "url": [ "https://store.steampowered.com/app/447800", "https://en.wikipedia.org/wiki/LostWinds_2:_Winter_of_the_Melodias" ],
       "date": "2009-10-09",
       "pak": "game:/**/*.ovl"
+    },
+    "KT": {
+      "n/a": true,
+      "name": "Kinectimals",
+      "url": "https://en.wikipedia.org/wiki/Kinectimals",
+      "date": "2010-11-04"
+    },
+    "KT:NwB": {
+      "n/a": true,
+      "name": "Kinectimals: Now with Bears!",
+      "url": "https://en.wikipedia.org/wiki/Kinectimals",
+      "date": "2011-10-11"
+    },
+
+    "KT:DA": {
+      "n/a": true,
+      "name": "Kinect: Disneyland Adventures",
+      "url": "https://en.wikipedia.org/wiki/Kinect:_Disneyland_Adventures",
+      "date": "2011-11-15"
+    },
+    "CC": {
+      "n/a": true,
+      "name": "Coaster Crazy",
+      "date": "2012-01-01"
+    },
+    "ZT": {
+      "n/a": true,
+      "name": "Zoo Tycoon",
+      "url": "https://en.wikipedia.org/wiki/Zoo_Tycoon_(2013_video_game)",
+      "date": "2013-11-22"
+    },
+    "CCD": {
+      "n/a": true,
+      "name": "Coaster Crazy Deluxe",
+      "date": "2013-01-01"
+    },
+    "TFDS": {
+      "n/a": true,
+      "name": "Tales from Deep Space",
+      "date": "2014-01-01"
     },
     "ED": {
       "name": "Elite: Dangerous",
@@ -36,6 +171,24 @@
           "path": "elite-dangerous-odyssey-64"
         }
       }
+    },
+    "SR": {
+      "n/a": true,
+      "name": "Screamride",
+      "url": "https://en.wikipedia.org/wiki/Screamride",
+      "date": "2015-03-03"
+    },
+    "ED:H": {
+      "n/a": true,
+      "name": "Elite Dangerous: Horizons",
+      "url": "https://en.wikipedia.org/wiki/Elite_Dangerous#Horizons_season_of_expansions",
+      "date": "2015-12-15"
+    },
+    "ED:A": {
+      "n/a": true,
+      "name": "Elite Dangerous: Arena",
+      "url": "https://en.wikipedia.org/wiki/Elite_Dangerous#Elite_Dangerous:_Arena",
+      "date": "2016-02-16"
     },
     "PC": {
       "name": "Planet Coaster",
@@ -77,134 +230,6 @@
       "name": "Warhammer Age of Sigmar: Realms of Ruin",
       "url": "https://en.wikipedia.org/wiki/Warhammer_Age_of_Sigmar",
       "date": "2023-01-01"
-    }
-  },
-  "other-games": {
-    "FE": {
-      "name": "Frontier: First Encounters",
-      "url": "https://en.wikipedia.org/wiki/Frontier:_First_Encounters",
-      "date": "1995-05-01"
-    },
-    "DX": {
-      "name": "Darxide",
-      "url": "https://en.wikipedia.org/wiki/Darxide",
-      "date": "1996-01-01"
-    },
-    "V2K": {
-      "name": "V2000",
-      "date": "1998-01-01"
-    },
-    "IF": {
-      "name": "Infestation",
-      "date": "1995-05-01",
-      "tags": ""
-    },
-    "DX:EMP": {
-      "name": "Darxide EMP",
-      "url": "https://en.wikipedia.org/wiki/Darxide",
-      "date": "2003-01-01"
-    },
-    "RTX": {
-      "name": "RollerCoaster Tycoon (Xbox port)",
-      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_(video_game)",
-      "date": "2003-01-01"
-    },
-    "WG:PZ": {
-      "name": "Wallace & Gromit in Project Zoo",
-      "url": "https://en.wikipedia.org/wiki/Wallace_%26_Gromit_in_Project_Zoo",
-      "date": "2003-10-03"
-    },
-    "DL": {
-      "name": "Dog's Life",
-      "url": "https://en.wikipedia.org/wiki/Dog%27s_Life",
-      "date": "2003-10-31"
-    },
-    "RT2:WW": {
-      "name": "RollerCoaster Tycoon 2: Wacky Worlds",
-      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_2",
-      "date": "2003-01-01"
-    },
-    "RT2:TT": {
-      "name": "RollerCoaster Tycoon 2: Time Twister",
-      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_2",
-      "date": "2003-01-01"
-    },
-    "RT3": {
-      "name": "RollerCoaster Tycoon 3",
-      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
-      "date": "2004-01-01"
-    },
-    "RT3:S": {
-      "name": "RollerCoaster Tycoon 3: Soaked!",
-      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
-      "date": "2005-01-01"
-    },
-    "RT3:W": {
-      "name": "RollerCoaster Tycoon 3: Wild!",
-      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
-      "date": "2005-01-01"
-    },
-    "WG:TCotWR": {
-      "name": "Wallace & Gromit: The Curse of the Were-Rabbit",
-      "url": "https://en.wikipedia.org/wiki/Wallace_%26_Gromit:_The_Curse_of_the_Were-Rabbit_(video_game)",
-      "date": "2005-10-07"
-    },
-    "TV": {
-      "name": "Thrillville",
-      "url": "https://en.wikipedia.org/wiki/Thrillville",
-      "date": "2006-11-21"
-    },
-    "TV:OtR": {
-      "name": "Thrillville: Off the Rails",
-      "url": "https://en.wikipedia.org/wiki/Thrillville:_Off_the_Rails",
-      "date": "2007-10-16"
-    },
-    "KT": {
-      "name": "Kinectimals",
-      "url": "https://en.wikipedia.org/wiki/Kinectimals",
-      "date": "2010-11-04"
-    },
-    "KT:NwB": {
-      "name": "Kinectimals: Now with Bears!",
-      "url": "https://en.wikipedia.org/wiki/Kinectimals",
-      "date": "2011-10-11"
-    },
-    "KT:DA": {
-      "name": "Kinect: Disneyland Adventures",
-      "url": "https://en.wikipedia.org/wiki/Kinect:_Disneyland_Adventures",
-      "date": "2011-11-15"
-    },
-    "CC": {
-      "name": "Coaster Crazy",
-      "date": "2012-01-01"
-    },
-    "ZT": {
-      "name": "Zoo Tycoon",
-      "url": "https://en.wikipedia.org/wiki/Zoo_Tycoon_(2013_video_game)",
-      "date": "2013-11-22"
-    },
-    "CCD": {
-      "name": "Coaster Crazy Deluxe",
-      "date": "2013-01-01"
-    },
-    "TFDS": {
-      "name": "Tales from Deep Space",
-      "date": "2014-01-01"
-    },
-    "SR": {
-      "name": "Screamride",
-      "url": "https://en.wikipedia.org/wiki/Screamride",
-      "date": "2015-03-03"
-    },
-    "ED:H": {
-      "name": "Elite Dangerous: Horizons",
-      "url": "https://en.wikipedia.org/wiki/Elite_Dangerous#Horizons_season_of_expansions",
-      "date": "2015-12-15"
-    },
-    "ED:A": {
-      "name": "Elite Dangerous: Arena",
-      "url": "https://en.wikipedia.org/wiki/Elite_Dangerous#Elite_Dangerous:_Arena",
-      "date": "2016-02-16"
     }
   },
   "fileManager": {

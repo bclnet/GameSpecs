@@ -1,7 +1,10 @@
 ﻿{
   "id": "Capcom+T-Z",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_T%E2%80%93Z",
-  "other-games": {
+  "games": {
+    "*": {
+      "n/a": true
+    },
     "TNGCP:AS": {
       "name": "Taisen Net Gimmick Capcom & Psikyo All Stars",
       "date": "2000-01-01"

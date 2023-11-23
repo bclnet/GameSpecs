@@ -35,6 +35,12 @@
       "date": "2007-11-07",
       "tags": "Amnesia"
     },
+    "A:J": {
+      "n/a": true,
+      "name": "Amnesia: Justine",
+      "date": "2008-11-11",
+      "tags": "Amnesia"
+    },
     "A:AMFP": {
       "name": "Amnesia: A Machine for Pigs",
       "url": "https://store.steampowered.com/app/239200",
@@ -51,13 +57,6 @@
       "name": "Amnesia: Rebirth",
       "url": "https://store.steampowered.com/app/999220",
       "date": "2011-11-08",
-      "tags": "Amnesia"
-    }
-  },
-  "other-games": {
-    "A:J": {
-      "name": "Amnesia: Justine",
-      "date": "2008-11-11",
       "tags": "Amnesia"
     }
   },

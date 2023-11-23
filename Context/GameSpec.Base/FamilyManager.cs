@@ -118,7 +118,8 @@ namespace GameSpec
                         foreach (var path in p.paths)
                             if (game.IsPakFile(path)) pakFiles.Add(game.CreatePakFile(fileSystem, (object)path));
                         break;
-                    case SearchBy.AllDir: case SearchBy.TopDir:
+                    case SearchBy.AllDir:
+                    case SearchBy.TopDir:
                         pakFiles.Add(game.CreatePakFile(fileSystem, p));
                         break;
                     default: throw new ArgumentOutOfRangeException(nameof(game.SearchBy), $"{game.SearchBy}");
@@ -163,7 +164,6 @@ namespace GameSpec
                 family.FileManager = fileManager;
                 family.Engines = elem.TryGetProperty("engines", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseEngine(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 family.Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: ParseGame(ref defaultGame, family, paths, x.Name, x.Value))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value, StringComparer.OrdinalIgnoreCase) : throw new ArgumentNullException("games");
-                family.OtherGames = elem.TryGetProperty("other-games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: ParseOtherGame(ref defaultGame, family, x.Name, x.Value))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value, StringComparer.OrdinalIgnoreCase) : null;
                 family.Apps = elem.TryGetProperty("apps", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseApp(family, x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
                 return family;
             }
@@ -212,6 +212,7 @@ namespace GameSpec
             game.GameType = gameType;
             game.Family = family;
             game.Id = id;
+            game.Ignore = elem.TryGetProperty("n/a", out z) ? z.GetBoolean() : default_ != null ? default_.Ignore : false;
             game.Name = elem.TryGetProperty("name", out z) ? z.GetString() : null;
             game.Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : default_?.Engine;
             game.SearchBy = elem.TryGetProperty("searchBy", out z) ? Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}") : default_ != null ? default_.SearchBy : default;
@@ -227,19 +228,6 @@ namespace GameSpec
             game.Dlc = elem.TryGetProperty("dlc", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
             game.Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameLocal(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : null;
             game.Found = locations.ContainsKey(id);
-            if (id.StartsWith("*")) { default_ = game; game = null; }
-            return game;
-        }
-
-        static FamilyGame ParseOtherGame(ref FamilyGame default_, Family family, string id, JsonElement elem)
-        {
-            var game = new FamilyGame
-            {
-                Family = family,
-                Id = id,
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : null) ?? throw new ArgumentNullException("name"),
-                Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : default_.Engine
-            };
             if (id.StartsWith("*")) { default_ = game; game = null; }
             return game;
         }

@@ -31,6 +31,12 @@
       "pak": "game:/Morrowind.bsa",
       "dat": "game:/Morrowind.esm"
     },
+    "IHRA": {
+      "n/a": true,
+      "name": "IHRA Professional Drag Racing 2005",
+      "url": "https://en.wikipedia.org/wiki/IHRA_Drag_Racing",
+      "date": "2004-11-01"
+    },
     "Oblivion": {
       "name": "The Elder Scrolls IV: Oblivion",
       "url": "https://store.steampowered.com/app/22330",
@@ -100,6 +106,12 @@
       "pak": "game:/Skyrim*.bsa",
       "dat": "game:/Skyrim.esm"
     },
+    "Blades": {
+      "n/a": true,
+      "name": "The Elder Scrolls: Blades",
+      "url": "https://elderscrolls.bethesda.net/en/blades",
+      "date": "2019-03-27"
+    },
     "Fallout76": {
       "name": "Fallout 76",
       "url": "https://store.steampowered.com/app/1151340",
@@ -111,6 +123,7 @@
     "Starfield": {
       "name": "Starfield",
       "url": "https://store.steampowered.com/app/1716740",
+      "date": "2023-09-05",
       "pakExt": ".ba2",
       "pak": "game:/Starfield*.ba2",
       "dat": "game:/Starfield.esm"
@@ -122,18 +135,6 @@
     "Fallout5": {
       "name": "Fallout 5 (future)",
       "url": "https://en.wikipedia.org/wiki/Fallout_(series)"
-    }
-  },
-  "other-games": {
-    "IHRA": {
-      "name": "IHRA Professional Drag Racing 2005",
-      "url": "https://en.wikipedia.org/wiki/IHRA_Drag_Racing",
-      "date": "2004-11-01"
-    },
-    "Blades": {
-      "name": "The Elder Scrolls: Blades",
-      "url": "https://elderscrolls.bethesda.net/en/blades",
-      "date": "2019-03-27"
     }
   },
   "fileManager": {

@@ -106,11 +106,6 @@ namespace GameSpec
         /// <returns></returns>
         public IDictionary<string, FamilyGame> Games { get; set; }
 
-        /// <summary>
-        /// Gets the family other games.
-        /// </summary>
-        /// <returns></returns>
-        public IDictionary<string, FamilyGame> OtherGames { get; set; }
 
         /// <summary>
         /// Gets the family apps.

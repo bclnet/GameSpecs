@@ -10,6 +10,12 @@
       "pakFileType": "GameSpec.Cryptic.CrypticPakFile, GameSpec.Cryptic",
       "pak": "game:/"
     },
+    "COH": {
+      "n/a": true,
+      "name": "City of Heroes",
+      "url": "https://en.wikipedia.org/wiki/City_of_Heroes",
+      "date": "2004-05-28"
+    },
     "CO": {
       "name": "Champions Online",
       "date": "2009-09-01",
@@ -29,15 +35,9 @@
       "date": "2013-12-05",
       "url": "https://store.steampowered.com/app/109600",
       "status": [ "open", "read" ]
-    }
-  },
-  "other-games": {
-    "COH": {
-      "name": "City of Heroes",
-      "url": "https://en.wikipedia.org/wiki/City_of_Heroes",
-      "date": "2004-05-28"
     },
     "MTG": {
+      "n/a": true,
       "name": "Magic: The Gathering",
       "url": "https://en.wikipedia.org/wiki/Magic:_Legends",
       "date": "2017-06-07"

@@ -17,33 +17,38 @@ namespace GameSpec.StoreManagers
 
         public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
             => AppPaths.TryGetValue(key, out path);
-        
+
         static EpicStoreManager()
         {
             var root = GetPath();
             if (root == null) return;
+            var dbPath = Path.Combine(root, "Manifests");
+            foreach (var s in Directory.EnumerateFiles(dbPath).Where(s => s.EndsWith(".item")))
+                AppPaths.Add(Path.GetFileNameWithoutExtension(s), JsonSerializer.Deserialize<JsonElement>(File.ReadAllText(s)).GetProperty("InstallLocation").GetString());
         }
 
         static string GetPath()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
-                if (key != null && key.GetValue("SteamPath") is string steamPath) return steamPath;
+                var home = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                return new[] { @"Epic\EpicGamesLauncher" }
+                    .Select(path => Path.Join(home, path, "Data"))
+                    .FirstOrDefault(Directory.Exists);
             }
             else if (RuntimeInformation.OSDescription.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                return new[] { "?Epic?" }
-                    .Select(path => Path.Join(home, path, "appcache"))
+                return new[] { "Epic/EpicGamesLauncher" }
+                    .Select(path => Path.Join(home, path, "Data"))
                     .FirstOrDefault(Directory.Exists);
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var home = "/Users/Shared";
-                return new[] { "UnrealEngine/Launcher" }
-                    .Select(path => Path.Join(home, path, "VaultCache"))
+                return new[] { "Epic/EpicGamesLauncher" }
+                    .Select(path => Path.Join(home, path, "Data"))
                     .FirstOrDefault(Directory.Exists);
             }
             throw new PlatformNotSupportedException();

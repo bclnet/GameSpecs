@@ -1,7 +1,10 @@
 ﻿{
   "id": "Capcom+M",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_M",
-  "other-games": {
+  "games": {
+    "*": {
+      "n/a": true
+    },
     "MagicSword": {
       "name": "Magic Sword",
       "url": "https://en.wikipedia.org/wiki/Magic_Sword_(video_game)",

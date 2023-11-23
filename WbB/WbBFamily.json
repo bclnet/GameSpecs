@@ -19,9 +19,53 @@
         "http://content.turbine.com/sites/clientdl/ac1/ac1install.exe",
         "http://www.thwargle.com/"
       ],
+      "date": "1999-11-02",
       "pakExt": ".dat",
       "pakx": "game:/client_portal.dat",
+      "tags": "Shutdown",
       "status": [ "open", "read", "texture:GL" ]
+    },
+    "AC2": {
+      "name": "Asheron's Call 2: Fallen Kings",
+      "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call_2:_Fallen_Kings",
+      "date": "2002-11-22",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "DDO": {
+      "name": "Dungeons & Dragons Online",
+      "url": "https://en.wikipedia.org/wiki/Dungeons_%26_Dragons_Online",
+      "date": "2006-02-28",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "LotRO": {
+      "name": "The Lord of the Rings Online",
+      "url": "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings_Online",
+      "date": "2007-04-24",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "IC": {
+      "name": "Infinite Crisis",
+      "url": "https://en.wikipedia.org/wiki/Infinite_Crisis_(video_game)",
+      "date": "2015-03-26",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "B:AU": {
+      "n/a": true,
+      "name": "Batman: Arkham Underworld",
+      "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call_2:_Fallen_Kings",
+      "date": "2002-11-22",
+      "tags": "mobile"
+    },
+    "GoT:C": {
+      "n/a": true,
+      "name": "Game of Thrones: Conquest",
+      "url": "https://warnerbrosgames.com/game/game-of-thrones-conquest",
+      "date": "2007-01-01",
+      "tags": "mobile"
     }
   },
   "fileManager": {
