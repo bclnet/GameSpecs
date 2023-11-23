@@ -81,7 +81,7 @@ namespace :book do
 
   desc 'build HTML format'
   task :build_html => 'book/contributors.txt' do
-      check_contrib()
+      #check_contrib()
 
       puts 'Converting to HTML...'
       sh "bundle exec asciidoctor #{params} -a data-uri gamespec.asc"
@@ -91,7 +91,7 @@ namespace :book do
 
   desc 'build Epub format'
   task :build_epub => 'book/contributors.txt' do
-      check_contrib()
+      #check_contrib()
 
       puts 'Converting to EPub...'
       sh "bundle exec asciidoctor-epub3 #{params} gamespec.asc"
@@ -101,7 +101,7 @@ namespace :book do
 
   desc 'build FB2 format'
   task :build_fb2 => 'book/contributors.txt' do
-      check_contrib()
+      #check_contrib()
 
       puts 'Converting to FB2...'
       sh "bundle exec asciidoctor-fb2 #{params} gamespec.asc"
@@ -111,7 +111,7 @@ namespace :book do
 
   desc 'build Mobi format'
   task :build_mobi => 'book/contributors.txt' do
-      check_contrib()
+      #check_contrib()
 
       puts "Converting to Mobi (kf8)..."
       sh "bundle exec asciidoctor-epub3 #{params} -a ebook-format=kf8 gamespec.asc"
@@ -120,7 +120,7 @@ namespace :book do
 
   desc 'build PDF format'
   task :build_pdf => 'book/contributors.txt' do
-      # check_contrib()
+      #check_contrib()
 
       puts 'Converting to PDF... (this one takes a while)'
       sh "bundle exec asciidoctor-pdf #{params} gamespec.asc 2>#{os_devnull}"
