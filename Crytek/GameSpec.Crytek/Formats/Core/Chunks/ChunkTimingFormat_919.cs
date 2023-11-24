@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkTimingFormat_919 : ChunkTimingFormat
     {

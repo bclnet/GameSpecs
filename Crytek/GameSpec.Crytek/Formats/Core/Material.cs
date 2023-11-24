@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core
+namespace GameSpec.Crytek.Formats.Core
 {
     /// <summary>
     /// Representation of a CryEngine .mtl file

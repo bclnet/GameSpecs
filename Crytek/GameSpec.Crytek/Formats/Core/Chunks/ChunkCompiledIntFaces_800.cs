@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkCompiledIntFaces_800 : ChunkCompiledIntFaces
     {

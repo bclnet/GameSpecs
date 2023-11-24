@@ -8,12 +8,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Arkane\GameSpec.Arkane.Platform\GameSpec.Arkane.Platform.csproj" />
     <ProjectReference Include="..\..\Arkane\GameSpec.Arkane\GameSpec.Arkane.csproj" />
+    <ProjectReference Include="..\..\Bethesda\GameSpec.Bethesda.Platform\GameSpec.Bethesda.Platform.csproj" />
+    <ProjectReference Include="..\..\Bethesda\GameSpec.Bethesda\GameSpec.Bethesda.csproj" />
     <ProjectReference Include="..\..\Bioware\GameSpec.Bioware.Platform\GameSpec.Bioware.Platform.csproj" />
     <ProjectReference Include="..\..\Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard.Platform\GameSpec.Blizzard.Platform.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj" />
     <ProjectReference Include="..\..\Capcom\GameSpec.Capcom.Platform\GameSpec.Capcom.Platform.csproj" />
     <ProjectReference Include="..\..\Capcom\GameSpec.Capcom\GameSpec.Capcom.csproj" />
+    <ProjectReference Include="..\..\Cig\GameSpec.Cig.Platform\GameSpec.Cig.Platform.csproj" />
+    <ProjectReference Include="..\..\Cig\GameSpec.Cig\GameSpec.Cig.csproj" />
     <ProjectReference Include="..\..\Cryptic\GameSpec.Cryptic.Platform\GameSpec.Cryptic.Platform.csproj" />
     <ProjectReference Include="..\..\Cryptic\GameSpec.Cryptic\GameSpec.Cryptic.csproj" />
     <ProjectReference Include="..\..\Crytek\GameSpec.Crytek.Platform\GameSpec.Crytek.Platform.csproj" />
@@ -28,22 +32,20 @@
     <ProjectReference Include="..\..\Id\GameSpec.Id\GameSpec.Id.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW.Platform\GameSpec.IW.Platform.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW\GameSpec.IW.csproj" />
-    <ProjectReference Include="..\..\Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj" />
-    <ProjectReference Include="..\..\Lith\GameSpec.Lith\GameSpec.Lith.csproj" />
+    <ProjectReference Include="..\..\Monolith\GameSpec.Monolith.Platform\GameSpec.Monolith.Platform.csproj" />
+    <ProjectReference Include="..\..\Monolith\GameSpec.Monolith\GameSpec.Monolith.csproj" />
     <ProjectReference Include="..\..\Origin\GameSpec.Origin.Platform\GameSpec.Origin.Platform.csproj" />
     <ProjectReference Include="..\..\Origin\GameSpec.Origin\GameSpec.Origin.csproj" />
     <ProjectReference Include="..\..\Red\GameSpec.Red.Resource\GameSpec.Red.Resource.csproj" />
     <ProjectReference Include="..\..\Red\GameSpec.Red\GameSpec.Red.csproj" />
-    <ProjectReference Include="..\..\Rsi\GameSpec.Rsi.Platform\GameSpec.Rsi.Platform.csproj" />
-    <ProjectReference Include="..\..\Rsi\GameSpec.Rsi\GameSpec.Rsi.csproj" />
-    <ProjectReference Include="..\..\Tes\GameSpec.Tes.Platform\GameSpec.Tes.Platform.csproj" />
-    <ProjectReference Include="..\..\Tes\GameSpec.Tes\GameSpec.Tes.csproj" />
+    <ProjectReference Include="..\..\Unity\GameSpec.Unity.Platform\GameSpec.Unity.Platform.csproj" />
     <ProjectReference Include="..\..\Unity\GameSpec.Unity\GameSpec.Unity.csproj" />
+    <ProjectReference Include="..\..\Unreal\GameSpec.Unreal.Platform\GameSpec.Unreal.Platform.csproj" />
     <ProjectReference Include="..\..\Unreal\GameSpec.Unreal\GameSpec.Unreal.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve.Platform\GameSpec.Valve.Platform.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve\GameSpec.Valve.csproj" />
-    <ProjectReference Include="..\..\WBB\GameSpec.WbB.Platform\GameSpec.WbB.Platform.csproj" />
-    <ProjectReference Include="..\..\WBB\GameSpec.WbB\GameSpec.WbB.csproj" />
+    <ProjectReference Include="..\..\WbB\GameSpec.WbB.Platform\GameSpec.WbB.Platform.csproj" />
+    <ProjectReference Include="..\..\WbB\GameSpec.WbB\GameSpec.WbB.csproj" />
   </ItemGroup>
 
   <ItemGroup>

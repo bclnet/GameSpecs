@@ -2,7 +2,7 @@
 using System.IO;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkSourceInfo_0 : ChunkSourceInfo
     {

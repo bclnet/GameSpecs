@@ -1,4 +1,4 @@
-﻿namespace GameSpec.Cry
+﻿namespace GameSpec.Crytek
 {
     /// <summary>
     /// CryFamily

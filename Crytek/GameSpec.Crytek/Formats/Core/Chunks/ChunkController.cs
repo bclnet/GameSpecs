@@ -1,6 +1,6 @@
 ﻿using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract class ChunkController : Chunk    // cccc000d:  Controller chunk
     {

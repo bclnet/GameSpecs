@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GameSpec.Cry.Formats.Core
+namespace GameSpec.Crytek.Formats.Core
 {
     public interface IBinaryChunk
     {

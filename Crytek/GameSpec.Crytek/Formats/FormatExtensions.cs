@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Cry.Formats
+namespace GameSpec.Crytek.Formats
 {
     /// <summary>
     /// FormatExtensions

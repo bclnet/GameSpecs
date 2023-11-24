@@ -1,6 +1,6 @@
 ﻿using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract partial class ChunkCompiledPhysicalProxies : Chunk        // 0xACDC0003:  Hit boxes?
     {

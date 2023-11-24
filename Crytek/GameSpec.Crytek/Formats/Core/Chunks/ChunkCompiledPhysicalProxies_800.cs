@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkCompiledPhysicalProxies_800 : ChunkCompiledPhysicalProxies
     {

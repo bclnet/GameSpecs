@@ -3,7 +3,7 @@ using System.Linq;
 using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract class ChunkCompiledPhysicalBones : Chunk     //  0xACDC0000:  Bones info
     {

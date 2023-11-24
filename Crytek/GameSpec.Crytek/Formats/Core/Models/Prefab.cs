@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace GameSpec.Cry.Formats.Models
+namespace GameSpec.Crytek.Formats.Models
 {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]

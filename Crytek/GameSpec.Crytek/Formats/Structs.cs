@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats
+namespace GameSpec.Crytek.Formats
 {
     /// <summary>
     /// String32 Name, int Start, int End

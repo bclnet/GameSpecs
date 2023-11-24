@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Models
+namespace GameSpec.Crytek.Formats.Models
 {
     [XmlRoot(ElementName = "PublicParams")]
     public class PublicParams

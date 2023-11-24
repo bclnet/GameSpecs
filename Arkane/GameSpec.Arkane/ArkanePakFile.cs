@@ -29,7 +29,7 @@ namespace GameSpec.Arkane
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = game.Engine switch
             {
-                "Cry" => Cry.Formats.FormatExtensions.GetObjectFactoryFactory,
+                "Cry" => Crytek.Formats.FormatExtensions.GetObjectFactoryFactory,
                 "Unreal" => Unreal.Formats.FormatExtensions.GetObjectFactoryFactory,
                 "Valve" => Valve.Formats.FormatExtensions.GetObjectFactoryFactory,
                 _ => FormatExtensions.GetObjectFactoryFactory,
@@ -48,7 +48,7 @@ namespace GameSpec.Arkane
             {
                 "Danae" => PakBinaryDanae.Instance,
                 "Void" => PakBinaryVoid.Instance,
-                "Cry" => Cry.Formats.PakBinaryCry3.Instance,
+                "Cry" => Crytek.Formats.PakBinaryCry3.Instance,
                 "Unreal" => Unreal.Formats.PakBinaryPck.Instance,
                 "Valve" => Valve.Formats.PakBinaryVpk.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),

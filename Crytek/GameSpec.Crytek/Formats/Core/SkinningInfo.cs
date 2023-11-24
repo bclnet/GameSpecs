@@ -1,7 +1,7 @@
-﻿using GameSpec.Cry.Formats.Models;
+﻿using GameSpec.Crytek.Formats.Models;
 using System.Collections.Generic;
 
-namespace GameSpec.Cry.Formats.Core
+namespace GameSpec.Crytek.Formats.Core
 {
     public class SkinningInfo
     {

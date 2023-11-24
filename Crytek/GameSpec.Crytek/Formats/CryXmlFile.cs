@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace GameSpec.Cry.Formats
+namespace GameSpec.Crytek.Formats
 {
     public class CryXmlFile : XmlDocument, IHaveStream, IGetMetadataInfo
     {

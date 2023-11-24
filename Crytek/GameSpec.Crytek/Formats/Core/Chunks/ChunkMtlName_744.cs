@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     // provides material name as used in the .mtl file. CCCC0014
     public class ChunkMtlName_744 : ChunkMtlName

@@ -1,4 +1,4 @@
-﻿namespace GameSpec.Cry.Formats
+﻿namespace GameSpec.Crytek.Formats
 {
     public enum FileVersion : uint
     {

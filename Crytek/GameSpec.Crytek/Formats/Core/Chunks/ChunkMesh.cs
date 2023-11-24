@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract partial class ChunkMesh : Chunk      //  cccc0000:  Object that points to the datastream chunk.
     {

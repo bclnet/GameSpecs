@@ -1,4 +1,4 @@
-﻿namespace GameSpec.Cry.Formats.Core.Chunks
+﻿namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkIvoSkin : Chunk
     {

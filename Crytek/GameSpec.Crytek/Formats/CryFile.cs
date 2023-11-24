@@ -1,5 +1,5 @@
-﻿using GameSpec.Cry.Formats.Core;
-using GameSpec.Cry.Formats.Core.Chunks;
+﻿using GameSpec.Crytek.Formats.Core;
+using GameSpec.Crytek.Formats.Core.Chunks;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats
+namespace GameSpec.Crytek.Formats
 {
     public partial class CryFile
     {

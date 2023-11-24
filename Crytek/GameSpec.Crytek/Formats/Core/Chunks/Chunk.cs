@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract class Chunk : IBinaryChunk
     {

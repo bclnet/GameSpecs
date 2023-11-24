@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     /// <summary>
     /// Legacy class. Not used

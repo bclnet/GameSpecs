@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     class ChunkMeshPhysicsData_80000800 : ChunkMeshPhysicsData
     {

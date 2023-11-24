@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkMesh_80000800 : ChunkMesh
     {

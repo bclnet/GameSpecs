@@ -1,8 +1,8 @@
-﻿using GameSpec.Cry.Formats;
+﻿using GameSpec.Crytek.Formats;
 using GameSpec.Formats.Unknown;
 using System.Threading.Tasks;
 
-namespace GameSpec.Cry.Transforms
+namespace GameSpec.Crytek.Transforms
 {
     /// <summary>
     /// UnknownTransform

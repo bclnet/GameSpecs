@@ -1,12 +1,12 @@
-﻿using GameSpec.Cry.Formats.Models;
+﻿using GameSpec.Crytek.Formats.Models;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     /// <summary>
     /// Collision mesh or something like that. TODO
     /// </summary>
-    /// <seealso cref="GameSpec.Cry.Formats.Core.Chunks.Chunk" />
+    /// <seealso cref="GameSpec.Crytek.Formats.Core.Chunks.Chunk" />
     class ChunkMeshPhysicsData : Chunk
     {
         public int PhysicsDataSize;             // Size of the physical data at the end of the chunk.

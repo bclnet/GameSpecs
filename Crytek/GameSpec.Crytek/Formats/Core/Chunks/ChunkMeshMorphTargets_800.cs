@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract class ChunkMeshMorphTargets_001 : ChunkMeshMorphTargets
     {

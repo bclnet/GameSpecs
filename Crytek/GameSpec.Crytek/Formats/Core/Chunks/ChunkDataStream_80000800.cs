@@ -4,7 +4,7 @@ using System.IO;
 using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     // Reversed endian class of x0800 for console games
     public class ChunkDataStream_80000800 : ChunkDataStream

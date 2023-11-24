@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats
+namespace GameSpec.Crytek.Formats
 {
     /// <summary>
     /// PakBinaryCry3

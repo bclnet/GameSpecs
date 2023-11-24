@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     /// <summary>
     /// Helper chunk. This is the top level, then nodes, then mesh, then mesh subsets. CCCC0001

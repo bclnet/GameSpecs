@@ -2,7 +2,7 @@
 using System.IO;
 using System.Numerics;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkNode_823 : ChunkNode
     {

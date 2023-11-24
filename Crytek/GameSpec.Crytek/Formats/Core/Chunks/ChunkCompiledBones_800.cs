@@ -1,7 +1,7 @@
-﻿using GameSpec.Cry.Formats.Models;
+﻿using GameSpec.Crytek.Formats.Models;
 using System.IO;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public class ChunkCompiledBones_800 : ChunkCompiledBones
     {

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
-             xmlns:rsiDataForge="clr-namespace:GameSpec.Rsi.Apps.DataForge;assembly=GameSpec.Rsi.Explorer"
+             xmlns:cigDataForge="clr-namespace:GameSpec.Cig.Apps.DataForge;assembly=GameSpec.Cig.Explorer"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200">
     <Grid>
@@ -18,7 +18,7 @@
                 </ScrollViewer>
             </DataTemplate>
             <DataTemplate x:Key="DataForgeTemplate" DataType="{x:Type model:MetadataContent}">
-                <rsiDataForge:NoteControl Margin="5,5,5,5" />
+                <cigDataForge:NoteControl Margin="5,5,5,5" />
             </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding}">

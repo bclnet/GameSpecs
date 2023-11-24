@@ -1,4 +1,4 @@
-﻿using GameSpec.Cry.Formats.Core.Chunks;
+﻿using GameSpec.Crytek.Formats.Core.Chunks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core
+namespace GameSpec.Crytek.Formats.Core
 {
     /// <summary>
     /// CryObject cgf/cga/skin file handler

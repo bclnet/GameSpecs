@@ -5,7 +5,7 @@ using System.Linq;
 using NVector2 = System.Numerics.Vector2;
 using NVector3 = System.Numerics.Vector3;
 
-namespace GameSpec.Cry.Formats.Core
+namespace GameSpec.Crytek.Formats.Core
 {
     partial class Material : IUnknownMaterial
     {

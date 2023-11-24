@@ -4,7 +4,7 @@ using System.IO;
 using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Models
+namespace GameSpec.Crytek.Formats.Models
 {
     /// < summary >
     /// This is the same as BoneDescData

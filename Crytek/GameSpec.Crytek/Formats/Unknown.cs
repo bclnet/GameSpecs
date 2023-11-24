@@ -1,4 +1,4 @@
-﻿using GameSpec.Cry.Formats.Core.Chunks;
+﻿using GameSpec.Crytek.Formats.Core.Chunks;
 using GameSpec.Formats.Unknown;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Numerics;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats
+namespace GameSpec.Crytek.Formats
 {
     partial class CryFile : IUnknownFileModel
     {

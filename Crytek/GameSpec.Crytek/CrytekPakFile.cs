@@ -1,15 +1,13 @@
-﻿using GameSpec.Cry.Formats;
-using GameSpec.Cry.Transforms;
-using GameSpec.Metadata;
+﻿using GameSpec.Crytek.Formats;
+using GameSpec.Crytek.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
+using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System.Collections.Concurrent;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-[assembly: InternalsVisibleTo("GameSpec.Rsi")]
 
-namespace GameSpec.Cry
+namespace GameSpec.Crytek
 {
     /// <summary>
     /// CryPakFile

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameSpec.Cry.Formats.Models
+namespace GameSpec.Crytek.Formats.Models
 {
     public class MaterialLibrary
     {

@@ -11,21 +11,21 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
+    <EmbeddedResource Include="..\..\Bethesda\BethesdaFamily.json" Link="Families\BethesdaFamily.json" />
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
     <EmbeddedResource Include="..\..\Blizzard\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
     <EmbeddedResource Include="..\..\Capcom\CapcomFamily.json" Link="Families\CapcomFamily.json" />
-    <EmbeddedResource Include="..\..\Crytek\CrytekFamily.json" Link="Families\CrytekFamily.json" />
+    <EmbeddedResource Include="..\..\Cig\CigFamily.json" Link="Families\CigFamily.json" />
     <EmbeddedResource Include="..\..\Cryptic\CrypticFamily.json" Link="Families\CrypticFamily.json" />
+    <EmbeddedResource Include="..\..\Crytek\CrytekFamily.json" Link="Families\CrytekFamily.json" />
     <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
     <EmbeddedResource Include="..\..\Frictional\FrictionalFamily.json" Link="Families\FrictionalFamily.json" />
     <EmbeddedResource Include="..\..\Frontier\FrontierFamily.json" Link="Families\FrontierFamily.json" />
     <EmbeddedResource Include="..\..\Id\IdFamily.json" Link="Families\IdFamily.json" />
     <EmbeddedResource Include="..\..\IW\IWFamily.json" Link="Families\IWFamily.json" />
-    <EmbeddedResource Include="..\..\Lith\LithFamily.json" Link="Families\LithFamily.json" />
+    <EmbeddedResource Include="..\..\Monolith\MonolithFamily.json" Link="Families\MonolithFamily.json" />
     <EmbeddedResource Include="..\..\Origin\OriginFamily.json" Link="Families\OriginFamily.json" />
     <EmbeddedResource Include="..\..\Red\RedFamily.json" Link="Families\RedFamily.json" />
-    <EmbeddedResource Include="..\..\Rsi\RsiFamily.json" Link="Families\RsiFamily.json" />
-    <EmbeddedResource Include="..\..\Tes\TesFamily.json" Link="Families\TesFamily.json" />
     <EmbeddedResource Include="..\..\Unity\UnityFamily.json" Link="Families\UnityFamily.json" />
     <EmbeddedResource Include="..\..\Unknown\UnknownFamily.json" Link="Families\UnknownFamily.json" />
     <EmbeddedResource Include="..\..\Unreal\UnrealFamily.json" Link="Families\UnrealFamily.json" />

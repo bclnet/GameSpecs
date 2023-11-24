@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using static OpenStack.Debug;
 
-namespace GameSpec.Cry.Formats.Core.Chunks
+namespace GameSpec.Crytek.Formats.Core.Chunks
 {
     public abstract class ChunkExportFlags : Chunk  // cccc0015:  Export Flags
     {

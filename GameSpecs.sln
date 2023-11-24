@@ -31,10 +31,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.App.Base", "Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.App.BaseTests", "Applications\GameSpec.App.BaseTests\GameSpec.App.BaseTests.csproj", "{BD2EA3EA-3F60-4184-94E2-7486A1BFE539}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tes", "Tes", "{7F78A794-57C6-4BC7-9267-1E68E4CEC9DE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bethesda", "Bethesda", "{7F78A794-57C6-4BC7-9267-1E68E4CEC9DE}"
 	ProjectSection(SolutionItems) = preProject
-		Documents\Families\Tes\Readme.md = Documents\Families\Tes\Readme.md
-		Tes\TesFamily.json = Tes\TesFamily.json
+		Documents\Families\Bethesda\Readme.md = Documents\Families\Bethesda\Readme.md
+		Bethesda\BethesdaFamily.json = Bethesda\BethesdaFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WbB", "WbB", "{BDE29250-8EA7-47E0-8D67-A58A176B2D30}"
@@ -79,10 +79,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Red", "Red", "{6E7BB6E0-050
 		Red\RedFamily.json = Red\RedFamily.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rsi", "Rsi", "{228CD927-3DD3-45AA-9529-B703AC15A1AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cig", "Cig", "{228CD927-3DD3-45AA-9529-B703AC15A1AA}"
 	ProjectSection(SolutionItems) = preProject
-		Documents\Families\Rsi\Readme.md = Documents\Families\Rsi\Readme.md
-		Rsi\RsiFamily.json = Rsi\RsiFamily.json
+		Documents\Families\Cig\Readme.md = Documents\Families\Cig\Readme.md
+		Cig\CigFamily.json = Cig\CigFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{D13E28F2-5471-49F4-BE39-E7920D84D918}"
@@ -116,10 +116,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unknown", "Unknown", "{991C
 		Unknown\UnknownFamily.json = Unknown\UnknownFamily.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lith", "Lith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monolith", "Monolith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
 	ProjectSection(SolutionItems) = preProject
-		Lith\LithFamily.json = Lith\LithFamily.json
-		Documents\Families\Lith\Readme.md = Documents\Families\Lith\Readme.md
+		Monolith\MonolithFamily.json = Monolith\MonolithFamily.json
+		Documents\Families\Monolith\Readme.md = Documents\Families\Monolith\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IW", "IW", "{557FA17D-0D46-42AE-95E1-8B486EA8822A}"
@@ -242,17 +242,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Red.Resource", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.RedTests", "Red\GameSpec.RedTests\GameSpec.RedTests.csproj", "{04219500-823F-4BE5-A16A-5051EA7D872D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Rsi", "Rsi\GameSpec.Rsi\GameSpec.Rsi.csproj", "{7C0806B6-63F0-4A4B-83C1-A53457BB15D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cig", "Cig\GameSpec.Cig\GameSpec.Cig.csproj", "{7C0806B6-63F0-4A4B-83C1-A53457BB15D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Rsi.Platform", "Rsi\GameSpec.Rsi.Platform\GameSpec.Rsi.Platform.csproj", "{8B77C3A2-C2EC-4B23-AB93-E6DA0F7ED462}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cig.Platform", "Cig\GameSpec.Cig.Platform\GameSpec.Cig.Platform.csproj", "{8B77C3A2-C2EC-4B23-AB93-E6DA0F7ED462}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.RsiTests", "Rsi\GameSpec.RsiTests\GameSpec.RsiTests.csproj", "{5421B474-8377-4109-872C-AA13C3380915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CigTests", "Cig\GameSpec.CigTests\GameSpec.CigTests.csproj", "{5421B474-8377-4109-872C-AA13C3380915}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Tes", "Tes\GameSpec.Tes\GameSpec.Tes.csproj", "{E8025E1F-381B-4626-8F2A-86C35C938FE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bethesda", "Bethesda\GameSpec.Bethesda\GameSpec.Bethesda.csproj", "{E8025E1F-381B-4626-8F2A-86C35C938FE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Tes.Platform", "Tes\GameSpec.Tes.Platform\GameSpec.Tes.Platform.csproj", "{22B4B780-20A8-44C3-9321-066E52971B16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Bethesda.Platform", "Bethesda\GameSpec.Bethesda.Platform\GameSpec.Bethesda.Platform.csproj", "{22B4B780-20A8-44C3-9321-066E52971B16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.TesTests", "Tes\GameSpec.TesTests\GameSpec.TesTests.csproj", "{D56F8B1B-7C5F-48C2-B9C1-7E840319AABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.BethesdaTests", "Bethesda\GameSpec.BethesdaTests\GameSpec.BethesdaTests.csproj", "{D56F8B1B-7C5F-48C2-B9C1-7E840319AABC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Unity", "Unity\GameSpec.Unity\GameSpec.Unity.csproj", "{70A7FA64-1CCB-42AC-875C-E4D258FC0ED5}"
 EndProject
@@ -272,11 +272,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Valve.Platform", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.ValveTests", "Valve\GameSpec.ValveTests\GameSpec.ValveTests.csproj", "{328865E1-04C0-49CB-8CB5-72FFA966C273}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith", "Lith\GameSpec.Lith\GameSpec.Lith.csproj", "{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Monolith", "Monolith\GameSpec.Monolith\GameSpec.Monolith.csproj", "{E7BCDDDF-CACE-4D9D-87E3-A455449FD19D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lith.Platform", "Lith\GameSpec.Lith.Platform\GameSpec.Lith.Platform.csproj", "{F27DA894-E285-4829-AB0D-3E9C9E7FD763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Monolith.Platform", "Monolith\GameSpec.Monolith.Platform\GameSpec.Monolith.Platform.csproj", "{F27DA894-E285-4829-AB0D-3E9C9E7FD763}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.LithTests", "Lith\GameSpec.LithTests\GameSpec.LithTests.csproj", "{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.MonolithTests", "Monolith\GameSpec.MonolithTests\GameSpec.MonolithTests.csproj", "{73B0BE5C-4C09-47E3-A5EE-A6925019EAFF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyIO", "OpenStack\Base\OpenStack.PolyIO\OpenStack.PolyIO.csproj", "{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}"
 EndProject
@@ -342,7 +342,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Capcom.Platform", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CapcomTests", "Capcom\GameSpec.CapcomTests\GameSpec.CapcomTests.csproj", "{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Rsi.Explorer", "Rsi\GameSpec.Rsi.Explorer\GameSpec.Rsi.Explorer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cig.Explorer", "Cig\GameSpec.Cig.Explorer\GameSpec.Cig.Explorer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

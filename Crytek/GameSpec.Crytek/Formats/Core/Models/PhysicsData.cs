@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace GameSpec.Cry.Formats.Models
+namespace GameSpec.Crytek.Formats.Models
 {
     /// <summary>
     /// Collision or hitbox info. Part of the MeshPhysicsData chunk
