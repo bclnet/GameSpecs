@@ -6,7 +6,7 @@ namespace GameSpec.IW
     [TestClass]
     public class FormatTests2
     {
-        static readonly Family family = FamilyManager.GetFamily("Hpl");
+        static readonly Family family = FamilyManager.GetFamily("Frictional");
         static PakFile main = family.OpenPakFile(new Uri("game:/xxx#P:O"));
 
         //[DataTestMethod]

@@ -1,27 +1,27 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Hpl.Formats;
-using GameSpec.Hpl.Transforms;
+using GameSpec.Frictional.Formats;
+using GameSpec.Frictional.Transforms;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System.Threading.Tasks;
 
-namespace GameSpec.Hpl
+namespace GameSpec.Frictional
 {
     /// <summary>
-    /// HplPakFile
+    /// FrictionalPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class HplPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class FrictionalPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HplPakFile" /> class.
+        /// Initializes a new instance of the <see cref="FrictionalPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public HplPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryHpl.Instance, tag)
+        public FrictionalPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryFrictional.Instance, tag)
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;

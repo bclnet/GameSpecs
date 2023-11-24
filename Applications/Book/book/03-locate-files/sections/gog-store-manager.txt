@@ -1,0 +1,5 @@
+Rewrite the following paragraph:
+
+GOG Gallaxy is the the store manager used for all GOG games.
+The Gog Store Manager locates the 'galaxy-2.0.db' file located in the store managers directory.
+The file is decoded using Sqlite3 with the 'SELECT productId, installationPath FROM InstalledBaseProducts' query holding the installed games location.

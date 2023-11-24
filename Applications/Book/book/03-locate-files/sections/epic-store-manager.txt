@@ -1,0 +1,5 @@
+Rewrite the following paragraph:
+
+Epic Games Launcher is the store manager used for all Epic games.
+The Epic Store Manager locates the 'Manifests' directory located in the store managers directory.
+The files are decoded using JSON with the 'InstallLocation' field holding the installed games location.

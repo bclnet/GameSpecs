@@ -103,12 +103,12 @@ namespace GameSpec
             AddDirect(elem);
             AddIgnores(elem);
             AddFilters(elem);
-            var platformName = platformOS.ToString().ToLowerInvariant();
-            if (!elem.TryGetProperty(platformName, out var z)) return this;
-            elem = z;
-            AddDirect(elem);
-            AddIgnores(elem);
-            AddFilters(elem);
+            //var platformName = platformOS.ToString().ToLowerInvariant();
+            //if (!elem.TryGetProperty(platformName, out var z)) return this;
+            //elem = z;
+            //AddDirect(elem);
+            //AddIgnores(elem);
+            //AddFilters(elem);
             return this;
         }
 

@@ -20,10 +20,10 @@
     <ProjectReference Include="..\..\Crytek\GameSpec.Crytek\GameSpec.Crytek.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide\GameSpec.Cyanide.csproj" />
+    <ProjectReference Include="..\..\Frictional\GameSpec.Frictional.Platform\GameSpec.Frictional.Platform.csproj" />
+    <ProjectReference Include="..\..\Frictional\GameSpec.Frictional\GameSpec.Frictional.csproj" />
     <ProjectReference Include="..\..\Frontier\GameSpec.Frontier.Platform\GameSpec.Frontier.Platform.csproj" />
     <ProjectReference Include="..\..\Frontier\GameSpec.Frontier\GameSpec.Frontier.csproj" />
-    <ProjectReference Include="..\..\Hpl\GameSpec.Hpl.Platform\GameSpec.Hpl.Platform.csproj" />
-    <ProjectReference Include="..\..\Hpl\GameSpec.Hpl\GameSpec.Hpl.csproj" />
     <ProjectReference Include="..\..\Id\GameSpec.Id.Platform\GameSpec.Id.Platform.csproj" />
     <ProjectReference Include="..\..\Id\GameSpec.Id\GameSpec.Id.csproj" />
     <ProjectReference Include="..\..\IW\GameSpec.IW.Platform\GameSpec.IW.Platform.csproj" />

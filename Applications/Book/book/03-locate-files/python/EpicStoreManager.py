@@ -8,26 +8,24 @@ def init():
             home = os.getenv('ALLUSERSPROFILE')
             search = ['Epic/EpicGamesLauncher']
             paths = [os.path.join(home, path, 'Data') for path in search]
-            return next(iter(x for x in paths if os.path.isdir(x)), None)
         elif system == 'Linux':
             # linux paths
             home = os.path.expanduser('~')
             search = ['?GOG?']
             paths = [os.path.join(home, path, 'Data') for path in search]
-            return next(iter(x for x in paths if os.path.isdir(x)), None)
         elif system == 'Darwin':
             # mac paths
             home = '/Users/Shared'
             search = ['Epic/EpicGamesLauncher']
             paths = [os.path.join(home, path, 'Data') for path in search]
-            return next(iter(x for x in paths if os.path.isdir(x)), None)
         else: raise Exception(f'Unknown platform: {system}')
+        return next(iter(x for x in paths if os.path.isdir(x)), None)
     
     # get dbPath
     root = getPath()
     if root == None: return
     dbPath = os.path.join(root, 'Manifests')
-     # decode manifests
+    # query games
     for s in [s for s in os.listdir(dbPath) if s.endswith('.item')]:
         with open(os.path.join(dbPath, s), 'r') as f:
             # add appPath if exists
@@ -36,4 +34,4 @@ def init():
 
 epicAppPaths = {}
 init()
-#print(epicAppPaths)
+# print(epicAppPaths)

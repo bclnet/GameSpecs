@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Hpl.Formats
+namespace GameSpec.Frictional.Formats
 {
-    public unsafe class PakBinaryHpl : PakBinary
+    public unsafe class PakBinaryFrictional : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryHpl();
+        public static readonly PakBinary Instance = new PakBinaryFrictional();
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

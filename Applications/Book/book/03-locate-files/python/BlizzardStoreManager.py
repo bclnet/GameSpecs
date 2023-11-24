@@ -19,12 +19,12 @@ def init():
             paths = [os.path.join(home, path, 'data') for path in search]
         else: raise Exception(f'Unknown platform: {system}')
         return next(iter(x for x in paths if os.path.isdir(x)), None)
-    # get product.db path
+    # get dbPath
     root = getPath()
     if root == None: return
     dbPath = os.path.join(root, 'product.db')
     if not os.path.exists(dbPath): return
-    # decode productDb
+    # query games
     productDb = BlizzardProtoDatabase_pb2.Database()
     with open(dbPath, 'rb') as f:
         bytes = f.read()
@@ -38,4 +38,4 @@ def init():
 
 blizzardAppPaths = {}
 init()
-#print(blizzardAppPaths)
+# print(blizzardAppPaths)

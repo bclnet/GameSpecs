@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameSpec.Hpl\GameSpec.Hpl.csproj" />
+    <ProjectReference Include="..\GameSpec.Frictional\GameSpec.Frictional.csproj" />
   </ItemGroup>
 
 </Project>

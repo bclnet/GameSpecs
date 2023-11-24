@@ -1,0 +1,5 @@
+Rewrite the following paragraph:
+
+Battle.net is the store manager used for all Blizzard games.
+The Blizzard Store Manager locates the 'product.db' file located in the store managers directory.
+The file is decoded using Google's ProtoBuf with the 'ProductInstall:Settings.InstallPath' field holding the installed games location.

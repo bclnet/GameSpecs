@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace GameSpec.Hpl.Formats
+namespace GameSpec.Frictional.Formats
 {
     public class BinaryPak : IGetMetadataInfo
     {

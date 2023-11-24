@@ -1,0 +1,4 @@
+Rewrite the following paragraph:
+
+Store manager combines all the Store managers.
+A simple 'getPathByKey' method will lookup the key in the store managers.

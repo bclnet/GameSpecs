@@ -133,10 +133,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalogs", "catalogs", "{60
 		Unknown\catalogs\main.yaml = Unknown\catalogs\main.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hpl", "Hpl", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frictional", "Frictional", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
 	ProjectSection(SolutionItems) = preProject
-		Hpl\HplFamily.json = Hpl\HplFamily.json
-		Documents\Families\Hpl\Readme.md = Documents\Families\Hpl\Readme.md
+		Frictional\FrictionalFamily.json = Frictional\FrictionalFamily.json
+		Documents\Families\Frictional\Readme.md = Documents\Families\Frictional\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blizzard", "Blizzard", "{389FCD8C-F4E7-4B16-BF62-11B3E075BC4E}"
@@ -280,11 +280,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.LithTests", "Lith\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyIO", "OpenStack\Base\OpenStack.PolyIO\OpenStack.PolyIO.csproj", "{C9E0A904-D76C-45C9-B1B2-D2DCE789177A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Hpl.Platform", "Hpl\GameSpec.Hpl.Platform\GameSpec.Hpl.Platform.csproj", "{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Frictional.Platform", "Frictional\GameSpec.Frictional.Platform\GameSpec.Frictional.Platform.csproj", "{DD1A2D4E-20CD-4F9F-A22D-B84BA246DB0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.HplTests", "Hpl\GameSpec.HplTests\GameSpec.HplTests.csproj", "{33EDA96D-B689-4195-880C-25EF90C8AF83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.FrictionalTests", "Frictional\GameSpec.FrictionalTests\GameSpec.FrictionalTests.csproj", "{33EDA96D-B689-4195-880C-25EF90C8AF83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Hpl", "Hpl\GameSpec.Hpl\GameSpec.Hpl.csproj", "{986869A8-BA1E-4301-94AE-DDFD614E2547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Frictional", "Frictional\GameSpec.Frictional\GameSpec.Frictional.csproj", "{986869A8-BA1E-4301-94AE-DDFD614E2547}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Blizzard", "Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj", "{C9F07003-E1F4-4D45-9C62-183AAA632AD3}"
 EndProject

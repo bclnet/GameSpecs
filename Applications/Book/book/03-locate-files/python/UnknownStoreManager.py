@@ -1,2 +1,0 @@
-unknownAppPaths = {}
-print(unknownAppPaths)

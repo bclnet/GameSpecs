@@ -17,8 +17,8 @@
     <EmbeddedResource Include="..\..\Crytek\CrytekFamily.json" Link="Families\CrytekFamily.json" />
     <EmbeddedResource Include="..\..\Cryptic\CrypticFamily.json" Link="Families\CrypticFamily.json" />
     <EmbeddedResource Include="..\..\Cyanide\CyanideFamily.json" Link="Families\CyanideFamily.json" />
+    <EmbeddedResource Include="..\..\Frictional\FrictionalFamily.json" Link="Families\FrictionalFamily.json" />
     <EmbeddedResource Include="..\..\Frontier\FrontierFamily.json" Link="Families\FrontierFamily.json" />
-    <EmbeddedResource Include="..\..\Hpl\HplFamily.json" Link="Families\HplFamily.json" />
     <EmbeddedResource Include="..\..\Id\IdFamily.json" Link="Families\IdFamily.json" />
     <EmbeddedResource Include="..\..\IW\IWFamily.json" Link="Families\IWFamily.json" />
     <EmbeddedResource Include="..\..\Lith\LithFamily.json" Link="Families\LithFamily.json" />

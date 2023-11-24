@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace GameSpec.Hpl.Transforms
+namespace GameSpec.Frictional.Transforms
 {
     /// <summary>
     /// UnknownTransform

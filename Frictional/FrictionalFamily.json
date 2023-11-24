@@ -1,13 +1,13 @@
 ﻿{
-  "id": "HPL",
+  "id": "Frictional",
   "name": "HPL Engine",
   "studio": "Frictional Games",
   "description": "Frictional Games file formats",
   "url": "https://en.wikipedia.org/wiki/Frictional_Games",
-  "familyType": "GameSpec.Hpl.HplFamily, GameSpec.Hpl",
+  "familyType": "GameSpec.Frictional.FrictionalFamily, GameSpec.Frictional",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Hpl.HplPakFile, GameSpec.Hpl",
+      "pakFileType": "GameSpec.Frictional.FrictionalPakFile, GameSpec.Frictional",
       "pakExt": ".iwd",
       "pak": "game:/"
     },

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Hpl.Formats
+namespace GameSpec.Frictional.Formats
 {
     /// <summary>
     /// FormatExtensions

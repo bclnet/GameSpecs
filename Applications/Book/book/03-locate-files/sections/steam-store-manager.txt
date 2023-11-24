@@ -1,0 +1,6 @@
+Rewrite the following paragraph:
+
+Steam is the the store manager used for all Steam games.
+The Steam Store Manager locates the 'libraryfolders.vdf' file located in the managers directory.
+The file is decoded using the 'AcfStruct' encoding with the 'path' field locating the other 'appmanifest_{appId}.acf' files.
+These files are then decoded using the 'AcfStruct' encoding with the 'AppState.installdir' field holding the installed games location.
