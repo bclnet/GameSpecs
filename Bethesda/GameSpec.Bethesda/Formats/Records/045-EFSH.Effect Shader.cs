@@ -9,7 +9,7 @@ namespace GameSpec.Bethesda.Formats.Records
             public byte Flags;
             public uint MembraneShader_SourceBlendMode;
             public uint MembraneShader_BlendOperation;
-            public uint MembraneShader_ZBethesdatFunction;
+            public uint MembraneShader_ZTestFunction;
             public ColorRef4 FillTextureEffect_Color;
             public float FillTextureEffect_AlphaFadeInTime;
             public float FillTextureEffect_FullAlphaTime;
@@ -32,7 +32,7 @@ namespace GameSpec.Bethesda.Formats.Records
             public uint MembraneShader_DestBlendMode;
             public uint ParticleShader_SourceBlendMode;
             public uint ParticleShader_BlendOperation;
-            public uint ParticleShader_ZBethesdatFunction;
+            public uint ParticleShader_ZTestFunction;
             public uint ParticleShader_DestBlendMode;
             public float ParticleShader_ParticleBirthRampUpTime;
             public float ParticleShader_FullParticleBirthTime;
@@ -71,7 +71,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 r.Skip(3); // Unused
                 MembraneShader_SourceBlendMode = r.ReadUInt32();
                 MembraneShader_BlendOperation = r.ReadUInt32();
-                MembraneShader_ZBethesdatFunction = r.ReadUInt32();
+                MembraneShader_ZTestFunction = r.ReadUInt32();
                 FillTextureEffect_Color = r.ReadT<ColorRef4>(dataSize);
                 FillTextureEffect_AlphaFadeInTime = r.ReadSingle();
                 FillTextureEffect_FullAlphaTime = r.ReadSingle();
@@ -96,7 +96,7 @@ namespace GameSpec.Bethesda.Formats.Records
                     return;
                 ParticleShader_SourceBlendMode = r.ReadUInt32();
                 ParticleShader_BlendOperation = r.ReadUInt32();
-                ParticleShader_ZBethesdatFunction = r.ReadUInt32();
+                ParticleShader_ZTestFunction = r.ReadUInt32();
                 ParticleShader_DestBlendMode = r.ReadUInt32();
                 ParticleShader_ParticleBirthRampUpTime = r.ReadSingle();
                 ParticleShader_FullParticleBirthTime = r.ReadSingle();
