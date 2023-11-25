@@ -53,8 +53,6 @@ def GameFamily(f):
     
 def LocateFiles(fm):
     b = ['\n']
-    b.append(f'==== Files\n\n')
-    b.append(f'\n')
     b.append('[cols="1,1,1,1"]\n')
     b.append('|===\n')
     b.append(f'|Id |Dir |Key |Path\n')
@@ -76,4 +74,4 @@ for f in base.init('../../').values():
     writeFile(f, f'book/02-game-families/{f.id}.asc', '==== Family Info\n', body)
     if f.fileManager != None:
         body = LocateFiles(f.fileManager)
-        writeFile(f, f'book/03-locate-files/{f.id}.asc', '=== Table\n', body)
+        writeFile(f, f'book/03-locate-files/{f.id}.asc', '==== File Info\n', body)
