@@ -2,7 +2,6 @@ import os, platform, BlizzardProtoDatabase_pb2
 
 @staticmethod
 def init():
-    @staticmethod
     def getPath():
         system = platform.system()
         if system == 'Windows':

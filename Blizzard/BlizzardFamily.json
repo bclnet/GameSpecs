@@ -1,7 +1,7 @@
 ﻿{
   "id": "Blizzard",
   "name": "Blizzard",
-  "studio": "Blizzard",
+  "studio": "Blizzard Activision",
   "description": "Blizzard file formats",
   "url": "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games",
   "familyType": "GameSpec.Blizzard.BlizzardFamily, GameSpec.Blizzard",
@@ -131,7 +131,7 @@
     },
     "HOTS": {
       "name": "Heroes of the Storm",
-      "url": "",
+      "url": "https://us.shop.battle.net/en-us/family/heroes-of-the-storm",
       "date": "2013-11-05",
       "tags": "",
       "editions": {
@@ -141,7 +141,7 @@
     },
     "HS": {
       "name": "Hearthstone",
-      "url": "https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft",
+      "url": "https://us.shop.battle.net/en-us/family/hearthstone",
       "date": "2014-03-11",
       "tags": "",
       "editions": {

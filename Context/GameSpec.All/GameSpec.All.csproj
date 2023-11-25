@@ -26,6 +26,8 @@
     <ProjectReference Include="..\..\Crytek\GameSpec.Crytek\GameSpec.Crytek.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide.Platform\GameSpec.Cyanide.Platform.csproj" />
     <ProjectReference Include="..\..\Cyanide\GameSpec.Cyanide\GameSpec.Cyanide.csproj" />
+    <ProjectReference Include="..\..\Epic\GameSpec.Epic.Platform\GameSpec.Epic.Platform.csproj" />
+    <ProjectReference Include="..\..\Epic\GameSpec.Epic\GameSpec.Epic.csproj" />
     <ProjectReference Include="..\..\Frictional\GameSpec.Frictional.Platform\GameSpec.Frictional.Platform.csproj" />
     <ProjectReference Include="..\..\Frictional\GameSpec.Frictional\GameSpec.Frictional.csproj" />
     <ProjectReference Include="..\..\Frontier\GameSpec.Frontier.Platform\GameSpec.Frontier.Platform.csproj" />
@@ -42,8 +44,6 @@
     <ProjectReference Include="..\..\Red\GameSpec.Red\GameSpec.Red.csproj" />
     <ProjectReference Include="..\..\Unity\GameSpec.Unity.Platform\GameSpec.Unity.Platform.csproj" />
     <ProjectReference Include="..\..\Unity\GameSpec.Unity\GameSpec.Unity.csproj" />
-    <ProjectReference Include="..\..\Unreal\GameSpec.Unreal.Platform\GameSpec.Unreal.Platform.csproj" />
-    <ProjectReference Include="..\..\Unreal\GameSpec.Unreal\GameSpec.Unreal.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve.Platform\GameSpec.Valve.Platform.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve\GameSpec.Valve.csproj" />
     <ProjectReference Include="..\..\WbB\GameSpec.WbB.Platform\GameSpec.WbB.Platform.csproj" />

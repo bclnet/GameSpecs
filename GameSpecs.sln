@@ -91,10 +91,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{D13E28F2
 		Unity\UnityFamily.json = Unity\UnityFamily.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unreal", "Unreal", "{9123F171-1DB1-4AB3-95F3-D4BF658998D7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Epic", "Epic", "{9123F171-1DB1-4AB3-95F3-D4BF658998D7}"
 	ProjectSection(SolutionItems) = preProject
-		Documents\Families\Unreal\Readme.md = Documents\Families\Unreal\Readme.md
-		Unreal\UnrealFamily.json = Unreal\UnrealFamily.json
+		Documents\Families\Epic\Readme.md = Documents\Families\Epic\Readme.md
+		Epic\EpicFamily.json = Epic\EpicFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Valve", "Valve", "{B9CFB3F1-EFD8-4107-8E96-343726BBC9DC}"
@@ -260,11 +260,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Unity.Platform", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.UnityTests", "Unity\GameSpec.UnityTests\GameSpec.UnityTests.csproj", "{6EB17D66-E2CF-4583-AAE7-2A6472174054}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Unreal", "Unreal\GameSpec.Unreal\GameSpec.Unreal.csproj", "{85F5B722-204B-4554-9F7C-7EF7646B163A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Epic", "Epic\GameSpec.Epic\GameSpec.Epic.csproj", "{85F5B722-204B-4554-9F7C-7EF7646B163A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Unreal.Platform", "Unreal\GameSpec.Unreal.Platform\GameSpec.Unreal.Platform.csproj", "{4A88D2EB-2145-4D01-B758-CC37B1B5E0DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Epic.Platform", "Epic\GameSpec.Epic.Platform\GameSpec.Epic.Platform.csproj", "{4A88D2EB-2145-4D01-B758-CC37B1B5E0DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.UnrealTests", "Unreal\GameSpec.UnrealTests\GameSpec.UnrealTests.csproj", "{C62F5816-D06E-472E-B909-855B9AD30BDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.EpicTests", "Epic\GameSpec.EpicTests\GameSpec.EpicTests.csproj", "{C62F5816-D06E-472E-B909-855B9AD30BDC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Valve", "Valve\GameSpec.Valve\GameSpec.Valve.csproj", "{A3A79249-0820-4E28-ABDE-5DF97F23BCF1}"
 EndProject
@@ -345,6 +345,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cig.Explorer", "Cig\GameSpec.Cig.Explorer\GameSpec.Cig.Explorer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Black", "Black", "{231779E5-20EB-435B-BAAF-48A1D0BF6E1C}"
+	ProjectSection(SolutionItems) = preProject
+		Black\BlackFamily.json = Black\BlackFamily.json
+		Documents\Families\Black\Readme.md = Documents\Families\Black\Readme.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Black", "Black\GameSpec.Black\GameSpec.Black.csproj", "{CDA9519E-93E6-4F7C-8399-6C33B18C5FE6}"
 EndProject

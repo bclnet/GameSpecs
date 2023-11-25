@@ -2,7 +2,6 @@ import os, platform, json
 
 @staticmethod
 def init():
-    @staticmethod
     def getPath():
         system = platform.system()
         if system == 'Windows':

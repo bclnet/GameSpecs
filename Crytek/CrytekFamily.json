@@ -4,10 +4,10 @@
   "studio": "Crytek",
   "description": "The file formats used in Cry and Lumberyard",
   "url": "https://en.wikipedia.org/wiki/Crytek",
-  "familyType": "GameSpec.Cry.CryFamily, GameSpec.Cry",
+  "familyType": "GameSpec.Crytek.CryFamily, GameSpec.Crytek",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Cry.CryPakFile, GameSpec.Cry",
+      "pakFileType": "GameSpec.Crytek.CryPakFile, GameSpec.Crytek",
       "pakExt": ".pak"
     },
     "ArcheAge": {

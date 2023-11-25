@@ -1,7 +1,6 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using static GameSpec.FamilyManager;
 
@@ -92,6 +91,14 @@ namespace GameSpec
         /// </summary>
         public string Engine { get; set; }
         /// <summary>
+        /// Gets or sets the game urls.
+        /// </summary>
+        public Uri[] Urls { get; set; }
+        /// <summary>
+        /// Gets or sets the game date.
+        /// </summary>
+        public DateTime Date { get; set; }
+        /// <summary>
         /// Gets or sets the game type.
         /// </summary>
         public Type GameType { get; set; }
@@ -145,7 +152,7 @@ namespace GameSpec
         /// <summary>
         /// Gets the game dlcs.
         /// </summary>
-        public IDictionary<string, DownloadableContent> Dlc { get; set; }
+        public IDictionary<string, DownloadableContent> Dlcs { get; set; }
         /// <summary>
         /// Gets the game locales.
         /// </summary>

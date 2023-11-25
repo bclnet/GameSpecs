@@ -22,10 +22,11 @@ The following are the current games:\n
 | -- | --   | --   | --   | --     | --    | --
 ''']
     for f in families.values():
+        print(f)
         b.append(f'| **{f.id}** | **{f.name}**\n')
-        for g in [x for x in f.games if not x.ignore]:
-            b.append(f'| [{g.id}]({g.url[0] if g.url else ''}) | {g.name} | {single(g.status, "open")} | {single(g.status, "read")} | {platform(g.status, "texture")} | {platform(g.status, "model")} | {platform(g.status, "level")}\n')
+        for g in [x for x in f.games.values() if not x.ignore]:
+            b.append(f'| [{g.id}]({g.urls[0] if g.urls else ''}) | {g.name} | {single(g.status, "open")} | {single(g.status, "read")} | {platform(g.status, "texture")} | {platform(g.status, "model")} | {platform(g.status, "level")}\n')
     return ''.join(b)
 body = GamesBody(base.init(''))
-#print(body)
+print(body)
 writeFile('README.md', '## Games\n', body)

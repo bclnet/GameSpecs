@@ -2,7 +2,7 @@ import os, platform, psutil, winreg, StoreManager
 GAMESPATH = 'Games'
 
 class FileManager:
-    ApplicationPath = ''
+    ApplicationPath = os.getcwd()
     # get locale games
     gameRoots = [os.path.join(x.mountpoint, GAMESPATH) for x in psutil.disk_partitions()]
     if platform.system() == 'Android': gameRoots.append(os.path.join('/sdcard', GAMESPATH))

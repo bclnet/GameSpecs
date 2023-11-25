@@ -30,7 +30,7 @@ namespace GameSpec.Arkane
             GetObjectFactoryFactory = game.Engine switch
             {
                 "Cry" => Crytek.Formats.FormatExtensions.GetObjectFactoryFactory,
-                "Unreal" => Unreal.Formats.FormatExtensions.GetObjectFactoryFactory,
+                "Unreal" => Epic.Formats.FormatExtensions.GetObjectFactoryFactory,
                 "Valve" => Valve.Formats.FormatExtensions.GetObjectFactoryFactory,
                 _ => FormatExtensions.GetObjectFactoryFactory,
             };
@@ -49,7 +49,7 @@ namespace GameSpec.Arkane
                 "Danae" => PakBinaryDanae.Instance,
                 "Void" => PakBinaryVoid.Instance,
                 "Cry" => Crytek.Formats.PakBinaryCry3.Instance,
-                "Unreal" => Unreal.Formats.PakBinaryPck.Instance,
+                "Unreal" => Epic.Formats.PakBinaryPck.Instance,
                 "Valve" => Valve.Formats.PakBinaryVpk.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
             };

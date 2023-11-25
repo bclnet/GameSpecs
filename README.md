@@ -68,15 +68,16 @@ The following are the current familes:
 | [Arkane](Documents/Families/Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
 | [Bethesda](Documents/Families/Bethesda/Readme.md)| The Elder Scrolls         | Skyrim            | In Development
 | [Bioware](Documents/Families/Bioware/Readme.md)  | Bioware                   | Neverwinter Nights| In Development
-| [Black](Documents/Families/Black/Readme.md)      | Black Isle Studios        | -                 | In Development
+| [Black](Documents/Families/Black/Readme.md)      | Black Isle Studios        | Fallout 2         | In Development
 | [Blizzard](Documents/Families/Blizzard/Readme.md)| Blizzard                  | StarCraft         | In Development
-| [Capcom](Documents/Families/Capcom/Readme.md)    | Capcom                    | -                 | In Development
+| [Capcom](Documents/Families/Capcom/Readme.md)    | Capcom                    | Resident Evil     | In Development
 | [Cig](Documents/Families/Cig/Readme.md)          | Cloud Imperium Games      | Star Citizen      | In Development
 | [Cryptic](Documents/Families/Cryptic/Readme.md)  | Cryptic                   | Star Trek Online  | In Development
 | [Crytek](Documents/Families/Cry/Readme.md)       | Crytek                    | MechWarrior Online| In Development
 | [Cyanide](Documents/Families/Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
+| [Epic](Documents/Families/Epic/Readme.md)        | Epic                      | BioShock          | In Development
 | [Frictional](Documents/Families/Frictional/Readme.md)| Frictional Games      | SOMA              | In Development
-| [Frontier](Documents/Families/Frontier/Readme.md)| Frontier Developments     | -                 | In Development
+| [Frontier](Documents/Families/Frontier/Readme.md)| Frontier Developments     | Elite: Dangerous  | In Development
 | [Id](Documents/Families/Id/Readme.md)            | id Software               | Doom              | In Development
 | [IW](Documents/Families/IW/Readme.md)            | Infinity Ward             | Call of Duty      | In Development
 | [Monolith](Documents/Families/Monolith/Readme.md)| Monolith                  | F.E.A.R.          | In Development
@@ -84,7 +85,6 @@ The following are the current familes:
 | [Red](Documents/Families/Red/Readme.md)          | REDengine                 | The Witcher 3: Wild Hunt | In Development
 | [Unity](Documents/Families/Unity/Readme.md)      | Unity                     | AmongUs           | In Development
 | [Unknown](Documents/Families/Unknown/Readme.md)  | Unknown                   | N/A               | In Development
-| [Unreal](Documents/Families/Unreal/Readme.md)    | Unreal                    | BioShock          | In Development
 | [Valve](Documents/Families/Valve/Readme.md)      | Valve                     | Dota 2            | In Development
 | [WbB](Documents/Families/WbB/Readme.md)          | Asheron's Call            | Asheron's Call    | In Development
 

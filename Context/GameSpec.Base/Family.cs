@@ -95,6 +95,11 @@ namespace GameSpec
         public string Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the game urls.
+        /// </summary>
+        public Uri[] Urls { get; set; }
+
+        /// <summary>
         /// Gets the family engines.
         /// </summary>
         /// <returns></returns>
