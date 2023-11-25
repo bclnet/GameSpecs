@@ -31,7 +31,8 @@ def GamesBody(families):
         ur = 'ur' if 'UR' in values else '--'
         vk = 'vk' if 'VK' in values else '--'
         return f'{gl} {un} {ur}'
-    b = ['''The following are the current games:\n
+    b = ['''---
+The following are the current games:\n
 | ID | Name | Open | Read | Texure | Model | Level
 | -- | --   | --   | --   | --     | --    | --
 ''']
@@ -42,5 +43,4 @@ def GamesBody(families):
     return ''.join(b)
 body = GamesBody(base.init(''))
 #print(body)
-writeFile('README.md', '''## Games
----''', body)
+writeFile('README.md', '## Games\n', body)
