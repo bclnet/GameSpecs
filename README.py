@@ -1,25 +1,10 @@
-import os
-import base
+import os, base
 
 def writeFile(path, marker, body):
     with open(path, 'r', encoding='utf-8') as f: text = f.read()
     head, sep, tail = text.partition(marker)
     text = head + sep + body
     with open(path, 'w', encoding='utf-8') as f: f.write(text)
-
-# def Readme(gamesBody):
-#     # read
-#     f = open('README.md', 'r')
-#     text = f.read()
-#     f.close()
-#     # body
-#     head, sep, tail = text.partition('''## Games
-# ---''')
-#     body = head + sep + '\n' + gamesBody
-#     # write
-#     f = open('README.md', 'w')
-#     f.write(body)
-#     f.close()
 
 def GamesBody(families):
     def single(s, value): return value if value in s else '-'

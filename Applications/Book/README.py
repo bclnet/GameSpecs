@@ -1,6 +1,6 @@
 import sys, os, re, qrcode
 sys.path.append('../..')
-from base import getFamilies
+import base
 
 def writeFile(z, path, marker, body):
     with open(path, 'r', encoding='utf-8') as f: text = f.read()
@@ -70,7 +70,7 @@ def LocateFiles(fm):
     b.append(f'\n')
     return ''.join(b)
 
-for f in getFamilies('../../'):
+for f in base.init('../../').values():
     print(f.id)
     body = GameFamily(f)
     writeFile(f, f'book/02-game-families/{f.id}.asc', '==== Family Info\n', body)
