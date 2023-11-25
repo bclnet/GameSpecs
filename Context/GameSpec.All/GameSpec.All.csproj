@@ -12,6 +12,8 @@
     <ProjectReference Include="..\..\Bethesda\GameSpec.Bethesda\GameSpec.Bethesda.csproj" />
     <ProjectReference Include="..\..\Bioware\GameSpec.Bioware.Platform\GameSpec.Bioware.Platform.csproj" />
     <ProjectReference Include="..\..\Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj" />
+    <ProjectReference Include="..\..\Black\GameSpec.Black.Platform\GameSpec.Black.Platform.csproj" />
+    <ProjectReference Include="..\..\Black\GameSpec.Black\GameSpec.Black.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard.Platform\GameSpec.Blizzard.Platform.csproj" />
     <ProjectReference Include="..\..\Blizzard\GameSpec.Blizzard\GameSpec.Blizzard.csproj" />
     <ProjectReference Include="..\..\Capcom\GameSpec.Capcom.Platform\GameSpec.Capcom.Platform.csproj" />

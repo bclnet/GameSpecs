@@ -11,18 +11,6 @@
       "pakFileType": "GameSpec.Bethesda.BethesdaPakFile, GameSpec.Bethesda",
       "pak": "game:/"
     },
-    "Fallout": {
-      "name": "Fallout",
-      "url": "https://store.steampowered.com/app/38400",
-      "date": "1997-09-30",
-      "pakExt": ".dat"
-    },
-    "Fallout2": {
-      "name": "Fallout 2",
-      "url": "https://store.steampowered.com/app/38410",
-      "date": "1998-12-01",
-      "pakExt": ".dat"
-    },
     "Morrowind": {
       "name": "The Elder Scrolls III: Morrowind",
       "url": "https://store.steampowered.com/app/22320",
@@ -139,16 +127,6 @@
   },
   "fileManager": {
     "application": {
-      "Fallout": {
-        "key": "Steam:38400",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38400",
-        "dir": "Fallout"
-      },
-      "Fallout2": {
-        "key": [ "Steam:38410", "GOG:1440151285" ],
-        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410", "GOG.com/Games/1440151285" ],
-        "dir": "Fallout 2"
-      },
       "Morrowind": {
         "key": "Steam:22320",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22320",

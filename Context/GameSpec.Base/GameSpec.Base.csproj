@@ -13,6 +13,7 @@
     <EmbeddedResource Include="..\..\Arkane\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
     <EmbeddedResource Include="..\..\Bethesda\BethesdaFamily.json" Link="Families\BethesdaFamily.json" />
     <EmbeddedResource Include="..\..\Bioware\BiowareFamily.json" Link="Families\BiowareFamily.json" />
+    <EmbeddedResource Include="..\..\Black\BlackFamily.json" Link="Families\BlackFamily.json" />
     <EmbeddedResource Include="..\..\Blizzard\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
     <EmbeddedResource Include="..\..\Capcom\CapcomFamily.json" Link="Families\CapcomFamily.json" />
     <EmbeddedResource Include="..\..\Cig\CigFamily.json" Link="Families\CigFamily.json" />

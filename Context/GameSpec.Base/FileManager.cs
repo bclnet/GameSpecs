@@ -132,7 +132,7 @@ namespace GameSpec
             //
             if (platformOS == FamilyPlatform.OS.Windows && prop.Value.TryGetProperty("reg", out var z))
                 foreach (var key in z.GetStringOrArray())
-                    if (!Paths.ContainsKey(prop.Name) && TryGetRegistryByKey(key, prop.Value.TryGetProperty(key, out z) ? z : (JsonElement?)null, out var path))
+                    if (!Paths.ContainsKey(prop.Name) && TryGetPathByRegistryKey(key, prop.Value.TryGetProperty(key, out z) ? z : (JsonElement?)null, out var path))
                         AddPath(prop, path);
             if (prop.Value.TryGetProperty("key", out z))
                 foreach (var key in z.GetStringOrArray())
@@ -179,7 +179,7 @@ namespace GameSpec
         /// </summary>
         /// <param name="name">Name of the sub.</param>
         /// <returns></returns>
-        protected static string FindRegistryExePath(string[] paths)
+        protected static string FindRegistryPath(string[] paths)
         {
             var localMachine64 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
             var currentUser64 = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
@@ -218,9 +218,9 @@ namespace GameSpec
             : path.StartsWith("%LocalAppData%", StringComparison.OrdinalIgnoreCase) ? $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{path[14..]}"
             : path;
 
-        protected static bool TryGetRegistryByKey(string key, JsonElement? keyElem, out string path)
+        protected static bool TryGetPathByRegistryKey(string key, JsonElement? keyElem, out string path)
         {
-            path = FindRegistryExePath(new[] { $@"Wow6432Node\{key}", key });
+            path = FindRegistryPath(new[] { $@"Wow6432Node\{key}", key });
             if (keyElem == null) return !string.IsNullOrEmpty(path);
             if (keyElem.Value.TryGetProperty("path", out var path2)) { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
             else if (keyElem.Value.TryGetProperty("xml", out var xml)

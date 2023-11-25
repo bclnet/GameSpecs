@@ -67,7 +67,8 @@ The following are the current familes:
 | --                                               | --                        | --                | --
 | [Arkane](Documents/Families/Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
 | [Bethesda](Documents/Families/Bethesda/Readme.md)| The Elder Scrolls         | Skyrim            | In Development
-| [Bioware](Documents/Families/Bioware/Readme.md)  | BioWare Bioware           | Neverwinter Nights| In Development
+| [Bioware](Documents/Families/Bioware/Readme.md)  | Bioware                   | Neverwinter Nights| In Development
+| [Black](Documents/Families/Black/Readme.md)      | Black Isle Studios        | -                 | In Development
 | [Blizzard](Documents/Families/Blizzard/Readme.md)| Blizzard                  | StarCraft         | In Development
 | [Capcom](Documents/Families/Capcom/Readme.md)    | Capcom                    | -                 | In Development
 | [Cig](Documents/Families/Cig/Readme.md)          | Cloud Imperium Games      | Star Citizen      | In Development
@@ -108,8 +109,6 @@ The following are the current games:
 | [DL](https://store.steampowered.com/app/1252330) | Deathloop | - | - | -- -- -- | -- -- -- | -- -- --
 | [RF](https://bethesda.net/en/game/redfall) | Redfall (future) | - | - | -- -- -- | -- -- -- | -- -- --
 | **Bethesda** | **The Elder Scrolls**
-| [Fallout](https://store.steampowered.com/app/38400) | Fallout | - | - | -- -- -- | -- -- -- | -- -- --
-| [Fallout2](https://store.steampowered.com/app/38410) | Fallout 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [Morrowind](https://store.steampowered.com/app/22320) | The Elder Scrolls III: Morrowind | - | - | -- -- -- | -- -- -- | -- -- --
 | [Oblivion](https://store.steampowered.com/app/22330) | The Elder Scrolls IV: Oblivion | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout3](https://store.steampowered.com/app/22370) | Fallout 3 | - | - | -- -- -- | -- -- -- | -- -- --
@@ -145,6 +144,14 @@ The following are the current games:
 | [ME:LE](https://store.steampowered.com/app/1328670) | Mass Effect: Legendary Edition | - | - | -- -- -- | -- -- -- | -- -- --
 | [DA:D](https://www.ea.com/en-gb/games/dragon-age/dragon-age-dreadwolf) | Dragon Age: Dreadwolf (future) | - | - | -- -- -- | -- -- -- | -- -- --
 | [ME5](https://en.wikipedia.org/wiki/Mass_Effect) | Mass Effect 5 (future) | - | - | -- -- -- | -- -- -- | -- -- --
+| **Black** | **Black Isle Studios**
+| [Fallout](https://store.steampowered.com/app/38400) | Fallout | - | - | -- -- -- | -- -- -- | -- -- --
+| [Fallout2](https://store.steampowered.com/app/38410) | Fallout 2 | - | - | -- -- -- | -- -- -- | -- -- --
+| [P:T](https://en.wikipedia.org/wiki/Planescape:_Torment) | Planescape: Torment | - | - | -- -- -- | -- -- -- | -- -- --
+| [ID](https://en.wikipedia.org/wiki/Icewind_Dale) | Icewind Dale | - | - | -- -- -- | -- -- -- | -- -- --
+| [ID:HoW](https://en.wikipedia.org/wiki/Icewind_Dale:_Heart_of_Winter) | Icewind Dale: Heart of Winter | - | - | -- -- -- | -- -- -- | -- -- --
+| [ID2](https://en.wikipedia.org/wiki/Icewind_Dale_II) | Icewind Dale II | - | - | -- -- -- | -- -- -- | -- -- --
+| [BG:DA2](https://en.wikipedia.org/wiki/Baldur%27s_Gate:_Dark_Alliance_II) | Baldur's Gate: Dark Alliance II | - | - | -- -- -- | -- -- -- | -- -- --
 | **Blizzard** | **Blizzard**
 | [SC](https://us.shop.battle.net/en-us/product/starcraft) | StarCraft | - | - | -- -- -- | -- -- -- | -- -- --
 | [D2R](https://us.shop.battle.net/en-us/product/diablo_ii_resurrected) | Diablo II: Resurrected | - | - | -- -- -- | -- -- -- | -- -- --

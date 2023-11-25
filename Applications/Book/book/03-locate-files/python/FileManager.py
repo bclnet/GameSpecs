@@ -12,7 +12,7 @@ class FileManager:
         system = platform.system()
         if system == 'Windows' and 'reg' in d:
             for key in d['reg'] if isinstance(d['reg'], list) else [d['reg']]:
-                if not id in s.paths and (z := s.getRegistryByKey(key, d)): s.addPath(id, d, z)
+                if not id in s.paths and (z := s.getPathByRegistryKey(key, d)): s.addPath(id, d, z)
         if 'key' in d:
             for key in d['key'] if isinstance(d['key'], list) else [d['key']]:
                 if not id in s.paths and (z := StoreManager.getPathByKey(key)): s.addPath(id, d, z)
@@ -45,7 +45,7 @@ class FileManager:
         path
 
     @staticmethod
-    def findRegistryExePath(paths):
+    def findRegistryPath(paths):
         for p in paths:
             keyPath = p.replace('/', '\\')
             try: key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, f'SOFTWARE\\{keyPath}', 0, winreg.KEY_READ)
@@ -74,8 +74,8 @@ class FileManager:
         return None
 
     @staticmethod
-    def getRegistryByKey(key, d):
-        path = FileManager.findRegistryExePath([f'Wow6432Node\\{key}', key])
+    def getPathByRegistryKey(key, d):
+        path = FileManager.findRegistryPath([f'Wow6432Node\\{key}', key])
         if d is None: return path
         #if 'path' in d: d['path'] { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
         # else if (keyElem.Value.TryGetProperty("xml", out var xml)
