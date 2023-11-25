@@ -59,6 +59,47 @@ def GameFamily(f):
             if multi:
                 b.append('\n')
                 b.append(f'5+|Key:\n{s.key}\n')
+            # editions
+            if s.editions:
+                b.append(f'Editions\n')
+                b.append(f'\n')
+                b.append('[cols="1,1,1"]\n')
+                b.append('!===\n')
+                b.append(f'!Id !Name !Key\n')
+                for t in s.editions.values():
+                    b.append('\n')
+                    b.append(f'!{t.id}\n')
+                    b.append(f'!{t.name}\n')
+                    b.append(f'!{t.key}\n')
+                b.append('!===\n')
+                b.append(f'\n')
+            # dlc
+            if s.dlc:
+                b.append(f'DLC\n')
+                b.append(f'\n')
+                b.append('[cols="1,1,1"]\n')
+                b.append('!===\n')
+                b.append(f'!Id !Name !Path\n')
+                for t in s.dlc.values():
+                    b.append('\n')
+                    b.append(f'!{t.id}\n')
+                    b.append(f'!{t.name}\n')
+                    b.append(f'!{t.path}\n')
+                b.append('!===\n')
+                b.append(f'\n')
+            # locales
+            if s.locales:
+                b.append(f'Locales\n')
+                b.append(f'\n')
+                b.append('[cols="1,1"]\n')
+                b.append('!===\n')
+                b.append(f'!Id !Name\n')
+                for t in s.locales.values():
+                    b.append('\n')
+                    b.append(f'!{t.id}\n')
+                    b.append(f'!{t.name}\n')
+                b.append('!===\n')
+                b.append(f'\n')
         b.append('|===\n')
         b.append(f'\n')
     return ''.join(b)
@@ -71,11 +112,11 @@ def LocateFiles(fm):
     for s in fm.applications.values():
         b.append('\n')
         b.append(f'.2+|{s.id}\n')
-        b.append(f'|{', '.join(s.dir)}\n')
-        b.append(f'|{', '.join(s.key)}\n')
-        b.append(f'|{', '.join(s.path)}\n')
+        b.append(f'|{', '.join(s.dir) if s.dir else None}\n')
+        b.append(f'|{', '.join(s.key) if s.key else None}\n')
+        b.append(f'|{', '.join(s.path) if s.path else None}\n')
         b.append('\n')
-        b.append(f'3+|{', '.join(s.reg)}\n')
+        b.append(f'3+|{', '.join(s.reg) if s.reg else None}\n')
     b.append('|===\n')
     b.append(f'\n')
     return ''.join(b)
@@ -84,6 +125,6 @@ for f in base.init('../../').values():
     print(f.id)
     body = GameFamily(f)
     writeFile(f, f'book/02-game-families/{f.id}.asc', '==== Family Info\n', body)
-    # if f.fileManager != None:
-    #     body = LocateFiles(f.fileManager)
-    #     writeFile(f, f'book/03-locate-files/{f.id}.asc', '==== File Info\n', body)
+    if f.fileManager != None:
+        body = LocateFiles(f.fileManager)
+        writeFile(f, f'book/03-locate-files/{f.id}.asc', '==== File Info\n', body)
