@@ -1,4 +1,6 @@
-import os, json, glob, re
+import sys, os, json, glob, re
+sys.path.append('../../03-locate-files/python')
+import FileManager
 
 class Family:
     def __init__(s, d):
@@ -16,11 +18,11 @@ class Family:
                 if id.startswith('*'): dgame = game
                 else: games.append(game)
         # fileManager
-        s.fileManager = FileManager(d['fileManager']) if 'fileManager' in d else None
+        s.fileManager = FileManager.FileManager(d['fileManager']) if 'fileManager' in d else None
     def __repr__(s): return f'''
 {s.id}: {s.name}
-Games: {[x for x in s.games]}
-Applications: {[x for x in s.fileManager.applications] if s.fileManager else None}
+Games: ([x for x in s.games])
+Paths: {[x for x in s.fileManager.paths] if s.fileManager else None}
 '''
 
 class Game:
@@ -39,40 +41,14 @@ class Game:
         s.tags = d['tags'] if 'tags' in d else None
     def __repr__(s): return f'\n  {s.id}: {s.name} {s.status}'
 
-class FileManager:
-    def __init__(s, d):
-        # applications
-        s.applications = applications = []
-        if 'application' in d:
-            for id in d['application']:
-                applications.append(FMApplication(id, d['application'][id]))
-        # ignores
-        s.ignores = ignores = []
-        if 'ignores' in d:
-            for id in d['ignores']:
-                ignores.append(FMIgnore(id, d['ignores'][id]))
-    def __repr__(s): return f'\n  {s.id}'
-
-class FMApplication:
-    def __init__(s, id, d):
-        s.id = id
-        s.dir = (', '.join(d['dir']) if isinstance(d['dir'], list) else d['dir']) if 'dir' in d else None
-        s.key = (', '.join(d['key']) if isinstance(d['key'], list) else d['key']) if 'key' in d else None
-        s.reg = (', '.join(d['reg']) if isinstance(d['reg'], list) else d['reg']) if 'reg' in d else None
-        s.path = (', '.join(d['path']) if isinstance(d['path'], list) else d['path']) if 'path' in d else None
-    def __repr__(s): return f'\n  {s.id}'
-
-class FMIgnore:
-    def __init__(s, id, d):
-        s.id = id,
-        s.path = (', '.join(d['path']) if isinstance(d['path'], list) else d['path']) if 'path' in d else None
-    def __repr__(s): return f'\n  {s.id}'
-
+@staticmethod
 def init(root):
+    @staticmethod
     def commentRemover(text):
         def replacer(match): s = match.group(0); return ' ' if s.startswith('/') else s
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
         return re.sub(pattern, replacer, text)
+    @staticmethod
     def jsonLoad(file):
         with open(file, encoding='utf8') as f:
             return json.loads(commentRemover(f.read()).encode().decode('utf-8-sig')) 

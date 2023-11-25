@@ -7,7 +7,7 @@ namespace GameSpec.StoreManagers
     /// </summary>
     internal static class UnknownStoreManager
     {
-        public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
+        public static bool TryGetPathByKey(string key, out string path)
         {
             path = null;
             return false;

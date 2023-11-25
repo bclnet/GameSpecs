@@ -15,8 +15,7 @@ namespace GameSpec.StoreManagers
     {
         static Dictionary<string, string> AppPaths = new Dictionary<string, string>();
 
-        public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
-            => AppPaths.TryGetValue(key, out path);
+        public static bool TryGetPathByKey(string key, out string path) => AppPaths.TryGetValue(key, out path);
 
         static EpicStoreManager()
         {

@@ -47,12 +47,14 @@ class AcfStruct:
             b.append('  '*depth)
             b.append(f'"{k}" {{\n')
             b.append('  '*depth)
-            if not v == None: b.append(v.repr(depth + 1))
+            if not v is None: b.append(v.repr(depth + 1))
             b.append(f'}}\n')
         return ''.join(b)
     def __repr__(self): return self.repr(0)
 
+@staticmethod
 def init():
+    @staticmethod
     def getPath():
         system = platform.system()
         if system == 'Windows':
@@ -77,7 +79,7 @@ def init():
     
     # get dbPath
     root = getPath()
-    if root == None: return
+    if root is None: return
     # query games
     libraryFolders = AcfStruct.read(os.path.join(root, 'steamapps', 'libraryfolders.vdf'))
     for folder in libraryFolders.get['libraryfolders'].get.values():
@@ -85,7 +87,7 @@ def init():
             if not os.path.isdir(path): return
             for appId in folder.get['apps'].value.keys():
                 appManifest = AcfStruct.read(os.path.join(path, 'steamapps', f'appmanifest_{appId}.acf'))
-                if appManifest == None: continue
+                if appManifest is None: continue
                 # add appPath if exists
                 appPath = os.path.join(path, 'steamapps', 'common', appManifest.get['AppState'].value['installdir'])
                 if os.path.isdir(appPath): steamAppPaths[appId] = appPath

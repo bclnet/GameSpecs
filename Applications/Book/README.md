@@ -49,3 +49,7 @@ To generate the PDF book:
 ```
 $ bundle exec rake book:build_pdf
 ```
+
+pip install protobuf
+pip install qrcode
+pip install psutil

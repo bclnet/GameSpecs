@@ -1,7 +1,9 @@
 import os, platform, sqlite3
 from contextlib import closing
 
+@staticmethod
 def init():
+    @staticmethod
     def getPath():
         system = platform.system()
         if system == 'Windows':
@@ -25,7 +27,7 @@ def init():
     
     # get dbPath
     root = getPath()
-    if root == None: return
+    if root is None: return
     dbPath = os.path.join(root, 'galaxy-2.0.db')
     if not os.path.exists(dbPath): return
     # query games

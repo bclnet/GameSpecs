@@ -1,6 +1,8 @@
 import os, platform, BlizzardProtoDatabase_pb2
 
+@staticmethod
 def init():
+    @staticmethod
     def getPath():
         system = platform.system()
         if system == 'Windows':
@@ -21,7 +23,7 @@ def init():
         return next(iter(x for x in paths if os.path.isdir(x)), None)
     # get dbPath
     root = getPath()
-    if root == None: return
+    if root is None: return
     dbPath = os.path.join(root, 'product.db')
     if not os.path.exists(dbPath): return
     # query games

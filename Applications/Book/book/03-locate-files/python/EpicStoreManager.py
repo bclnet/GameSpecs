@@ -1,6 +1,8 @@
 import os, platform, json
 
+@staticmethod
 def init():
+    @staticmethod
     def getPath():
         system = platform.system()
         if system == 'Windows':
@@ -23,7 +25,7 @@ def init():
     
     # get dbPath
     root = getPath()
-    if root == None: return
+    if root is None: return
     dbPath = os.path.join(root, 'Manifests')
     # query games
     for s in [s for s in os.listdir(dbPath) if s.endswith('.item')]:

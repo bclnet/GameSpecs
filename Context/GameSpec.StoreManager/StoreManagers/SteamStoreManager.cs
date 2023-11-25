@@ -35,8 +35,7 @@ namespace GameSpec.StoreManagers
             }
         }
 
-        public static bool TryGetPathByKey(string key, JsonProperty prop, JsonElement? keyElem, out string path)
-            => AppPaths.TryGetValue(key, out path);
+        public static bool TryGetPathByKey(string key, out string path) => AppPaths.TryGetValue(key, out path);
 
         static string GetPath()
         {
