@@ -1,7 +1,7 @@
 import sys, os, json, glob, re
 from urllib.parse import urlparse
 sys.path.append('../../03-locate-files/python')
-import FileManager
+import FileManager, FileSystem
 
 class Resource:
     def __init__(s, fileSystem, game, searchPattern):
@@ -37,29 +37,36 @@ class Family:
 engines: {[x for x in s.engines.values()] if s.engines else None}
 games: {[x for x in s.games.values()] if s.games else None}
 fileManager: {s.fileManager if s.fileManager else None}'''
+
+    # get Game
     def getGame(s, id, throwOnError = True):
         game = s.games[id] if id in s.games else None
         if not game and throwOnError: raise Exception(f'Unknown game: {id}')
         return game
+
     # parse Resource
     def parseResource(s, uri, throwOnError = True):
         if uri is None or not (uri := urlparse(uri)).fragment: return Resource(Game = FamilyGame(None, s, None, None))
         game = s.getGame(uri.fragment)
         searchPattern = '' if uri.scheme == 'file' else uri.path[1:]
-        # var fileSystem =
-        #     // game-scheme
-        #     string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? Paths.TryGetValue(game.Id, out var z) ? game.CreateFileSystem(z.Single()) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate game resources") : (IFileSystem)null)
-        #     // file-scheme
-        #     : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? game.CreateFileSystem(uri.LocalPath) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate file resources") : (IFileSystem)null)
-        #     // network-scheme
-        #     : !string.IsNullOrEmpty(uri.Host) ? new HostFileSystem(uri) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate network resources") : (IFileSystem)null);
-        return Resource(game, s, searchPattern)
+        paths = s.fileManager.paths
+        fileSystem = (game.createFileSystem(paths[game.id]) if game.id in paths and paths[game.id] else None) if uri.scheme == 'game' else \
+            (game.createFileSystem(uri.path) if uri.path else None) if uri.scheme == 'file' else \
+            (FileSystem.HostFileSystem(uri) if uri.netloc else None) if uri.scheme.startswith('http') else None
+        if not fileSystem:
+            if throwOnError: raise Exception(f'Unknown schema: {uri}')
+            else: return None
+        return Resource(fileSystem, game, searchPattern)
+
     # open PakFile
     def openPakFile(s, res, throwOnError = True):
         resource = res if isinstance(res, Resource) else \
             s.parseResource(res) if isinstance(res, str) else None
-        if not resource and throwOnError: raise Exception(f'Unknown res: {res}')
-        return 'PAK'
+        if not resource:
+            if throwOnError: raise Exception(f'Unknown res: {res}')
+            else: return None
+        if not resource.game: raise Exception(f'Undefined Game')
+        return (pak := resource.game.createPakFile(resource.fileSystem, resource.searchPattern, throwOnError)) and pak.open()
 
 class FamilyEngine:
     def __init__(s, family, id, d):
@@ -120,6 +127,31 @@ class FamilyGame:
   - editions: {s.editions if s.editions else None}
   - dlc: {s.dlc if s.dlc else None}
   - locales: {s.locales if s.locales else None}'''
+  
+    # open PakFile
+    def createFileSystem(s, root):
+        return FileSystem.StandardFileSystem(root)
+
+    # create PakFile
+    def createPakFile(s, fileSystem, searchPattern, throwOnError):
+        if isinstance(fileSystem, FileSystem.HostFileSystem): raise Exception('HostFileSystem not supported')
+        searchPattern = s.createSearchPatterns(searchPattern)
+        return None
+
+    # create PakFileType
+   def createPakFileType(s, fileSystem, path, tag = None):
+        if not s.pakFileType:  raise Exception(f'{s.id} missing PakFileType')
+        klass = globals()[s.pakFileType]
+        return klass(s, fileSystem, path, tag)
+
+    # create SearchPatterns
+    def createSearchPatterns(s, searchPattern):
+        if searchPattern: return searchPattern
+        elif not s.searchBy: return '*/*'
+        elif s.searchBy == 'Pak': return '' if not s.pakExts else f'*{s.pakExts[0]}' if s.pakExts.length == 1 else f'({'*:'.join(s.pakExts)})'
+        elif s.searchBy == 'TopDir': return '*/*'
+        elif s.searchBy == 'AllDir': return '**/*'
+        else: raise Exception(f'Unknown searchBy: {s.searchBy}')
 
 @staticmethod
 def init(root):

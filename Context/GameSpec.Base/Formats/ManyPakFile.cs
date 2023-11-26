@@ -44,7 +44,7 @@ namespace GameSpec.Formats
                 .Select(s => new FileMetadata
                 {
                     Path = s.s.Replace('/', '\\'),
-                    Pak = s.p ? (BinaryPakFile)Game.CreatePakFile(FileSystem, s.s, null) : default,
+                    Pak = s.p ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, s.s, null) : default,
                     FileSize = s.i.Length,
                 }).ToArray();
             return Task.CompletedTask;

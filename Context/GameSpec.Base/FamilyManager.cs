@@ -24,6 +24,7 @@ namespace GameSpec
         /// </summary>
         public enum SearchBy
         {
+            None,
             Pak,
             TopDir,
             AllDir,
@@ -82,52 +83,6 @@ namespace GameSpec
         public static Family GetFamily(string id, bool throwOnError = true)
             => Families.TryGetValue(id, out var family) ? family
             : throwOnError ? throw new ArgumentOutOfRangeException(nameof(id), id) : (Family)default;
-
-        #region Pak
-
-        /// <summary>
-        /// Adds the platform graphic.
-        /// </summary>
-        /// <param name="pakFile">The pak file.</param>
-        /// <returns></returns>
-        static PakFile WithPlatformGraphic(PakFile pakFile)
-        {
-            if (pakFile != null) pakFile.Graphic = FamilyPlatform.GraphicFactory?.Invoke(pakFile);
-            return pakFile;
-        }
-
-        /// <summary>
-        /// Create pak file.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The fileSystem.</param>
-        /// <param name="searchPattern">The search pattern.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        internal static PakFile CreatePakFile(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError)
-        {
-            if (fileSystem is HostFileSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
-            searchPattern = game.CreateSearchPatterns(searchPattern) ?? (throwOnError ? throw new InvalidOperationException($"{game.Id} missing PakExts") : (string)default);
-            if (searchPattern == null) return default;
-            var pakFiles = new List<PakFile>();
-            var fileManager = game.Family.FileManager;
-            foreach (var p in fileManager.GetGamePaths(game, fileSystem, searchPattern, throwOnError))
-                switch (game.SearchBy)
-                {
-                    case SearchBy.Pak:
-                        foreach (var path in p.paths)
-                            if (game.IsPakFile(path)) pakFiles.Add(game.CreatePakFile(fileSystem, (object)path));
-                        break;
-                    case SearchBy.AllDir:
-                    case SearchBy.TopDir:
-                        pakFiles.Add(game.CreatePakFile(fileSystem, p));
-                        break;
-                    default: throw new ArgumentOutOfRangeException(nameof(game.SearchBy), $"{game.SearchBy}");
-                }
-            return WithPlatformGraphic(game.CreatePakFile(fileSystem, pakFiles));
-        }
-
-        #endregion
 
         #region Parse
 

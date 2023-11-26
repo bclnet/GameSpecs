@@ -1,16 +1,14 @@
 import FamilyManager
 
-# get Arkane family
-family = FamilyManager.getFamily('Arkane')
-print(family.studio)
+# get Black family
+family = FamilyManager.getFamily('Black')
+print(f'studio: {family.studio}')
 
 # get pak with resource
-res = family.parseResource('file:/path/#AF')
+res = family.parseResource('game:/MASTER.DAT#Fallout')
 pakFile1 = family.openPakFile(res)
+print(f'pak: {pakFile1}')
 
 # get pak with game:/uri
-pakFile2 = family.openPakFile('file:/path/#AF')
-
-# get pak with game:/uri
-pakFile = family.openPakFile('game:/#AF')
-print(pakFile)
+pakFile2 = family.openPakFile('game:/MASTER.DAT#Fallout')
+print(f'pak: {pakFile2}')

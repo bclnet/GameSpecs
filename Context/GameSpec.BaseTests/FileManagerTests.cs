@@ -16,8 +16,7 @@ namespace GameSpec
         [DataRow("https://localhost#APP")]
         public void ShouldParseResource(string uri)
         {
-            var fileManager = Family.FileManager;
-            Assert.IsNotNull(fileManager.ParseResource(Family, uri != null ? new Uri(uri) : null, false));
+            Assert.IsNotNull(Family.ParseResource(uri != null ? new Uri(uri) : null, false));
         }
 
         [TestMethod]

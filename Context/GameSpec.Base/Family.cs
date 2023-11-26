@@ -3,6 +3,7 @@ using OpenStack;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GameSpec
 {
@@ -132,7 +133,7 @@ namespace GameSpec
         /// <param name="id">The game id.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">game</exception>
-        public FamilyGame GetGame(string id) => Games.TryGetValue(id, out var game) ? game : throw new ArgumentOutOfRangeException(nameof(id), id);
+        public FamilyGame GetGame(string id, bool throwOnError = true) => Games.TryGetValue(id, out var game) ? game : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(id), id) : (FamilyGame)default);
 
         /// <summary>
         /// Parses the family resource uri.
@@ -140,7 +141,20 @@ namespace GameSpec
         /// <param name="uri">The URI.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public Resource ParseResource(Uri uri, bool throwOnError = true) => FileManager.ParseResource(this, uri, throwOnError);
+        public Resource ParseResource(Uri uri, bool throwOnError = true)
+        {
+            if (uri == null || string.IsNullOrEmpty(uri.Fragment)) return new Resource { Game = new FamilyGame() };
+            var game = GetGame(uri.Fragment[1..]);
+            var searchPattern = uri.IsFile ? null : uri.LocalPath[1..];
+            var paths = FileManager.Paths;
+            var fileSystem =
+                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? paths.TryGetValue(game.Id, out var z) ? game.CreateFileSystem(z.Single()) : default
+                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? game.CreateFileSystem(uri.LocalPath) : default
+                : uri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? !string.IsNullOrEmpty(uri.Host) ? new HostFileSystem(uri) : default
+                : default;
+            if (throwOnError) throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate network resources");
+            return new Resource { FileSystem = fileSystem, Game = game, SearchPattern = searchPattern };
+        }
 
         #region Pak
 
@@ -152,7 +166,9 @@ namespace GameSpec
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(FamilyGame game, string path, string searchPattern, bool throwOnError = true) => FamilyManager.CreatePakFile(game ?? throw new ArgumentNullException(nameof(game)), game.CreateFileSystem(path), searchPattern, throwOnError)?.Open();
+        public PakFile OpenPakFile(FamilyGame game, string path, string searchPattern, bool throwOnError = true) => game != null
+            ? game.CreatePakFile(game.CreateFileSystem(path), searchPattern, throwOnError)?.Open()
+            : throw new ArgumentNullException(nameof(game));
 
         /// <summary>
         /// Opens the family pak file.
@@ -160,7 +176,9 @@ namespace GameSpec
         /// <param name="resource">The resource.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError)?.Open();
+        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => resource.Game != null
+            ? resource.Game.CreatePakFile(resource.FileSystem, resource.SearchPattern, throwOnError)?.Open()
+            : throw new ArgumentNullException(nameof(resource.Game));
 
         /// <summary>
         /// Opens the family pak file.
@@ -171,8 +189,10 @@ namespace GameSpec
         /// <returns></returns>
         public PakFile OpenPakFile(Uri uri, bool throwOnError = true)
         {
-            var resource = FileManager.ParseResource(this, uri);
-            return FamilyManager.CreatePakFile(resource.Game ?? throw new ArgumentNullException(nameof(resource.Game)), resource.FileSystem, resource.SearchPattern, throwOnError)?.Open();
+            var resource = ParseResource(uri);
+            return resource.Game != null
+                ? resource.Game.CreatePakFile(resource.FileSystem, resource.SearchPattern, throwOnError)?.Open()
+                : throw new ArgumentNullException(nameof(resource.Game));
         }
 
         #endregion

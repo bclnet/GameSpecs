@@ -50,28 +50,6 @@ namespace GameSpec
         #region Parse Resource
 
         /// <summary>
-        /// Parses the resource.
-        /// </summary>
-        /// <param name="family">The family.</param>
-        /// <param name="uri">The URI.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        public virtual Resource ParseResource(Family family, Uri uri, bool throwOnError = true)
-        {
-            if (uri == null || string.IsNullOrEmpty(uri.Fragment)) return new Resource { Game = new FamilyGame() };
-            var game = family.GetGame(uri.Fragment[1..]);
-            var searchPattern = uri.IsFile ? null : uri.LocalPath[1..];
-            var fileSystem =
-                // game-scheme
-                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? Paths.TryGetValue(game.Id, out var z) ? game.CreateFileSystem(z.Single()) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate game resources") : (IFileSystem)null)
-                // file-scheme
-                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? game.CreateFileSystem(uri.LocalPath) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate file resources") : (IFileSystem)null)
-                // network-scheme
-                : !string.IsNullOrEmpty(uri.Host) ? new HostFileSystem(uri) : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate network resources") : (IFileSystem)null);
-            return new Resource { Game = game, FileSystem = fileSystem, SearchPattern = searchPattern };
-        }
-
-        /// <summary>
         /// Get the games paths.
         /// </summary>
         /// <param name="game">The game.</param>
