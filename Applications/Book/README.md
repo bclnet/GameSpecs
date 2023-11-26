@@ -14,13 +14,13 @@ If you run the following you _may_ actually get HTML, Epub, Mobi and PDF output 
 $ bundle install
 $ bundle exec rake book:build
 Converting to HTML...
- -- HTML output at progit.html
+ -- HTML output at gamespecs.html
 Converting to EPub...
- -- Epub output at progit.epub
+ -- Epub output at gamespecs.epub
 Converting to Mobi (kf8)...
- -- Mobi output at progit.mobi
+ -- Mobi output at gamespecs.mobi
 Converting to PDF...
- -- PDF output at progit.pdf
+ -- PDF output at gamespecs.pdf
 ```
 
 You can generate just one of the supported formats (HTML, EPUB, mobi, or PDF).

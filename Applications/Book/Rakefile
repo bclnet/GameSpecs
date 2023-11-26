@@ -84,8 +84,8 @@ namespace :book do
       #check_contrib()
 
       puts 'Converting to HTML...'
-      sh "bundle exec asciidoctor #{params} -a data-uri gamespec.asc"
-      puts ' -- HTML output at gamespec.html'
+      sh "bundle exec asciidoctor #{params} -a data-uri gamespecs.asc"
+      puts ' -- HTML output at gamespecs.html'
 
   end
 
@@ -94,8 +94,8 @@ namespace :book do
       #check_contrib()
 
       puts 'Converting to EPub...'
-      sh "bundle exec asciidoctor-epub3 #{params} gamespec.asc"
-      puts ' -- Epub output at gamespec.epub'
+      sh "bundle exec asciidoctor-epub3 #{params} gamespecs.asc"
+      puts ' -- Epub output at gamespecs.epub'
 
   end
 
@@ -104,8 +104,8 @@ namespace :book do
       #check_contrib()
 
       puts 'Converting to FB2...'
-      sh "bundle exec asciidoctor-fb2 #{params} gamespec.asc"
-      puts ' -- FB2 output at gamespec.fb2.zip'
+      sh "bundle exec asciidoctor-fb2 #{params} gamespecs.asc"
+      puts ' -- FB2 output at gamespecs.fb2.zip'
 
   end
 
@@ -114,8 +114,8 @@ namespace :book do
       #check_contrib()
 
       puts "Converting to Mobi (kf8)..."
-      sh "bundle exec asciidoctor-epub3 #{params} -a ebook-format=kf8 gamespec.asc"
-      puts " -- Mobi output at gamespec.mobi"
+      sh "bundle exec asciidoctor-epub3 #{params} -a ebook-format=kf8 gamespecs.asc"
+      puts " -- Mobi output at gamespecs.mobi"
   end
 
   desc 'build PDF format'
@@ -123,16 +123,16 @@ namespace :book do
       #check_contrib()
 
       puts 'Converting to PDF... (this one takes a while)'
-      sh "bundle exec asciidoctor-pdf #{params} gamespec.asc 2>#{os_devnull}"
-      puts ' -- PDF output at gamespec.pdf'
+      sh "bundle exec asciidoctor-pdf #{params} gamespecs.asc 2>#{os_devnull}"
+      puts ' -- PDF output at gamespecs.pdf'
   end
 
   desc 'Check generated books'
   task :check => [:build_html, :build_epub] do
       puts 'Checking generated books'
 
-      sh "htmlproofer gamespec.html"
-      sh "epubcheck gamespec.epub"
+      sh "htmlproofer gamespecs.html"
+      sh "epubcheck gamespecs.epub"
   end
 
   desc 'Clean all generated files'
@@ -140,7 +140,7 @@ namespace :book do
     begin
         puts 'Removing generated files'
 
-        FileList['book/contributors.txt', 'gamespec.html', 'gamespec-kf8.epub', 'gamespec.epub', 'gamespec.fb2.zip', 'gamespec.mobi', 'gamespec.pdf'].each do |file|
+        FileList['book/contributors.txt', 'gamespecs.html', 'gamespecs-kf8.epub', 'gamespecs.epub', 'gamespecs.fb2.zip', 'gamespecs.mobi', 'gamespecs.pdf'].each do |file|
             rm file
 
             # Rescue if file not found
