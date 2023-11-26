@@ -24,14 +24,14 @@ class FileManager:
         if not id in s.filters: s.filters[id] = []
         s.filters[id].append(d)
 
-    def addIgnore(s, id, d):
-        if not id in s.ignores: s.ignores[id] = []
-        s.ignores[id].append(d)
+    def addIgnore(s, id, paths):
+        if not id in s.ignores: s.ignores[id] = set()
+        for v in paths: s.ignores[id].add(v)
 
     def addPath(s, id, d, path, usePath = True):
         if path is None or not os.path.isdir(path := FileManager.getPathWithSpecialFolders(path, '')): return
-        paths = [os.path.join(path, x) for x in (d['path'] if isinstance(d['path'], list) else [d['path']])] if usePath and 'path' in d else [path]
-        for p in paths:
+        paths = (d['path'] if isinstance(d['path'], list) else [d['path']]) if usePath and 'path' in d else [path]
+        for p in [os.path.join(path, x) for x in paths]:
             if not os.path.isdir(p): continue
             if not id in s.paths: s.paths[id] = []
             s.paths[id].append(p)
@@ -90,23 +90,22 @@ class FileManager:
         s.ignores = {}
         # applications
         if 'application' in d:
-            for id in d['application']:
-                if not id in s.paths: s.addApplication(id, d['application'][id])
+            for (id, val) in d['application'].items():
+                if not id in s.paths: s.addApplication(id, val)
         # direct
         if 'direct' in d:
-            for id in d['direct']:
-                if 'path' in d['direct'][id]:
-                    val = d['direct'][id]['path']
-                    for key in val if isinstance(val, list) else [val]:
+            for (id, val) in d['direct'].items():
+                if 'path' in val:
+                    for key in val['path'] if isinstance(val['path'], list) else [val['path']]:
                         s.addPath(id, d, key, False)
         # ignores
         if 'ignores' in d:
-            for id in d['ignores']:
-                s.addIgnore(id, d['ignores'][id])
+            for (id, val) in d['ignores'].items():
+                s.addIgnore(id, val['path'] if isinstance(val['path'], list) else [val['path']])
         # filters
         if 'filters' in d:
-            for id in d['filters']:
-                s.addFilter(id, d['filters'][id])
+            for (id, val) in d['filters'].items():
+                s.addFilter(id, val)
     def __repr__(s): return f'''
 - paths: {list(s.paths.keys()) if s.paths else None}
 - ignores: {list(s.ignores.keys()) if s.ignores else None}

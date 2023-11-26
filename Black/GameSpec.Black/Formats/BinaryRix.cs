@@ -3,12 +3,11 @@ using GameSpec.Metadata;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace GameSpec.Bethesda.Formats
+namespace GameSpec.Black.Formats
 {
     public unsafe class BinaryRix : IGetMetadataInfo, ITexture
     {

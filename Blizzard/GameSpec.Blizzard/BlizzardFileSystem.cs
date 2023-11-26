@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Microsoft.Extensions.FileSystemGlobbing;
+using System.Collections.Generic;
+using System.IO;
 
 namespace GameSpec.Blizzard
 {
@@ -8,15 +10,22 @@ namespace GameSpec.Blizzard
     /// <seealso cref="GameSpec.Family" />
     public class BlizzardFileSystem : IFileSystem
     {
-        public string[] GetDirectories(string path, string searchPattern, bool recursive)
+        public IEnumerable<string> Glob(string path, string searchPattern)
         {
-            throw new System.NotImplementedException();
+            var matcher = new Matcher();
+            matcher.AddIncludePatterns(new[] { searchPattern });
+            return matcher.GetResultsInFullPath(searchPattern);
         }
 
-        public string[] GetFiles(string path, string searchPattern)
-        {
-            throw new System.NotImplementedException();
-        }
+        //public string[] GetDirectories(string path, string searchPattern, bool recursive)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
+
+        //public string[] GetFiles(string path, string searchPattern)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
         public string GetFile(string path)
         {
             throw new System.NotImplementedException();

@@ -1,6 +1,7 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static GameSpec.FamilyManager;
 
@@ -217,21 +218,18 @@ namespace GameSpec
             searchPattern = CreateSearchPatterns(searchPattern); // ?? (throwOnError ? throw new InvalidOperationException($"{Id} missing PakExts") : (string)default);
             //if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
-            var fileManager = Family.FileManager;
-            foreach (var p in fileManager.GetGamePaths(this, fileSystem, searchPattern, throwOnError))
+            foreach (var p in FindPaths(fileSystem, searchPattern))
                 switch (SearchBy)
                 {
                     case SearchBy.Pak:
                         foreach (var path in p.paths)
-                            if (IsPakFile(path)) pakFiles.Add(CreatePakFile(fileSystem, (object)path));
+                            if (IsPakFile(path)) pakFiles.Add(CreatePakFileValue(fileSystem, path));
                         break;
-                    case SearchBy.AllDir:
-                    case SearchBy.TopDir:
-                        pakFiles.Add(CreatePakFile(fileSystem, p));
+                    default:
+                        pakFiles.Add(CreatePakFileValue(fileSystem, p));
                         break;
-                    default: throw new ArgumentOutOfRangeException(nameof(SearchBy), $"{SearchBy}");
                 }
-            return WithPlatformGraphic(CreatePakFile(fileSystem, pakFiles));
+            return WithPlatformGraphic(CreatePakFileValue(fileSystem, pakFiles));
         }
 
         /// <summary>
@@ -241,14 +239,20 @@ namespace GameSpec
         /// <param name="value">The value.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public PakFile CreatePakFile(IFileSystem fileSystem, object value, object tag = null) => value switch
+        public PakFile CreatePakFileValue(IFileSystem fileSystem, object value, object tag = null) => value switch
         {
-            string s when IsPakFile(s) => CreatePakFileType(fileSystem, s, tag),
-            string s => throw new InvalidOperationException($"{Id} missing {s}"),
-            ValueTuple<string, string[]> s when s.Item2.Length == 1 && IsPakFile(s.Item2[0]) => CreatePakFile(fileSystem, (object)s.Item2[0], tag),
-            ValueTuple<string, string[]> s => new ManyPakFile(CreatePakFileType(fileSystem, "", tag), this, s.Item1.Length > 0 ? s.Item1 : "Many", fileSystem, s.Item2) { VisualPathSkip = s.Item1.Length > 0 ? s.Item1.Length + 1 : 0 },
-            IList<PakFile> s when s.Count == 1 => s[0],
-            IList<PakFile> s => new MultiPakFile(this, "Multi", fileSystem, s, tag),
+            string v => IsPakFile(v)
+                ? CreatePakFileType(fileSystem, v, tag)
+                : throw new InvalidOperationException($"{Id} missing {v}"),
+            ValueTuple<string, string[]> v => v.Item2.Length == 1 && IsPakFile(v.Item2[0])
+                ? CreatePakFileValue(fileSystem, v.Item2[0], tag)
+                : new ManyPakFile(CreatePakFileType(fileSystem, "", tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
+                {
+                    VisualPathSkip = v.Item1.Length > 0 ? v.Item1.Length + 1 : 0
+                },
+            IList<PakFile> v => v.Count == 1
+                ? v[0]
+                : new MultiPakFile(this, "Multi", fileSystem, v, tag),
             null => null,
             _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
         };
@@ -270,6 +274,24 @@ namespace GameSpec
         public bool IsPakFile(string path) => PakExts.Any(x => path.EndsWith(x, StringComparison.OrdinalIgnoreCase));
 
         /// <summary>
+        /// Get the games paths.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <returns></returns>
+        public IEnumerable<(string root, string[] paths)> FindPaths(IFileSystem fileSystem, string searchPattern)
+        {
+            var gameIgnores = Family.FileManager.Ignores.TryGetValue(Id, out var z) ? z : null;
+            foreach (var path in Paths ?? new[] { "" })
+            {
+                var fileSearch = fileSystem.FindPaths(path, searchPattern);
+                if (gameIgnores != null) fileSearch = fileSearch.Where(x => gameIgnores.Contains(Path.GetFileName(x)));
+                yield return (path, fileSearch.ToArray());
+            }
+        }
+
+        /// <summary>
         /// Creates the search patterns.
         /// </summary>
         /// <param name="searchPattern">The search pattern.</param>
@@ -279,10 +301,11 @@ namespace GameSpec
             if (!string.IsNullOrEmpty(searchPattern)) return searchPattern;
             return SearchBy switch
             {
-                SearchBy.None=> "*/*",
+                SearchBy.None => "*",
                 SearchBy.Pak => PakExts == null || PakExts.Length == 0 ? ""
                     : PakExts.Length == 1 ? $"*{PakExts[0]}" : $"({string.Join("*:", PakExts)})",
-                SearchBy.TopDir => "*/*",
+                SearchBy.TopDir => "*",
+                SearchBy.TwoDir => "*/*",
                 SearchBy.AllDir => "**/*",
                 _ => throw new ArgumentOutOfRangeException(nameof(SearchBy), $"{SearchBy}"),
             };

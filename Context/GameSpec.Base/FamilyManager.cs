@@ -27,6 +27,7 @@ namespace GameSpec
             None,
             Pak,
             TopDir,
+            TwoDir,
             AllDir,
         }
 

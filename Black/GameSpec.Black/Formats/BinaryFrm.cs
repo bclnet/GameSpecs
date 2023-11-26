@@ -3,13 +3,11 @@ using GameSpec.Metadata;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace GameSpec.Bethesda.Formats
+namespace GameSpec.Black.Formats
 {
     public class BinaryFrm : IGetMetadataInfo, ITexture, ITextureMultiple
     {

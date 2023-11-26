@@ -152,7 +152,9 @@ namespace GameSpec
                 : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? game.CreateFileSystem(uri.LocalPath) : default
                 : uri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? !string.IsNullOrEmpty(uri.Host) ? new HostFileSystem(uri) : default
                 : default;
-            if (throwOnError) throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to locate network resources");
+            if (fileSystem == null)
+                if (throwOnError) throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to resources");
+                else return default;
             return new Resource { FileSystem = fileSystem, Game = game, SearchPattern = searchPattern };
         }
 

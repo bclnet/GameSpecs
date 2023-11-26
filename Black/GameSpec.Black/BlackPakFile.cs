@@ -32,9 +32,13 @@ namespace GameSpec.Black
         #region GetPakBinary
 
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
-            => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
-                ? PakBinaryBlack.Instance
-                : PakBinarySystemZip.Instance;
+            => string.IsNullOrEmpty(filePath)
+                ? PakBinaryBlackDat.Instance
+                : Path.GetExtension(filePath).ToLowerInvariant() switch
+                {
+                    ".dat" => PakBinaryBlackDat.Instance,
+                    _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
+                };
 
         #endregion
 

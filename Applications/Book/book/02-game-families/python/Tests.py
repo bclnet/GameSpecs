@@ -1,3 +1,4 @@
+import sys; sys.path.append('../../04-decode-archives/python')
 import FamilyManager
 
 # get Black family

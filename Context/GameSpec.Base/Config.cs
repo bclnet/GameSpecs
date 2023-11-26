@@ -1,7 +1,7 @@
 ﻿//#define Arkane
 //#define Bethesda
 //#define Bioware
-//#define Black
+#define Black
 //#define Blizzard
 //#define Capcom
 //#define Cig
@@ -108,8 +108,8 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Black",
-            //GameId = "Fallout", // Fallout
-            GameId = "Fallout2", // Fallout 2
+            GameId = "Fallout", // Fallout
+            //GameId = "Fallout2", // Fallout 2
         };
 #elif Blizzard
         static string[] FamilyKeys = new[] { "Blizzard", "Unknown" };

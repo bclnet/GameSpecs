@@ -65,7 +65,6 @@ namespace GameSpec.Bethesda
                 {
                     ".bsa" => PakBinaryBethesdaBsa.Instance,
                     ".ba2" => PakBinaryBethesdaBa2.Instance,
-                    ".dat" => PakBinaryBethesdaDat.Instance,
                     ".esm" => PakBinaryBethesdaEsm.Instance,
                     _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
                 };

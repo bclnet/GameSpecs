@@ -14,21 +14,11 @@ namespace GameSpec.Bethesda.Formats
 
         // object factory
         internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
-        {
-            if (!game.Id.StartsWith("Fallout")) return Path.GetExtension(source.Path).ToLowerInvariant() switch
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 ".dds" => (0, BinaryDds.Factory),
                 ".nif" => (0, NiFactory),
                 _ => (0, null),
             };
-            else return Path.GetExtension(source.Path).ToLowerInvariant() switch
-            {
-                var x when x.StartsWith(".fr") => (0, BinaryFrm.Factory),
-                ".pal" => (0, BinaryPal.Factory),
-                ".rix" => (0, BinaryRix.Factory),
-                _ => (0, null),
-            };
-        }
-
     }
 }

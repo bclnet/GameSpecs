@@ -47,29 +47,6 @@ namespace GameSpec
         /// </summary>
         public readonly IDictionary<string, IDictionary<string, string>> Filters = new Dictionary<string, IDictionary<string, string>>();
 
-        #region Parse Resource
-
-        /// <summary>
-        /// Get the games paths.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The fileSystem.</param>
-        /// <param name="searchPattern">The search pattern.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        public IEnumerable<(string root, string[] paths)> GetGamePaths(FamilyGame game, IFileSystem fileSystem, string searchPattern, bool throwOnError = true)
-        {
-            var ignores = Ignores.TryGetValue(game.Id, out var z) ? z : null;
-            foreach (var path in game.Paths ?? new[] { "" })
-            {
-                var fileSearch = fileSystem.FindPaths(path, searchPattern);
-                if (ignores != null) fileSearch = fileSearch.Where(x => ignores.Contains(Path.GetFileName(x)));
-                yield return (path, fileSearch.ToArray());
-            }
-        }
-
-        #endregion
-
         #region Parse File-Manager
 
         public virtual FileManager ParseFileManager(JsonElement elem)

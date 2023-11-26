@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Bethesda.Formats
+namespace GameSpec.Black.Formats
 {
     public unsafe class BinaryPal : IGetMetadataInfo
     {

@@ -5,12 +5,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace GameSpec.Bethesda.Formats
+namespace GameSpec.Black.Formats
 {
     // Fallout 2
-    public unsafe class PakBinaryBethesdaDat : PakBinary
+    public unsafe class PakBinaryBlackDat : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryBethesdaDat();
+        public static readonly PakBinary Instance = new PakBinaryBlackDat();
 
         // Header : F1
         #region Header : F1

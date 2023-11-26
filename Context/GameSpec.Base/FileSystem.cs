@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.FileSystemGlobbing;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -9,8 +12,9 @@ namespace GameSpec
     /// </summary>
     public interface IFileSystem
     {
-        string[] GetDirectories(string path, string searchPattern, bool recursive);
-        string[] GetFiles(string path, string searchPattern);
+        //string[] GetDirectories(string path, string searchPattern, bool recursive);
+        //string[] GetFiles(string path, string searchPattern);
+        IEnumerable<string> Glob(string path, string searchPattern);
         string GetFile(string path);
         bool FileExists(string path);
         FileInfo GetFileInfo(string path);
@@ -26,8 +30,14 @@ namespace GameSpec
         readonly string Root;
         readonly int Skip;
         public StandardFileSystem(string root) { Root = root; Skip = root.Length + 1; }
-        public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(Path.Combine(Root, path), searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(x => x[Skip..]).ToArray();
-        public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(Path.Combine(Root, path), searchPattern).Select(x => x[Skip..]).ToArray();
+        public IEnumerable<string> Glob(string path, string searchPattern)
+        {
+            var matcher = new Matcher();
+            matcher.AddIncludePatterns(new[] { searchPattern });
+            return matcher.GetResultsInFullPath(searchPattern).Select(x => x[Skip..]);
+        }
+        //public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(Path.Combine(Root, path), searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(x => x[Skip..]).ToArray();
+        //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(Path.Combine(Root, path), searchPattern).Select(x => x[Skip..]).ToArray();
         public string GetFile(string path) => File.Exists(path = Path.Combine(Root, path)) ? path[Skip..] : null;
         public bool FileExists(string path) => File.Exists(Path.Combine(Root, path));
         public FileInfo GetFileInfo(string path) => new FileInfo(Path.Combine(Root, path));
@@ -62,8 +72,14 @@ namespace GameSpec
             //}
             //return new[] { searchPattern };
         }
-        public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(path, searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-        public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
+        public IEnumerable<string> Glob(string path, string searchPattern)
+        {
+            var matcher = new Matcher();
+            matcher.AddIncludePatterns(new[] { searchPattern });
+            return matcher.GetResultsInFullPath(searchPattern);
+        }
+        //public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(path, searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+        //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
         public string GetFile(string path) => File.Exists(path) ? path : null;
         public bool FileExists(string path) => File.Exists(path);
         public FileInfo GetFileInfo(string path) => null;
