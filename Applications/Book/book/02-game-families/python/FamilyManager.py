@@ -3,13 +3,6 @@ import os, json, glob, re
 from urllib.parse import urlparse
 import PakFile, FileManager, FileSystem
 
-class Resource:
-    def __init__(s, fileSystem, game, searchPattern):
-        s.fileSystem = fileSystem
-        s.game = game
-        s.searchPattern = searchPattern
-    def __repr__(s): return f'resource:/{s.searchPattern}#{s.game}'
-
 class Family:
     def __init__(s, d):
         s.id = d['id']
@@ -94,8 +87,6 @@ class FamilyGame:
             s.name = d['name'] if 'name' in d else None
         def __repr__(s): return f'{s.id}: {s.name}'
     def __init__(s, dgame, family, id, d):
-        #def alterType(s): return s.split(',', 2)[0][9:].replace('.', '_')
-        #def alterType(s): return s.split(',', 2)[0]
         s.family = family
         s.id = id
         if not dgame: s.ignore = False; s.engine = s.searchBy = s.pakExts = s.paths = s.pakFileType = None; return
@@ -108,7 +99,6 @@ class FamilyGame:
         s.paths = (d['path'] if isinstance(d['path'], list) else [d['path']]) if 'path' in d else dgame.paths
         s.key = d['key'] if 'key' in d else None
         s.searchBy = d['searchBy'] if 'searchBy' in d else dgame.searchBy
-        #s.pakFileType = alterType(d['pakFileType']) if 'pakFileType' in d else dgame.pakFileType
         s.pakFileType = d['pakFileType'] if 'pakFileType' in d else dgame.pakFileType
         s.status = d['status'] if 'status' in d else []
         s.tags = d['tags'] if 'tags' in d else None
@@ -191,6 +181,13 @@ class FamilyGame:
         elif s.searchBy == 'TwoDir': return '*/*'
         elif s.searchBy == 'AllDir': return '**/*'
         else: raise Exception(f'Unknown searchBy: {s.searchBy}')
+
+class Resource:
+    def __init__(s, fileSystem, game, searchPattern):
+        s.fileSystem = fileSystem
+        s.game = game
+        s.searchPattern = searchPattern
+    def __repr__(s): return f'resource:/{s.searchPattern}#{s.game}'
 
 @staticmethod
 def init(root):
