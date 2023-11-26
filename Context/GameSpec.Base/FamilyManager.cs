@@ -75,13 +75,13 @@ namespace GameSpec
         /// <summary>
         /// Gets the specified family.
         /// </summary>
-        /// <param name="familyName">Name of the family.</param>
+        /// <param name="id">Name of the family.</param>
         /// <param name="throwOnError">Throw on error.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">estateName</exception>
-        public static Family GetFamily(string familyName, bool throwOnError = true)
-            => Families.TryGetValue(familyName, out var family) ? family
-            : throwOnError ? throw new ArgumentOutOfRangeException(nameof(familyName), familyName) : (Family)default;
+        public static Family GetFamily(string id, bool throwOnError = true)
+            => Families.TryGetValue(id, out var family) ? family
+            : throwOnError ? throw new ArgumentOutOfRangeException(nameof(id), id) : (Family)default;
 
         #region Pak
 

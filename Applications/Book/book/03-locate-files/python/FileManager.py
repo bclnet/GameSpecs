@@ -107,4 +107,7 @@ class FileManager:
         if 'filters' in d:
             for id in d['filters']:
                 s.addFilter(id, d['filters'][id])
-    def __repr__(s): return f'\n  {s.id}'
+    def __repr__(s): return f'''
+- paths: {list(s.paths.keys()) if s.paths else None}
+- ignores: {list(s.ignores.keys()) if s.ignores else None}
+- filters: {list(s.filters.keys()) if s.filters else None}'''

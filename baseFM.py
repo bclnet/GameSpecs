@@ -23,10 +23,10 @@ class FileManager:
             for id in d['filters']:
                 filters[id] = Filter(id, d['filters'][id])
     def __repr__(s): return f'''
-- applications: {[x for x in s.applications.values()] if s.applications else None}
-- directs: {[x for x in s.directs.values()] if s.directs else None}
-- ignores: {[x for x in s.ignores.values()] if s.ignores else None}
-- filters: {[x for x in s.filters.values()] if s.filters else None}'''
+- applications: {list(s.applications.keys()) if s.applications else None}
+- directs: {list(s.directs.keys()) if s.directs else None}
+- ignores: {list(s.ignores.keys()) if s.ignores else None}
+- filters: {list(s.filters.keys()) if s.filters else None}'''
 
 class Application:
     def __init__(s, id, d):

@@ -1,4 +1,5 @@
 Write a section of the chapter for the following:
 
-Game Families, games and their settings are grouped into families.
-Development studios typically reuse technologies or formats developed for previous games. Grouping games by families allow common settings and small iterations between games to simply the file format decoding for these games.
+*Game Families*
+Games and their settings are grouped into families, along with realted Editions, DLCs and Locales.
+Development studios typically reuse technologies and formats developed for previous games. Grouping games by families allow small iterations between games to simply their file format decoding.

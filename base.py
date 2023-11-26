@@ -22,13 +22,18 @@ class Family:
                 game = FamilyGame(dgame, s, id, d['games'][id])
                 if id.startswith('*'): dgame = game
                 else: games[id] = game
-        # fileManager
+        # file manager
         s.fileManager = FileManager.FileManager(d['fileManager']) if 'fileManager' in d else None
     def __repr__(s): return f'''
 {s.id}: {s.name}
 engines: {[x for x in s.engines.values()] if s.engines else None}
 games: {[x for x in s.games.values()] if s.games else None}
 fileManager: {s.fileManager if s.fileManager else None}'''
+    # open PakFile
+    def openPakFile(res, throwOnError = True):
+        resource = res if isinstance(res, Resource) else \
+        FileManager.parseResource(res) if isinstance(res, str) else None
+        if not resource and throwOnError: raise Exception(f'Unknown res: {res}')
 
 class FamilyEngine:
     def __init__(s, family, id, d):
@@ -104,3 +109,10 @@ def init(root):
         family = Family(jsonLoad(file))
         families[family.id] = family
     return families
+
+@staticmethod
+def getFamily(familyName, throwOnError = True):
+    family = families[familyName] if familyName in families else None
+    if not family and throwOnError: raise Exception(f'Unknown family: {familyName}')
+    return family
+

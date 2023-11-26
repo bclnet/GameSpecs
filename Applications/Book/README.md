@@ -1,8 +1,8 @@
-# Game Spec, First Edition
+# Game Specs: An Asset Guide for Digital Creators, First Edition
 
-Welcome to the first edition of the Game Spec book.
+Welcome to the first edition of Game Specs: An Asset Guide for Digital Creators.
 
-Game Spec is open source under the MIT license.
+Game Specs: An Asset Guide for Digital Creators is open source under the MIT license.
 
 
 ## How To Generate the Book

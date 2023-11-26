@@ -4,17 +4,17 @@ A File Manager centralizes file information like Paths, Ignores, and Filters.
 
 Paths are located in the game folders by looking in specific directories, the existing store managers or the windows registry.
 
-    * Get Path By Directory
+    * getPathByDirectory
     Searches for the game in the game specified folder(s) located in the /Games folder.
 
-    * Get Path By Store Key
+    * getPathByStoreKey
     Searches for the game in the game specified store manager(s) using the following store managers:
         Blizzard Store Manager
         Epic Store Manager
         Gog Store Manager
         Steam Store Manager
 
-    * Get Path By Registry Key
+    * getPathByRegistry Key
     Search for the game using the specified registry key(s) in the Windows Registry under the following locations:
         HKEY_LOCAL_MACHINE/SOFTWARE
         KEY_CURRENT_USER/SOFTWARE

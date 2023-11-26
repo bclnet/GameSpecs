@@ -1,0 +1,11 @@
+Write a section of the chapter for the following:
+
+*Interface*
+The Family object is the starting point to accessing any game asset. You can request a specific Family from the FamilyManager.
+From the family object a PakFile can be opened using a Resource definition or URI.
+
+A PakFile object will then give you access to the individual resources with methods like:
+    Open
+    Contains
+    LoadFileDataAsync
+    LoadFileObjectAsync
