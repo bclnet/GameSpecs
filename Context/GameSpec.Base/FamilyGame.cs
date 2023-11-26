@@ -271,7 +271,7 @@ namespace GameSpec
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns></returns>
-        public bool IsPakFile(string path) => PakExts.Any(x => path.EndsWith(x, StringComparison.OrdinalIgnoreCase));
+        public bool IsPakFile(string path) => PakExts != null && PakExts.Any(x => path.EndsWith(x, StringComparison.OrdinalIgnoreCase));
 
         /// <summary>
         /// Get the games paths.

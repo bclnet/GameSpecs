@@ -14,12 +14,14 @@
       "name": "Fallout",
       "url": "https://store.steampowered.com/app/38400",
       "date": "1997-09-30",
+      "searchBy": "AllDir",
       "pakExt": ".dat"
     },
     "Fallout2": {
       "name": "Fallout 2",
       "url": "https://store.steampowered.com/app/38410",
       "date": "1998-12-01",
+      "searchBy": "AllDir",
       "pakExt": ".dat"
     },
     "P:T": {

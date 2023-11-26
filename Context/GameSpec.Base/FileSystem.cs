@@ -34,7 +34,7 @@ namespace GameSpec
         {
             var matcher = new Matcher();
             matcher.AddIncludePatterns(new[] { searchPattern });
-            return matcher.GetResultsInFullPath(searchPattern).Select(x => x[Skip..]);
+            return matcher.GetResultsInFullPath(Path.Combine(Root, path)).Select(x => x[Skip..]);
         }
         //public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(Path.Combine(Root, path), searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(x => x[Skip..]).ToArray();
         //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(Path.Combine(Root, path), searchPattern).Select(x => x[Skip..]).ToArray();
