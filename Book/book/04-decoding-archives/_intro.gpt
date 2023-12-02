@@ -1,0 +1,36 @@
+Write the 4th chapter of a technical book using the following headers and details:
+
+File Manager:
+
+A file manager helps to locate the game folders looking in specific directories, store managers or the windows registry.
+
+    * ApplicationByDirectory
+    Searches for the game in the game specified folder(s) located in the /Games folder.
+
+    * ApplicationByStore
+    Seaches for the game in the game specified store manager(s) using the following store managers:
+        * Blizzard Store Manager
+        * Epic Store Manager
+        * Gog Store Manager
+        * Steam Store Manager
+
+    * ApplicationByRegistry
+    Search for the game using the specified registry key(s) in the Windows Registry under the following locations:
+        * HKEY_LOCAL_MACHINE/SOFTWARE
+        * KEY_CURRENT_USER/SOFTWARE
+        * HKEY_CLASSES_ROOT/VirtualStore/MACHINE/SOFTWARE
+        * HKEY_LOCAL_MACHINE/SOFTWARE/Wow6432Node
+        * KEY_CURRENT_USER/SOFTWARE/Wow6432Node
+        * HKEY_CLASSES_ROOT/VirtualStore/MACHINE/SOFTWARE/Wow6432Node
+    Once a registry key is found a directory is attempted to be located by searching the following registry key values:
+        * Path
+        * Install Dir
+        * InstallDir
+        * InstallLocation
+    Or getting the directory location from the file set in the following values:
+        * Installed Path
+        * ExePath
+        * Exe
+
+Sub folder:
+Some games start in a sub-folder of the root game folder, a game can specify path(s) which are combined with found root folder.

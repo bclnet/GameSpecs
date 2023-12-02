@@ -1,5 +1,5 @@
 import sys, os, re, qrcode
-sys.path.append('../..')
+sys.path.append('..')
 import base
 
 def writeFile(z, path, marker, body):
@@ -47,7 +47,10 @@ def GameFamily(f):
         b.append('|===\n')
         b.append(f'|ID |Name |Engine |Date |Extension(s) |Url\n')
         for s in f.games.values():
-            multi = s.key or s.editions or s.dlc or s.locales
+            s_fa = f.fileManager.applications[s.id] if f.fileManager and s.id in f.fileManager.applications else None
+            s_fi = f.fileManager.ignores[s.id] if f.fileManager and s.id in f.fileManager.ignores else None
+            s_ff = f.fileManager.filters[s.id] if f.fileManager and s.id in f.fileManager.filters else None
+            multi = s_fa or s.key or s.editions or s.dlc or s.locales
             b.append('\n')
             if multi: b.append('.2+')
             b.append(f'|{s.id}\n')
@@ -60,8 +63,7 @@ def GameFamily(f):
                 b.append('\n')
                 b.append(f'5+a|\n')
                 # s.key
-                if s.key:
-                    b.append(f'{s.key}\n')
+                if s.key: b.append(f'{s.key}\n')
                 # editions
                 if s.editions:
                     b.append(f'Editions:\n')
@@ -76,7 +78,7 @@ def GameFamily(f):
                     b.append(f'\n')
                 # dlc
                 if s.dlc:
-                    b.append(f'DLC:\n')
+                    b.append(f'DLCs:\n')
                     b.append('[cols="1,1,1"]\n')
                     b.append('!===\n')
                     b.append(f'!ID !Name !Path\n')
@@ -99,31 +101,25 @@ def GameFamily(f):
                         b.append(f'!{t.name}\n')
                     b.append('!===\n')
                     b.append(f'\n')
+                # fileManager.Application
+                if s_fa:
+                    b.append('[cols="1,1,1"]\n')
+                    b.append('!===\n')
+                    b.append(f'!Dir !Key !Path\n')
+                    if s_fa:
+                        b.append('\n')
+                        b.append(f'!{', '.join(s_fa.dir) if s_fa.dir else None}\n')
+                        b.append(f'!{', '.join(s_fa.key) if s_fa.key else None}\n')
+                        b.append(f'!{', '.join(s_fa.path) if s_fa.path else None}\n')
+                        b.append('\n')
+                        b.append(f'3+!{', '.join(s_fa.reg) if s_fa.reg else None}\n')
+                    b.append('!===\n')
+                    b.append(f'\n')
         b.append('|===\n')
         b.append(f'\n')
     return ''.join(b)
-    
-def LocateFiles(fm):
-    b = ['\n']
-    b.append('[cols="1,1,1,1"]\n')
-    b.append('|===\n')
-    b.append(f'|ID |Dir |Key |Path\n')
-    for s in fm.applications.values():
-        b.append('\n')
-        b.append(f'.2+|{s.id}\n')
-        b.append(f'|{', '.join(s.dir) if s.dir else None}\n')
-        b.append(f'|{', '.join(s.key) if s.key else None}\n')
-        b.append(f'|{', '.join(s.path) if s.path else None}\n')
-        b.append('\n')
-        b.append(f'3+|{', '.join(s.reg) if s.reg else None}\n')
-    b.append('|===\n')
-    b.append(f'\n')
-    return ''.join(b)
 
-for f in base.init('../../').values():
+for f in base.init('../').values():
     print(f.id)
     body = GameFamily(f)
-    writeFile(f, f'book/02-game-families/{f.id}.asc', '==== Family Info\n', body)
-    if f.fileManager != None:
-        body = LocateFiles(f.fileManager)
-        writeFile(f, f'book/03-locate-files/{f.id}.asc', '==== File Info\n', body)
+    writeFile(f, f'book/A-families/{f.id}.asc', '==== Family Info\n', body)

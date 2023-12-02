@@ -123,7 +123,7 @@ namespace :book do
       #check_contrib()
 
       puts 'Converting to PDF... (this one takes a while)'
-      sh "bundle exec asciidoctor-pdf #{params} gamespecs.asc 2>#{os_devnull}"
+      sh "bundle exec asciidoctor-pdf #{params} gamespecs.asc" # ">#{os_devnull}"
       puts ' -- PDF output at gamespecs.pdf'
   end
 

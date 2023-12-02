@@ -129,7 +129,7 @@ class FamilyGame:
     # create FileSystem
     def createFileSystem(self, root, host = None):
         return filesys.HostFileSystem(host) if host else \
-            dynamicType(self.fileSystemType)(self, root) if self.fileSystemType else \
+            findType(self.fileSystemType)(self, root) if self.fileSystemType else \
             filesys.StandardFileSystem(root)
 
     # create PakFile
@@ -162,8 +162,9 @@ class FamilyGame:
     # create PakFileType
     def createPakFileType(self, fileSystem, path, tag = None):
         if not self.pakFileType: raise Exception(f'{self.id} missing PakFileType')
-        return dynamicType(self.pakFileType)(self, fileSystem, path, tag)
+        return findType(self.pakFileType)(self, fileSystem, path, tag)
 
+    # is a PakFile
     def isPakFile(self, path):
         return any([x for x in self.pakExts if x.endswith(x)])
 
@@ -214,9 +215,9 @@ def getFamily(id, throwOnError = True):
     if not family and throwOnError: raise Exception(f'Unknown family: {id}')
     return family
 
+# finds a type
 @staticmethod
-def dynamicType(klass):
-    # print(f'create: {klass}')
+def findType(klass):
     from importlib import import_module
     klass, modulePath = klass.rsplit(',', 1)
     try:
