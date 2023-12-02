@@ -170,8 +170,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontier", "Frontier", "{8A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Capcom", "Capcom", "{6F41E78D-790E-461B-8B66-94569F6E4291}"
 	ProjectSection(SolutionItems) = preProject
-		Specs\CapcomFamily+0–D.json = Specs\CapcomFamily+0–D.json
-		Specs\CapcomFamily+E–L.json = Specs\CapcomFamily+E–L.json
+		Specs\CapcomFamily+0-D.json = Specs\CapcomFamily+0-D.json
+		Specs\CapcomFamily+E-L.json = Specs\CapcomFamily+E-L.json
 		Specs\CapcomFamily+M.json = Specs\CapcomFamily+M.json
 		Specs\CapcomFamily+N-R.json = Specs\CapcomFamily+N-R.json
 		Specs\CapcomFamily+S.json = Specs\CapcomFamily+S.json
