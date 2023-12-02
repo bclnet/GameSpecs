@@ -1,15 +1,27 @@
-import sys; sys.path.append('../../04-decode-archives/python')
-import FamilyManager
+from game_specs import familymgr
 
-# get Black family
-family = FamilyManager.getFamily('Black')
-print(f'studio: {family.studio}')
+def test_haversine():
+    # get Black family
+    family = familymgr.getFamily('Black')
+    print(f'studio: {family.studio}')
 
-# get pak with resource
-res = family.parseResource('game:/MASTER.DAT#Fallout')
-pakFile1 = family.openPakFile(res)
-print(f'pak: {pakFile1}')
+    # get pak with resource
+    res = family.parseResource('game:/MASTER.DAT#Fallout')
+    pakFile1 = family.openPakFile(res)
+    print(f'pak: {pakFile1}')
 
-# get pak with game:/uri
-pakFile2 = family.openPakFile('game:/MASTER.DAT#Fallout')
-print(f'pak: {pakFile2}')
+    # get pak with game:/uri
+    pakFile2 = family.openPakFile('game:/MASTER.DAT#Fallout')
+    print(f'pak: {pakFile2}')
+    # Amsterdam to Berlin
+
+    assert family
+
+
+# # get Black family
+# family = FamilyManager.getFamily('Arkane')
+# print(f'studio: {family.studio}')
+
+# # get pak with game:/uri
+# pakFile = family.openPakFile('game:/#AF')
+# print(f'{pakFile}')

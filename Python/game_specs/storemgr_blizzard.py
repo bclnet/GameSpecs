@@ -1,4 +1,4 @@
-import os, platform, BlizzardProtoDatabase_pb2
+import os, platform, Blizzard_pb2
 
 @staticmethod
 def init():
@@ -26,7 +26,7 @@ def init():
     dbPath = os.path.join(root, 'product.db')
     if not os.path.exists(dbPath): return
     # query games
-    productDb = BlizzardProtoDatabase_pb2.Database()
+    productDb = Blizzard_pb2.Database()
     with open(dbPath, 'rb') as f:
         bytes = f.read()
         productDb.ParseFromString(bytes)
@@ -35,8 +35,8 @@ def init():
         for app in productDb.ProductInstall:
             # add appPath if exists
             appPath = app.Settings.InstallPath
-            if os.path.isdir(appPath): blizzardAppPaths[app.Uid] = appPath
+            if os.path.isdir(appPath): blizzardPaths[app.Uid] = appPath
 
-blizzardAppPaths = {}
+blizzardPaths = {}
 init()
-# print(blizzardAppPaths)
+# print(blizzardPaths)

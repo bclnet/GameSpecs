@@ -89,8 +89,8 @@ def init():
                 if appManifest is None: continue
                 # add appPath if exists
                 appPath = os.path.join(path, 'steamapps', 'common', appManifest.get['AppState'].value['installdir'])
-                if os.path.isdir(appPath): steamAppPaths[appId] = appPath
+                if os.path.isdir(appPath): steamPaths[appId] = appPath
 
-steamAppPaths = {}
+steamPaths = {}
 init()
-# print(steamAppPaths)
+# print(steamPaths)

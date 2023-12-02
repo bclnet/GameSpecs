@@ -31,8 +31,8 @@ def init():
         with open(os.path.join(dbPath, s), 'r') as f:
             # add appPath if exists
             appPath = json.loads(f.read())['InstallLocation']
-            if os.path.isdir(appPath): epicAppPaths[s[:-5]] = appPath
+            if os.path.isdir(appPath): epicPaths[s[:-5]] = appPath
 
-epicAppPaths = {}
+epicPaths = {}
 init()
-# print(epicAppPaths)
+# print(epicPaths)

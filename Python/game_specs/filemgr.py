@@ -1,4 +1,4 @@
-import os, platform, psutil, winreg, StoreManager
+import os, platform, psutil, winreg, storemgr
 GAMESPATH = 'Games'
 
 class FileManager:
@@ -8,33 +8,33 @@ class FileManager:
     if platform.system() == 'Android': gameRoots.append(os.path.join('/sdcard', GAMESPATH))
     games = {x:os.path.join(r,x) for r in gameRoots if os.path.isdir(r) for x in os.listdir(r)}
     
-    def addApplication(s, id, d):
+    def addApplication(self, id, d):
         system = platform.system()
         if system == 'Windows' and 'reg' in d:
             for key in d['reg'] if isinstance(d['reg'], list) else [d['reg']]:
-                if not id in s.paths and (z := s.getPathByRegistryKey(key, d)): s.addPath(id, d, z)
+                if not id in self.paths and (z := self.getPathByRegistryKey(key, d)): self.addPath(id, d, z)
         if 'key' in d:
             for key in d['key'] if isinstance(d['key'], list) else [d['key']]:
-                if not id in s.paths and (z := StoreManager.getPathByKey(key)): s.addPath(id, d, z)
+                if not id in self.paths and (z := storemgr.getPathByKey(key)): self.addPath(id, d, z)
         if 'dir' in d:
             for key in d['dir'] if isinstance(d['dir'], list) else [d['dir']]:
-                if not id in s.paths and key in FileManager.games: s.addPath(id, d, games[key])
+                if not id in self.paths and key in FileManager.games: self.addPath(id, d, games[key])
     
-    def addFilter(s, id, d):
-        if not id in s.filters: s.filters[id] = []
-        s.filters[id].append(d)
+    def addFilter(self, id, d):
+        if not id in self.filters: self.filters[id] = []
+        self.filters[id].append(d)
 
-    def addIgnore(s, id, paths):
-        if not id in s.ignores: s.ignores[id] = set()
-        for v in paths: s.ignores[id].add(v)
+    def addIgnore(self, id, paths):
+        if not id in self.ignores: self.ignores[id] = set()
+        for v in paths: self.ignores[id].add(v)
 
-    def addPath(s, id, d, path, usePath = True):
+    def addPath(self, id, d, path, usePath = True):
         if path is None or not os.path.isdir(path := FileManager.getPathWithSpecialFolders(path, '')): return
         paths = (d['path'] if isinstance(d['path'], list) else [d['path']]) if usePath and 'path' in d else [path]
         for p in [os.path.join(path, x) for x in paths]:
             if not os.path.isdir(p): continue
-            if not id in s.paths: s.paths[id] = []
-            s.paths[id].append(p)
+            if not id in self.paths: self.paths[id] = []
+            self.paths[id].append(p)
 
     @staticmethod
     def getPathWithSpecialFolders(path, rootPath):
@@ -84,29 +84,29 @@ class FileManager:
         #     return !string.IsNullOrEmpty(path)
         return path
 
-    def __init__(s, d):
-        s.filters = {}
-        s.paths = {}
-        s.ignores = {}
+    def __init__(self, d):
+        self.filters = {}
+        self.paths = {}
+        self.ignores = {}
         # applications
         if 'application' in d:
             for (id, val) in d['application'].items():
-                if not id in s.paths: s.addApplication(id, val)
+                if not id in self.paths: self.addApplication(id, val)
         # direct
         if 'direct' in d:
             for (id, val) in d['direct'].items():
                 if 'path' in val:
                     for key in val['path'] if isinstance(val['path'], list) else [val['path']]:
-                        s.addPath(id, d, key, False)
+                        self.addPath(id, d, key, False)
         # ignores
         if 'ignores' in d:
             for (id, val) in d['ignores'].items():
-                s.addIgnore(id, val['path'] if isinstance(val['path'], list) else [val['path']])
+                self.addIgnore(id, val['path'] if isinstance(val['path'], list) else [val['path']])
         # filters
         if 'filters' in d:
             for (id, val) in d['filters'].items():
-                s.addFilter(id, val)
-    def __repr__(s): return f'''
-- paths: {list(s.paths.keys()) if s.paths else None}
-- ignores: {list(s.ignores.keys()) if s.ignores else None}
-- filters: {list(s.filters.keys()) if s.filters else None}'''
+                self.addFilter(id, val)
+    def __repr__(self): return f'''
+- paths: {list(self.paths.keys()) if self.paths else None}
+- ignores: {list(self.ignores.keys()) if self.ignores else None}
+- filters: {list(self.filters.keys()) if self.filters else None}'''

@@ -1,15 +1,15 @@
 import os, platform, pathlib
 
 class StandardFileSystem:
-    def __init__(s, root): s.root = root; s.skip = len(root) + 1
-    def glob(s, path, searchPattern):
-        g = pathlib.Path(os.path.join(s.root, path)).glob(searchPattern)
-        return [str(x)[s.skip:] for x in g]
+    def __init__(self, root): self.root = root; self.skip = len(root) + 1
+    def glob(self, path, searchPattern):
+        g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern)
+        return [str(x)[self.skip:] for x in g]
 
 class HostFileSystem:
-    def __init__(s, uri):
-        s.uri = uri
-    def glob(s, path, searchPattern):
+    def __init__(self, uri):
+        self.uri = uri
+    def glob(self, path, searchPattern):
         raise Exception('Not Implemented')
 
 @staticmethod
@@ -25,21 +25,21 @@ def findPaths(fileSystem, path, searchPattern):
 
 
 
-# def getDirectories(s, path, searchPattern, recursive):
+# def getDirectories(self, path, searchPattern, recursive):
 #     print('HERE1')
 #     exit(1)
-#     p = pathlib.Path(os.path.join(s.root, path))
+#     p = pathlib.Path(os.path.join(self.root, path))
 #     g = p.rglob(searchPattern) if recursive else p.glob(searchPattern)
 #     print(list(g))
 #     exit(1)
-#     return [x[s.skip:] for x in g if x.is_dir()]
-# def getFiles(s, path, searchPattern):
-#     p = pathlib.Path(os.path.join(s.root, path))
+#     return [x[self.skip:] for x in g if x.is_dir()]
+# def getFiles(self, path, searchPattern):
+#     p = pathlib.Path(os.path.join(self.root, path))
 #     g = p.glob(searchPattern)
 #     print([x for x in g])
 #     exit(1)
-#     return [x[s.skip:] for x in g if not x.is_dir()]
-# def fileExists(s, path):
+#     return [x[self.skip:] for x in g if not x.is_dir()]
+# def fileExists(self, path):
 # # folder
 # directoryPattern = os.path.dirname(searchPattern)
 # if '*' in directoryPattern:

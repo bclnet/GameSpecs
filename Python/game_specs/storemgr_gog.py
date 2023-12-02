@@ -35,8 +35,8 @@ def init():
             for s in cursor.execute('SELECT productId, installationPath FROM InstalledBaseProducts').fetchall():
                 # add appPath if exists
                 appPath = s[1]
-                if os.path.isdir(appPath): gogAppPaths[s[0]] = appPath
+                if os.path.isdir(appPath): gogPaths[s[0]] = appPath
 
-gogAppPaths = {}
+gogPaths = {}
 init()
-# print(gogAppPaths)
+# print(gogPaths)
