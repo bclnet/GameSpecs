@@ -90,8 +90,8 @@ namespace GameSpec.App.Explorer.Views
         void Family_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = (Family)Family.SelectedItem;
-            FamilyGames = selected?.Games.Values;
-            if (!string.IsNullOrEmpty(Config.DefaultGameId)) FamilyGame.SelectedIndex = FamilyManager.Families[Config.DefaultFamily].Games.Keys.ToList().IndexOf(Config.DefaultGameId);
+            FamilyGames = selected?.Games.Values.Where(x => !x.Ignore).ToList();
+            if (selected.Id == Config.DefaultFamily && !string.IsNullOrEmpty(Config.DefaultGameId)) FamilyGame.SelectedIndex = ((List<FamilyGame>)FamilyGames).FindIndex(x => x.Id == Config.DefaultGameId);
             else FamilyGame.SelectedIndex = -1;
             OnReady();
         }

@@ -169,24 +169,28 @@ namespace GameSpec
             game.GameType = gameType;
             game.Family = family;
             game.Id = id;
+            game.Found = locations.ContainsKey(id);
             game.Ignore = elem.TryGetProperty("n/a", out z) ? z.GetBoolean() : dgame != null && dgame.Ignore;
             game.Name = elem.TryGetProperty("name", out z) ? z.GetString() : default;
             game.Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : dgame?.Engine;
             game.Urls = elem.TryGetProperty("url", out z) ? z.GetStringOrArray(x => new Uri(x)) : default;
             game.Date = elem.TryGetProperty("date", out z) ? DateTime.Parse(z.GetString()) : default;
-            game.SearchBy = elem.TryGetProperty("searchBy", out z) ? Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}") : dgame != null ? dgame.SearchBy : default;
             game.Option = elem.TryGetProperty("option", out z) ? Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}") : dgame != null ? dgame.Option : default;
-            game.PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}") : dgame?.PakFileType;
-            game.PakExts = elem.TryGetProperty("pakExt", out z) ? z.GetStringOrArray(x => x) : dgame?.PakExts;
             game.Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Paks;
             game.Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Dats;
             game.Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : dgame?.Paths;
-            game.Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var zO) ? zO : throw new ArgumentOutOfRangeException("key", z.GetString()) : default;
+            game.Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var zO) ? zO : throw new ArgumentOutOfRangeException("key", z.GetString()) : dgame?.Key;
+            game.Status = elem.TryGetProperty("status", out z) ? z.GetStringOrArray() : default;
+            game.Tags = elem.TryGetProperty("tags", out z) ? z.GetStringOrArray() : default;
+            // interface
             game.FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}") : dgame?.FileSystemType;
+            game.SearchBy = elem.TryGetProperty("searchBy", out z) ? Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}") : dgame != null ? dgame.SearchBy : default;
+            game.PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}") : dgame?.PakFileType;
+            game.PakExts = elem.TryGetProperty("pakExt", out z) ? z.GetStringOrArray(x => x) : dgame?.PakExts;
+            // related
             game.Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameEdition(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : default;
-            game.Dlcs = elem.TryGetProperty("dlc", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : default;
+            game.Dlcs = elem.TryGetProperty("dlcs", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameDownloadableContent(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : default;
             game.Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => ParseGameLocal(x.Name, x.Value), StringComparer.OrdinalIgnoreCase) : default;
-            game.Found = locations.ContainsKey(id);
             if (id.StartsWith("*")) { dgame = game; game = null; }
             return game;
         }

@@ -1,7 +1,7 @@
 ﻿//#define Arkane
-//#define Bethesda
+#define Bethesda
 //#define Bioware
-#define Black
+//#define Black
 //#define Blizzard
 //#define Capcom
 //#define Cig
@@ -58,10 +58,10 @@ namespace GameSpec
             //ForcePath = "bookart/boethiah_256.dds",
             //ForcePath = "icons/handtohand.dds",
 
-            ForceOpen = true,
+            //ForceOpen = true,
             Family = "Bethesda",
 
-            //GameId = "Morrowind", // The Elder Scrolls III: Morrowind
+            GameId = "Morrowind", // The Elder Scrolls III: Morrowind
             //GameId = "Oblivion", // The Elder Scrolls IV: Oblivion
             //GameId = "Fallout3", // Fallout 3
             //GameId = "FalloutNV", // Fallout New Vegas

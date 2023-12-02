@@ -175,7 +175,7 @@
       "date": "2009-11-16",
       "tags": "Left4Dead",
       "path": [ "platform", "hl2", "left4dead2", "update" ],
-      "dlc": {
+      "dlcs": {
         "dlc1": { "name": "dlc1", "path": "left4dead2_dlc1" },
         "dlc2": { "name": "dlc2", "path": "left4dead2_dlc2" },
         "dlc3": { "name": "dlc3", "path": "left4dead2_dlc3" }
@@ -212,7 +212,7 @@
       "date": "2013-07-09",
       "tags": "Dota",
       "path": [ "core", "dota" ],
-      "dlc": {
+      "dlcs": {
         "addon_template": { "name": "koreana", "path": "dota_addons/addon_template" },
         "adventure_example": { "name": "adventure_example", "path": "dota_addons/adventure_example" },
         "aghanim": { "name": "aghanim", "path": "dota_addons/aghanim" },

@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using GameSpec.Formats;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace GameSpec.App.Cli
             {
                 Console.WriteLine($"{family.Name}\nDescription: {family.Description}\nStudio: {family.Studio}");
                 Console.WriteLine($"\nGames:");
-                foreach (var game in family.Games.Values) Console.WriteLine($"{game.Name}{(game.Found ? " -> " + string.Join(',', game.Paks) : null)}");
+                foreach (var game in family.Games.Values) Console.WriteLine($"{game.Name}{(game.Found ? $" -> {string.Join(',', (IEnumerable<Uri>)game.Paks)}" : null)}");
                 Console.WriteLine("\nLocations:");
                 var paths = family.FileManager.Paths;
                 if (paths.Count == 0) { Console.WriteLine($"No locations found for estate {opts.Family}."); return Task.FromResult(0); }

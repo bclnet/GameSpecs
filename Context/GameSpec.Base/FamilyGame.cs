@@ -136,6 +136,14 @@ namespace GameSpec
         /// </summary>
         public object Key { get; set; }
         /// <summary>
+        /// Gets or sets the Status.
+        /// </summary>
+        public string[] Status { get; set; }
+        /// <summary>
+        /// Gets or sets the Tags.
+        /// </summary>
+        public string[] Tags { get; set; }
+        /// <summary>
         /// Determines if the game has been found.
         /// </summary>
         public bool Found { get; set; }
@@ -190,8 +198,11 @@ namespace GameSpec
         /// Creates the game file system.
         /// </summary>
         /// <param name="paths">The paths.</param>
+        /// <param name="host">The host.</param>
         /// <returns></returns>
-        public IFileSystem CreateFileSystem(string root) => FileSystemType != null ? (IFileSystem)Activator.CreateInstance(FileSystemType, root) : new StandardFileSystem(root);
+        public IFileSystem CreateFileSystem(string root, Uri host = null) => host != null ? new HostFileSystem(host)
+            : FileSystemType != null ? (IFileSystem)Activator.CreateInstance(FileSystemType, root)
+            : new StandardFileSystem(root);
 
         /// <summary>
         /// Adds the platform graphic.
