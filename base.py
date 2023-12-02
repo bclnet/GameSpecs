@@ -105,7 +105,7 @@ def init(root):
         with open(file, encoding='utf8') as f:
             return json.loads(commentRemover(f.read()).encode().decode('utf-8-sig'))
     families = {}
-    for file in glob.glob(f'{root}*/*.json'):
+    for file in glob.glob(f'{root}Specs/*.json'):
         family = Family(jsonLoad(file))
         families[family.id] = family
     return families

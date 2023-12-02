@@ -108,7 +108,7 @@ The following are the current games:
 | [W:CP](https://store.steampowered.com/app/1056970) | Wolfenstein: Cyberpilot | - | - | -- -- -- | -- -- -- | -- -- --
 | [DL](https://store.steampowered.com/app/1252330) | Deathloop | - | - | -- -- -- | -- -- -- | -- -- --
 | [RF](https://bethesda.net/en/game/redfall) | Redfall (future) | - | - | -- -- -- | -- -- -- | -- -- --
-| **Bethesda** | **The Elder Scrolls**
+| **Bethesda** | **Bethesda**
 | [Morrowind](https://store.steampowered.com/app/22320) | The Elder Scrolls III: Morrowind | - | - | -- -- -- | -- -- -- | -- -- --
 | [Oblivion](https://store.steampowered.com/app/22330) | The Elder Scrolls IV: Oblivion | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout3](https://store.steampowered.com/app/22370) | Fallout 3 | - | - | -- -- -- | -- -- -- | -- -- --
@@ -144,7 +144,7 @@ The following are the current games:
 | [ME:LE](https://store.steampowered.com/app/1328670) | Mass Effect: Legendary Edition | - | - | -- -- -- | -- -- -- | -- -- --
 | [DA:D](https://www.ea.com/en-gb/games/dragon-age/dragon-age-dreadwolf) | Dragon Age: Dreadwolf (future) | - | - | -- -- -- | -- -- -- | -- -- --
 | [ME5](https://en.wikipedia.org/wiki/Mass_Effect) | Mass Effect 5 (future) | - | - | -- -- -- | -- -- -- | -- -- --
-| **Black** | **Black Isle Studios**
+| **Black** | **Black Isle**
 | [Fallout](https://store.steampowered.com/app/38400) | Fallout | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout2](https://store.steampowered.com/app/38410) | Fallout 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [P:T](https://en.wikipedia.org/wiki/Planescape:_Torment) | Planescape: Torment | - | - | -- -- -- | -- -- -- | -- -- --
@@ -160,8 +160,8 @@ The following are the current games:
 | [WOWC](https://us.shop.battle.net/en-us/family/world-of-warcraft-classic) | World of Warcraft: Classic | - | - | -- -- -- | -- -- -- | -- -- --
 | [SC2](https://us.shop.battle.net/en-us/product/starcraft-ii) | StarCraft II: Wings of Liberty | - | - | -- -- -- | -- -- -- | -- -- --
 | [D3](https://us.shop.battle.net/en-us/product/diablo-iii) | Diablo III | - | - | -- -- -- | -- -- -- | -- -- --
-| [HOTS]() | Heroes of the Storm | - | - | -- -- -- | -- -- -- | -- -- --
-| [HS](https://us.shop.battle.net/en-us/product/hearthstone-heroes-of-warcraft) | Hearthstone | - | - | -- -- -- | -- -- -- | -- -- --
+| [HOTS](https://us.shop.battle.net/en-us/family/heroes-of-the-storm) | Heroes of the Storm | - | - | -- -- -- | -- -- -- | -- -- --
+| [HS](https://us.shop.battle.net/en-us/family/hearthstone) | Hearthstone | - | - | -- -- -- | -- -- -- | -- -- --
 | [CB](https://us.shop.battle.net/en-us/family/crash-bandicoot-4) | Crash Bandicoot™ 4: It’s About Time | - | - | -- -- -- | -- -- -- | -- -- --
 | [DI](https://diabloimmortal.blizzard.com/en-us/) | Diablo Immortal | - | - | -- -- -- | -- -- -- | -- -- --
 | [OW2](https://us.shop.battle.net/en-us/product/overwatch) | Overwatch 2 | - | - | -- -- -- | -- -- -- | -- -- --
@@ -234,7 +234,7 @@ The following are the current games:
 | [UMVC3](https://store.steampowered.com/app/357190) | Ultimate Marvel vs. Capcom 3 | - | - | -- -- -- | -- -- -- | -- -- --
 | [USF4](https://store.steampowered.com/app/45760) | Ultra Street Fighter IV | - | - | -- -- -- | -- -- -- | -- -- --
 | [UmbrellaCorps](https://store.steampowered.com/app/390340) | Umbrella Corps | - | - | -- -- -- | -- -- -- | -- -- --
-| **Cig** | **Roberts Space Industries**
+| **Cig** | **Cloud Imperium Games**
 | [StarCitizen](https://robertsspaceindustries.com/playstarcitizen) | Star Citizen | - | - | -- -- -- | -- -- -- | -- -- --
 | **Cryptic** | **Cryptic**
 | [CO](https://store.steampowered.com/app/9880) | Champions Online | open | read | -- -- -- | -- -- -- | -- -- --
@@ -253,6 +253,22 @@ The following are the current games:
 | **Cyanide** | **Cyanide**
 | [TC](https://store.steampowered.com/app/287630) | The Council | - | - | -- -- -- | -- -- -- | -- -- --
 | [Werewolf:TA](https://store.steampowered.com/app/679110) | Werewolf: The Apocalypse - Earthblood | - | - | -- -- -- | -- -- -- | -- -- --
+| **Epic** | **Epic**
+| [UE1](https://oldgamesdownload.com/unreal) | Unreal | - | - | -- -- -- | -- -- -- | -- -- --
+| [TWoT](https://www.gog.com/en/game/the_wheel_of_time) | The Wheel of Time | - | - | -- -- -- | -- -- -- | -- -- --
+| [DeusEx](https://www.gog.com/en/game/deus_ex) | Deus Ex™ GOTY Edition | - | - | -- -- -- | -- -- -- | -- -- --
+| [DeusEx:MD](https://www.gog.com/en/game/deus_ex_mankind_divided) | Deus Ex: Mankind Divided | - | - | -- -- -- | -- -- -- | -- -- --
+| [DeusEx2:IW](https://www.gog.com/en/game/deus_ex_invisible_war) | Deus Ex 2: Invisible War | - | - | -- -- -- | -- -- -- | -- -- --
+| [DeusEx:HR](https://www.gog.com/en/game/deus_ex_human_revolution_directors_cut) | Deus Ex: Human Revolution - Director’s Cut | - | - | -- -- -- | -- -- -- | -- -- --
+| [Rune](https://www.gog.com/en/game/rune_classic) | Rune | - | - | -- -- -- | -- -- -- | -- -- --
+| [Undying](https://www.gog.com/en/game/clive_barkers_undying) | Clive Barker's Undying | - | - | -- -- -- | -- -- -- | -- -- --
+| [UT2K](https://oldgamesdownload.com/unreal-tournament-2003/) | Unreal Tournament 2003 | - | - | -- -- -- | -- -- -- | -- -- --
+| [UE2](https://store.steampowered.com/app/13200/Unreal_2_The_Awakening/) | Unreal II: The Awakening | - | - | -- -- -- | -- -- -- | -- -- --
+| [BioShock](https://store.steampowered.com/app/7670) | BioShock | - | - | -- -- -- | -- -- -- | -- -- --
+| [BioShockR](https://store.steampowered.com/app/409710) | BioShock Remastered | - | - | -- -- -- | -- -- -- | -- -- --
+| [BioShock2](https://store.steampowered.com/app/8850) | BioShock 2 | - | - | -- -- -- | -- -- -- | -- -- --
+| [BioShock2R](https://store.steampowered.com/app/409720) | BioShock 2 Remastered | - | - | -- -- -- | -- -- -- | -- -- --
+| [BioShock:Inf](https://store.steampowered.com/app/8870) | BioShock Infinite | - | - | -- -- -- | -- -- -- | -- -- --
 | **Frictional** | **HPL Engine**
 | [P:O](https://store.steampowered.com/app/22180) | Penumbra: Overture | - | - | -- -- -- | -- -- -- | -- -- --
 | [P:BP](https://store.steampowered.com/app/22120) | Penumbra: Black Plague | - | - | -- -- -- | -- -- -- | -- -- --
@@ -329,22 +345,6 @@ The following are the current games:
 | [ACO](https://store.steampowered.com/app/582160) | Assassin's Creed Origins | - | - | -- -- -- | -- -- -- | -- -- --
 | [APP]() | Application | - | - | -- -- -- | -- -- -- | -- -- --
 | [CAT]() | Catalog | - | - | -- -- -- | -- -- -- | -- -- --
-| **Unreal** | **Unreal**
-| [UE1](https://oldgamesdownload.com/unreal) | Unreal | - | - | -- -- -- | -- -- -- | -- -- --
-| [TWoT](https://www.gog.com/en/game/the_wheel_of_time) | The Wheel of Time | - | - | -- -- -- | -- -- -- | -- -- --
-| [DeusEx](https://www.gog.com/en/game/deus_ex) | Deus Ex™ GOTY Edition | - | - | -- -- -- | -- -- -- | -- -- --
-| [DeusEx:MD](https://www.gog.com/en/game/deus_ex_mankind_divided) | Deus Ex: Mankind Divided | - | - | -- -- -- | -- -- -- | -- -- --
-| [DeusEx2:IW](https://www.gog.com/en/game/deus_ex_invisible_war) | Deus Ex 2: Invisible War | - | - | -- -- -- | -- -- -- | -- -- --
-| [DeusEx:HR](https://www.gog.com/en/game/deus_ex_human_revolution_directors_cut) | Deus Ex: Human Revolution - Director’s Cut | - | - | -- -- -- | -- -- -- | -- -- --
-| [Rune](https://www.gog.com/en/game/rune_classic) | Rune | - | - | -- -- -- | -- -- -- | -- -- --
-| [Undying](https://www.gog.com/en/game/clive_barkers_undying) | Clive Barker's Undying | - | - | -- -- -- | -- -- -- | -- -- --
-| [UT2K](https://oldgamesdownload.com/unreal-tournament-2003/) | Unreal Tournament 2003 | - | - | -- -- -- | -- -- -- | -- -- --
-| [UE2](https://store.steampowered.com/app/13200/Unreal_2_The_Awakening/) | Unreal II: The Awakening | - | - | -- -- -- | -- -- -- | -- -- --
-| [BioShock](https://store.steampowered.com/app/7670) | BioShock | - | - | -- -- -- | -- -- -- | -- -- --
-| [BioShockR](https://store.steampowered.com/app/409710) | BioShock Remastered | - | - | -- -- -- | -- -- -- | -- -- --
-| [BioShock2](https://store.steampowered.com/app/8850) | BioShock 2 | - | - | -- -- -- | -- -- -- | -- -- --
-| [BioShock2R](https://store.steampowered.com/app/409720) | BioShock 2 Remastered | - | - | -- -- -- | -- -- -- | -- -- --
-| [BioShock:Inf](https://store.steampowered.com/app/8870) | BioShock Infinite | - | - | -- -- -- | -- -- -- | -- -- --
 | **Valve** | **Valve**
 | [HL](https://store.steampowered.com/app/70) | Half-Life | open | read | gl -- -- | -- -- -- | -- -- --
 | [TF](https://store.steampowered.com/app/20) | Team Fortress Classic | open | read | gl -- -- | -- -- -- | -- -- --

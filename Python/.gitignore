@@ -4,3 +4,6 @@
 build/
 dist/
 *.egg-info/
+
+# game specs
+Specs/

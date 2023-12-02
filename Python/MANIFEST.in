@@ -1,1 +1,1 @@
-graph ../*/*.json
+include ../Specs/*.json

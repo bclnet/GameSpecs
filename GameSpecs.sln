@@ -33,74 +33,74 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.App.BaseTests", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bethesda", "Bethesda", "{7F78A794-57C6-4BC7-9267-1E68E4CEC9DE}"
 	ProjectSection(SolutionItems) = preProject
-		Bethesda\BethesdaFamily.json = Bethesda\BethesdaFamily.json
+		Specs\BethesdaFamily.json = Specs\BethesdaFamily.json
 		Documents\Families\Bethesda\Readme.md = Documents\Families\Bethesda\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WbB", "WbB", "{BDE29250-8EA7-47E0-8D67-A58A176B2D30}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\WbB\Readme.md = Documents\Families\WbB\Readme.md
-		WbB\WbBFamily.json = WbB\WbBFamily.json
+		Specs\WbBFamily.json = Specs\WbBFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arkane", "Arkane", "{793BECC6-9830-4CB9-B65C-DBC4C14ADCA4}"
 	ProjectSection(SolutionItems) = preProject
-		Arkane\ArkaneFamily.json = Arkane\ArkaneFamily.json
+		Specs\ArkaneFamily.json = Specs\ArkaneFamily.json
 		Documents\Families\Arkane\Readme.md = Documents\Families\Arkane\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bioware", "Bioware", "{0BE39DA4-4D1C-4FBE-87F5-C6C87F039DF0}"
 	ProjectSection(SolutionItems) = preProject
-		Bioware\BiowareFamily.json = Bioware\BiowareFamily.json
+		Specs\BiowareFamily.json = Specs\BiowareFamily.json
 		Documents\Families\Bioware\Readme.md = Documents\Families\Bioware\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crytek", "Crytek", "{D78C77D6-2696-446A-9D13-7FAE6F3255EE}"
 	ProjectSection(SolutionItems) = preProject
-		Crytek\CrytekFamily.json = Crytek\CrytekFamily.json
+		Specs\CrytekFamily.json = Specs\CrytekFamily.json
 		Documents\Families\Crytek\Readme.md = Documents\Families\Crytek\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cyanide", "Cyanide", "{AFEFEEB6-4CAB-4CA3-8FDF-C2C2BDE8C415}"
 	ProjectSection(SolutionItems) = preProject
-		Cyanide\CyanideFamily.json = Cyanide\CyanideFamily.json
+		Specs\CyanideFamily.json = Specs\CyanideFamily.json
 		Documents\Families\Cyanide\Readme.md = Documents\Families\Cyanide\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Origin", "Origin", "{8BAFFF0D-E0B5-495F-84D5-7FF2A4314DA4}"
 	ProjectSection(SolutionItems) = preProject
-		Origin\OriginFamily.json = Origin\OriginFamily.json
+		Specs\OriginFamily.json = Specs\OriginFamily.json
 		Documents\Families\Origin\Readme.md = Documents\Families\Origin\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Red", "Red", "{6E7BB6E0-0506-46AB-A740-D6168BC46D3F}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Red\Readme.md = Documents\Families\Red\Readme.md
-		Red\RedFamily.json = Red\RedFamily.json
+		Specs\RedFamily.json = Specs\RedFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cig", "Cig", "{228CD927-3DD3-45AA-9529-B703AC15A1AA}"
 	ProjectSection(SolutionItems) = preProject
-		Cig\CigFamily.json = Cig\CigFamily.json
+		Specs\CigFamily.json = Specs\CigFamily.json
 		Documents\Families\Cig\Readme.md = Documents\Families\Cig\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{D13E28F2-5471-49F4-BE39-E7920D84D918}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Unity\Readme.md = Documents\Families\Unity\Readme.md
-		Unity\UnityFamily.json = Unity\UnityFamily.json
+		Specs\UnityFamily.json = Specs\UnityFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Epic", "Epic", "{9123F171-1DB1-4AB3-95F3-D4BF658998D7}"
 	ProjectSection(SolutionItems) = preProject
-		Epic\EpicFamily.json = Epic\EpicFamily.json
+		Specs\EpicFamily.json = Specs\EpicFamily.json
 		Documents\Families\Epic\Readme.md = Documents\Families\Epic\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Valve", "Valve", "{B9CFB3F1-EFD8-4107-8E96-343726BBC9DC}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Valve\Readme.md = Documents\Families\Valve\Readme.md
-		Valve\ValveFamily.json = Valve\ValveFamily.json
+		Specs\ValveFamily.json = Specs\ValveFamily.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.WbB", "WbB\GameSpec.WbB\GameSpec.WbB.csproj", "{A5A1B037-867C-4EB9-B4C1-AA87FD81220B}"
@@ -113,18 +113,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unknown", "Unknown", "{991C1B68-70C3-4A86-8906-98914C9CE114}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Unknown\Readme.md = Documents\Families\Unknown\Readme.md
-		Unknown\UnknownFamily.json = Unknown\UnknownFamily.json
+		Specs\UnknownFamily.json = Specs\UnknownFamily.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monolith", "Monolith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
 	ProjectSection(SolutionItems) = preProject
-		Monolith\MonolithFamily.json = Monolith\MonolithFamily.json
+		Specs\MonolithFamily.json = Specs\MonolithFamily.json
 		Documents\Families\Monolith\Readme.md = Documents\Families\Monolith\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IW", "IW", "{557FA17D-0D46-42AE-95E1-8B486EA8822A}"
 	ProjectSection(SolutionItems) = preProject
-		IW\IWFamily.json = IW\IWFamily.json
+		Specs\IWFamily.json = Specs\IWFamily.json
 		Documents\Families\IW\Readme.md = Documents\Families\IW\Readme.md
 	EndProjectSection
 EndProject
@@ -135,25 +135,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalogs", "catalogs", "{60
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frictional", "Frictional", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
 	ProjectSection(SolutionItems) = preProject
-		Frictional\FrictionalFamily.json = Frictional\FrictionalFamily.json
+		Specs\FrictionalFamily.json = Specs\FrictionalFamily.json
 		Documents\Families\Frictional\Readme.md = Documents\Families\Frictional\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blizzard", "Blizzard", "{389FCD8C-F4E7-4B16-BF62-11B3E075BC4E}"
 	ProjectSection(SolutionItems) = preProject
-		Blizzard\BlizzardFamily.json = Blizzard\BlizzardFamily.json
+		Specs\BlizzardFamily.json = Specs\BlizzardFamily.json
 		Documents\Families\Blizzard\Readme.md = Documents\Families\Blizzard\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Id", "Id", "{ADDD9C65-49FA-4981-BFA6-545759D762F7}"
 	ProjectSection(SolutionItems) = preProject
-		Id\IdFamily.json = Id\IdFamily.json
+		Specs\IdFamily.json = Specs\IdFamily.json
 		Documents\Families\Id\Readme.md = Documents\Families\Id\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptic", "Cryptic", "{CB2D9FBD-6D37-4B95-BC2D-65D172F89CEE}"
 	ProjectSection(SolutionItems) = preProject
-		Cryptic\CrypticFamily.json = Cryptic\CrypticFamily.json
+		Specs\CrypticFamily.json = Specs\CrypticFamily.json
 		Documents\Families\Cryptic\Readme.md = Documents\Families\Cryptic\Readme.md
 	EndProjectSection
 EndProject
@@ -164,20 +164,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontier", "Frontier", "{8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}"
 	ProjectSection(SolutionItems) = preProject
-		Frontier\FrontierFamily.json = Frontier\FrontierFamily.json
+		Specs\FrontierFamily.json = Specs\FrontierFamily.json
 		Documents\Families\Frontier\Readme.md = Documents\Families\Frontier\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Capcom", "Capcom", "{6F41E78D-790E-461B-8B66-94569F6E4291}"
 	ProjectSection(SolutionItems) = preProject
-		Capcom\CapcomFamily+0–D.json = Capcom\CapcomFamily+0–D.json
-		Capcom\CapcomFamily+E–L.json = Capcom\CapcomFamily+E–L.json
-		Capcom\CapcomFamily+M.json = Capcom\CapcomFamily+M.json
-		Capcom\CapcomFamily+N-R.json = Capcom\CapcomFamily+N-R.json
-		Capcom\CapcomFamily+S.json = Capcom\CapcomFamily+S.json
-		Capcom\CapcomFamily+T-Z.json = Capcom\CapcomFamily+T-Z.json
-		Capcom\CapcomFamily.json = Capcom\CapcomFamily.json
+		Specs\CapcomFamily+0–D.json = Specs\CapcomFamily+0–D.json
+		Specs\CapcomFamily+E–L.json = Specs\CapcomFamily+E–L.json
+		Specs\CapcomFamily+M.json = Specs\CapcomFamily+M.json
+		Specs\CapcomFamily+N-R.json = Specs\CapcomFamily+N-R.json
+		Specs\CapcomFamily+S.json = Specs\CapcomFamily+S.json
+		Specs\CapcomFamily+T-Z.json = Specs\CapcomFamily+T-Z.json
+		Specs\CapcomFamily.json = Specs\CapcomFamily.json
 		Documents\Families\Capcom\Readme.md = Documents\Families\Capcom\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Black", "Black", "{231779E5-20EB-435B-BAAF-48A1D0BF6E1C}"
+	ProjectSection(SolutionItems) = preProject
+		Specs\BlackFamily.json = Specs\BlackFamily.json
+		Documents\Families\Black\Readme.md = Documents\Families\Black\Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Base", "Context\GameSpec.Base\GameSpec.Base.csproj", "{8AA7AF15-6733-430E-AFB6-FFE80598EFDF}"
@@ -339,12 +345,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.CapcomTests", "Capcom\GameSpec.CapcomTests\GameSpec.CapcomTests.csproj", "{A8CB26A2-D01C-4ABB-BBAD-37DAB4B1B57C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cig.Explorer", "Cig\GameSpec.Cig.Explorer\GameSpec.Cig.Explorer.csproj", "{ED929375-9174-4087-8BB0-86350999FA57}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Black", "Black", "{231779E5-20EB-435B-BAAF-48A1D0BF6E1C}"
-	ProjectSection(SolutionItems) = preProject
-		Black\BlackFamily.json = Black\BlackFamily.json
-		Documents\Families\Black\Readme.md = Documents\Families\Black\Readme.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Black", "Black\GameSpec.Black\GameSpec.Black.csproj", "{CDA9519E-93E6-4F7C-8399-6C33B18C5FE6}"
 EndProject
