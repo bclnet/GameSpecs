@@ -3,17 +3,17 @@ def getPathByKey(key):
     (k,v) = key.split(':', 2)
     match k:
         case 'Steam':
-            from storemgr_steam import steamPaths
-            return steamPaths[v] if v in steamPaths else None
+            from . import storemgr_steam
+            return storemgr_steam.steamPaths[v] if v in storemgr_steam.steamPaths else None
         case 'GOG':
-            from storemgr_gog import gogPaths
-            return gogPaths[v] if v in gogPaths else None
+            from . import storemgr_gog
+            return storemgr_gog.gogPaths[v] if v in storemgr_gog.gogPaths else None
         case 'Blizzard':
-            from storemgr_blizzard import blizzardPaths
-            return blizzardPaths[v] if v in blizzardPaths else None
+            from . import storemgr_blizzard
+            return storemgr_blizzard.blizzardPaths[v] if v in storemgr_blizzard.blizzardPaths else None
         case 'Epic':
-            from storemgr_epic import epicPaths
-            return epicPaths[v] if v in epicPaths else None
+            from . import storemgr_epic
+            return storemgr_epic.epicPaths[v] if v in storemgr_epic.epicPaths else None
         case 'Unknown': return None
         case _: raise Exception(f'Unknown key: {key}')
 

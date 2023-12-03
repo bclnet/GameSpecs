@@ -1,4 +1,5 @@
-import os, platform, psutil, winreg, storemgr
+import os, platform, psutil, winreg
+from . import storemgr
 GAMESPATH = 'Games'
 
 class FileManager:

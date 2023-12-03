@@ -1,4 +1,5 @@
-import os, platform, Blizzard_pb2
+import os, platform
+from . import Blizzard_pb2
 
 @staticmethod
 def init():

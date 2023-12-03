@@ -1,5 +1,5 @@
 # import sys; sys.path.append('../../04-decode-archives/python')
-import familymgr
+from game_specs import familymgr
 
 # get Black family
 family = familymgr.getFamily('Black')

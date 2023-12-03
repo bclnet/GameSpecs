@@ -1,1 +1,2 @@
 include ../Specs/*.json
+include Specs/*.json

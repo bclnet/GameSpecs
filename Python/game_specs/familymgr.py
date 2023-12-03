@@ -1,6 +1,7 @@
-import os, json, glob, re
+import os, json, glob, re, io
 from urllib.parse import urlparse
-import pakfile, filemgr, filesys
+from importlib import resources
+from . import pakfile, filemgr, filesys
 
 class Family:
     def __init__(self, d):
@@ -194,18 +195,25 @@ class Resource:
         self.searchPattern = searchPattern
     def __repr__(self): return f'resource:/{self.searchPattern}#{self.game}'
 
+familyKeys = ["Arkane", "Bethesda", "Bioware", "Black", "Blizzard", "Capcom", "Cig", "Cryptic", "Crytek", "Cyanide", "Epic", "Frictional", "Frontier", "Id", "IW", "Monolith", "Origin", "Red", "Unity", "Unknown", "Valve", "WbB"]
+
 @staticmethod
 def init(root):
     def commentRemover(text):
         def replacer(match): s = match.group(0); return ' ' if s.startswith('/') else s
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
         return re.sub(pattern, replacer, text)
-    def jsonLoad(file):
-        with open(file, encoding='utf8') as f:
-            return json.loads(commentRemover(f.read()).encode().decode('utf-8-sig'))
+    def jsonLoad(path):
+        body = resources.files('Specs').joinpath(path).read_text(encoding='utf-8')
+        return json.loads(commentRemover(body).encode().decode('utf-8-sig'))
+    # def jsonLoad(path):
+    #     with open(path, encoding='utf8') as f:
+    #         body = f.read()
+    #         return json.loads(commentRemover(body).encode().decode('utf-8-sig'))
     families = {}
-    for file in glob.glob(f'{root}*/*.json'):
-        family = Family(jsonLoad(file))
+    # for path in glob.glob(f'{root}*/*.json'):
+    for path in [f'{x}Family.json' for x in familyKeys]:
+        family = Family(jsonLoad(path))
         families[family.id] = family
     return families
 
@@ -222,7 +230,7 @@ def findType(klass):
     klass, modulePath = klass.rsplit(',', 1)
     try:
         _, className = klass.rsplit('.', 1)
-        module = import_module(modulePath.strip().replace('.', '_'))
+        module = import_module(f'game_specs.{modulePath.strip().replace('.', '_')}')
         return getattr(module, className)
     except (ImportError, AttributeError) as e: raise ImportError(klass)
 

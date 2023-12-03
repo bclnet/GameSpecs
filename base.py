@@ -101,12 +101,12 @@ def init(root):
         def replacer(match): s = match.group(0); return ' ' if s.startswith('/') else s
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
         return re.sub(pattern, replacer, text)
-    def jsonLoad(file):
-        with open(file, encoding='utf8') as f:
+    def jsonLoad(path):
+        with open(path, encoding='utf8') as f:
             return json.loads(commentRemover(f.read()).encode().decode('utf-8-sig'))
     families = {}
-    for file in glob.glob(f'{root}Specs/*.json'):
-        family = Family(jsonLoad(file))
+    for path in glob.glob(f'{root}Specs/*.json'):
+        family = Family(jsonLoad(path))
         families[family.id] = family
     return families
 
