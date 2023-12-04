@@ -1,8 +1,5 @@
-# import sys; sys.path.append('../../02-game-families/python')
-# import FamilyManager
-
 class ValvePakFile:
-    def __init__(s, game, fileSystem, filePath, tag):
-        s.game = game
-        s.fileSystem = fileSystem
-    def open(s): return f'OPEN'
+    def __init__(self, game, fileSystem, filePath, tag):
+        self.game = game
+        self.fileSystem = fileSystem
+    def open(self): return f'OPEN'

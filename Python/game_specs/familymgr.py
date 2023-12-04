@@ -1,4 +1,4 @@
-import os, json, glob, re, io
+import os, json, glob, re
 from urllib.parse import urlparse
 from importlib import resources
 from . import pakfile, filemgr, filesys

@@ -5,11 +5,15 @@ class StandardFileSystem:
     def glob(self, path, searchPattern):
         g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern)
         return [str(x)[self.skip:] for x in g]
+    def open(self, path, mode):
+        return open(os.path.join(self.root, path), mode) 
 
 class HostFileSystem:
     def __init__(self, uri):
         self.uri = uri
     def glob(self, path, searchPattern):
+        raise Exception('Not Implemented')
+    def open(self, path, mode):
         raise Exception('Not Implemented')
 
 @staticmethod

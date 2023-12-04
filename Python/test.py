@@ -6,9 +6,10 @@ family = familymgr.getFamily('Black')
 print(f'studio: {family.studio}')
 
 # get pak with game:/uri
-pakFile2 = family.openPakFile('game:/MASTER.DAT#Fallout')
-print(f'pak: {pakFile2}')
+pakFile = family.openPakFile('game:/master.dat#Fallout2')
+# pakFile = family.openPakFile('game:/MASTER.DAT#Fallout')
+print(f'pak: {pakFile}')
 
 # get pak with resource
-pakFile1 = family.openPakFile(family.parseResource('game:/MASTER.DAT#Fallout'))
-print(f'pak: {pakFile1}')
+# pakFile1 = family.openPakFile(family.parseResource('game:/MASTER.DAT#Fallout'))
+# print(f'pak: {pakFile1}')

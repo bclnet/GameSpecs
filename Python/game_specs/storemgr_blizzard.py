@@ -1,5 +1,5 @@
 import os, platform
-from . import Blizzard_pb2
+from .Blizzard_pb2 import Database
 
 @staticmethod
 def init():
@@ -27,7 +27,7 @@ def init():
     dbPath = os.path.join(root, 'product.db')
     if not os.path.exists(dbPath): return
     # query games
-    productDb = Blizzard_pb2.Database()
+    productDb = Database()
     with open(dbPath, 'rb') as f:
         bytes = f.read()
         productDb.ParseFromString(bytes)
