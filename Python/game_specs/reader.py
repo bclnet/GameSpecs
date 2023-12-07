@@ -1,8 +1,12 @@
 import os
+from io import BytesIO
 from struct import unpack
+from ._LIB.compression.lzss import Lzss
 
 class Reader:
     def __init__(self, f): self.f = f
+    def __enter__(self): return self
+    def __exit__(self, type, value, traceback): self.f.close()
 
     # normal
     def read(self, size): return self.f.read(size)
@@ -42,4 +46,4 @@ class Reader:
 
     # compression
     def decompressZlib(self, length, newLength): return None
-    def decompressLzss(self, length, newLength): return None
+    def decompressLzss(self, length, newLength): return Lzss(BytesIO(self.read(length)), newLength).decompress()

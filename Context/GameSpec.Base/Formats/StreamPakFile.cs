@@ -23,7 +23,7 @@ namespace GameSpec.Formats
         /// <param name="address">The host.</param>
         public StreamPakFile(Func<Uri, string, AbstractHost> factory, FamilyGame game, IFileSystem fileSystem, string filePath, Uri address = null) : base(game, fileSystem, filePath, new PakBinaryCanStream())
         {
-            Reader = false;
+            UseReader = false;
             if (address != null) Host = factory(address, filePath);
         }
         /// <summary>
@@ -35,7 +35,7 @@ namespace GameSpec.Formats
         /// <param name="filePath">The file path.</param>
         public StreamPakFile(BinaryPakFile parent, FamilyGame game, IFileSystem fileSystem, string filePath) : base(game, fileSystem, filePath, new PakBinaryCanStream())
         {
-            Reader = false;
+            UseReader = false;
             Files = parent.Files;
         }
 
@@ -97,7 +97,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override async Task<Stream> ReadFileDataAsync(BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override async Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var path = file.Path;
             // http pak
@@ -118,6 +118,6 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task WriteFileDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
+        public override Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
     }
 }

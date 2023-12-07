@@ -25,7 +25,7 @@ namespace GameSpec.IW
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            Reader = false;
+            UseReader = false;
         }
 
         #region Transforms

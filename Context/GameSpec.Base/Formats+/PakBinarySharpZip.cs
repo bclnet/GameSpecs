@@ -24,7 +24,7 @@ namespace GameSpec.Formats
         {
             
 
-            source.Reader = false;
+            source.UseReader = false;
             var files = source.Files = new List<FileSource>();
             var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));
             ZipFile_KeyProperty.SetValue(pak, Key);
@@ -47,7 +47,7 @@ namespace GameSpec.Formats
         {
             
 
-            source.Reader = false;
+            source.UseReader = false;
             var files = source.Files;
             var pak = (ZipFile)(source.Tag = new ZipFile(w.BaseStream));
             ZipFile_KeyProperty.SetValue(pak, Key);

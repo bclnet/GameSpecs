@@ -22,7 +22,7 @@ namespace GameSpec.Formats
         {
             
 
-            source.Reader = false;
+            source.UseReader = false;
             var files = source.Files = new List<FileSource>();
             var pak = (ZipArchive)(source.Tag = new ZipArchive(r.BaseStream, ZipArchiveMode.Read));
             foreach (var entry in pak.Entries)

@@ -30,7 +30,7 @@ class PakBinary_Void(PakBinary):
                     block = unpack('>IIII', r.read(16))
                     files.append(FileInfo(
                         path = path,
-                        compression = block[0] & 0x40,
+                        compressed = block[0] & 0x40,
                         position = block[1],
                         fileSize = block[2],
                         packedSize = block[3]))
@@ -48,7 +48,7 @@ class PakBinary_Void(PakBinary):
                 block = unpack('=BIII', r.read(13))
                 files.append(FileInfo(
                     path = path,
-                    compression = block[0],
+                    compressed = block[0],
                     fileSize = block[1],
                     packedSize = block[2],
                     position = block[3]))

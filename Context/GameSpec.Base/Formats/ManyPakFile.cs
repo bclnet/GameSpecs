@@ -29,7 +29,7 @@ namespace GameSpec.Formats
                 GetObjectFactoryFactory = b.GetObjectFactoryFactory;
             }
             Paths = paths;
-            Reader = false;
+            UseReader = false;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadFileDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
+        public override Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
             => Task.FromResult(file.Pak == null ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize)) : default);
     }
 }

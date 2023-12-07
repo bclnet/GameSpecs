@@ -14,13 +14,15 @@ namespace GameSpec.Formats
     [DebuggerDisplay("{Name}")]
     public abstract class BinaryPakFile : PakFile
     {
-        readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> BinaryReaders = new ConcurrentDictionary<string, GenericPool<BinaryReader>>();
+        readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> Readers = new ConcurrentDictionary<string, GenericPool<BinaryReader>>();
         public readonly IFileSystem FileSystem;
         public readonly string FilePath;
         public readonly PakBinary PakBinary;
+        // options
+        public bool UseReader = true;
+        public bool UseFileId = false;
 
         // state
-        public bool Reader = true;
         public Func<string, string> FileMask;
         public readonly Dictionary<string, string> Params = new Dictionary<string, string>();
         public uint Magic;
@@ -36,10 +38,6 @@ namespace GameSpec.Formats
 
         // From: BinaryPakManyFile
 
-        [Flags]
-        protected enum PakManyOptions { FilesById = 0x1, }
-
-        protected PakManyOptions Options { get; set; }
         public override bool Valid => Files != null;
         public IList<FileSource> Files;
         public HashSet<string> FilesRawSet;
@@ -68,7 +66,7 @@ namespace GameSpec.Formats
         /// </summary>
         public override void Opening()
         {
-            if (Reader) GetBinaryReader()?.Action(async r => await ReadAsync(r));
+            if (UseReader) GetBinaryReader()?.Action(async r => await ReadAsync(r));
             else ReadAsync(null).GetAwaiter().GetResult();
             Process();
         }
@@ -79,7 +77,7 @@ namespace GameSpec.Formats
         /// <param name="path">The path.</param>
         /// <returns></returns>
         public GenericPool<BinaryReader> GetBinaryReader(string path = default, int retainInPool = 10)
-            => BinaryReaders.GetOrAdd(path ?? FilePath, filePath => FileSystem.FileExists(filePath) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(filePath), retainInPool) : default);
+            => Readers.GetOrAdd(path ?? FilePath, filePath => FileSystem.FileExists(filePath) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(filePath), retainInPool) : default);
 
         /// <summary>
         /// Closes this instance.
@@ -90,8 +88,8 @@ namespace GameSpec.Formats
             FilesRawSet = null;
             FilesById = null;
             FilesByPath = null;
-            foreach (var r in BinaryReaders.Values) r.Dispose();
-            BinaryReaders.Clear();
+            foreach (var r in Readers.Values) r.Dispose();
+            Readers.Clear();
         }
 
         /// <summary>
@@ -101,7 +99,7 @@ namespace GameSpec.Formats
         /// <returns>
         ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Contains(string path) => TryLookupPath(path ?? throw new ArgumentNullException(nameof(path)), out var pak, out var nextPath)
+        public override bool Contains(string path) => TryFindSubPak(path ?? throw new ArgumentNullException(nameof(path)), out var pak, out var nextPath)
             ? pak.Contains(nextPath)
             : FilesByPath.Contains(path.Replace('\\', '/'));
         /// <summary>
@@ -160,7 +158,7 @@ namespace GameSpec.Formats
         public override Task<Stream> LoadFileDataAsync(string path, DataOption option = default, Action<FileSource, string> exception = default)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
-            if (TryLookupPath(path, out var pak, out var nextFilePath)) return pak.LoadFileDataAsync(nextFilePath, option, exception);
+            if (TryFindSubPak(path, out var pak, out var nextPath)) return pak.LoadFileDataAsync(nextPath, option, exception);
             var files = FilesByPath[path.Replace('\\', '/')].ToArray();
             if (files.Length == 1) return LoadFileDataAsync(files[0], option, exception);
             exception?.Invoke(null, $"LoadFileDataAsync: {path} @ {files.Length}"); //Log($"LoadFileDataAsync: {filePath} @ {files.Length}");
@@ -191,9 +189,9 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
-            => Reader
-            ? GetBinaryReader().Func(r => ReadFileDataAsync(r, file, option, exception))
-            : ReadFileDataAsync(null, file, option, exception);
+            => UseReader
+            ? GetBinaryReader().Func(r => ReadDataAsync(r, file, option, exception))
+            : ReadDataAsync(null, file, option, exception);
 
         /// <summary>
         /// Loads the object asynchronous.
@@ -207,7 +205,7 @@ namespace GameSpec.Formats
         public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = default)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
-            if (TryLookupPath(path, out var pak, out var nextFilePath)) return pak.LoadFileObjectAsync<T>(nextFilePath, exception);
+            if (TryFindSubPak(path, out var pak, out var nextPath)) return pak.LoadFileObjectAsync<T>(nextPath, exception);
             if (PathFinders.Count > 0) path = FindPath<T>(path);
             var files = FilesByPath[path.Replace('\\', '/')].ToArray();
             if (files.Length == 1) return LoadFileObjectAsync<T>(files[0], exception);
@@ -288,31 +286,10 @@ namespace GameSpec.Formats
         /// </summary>
         public virtual void Process()
         {
-            if ((Options & PakManyOptions.FilesById) != 0) FilesById = Files?.Where(x => x != null).ToLookup(x => x.Id);
+            if (UseFileId) FilesById = Files?.Where(x => x != null).ToLookup(x => x.Id);
             FilesByPath = Files?.Where(x => x != null).ToLookup(x => x.Path, StringComparer.OrdinalIgnoreCase);
             PakBinary?.Process(this);
         }
-
-        /// <summary>
-        /// Reads the file data asynchronous.
-        /// </summary>
-        /// <param name="r">The r.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public virtual Task<Stream> ReadFileDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.ReadDataAsync(this, r, file, option, exception);
-
-        /// <summary>
-        /// Writes the file data asynchronous.
-        /// </summary>
-        /// <param name="w">The w.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="data">The data.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public virtual Task WriteFileDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
 
         /// <summary>
         /// Reads the asynchronous.
@@ -331,6 +308,27 @@ namespace GameSpec.Formats
         public virtual Task WriteAsync(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
 
         /// <summary>
+        /// Reads the file data asynchronous.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="option">The option.</param>
+        /// <param name="exception">The exception.</param>
+        /// <returns></returns>
+        public virtual Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.ReadDataAsync(this, r, file, option, exception);
+
+        /// <summary>
+        /// Writes the file data asynchronous.
+        /// </summary>
+        /// <param name="w">The w.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="option">The option.</param>
+        /// <param name="exception">The exception.</param>
+        /// <returns></returns>
+        public virtual Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
+
+        /// <summary>
         /// Adds the raw file.
         /// </summary>
         /// <param name="file">The file.</param>
@@ -345,7 +343,7 @@ namespace GameSpec.Formats
             }
         }
 
-        bool TryLookupPath(string path, out BinaryPakFile pak, out string nextPath)
+        bool TryFindSubPak(string path, out BinaryPakFile pak, out string nextPath)
         {
             var paths = path.Split(new[] { ':' }, 2);
             pak = paths.Length == 1 ? null : FilesByPath[paths[0].Replace('\\', '/')].FirstOrDefault()?.Pak;

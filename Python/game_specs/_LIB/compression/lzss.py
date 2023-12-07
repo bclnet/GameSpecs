@@ -1,0 +1,66 @@
+import os
+from io import BytesIO
+
+DICT_SIZE = 4096
+MIN_MATCH = 3
+MAX_MATCH = 18
+
+class Lzss:
+    def __init__(self, stream: BytesIO, uncompressedSize: int):
+        self.stream = stream
+        self.uncompressedSize = uncompressedSize
+        self.streamLength = stream.seek(0, os.SEEK_END)
+        stream.seek(0, os.SEEK_SET)
+        self.out = bytearray()
+        self.dict = bytearray()
+        self.NR = 0
+        self.DO = 0
+        self.DI = 0
+        self.OI = 0
+    
+    def readByte(self) -> int: self.NR += 1; return int.from_bytes(self.stream.read(1), 'big', signed=False)
+    def readInt16(self) -> int: return int.from_bytes(self.stream.read(2), 'big', signed=True)
+    def readDict(self) -> int: ret = self.dict[self.DO % DICT_SIZE]; self.DO+=1; return ret
+    def lastByte(self) -> bool: return self.stream.tell() == self.streamLength
+
+    def readBlock(self, N):
+        s = self.stream
+        self.NR = 0
+        if N < 0: self.writeBytes(s.read(N * -1))
+        else:
+            self.clearDict()
+            while self.NR < N and not self.lastByte():
+                num1 = self.readByte()
+                if self.NR >= N or self.lastByte(): break
+                for index1 in range(0, 8):
+                    if (num1 % 2) == 1:
+                        self.writeByte(self.readByte())
+                        if self.NR >= N: return
+                    else:
+                        if self.NR >= N: return
+                        self.DO = self.readByte()
+                        if self.NR >= N: return
+                        num2 = self.readByte()
+                        self.DO |= ((num2 & 240) << 4) & 0xFFFF
+                        num3 = (num2 & 15) + MIN_MATCH
+                        for index2 in range(0, num3): self.writeByte(self.readDict())
+                    num1 >>= 1
+                    if self.lastByte(): return
+    def clearDict(self):
+         for index in range(0, DICT_SIZE): self.dict[index] = 32
+         self.DI = DICT_SIZE - MAX_MATCH
+    def writeByte(self, b): 
+        self.out[self.OI] = b; self.OI += 1
+        self.dict[self.DI % DICT_SIZE] = b; self.DI += 1
+    def writeBytes(self, b):
+        for num in b:
+            if self.OI >= self.uncompressedSize: break
+            self.out[self.OI] = num; self.OI += 1
+    def decompress(self):
+        self.out = bytearray(self.uncompressedSize)
+        self.dict = bytearray(DICT_SIZE)
+        while not self.lastByte():
+            N = self.readInt16()
+            if N != 0: self.readBlock(N)
+            else: break
+        return self.out

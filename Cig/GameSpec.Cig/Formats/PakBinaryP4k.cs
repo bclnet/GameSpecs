@@ -25,7 +25,7 @@ namespace GameSpec.Cig.Formats
             public Stream Stream;
             public SubPakFile(P4kFile pak, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
             {
-                Reader = false;
+                UseReader = false;
                 var entry = (ZipEntry)Tag;
                 Stream = pak.GetInputStream(entry.ZipFileIndex);
                 GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
@@ -44,7 +44,7 @@ namespace GameSpec.Cig.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            source.Reader = false;
+            source.UseReader = false;
             var files = source.Files = new List<FileSource>();
 
             var pak = (P4kFile)(source.Tag = new P4kFile(r.BaseStream, Key));
@@ -84,7 +84,7 @@ namespace GameSpec.Cig.Formats
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
             
-            source.Reader = false;
+            source.UseReader = false;
             var files = source.Files;
 
             var pak = (P4kFile)(source.Tag = new P4kFile(w.BaseStream, Key));

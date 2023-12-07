@@ -11,4 +11,4 @@ print(f'pak: {pakFile}')
 
 # get file
 data = pakFile.loadFileData('COLOR.PAL')
-print(data)
+print(f'dat: {data}')

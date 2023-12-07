@@ -25,7 +25,6 @@ namespace GameSpec.Arkane
         /// <param name="tag">The tag.</param>
         public ArkanePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
-            Options = PakManyOptions.FilesById;
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = game.Engine switch
             {
@@ -35,6 +34,7 @@ namespace GameSpec.Arkane
                 "idTech7" => Id.Formats.FormatExtensions.GetObjectFactoryFactory,
                 _ => FormatExtensions.GetObjectFactoryFactory,
             };
+            UseFileId = true;
         }
 
         #region GetPakBinary

@@ -255,7 +255,7 @@ namespace GameSpec.IW.Formats
                 // IWD
                 case ".iwd":
                     {
-                        source.Reader = false;
+                        source.UseReader = false;
                         source.Magic = (int)Magic.IWD;
 
                         var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));

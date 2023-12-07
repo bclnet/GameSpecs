@@ -22,7 +22,7 @@ namespace GameSpec.Crytek.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
-            source.Reader = false;
+            source.UseReader = false;
 
             var pak = (Cry3File)(source.Tag = new Cry3File(r.BaseStream, Key));
             var parentByPath = new Dictionary<string, FileSource>();
@@ -59,7 +59,7 @@ namespace GameSpec.Crytek.Formats
         {
             
 
-            source.Reader = false;
+            source.UseReader = false;
             var files = source.Files;
             var pak = (Cry3File)(source.Tag = new Cry3File(w.BaseStream, Key));
             pak.BeginUpdate();
