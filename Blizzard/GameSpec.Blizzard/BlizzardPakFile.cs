@@ -12,7 +12,7 @@ namespace GameSpec.Blizzard
     /// BlizzardPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class BlizzardPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class BlizzardPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BlizzardPakFile" /> class.
@@ -25,7 +25,7 @@ namespace GameSpec.Blizzard
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            UseBinaryReader = false;
+            Reader = false;
         }
 
         #region Transforms

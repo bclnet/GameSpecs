@@ -57,7 +57,7 @@ namespace GameSpec.App.Cli
                 Console.WriteLine("Paks found:");
                 foreach (var p in multiPak.PakFiles)
                 {
-                    if (p is not BinaryPakManyFile pak) throw new InvalidOperationException("multiPak not a BinaryPakFile");
+                    if (p is not BinaryPakFile pak) throw new InvalidOperationException("multiPak not a BinaryPakFile");
                     Console.WriteLine($"\n{pak.Name}");
                     foreach (var exts in pak.Files.Select(x => Path.GetExtension(x.Path)).GroupBy(x => x)) Console.WriteLine($"  files{exts.Key}: {exts.Count()}");
                 }

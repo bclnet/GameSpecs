@@ -57,7 +57,6 @@ namespace GameSpec.Black.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             var gameId = source.Game.Id;
 
             if (!string.Equals(Path.GetExtension(source.FilePath), ".dat", StringComparison.OrdinalIgnoreCase))
@@ -70,7 +69,7 @@ namespace GameSpec.Black.Formats
                 var directoryNames = new string[header.DirectoryCount];
                 for (var i = 0; i < header.DirectoryCount; i++) directoryNames[i] = r.ReadL8Encoding().Replace('\\', '/'); // directory name block
                 // Create file metadatas
-                var files = new List<FileSource>(); multiSource.Files = files;
+                var files = new List<FileSource>(); source.Files = files;
                 for (var i = 0; i < header.DirectoryCount; i++)
                 {
                     var contentBlock = r.ReadTE<F1_ContentBlock>(sizeof(F1_ContentBlock), F1_ContentBlock.Endian); // directory content block
@@ -95,7 +94,7 @@ namespace GameSpec.Black.Formats
                 r.Seek(header.DataSize - header.TreeSize - sizeof(F2_Header));
 
                 // Create file metadatas
-                var files = new FileSource[r.ReadInt32()]; multiSource.Files = files;
+                var files = new FileSource[r.ReadInt32()]; source.Files = files;
                 for (var i = 0; i < files.Length; i++)
                     files[i] = new FileSource
                     {

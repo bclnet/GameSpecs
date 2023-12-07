@@ -54,8 +54,7 @@ namespace GameSpec.Bioware.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileSource>();
+            var files = source.Files = new List<FileSource>();
             var hashLookup = TOR.HashLookup;
 
             var header = r.ReadT<MYP_Header>(sizeof(MYP_Header));

@@ -13,15 +13,13 @@ namespace GameSpec.Formats
 
         public static async Task ExportAsync(this BinaryPakFile source, string filePath, int from = 0, DataOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
         {
-            if (!(source is BinaryPakManyFile pak)) throw new NotSupportedException();
-
             // write pak
             if (!string.IsNullOrEmpty(filePath) && !Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
             // write files
-            Parallel.For(from, pak.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
+            Parallel.For(from, source.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
             {
-                var file = pak.Files[index];
+                var file = source.Files[index];
                 var newPath = filePath != null ? Path.Combine(filePath, file.Path) : null;
 
                 // create directory
@@ -37,19 +35,19 @@ namespace GameSpec.Formats
                 // extract file
                 try
                 {
-                    await ExportFileAsync(file, pak, newPath, option, exception);
+                    await ExportFileAsync(file, source, newPath, option, exception);
                     if (file.Parts != null && (option & DataOption.Raw) != 0)
-                        foreach (var part in file.Parts) await ExportFileAsync(part, pak, Path.Combine(filePath, part.Path), option, exception);
+                        foreach (var part in file.Parts) await ExportFileAsync(part, source, Path.Combine(filePath, part.Path), option, exception);
                     advance?.Invoke(file, index);
                 }
                 catch (Exception e) { exception?.Invoke(file, $"Exception: {e.Message}"); }
             });
 
             // write pak-raw
-            if ((option & DataOption.Marker) != 0) await new StreamPakFile(pak, source.Game, null, filePath).WriteAsync(null, null);
+            if ((option & DataOption.Marker) != 0) await new StreamPakFile(source, source.Game, null, filePath).WriteAsync(null, null);
         }
 
-        static async Task ExportFileAsync(FileSource file, BinaryPakManyFile pak, string newPath, DataOption option = 0, Action<FileSource, string> exception = null)
+        static async Task ExportFileAsync(FileSource file, BinaryPakFile source, string newPath, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             if (file.FileSize == 0 && file.PackedSize == 0) return;
             var fileOption = file.CachedDataOption;
@@ -57,13 +55,13 @@ namespace GameSpec.Formats
             {
                 if ((fileOption & DataOption.Model) != 0)
                 {
-                    var model = await pak.LoadFileObjectAsync<IUnknownFileModel>(file, FamilyManager.UnknownPakFile);
+                    var model = await source.LoadFileObjectAsync<IUnknownFileModel>(file, FamilyManager.UnknownPakFile);
                     UnknownFileWriter.Factory("default", model).Write(newPath, false);
                     return;
                 }
                 else if ((fileOption & DataOption.Stream) != 0)
                 {
-                    if (!(await pak.LoadFileObjectAsync<object>(file) is IHaveStream haveStream))
+                    if (!(await source.LoadFileObjectAsync<object>(file) is IHaveStream haveStream))
                     {
                         exception?.Invoke(null, $"ExportFileAsync: {file.Path} @ {file.FileSize}");
                         throw new InvalidOperationException();
@@ -76,7 +74,7 @@ namespace GameSpec.Formats
                     return;
                 }
             }
-            using var b = await pak.LoadFileDataAsync(file, option, exception);
+            using var b = await source.LoadFileDataAsync(file, option, exception);
             using var s = newPath != null
                 ? new FileStream(newPath, FileMode.Create, FileAccess.Write)
                 : (Stream)new MemoryStream();
@@ -84,7 +82,7 @@ namespace GameSpec.Formats
             if (file.Parts != null && (option & DataOption.Raw) == 0)
                 foreach (var part in file.Parts)
                 {
-                    using var b2 = await pak.LoadFileDataAsync(part, option, exception);
+                    using var b2 = await source.LoadFileDataAsync(part, option, exception);
                     b2.CopyTo(s);
                 }
         }
@@ -95,8 +93,6 @@ namespace GameSpec.Formats
 
         public static async Task ImportAsync(this BinaryPakFile source, BinaryWriter w, string filePath, int from = 0, DataOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
         {
-            if (!(source is BinaryPakManyFile pak)) throw new NotSupportedException();
-
             // read pak
             if (string.IsNullOrEmpty(filePath) || !Directory.Exists(filePath)) { exception?.Invoke(null, $"Directory Missing: {filePath}"); return; }
             var setPath = Path.Combine(filePath, ".set");
@@ -110,9 +106,9 @@ namespace GameSpec.Formats
             if (from == 0) await source.PakBinary.WriteAsync(source, w, "Header");
 
             // write files
-            Parallel.For(0, pak.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
+            Parallel.For(0, source.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
             {
-                var file = pak.Files[index];
+                var file = source.Files[index];
                 var newPath = Path.Combine(filePath, file.Path);
 
                 // check directory

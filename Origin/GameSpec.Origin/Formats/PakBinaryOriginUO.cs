@@ -11,8 +11,6 @@ namespace GameSpec.Origin.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             return Task.CompletedTask;
         }
 

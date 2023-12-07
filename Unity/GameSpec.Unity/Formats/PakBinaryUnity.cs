@@ -1774,8 +1774,6 @@ namespace GameSpec.Unity.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             // try-bundle
             var bundleFile = new BundleFile(r);
             if (bundleFile.Success)
@@ -1801,7 +1799,7 @@ namespace GameSpec.Unity.Formats
                 return Task.CompletedTask;
             }
 
-            //var files = multiSource.Files = new List<FileMetadata>();
+            //var files = source.Files = new List<FileMetadata>();
             //var pak = (P4kFile)(source.Tag = new P4kFile(r.BaseStream) { Key = Key });
             //foreach (ZipEntry entry in pak)
             //{
@@ -1820,10 +1818,10 @@ namespace GameSpec.Unity.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            
 
             //source.UseBinaryReader = false;
-            //var files = multiSource.Files;
+            //var files = source.Files;
             //var pak = (P4kFile)(source.Tag = new P4kFile(w.BaseStream) { Key = Key });
             //pak.BeginUpdate();
             //foreach (var file in files)

@@ -44,12 +44,12 @@ namespace GameSpec.Formats
 
         static Task ExportAsync(PakFile source)
         {
-            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
+            if (source is not BinaryPakFile pak) throw new NotSupportedException();
 
             // write files
-            Parallel.For(0, multiSource.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = 1 }, async index =>
+            Parallel.For(0, pak.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = 1 }, async index =>
             {
-                var file = multiSource.Files[index];
+                var file = pak.Files[index];
 
                 // extract pak
                 if (file.Pak != null) await ExportAsync(file.Pak);
@@ -61,10 +61,10 @@ namespace GameSpec.Formats
                 //if (file.FileSize > 50000000) return;
 
                 // extract file
-                var obj = await multiSource.LoadFileObjectAsync<object>(file);
+                var obj = await pak.LoadFileObjectAsync<object>(file);
                 if (obj is Stream stream)
                 {
-                    var value = multiSource.GetStringOrBytes(stream);
+                    var value = pak.GetStringOrBytes(stream);
                 }
                 else if (obj is IDisposable disposable) disposable.Dispose();
             });

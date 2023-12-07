@@ -14,7 +14,7 @@ namespace GameSpec.Cryptic
     /// CrypticPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class CrypticPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class CrypticPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CrypticPakFile" /> class.

@@ -65,7 +65,7 @@ namespace GameSpec.Red.Formats
             public uint Id => (Flags & 0xFFF00000) >> 20; // BIF index
         }
 
-        class SubPakFile : BinaryPakManyFile
+        class SubPakFile : BinaryPakFile
         {
             public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
@@ -429,8 +429,6 @@ namespace GameSpec.Red.Formats
         // https://github.com/rfuzzo/CP77Tools
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             FileSource[] files; List<FileSource> files2;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(source.FilePath);
             var extension = Path.GetExtension(source.FilePath);
@@ -443,7 +441,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
                         if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
-                        multiSource.Files = files = new FileSource[header.NumFiles];
+                        source.Files = files = new FileSource[header.NumFiles];
 
                         // parts
                         r.Seek(header.FilesOffset);
@@ -477,7 +475,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<BIFF_Header>(sizeof(BIFF_Header));
                         if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
-                        multiSource.Files = files2 = new List<FileSource>();
+                        source.Files = files2 = new List<FileSource>();
 
                         // files
                         var fileTypes = BIFF_FileTypes;
@@ -504,7 +502,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<DZIP_Header>(sizeof(DZIP_Header));
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
-                        multiSource.Files = files = new FileSource[header.NumFiles];
+                        source.Files = files = new FileSource[header.NumFiles];
                         var cryptKey = source.CryptKey as ulong?;
                         r.Seek((long)header.FilesPosition);
                         var hash = 0x00000000FFFFFFFFUL;
@@ -553,7 +551,7 @@ namespace GameSpec.Red.Formats
                         if (r.ReadUInt32() != BUNDLE_MAGIC2) throw new FormatException("BAD MAGIC");
                         var header = r.ReadT<BUNDLE_Header>(sizeof(BUNDLE_Header));
                         source.Version = BUNDLE_MAGIC;
-                        multiSource.Files = files = new FileSource[header.NumFiles];
+                        source.Files = files = new FileSource[header.NumFiles];
 
                         // files
                         r.Seek(0x20);
@@ -584,7 +582,7 @@ namespace GameSpec.Red.Formats
                         var headerFiles = r.ReadTArray<RDAR_HeaderFile>(sizeof(RDAR_HeaderFile), (int)headerTable.Table1Count);
                         var headerOffsets = r.ReadTArray<RDAR_HeaderOffset>(sizeof(RDAR_HeaderOffset), (int)headerTable.Table2Count);
                         //var headerHashs = r.ReadTArray<ulong>(sizeof(ulong), (int)headerTable.Table3Count);
-                        multiSource.Files = files2 = new List<FileSource>();
+                        source.Files = files2 = new List<FileSource>();
                         var nameHashs = new HashSet<ulong>();
                         for (var i = 0; i < headerFiles.Length; i++)
                         {
@@ -611,7 +609,7 @@ namespace GameSpec.Red.Formats
                             var header = r.ReadT<CACHE_TEX_Header>(sizeof(CACHE_TEX_Header));
                             Assert(header.Unk1 == 1415070536);
                             Assert(header.Unk2 == 6);
-                            multiSource.Files = files = new FileSource[header.NumFiles];
+                            source.Files = files = new FileSource[header.NumFiles];
                             var offset = 20 + 12 + (header.NumFiles * 52) + header.NamesSize + (header.ChunksSize * 4);
                             r.Seek(r.BaseStream.Length - offset);
 

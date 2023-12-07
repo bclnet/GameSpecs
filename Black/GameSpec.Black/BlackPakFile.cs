@@ -14,7 +14,7 @@ namespace GameSpec.Black
     /// BlackPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class BlackPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class BlackPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BlackPakFile" /> class.

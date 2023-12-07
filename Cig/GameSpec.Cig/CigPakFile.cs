@@ -12,7 +12,7 @@ namespace GameSpec.Cig
     /// CigPakFile
     /// </summary>
     /// <seealso cref="GameEstate.Formats.BinaryPakFile" />
-    public class CigPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class CigPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CigPakFile" /> class.

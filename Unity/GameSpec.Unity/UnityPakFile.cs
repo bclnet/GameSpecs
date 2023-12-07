@@ -12,7 +12,7 @@ namespace GameSpec.Unity
     /// UnityPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class UnityPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class UnityPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnityPakFile" /> class.

@@ -13,7 +13,7 @@ namespace GameSpec.Id
     /// IdPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class IdPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class IdPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IdPakFile" /> class.

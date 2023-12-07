@@ -100,7 +100,6 @@ namespace GameSpec.Bethesda.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             FileSource[] files;
 
             // Fallout 4
@@ -110,7 +109,7 @@ namespace GameSpec.Bethesda.Formats
                 var header = r.ReadT<F4_Header>(sizeof(F4_Header));
                 if (header.Version > F4_BSAHEADER_VERSION2) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
-                multiSource.Files = files = new FileSource[header.NumFiles];
+                source.Files = files = new FileSource[header.NumFiles];
                 // version2
                 //if (header.Version == F4_BSAHEADER_VERSION2) r.Skip(8);
                 // General BA2 Format

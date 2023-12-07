@@ -12,7 +12,7 @@ namespace GameSpec.Frontier
     /// FrontierPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class FrontierPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class FrontierPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FrontierPakFile" /> class.

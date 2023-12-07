@@ -7,9 +7,9 @@ namespace GameSpec.WbB
 {
     public class Database
     {
-        public readonly BinaryPakManyFile Source;
+        public readonly BinaryPakFile Source;
 
-        public Database(PakFile source) => Source = source as BinaryPakManyFile;
+        public Database(PakFile source) => Source = source as BinaryPakFile;
 
         public override string ToString() => Source.Name;
 

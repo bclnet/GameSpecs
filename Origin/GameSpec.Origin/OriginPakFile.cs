@@ -11,8 +11,8 @@ namespace GameSpec.Origin
     /// <summary>
     /// OriginPakFile
     /// </summary>
-    /// <seealso cref="GameSpec.Formats.BinaryPakManyFile" />
-    public class OriginPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
+    public class OriginPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OriginPakFile" /> class.

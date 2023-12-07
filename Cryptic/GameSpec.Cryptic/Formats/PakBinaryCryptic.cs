@@ -63,8 +63,6 @@ namespace GameSpec.Cryptic.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             // read file
             var header = r.ReadT<Header>(sizeof(Header));
             if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
@@ -123,7 +121,7 @@ namespace GameSpec.Cryptic.Formats
             }
 
             // remove filesize of -1
-            multiSource.Files = files.Where(x => x.FileSize != -1).ToList();
+            source.Files = files.Where(x => x.FileSize != -1).ToList();
 
             return Task.CompletedTask;
         }

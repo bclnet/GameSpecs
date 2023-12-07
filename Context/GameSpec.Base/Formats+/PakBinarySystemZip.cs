@@ -20,10 +20,10 @@ namespace GameSpec.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            
 
-            source.UseBinaryReader = false;
-            var files = multiSource.Files = new List<FileSource>();
+            source.Reader = false;
+            var files = source.Files = new List<FileSource>();
             var pak = (ZipArchive)(source.Tag = new ZipArchive(r.BaseStream, ZipArchiveMode.Read));
             foreach (var entry in pak.Entries)
             {

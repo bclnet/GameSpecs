@@ -201,7 +201,7 @@ namespace GameSpec.IW.Formats
             public fixed uint Commands[31]; // The commands tell what each block of data does
         }
 
-        class XSUB_PakFile : BinaryPakManyFile
+        class XSUB_PakFile : BinaryPakFile
         {
             public XSUB_PakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) { Open(); }
         }
@@ -234,8 +234,7 @@ namespace GameSpec.IW.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileSource>();
+            var files = source.Files = new List<FileSource>();
             var extension = Path.GetExtension(source.FilePath);
 
             switch (source.Game.Id)
@@ -256,7 +255,7 @@ namespace GameSpec.IW.Formats
                 // IWD
                 case ".iwd":
                     {
-                        source.UseBinaryReader = false;
+                        source.Reader = false;
                         source.Magic = (int)Magic.IWD;
 
                         var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));

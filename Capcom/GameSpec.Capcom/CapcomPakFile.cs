@@ -14,7 +14,7 @@ namespace GameSpec.Capcom
     /// CapcomPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class CapcomPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class CapcomPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CapcomPakFile" /> class.

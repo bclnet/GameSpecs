@@ -11,14 +11,14 @@ namespace GameSpec.Formats
     {
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            
 
             switch ((string)tag)
             {
                 case null: return Task.CompletedTask;
                 case "Set":
                     {
-                        var files = multiSource.Files = new List<FileSource>();
+                        var files = source.Files = new List<FileSource>();
                         var data = r.ReadToEnd();
                         // dir /s/b/a-d > .set
                         var lines = Encoding.ASCII.GetString(data)?.Split('\n');
@@ -39,14 +39,14 @@ namespace GameSpec.Formats
                         if (lines?.Length == 0) return Task.CompletedTask;
                         var state = -1;
                         var paramsx = source.Params;
-                        var filesByPath = multiSource.FilesByPath;
+                        var filesByPath = source.FilesByPath;
                         foreach (var line in lines)
                         {
                             var path = line.TrimEnd().Replace('\\', '/');
                             if (state == -1)
                             {
                                 if (path == "Params:") state = 0;
-                                else if (path == "AllCompressed") foreach (var file in multiSource.Files) file.Compressed = 1;
+                                else if (path == "AllCompressed") foreach (var file in source.Files) file.Compressed = 1;
                                 else if (path == "Compressed:") state = 1;
                                 else if (path == "Crypted:") state = 2;
                             }
@@ -66,7 +66,7 @@ namespace GameSpec.Formats
                     }
                 case "Raw":
                     {
-                        var filesRawSet = multiSource.FilesRawSet = new HashSet<string>();
+                        var filesRawSet = source.FilesRawSet = new HashSet<string>();
                         var data = r.ReadToEnd();
                         var lines = Encoding.ASCII.GetString(data)?.Split('\n');
                         if (lines?.Length == 0) return Task.CompletedTask;
@@ -79,7 +79,7 @@ namespace GameSpec.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            
 
             switch ((string)tag)
             {
@@ -92,7 +92,7 @@ namespace GameSpec.Formats
                         w.Write((byte)'\n');
                         w.Flush();
                         // files
-                        var files = multiSource.Files;
+                        var files = source.Files;
                         foreach (var file in files) //.OrderBy(x => x.Path))
                         {
                             w.Write(pathAsBytes);
@@ -119,7 +119,7 @@ namespace GameSpec.Formats
                             w.Flush();
                         }
                         // compressed
-                        var files = multiSource.Files;
+                        var files = source.Files;
                         var numCompressed = files.Count(x => x.Compressed != 0);
                         if (files.Count == numCompressed) w.Write(Encoding.ASCII.GetBytes("AllCompressed\n"));
                         else if (numCompressed > 0)
@@ -152,8 +152,8 @@ namespace GameSpec.Formats
                     }
                 case "Raw":
                     {
-                        if (multiSource.FilesRawSet == null) throw new ArgumentNullException(nameof(multiSource.FilesRawSet));
-                        foreach (var file in multiSource.FilesRawSet)
+                        if (source.FilesRawSet == null) throw new ArgumentNullException(nameof(source.FilesRawSet));
+                        foreach (var file in source.FilesRawSet)
                         {
                             w.Write(Encoding.ASCII.GetBytes(file));
                             w.Write((byte)'\n');

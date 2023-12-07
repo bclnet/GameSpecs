@@ -136,8 +136,6 @@ namespace GameSpec.Monolith.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             // read file
             var header = r.ReadT<Header>(sizeof(Header));
             if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
@@ -197,7 +195,7 @@ namespace GameSpec.Monolith.Formats
                 }
             }
 
-            multiSource.Files = directories.SelectMany(x => x.Files.Cast<ArchFile>(), (a, b) => new FileSource
+            source.Files = directories.SelectMany(x => x.Files.Cast<ArchFile>(), (a, b) => new FileSource
             {
                 Path = $"{a.Path}/{b.Path}",
                 FileSize = b.FileSize,

@@ -12,7 +12,7 @@ namespace GameSpec.Red
     /// RedPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class RedPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class RedPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RedPakFile" /> class.

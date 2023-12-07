@@ -14,7 +14,7 @@ namespace GameSpec.Monolith
     /// MonolithPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class MonolithPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class MonolithPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MonolithPakFile" /> class.

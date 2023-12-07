@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class ManyPakFile : BinaryPakManyFile
+    public class ManyPakFile : BinaryPakFile
     {
         /// <summary>
         /// The paths
@@ -23,13 +23,13 @@ namespace GameSpec.Formats
         /// <param name="tag">The tag.</param>
         public ManyPakFile(PakFile basis, FamilyGame game, string name, IFileSystem fileSystem, string[] paths, object tag = default) : base(game, fileSystem, name, null, tag)
         {
-            if (basis is BinaryPakManyFile b)
+            if (basis is BinaryPakFile b)
             {
                 GetMetadataItems = b.GetMetadataItems;
                 GetObjectFactoryFactory = b.GetObjectFactoryFactory;
             }
             Paths = paths;
-            UseBinaryReader = false;
+            Reader = false;
         }
 
         /// <summary>

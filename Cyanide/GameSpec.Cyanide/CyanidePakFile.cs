@@ -12,7 +12,7 @@ namespace GameSpec.Cyanide
     /// CyanidePakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class CyanidePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class CyanidePakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CyanidePakFile" /> class.

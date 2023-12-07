@@ -22,10 +22,10 @@ namespace GameSpec.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            
 
-            source.UseBinaryReader = false;
-            var files = multiSource.Files = new List<FileSource>();
+            source.Reader = false;
+            var files = source.Files = new List<FileSource>();
             var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));
             ZipFile_KeyProperty.SetValue(pak, Key);
             foreach (ZipEntry entry in pak)
@@ -45,10 +45,10 @@ namespace GameSpec.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
+            
 
-            source.UseBinaryReader = false;
-            var files = multiSource.Files;
+            source.Reader = false;
+            var files = source.Files;
             var pak = (ZipFile)(source.Tag = new ZipFile(w.BaseStream));
             ZipFile_KeyProperty.SetValue(pak, Key);
             pak.BeginUpdate();

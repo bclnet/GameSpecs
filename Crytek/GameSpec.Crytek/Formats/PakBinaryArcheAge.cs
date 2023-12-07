@@ -36,7 +36,6 @@ namespace GameSpec.Crytek.Formats
 
         public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             FileSource[] files;
 
             var stream = r.BaseStream;
@@ -63,7 +62,7 @@ namespace GameSpec.Crytek.Formats
 
                 // read-all files
                 var fileIdx = 0U;
-                multiSource.Files = files = new FileSource[header.FileCount];
+                source.Files = files = new FileSource[header.FileCount];
                 for (var i = 0; i < header.FileCount; i++)
                 {
                     stream.Seek(infoOffset, SeekOrigin.Begin);

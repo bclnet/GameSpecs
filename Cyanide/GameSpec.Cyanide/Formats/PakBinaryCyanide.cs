@@ -34,13 +34,11 @@ namespace GameSpec.Cyanide.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             var magic = source.Magic = r.ReadUInt32();
             if (magic != CPK_MAGIC) throw new FormatException("BAD MAGIC");
             var header = r.ReadT<CPK_Header>(sizeof(CPK_Header));
             var headerFiles = r.ReadTArray<CPK_HeaderFile>(sizeof(CPK_HeaderFile), (int)header.NumFiles);
-            var files = multiSource.Files = new FileSource[header.NumFiles];
+            var files = source.Files = new FileSource[header.NumFiles];
             UnsafeX.ReadZASCII(header.Root, 512);
             for (var i = 0; i < files.Count; i++)
             {

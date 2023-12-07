@@ -16,7 +16,7 @@ namespace GameSpec.Valve
     /// ValvePakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class ValvePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class ValvePakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValvePakFile" /> class.

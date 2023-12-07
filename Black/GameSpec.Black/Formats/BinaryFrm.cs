@@ -46,7 +46,7 @@ namespace GameSpec.Black.Formats
 
         static BinaryPal DefaultPallet;
 
-        async Task<BinaryPal> GetPalletObjAsync(string path, BinaryPakManyFile s)
+        async Task<BinaryPal> GetPalletObjAsync(string path, BinaryPakFile s)
         {
             var palletPath = $"{path[..^4]}.PAL";
             if (s.Contains(palletPath))
@@ -61,8 +61,7 @@ namespace GameSpec.Black.Formats
 
         public unsafe BinaryFrm(BinaryReader r, FileSource f, PakFile s)
         {
-            if (!(s is BinaryPakManyFile ms)) throw new NotSupportedException();
-            var pallet = GetPalletObjAsync(f.Path, ms).Result ?? throw new Exception("No pallet found");
+            var pallet = GetPalletObjAsync(f.Path, (BinaryPakFile)s).Result ?? throw new Exception("No pallet found");
             var rgba32 = pallet.Rgba32;
 
             // parse header

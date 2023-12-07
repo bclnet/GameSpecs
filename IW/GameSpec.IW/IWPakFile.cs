@@ -12,7 +12,7 @@ namespace GameSpec.IW
     /// IWPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class IWPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class IWPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IWPakFile" /> class.
@@ -25,7 +25,7 @@ namespace GameSpec.IW
         {
             GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
-            UseBinaryReader = false;
+            Reader = false;
         }
 
         #region Transforms

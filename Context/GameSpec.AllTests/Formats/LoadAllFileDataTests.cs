@@ -44,12 +44,12 @@ namespace GameSpec.Formats
 
         static Task ExportAsync(PakFile source, long maxSize)
         {
-            if (source is not BinaryPakManyFile multiSource) throw new NotSupportedException();
+            if (source is not BinaryPakFile pak) throw new NotSupportedException();
 
             // write files
-            Parallel.For(0, multiSource.Files.Count, new ParallelOptions { /*MaxDegreeOfParallelism = 1*/ }, async index =>
+            Parallel.For(0, pak.Files.Count, new ParallelOptions { /*MaxDegreeOfParallelism = 1*/ }, async index =>
             {
-                var file = multiSource.Files[index];
+                var file = pak.Files[index];
 
                 // extract pak
                 if (file.Pak != null) { await ExportAsync(file.Pak, maxSize); return; }
@@ -59,7 +59,7 @@ namespace GameSpec.Formats
                 if (maxSize != 0 && file.FileSize > maxSize) return;
 
                 // extract file
-                using var s = await multiSource.LoadFileDataAsync(file);
+                using var s = await pak.LoadFileDataAsync(file);
                 s.ReadAllBytes();
             });
 

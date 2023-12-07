@@ -12,16 +12,15 @@ namespace GameSpec.Arkane.Formats
         public static readonly PakBinary Instance = new PakBinaryVoid();
         const uint RES_MAGIC = 0x04534552;
 
-        class SubPakFile : BinaryPakManyFile
+        class SubPakFile : BinaryPakFile
         {
             public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (Path.GetExtension(source.FilePath) != ".index") throw new FormatException("must be a .index file");
-            var files2 = multiSource.Files = new List<FileSource>();
+            var files2 = source.Files = new List<FileSource>();
 
             // index games
             if (Path.GetFileName(source.FilePath) == "master.index")
@@ -65,7 +64,7 @@ namespace GameSpec.Arkane.Formats
             var mainFileSize = MathX.Reverse(r.ReadUInt32()); // mainFileSize
             r.Skip(24);
             var numFiles = MathX.Reverse(r.ReadUInt32());
-            var files = multiSource.Files = new FileSource[numFiles];
+            var files = source.Files = new FileSource[numFiles];
             for (var i = 0; i < numFiles; i++)
             {
                 var id = MathX.Reverse(r.ReadUInt32());

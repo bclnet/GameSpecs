@@ -16,14 +16,13 @@ namespace GameSpec.Metadata
         /// <returns></returns>
         public static async Task<List<MetadataItem>> GetPakFilesAsync(MetadataManager manager, BinaryPakFile pakFile)
         {
-            var pakMultiFile = pakFile as BinaryPakManyFile;
             var root = new List<MetadataItem>();
             string currentPath = null;
             List<MetadataItem> currentFolder = null;
-            if (pakMultiFile.Files != null)
-                foreach (var file in pakMultiFile.Files.OrderBy(x => x.Path))
+            if (pakFile.Files != null)
+                foreach (var file in pakFile.Files.OrderBy(x => x.Path))
                 {
-                    var path = file.Path[pakMultiFile.VisualPathSkip..];
+                    var path = file.Path[pakFile.VisualPathSkip..];
 
                     // skip empty
                     if (string.IsNullOrEmpty(path)) continue;

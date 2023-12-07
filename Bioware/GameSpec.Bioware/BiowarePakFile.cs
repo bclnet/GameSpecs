@@ -14,7 +14,7 @@ namespace GameSpec.Bioware
     /// BiowarePakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class BiowarePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class BiowarePakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BiowarePakFile" /> class.

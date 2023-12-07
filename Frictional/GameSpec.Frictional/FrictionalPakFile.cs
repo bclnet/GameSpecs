@@ -12,7 +12,7 @@ namespace GameSpec.Frictional
     /// FrictionalPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class FrictionalPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class FrictionalPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FrictionalPakFile" /> class.

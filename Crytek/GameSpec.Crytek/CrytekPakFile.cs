@@ -13,7 +13,7 @@ namespace GameSpec.Crytek
     /// CryPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class CryPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class CryPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CryPakFile" /> class.

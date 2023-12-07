@@ -16,7 +16,7 @@ namespace GameSpec.Bethesda
     /// BethesdaPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class BethesdaPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class BethesdaPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BethesdaPakFile" /> class.

@@ -112,7 +112,6 @@ namespace GameSpec.Bethesda.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             FileSource[] files;
 
             // Fallout 4
@@ -137,7 +136,7 @@ namespace GameSpec.Bethesda.Formats
 
                 // read-all folder files
                 var fileIdx = 0U;
-                multiSource.Files = files = new FileSource[header.FileCount];
+                source.Files = files = new FileSource[header.FileCount];
                 for (var i = 0; i < header.FolderCount; i++)
                 {
                     var folder_name = r.ReadFString(r.ReadByte() - 1).Replace('\\', '/'); r.Skip(1);
@@ -165,7 +164,7 @@ namespace GameSpec.Bethesda.Formats
                 var dataOffset = 12 + header.HashOffset + (8 * header.FileCount);
 
                 // Create file metadatas
-                multiSource.Files = files = new FileSource[header.FileCount];
+                source.Files = files = new FileSource[header.FileCount];
                 var headerFiles = r.ReadTArray<MW_HeaderFile>(sizeof(MW_HeaderFile), (int)header.FileCount);
                 for (var i = 0; i < headerFiles.Length; i++)
                 {

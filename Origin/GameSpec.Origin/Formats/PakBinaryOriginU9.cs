@@ -25,8 +25,6 @@ namespace GameSpec.Origin.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             var fileName = Path.GetFileNameWithoutExtension(source.FilePath).ToLowerInvariant();
             var prefix
                 = fileName.Contains("bitmap") ? "bitmap"
@@ -37,7 +35,7 @@ namespace GameSpec.Origin.Formats
             var numFiles = r.ReadInt32();
             r.Seek(0x80);
             var headerFiles = r.ReadTArray<FLX_HeaderFile>(sizeof(FLX_HeaderFile), numFiles);
-            var files = multiSource.Files = new FileSource[numFiles];
+            var files = source.Files = new FileSource[numFiles];
             for (var i = 0; i < files.Count; i++)
             {
                 var headerFile = headerFiles[i];

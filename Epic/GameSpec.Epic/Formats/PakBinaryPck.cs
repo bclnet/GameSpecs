@@ -16,10 +16,8 @@ namespace GameSpec.Epic.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-
             List<FileSource> files;
-            multiSource.Files = files = new List<FileSource>();
+            source.Files = files = new List<FileSource>();
             var header = new Core.UPackage(r, source.FilePath);
             if (header.Exports == null) return Task.CompletedTask;
             var R = header.R;

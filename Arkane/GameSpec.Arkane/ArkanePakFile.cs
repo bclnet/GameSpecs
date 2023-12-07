@@ -14,7 +14,7 @@ namespace GameSpec.Arkane
     /// ArkanePakFile
     /// </summary>
     /// <seealso cref="GameEstate.Formats.BinaryPakFile" />
-    public class ArkanePakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class ArkanePakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArkanePakFile" /> class.

@@ -59,7 +59,7 @@ namespace GameSpec.Bioware.Formats
             public uint Id;                 // Resource ID
         }
 
-        class SubPakFile : BinaryPakManyFile
+        class SubPakFile : BinaryPakFile
         {
             public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
@@ -217,7 +217,6 @@ namespace GameSpec.Bioware.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             FileSource[] files; List<FileSource> files2;
 
             // KEY
@@ -227,7 +226,7 @@ namespace GameSpec.Bioware.Formats
                 var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
                 if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
-                multiSource.Files = files = new FileSource[header.NumFiles];
+                source.Files = files = new FileSource[header.NumFiles];
 
                 // parts
                 r.Seek(header.FilesOffset);
@@ -262,7 +261,7 @@ namespace GameSpec.Bioware.Formats
                 var header = r.ReadT<BIFF_Header>(sizeof(BIFF_Header));
                 if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
-                multiSource.Files = files2 = new List<FileSource>();
+                source.Files = files2 = new List<FileSource>();
 
                 // files
                 r.Seek(header.FilesOffset);

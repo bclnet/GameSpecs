@@ -13,7 +13,7 @@ namespace GameSpec.WbB
     /// WbBPakFile
     /// </summary>
     /// <seealso cref="GameEstate.Formats.BinaryPakFile" />
-    public class WbBPakFile : BinaryPakManyFile, ITransformFileObject<IUnknownFileModel>
+    public class WbBPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         static WbBPakFile() => Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 

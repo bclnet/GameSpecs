@@ -13,8 +13,7 @@ namespace GameSpec.Arkane.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileSource>();
+            var files = source.Files = new List<FileSource>();
             var key = source.Game.Key is Family.ByteKey z ? z.Key : null;
             int keyLength = key.Length, keyIndex = 0;
 

@@ -20,12 +20,12 @@ namespace GameSpec.Cig.Formats
         static readonly byte[] DefaultKey = new byte[] { 0x5E, 0x7A, 0x20, 0x02, 0x30, 0x2E, 0xEB, 0x1A, 0x3B, 0xB6, 0x17, 0xC3, 0x0F, 0xDE, 0x1E, 0x47 };
         readonly byte[] Key;
 
-        class SubPakFile : BinaryPakManyFile
+        class SubPakFile : BinaryPakFile
         {
             public Stream Stream;
             public SubPakFile(P4kFile pak, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
             {
-                UseBinaryReader = false;
+                Reader = false;
                 var entry = (ZipEntry)Tag;
                 Stream = pak.GetInputStream(entry.ZipFileIndex);
                 GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
@@ -44,9 +44,8 @@ namespace GameSpec.Cig.Formats
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            source.UseBinaryReader = false;
-            var files = multiSource.Files = new List<FileSource>();
+            source.Reader = false;
+            var files = source.Files = new List<FileSource>();
 
             var pak = (P4kFile)(source.Tag = new P4kFile(r.BaseStream, Key));
             var parentByPath = new Dictionary<string, FileSource>();
@@ -84,9 +83,9 @@ namespace GameSpec.Cig.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
-            if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            source.UseBinaryReader = false;
-            var files = multiSource.Files;
+            
+            source.Reader = false;
+            var files = source.Files;
 
             var pak = (P4kFile)(source.Tag = new P4kFile(w.BaseStream, Key));
             pak.BeginUpdate();
