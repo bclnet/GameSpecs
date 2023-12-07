@@ -40,12 +40,12 @@ namespace GameSpec.Cyanide.Formats
             if (magic != CPK_MAGIC) throw new FormatException("BAD MAGIC");
             var header = r.ReadT<CPK_Header>(sizeof(CPK_Header));
             var headerFiles = r.ReadTArray<CPK_HeaderFile>(sizeof(CPK_HeaderFile), (int)header.NumFiles);
-            var files = multiSource.Files = new FileMetadata[header.NumFiles];
+            var files = multiSource.Files = new FileSource[header.NumFiles];
             UnsafeX.ReadZASCII(header.Root, 512);
             for (var i = 0; i < files.Count; i++)
             {
                 var headerFile = headerFiles[i];
-                files[i] = new FileMetadata
+                files[i] = new FileSource
                 {
                     Path = UnsafeX.ReadZASCII(headerFile.FileName, 512).Replace('\\', '/'),
                     FileSize = headerFile.FileSize,
@@ -55,7 +55,7 @@ namespace GameSpec.Cyanide.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));

@@ -68,6 +68,6 @@ namespace GameSpec.Valve.Formats.Blocks
             await MorphData?.LoadFlexData(fileLoader);
         }
 
-        public List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => (Parent as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
+        public List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag) => (Parent as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
     }
 }

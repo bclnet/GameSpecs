@@ -14,7 +14,7 @@ namespace GameSpec.Arkane.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             var key = source.Game.Key is Family.ByteKey z ? z.Key : null;
             int keyLength = key.Length, keyIndex = 0;
 
@@ -59,7 +59,7 @@ namespace GameSpec.Arkane.Formats
                     var numFiles = readFatInteger(ref c);
                     while (numFiles-- != 0)
                     {
-                        var f = new FileMetadata
+                        var f = new FileSource
                         {
                             Path = dirPath + readFatString(ref c),
                             Position = readFatInteger(ref c),
@@ -76,7 +76,7 @@ namespace GameSpec.Arkane.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream((file.Compressed & 1) != 0

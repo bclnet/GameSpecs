@@ -41,7 +41,7 @@ namespace GameSpec.App.Explorer.Views
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
             var node = PakNodes.FirstOrDefault(x => x.Name == paths[0]);
-            if (node != null && node.Source is FileMetadata z) z.Pak?.Open(node.Items, manager);
+            if (node != null && node.Source is FileSource z) z.Pak?.Open(node.Items, manager);
             return paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
         }
 

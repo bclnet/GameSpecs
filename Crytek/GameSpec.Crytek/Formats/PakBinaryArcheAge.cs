@@ -37,7 +37,7 @@ namespace GameSpec.Crytek.Formats
         public unsafe override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            FileMetadata[] files;
+            FileSource[] files;
 
             var stream = r.BaseStream;
             using (var aes = Aes.Create())
@@ -63,13 +63,13 @@ namespace GameSpec.Crytek.Formats
 
                 // read-all files
                 var fileIdx = 0U;
-                multiSource.Files = files = new FileMetadata[header.FileCount];
+                multiSource.Files = files = new FileSource[header.FileCount];
                 for (var i = 0; i < header.FileCount; i++)
                 {
                     stream.Seek(infoOffset, SeekOrigin.Begin);
                     r = new BinaryReader(new CryptoStream(stream, aes.CreateDecryptor(), CryptoStreamMode.Read));
                     var nameAsSpan = r.ReadBytes(0x108).AsSpan();
-                    files[fileIdx++] = new FileMetadata
+                    files[fileIdx++] = new FileSource
                     {
                         //.Replace('\\', '/')
                         Path = Encoding.ASCII.GetString(nameAsSpan[..nameAsSpan.IndexOf(byte.MinValue)]), //: name
@@ -84,7 +84,7 @@ namespace GameSpec.Crytek.Formats
             return Task.CompletedTask;
         }
 
-        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             // position
             r.Seek(file.Position);

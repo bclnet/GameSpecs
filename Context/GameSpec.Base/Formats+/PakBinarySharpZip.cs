@@ -25,12 +25,12 @@ namespace GameSpec.Formats
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
             source.UseBinaryReader = false;
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));
             ZipFile_KeyProperty.SetValue(pak, Key);
             foreach (ZipEntry entry in pak)
             {
-                var metadata = new FileMetadata
+                var metadata = new FileSource
                 {
                     Path = entry.Name.Replace('\\', '/'),
                     Crypted = entry.IsCrypted,
@@ -62,7 +62,7 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var pak = (ZipFile)source.Tag;
             var entry = (ZipEntry)file.Tag;
@@ -78,7 +78,7 @@ namespace GameSpec.Formats
             catch (Exception e) { Log($"{file.Path} - Exception: {e.Message}"); exception?.Invoke(file, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var pak = (ZipFile)source.Tag;
             var entry = (ZipEntry)file.Tag;

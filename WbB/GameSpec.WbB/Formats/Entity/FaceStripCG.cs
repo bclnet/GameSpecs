@@ -17,7 +17,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.FaceStripCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 IconImage != 0 ? new MetadataInfo($"Icon: {IconImage:X8}", clickable: true) : null,

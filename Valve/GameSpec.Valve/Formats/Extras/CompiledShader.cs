@@ -19,7 +19,7 @@ namespace GameSpec.Valve.Formats.Extras
         public CompiledShader() { }
         public CompiledShader(BinaryReader r, string filename) => Read(r, filename);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Shader", Value = Shader }),
             new MetadataInfo("CompiledShader", items: new List<MetadataInfo> {
                 new MetadataInfo($"ShaderType: {ShaderType}"),

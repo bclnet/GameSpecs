@@ -90,7 +90,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null) =>
+        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null) =>
             (FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{path}\"."))
             .LoadFileDataAsync(nextPath, option, exception);
         /// <summary>
@@ -101,7 +101,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{fileId}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileMetadata, string> exception = null) =>
+        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null) =>
             (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(fileId)) ?? throw new FileNotFoundException($"Could not find file \"{fileId}\"."))
             .LoadFileDataAsync(fileId, option, exception);
         /// <summary>
@@ -112,7 +112,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
 
         /// <summary>
         /// Loads the object asynchronous.
@@ -122,7 +122,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception) =>
+        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception) =>
             (FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{path}\"."))
             .LoadFileObjectAsync<T>(nextPath, exception);
         /// <summary>
@@ -133,7 +133,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException">Could not find file \"{fileId}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception) =>
+        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception) =>
             (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(fileId)) ?? throw new FileNotFoundException($"Could not find file \"{fileId}\"."))
             .LoadFileObjectAsync<T>(fileId, exception);
         /// <summary>
@@ -144,7 +144,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception) => throw new NotSupportedException();
+        public override Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception) => throw new NotSupportedException();
 
         #region Metadata
 

@@ -22,15 +22,15 @@ namespace GameSpec.Crytek.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             source.UseBinaryReader = false;
 
             var pak = (Cry3File)(source.Tag = new Cry3File(r.BaseStream, Key));
-            var parentByPath = new Dictionary<string, FileMetadata>();
-            var partByPath = new Dictionary<string, SortedList<string, FileMetadata>>();
+            var parentByPath = new Dictionary<string, FileSource>();
+            var partByPath = new Dictionary<string, SortedList<string, FileSource>>();
             foreach (ZipEntry entry in pak)
             {
-                var metadata = new FileMetadata
+                var metadata = new FileSource
                 {
                     Path = entry.Name.Replace('\\', '/'),
                     Crypted = entry.IsCrypted,
@@ -43,7 +43,7 @@ namespace GameSpec.Crytek.Formats
                 {
                     var parentPath = metadata.Path[..(metadata.Path.IndexOf(".dds", StringComparison.OrdinalIgnoreCase) + 4)];
                     var parts = partByPath.TryGetValue(parentPath, out var z) ? z : null;
-                    if (parts == null) partByPath.Add(parentPath, parts = new SortedList<string, FileMetadata>());
+                    if (parts == null) partByPath.Add(parentPath, parts = new SortedList<string, FileSource>());
                     parts.Add(metadata.Path, metadata);
                     continue;
                 }
@@ -74,7 +74,7 @@ namespace GameSpec.Crytek.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var pak = (Cry3File)source.Tag;
             var entry = (ZipEntry)file.Tag;
@@ -90,7 +90,7 @@ namespace GameSpec.Crytek.Formats
             catch (Exception e) { Log($"{file.Path} - Exception: {e.Message}"); exception?.Invoke(file, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var pak = (Cry3File)source.Tag;
             var entry = (ZipEntry)file.Tag;

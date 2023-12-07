@@ -5,6 +5,9 @@
   "description": "MonolithTech is a game engine developed by Monolith Productions and comparable with the Quake and Unreal engines",
   "url": [ "https://en.wikipedia.org/wiki/Monolith_Productions", "https://en.wikipedia.org/wiki/LithTech" ],
   "familyType": "GameSpec.Monolith.MonolithFamily, GameSpec.Monolith",
+  "engines": {
+    "LithTech": { "name":  "LithTech" }
+  },
   "games": {
     "*": {
       "pakFileType": "GameSpec.Monolith.MonolithPakFile, GameSpec.Monolith",

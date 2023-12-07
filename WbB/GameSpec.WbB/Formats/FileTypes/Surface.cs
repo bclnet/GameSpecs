@@ -33,7 +33,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Surface
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var hasSurface = Type.HasFlag(SurfaceType.Base1Image) || Type.HasFlag(SurfaceType.Base1ClipMap);
             var nodes = new List<MetadataInfo> {

@@ -169,7 +169,7 @@ namespace GameSpec
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null);
+        public abstract Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null);
         /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
@@ -177,7 +177,7 @@ namespace GameSpec
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileMetadata, string> exception = null);
+        public abstract Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null);
         /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
@@ -185,7 +185,7 @@ namespace GameSpec
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null);
+        public abstract Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = 0, Action<FileSource, string> exception = null);
 
         /// <summary>
         /// Loads the object asynchronous.
@@ -194,7 +194,7 @@ namespace GameSpec
         /// <param name="path">The file path.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception = null);
+        public abstract Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = null);
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
@@ -202,7 +202,7 @@ namespace GameSpec
         /// <param name="fileId">The fileId.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = null);
+        public abstract Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = null);
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
@@ -210,7 +210,7 @@ namespace GameSpec
         /// <param name="file">The file.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception = null);
+        public abstract Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception = null);
 
         /// <summary>
         /// Loads the object transformed asynchronous.
@@ -220,7 +220,7 @@ namespace GameSpec
         /// <param name="transformTo">The transformTo.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(string path, PakFile transformTo, Action<FileMetadata, string> exception = null)
+        public async Task<T> LoadFileObjectAsync<T>(string path, PakFile transformTo, Action<FileSource, string> exception = null)
             => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(path, exception));
         /// <summary>
         /// Loads the object transformed asynchronous.
@@ -230,7 +230,7 @@ namespace GameSpec
         /// <param name="transformTo">The transformTo.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(int fileId, PakFile transformTo, Action<FileMetadata, string> exception = null)
+        public async Task<T> LoadFileObjectAsync<T>(int fileId, PakFile transformTo, Action<FileSource, string> exception = null)
             => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(fileId, exception));
         /// <summary>
         /// Loads the object transformed asynchronous.
@@ -240,7 +240,7 @@ namespace GameSpec
         /// <param name="transformTo">The transformTo.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(FileMetadata fileId, PakFile transformTo, Action<FileMetadata, string> exception = null)
+        public async Task<T> LoadFileObjectAsync<T>(FileSource fileId, PakFile transformTo, Action<FileSource, string> exception = null)
             => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(fileId, exception));
 
         /// <summary>

@@ -1836,7 +1836,7 @@ namespace GameSpec.Unity.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             //var pak = (P4kFile)source.Tag;
             //var entry = (ZipEntry)file.Tag;
@@ -1853,7 +1853,7 @@ namespace GameSpec.Unity.Formats
             return null;
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             //var pak = (P4kFile)source.Tag;
             //var entry = (ZipEntry)file.Tag;

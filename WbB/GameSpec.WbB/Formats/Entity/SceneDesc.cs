@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
             => SceneTypes = r.ReadL32Array(x => new SceneType(x));
 
         //: Entity.SceneDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("SceneTypes", items: SceneTypes.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),

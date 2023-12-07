@@ -8,12 +8,12 @@ namespace GameSpec.Arkane.Formats.Danae
 {
     public class BinaryTea : IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryTea(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryTea(r));
 
         public BinaryTea() { }
         public BinaryTea(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("BinaryTEA", items: new List<MetadataInfo> {

@@ -16,7 +16,7 @@ namespace GameSpec.Blizzard.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
 
             // load casc
             var editions = source.Game.Editions;
@@ -26,7 +26,7 @@ namespace GameSpec.Blizzard.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
             => Task.FromResult(casc.ReadData(file));
     }
 }

@@ -6,6 +6,6 @@ namespace GameSpec.Cig.Formats
 {
     public class BinaryDdsA
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDds(r, false));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryDds(r, false));
     }
 }

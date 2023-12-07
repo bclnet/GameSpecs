@@ -108,7 +108,7 @@ namespace GameSpec.WbB.Formats.Entity
         public uint GetFootwearClothingTable(uint footwearStyle) => FootwearList[Convert.ToInt32(footwearStyle)].ClothingTable;
 
         //: Entity.SexCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo($"Name: {Name}"),

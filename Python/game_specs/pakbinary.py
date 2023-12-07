@@ -1,7 +1,7 @@
 import os
 from .pakfile import BinaryPakFile
 
-class FileInfo:
+class FileSource:
     def __init__(self, path, compression = None, position = None, fileSize = None, packedSize = None):
         self.path = path
         self.compression = compression

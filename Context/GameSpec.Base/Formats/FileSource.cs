@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-//using static GameSpec.Estate;
 
 namespace GameSpec.Formats
 {
     [DebuggerDisplay("{Path}")]
-    public class FileMetadata
+    public class FileSource
     {
-        internal static readonly Func<BinaryReader, FileMetadata, PakFile, Task<object>> EmptyObjectFactory = (a, b, c) => null;
-        internal Func<BinaryReader, FileMetadata, PakFile, Task<object>> CachedObjectFactory;
+        internal static readonly Func<BinaryReader, FileSource, PakFile, Task<object>> EmptyObjectFactory = (a, b, c) => null;
+        internal Func<BinaryReader, FileSource, PakFile, Task<object>> CachedObjectFactory;
         internal DataOption CachedDataOption;
         public BinaryPakFile Pak;
         public object Tag;
@@ -25,7 +24,7 @@ namespace GameSpec.Formats
         public long Position;
         public ulong Digest;
         // options
-        public IList<FileMetadata> Parts;
+        public IList<FileSource> Parts;
         // extra
         public object FileInfo;
         public byte[] Extra;

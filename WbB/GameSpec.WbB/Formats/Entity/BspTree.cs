@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
             => RootNode = BspNode.Factory(r, treeType);
 
         //: Entity.BSPTree
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo($"Root", items: (RootNode as IGetMetadataInfo).GetInfoNodes(tag: tag)),

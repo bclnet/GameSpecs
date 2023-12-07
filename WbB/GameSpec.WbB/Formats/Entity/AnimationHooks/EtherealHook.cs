@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => Ethereal = r.ReadInt32();
 
         //: Entity.EtherealHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo>();
             if (Base is EtherealHook s) nodes.Add(new MetadataInfo($"Ethereal: {s.Ethereal}"));

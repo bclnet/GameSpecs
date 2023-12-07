@@ -11,7 +11,7 @@ namespace GameSpec.Red.Formats
         public BinaryPak() { }
         public BinaryPak(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("BinaryPak", items: new List<MetadataInfo> {

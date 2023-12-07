@@ -218,7 +218,7 @@ namespace GameSpec.Bioware.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            FileMetadata[] files; List<FileMetadata> files2;
+            FileSource[] files; List<FileSource> files2;
 
             // KEY
             var magic = source.Magic = r.ReadUInt32();
@@ -227,7 +227,7 @@ namespace GameSpec.Bioware.Formats
                 var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
                 if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
-                multiSource.Files = files = new FileMetadata[header.NumFiles];
+                multiSource.Files = files = new FileSource[header.NumFiles];
 
                 // parts
                 r.Seek(header.FilesOffset);
@@ -246,7 +246,7 @@ namespace GameSpec.Bioware.Formats
                     var (file, path) = headerFiles[i];
                     var subPath = string.Format(subPathFormat, path);
                     if (!File.Exists(subPath)) continue;
-                    files[i] = new FileMetadata
+                    files[i] = new FileSource
                     {
                         Path = path,
                         FileSize = file.FileSize,
@@ -262,7 +262,7 @@ namespace GameSpec.Bioware.Formats
                 var header = r.ReadT<BIFF_Header>(sizeof(BIFF_Header));
                 if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
-                multiSource.Files = files2 = new List<FileMetadata>();
+                multiSource.Files = files2 = new List<FileSource>();
 
                 // files
                 r.Seek(header.FilesOffset);
@@ -272,7 +272,7 @@ namespace GameSpec.Bioware.Formats
                     var headerFile = headerFiles[i];
                     if (headerFile.Id > i) continue;
                     var path = $"{(keys.TryGetValue(headerFile.Id, out var key) ? key : $"{i}")}{(BIFF_FileTypes.TryGetValue((int)headerFile.FileType, out var z) ? $".{z}" : string.Empty)}".Replace('\\', '/');
-                    files2.Add(new FileMetadata
+                    files2.Add(new FileSource
                     {
                         Id = (int)headerFile.Id,
                         Path = path,
@@ -285,7 +285,7 @@ namespace GameSpec.Bioware.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             Stream fileData;
             r.Seek(file.Position);

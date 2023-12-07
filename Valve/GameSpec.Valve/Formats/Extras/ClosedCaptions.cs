@@ -25,7 +25,7 @@ namespace GameSpec.Valve.Formats.Extras
         public ClosedCaptions() { }
         public ClosedCaptions(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Captions", Value = Captions }),
             new MetadataInfo("ClosedCaptions", items: new List<MetadataInfo> {
                 new MetadataInfo($"Count: {Captions.Count}"),

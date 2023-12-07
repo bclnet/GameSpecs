@@ -12,7 +12,7 @@ namespace GameSpec.Formats
     // https://github.com/yuraj11/HL-Texture-Tools
     public unsafe class BinarySpr : ITexture, IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinarySpr(r, f));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinarySpr(r, f));
 
         // Headers
         #region SPR
@@ -91,7 +91,7 @@ namespace GameSpec.Formats
 
         #endregion
 
-        public BinarySpr(BinaryReader r, FileMetadata f)
+        public BinarySpr(BinaryReader r, FileSource f)
         {
             Format = ((TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32);
 
@@ -169,7 +169,7 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
                 new MetadataInfo($"Width: {Width}"),

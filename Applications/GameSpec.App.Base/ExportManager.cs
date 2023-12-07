@@ -27,7 +27,7 @@ namespace GameSpec.App
                 using var w = new BinaryWriter(new FileStream(setPath, FileMode.Create, FileAccess.Write));
                 await PakBinary.Stream.WriteAsync(new StreamPakFile(HttpHost.Factory, null, null, "Root")
                 {
-                    Files = multiPak.PakFiles.Select(x => new FileMetadata { Path = x.Name }).ToList()
+                    Files = multiPak.PakFiles.Select(x => new FileSource { Path = x.Name }).ToList()
                 }, w, "Set");
             }
             foreach (var _ in multiPak.PakFiles) await ExportPakAsync(filePath, from, option, _);

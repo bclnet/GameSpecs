@@ -113,7 +113,7 @@ namespace GameSpec.Bethesda.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            FileMetadata[] files;
+            FileSource[] files;
 
             // Fallout 4
             var magic = source.Magic = r.ReadUInt32();
@@ -137,7 +137,7 @@ namespace GameSpec.Bethesda.Formats
 
                 // read-all folder files
                 var fileIdx = 0U;
-                multiSource.Files = files = new FileMetadata[header.FileCount];
+                multiSource.Files = files = new FileSource[header.FileCount];
                 for (var i = 0; i < header.FolderCount; i++)
                 {
                     var folder_name = r.ReadFString(r.ReadByte() - 1).Replace('\\', '/'); r.Skip(1);
@@ -145,7 +145,7 @@ namespace GameSpec.Bethesda.Formats
                     foreach (var headerFile in headerFiles)
                     {
                         var compressed = (headerFile.Size & OB_BSAFILE_SIZECOMPRESS) != 0;
-                        files[fileIdx++] = new FileMetadata
+                        files[fileIdx++] = new FileSource
                         {
                             Path = folder_name,
                             Position = headerFile.Offset,
@@ -165,12 +165,12 @@ namespace GameSpec.Bethesda.Formats
                 var dataOffset = 12 + header.HashOffset + (8 * header.FileCount);
 
                 // Create file metadatas
-                multiSource.Files = files = new FileMetadata[header.FileCount];
+                multiSource.Files = files = new FileSource[header.FileCount];
                 var headerFiles = r.ReadTArray<MW_HeaderFile>(sizeof(MW_HeaderFile), (int)header.FileCount);
                 for (var i = 0; i < headerFiles.Length; i++)
                 {
                     var headerFile = headerFiles[i];
-                    files[i] = new FileMetadata
+                    files[i] = new FileSource
                     {
                         PackedSize = headerFile.Size,
                         Position = dataOffset + headerFile.FileOffset,
@@ -192,7 +192,7 @@ namespace GameSpec.Bethesda.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             Stream fileData = null;
             var magic = source.Magic;

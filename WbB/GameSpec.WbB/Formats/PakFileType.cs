@@ -34,7 +34,7 @@ namespace GameSpec.WbB.Formats
         public PakFileExtensionAttribute(Type classType, string methodName)
         {
             ExtensionMethod = classType.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            Value = (Func<FileMetadata, BinaryReader, string>)((s, r) => (string)ExtensionMethod.Invoke(null, new object[] { s, r }));
+            Value = (Func<FileSource, BinaryReader, string>)((s, r) => (string)ExtensionMethod.Invoke(null, new object[] { s, r }));
         }
         public object Value { get; set; }
         MethodInfo ExtensionMethod { get; set; }

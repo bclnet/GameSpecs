@@ -34,7 +34,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ObjDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 PaletteID != 0 ? new MetadataInfo($"Palette ID: {PaletteID:X8}", clickable: true) : null,

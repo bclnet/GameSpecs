@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SoundData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("SoundTable", items: Data.Select(x => {

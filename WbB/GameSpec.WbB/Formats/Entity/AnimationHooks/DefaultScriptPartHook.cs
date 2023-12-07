@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => PartIndex = r.ReadUInt32();
 
         //: Entity.DefaultScriptPartHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo>();
             if (Base is DefaultScriptPartHook s) nodes.Add(new MetadataInfo($"PartIndex: {s.PartIndex}"));

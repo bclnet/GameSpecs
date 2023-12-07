@@ -49,9 +49,9 @@ namespace GameSpec.Formats
             // http pak
             if (Host != null)
             {
-                var files = Files = new List<FileMetadata>();
+                var files = Files = new List<FileSource>();
                 var set = await Host.GetSetAsync() ?? throw new NotSupportedException(".set not found");
-                foreach (var item in set) files.Add(new FileMetadata { Path = item });
+                foreach (var item in set) files.Add(new FileSource { Path = item });
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override async Task<Stream> ReadFileDataAsync(BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override async Task<Stream> ReadFileDataAsync(BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var path = file.Path;
             // http pak
@@ -118,6 +118,6 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task WriteFileDataAsync(BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public override Task WriteFileDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
     }
 }

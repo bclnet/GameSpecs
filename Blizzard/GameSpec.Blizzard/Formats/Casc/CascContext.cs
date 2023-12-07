@@ -13,7 +13,7 @@ namespace GameSpec.Blizzard.Formats.Casc
         CASCHandler handle;
         CASCFolder root;
 
-        public void Read(string filePath, string product, IList<FileMetadata> files)
+        public void Read(string filePath, string product, IList<FileSource> files)
         {
             var localeFlags = LocaleFlags.enUS;
             CASCConfig.LoadFlags |= LoadFlags.Install;
@@ -30,10 +30,10 @@ namespace GameSpec.Blizzard.Formats.Casc
             CascLoadFiles(handle, root, files);
         }
 
-        static void CascLoadFiles(CASCHandler handle, CASCFolder folder, IList<FileMetadata> files)
+        static void CascLoadFiles(CASCHandler handle, CASCFolder folder, IList<FileSource> files)
         {
             foreach (var f in folder.Files.Values)
-                files.Add(new FileMetadata
+                files.Add(new FileSource
                 {
                     Path = f.FullName,
                     Digest = f.Hash,
@@ -69,7 +69,7 @@ namespace GameSpec.Blizzard.Formats.Casc
             }
         }
 
-        public Stream ReadData(FileMetadata file)
+        public Stream ReadData(FileSource file)
             => handle.OpenFile(file.Digest);
     }
 }

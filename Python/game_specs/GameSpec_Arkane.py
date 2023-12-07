@@ -1,8 +1,8 @@
-from .pakfile import BinaryPakManyFile
+from .pakfile import BinaryPakFile
 from .Arkane.pakbinary_danae import PakBinary_Danae
 from .Arkane.pakbinary_void import PakBinary_Void
 
-class ArkanePakFile(BinaryPakManyFile):
+class ArkanePakFile(BinaryPakFile):
     @staticmethod
     def getPakBinary(game, filePath):
         match game.engine:

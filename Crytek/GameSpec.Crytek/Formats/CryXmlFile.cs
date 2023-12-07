@@ -26,10 +26,10 @@ namespace GameSpec.Crytek.Formats
             public int Reserved { get; set; }
         }
 
-        public static Task<object> Factory(BinaryReader r, FileMetadata m, PakFile s)
+        public static Task<object> Factory(BinaryReader r, FileSource m, PakFile s)
             => Task.FromResult((object)new CryXmlFile(r, false));
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = this }),
         };
 

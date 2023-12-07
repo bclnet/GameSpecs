@@ -101,7 +101,7 @@ namespace GameSpec.Bethesda.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            FileMetadata[] files;
+            FileSource[] files;
 
             // Fallout 4
             var magic = source.Magic = r.ReadUInt32();
@@ -110,7 +110,7 @@ namespace GameSpec.Bethesda.Formats
                 var header = r.ReadT<F4_Header>(sizeof(F4_Header));
                 if (header.Version > F4_BSAHEADER_VERSION2) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
-                multiSource.Files = files = new FileMetadata[header.NumFiles];
+                multiSource.Files = files = new FileSource[header.NumFiles];
                 // version2
                 //if (header.Version == F4_BSAHEADER_VERSION2) r.Skip(8);
                 // General BA2 Format
@@ -121,7 +121,7 @@ namespace GameSpec.Bethesda.Formats
                         for (var i = 0; i < headerFiles.Length; i++)
                         {
                             var headerFile = headerFiles[i];
-                            files[i] = new FileMetadata
+                            files[i] = new FileSource
                             {
                                 Compressed = headerFile.PackedSize != 0 ? 1 : 0,
                                 PackedSize = headerFile.PackedSize,
@@ -137,7 +137,7 @@ namespace GameSpec.Bethesda.Formats
                             var headerTexture = r.ReadT<F4_HeaderTexture>(sizeof(F4_HeaderTexture));
                             var headerTextureChunks = r.ReadTArray<F4_HeaderTextureChunk>(sizeof(F4_HeaderTextureChunk), headerTexture.NumChunks);
                             var firstChunk = headerTextureChunks[0];
-                            files[i] = new FileMetadata
+                            files[i] = new FileSource
                             {
                                 FileInfo = headerTexture,
                                 PackedSize = firstChunk.PackedSize,
@@ -153,7 +153,7 @@ namespace GameSpec.Bethesda.Formats
                         {
                             var headerGNMF = r.ReadT<F4_HeaderGNMF>(sizeof(F4_HeaderGNMF));
                             var headerTextureChunks = r.ReadTArray<F4_HeaderTextureChunk>(sizeof(F4_HeaderTextureChunk), headerGNMF.NumChunks);
-                            files[i] = new FileMetadata
+                            files[i] = new FileSource
                             {
                                 FileInfo = headerGNMF,
                                 PackedSize = headerGNMF.PackedSize,
@@ -178,7 +178,7 @@ namespace GameSpec.Bethesda.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             const int GNF_HEADER_MAGIC = 0x20464E47;
             const int GNF_HEADER_CONTENT_SIZE = 248;

@@ -11,7 +11,7 @@ namespace GameSpec.Black.Formats
 {
     public unsafe class BinaryRix : IGetMetadataInfo, ITexture
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryRix(r, f));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryRix(r, f));
 
         // Header
         #region Header
@@ -29,7 +29,7 @@ namespace GameSpec.Black.Formats
 
         #endregion
 
-        public BinaryRix(BinaryReader r, FileMetadata f)
+        public BinaryRix(BinaryReader r, FileSource f)
         {
             var header = r.ReadT<Header>(sizeof(Header));
             var rgb = r.ReadBytes(256 * 3);
@@ -81,7 +81,7 @@ namespace GameSpec.Black.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo($"{nameof(BinaryRix)}", items: new List<MetadataInfo> {
                 new MetadataInfo($"Width: {Width}"),

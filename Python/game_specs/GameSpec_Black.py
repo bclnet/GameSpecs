@@ -1,7 +1,7 @@
-from .pakfile import BinaryPakManyFile
+from .pakfile import BinaryPakFile
 from .Black.pakbinary_dat import PakBinary_Dat
 
-class BlackPakFile(BinaryPakManyFile):
+class BlackPakFile(BinaryPakFile):
     @staticmethod
     def getPakBinary(game, filePath):
         return PakBinary_Dat()

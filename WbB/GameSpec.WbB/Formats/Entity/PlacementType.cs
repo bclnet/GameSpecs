@@ -13,6 +13,6 @@ namespace GameSpec.WbB.Formats.Entity
            =>  AnimFrame = new AnimationFrame(r, numParts);
 
         //: Entity.PlacementType
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => (AnimFrame as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => (AnimFrame as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
     }
 }

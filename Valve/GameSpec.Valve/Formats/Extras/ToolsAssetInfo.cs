@@ -15,7 +15,7 @@ namespace GameSpec.Valve.Formats.Extras
         public ToolsAssetInfo() { }
         public ToolsAssetInfo(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = ToString() }),
             new MetadataInfo("ToolsAssetInfo", items: new List<MetadataInfo> {
                 new MetadataInfo($"Mods: {Mods.Count}"),

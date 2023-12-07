@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
             => CloObjectEffects = r.ReadL32Array(x => new CloObjectEffect(x));
 
         //: Entity.ClothingBaseEffect
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("Object Effects", items: CloObjectEffects.OrderBy(i => i.Index).Select(x => {

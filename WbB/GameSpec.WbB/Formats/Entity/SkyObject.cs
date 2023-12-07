@@ -32,7 +32,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkyObject
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 BeginTime != 0 ? new MetadataInfo($"BeginTime: {BeginTime}") : null,

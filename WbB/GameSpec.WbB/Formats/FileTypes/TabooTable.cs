@@ -30,7 +30,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.TabooTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 //new MetadataInfo($"{nameof(TabooTable)}: {Id:X8}", items: TabooTableEntries.OrderBy(i => i.Key).Select(

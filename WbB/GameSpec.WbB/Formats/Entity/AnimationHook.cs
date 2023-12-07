@@ -100,7 +100,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AnimationHook
-        public virtual List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        public virtual List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo($"Dir: {Direction}"),

@@ -18,10 +18,10 @@ namespace GameSpec.Formats
 
         protected PakManyOptions Options { get; set; }
         public override bool Valid => Files != null;
-        public IList<FileMetadata> Files;
+        public IList<FileSource> Files;
         public HashSet<string> FilesRawSet;
-        public ILookup<int, FileMetadata> FilesById { get; private set; }
-        public ILookup<string, FileMetadata> FilesByPath { get; private set; }
+        public ILookup<int, FileSource> FilesById { get; private set; }
+        public ILookup<string, FileSource> FilesByPath { get; private set; }
         public int VisualPathSkip;
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
             if (TryLookupPath(path, out var pak, out var nextFilePath)) return pak.LoadFileDataAsync(nextFilePath, option, exception);
@@ -97,7 +97,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var files = FilesById[fileId].ToArray();
             if (files.Length == 1) return LoadFileDataAsync(files[0], option, exception);
@@ -114,7 +114,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception = null)
+        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = null)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
             if (TryLookupPath(path, out var pak, out var nextFilePath)) return pak.LoadFileObjectAsync<T>(nextFilePath, exception);
@@ -133,7 +133,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = null)
+        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = null)
         {
             var files = FilesById[fileId].ToArray();
             if (files.Length == 1) return LoadFileObjectAsync<T>(files[0], exception);
@@ -156,7 +156,7 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="message">The message.</param>
-        public void AddRawFile(FileMetadata file, string message)
+        public void AddRawFile(FileSource file, string message)
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
             lock (this)

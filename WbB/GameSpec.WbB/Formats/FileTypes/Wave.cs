@@ -27,7 +27,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Sound
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var type = Header[0] == 0x55 ? ".mp3" : ".wav";
             var nodes = new List<MetadataInfo> {

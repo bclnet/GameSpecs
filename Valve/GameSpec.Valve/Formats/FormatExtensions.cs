@@ -13,9 +13,9 @@ namespace GameSpec.Valve.Formats
     public static class FormatExtensions
     {
         // object factory
-        public static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
+        public static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
         {
-            Task<object> BinaryPakFactory(BinaryReader r, FileMetadata f, PakFile s)
+            Task<object> BinaryPakFactory(BinaryReader r, FileSource f, PakFile s)
             {
                 if (r.BaseStream.Length < 6) return null;
                 var input = r.Peek(z => z.ReadBytes(6));

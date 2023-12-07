@@ -12,7 +12,7 @@ namespace GameSpec.Arkane.Formats.Danae
 {
     public unsafe class BinaryFtl : IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryFtl(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryFtl(r));
 
         public BinaryFtl() { }
         public BinaryFtl(BinaryReader r) => Read(r);
@@ -195,7 +195,7 @@ namespace GameSpec.Arkane.Formats.Danae
 
         #endregion
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("BinaryFTL", items: new List<MetadataInfo> {

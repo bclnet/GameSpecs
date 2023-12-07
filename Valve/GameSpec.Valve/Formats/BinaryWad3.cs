@@ -19,7 +19,7 @@ namespace GameSpec.Formats
             public ushort CharWidth;
         }
 
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryWad3(r, f));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryWad3(r, f));
 
         enum Formats : byte
         {
@@ -30,7 +30,7 @@ namespace GameSpec.Formats
             Fnt = 0x46
         }
 
-        public BinaryWad3(BinaryReader r, FileMetadata f)
+        public BinaryWad3(BinaryReader r, FileSource f)
         {
             var type = Path.GetExtension(f.Path) switch
             {
@@ -147,7 +147,7 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
                 new MetadataInfo($"Format: {Format.type}"),

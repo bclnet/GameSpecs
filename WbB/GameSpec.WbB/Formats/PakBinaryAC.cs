@@ -74,14 +74,14 @@ namespace GameSpec.WbB.Formats
                 if (Header.Branches[0] != 0) for (var i = 0; i < Header.EntryCount + 1; i++) Directories.Add(new Directory(r, Header.Branches[i], blockSize));
             }
 
-            public void AddFiles(BinaryReader r, PakType pakType, IList<FileMetadata> files, string path, int blockSize)
+            public void AddFiles(BinaryReader r, PakType pakType, IList<FileSource> files, string path, int blockSize)
             {
                 //var did = 0; Directories.ForEach(d => d.AddFiles(pakType, files, Path.Combine(path, did++.ToString()), blockSize));
                 Directories.ForEach(d => d.AddFiles(r, pakType, files, path, blockSize));
                 for (var i = 0; i < Header.EntryCount; i++)
                 {
                     var entry = Header.Entries[i];
-                    var metadata = new FileMetadata
+                    var metadata = new FileSource
                     {
                         Id = (int)entry.ObjectId,
                         Position = entry.FileOffset,
@@ -102,7 +102,7 @@ namespace GameSpec.WbB.Formats
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             r.Seek(DAT_HEADER_OFFSET);
             var header = r.ReadT<Header>(sizeof(Header));
             var directory = new Directory(r, header.BTree, (int)header.BlockSize);
@@ -110,7 +110,7 @@ namespace GameSpec.WbB.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
             => Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Position, (int)file.FileSize, (int)file.Digest)));
 
         static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize)

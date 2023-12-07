@@ -53,7 +53,7 @@ namespace GameSpec.Valve.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
 
             // read file
             var header = r.ReadT<WAD_Header>(sizeof(WAD_Header));
@@ -61,7 +61,7 @@ namespace GameSpec.Valve.Formats
             r.Seek(header.LumpOffset);
             var lumps = r.ReadTArrayEach<WAD_Lump>(WAD_Lump.SizeOf, (int)header.LumpCount);
             foreach (var lump in lumps)
-                files.Add(new FileMetadata
+                files.Add(new FileSource
                 {
                     Path = lump.Type switch
                     {
@@ -79,7 +79,7 @@ namespace GameSpec.Valve.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             Stream fileData;
             r.Seek(file.Position);

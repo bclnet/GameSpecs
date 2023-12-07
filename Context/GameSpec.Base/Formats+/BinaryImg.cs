@@ -11,11 +11,11 @@ namespace GameSpec.Formats
 {
     public class BinaryImg : IGetMetadataInfo, ITexture
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryImg(r, f));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryImg(r, f));
 
         enum Formats { Bmp, Gif, Exif, Jpg, Png, Tiff }
 
-        public BinaryImg(BinaryReader r, FileMetadata f)
+        public BinaryImg(BinaryReader r, FileSource f)
         {
             var formatType = Path.GetExtension(f.Path).ToLowerInvariant() switch
             {
@@ -72,7 +72,7 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo($"{nameof(BinaryImg)}", items: new List<MetadataInfo> {
                 new MetadataInfo($"Format: {Format.type}"),

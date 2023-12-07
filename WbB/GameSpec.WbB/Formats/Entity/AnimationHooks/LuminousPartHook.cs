@@ -22,7 +22,7 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.LuminousPartHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo>();
             if (Base is LuminousPartHook s)

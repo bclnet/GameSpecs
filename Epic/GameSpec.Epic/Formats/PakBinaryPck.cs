@@ -18,13 +18,13 @@ namespace GameSpec.Epic.Formats
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
-            List<FileMetadata> files;
-            multiSource.Files = files = new List<FileMetadata>();
+            List<FileSource> files;
+            multiSource.Files = files = new List<FileSource>();
             var header = new Core.UPackage(r, source.FilePath);
             if (header.Exports == null) return Task.CompletedTask;
             var R = header.R;
             foreach (var item in header.Exports)
-                files.Add(new FileMetadata
+                files.Add(new FileSource
                 {
                     Path = $"{header.GetClassNameFor(item)}/{item.ObjectName}",
                     Position = item.SerialOffset,
@@ -34,14 +34,14 @@ namespace GameSpec.Epic.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
         {
             var R = (BinaryReader)file.Tag;
             R.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(R.ReadBytes((int)file.FileSize)));
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = default, Action<FileMetadata, string> exception = default)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = default, Action<FileSource, string> exception = default)
             => throw new NotImplementedException();
     }
 }

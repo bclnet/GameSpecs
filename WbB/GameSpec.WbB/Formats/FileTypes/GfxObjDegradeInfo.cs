@@ -23,7 +23,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.DegradeInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo($"{nameof(GfxObjDegradeInfo)}: {Id:X8}", items: new List<MetadataInfo> {

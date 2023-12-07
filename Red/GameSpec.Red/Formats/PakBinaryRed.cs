@@ -431,7 +431,7 @@ namespace GameSpec.Red.Formats
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
-            FileMetadata[] files; List<FileMetadata> files2;
+            FileSource[] files; List<FileSource> files2;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(source.FilePath);
             var extension = Path.GetExtension(source.FilePath);
             var magic = source.Magic = r.ReadUInt32();
@@ -443,7 +443,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
                         if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
-                        multiSource.Files = files = new FileMetadata[header.NumFiles];
+                        multiSource.Files = files = new FileSource[header.NumFiles];
 
                         // parts
                         r.Seek(header.FilesOffset);
@@ -460,7 +460,7 @@ namespace GameSpec.Red.Formats
                             var (file, path) = headerFiles[i];
                             var subPath = string.Format(subPathFormat, path);
                             if (!File.Exists(subPath)) continue;
-                            files[i] = new FileMetadata
+                            files[i] = new FileSource
                             {
                                 Path = path,
                                 FileSize = file.FileSize,
@@ -477,7 +477,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<BIFF_Header>(sizeof(BIFF_Header));
                         if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
-                        multiSource.Files = files2 = new List<FileMetadata>();
+                        multiSource.Files = files2 = new List<FileSource>();
 
                         // files
                         var fileTypes = BIFF_FileTypes;
@@ -489,7 +489,7 @@ namespace GameSpec.Red.Formats
                             // Curiously the last resource entry of djinni.bif seem to be missing
                             if (headerFile.FileId > i) continue;
                             var path = $"{(keys.TryGetValue((bifId, headerFile.FileId), out var key) ? key : $"{i}")}{(BIFF_FileTypes.TryGetValue(headerFile.FileType, out var z) ? $".{z}" : string.Empty)}".Replace('\\', '/');
-                            files2.Add(new FileMetadata
+                            files2.Add(new FileSource
                             {
                                 Path = path,
                                 FileSize = headerFile.FileSize,
@@ -504,7 +504,7 @@ namespace GameSpec.Red.Formats
                         var header = r.ReadT<DZIP_Header>(sizeof(DZIP_Header));
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
-                        multiSource.Files = files = new FileMetadata[header.NumFiles];
+                        multiSource.Files = files = new FileSource[header.NumFiles];
                         var cryptKey = source.CryptKey as ulong?;
                         r.Seek((long)header.FilesPosition);
                         var hash = 0x00000000FFFFFFFFUL;
@@ -520,7 +520,7 @@ namespace GameSpec.Red.Formats
                                 path = Encoding.ASCII.GetString(pathBytes, 0, pathBytes[nameBytesLength] == 0 ? nameBytesLength : pathBytes.Length);
                             }
                             var headerFile = r.ReadT<DZIP_HeaderFile>(sizeof(DZIP_HeaderFile));
-                            files[i] = new FileMetadata
+                            files[i] = new FileSource
                             {
                                 Path = path.Replace('\\', '/'),
                                 Compressed = 1,
@@ -553,7 +553,7 @@ namespace GameSpec.Red.Formats
                         if (r.ReadUInt32() != BUNDLE_MAGIC2) throw new FormatException("BAD MAGIC");
                         var header = r.ReadT<BUNDLE_Header>(sizeof(BUNDLE_Header));
                         source.Version = BUNDLE_MAGIC;
-                        multiSource.Files = files = new FileMetadata[header.NumFiles];
+                        multiSource.Files = files = new FileSource[header.NumFiles];
 
                         // files
                         r.Seek(0x20);
@@ -561,7 +561,7 @@ namespace GameSpec.Red.Formats
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             var headerFile = headerFiles[i];
-                            files[i] = new FileMetadata
+                            files[i] = new FileSource
                             {
                                 Path = UnsafeX.ReadZASCII(headerFile.Name, 0x100).Replace('\\', '/'),
                                 Compressed = (int)headerFile.Compressed,
@@ -584,7 +584,7 @@ namespace GameSpec.Red.Formats
                         var headerFiles = r.ReadTArray<RDAR_HeaderFile>(sizeof(RDAR_HeaderFile), (int)headerTable.Table1Count);
                         var headerOffsets = r.ReadTArray<RDAR_HeaderOffset>(sizeof(RDAR_HeaderOffset), (int)headerTable.Table2Count);
                         //var headerHashs = r.ReadTArray<ulong>(sizeof(ulong), (int)headerTable.Table3Count);
-                        multiSource.Files = files2 = new List<FileMetadata>();
+                        multiSource.Files = files2 = new List<FileSource>();
                         var nameHashs = new HashSet<ulong>();
                         for (var i = 0; i < headerFiles.Length; i++)
                         {
@@ -592,7 +592,7 @@ namespace GameSpec.Red.Formats
                             var hash = headerFile.NameHash64;
                             if (nameHashs.Contains(hash)) { Console.WriteLine($"File already added in Archive {source.FilePath}: hash {hash}, idx {i}"); continue; }
                             nameHashs.Add(hash);
-                            files2.Add(new FileMetadata
+                            files2.Add(new FileSource
                             {
                                 Path = hashLookup.TryGetValue(hash, out var z) ? z.Replace('\\', '/') : $"{hash:X2}.bin",
                                 Tag = (headerFile.FirstDataSector, headerFile.NextDataSector, headerOffsets),
@@ -611,7 +611,7 @@ namespace GameSpec.Red.Formats
                             var header = r.ReadT<CACHE_TEX_Header>(sizeof(CACHE_TEX_Header));
                             Assert(header.Unk1 == 1415070536);
                             Assert(header.Unk2 == 6);
-                            multiSource.Files = files = new FileMetadata[header.NumFiles];
+                            multiSource.Files = files = new FileSource[header.NumFiles];
                             var offset = 20 + 12 + (header.NumFiles * 52) + header.NamesSize + (header.ChunksSize * 4);
                             r.Seek(r.BaseStream.Length - offset);
 
@@ -626,7 +626,7 @@ namespace GameSpec.Red.Formats
                             // file block
                             var headerFiles = r.ReadTArray<CACHE_TEX_HeaderFile>(sizeof(CACHE_TEX_HeaderFile), (int)header.NumFiles);
                             for (var i = 0; i < header.NumFiles; i++)
-                                files[i] = new FileMetadata
+                                files[i] = new FileSource
                                 {
                                     Path = filePaths[i].Replace('\\', '/'),
                                     Position = headerFiles[i].StartOffset,
@@ -680,7 +680,7 @@ namespace GameSpec.Red.Formats
             BC5 = 7,        // 3DC, ATI2
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             Stream fileData = null;
             r.Seek(file.Position);

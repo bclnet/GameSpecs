@@ -52,7 +52,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.LandblockInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var landblock = Id & 0xFFFF0000;
             var nodes = new List<MetadataInfo> {

@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => Id = r.ReadUInt32();
 
         //: Entity.SoundHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo>();
             if (Base is SoundHook s) nodes.Add(new MetadataInfo($"Id: {s.Id:X8}"));

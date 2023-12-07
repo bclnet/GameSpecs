@@ -8,9 +8,9 @@ namespace GameSpec.Black.Formats
 {
     public unsafe class BinaryPal : IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryPal(r, f));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryPal(r, f));
 
-        public BinaryPal(BinaryReader r, FileMetadata f)
+        public BinaryPal(BinaryReader r, FileSource f)
         {
             var rgb = r.ReadBytes(256 * 3);
             fixed (byte* s = rgb)
@@ -33,7 +33,7 @@ namespace GameSpec.Black.Formats
             for (var i = 248; i <= 254; i++) Rgba32[i] = 0x0000ff00; // bright blue (computer screens)
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Null", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo($"{nameof(BinaryPal)}", items: new List<MetadataInfo> {
             })

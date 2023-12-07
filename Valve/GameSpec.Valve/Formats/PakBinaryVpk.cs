@@ -103,7 +103,7 @@ namespace GameSpec.Valve.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
 
             // header
             if (r.ReadUInt32() != MAGIC) throw new FormatException("BAD MAGIC");
@@ -137,7 +137,7 @@ namespace GameSpec.Valve.Formats
                     {
                         var fileName = r.ReadZUTF8(); if (fileName?.Length == 0) break;
 
-                        var metadata = new FileMetadata
+                        var metadata = new FileSource
                         {
                             Path = $"{(directoryName[0] != ' ' ? $"{directoryName}/" : null)}{fileName}.{typeName}",
                             Digest = r.ReadUInt32(),
@@ -181,7 +181,7 @@ namespace GameSpec.Valve.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var data = new byte[file.Extra.Length + file.FileSize];
             if (file.Extra.Length > 0) file.Extra.CopyTo(data, 0);

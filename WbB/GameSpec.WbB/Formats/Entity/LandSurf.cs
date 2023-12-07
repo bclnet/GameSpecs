@@ -20,6 +20,6 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.LandSurf
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => (TexMerge as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => (TexMerge as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
     }
 }

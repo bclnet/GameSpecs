@@ -35,7 +35,7 @@ namespace GameSpec.Valve.Formats
         IModel IRedirected<IModel>.Value => DATA as IModel;
         IParticleSystem IRedirected<IParticleSystem>.Value => DATA as IParticleSystem;
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("BinaryPak", items: new List<MetadataInfo> {

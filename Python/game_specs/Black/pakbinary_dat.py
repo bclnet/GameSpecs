@@ -1,7 +1,8 @@
 import os
-from struct import unpack
-from ..pakbinary import FileInfo, PakBinary
+from io import BytesIO
+from ..pakbinary import FileSource, PakBinary
 from ..pakfile import BinaryPakFile
+from ..reader import Reader
 
 class PakBinary_Dat(PakBinary):
     F1_HEADER_FILEID = 0x000000001
@@ -11,57 +12,63 @@ class PakBinary_Dat(PakBinary):
     def __new__(cls):
         if cls._instance is None: cls._instance = super().__new__(cls)
         return cls._instance
-    def read(self, source: BinaryPakFile, r, tag = None):
+
+    # read
+    def read(self, source: BinaryPakFile, r: Reader, tag = None):
         gameId = source.game.id
-        
-        # fallout
+        # Fallout
         if gameId == 'Fallout':
             source.magic = self.F1_HEADER_FILEID
-            header = unpack('>IIII', r.read(16))
-            directoryNames = [readL8Encoding(r) for x in range(0, header[0])]
+            h_directoryCount, h_unknown1, h_unknown2, h_unknown3 = r.readT('>IIII', 16)
+            directoryNames = [r.readL8Encoding() for x in range(0, h_directoryCount)]
 
             # create file metadatas
             source.files = files = []
-            for i in range(0, header[0]):
-                contentBlock = unpack('>IIII', r.read(16))
+            for i in range(0, h_directoryCount):
+                cb_fileCount, cb_unknown1, cb_unknown2, cb_unknown3 = r.readT('>IIII', 16)
                 directoryPrefix = f'{directoryNames[i]}\\' if directoryNames[i] != '.' else ''
-                for _ in range(0, contentBlock[0]):
-                    path = directoryPrefix + readL8Encoding(r)
-                    block = unpack('>IIII', r.read(16))
-                    files.append(FileInfo(
+                for _ in range(0, cb_fileCount):
+                    path = directoryPrefix + r.readL8Encoding()
+                    bk_compressed, bk_position, bk_fileSize, bk_packedSize = r.readT('>IIII', 16)
+                    files.append(FileSource(
                         path = path,
-                        compression = block[0] & 0x40,
-                        position = block[1],
-                        fileSize = block[2],
-                        packedSize = block[3]))
+                        compression = bk_compressed & 0x40,
+                        position = bk_position,
+                        fileSize = bk_fileSize,
+                        packedSize = bk_packedSize))
+        
+        # Fallout2
         elif gameId == 'Fallout2':
             source.magic = self.F2_HEADER_FILEID
-            r.seek(getLength(r) - 8)
-            header = unpack('=II', r.read(8))
-            r.seek(header[1] - header[0] - 8)
+            r.seek(r.length() - 8)
+            h_treeSize, h_dataSize = r.readT('=II', 8)
+            r.seek(h_dataSize - h_treeSize - 8)
 
             # create file metadatas
             source.files = files = []
-            filenum = readInt32(r)
+            filenum = r.readInt32()
             for i in range(0, filenum):
-                path = readL32Encoding(r)
-                block = unpack('=BIII', r.read(13))
-                files.append(FileInfo(
+                path = r.readL32Encoding()
+                bk_compressed, bk_fileSize, bk_packedSize, bk_position = r.readT('=BIII', 13)
+                files.append(FileSource(
                     path = path,
-                    compression = block[0],
-                    fileSize = block[1],
-                    packedSize = block[2],
-                    position = block[3]))
+                    compression = bk_compressed,
+                    fileSize = bk_fileSize,
+                    packedSize = bk_packedSize,
+                    position = bk_position))
 
-def getLength(r):
-    prev = r.tell(); length = r.seek(0, os.SEEK_END); r.seek(prev)
-    return length
-
-def readInt32(r):
-    return int.from_bytes(r.read(4), 'little')
-
-def readL8Encoding(r, encoding = None):
-    return r.read(int.from_bytes(r.read(1))).decode('ascii' if not encoding else encoding)
-
-def readL32Encoding(r, encoding = None):
-    return r.read(int.from_bytes(r.read(4), 'little')).decode('ascii' if not encoding else encoding)
+    def readData(self, source: BinaryPakFile, r: Reader, tag = None):
+        magic = source.magic
+        # F1
+        if magic == F1_HEADER_FILEID:
+            r.seek(file.position)
+            return BytesIO(
+                r.read(file.packedSize) if file.compressed == 0 else \
+                r.decompressLzss(file.packedSize, file.fileSize))
+        # F2
+        elif magic == F2_HEADER_FILEID:
+            r.seek(file.position)
+            return BytesIO(
+                r.decompressZlib(file.packedSize, -1) if r.peek(lambda z : z.readUInt16()) == 0xda78 else \
+                r.read(file.packedSize))
+        else: raise Exception('BAD MAGIC')

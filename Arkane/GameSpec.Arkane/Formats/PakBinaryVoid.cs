@@ -21,7 +21,7 @@ namespace GameSpec.Arkane.Formats
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
             if (Path.GetExtension(source.FilePath) != ".index") throw new FormatException("must be a .index file");
-            var files2 = multiSource.Files = new List<FileMetadata>();
+            var files2 = multiSource.Files = new List<FileSource>();
 
             // index games
             if (Path.GetFileName(source.FilePath) == "master.index")
@@ -40,7 +40,7 @@ namespace GameSpec.Arkane.Formats
                     else if (nameSize == EndMarker) break;
                     var path = r.ReadFString((int)nameSize).Replace('\\', '/');
                     var packId = state > 0 ? r.ReadUInt16() : 0;
-                    files2.Add(new FileMetadata
+                    files2.Add(new FileSource
                     {
                         Path = path,
                         Pak = new SubPakFile(source.Game, source.FileSystem, path),
@@ -65,7 +65,7 @@ namespace GameSpec.Arkane.Formats
             var mainFileSize = MathX.Reverse(r.ReadUInt32()); // mainFileSize
             r.Skip(24);
             var numFiles = MathX.Reverse(r.ReadUInt32());
-            var files = multiSource.Files = new FileMetadata[numFiles];
+            var files = multiSource.Files = new FileSource[numFiles];
             for (var i = 0; i < numFiles; i++)
             {
                 var id = MathX.Reverse(r.ReadUInt32());
@@ -81,7 +81,7 @@ namespace GameSpec.Arkane.Formats
                 var useSharedResources = (flags & 32) != 0 && flags2 == 0x8000;
                 if (useSharedResources && sharedResourcePath == null) throw new FormatException("sharedResourcePath not available");
                 var newPath = !useSharedResources ? resourcePath : sharedResourcePath;
-                files[i] = new FileMetadata
+                files[i] = new FileSource
                 {
                     Id = (int)id,
                     Path = path,
@@ -95,7 +95,7 @@ namespace GameSpec.Arkane.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             if (file.FileSize == 0 || _badPositions.Contains(file.Position)) return Task.FromResult(System.IO.Stream.Null);
             var (path, tag1, tag2) = ((string, string, string))file.Tag;

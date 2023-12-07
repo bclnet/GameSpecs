@@ -23,11 +23,11 @@ namespace GameSpec.Formats
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
 
             source.UseBinaryReader = false;
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             var pak = (ZipArchive)(source.Tag = new ZipArchive(r.BaseStream, ZipArchiveMode.Read));
             foreach (var entry in pak.Entries)
             {
-                var metadata = new FileMetadata
+                var metadata = new FileSource
                 {
                     Path = entry.Name.Replace('\\', '/'),
                     PackedSize = entry.CompressedLength,
@@ -39,7 +39,7 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var pak = (ZipArchive)source.Tag;
             var entry = (ZipArchiveEntry)file.Tag;

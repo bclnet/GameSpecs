@@ -9,7 +9,7 @@ namespace GameSpec.IW.Formats
     public class BinaryD3dBsp : IGetMetadataInfo
     {
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Model", Name = Path.GetFileName(file.Path), Value = this })
         };
     }

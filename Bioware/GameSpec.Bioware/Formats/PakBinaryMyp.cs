@@ -55,7 +55,7 @@ namespace GameSpec.Bioware.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             var hashLookup = TOR.HashLookup;
 
             var header = r.ReadT<MYP_Header>(sizeof(MYP_Header));
@@ -78,7 +78,7 @@ namespace GameSpec.Bioware.Formats
                     if (headerFile.Offset == 0) continue;
                     var hash = headerFile.Digest;
                     var path = hashLookup.TryGetValue(hash, out var z) ? z.Replace('\\', '/') : $"{hash:X2}.bin";
-                    files.Add(new FileMetadata
+                    files.Add(new FileSource
                     {
                         Id = i,
                         Path = path.StartsWith('/') ? path[1..] : path,
@@ -93,7 +93,7 @@ namespace GameSpec.Bioware.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             if (file.FileSize == 0) return Task.FromResult(System.IO.Stream.Null);
             r.Seek(file.Position);

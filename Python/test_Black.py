@@ -8,3 +8,7 @@ print(f'studio: {family.studio}')
 pakFile = family.openPakFile('game:/MASTER.DAT#Fallout')
 # pakFile = family.openPakFile('game:/master.dat#Fallout2')
 print(f'pak: {pakFile}')
+
+# get file
+data = pakFile.loadFileData('COLOR.PAL')
+print(data)

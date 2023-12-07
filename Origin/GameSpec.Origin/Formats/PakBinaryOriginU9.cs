@@ -37,11 +37,11 @@ namespace GameSpec.Origin.Formats
             var numFiles = r.ReadInt32();
             r.Seek(0x80);
             var headerFiles = r.ReadTArray<FLX_HeaderFile>(sizeof(FLX_HeaderFile), numFiles);
-            var files = multiSource.Files = new FileMetadata[numFiles];
+            var files = multiSource.Files = new FileSource[numFiles];
             for (var i = 0; i < files.Count; i++)
             {
                 var headerFile = headerFiles[i];
-                files[i] = new FileMetadata
+                files[i] = new FileSource
                 {
                     Path = $"{prefix}/{i}",
                     FileSize = headerFile.FileSize,
@@ -51,7 +51,7 @@ namespace GameSpec.Origin.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));

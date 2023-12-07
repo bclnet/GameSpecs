@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
             => Scripts = r.ReadL32Array(x => new ScriptAndModData(r));
 
         //: Entity.PhysicsScriptTableData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("ScriptMods", items: Scripts.Select(x=>new MetadataInfo($"{x}", clickable: true))),

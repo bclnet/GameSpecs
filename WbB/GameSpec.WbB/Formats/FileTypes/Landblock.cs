@@ -55,7 +55,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public static ushort GetTerrain(ushort terrain, ushort mask, byte shift) => (ushort)((terrain & mask) >> shift);
 
         //: FileTypes.CellLandblock
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var terrainTypes = DatabaseManager.Portal.RegionDesc.TerrainInfo.TerrainTypes;
             var nodes = new List<MetadataInfo> {

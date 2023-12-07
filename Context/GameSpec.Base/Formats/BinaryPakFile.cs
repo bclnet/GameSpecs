@@ -29,10 +29,10 @@ namespace GameSpec.Formats
 
         // metadata
         internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
-        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileMetadata, Task<List<MetadataInfo>>>>();
+        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>>();
 
         // object-factory
-        internal protected Func<FileMetadata, FamilyGame, (DataOption option, Func<BinaryReader, FileMetadata, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
+        internal protected Func<FileSource, FamilyGame, (DataOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakFile" /> class.
@@ -138,7 +138,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = default, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
+        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = default, Action<FileSource, string> exception = default) => throw new NotSupportedException();
         /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
@@ -148,7 +148,7 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = default, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
+        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = default, Action<FileSource, string> exception = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Loads the file data asynchronous.
@@ -157,7 +157,7 @@ namespace GameSpec.Formats
         /// <param name="option">The file.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default)
+        public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
             => UseBinaryReader
             ? GetBinaryReader().Func(r => ReadFileDataAsync(r, file, option, exception))
             : ReadFileDataAsync(null, file, option, exception);
@@ -170,7 +170,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
+        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = default) => throw new NotSupportedException();
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
@@ -180,20 +180,20 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = default) => throw new NotSupportedException();
+        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Ensures the file object factory.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns></returns>
-        public Func<BinaryReader, FileMetadata, PakFile, Task<object>> EnsureCachedObjectFactory(FileMetadata file)
+        public Func<BinaryReader, FileSource, PakFile, Task<object>> EnsureCachedObjectFactory(FileSource file)
         {
             if (file.CachedObjectFactory != null) return file.CachedObjectFactory;
 
             var factory = GetObjectFactoryFactory(file, Game);
             file.CachedDataOption = factory.option;
-            file.CachedObjectFactory = factory.factory ?? FileMetadata.EmptyObjectFactory;
+            file.CachedObjectFactory = factory.factory ?? FileSource.EmptyObjectFactory;
             return file.CachedObjectFactory;
         }
 
@@ -205,13 +205,13 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override async Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception = default)
+        public override async Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception = default)
         {
             var type = typeof(T);
             var stream = await LoadFileDataAsync(file, 0, exception);
             if (stream == null) return default;
             var objectFactory = EnsureCachedObjectFactory(file);
-            if (objectFactory == FileMetadata.EmptyObjectFactory)
+            if (objectFactory == FileSource.EmptyObjectFactory)
                 return type == typeof(Stream) || type == typeof(object)
                     ? (T)(object)stream
                     : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {file.Path} with {type.Name}");
@@ -242,7 +242,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public virtual Task<Stream> ReadFileDataAsync(BinaryReader r, FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default) => PakBinary.ReadDataAsync(this, r, file, option, exception);
+        public virtual Task<Stream> ReadFileDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.ReadDataAsync(this, r, file, option, exception);
 
         /// <summary>
         /// Writes the file data asynchronous.
@@ -253,7 +253,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public virtual Task WriteFileDataAsync(BinaryWriter w, FileMetadata file, Stream data, DataOption option = default, Action<FileMetadata, string> exception = default) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
+        public virtual Task WriteFileDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
 
         /// <summary>
         /// Reads the asynchronous.
@@ -295,7 +295,7 @@ namespace GameSpec.Formats
         /// <exception cref="NotImplementedException"></exception>
         public override async Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
         {
-            if (!(item.Source is FileMetadata file)) return null;
+            if (!(item.Source is FileSource file)) return null;
             List<MetadataInfo> nodes = null;
             var obj = await LoadFileObjectAsync<object>(file);
             if (obj == null) return null;

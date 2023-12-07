@@ -21,7 +21,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Position
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 ObjCellID != 0 ? new MetadataInfo($"ObjCell ID: {ObjCellID:X8}", clickable: true) : null,

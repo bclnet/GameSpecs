@@ -18,7 +18,7 @@ namespace GameSpec.Formats
                 case null: return Task.CompletedTask;
                 case "Set":
                     {
-                        var files = multiSource.Files = new List<FileMetadata>();
+                        var files = multiSource.Files = new List<FileSource>();
                         var data = r.ReadToEnd();
                         // dir /s/b/a-d > .set
                         var lines = Encoding.ASCII.GetString(data)?.Split('\n');
@@ -27,7 +27,7 @@ namespace GameSpec.Formats
                         var startIndex = Path.GetDirectoryName(lines[0].TrimEnd().Replace('\\', '/')).Length + 1;
                         foreach (var line in lines)
                             if (line.Length >= startIndex && (path = line[startIndex..].TrimEnd().Replace('\\', '/')) != ".set")
-                                files.Add(new FileMetadata { Path = path });
+                                files.Add(new FileSource { Path = path });
                         return Task.CompletedTask;
                     }
                 case "Meta":

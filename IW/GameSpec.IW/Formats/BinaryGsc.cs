@@ -8,7 +8,7 @@ namespace GameSpec.IW.Formats
     // https://github.com/SE2Dev/gsc_parser
     public class BinaryGsc : IGetMetadataInfo
     {
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "GSC", Name = Path.GetFileName(file.Path), Value = this })
         };
     }

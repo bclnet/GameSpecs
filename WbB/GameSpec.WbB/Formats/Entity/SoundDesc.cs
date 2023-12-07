@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
             => STBDesc = r.ReadL32Array(x => new AmbientSTBDesc(x));
 
         //: Entity.SoundDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("SoundTable", items: STBDesc.Select((x, i) => {

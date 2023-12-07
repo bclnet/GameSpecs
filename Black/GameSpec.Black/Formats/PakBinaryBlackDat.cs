@@ -70,13 +70,13 @@ namespace GameSpec.Black.Formats
                 var directoryNames = new string[header.DirectoryCount];
                 for (var i = 0; i < header.DirectoryCount; i++) directoryNames[i] = r.ReadL8Encoding().Replace('\\', '/'); // directory name block
                 // Create file metadatas
-                var files = new List<FileMetadata>(); multiSource.Files = files;
+                var files = new List<FileSource>(); multiSource.Files = files;
                 for (var i = 0; i < header.DirectoryCount; i++)
                 {
                     var contentBlock = r.ReadTE<F1_ContentBlock>(sizeof(F1_ContentBlock), F1_ContentBlock.Endian); // directory content block
                     var directoryPrefix = directoryNames[i] != "." ? directoryNames[i] + "\\" : string.Empty;
                     for (var j = 0; j < contentBlock.FileCount; j++)
-                        files.Add(new FileMetadata
+                        files.Add(new FileSource
                         {
                             Path = directoryPrefix + r.ReadL8Encoding().Replace('\\', '/'),
                             Compressed = (int)r.ReadUInt32E() & 0x40,
@@ -95,9 +95,9 @@ namespace GameSpec.Black.Formats
                 r.Seek(header.DataSize - header.TreeSize - sizeof(F2_Header));
 
                 // Create file metadatas
-                var files = new FileMetadata[r.ReadInt32()]; multiSource.Files = files;
+                var files = new FileSource[r.ReadInt32()]; multiSource.Files = files;
                 for (var i = 0; i < files.Length; i++)
-                    files[i] = new FileMetadata
+                    files[i] = new FileSource
                     {
                         Path = r.ReadL32Encoding().TrimStart('\\').Replace('\\', '/'),
                         Compressed = r.ReadByte(),
@@ -109,7 +109,7 @@ namespace GameSpec.Black.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             var magic = source.Magic;
             // F1

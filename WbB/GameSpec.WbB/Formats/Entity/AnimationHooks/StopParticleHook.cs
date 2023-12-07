@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => EmitterId = r.ReadUInt32();
 
         //: Entity.StopParticleHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo>();
             if (Base is StopParticleHook s) nodes.Add(new MetadataInfo($"EmitterId: {s.EmitterId}"));

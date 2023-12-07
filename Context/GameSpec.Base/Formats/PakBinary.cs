@@ -41,7 +41,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public virtual Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
 
         /// <summary>
         /// Writes the asynchronous.
@@ -54,7 +54,7 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileMetadata file, Stream data, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotSupportedException();
+        public virtual Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
 
         /// <summary>
         /// Processes this instance.

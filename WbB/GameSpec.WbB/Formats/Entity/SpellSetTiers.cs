@@ -17,7 +17,7 @@ namespace GameSpec.WbB.Formats.Entity
             => Spells = r.ReadL32Array<uint>(sizeof(uint));
 
         //: Entity.SpellSetTier
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var spells = DatabaseManager.Portal.SpellTable.Spells;
             var nodes = Spells.Select(x => new MetadataInfo($"{x} - {spells[x].Name}")).ToList();

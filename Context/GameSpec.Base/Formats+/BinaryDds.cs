@@ -11,7 +11,7 @@ namespace GameSpec.Formats
 {
     public class BinaryDds : ITexture, IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDds(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryDds(r));
 
         public BinaryDds(BinaryReader r, bool readMagic = true)
         {
@@ -59,7 +59,7 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Texture", items: new List<MetadataInfo> {
                 new MetadataInfo($"Format: {Format.type}"),

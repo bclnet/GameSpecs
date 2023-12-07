@@ -12,7 +12,7 @@ namespace GameSpec.WbB.Formats
     /// </summary>
     public static class FormatExtensions
     {
-        internal static string GetPath(this FileMetadata source, BinaryReader r, PakType pakType, out PakFileType? fileType)
+        internal static string GetPath(this FileSource source, BinaryReader r, PakType pakType, out PakFileType? fileType)
         {
             if ((uint)source.Id == Iteration.FILE_ID) { fileType = null; return "Iteration"; }
             var (type, ext) = source.GetFileType(pakType);
@@ -22,13 +22,13 @@ namespace GameSpec.WbB.Formats
             {
                 null => $"{fileType}/{source.Id:X8}",
                 string extension => $"{fileType}/{source.Id:X8}.{extension}",
-                Func<FileMetadata, BinaryReader, string> func => $"{fileType}/{source.Id:X8}.{func(source, r)}",
+                Func<FileSource, BinaryReader, string> func => $"{fileType}/{source.Id:X8}.{func(source, r)}",
                 _ => throw new ArgumentOutOfRangeException(nameof(ext), ext.ToString()),
             };
         }
 
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileMetadata, PakFile, Task<object>>) GetObjectFactoryFactory(this FileMetadata source, FamilyGame game)
+        internal static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
         {
             var (pakType, type) = ((PakType, PakFileType?))source.ExtraArgs;
             if ((uint)source.Id == Iteration.FILE_ID) return (0, (r, m, s) => Task.FromResult((object)new Iteration(r)));
@@ -104,7 +104,7 @@ namespace GameSpec.WbB.Formats
             };
         }
 
-        public static (PakFileType fileType, object ext) GetFileType(this FileMetadata source, PakType pakType)
+        public static (PakFileType fileType, object ext) GetFileType(this FileSource source, PakType pakType)
         {
             var objectId = (uint)source.Id;
             if (pakType == PakType.Cell)
@@ -181,7 +181,7 @@ namespace GameSpec.WbB.Formats
             return (0, null);
         }
 
-        internal static string DbPropertyExtensionLookup(FileMetadata source, BinaryReader r)
+        internal static string DbPropertyExtensionLookup(FileSource source, BinaryReader r)
             => 0 switch
             {
                 0 => "dbpc",

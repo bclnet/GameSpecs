@@ -41,7 +41,7 @@ namespace GameSpec.Formats
         public override Task ReadAsync(BinaryReader r, object tag = default)
         {
             Files = Paths.Select(s => (s, p: Game.IsPakFile(s), i: FileSystem.GetFileInfo(s)))
-                .Select(s => new FileMetadata
+                .Select(s => new FileSource
                 {
                     Path = s.s.Replace('/', '\\'),
                     Pak = s.p ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, s.s, null) : default,
@@ -50,7 +50,7 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadFileDataAsync(BinaryReader r, FileMetadata file, DataOption option = default, Action<FileMetadata, string> exception = default)
+        public override Task<Stream> ReadFileDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
             => Task.FromResult(file.Pak == null ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize)) : default);
     }
 }

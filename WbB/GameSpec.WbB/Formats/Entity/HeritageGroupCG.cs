@@ -38,7 +38,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.HeritageGroupCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo($"Name: {Name}"),

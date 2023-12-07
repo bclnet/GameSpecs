@@ -42,12 +42,12 @@ namespace GameSpec
             public override void Opening() { }
             public override bool Contains(string path) => false;
             public override bool Contains(int fileId) => false;
-            public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
-            public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
-            public override Task<Stream> LoadFileDataAsync(FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
-            public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
-            public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
-            public override Task<T> LoadFileObjectAsync<T>(FileMetadata file, Action<FileMetadata, string> exception = null) => throw new NotImplementedException();
+            public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotImplementedException();
+            public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotImplementedException();
+            public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotImplementedException();
+            public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = null) => throw new NotImplementedException();
+            public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = null) => throw new NotImplementedException();
+            public override Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception = null) => throw new NotImplementedException();
         }
 
         public const string FileManagerJson =

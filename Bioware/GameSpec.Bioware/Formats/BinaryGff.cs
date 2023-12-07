@@ -13,7 +13,7 @@ namespace GameSpec.Bioware.Formats
     {
         public BinaryGff() { }
         public BinaryGff(BinaryReader r) => Read(r);
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryGff(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryGff(r));
 
         public enum DataType : uint
         {
@@ -22,7 +22,7 @@ namespace GameSpec.Bioware.Formats
             QST = 0x20545351,
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo("BinaryGFF", items: new List<MetadataInfo> {

@@ -11,7 +11,7 @@ namespace GameSpec.Black.Formats
 {
     public class BinaryFrm : IGetMetadataInfo, ITexture, ITextureMultiple
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryFrm(r, f, s));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryFrm(r, f, s));
 
         // Header
         #region Header
@@ -59,7 +59,7 @@ namespace GameSpec.Black.Formats
             return DefaultPallet;
         }
 
-        public unsafe BinaryFrm(BinaryReader r, FileMetadata f, PakFile s)
+        public unsafe BinaryFrm(BinaryReader r, FileSource f, PakFile s)
         {
             if (!(s is BinaryPakManyFile ms)) throw new NotSupportedException();
             var pallet = GetPalletObjAsync(f.Path, ms).Result ?? throw new Exception("No pallet found");
@@ -126,7 +126,7 @@ namespace GameSpec.Black.Formats
             Height = Frames[index].f.Height;
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo($"{nameof(BinaryFrm)}", items: new List<MetadataInfo> {
                 new MetadataInfo($"Frames: {Frames.Length}"),

@@ -12,7 +12,7 @@ namespace GameSpec.Crytek.Formats
 {
     public partial class CryFile
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata m, PakFile s)
+        public static Task<object> Factory(BinaryReader r, FileSource m, PakFile s)
         {
             var file = new CryFile(m.Path);
             file.LoadFromPak(r.BaseStream, m, s);
@@ -51,7 +51,7 @@ namespace GameSpec.Crytek.Formats
             LoadAsync(null, files, FindMaterialFromFile, path => Task.FromResult<(string, Stream)>((path, File.Open(path, FileMode.Open)))).Wait();
         }
 
-        public void LoadFromPak(Stream stream, FileMetadata metadata, PakFile pak)
+        public void LoadFromPak(Stream stream, FileSource metadata, PakFile pak)
         {
             var files = new List<(string, Stream)> { (InputFile, stream) };
             var mFilePath = Path.ChangeExtension(InputFile, $"{Path.GetExtension(InputFile)}m");

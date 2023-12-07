@@ -51,7 +51,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public const int MAGIC2 = 0x4B563301; // KV3\x01
         public const int MAGIC3 = 0x4B563302; // KV3\x02
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "BinaryKV3", Value = ToString() }),
             new MetadataInfo("BinaryKV3", items: new List<MetadataInfo> {
                 new MetadataInfo($"Data: {Data.Count}"),

@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+from .reader import Reader
 
 class PakFile:
     class PakStatus(Enum):
@@ -12,6 +13,7 @@ class PakFile:
         self.game = game
         self.name = name
         self.tag = tag
+    def __repr__(self): return f'{self.name}#{self.game.id}'
     def close(self):
         self.status = self.PakStatus.CLOSING
         self.closing()
@@ -24,6 +26,7 @@ class PakFile:
         self.status = self.PakStatus.CLOSED
         return self
     def opening(self): pass
+    def loadFileData(self, path): pass
 
 class BinaryPakFile(PakFile):
     def __init__(self, game, fileSystem, filePath, pakBinary, tag = None):
@@ -34,15 +37,13 @@ class BinaryPakFile(PakFile):
         self.reader = True
     def opening(self):
         if self.reader:
-            with self.fileSystem.open(self.filePath, 'rb') as f: self.pakBinary.read(self, f)
+            with self.fileSystem.open(self.filePath, 'rb') as f: self.pakBinary.read(self, Reader(f))
         else: self.pakBinary.read(self, None)
         self.process()
+    def loadFileData(self, path):
+        pass
     def process(self):
         if self.pakBinary: self.pakBinary.process()
-
-class BinaryPakManyFile(BinaryPakFile):
-    def __init__(self, game, fileSystem, filePath, pakBinary, tag = None):
-        super().__init__(game, fileSystem, filePath, pakBinary, tag)
 
 class ManyPakFile(BinaryPakFile):
     def __init__(self, basis, game, name, fileSystem, paths, tag = None, visualPathSkip = 0):

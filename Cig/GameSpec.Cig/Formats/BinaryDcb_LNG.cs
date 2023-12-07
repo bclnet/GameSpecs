@@ -617,7 +617,7 @@ namespace GameSpec.Cig.Formats
 
         #endregion
 
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryDcb_LNG(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryDcb_LNG(r));
 
         XmlDocument _xmlDocument = new XmlDocument();
         internal XmlElement CreateElement(string name) => _xmlDocument.CreateElement(name);
@@ -749,7 +749,7 @@ namespace GameSpec.Cig.Formats
                     select data).ToArray();
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo(null, new MetadataContent { EngineType = typeof(ICustomFormatter), Type = "DataForge", Name = Path.GetFileName(file.Path), Value = this }),

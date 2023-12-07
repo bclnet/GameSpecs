@@ -235,7 +235,7 @@ namespace GameSpec.IW.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             if (!(source is BinaryPakManyFile multiSource)) throw new NotSupportedException();
-            var files = multiSource.Files = new List<FileMetadata>();
+            var files = multiSource.Files = new List<FileSource>();
             var extension = Path.GetExtension(source.FilePath);
 
             switch (source.Game.Id)
@@ -262,7 +262,7 @@ namespace GameSpec.IW.Formats
                         var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));
                         foreach (ZipEntry entry in pak)
                             if (entry.Size != 0)
-                                files.Add(new FileMetadata
+                                files.Add(new FileSource
                                 {
                                     Path = entry.Name.Replace('\\', '/'),
                                     Crypted = entry.IsCrypted,
@@ -335,7 +335,7 @@ namespace GameSpec.IW.Formats
                         {
                             // Read it
                             ref XPAK_HashEntry entry = ref entries[i];
-                            files.Add(new FileMetadata
+                            files.Add(new FileSource
                             {
                                 Id = (int)entry.Key,
                                 Path = entry.Key.ToString(),
@@ -351,7 +351,7 @@ namespace GameSpec.IW.Formats
             }
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             switch ((Magic)source.Magic)
             {

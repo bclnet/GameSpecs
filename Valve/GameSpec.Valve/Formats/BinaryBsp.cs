@@ -13,7 +13,7 @@ namespace GameSpec.Formats
     // https://github.com/bernhardmgruber/hlbsp/tree/master/src
     public unsafe class BinaryBsp : IGetMetadataInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileMetadata f, PakFile s) => Task.FromResult((object)new BinaryBsp(r, f));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryBsp(r, f));
 
         // Headers
         #region Headers
@@ -82,14 +82,14 @@ namespace GameSpec.Formats
 
         #endregion
 
-        public BinaryBsp(BinaryReader r, FileMetadata f)
+        public BinaryBsp(BinaryReader r, FileSource f)
         {
             // read file
             var header = r.ReadT<BSP_Header>(sizeof(BSP_Header));
             if (header.Version != 30) throw new FormatException("BAD VERSION");
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             //new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetadataInfo("Bsp", items: new List<MetadataInfo> {
                 //new MetadataInfo($"Width: {Width}"),

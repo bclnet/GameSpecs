@@ -70,7 +70,7 @@ namespace GameSpec.Cryptic.Formats
             if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
             if (header.DataEntrySectionSize != header.CompressionInfoSectionSize * 2) throw new FormatException("data entry / compression info section size mismatch");
             var numFiles = header.CompressionInfoSectionSize >> 4; // compression_info_section_size = 16 * num_files
-            var files = new FileMetadata[numFiles];
+            var files = new FileSource[numFiles];
 
             // Create FileInfo structures from the data entries within the hogg
             r.Seek(HOGG_DATAENTRIES_OFFSET);
@@ -78,7 +78,7 @@ namespace GameSpec.Cryptic.Formats
             for (var i = 0; i < files.Length; i++)
             {
                 ref DataEntry s = ref dataEntries[i];
-                files[i] = new FileMetadata
+                files[i] = new FileSource
                 {
                     Id = (int)s.Index,
                     Position = s.FileOffset,
@@ -128,7 +128,7 @@ namespace GameSpec.Cryptic.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(file.Compressed != 0

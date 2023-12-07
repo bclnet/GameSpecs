@@ -20,7 +20,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.UV
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo($"U: {U} V: {V}"),

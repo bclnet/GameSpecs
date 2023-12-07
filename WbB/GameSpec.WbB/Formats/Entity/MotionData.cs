@@ -27,7 +27,7 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.MotionData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 Bitfield != 0 ? new MetadataInfo($"Bitfield: {Bitfield:X8}") : null,

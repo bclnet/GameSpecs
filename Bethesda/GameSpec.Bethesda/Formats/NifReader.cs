@@ -126,7 +126,7 @@ namespace GameSpec.Bethesda.Formats
     {
         public NiFile(string name) => Name = name;
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag) => new List<MetadataInfo> {
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
             new MetadataInfo(null, new MetadataContent { Type = "Engine", Name = Name, Value = this }),
             new MetadataInfo("Nif", items: new List<MetadataInfo> {
                 new MetadataInfo($"NumBlocks: {Header.NumBlocks}"),

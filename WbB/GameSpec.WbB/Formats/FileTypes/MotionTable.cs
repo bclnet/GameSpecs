@@ -33,7 +33,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.MotionTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             static string GetLabel(uint combined)
             {

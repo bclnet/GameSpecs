@@ -197,7 +197,7 @@ namespace GameSpec.Monolith.Formats
                 }
             }
 
-            multiSource.Files = directories.SelectMany(x => x.Files.Cast<ArchFile>(), (a, b) => new FileMetadata
+            multiSource.Files = directories.SelectMany(x => x.Files.Cast<ArchFile>(), (a, b) => new FileSource
             {
                 Path = $"{a.Path}/{b.Path}",
                 FileSize = b.FileSize,
@@ -207,7 +207,7 @@ namespace GameSpec.Monolith.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileMetadata file, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             Stream fileData;
             r.Seek(file.Position);

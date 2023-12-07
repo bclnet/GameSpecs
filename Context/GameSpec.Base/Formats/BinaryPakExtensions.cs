@@ -11,7 +11,7 @@ namespace GameSpec.Formats
 
         #region Export
 
-        public static async Task ExportAsync(this BinaryPakFile source, string filePath, int from = 0, DataOption option = 0, Action<FileMetadata, int> advance = null, Action<FileMetadata, string> exception = null)
+        public static async Task ExportAsync(this BinaryPakFile source, string filePath, int from = 0, DataOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
         {
             if (!(source is BinaryPakManyFile pak)) throw new NotSupportedException();
 
@@ -49,7 +49,7 @@ namespace GameSpec.Formats
             if ((option & DataOption.Marker) != 0) await new StreamPakFile(pak, source.Game, null, filePath).WriteAsync(null, null);
         }
 
-        static async Task ExportFileAsync(FileMetadata file, BinaryPakManyFile pak, string newPath, DataOption option = 0, Action<FileMetadata, string> exception = null)
+        static async Task ExportFileAsync(FileSource file, BinaryPakManyFile pak, string newPath, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             if (file.FileSize == 0 && file.PackedSize == 0) return;
             var fileOption = file.CachedDataOption;
@@ -93,7 +93,7 @@ namespace GameSpec.Formats
 
         #region Import
 
-        public static async Task ImportAsync(this BinaryPakFile source, BinaryWriter w, string filePath, int from = 0, DataOption option = 0, Action<FileMetadata, int> advance = null, Action<FileMetadata, string> exception = null)
+        public static async Task ImportAsync(this BinaryPakFile source, BinaryWriter w, string filePath, int from = 0, DataOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
         {
             if (!(source is BinaryPakManyFile pak)) throw new NotSupportedException();
 

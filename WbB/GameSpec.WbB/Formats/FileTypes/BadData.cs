@@ -21,7 +21,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.BadData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetadataInfo> {
                 new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Bad Data", Value = string.Join(", ", Bad.Keys.OrderBy(x => x)) }),
