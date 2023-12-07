@@ -3,7 +3,7 @@ from struct import unpack
 from ..pakbinary import FileInfo, PakBinary
 from ..pakfile import BinaryPakFile
 
-class PakBinaryBlackDat(PakBinary):
+class PakBinary_Dat(PakBinary):
     F1_HEADER_FILEID = 0x000000001
     F2_HEADER_FILEID = 0x000000011
 

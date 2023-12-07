@@ -1,11 +1,10 @@
-from . import pakfile
-from .Black.pakbinary import PakBinaryBlackDat
+from .pakfile import BinaryPakManyFile
+from .Black.pakbinary_dat import PakBinary_Dat
 
-class BlackPakFile(pakfile.BinaryPakManyFile):
+class BlackPakFile(BinaryPakManyFile):
     @staticmethod
     def getPakBinary(game, filePath):
-        return PakBinaryBlackDat()
+        return PakBinary_Dat()
 
     def __init__(self, game, fileSystem, filePath, tag):
         super().__init__(game, fileSystem, filePath, self.getPakBinary(game, filePath), tag)
-    def __repr__(self): return f'{self.game}'

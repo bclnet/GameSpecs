@@ -5,6 +5,10 @@
   "description": "The file formats used in the Void engine",
   "url": "https://en.wikipedia.org/wiki/Arkane_Studios",
   "familyType": "GameSpec.Arkane.ArkaneFamily, GameSpec.Arkane",
+  "engines": {
+    "Danae": { "name": "Danae" },
+    "Void": { "name": "Void" }
+  },
   "games": {
     "*": {
       "pakFileType": "GameSpec.Arkane.ArkanePakFile, GameSpec.Arkane",
@@ -56,7 +60,7 @@
     },
     "P": {
       "name": "Prey",
-      "engine": "Cry",
+      "engine": "CryEngine",
       "url": "https://www.gog.com/en/game/prey",
       "date": "2017-05-04",
       "pakExt": ".pak",

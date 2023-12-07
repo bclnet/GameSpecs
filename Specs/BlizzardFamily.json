@@ -1,9 +1,9 @@
 ﻿{
   "id": "Blizzard",
-  "name": "Blizzard",
+  "name": "Blizzard Entertainment",
   "studio": "Blizzard Activision",
   "description": "Blizzard file formats",
-  "url": "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games",
+  "url": [ "https://en.wikipedia.org/wiki/Blizzard_Entertainment", "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games" ],
   "familyType": "GameSpec.Blizzard.BlizzardFamily, GameSpec.Blizzard",
   "games": {
     "*": {
