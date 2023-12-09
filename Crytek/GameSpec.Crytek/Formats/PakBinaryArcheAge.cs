@@ -12,7 +12,7 @@ namespace GameSpec.Crytek.Formats
     {
         readonly byte[] Key;
 
-        public PakBinaryArcheAge(Family.ByteKey key) => Key = key?.Key;
+        public PakBinaryArcheAge(byte[] key) => Key = key;
 
         // Header
         #region Header

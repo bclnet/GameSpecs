@@ -119,7 +119,7 @@
     <ProjectReference Include="..\..\Platforms\GameSpec.Platform.OpenGL\GameSpec.Platform.OpenGL.csproj" />
     <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics.GLControl\OpenStack.Graphics.GLControl.csproj" />
     <ProjectReference Include="..\..\Cig\GameSpec.Cig.Explorer\GameSpec.Cig.Explorer.csproj" />
-    <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
+    <ProjectReference Include="..\..\Context\GameSpec.All\GameSpec.All.csproj" />
   </ItemGroup>
 
 </Project>

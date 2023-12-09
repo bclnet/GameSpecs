@@ -1,5 +1,5 @@
 import os, pathlib
-from .shared import findType
+from .utils import findType
 
 class FileSystem:
     def findPaths(self, path: str, searchPattern: str):

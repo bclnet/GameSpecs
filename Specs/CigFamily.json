@@ -10,7 +10,7 @@
       "pakFileType": "GameSpec.Cig.CigPakFile, GameSpec.Cig",
       "name": "Star Citizen",
       "url": "https://robertsspaceindustries.com/playstarcitizen",
-      "key": "aes:5E7A2002302EEB1A3BB617C30FDE1E47",
+      "key": "hex:5E7A2002302EEB1A3BB617C30FDE1E47",
       "pakExt": "Data.p4k",
       "pak": "game:/"
     }

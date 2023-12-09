@@ -13,7 +13,7 @@ namespace GameSpec.App
             using var pak = family.OpenPakFile(resource);
 
             // export pak
-            if (pak is not MultiPakFile multiPak)
+            if (!(pak is MultiPakFile multiPak))
             {
                 await ExportPakAsync(filePath, from, option, pak);
                 return;
@@ -35,7 +35,7 @@ namespace GameSpec.App
 
         static async Task ExportPakAsync(string filePath, int from, DataOption option, PakFile _)
         {
-            if (_ is not BinaryPakFile pak) throw new InvalidOperationException("pak not a BinaryPakFile");
+            if (!(_ is BinaryPakFile pak)) throw new InvalidOperationException("pak not a BinaryPakFile");
             var newPath = filePath != null ? Path.Combine(filePath, Path.GetFileName(pak.FilePath)) : null;
 
             // write pak

@@ -62,5 +62,5 @@ namespace GameSpec.Formats
         /// <param name="source">The source.</param>
         /// <exception cref="NotSupportedException"></exception>
         public virtual void Process(BinaryPakFile source) { }
-}
+    }
 }

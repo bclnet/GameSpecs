@@ -17,7 +17,7 @@ namespace GameSpec.Crytek.Formats
         public static readonly PakBinary Instance = new PakBinaryCry3();
         readonly byte[] Key;
 
-        public PakBinaryCry3(Family.ByteKey key = null) => Key = key?.Key;
+        public PakBinaryCry3(byte[] key = null) => Key = key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

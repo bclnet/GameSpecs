@@ -66,7 +66,7 @@
       "url": "https://store.steampowered.com/app/42700",
       "date": "2010-11-09",
       "tags": "BlackOps COD:BO",
-      "key": "aes:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d",
+      "key": "hex:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d",
       "pak": "game:/*.(iwd:ff)"
     },
     "MW3": {
@@ -81,7 +81,7 @@
       "url": "https://store.steampowered.com/app/202970",
       "date": "2012-05-01",
       "tags": "BlackOps COD:BO2",
-      "key": "aes:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE",
+      "key": "hex:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE",
       "pak": "game:/*.ff",
       "pakx": "game:/karma_gump_checkin.ff"
     },

@@ -21,21 +21,31 @@ namespace GameSpec.Black.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct F1_Header
         {
-            public static string Endian = "B4B4B4B4";
-            public uint DirectoryCount;
-            public uint Unknown1;
-            public uint Unknown2;
-            public uint Unknown3;
+            public static string Map = "B4B4B4B4";
+            public uint DirectoryCount; // DirectoryCount
+            public uint Unknown1; // Usually 0x0A (0x5E for master.dat). Must not be less than 1 or Fallout will crash instantly with a memory read error. Possibly some kind of memory buffer size.
+            public uint Unknown2; // Always 0.
+            public uint Unknown3; // Could be some kind of checksum, but Fallout seems to work fine with any value.
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct F1_ContentBlock
+        struct F1_Directory
         {
-            public static string Endian = "B4B4B4B4";
-            public uint FileCount;
-            public uint Unknown1;
-            public uint Unknown2;
-            public uint Unknown3;
+            public static string Map = "B4B4B4B4";
+            public uint FileCount; // Number of files in the directory.
+            public uint Unknown1; // Similar to (Unknown1), the default value seems to be 0x0A and Fallout works with most positive non-zero values.
+            public uint Unknown2; // Seems to always be 0x10.
+            public uint Unknown3; // See (Unknown3).
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct F1_File
+        {
+            public static string Map = "B4B4B4B4";
+            public uint Attributes; // 0x20 means plain-text, 0x40 - compressed with LZSS.
+            public uint Offset; // Position in the file (from the beginning of the DAT file), where the file contets start.
+            public uint Size; // Original (uncompressed) file size.
+            public uint PackedSize; // Size of the compressed file in dat. If file is not compressed, PackedSize is 0.
         }
 
         #endregion
@@ -53,6 +63,16 @@ namespace GameSpec.Black.Formats
             public uint DataSize;               // Full size of the archive in bytes
         }
 
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct F2_File
+        {
+            public byte Type;               // 1 = Compressed 0 = Decompressed
+            public uint RealSize;           // Size of the file without compression.
+            public uint PackedSize;         // Size of the compressed file.
+            public uint Offset;             // Address/Location of the file.
+        }
+
+
         #endregion
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
@@ -65,24 +85,29 @@ namespace GameSpec.Black.Formats
             if (gameId == "Fallout")
             {
                 source.Magic = F1_HEADER_FILEID;
-                var header = r.ReadTE<F1_Header>(sizeof(F1_Header), F1_Header.Endian);
-                var directoryNames = new string[header.DirectoryCount];
-                for (var i = 0; i < header.DirectoryCount; i++) directoryNames[i] = r.ReadL8Encoding().Replace('\\', '/'); // directory name block
+                var header = r.ReadTE<F1_Header>(sizeof(F1_Header), F1_Header.Map);
+                var directoryPaths = new string[header.DirectoryCount];
+                for (var i = 0; i < header.DirectoryCount; i++)
+                    directoryPaths[i] = r.ReadL8Encoding().Replace('\\', '/');
                 // Create file metadatas
                 var files = new List<FileSource>(); source.Files = files;
                 for (var i = 0; i < header.DirectoryCount; i++)
                 {
-                    var contentBlock = r.ReadTE<F1_ContentBlock>(sizeof(F1_ContentBlock), F1_ContentBlock.Endian); // directory content block
-                    var directoryPrefix = directoryNames[i] != "." ? directoryNames[i] + "\\" : string.Empty;
-                    for (var j = 0; j < contentBlock.FileCount; j++)
+                    var directory = r.ReadTE<F1_Directory>(sizeof(F1_Directory), F1_Directory.Map);
+                    var directoryPath = directoryPaths[i] != "." ? directoryPaths[i] + "/" : string.Empty;
+                    for (var j = 0; j < directory.FileCount; j++)
+                    {
+                        var path = directoryPath + r.ReadL8Encoding().Replace('\\', '/');
+                        var file = r.ReadTE<F1_File>(sizeof(F1_File), F1_File.Map);
                         files.Add(new FileSource
                         {
-                            Path = directoryPrefix + r.ReadL8Encoding().Replace('\\', '/'),
-                            Compressed = (int)r.ReadUInt32E() & 0x40,
-                            Position = r.ReadUInt32E(),
-                            FileSize = r.ReadUInt32E(),
-                            PackedSize = r.ReadUInt32E(),
+                            Path = path,
+                            Compressed = (int)file.Attributes & 0x40,
+                            Position = file.Offset,
+                            FileSize = file.Size,
+                            PackedSize = file.PackedSize,
                         });
+                    }
                 }
             }
             else if (gameId == "Fallout2")
@@ -96,14 +121,18 @@ namespace GameSpec.Black.Formats
                 // Create file metadatas
                 var files = new FileSource[r.ReadInt32()]; source.Files = files;
                 for (var i = 0; i < files.Length; i++)
+                {
+                    var path = r.ReadL32Encoding().Replace('\\', '/');
+                    var file = r.ReadT<F2_File>(sizeof(F2_File));
                     files[i] = new FileSource
                     {
-                        Path = r.ReadL32Encoding().TrimStart('\\').Replace('\\', '/'),
-                        Compressed = r.ReadByte(),
-                        FileSize = r.ReadUInt32(),
-                        PackedSize = r.ReadUInt32(),
-                        Position = r.ReadUInt32(),
+                        Path = path,
+                        Compressed = file.Type,
+                        FileSize = file.RealSize,
+                        PackedSize = file.PackedSize,
+                        Position = file.Offset,
                     };
+                }
             }
             return Task.CompletedTask;
         }

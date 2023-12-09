@@ -21,7 +21,7 @@ namespace GameSpec.Unity.Formats
         public static readonly PakBinary Instance = new PakBinaryUnity();
         readonly byte[] Key;
 
-        public PakBinaryUnity(Family.ByteKey key = null) => Key = key?.Key;
+        //public PakBinaryUnity(byte[] key = null) => Key = key;
 
         // File : ASSETS
         #region File : ASSETS

@@ -1,67 +1,78 @@
 import os
-from struct import unpack
-from ..pakbinary import FileInfo, PakBinary
-from ..pakfile import BinaryPakFile
+from io import BytesIO
+from typing import Any
+from ..pakbinary import PakBinary
+from ..pakfile import FileSource, BinaryPakFile
+from ..utils import Reader
+from ..compression import decompressBlast
 
 class PakBinary_Danae(PakBinary):
-    F1_HEADER_FILEID = 0x000000001
-    F2_HEADER_FILEID = 0x000000011
 
     _instance = None
     def __new__(cls):
         if cls._instance is None: cls._instance = super().__new__(cls)
         return cls._instance
-    def read(self, source: BinaryPakFile, r, tag = None):
-        gameId = source.game.id
-        
-        # fallout
-        if gameId == 'Fallout':
-            source.magic = self.F1_HEADER_FILEID
-            header = unpack('>IIII', r.read(16))
-            directoryNames = [readL8Encoding(r) for x in range(0, header[0])]
 
-            # create file metadatas
-            source.files = files = []
-            for i in range(0, header[0]):
-                contentBlock = unpack('>IIII', r.read(16))
-                directoryPrefix = f'{directoryNames[i]}\\' if directoryNames[i] != '.' else ''
-                for _ in range(0, contentBlock[0]):
-                    path = directoryPrefix + readL8Encoding(r)
-                    block = unpack('>IIII', r.read(16))
-                    files.append(FileInfo(
-                        path = path,
-                        compressed = block[0] & 0x40,
-                        position = block[1],
-                        fileSize = block[2],
-                        packedSize = block[3]))
-        elif gameId == 'Fallout2':
-            source.magic = self.F2_HEADER_FILEID
-            r.seek(getLength(r) - 8)
-            header = unpack('=II', r.read(8))
-            r.seek(header[1] - header[0] - 8)
+    # read
+    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+        source.files = files = []
+        key = source.game.key; keyLength = len(key); keyIndex = 0
 
-            # create file metadatas
-            source.files = files = []
-            filenum = readInt32(r)
-            for i in range(0, filenum):
-                path = readL32Encoding(r)
-                block = unpack('=BIII', r.read(13))
-                files.append(FileInfo(
-                    path = path,
-                    compressed = block[0],
-                    fileSize = block[1],
-                    packedSize = block[2],
-                    position = block[3]))
+        # move to fat table
+        r.seek(r.readUInt32())
+        fatSize = r.readUInt32()
+        fatBytes = bytearray(r.read(fatSize)); b = 0
 
-def getLength(r):
-    prev = r.tell(); length = r.seek(0, os.SEEK_END); r.seek(prev)
-    return length
+        # read int32
+        def readInt32() -> int:
+            nonlocal b, keyIndex
+            p = b
+            fatBytes[p + 0] = fatBytes[p + 0] ^ key[keyIndex]; keyIndex += 1
+            if keyIndex >= keyLength: keyIndex = 0
+            fatBytes[p + 1] = fatBytes[p + 1] ^ key[keyIndex]; keyIndex += 1
+            if keyIndex >= keyLength: keyIndex = 0
+            fatBytes[p + 2] = fatBytes[p + 2] ^ key[keyIndex]; keyIndex += 1
+            if keyIndex >= keyLength: keyIndex = 0
+            fatBytes[p + 3] = fatBytes[p + 3] ^ key[keyIndex]; keyIndex += 1
+            if keyIndex >= keyLength: keyIndex = 0
+            b += 4
+            return int.from_bytes(fatBytes[p:p+4], 'little', signed=True)
 
-def readInt32(r):
-    return int.from_bytes(r.read(4), 'little')
+        # read string
+        def readString() -> str:
+            nonlocal b, keyIndex
+            p = b
+            while True:
+                fatBytes[p] = fatBytes[p] ^ key[keyIndex]; keyIndex += 1
+                if keyIndex >= keyLength: keyIndex = 0
+                if fatBytes[p] == 0: break
+                p += 1
+            length = p - b
+            r = fatBytes[b:p].decode('ascii', 'replace')
+            b = p + 1
+            return r
 
-def readL8Encoding(r, encoding = None):
-    return r.read(int.from_bytes(r.read(1))).decode('ascii' if not encoding else encoding)
+        # while there are bytes
+        while b < fatSize:
+            dirPath = readString().replace('\\', '/')
+            numFiles = readInt32()
+            for _ in range(0, numFiles):
+                # get file
+                file = FileSource(
+                    path = dirPath + readString().replace('\\', '/'),
+                    position = readInt32(),
+                    compressed = readInt32(),
+                    fileSize = readInt32(),
+                    packedSize = readInt32())
+                # special case
+                if file.path.endswith('.FTL'): file.compressed = 1
+                elif file.compressed == 0: file.fileSize = file.packedSize
+                # add file
+                files.append(file)
 
-def readL32Encoding(r, encoding = None):
-    return r.read(int.from_bytes(r.read(4), 'little')).decode('ascii' if not encoding else encoding)
+    # readData
+    def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
+        r.seek(file.position)
+        return BytesIO(
+            decompressBlast(r, file.packedSize, file.fileSize) if (file.compressed & 1) != 0 else \
+            r.read(file.packedSize))

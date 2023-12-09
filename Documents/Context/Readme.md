@@ -61,7 +61,6 @@ Context provides the interface for interacting with this service
 | type          | name          | description
 | ---           | ---           | ---   
 | **class**     | **Empty**     | An empty family.
-| **class**     | **ByteKey**   | A ByteKey Container.
 | void          | Bootstrap     | Touches this instance.
 | void          | FileFilters   | Gets the file filters.
 | string        | Id            | Gets or sets the family identifier.

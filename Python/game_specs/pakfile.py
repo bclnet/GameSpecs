@@ -1,6 +1,6 @@
 import os
 from enum import Enum
-from .reader import Reader
+from .utils import Reader
 
 class FileSource:
     def __init__(self, path, compressed = None, position = None, fileSize = None, packedSize = None):
@@ -81,12 +81,13 @@ class BinaryPakFile(PakFile):
 
 class ManyPakFile(BinaryPakFile):
     def __init__(self, basis, game, name: str, fileSystem, paths, tag: object = None, visualPathSkip = 0):
+        super().__init__(game, fileSystem, name, None, tag)
         self.basis = basis
     def opening(self): return f'opening'
     def closing(self): return f'closing'
 
 class MultiPakFile(PakFile):
     def __init__(self, game, name: str, fileSystem, pakFiles, tag: object = None):
-        pass
+        super().__init__(game, name, tag)
     def opening(self): return f'opening'
     def closing(self): return f'closing'

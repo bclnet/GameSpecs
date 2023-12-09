@@ -24,4 +24,8 @@
     <ProjectReference Include="..\GameSpec.All\GameSpec.All.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WbB\" />
+  </ItemGroup>
+
 </Project>

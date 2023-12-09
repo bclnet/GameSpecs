@@ -70,7 +70,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\GameSpec.App.Base\GameSpec.App.Base.csproj" />
+	  <ProjectReference Include="..\..\Context\GameSpec.All\GameSpec.All.csproj" />
 	  <ProjectReference Include="..\StereoKit.Maui\StereoKit.Maui.csproj" />
 	</ItemGroup>
 

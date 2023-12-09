@@ -1,5 +1,5 @@
-﻿//#define Arkane
-#define Bethesda
+﻿#define Arkane
+//#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
@@ -35,13 +35,15 @@ namespace GameSpec
             //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/fast.fts", //AF:Level
+            //D2
+            //ForcePath = "", //D2:
 
             ForceOpen = true,
             Family = "Arkane",
             //GameId = "AF", // Arx Fatalis [open, read, texture:GL]
             //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
-            GameId = "D", // Dishonored [unreal]
-            //GameId = "D2", // Dishonored 2 [open, read]
+            //GameId = "D", // Dishonored [unreal]
+            GameId = "D2", // Dishonored 2 [open, read]
             //GameId = "P", // Prey [open, read]
             //GameId = "D:DOTO", // Dishonored: Death of the Outsider
             //GameId = "W:YB", // Wolfenstein: Youngblood
@@ -108,7 +110,7 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Black",
-            GameId = "Fallout", // Fallout
+            //GameId = "Fallout", // Fallout
             //GameId = "Fallout2", // Fallout 2
         };
 #elif Blizzard

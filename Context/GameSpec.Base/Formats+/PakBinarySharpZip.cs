@@ -18,12 +18,10 @@ namespace GameSpec.Formats
         public static readonly PakBinary Instance = new PakBinarySharpZip();
         readonly byte[] Key;
 
-        public PakBinarySharpZip(Family.ByteKey key = null) => Key = key?.Key;
+        public PakBinarySharpZip(byte[] key = null) => Key = key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            
-
             source.UseReader = false;
             var files = source.Files = new List<FileSource>();
             var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));

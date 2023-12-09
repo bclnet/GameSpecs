@@ -132,24 +132,22 @@ namespace GameSpec
             }
         }
 
-        static bool TryParseKey(string str, out object value)
+        static object ParseKey(string str)
         {
-            if (string.IsNullOrEmpty(str)) { value = null; return false; }
-            if (str.StartsWith("aes:", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(str)) { return null; }
+            else if (str.StartsWith("hex:", StringComparison.OrdinalIgnoreCase))
             {
                 var keyStr = str[4..];
-                var key = keyStr.StartsWith("/")
+                return keyStr.StartsWith("/")
                     ? Enumerable.Range(0, keyStr.Length >> 2).Select(x => byte.Parse(keyStr.Substring((x << 2) + 2, 2), NumberStyles.HexNumber)).ToArray()
                     : Enumerable.Range(0, keyStr.Length >> 1).Select(x => byte.Parse(keyStr.Substring(x << 1, 2), NumberStyles.HexNumber)).ToArray();
-                value = new Family.ByteKey { Key = key };
             }
             else if (str.StartsWith("txt:", StringComparison.OrdinalIgnoreCase))
             {
                 var keyStr = str[4..];
-                value = new Family.ByteKey { Key = Encoding.ASCII.GetBytes(keyStr) };
+                return Encoding.ASCII.GetBytes(keyStr);
             }
             else throw new ArgumentOutOfRangeException(nameof(str), str);
-            return true;
         }
 
         static FamilyEngine ParseEngine(Family family, string id, JsonElement elem)
@@ -179,7 +177,7 @@ namespace GameSpec
             game.Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Paks;
             game.Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Dats;
             game.Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : dgame?.Paths;
-            game.Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var zO) ? zO : throw new ArgumentOutOfRangeException("key", z.GetString()) : dgame?.Key;
+            game.Key = elem.TryGetProperty("key", out z) ? ParseKey(z.GetString()) : dgame?.Key;
             game.Status = elem.TryGetProperty("status", out z) ? z.GetStringOrArray() : default;
             game.Tags = elem.TryGetProperty("tags", out z) ? z.GetStringOrArray() : default;
             // interface
@@ -199,7 +197,7 @@ namespace GameSpec
         {
             Id = id,
             Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name"),
-            Key = elem.TryGetProperty("key", out z) ? TryParseKey(z.GetString(), out var z2) ? z2 : throw new ArgumentOutOfRangeException("key", z.GetString()) : default,
+            Key = elem.TryGetProperty("key", out z) ? ParseKey(z.GetString()) : default,
         };
 
         static DownloadableContent ParseGameDownloadableContent(string id, JsonElement elem) => new DownloadableContent

@@ -2,7 +2,6 @@
 using OpenStack;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace GameSpec
@@ -22,14 +21,6 @@ namespace GameSpec
             Games = new Dictionary<string, FamilyGame>(),
             FileManager = FamilyManager.CreateFileManager(),
         };
-
-        /// <summary>
-        /// A ByteKey Container.
-        /// </summary>
-        public class ByteKey
-        {
-            public byte[] Key;
-        }
 
         static unsafe Family()
         {
@@ -111,7 +102,6 @@ namespace GameSpec
         /// </summary>
         /// <returns></returns>
         public IDictionary<string, FamilyGame> Games { get; set; }
-
 
         /// <summary>
         /// Gets the family apps.

@@ -49,34 +49,33 @@ namespace GameSpec.Arkane.Formats
                 return Task.CompletedTask;
             }
 
-            var pathFile = Path.GetFileName(source.FilePath);
-            var pathDir = Path.GetDirectoryName(source.FilePath);
-            var resourcePath = Path.Combine(pathDir, $"{pathFile[0..^6]}.resources");
-            if (!File.Exists(resourcePath)) throw new FormatException("Unable to find resources extension");
+            var fileSystem = source.FileSystem;
+            var resourcePath = $"{source.FilePath[0..^6]}.resources";
+            if (!fileSystem.FileExists(resourcePath)) throw new FormatException("Unable to find resources extension");
             var sharedResourcePath = new[] {
                 "shared_2_3.sharedrsc",
                 "shared_2_3_4.sharedrsc",
                 "shared_1_2_3.sharedrsc",
                 "shared_1_2_3_4.sharedrsc" }
-                .Select(x => Path.Combine(pathDir, x)).FirstOrDefault(File.Exists);
+                .FirstOrDefault(fileSystem.FileExists);
 
             r.Seek(4);
-            var mainFileSize = MathX.Reverse(r.ReadUInt32()); // mainFileSize
+            var mainFileSize = r.ReadUInt32E(); // mainFileSize
             r.Skip(24);
-            var numFiles = MathX.Reverse(r.ReadUInt32());
+            var numFiles = r.ReadUInt32E();
             var files = source.Files = new FileSource[numFiles];
             for (var i = 0; i < numFiles; i++)
             {
-                var id = MathX.Reverse(r.ReadUInt32());
+                var id = r.ReadUInt32E();
                 var tag1 = r.ReadL32Encoding();
                 var tag2 = r.ReadL32Encoding();
                 var path = r.ReadL32Encoding()?.Replace('\\', '/');
-                var position = MathX.Reverse(r.ReadUInt64());
-                var fileSize = MathX.Reverse(r.ReadUInt32());
-                var packedSize = MathX.Reverse(r.ReadUInt32());
+                var position = r.ReadUInt64E();
+                var fileSize = r.ReadUInt32E();
+                var packedSize = r.ReadUInt32E();
                 r.Skip(4);
-                var flags = MathX.Reverse(r.ReadUInt32());
-                var flags2 = MathX.Reverse(r.ReadUInt16());
+                var flags = r.ReadUInt32E();
+                var flags2 = r.ReadUInt16E();
                 var useSharedResources = (flags & 32) != 0 && flags2 == 0x8000;
                 if (useSharedResources && sharedResourcePath == null) throw new FormatException("sharedResourcePath not available");
                 var newPath = !useSharedResources ? resourcePath : sharedResourcePath;

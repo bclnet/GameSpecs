@@ -14,22 +14,20 @@ namespace GameSpec.Arkane.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
-            var key = source.Game.Key is Family.ByteKey z ? z.Key : null;
-            int keyLength = key.Length, keyIndex = 0;
+            var key = (byte[])source.Game.Key; int keyLength = key.Length, keyIndex = 0;
 
-            int readFatInteger(ref byte* b)
+            int readInt32(ref byte* b)
             {
                 var p = b;
                 *(p + 0) = (byte)(*(p + 0) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
                 *(p + 1) = (byte)(*(p + 1) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
                 *(p + 2) = (byte)(*(p + 2) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
                 *(p + 3) = (byte)(*(p + 3) ^ key[keyIndex++]); if (keyIndex >= keyLength) keyIndex = 0;
-                var r = *(int*)p;
                 b += 4;
-                return r;
+                return *(int*)p;
             }
 
-            string readFatString(ref byte* b)
+            string readString(ref byte* b)
             {
                 var p = b;
                 while (true)
@@ -54,21 +52,21 @@ namespace GameSpec.Arkane.Formats
                 byte* c = _, end = _ + fatSize;
                 while (c < end)
                 {
-                    var dirPath = readFatString(ref c);
-                    var numFiles = readFatInteger(ref c);
-                    while (numFiles-- != 0)
+                    var dirPath = readString(ref c).Replace('\\', '/');
+                    var numFiles = readInt32(ref c);
+                    for (var i = 0; i < numFiles; i++)
                     {
-                        var f = new FileSource
+                        var file = new FileSource
                         {
-                            Path = dirPath + readFatString(ref c),
-                            Position = readFatInteger(ref c),
-                            Compressed = readFatInteger(ref c),
-                            FileSize = readFatInteger(ref c),
-                            PackedSize = readFatInteger(ref c),
+                            Path = dirPath + readString(ref c).Replace('\\', '/'),
+                            Position = readInt32(ref c),
+                            Compressed = readInt32(ref c),
+                            FileSize = readInt32(ref c),
+                            PackedSize = readInt32(ref c),
                         };
-                        if (f.Path.EndsWith(".FTL")) f.Compressed = 1;
-                        else if (f.Compressed == 0) f.FileSize = f.PackedSize;
-                        files.Add(f);
+                        if (file.Path.EndsWith(".FTL")) file.Compressed = 1;
+                        else if (file.Compressed == 0) file.FileSize = file.PackedSize;
+                        files.Add(file);
                     }
                 }
             }

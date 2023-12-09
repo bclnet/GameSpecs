@@ -1,7 +1,8 @@
 import os, json, glob, re
+from typing import Any
 from urllib.parse import urlparse
 from importlib import resources
-from .shared import findType
+from .utils import findType
 from .pakfile import PakFile, ManyPakFile, MultiPakFile
 from .filesys import FileSystem, HostFileSystem, createFileSystem
 from .filemgr import FileManager
@@ -82,7 +83,7 @@ class FamilyGame:
         def __init__(self, id: str, d):
             self.id = id
             self.name = d['name'] if 'name' in d else None
-            self.key = d['key'] if 'key' in d else None
+            self.key = self.parseKey(d['key']) if 'key' in d else None
         def __repr__(self): return f'{self.id}: {self.name}'
     class DownloadableContent:
         def __init__(self, id: str, d):
@@ -108,7 +109,7 @@ class FamilyGame:
         #self.paks
         #self.dats
         self.paths = (d['path'] if isinstance(d['path'], list) else [d['path']]) if 'path' in d else dgame.paths
-        self.key = d['key'] if 'key' in d else dgame.key
+        self.key = self.parseKey(d['key']) if 'key' in d else dgame.key
         self.status = d['status'] if 'status' in d else None
         self.tags = d['tags'] if 'tags' in d else None
         # interface
@@ -135,6 +136,14 @@ class FamilyGame:
   - dlcs: {self.dlcs if self.dlcs else None}
   - locales: {self.locales if self.locales else None}'''
   
+    # parse key
+    @staticmethod
+    def parseKey(key) -> Any:
+        if not key: return None
+        elif key.startswith('hex:'): return bytes.fromhex(key[4:].replace('/x', ''))
+        elif key.startswith('txt:'): return key[4:].encode('ascii')
+        else: raise Exception(f'Unknown key: {key}')
+
     # create SearchPatterns
     def createSearchPatterns(self, searchPattern: str) -> str:
         if searchPattern: return searchPattern
