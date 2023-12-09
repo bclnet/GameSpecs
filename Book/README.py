@@ -29,7 +29,7 @@ def GameFamily(f):
     b.append('|===\n')
     b.append(f'\n')
     if f.engines:
-        b.append(f'==== Engines\n')
+        b.append(f'==== List of Engines\n')
         b.append(f'\n')
         b.append('[cols="1,1"]\n')
         b.append('|===\n')
