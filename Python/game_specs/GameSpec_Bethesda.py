@@ -1,6 +1,17 @@
-class BethesdaPakFile:
+import os
+from .pakfile import BinaryPakFile
+from .Bethesda.pakbinary_bsa import PakBinary_Bsa
+from .Bethesda.pakbinary_ba2 import PakBinary_Ba2
+
+class BethesdaPakFile(BinaryPakFile):
+    @staticmethod
+    def getPakBinary(game, filePath):
+        extension = os.path.splitext(filePath)[1].lower()
+        match extension:
+            case '': return PakBinary_Bsa()
+            case '.bsa': return PakBinary_Bsa()
+            case '.ba2': return PakBinary_Ba2()
+            case _: raise Exception(f'Unknown: {extension}')
+
     def __init__(self, game, fileSystem, filePath, tag):
-        self.game = game
-        self.fileSystem = fileSystem
-    def __repr__(self): return f'BethesdaPakFile:{self.game}'
-    def open(self): return f'OPEN'
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, filePath), tag)

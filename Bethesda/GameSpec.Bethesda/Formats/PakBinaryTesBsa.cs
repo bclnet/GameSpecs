@@ -11,30 +11,6 @@ namespace GameSpec.Bethesda.Formats
     {
         public static readonly PakBinary Instance = new PakBinaryBethesdaBsa();
 
-        // Header : TES3
-        #region Header : TES3
-        // http://en.uesp.net/wiki/Bethesda3Mod:BSA_File_Format
-
-        // Default header data
-        const uint MW_BSAHEADER_FILEID = 0x00000100; // Magic for Morrowind BSA
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct MW_Header
-        {
-            public uint HashOffset;         // Offset of hash table minus header size (12)
-            public uint FileCount;          // Number of files in the archive
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct MW_HeaderFile
-        {
-            public uint FileSize;           // File size
-            public uint FileOffset;         // File offset relative to data position
-            public uint Size => FileSize > 0 ? FileSize & 0x3FFFFFFF : 0; // The size of the file inside the BSA
-        }
-
-        #endregion
-
         // Header : TES4
         #region Header : TES4
         // http://en.uesp.net/wiki/Bethesda4Mod:BSA_File_Format
@@ -84,24 +60,24 @@ namespace GameSpec.Bethesda.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct OB_HeaderFolder
+        struct OB_Folder
         {
             public ulong Hash;              // Hash of the folder name
             public uint FileCount;          // Number of files in folder
-            public uint Offset;
+            public uint Offset;             // The offset
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct OB_HeaderFolderSSE
+        struct OB_FolderSSE
         {
             public ulong Hash;              // Hash of the folder name
             public uint FileCount;          // Number of files in folder
-            public uint Unk;
-            public ulong Offset;
+            public uint Unk;                // Unknown
+            public ulong Offset;            // The offset
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct OB_HeaderFile
+        struct OB_File
         {
             public ulong Hash;              // Hash of the filename
             public uint Size;               // Size of the data, possibly with OB_BSAFILE_SIZECOMPRESS set
@@ -110,43 +86,69 @@ namespace GameSpec.Bethesda.Formats
 
         #endregion
 
+        // Header : TES3
+        #region Header : TES3
+        // http://en.uesp.net/wiki/Bethesda3Mod:BSA_File_Format
+
+        // Default header data
+        const uint MW_BSAHEADER_FILEID = 0x00000100; // Magic for Morrowind BSA
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct MW_Header
+        {
+            public uint HashOffset;         // Offset of hash table minus header size (12)
+            public uint FileCount;          // Number of files in the archive
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct MW_File
+        {
+            public uint FileSize;           // File size
+            public uint FileOffset;         // File offset relative to data position
+            public uint Size => FileSize > 0 ? FileSize & 0x3FFFFFFF : 0; // The size of the file inside the BSA
+        }
+
+        #endregion
+
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             FileSource[] files;
-
-            // Fallout 4
             var magic = source.Magic = r.ReadUInt32();
-            
+
             // Oblivion - Skyrim
             if (magic == OB_BSAHEADER_FILEID)
             {
                 var header = r.ReadT<OB_Header>(sizeof(OB_Header));
-                if (header.Version != OB_BSAHEADER_VERSION && header.Version != F3_BSAHEADER_VERSION && header.Version != SSE_BSAHEADER_VERSION) throw new FormatException("BAD MAGIC");
-                if ((header.ArchiveFlags & OB_BSAARCHIVE_PATHNAMES) == 0 || (header.ArchiveFlags & OB_BSAARCHIVE_FILENAMES) == 0) throw new FormatException("HEADER FLAGS");
+                if (header.Version != OB_BSAHEADER_VERSION && header.Version != F3_BSAHEADER_VERSION && header.Version != SSE_BSAHEADER_VERSION)
+                    throw new FormatException("BAD MAGIC");
+                if ((header.ArchiveFlags & OB_BSAARCHIVE_PATHNAMES) == 0 || (header.ArchiveFlags & OB_BSAARCHIVE_FILENAMES) == 0)
+                    throw new FormatException("HEADER FLAGS");
                 source.Version = header.Version;
 
                 // calculate some useful values
                 var compressedToggle = (header.ArchiveFlags & OB_BSAARCHIVE_COMPRESSFILES) > 0;
-                if (header.Version == F3_BSAHEADER_VERSION || header.Version == SSE_BSAHEADER_VERSION) source.Params["namePrefix"] = (header.ArchiveFlags & F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0 ? "Y" : "N";
+                if (header.Version == F3_BSAHEADER_VERSION || header.Version == SSE_BSAHEADER_VERSION)
+                    source.Params["namePrefix"] = (header.ArchiveFlags & F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0 ? "Y" : "N";
 
                 // read-all folders
                 var foldersFiles = header.Version == SSE_BSAHEADER_VERSION
-                    ? r.ReadTArray<OB_HeaderFolderSSE>(sizeof(OB_HeaderFolderSSE), (int)header.FolderCount).Select(x => x.FileCount).ToArray()
-                    : r.ReadTArray<OB_HeaderFolder>(sizeof(OB_HeaderFolder), (int)header.FolderCount).Select(x => x.FileCount).ToArray();
+                    ? r.ReadTArray<OB_FolderSSE>(sizeof(OB_FolderSSE), (int)header.FolderCount).Select(x => x.FileCount).ToArray()
+                    : r.ReadTArray<OB_Folder>(sizeof(OB_Folder), (int)header.FolderCount).Select(x => x.FileCount).ToArray();
 
                 // read-all folder files
                 var fileIdx = 0U;
                 source.Files = files = new FileSource[header.FileCount];
                 for (var i = 0; i < header.FolderCount; i++)
                 {
-                    var folder_name = r.ReadFString(r.ReadByte() - 1).Replace('\\', '/'); r.Skip(1);
-                    var headerFiles = r.ReadTArray<OB_HeaderFile>(sizeof(OB_HeaderFile), (int)foldersFiles[i]);
+                    var folderName = r.ReadFString(r.ReadByte() - 1).Replace('\\', '/');
+                    r.Skip(1);
+                    var headerFiles = r.ReadTArray<OB_File>(sizeof(OB_File), (int)foldersFiles[i]);
                     foreach (var headerFile in headerFiles)
                     {
                         var compressed = (headerFile.Size & OB_BSAFILE_SIZECOMPRESS) != 0;
                         files[fileIdx++] = new FileSource
                         {
-                            Path = folder_name,
+                            Path = folderName,
                             Position = headerFile.Offset,
                             Compressed = compressed ^ compressedToggle ? 1 : 0,
                             PackedSize = compressed ? headerFile.Size ^ OB_BSAFILE_SIZECOMPRESS : headerFile.Size,
@@ -163,12 +165,12 @@ namespace GameSpec.Bethesda.Formats
                 var header = r.ReadT<MW_Header>(sizeof(MW_Header));
                 var dataOffset = 12 + header.HashOffset + (8 * header.FileCount);
 
-                // Create file metadatas
+                // create filesources
                 source.Files = files = new FileSource[header.FileCount];
-                var headerFiles = r.ReadTArray<MW_HeaderFile>(sizeof(MW_HeaderFile), (int)header.FileCount);
+                var headerFiles = r.ReadTArray<MW_File>(sizeof(MW_File), (int)header.FileCount);
                 for (var i = 0; i < headerFiles.Length; i++)
                 {
-                    var headerFile = headerFiles[i];
+                    ref MW_File headerFile = ref headerFiles[i];
                     files[i] = new FileSource
                     {
                         PackedSize = headerFile.Size,
@@ -176,10 +178,10 @@ namespace GameSpec.Bethesda.Formats
                     };
                 }
 
-                // Read filename offsets
+                // read filename offsets
                 var filenameOffsets = r.ReadTArray<uint>(sizeof(uint), (int)header.FileCount); // relative offset in filenames section
 
-                // Read filenames
+                // read filenames
                 var filenamesPosition = r.Position();
                 for (var i = 0; i < files.Length; i++)
                 {
@@ -193,38 +195,28 @@ namespace GameSpec.Bethesda.Formats
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
-            Stream fileData = null;
-            var magic = source.Magic;
-            // BSA
-            if (magic == OB_BSAHEADER_FILEID || magic == MW_BSAHEADER_FILEID)
+            // position
+            var fileSize = (int)(source.Version == SSE_BSAHEADER_VERSION
+                ? file.PackedSize & OB_BSAFILE_SIZEMASK
+                : file.PackedSize);
+            r.Seek(file.Position);
+            if (source.Params.TryGetValue("namePrefix", out var z2) && z2 == "Y")
             {
-                // position
-                var fileSize = (int)(source.Version == SSE_BSAHEADER_VERSION
-                    ? file.PackedSize & OB_BSAFILE_SIZEMASK
-                    : file.PackedSize);
-                r.Seek(file.Position);
-                if (source.Params.TryGetValue("namePrefix", out var z2) && z2 == "Y")
-                {
-                    var prefixLength = r.ReadByte() + 1;
-                    if (source.Version == SSE_BSAHEADER_VERSION)
-                        fileSize -= prefixLength;
-                    r.Seek(file.Position + prefixLength);
-                }
-
-                // not compressed
-                if (fileSize <= 0 || file.Compressed == 0)
-                    fileData = new MemoryStream(r.ReadBytes(fileSize));
-                // compressed
-                else
-                {
-                    var newFileSize = (int)r.ReadUInt32(); fileSize -= 4;
-                    fileData = source.Version == SSE_BSAHEADER_VERSION
-                        ? new MemoryStream(r.DecompressLz4(fileSize, newFileSize))
-                        : new MemoryStream(r.DecompressZlib2(fileSize, newFileSize));
-                }
+                var prefixLength = r.ReadByte() + 1;
+                if (source.Version == SSE_BSAHEADER_VERSION)
+                    fileSize -= prefixLength;
+                r.Seek(file.Position + prefixLength);
             }
-            else throw new InvalidOperationException("BAD MAGIC");
-            return Task.FromResult(fileData);
+
+            // not compressed
+            if (fileSize <= 0 || file.Compressed == 0)
+                return Task.FromResult<Stream>(new MemoryStream(r.ReadBytes(fileSize)));
+
+            // compressed
+            var newFileSize = (int)r.ReadUInt32(); fileSize -= 4;
+            return Task.FromResult<Stream>(source.Version == SSE_BSAHEADER_VERSION
+                ? new MemoryStream(r.DecompressLz4(fileSize, newFileSize))
+                : new MemoryStream(r.DecompressZlib2(fileSize, newFileSize)));
         }
     }
 }

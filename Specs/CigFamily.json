@@ -6,13 +6,15 @@
   "url": "https://en.wikipedia.org/wiki/Star_Citizen",
   "familyType": "GameSpec.Cig.CigFamily, GameSpec.Cig",
   "games": {
-    "StarCitizen": {
+    "*": {
       "pakFileType": "GameSpec.Cig.CigPakFile, GameSpec.Cig",
+      "pak": "game:/"
+    },
+    "StarCitizen": {
       "name": "Star Citizen",
       "url": "https://robertsspaceindustries.com/playstarcitizen",
       "key": "hex:5E7A2002302EEB1A3BB617C30FDE1E47",
-      "pakExt": "Data.p4k",
-      "pak": "game:/"
+      "pakExt": "Data.p4k"
     }
   },
   "apps": {

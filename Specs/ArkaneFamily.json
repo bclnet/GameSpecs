@@ -55,7 +55,8 @@
       "url": "https://www.gog.com/index.php/game/dishonored_2",
       "date": "2016-11-11",
       "pakExt": ".index",
-      "pakx": "game:/game1.index",
+      "searchBy": "Pak",
+      "pak": "game:/master.index",
       "status": [ "open", "read" ]
     },
     "P": {
@@ -153,11 +154,6 @@
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1252330",
         "dir": "DEATHLOOP",
         "path": "base"
-      }
-    },
-    "ignores": {
-      "D2": {
-        "path": "master.index"
       }
     }
   }

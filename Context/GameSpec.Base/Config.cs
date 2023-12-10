@@ -1,5 +1,5 @@
-﻿#define Arkane
-//#define Bethesda
+﻿//#define Arkane
+#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard

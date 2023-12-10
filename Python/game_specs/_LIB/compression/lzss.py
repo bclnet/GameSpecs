@@ -32,7 +32,7 @@ class Lzss:
             while self.NR < N and not self.lastByte():
                 num1 = self.readByte()
                 if self.NR >= N or self.lastByte(): break
-                for index1 in range(0, 8):
+                for index1 in range(8):
                     if (num1 % 2) == 1:
                         self.writeByte(self.readByte())
                         if self.NR >= N: return
@@ -43,11 +43,11 @@ class Lzss:
                         num2 = self.readByte()
                         self.DO |= ((num2 & 240) << 4) & 0xFFFF
                         num3 = (num2 & 15) + MIN_MATCH
-                        for index2 in range(0, num3): self.writeByte(self.readDict())
+                        for index2 in range(num3): self.writeByte(self.readDict())
                     num1 >>= 1
                     if self.lastByte(): return
     def clearDict(self):
-         for index in range(0, DICT_SIZE): self.dict[index] = 32
+         for index in range(DICT_SIZE): self.dict[index] = 32
          self.DI = DICT_SIZE - MAX_MATCH
     def writeByte(self, b): 
         self.out[self.OI] = b; self.OI += 1

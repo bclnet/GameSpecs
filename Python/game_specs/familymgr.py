@@ -148,7 +148,7 @@ class FamilyGame:
     def createSearchPatterns(self, searchPattern: str) -> str:
         if searchPattern: return searchPattern
         elif not self.searchBy: return '*'
-        elif self.searchBy == 'Pak': return '' if not self.pakExts else f'*{self.pakExts[0]}' if self.pakExts.length == 1 else f'({'*:'.join(self.pakExts)})'
+        elif self.searchBy == 'Pak': return '' if not self.pakExts else f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({'*:'.join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
         elif self.searchBy == 'TwoDir': return '*/*'
         elif self.searchBy == 'AllDir': return '**/*'
@@ -174,10 +174,10 @@ class FamilyGame:
         elif isinstance(value, tuple):
             p, l = value
             return self.createPakFileObj(fileSystem, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
-                else ManyPakFile(self.createPakFileType(fileSystem, '', tag), self, v.Item1 if len(p) > 0 else 'Many', fileSystem, l, visualPathSkip = len(p) + 1 if len(p) > 0 else 0)
+                else ManyPakFile(self.createPakFileType(fileSystem, 'Base', tag), self, p if len(p) > 0 else 'Many', fileSystem, l, visualPathSkip = len(p) + 1 if len(p) > 0 else 0)
         elif isinstance(value, list):
             return value[0] if len(value) == 1 \
-                else MultiPakFile(self, 'Multi', fileSystem, v, tag)
+                else MultiPakFile(self, 'Multi', fileSystem, value, tag)
         elif value is None: return None
         else: raise Exception(f'Unknown: {value}')
 
@@ -192,7 +192,7 @@ class FamilyGame:
         gameIgnores = ignores[self.id] if self.id in ignores else None
         for path in self.paths or ['']:
             fileSearch = fileSystem.findPaths(path, searchPattern)
-            if gameIgnores: fileSearch = [x for x in fileSearch if not os.path.filename(x) in gameIgnores]
+            if gameIgnores: fileSearch = [x for x in fileSearch if not os.path.basename(x) in gameIgnores]
             yield (path, list(fileSearch))
 
     # is a PakFile

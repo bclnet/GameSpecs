@@ -52,18 +52,19 @@ class PakBinary_Dat(PakBinary):
     # read
     def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
         gameId = source.game.id
+
         # Fallout
         if gameId == 'Fallout':
             source.magic = self.F1_HEADER_FILEID
             header = r.readT(self.F1_Header)
-            directoryPaths = [r.readL8Encoding().replace('\\', '/') for x in range(0, header.directoryCount)]
+            directoryPaths = [r.readL8Encoding().replace('\\', '/') for x in range(header.directoryCount)]
 
             # create file metadatas
             source.files = files = []
-            for i in range(0, header.directoryCount):
+            for i in range(header.directoryCount):
                 directory = r.readT(self.F1_Directory)
                 directoryPath = f'{directoryPaths[i]}/' if directoryPaths[i] != '.' else ''
-                for _ in range(0, directory.fileCount):
+                for _ in range(directory.fileCount):
                     path = directoryPath + r.readL8Encoding().replace('\\', '/')
                     file = r.readT(self.F1_File)
                     files.append(FileSource(
@@ -71,7 +72,8 @@ class PakBinary_Dat(PakBinary):
                         compressed = file.attributes & 0x40,
                         position = file.offset,
                         fileSize = file.size,
-                        packedSize = file.packedSize))
+                        packedSize = file.packedSize
+                        ))
         
         # Fallout2
         elif gameId == 'Fallout2':
@@ -83,7 +85,7 @@ class PakBinary_Dat(PakBinary):
             # create file metadatas
             source.files = files = []
             filenum = r.readInt32()
-            for i in range(0, filenum):
+            for i in range(filenum):
                 path = r.readL32Encoding().replace('\\', '/')
                 file = r.readT(self.F2_File)
                 files.append(FileSource(
@@ -91,7 +93,8 @@ class PakBinary_Dat(PakBinary):
                     compressed = file.type,
                     fileSize = file.realSize,
                     packedSize = file.packedSize,
-                    position = file.offset))
+                    position = file.offset
+                    ))
 
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
@@ -101,11 +104,13 @@ class PakBinary_Dat(PakBinary):
             r.seek(file.position)
             return BytesIO(
                 r.read(file.packedSize) if file.compressed == 0 else \
-                decompressLzss(r, file.packedSize, file.fileSize))
+                decompressLzss(r, file.packedSize, file.fileSize)
+                )
         # F2
         elif magic == self.F2_HEADER_FILEID:
             r.seek(file.position)
             return BytesIO(
                 decompressZlib(r, file.packedSize, -1) if r.peek(lambda z : z.readUInt16()) == 0xda78 else \
-                r.read(file.packedSize))
+                r.read(file.packedSize)
+                )
         else: raise Exception('BAD MAGIC')

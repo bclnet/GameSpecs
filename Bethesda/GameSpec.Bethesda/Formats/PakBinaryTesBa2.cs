@@ -19,7 +19,7 @@ namespace GameSpec.Bethesda.Formats
         // Default header data
         const uint F4_BSAHEADER_FILEID = 0x58445442; // Magic for Fallout 4 BA2, the literal string "BTDX".
         const uint F4_BSAHEADER_VERSION1 = 0x01; // Version number of a Fallout 4 BA2
-        const uint F4_BSAHEADER_VERSION2 = 0x02; // Version number of a Starfield
+        const uint F4_BSAHEADER_VERSION2 = 0x02; // Version number of a Starfield BA2
 
         public enum F4_HeaderType : uint
         {
@@ -39,7 +39,7 @@ namespace GameSpec.Bethesda.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct F4_HeaderFile
+        struct F4_File
         {
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
@@ -52,7 +52,7 @@ namespace GameSpec.Bethesda.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct F4_HeaderTexture
+        struct F4_Texture
         {
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
@@ -69,7 +69,7 @@ namespace GameSpec.Bethesda.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct F4_HeaderGNMF
+        struct F4_GNMF
         {
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
@@ -86,7 +86,7 @@ namespace GameSpec.Bethesda.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        struct F4_HeaderTextureChunk
+        struct F4_TextureChunk
         {
             public ulong Offset;            // 00
             public uint PackedSize;         // 08
@@ -102,7 +102,7 @@ namespace GameSpec.Bethesda.Formats
         {
             FileSource[] files;
 
-            // Fallout 4
+            // Fallout 4 - Starfield
             var magic = source.Magic = r.ReadUInt32();
             if (magic == F4_BSAHEADER_FILEID)
             {
@@ -112,14 +112,15 @@ namespace GameSpec.Bethesda.Formats
                 source.Files = files = new FileSource[header.NumFiles];
                 // version2
                 //if (header.Version == F4_BSAHEADER_VERSION2) r.Skip(8);
-                // General BA2 Format
+
                 switch (header.Type)
                 {
+                    // General BA2 Format
                     case F4_HeaderType.GNRL:
-                        var headerFiles = r.ReadTArray<F4_HeaderFile>(sizeof(F4_HeaderFile), (int)header.NumFiles);
+                        var headerFiles = r.ReadTArray<F4_File>(sizeof(F4_File), (int)header.NumFiles);
                         for (var i = 0; i < headerFiles.Length; i++)
                         {
-                            var headerFile = headerFiles[i];
+                            ref F4_File headerFile = ref headerFiles[i];
                             files[i] = new FileSource
                             {
                                 Compressed = headerFile.PackedSize != 0 ? 1 : 0,
@@ -133,9 +134,9 @@ namespace GameSpec.Bethesda.Formats
                     case F4_HeaderType.DX10:
                         for (var i = 0; i < header.NumFiles; i++)
                         {
-                            var headerTexture = r.ReadT<F4_HeaderTexture>(sizeof(F4_HeaderTexture));
-                            var headerTextureChunks = r.ReadTArray<F4_HeaderTextureChunk>(sizeof(F4_HeaderTextureChunk), headerTexture.NumChunks);
-                            var firstChunk = headerTextureChunks[0];
+                            var headerTexture = r.ReadT<F4_Texture>(sizeof(F4_Texture));
+                            var headerTextureChunks = r.ReadTArray<F4_TextureChunk>(sizeof(F4_TextureChunk), headerTexture.NumChunks);
+                            ref F4_TextureChunk firstChunk = ref headerTextureChunks[0];
                             files[i] = new FileSource
                             {
                                 FileInfo = headerTexture,
@@ -150,8 +151,8 @@ namespace GameSpec.Bethesda.Formats
                     case F4_HeaderType.GNMF:
                         for (var i = 0; i < header.NumFiles; i++)
                         {
-                            var headerGNMF = r.ReadT<F4_HeaderGNMF>(sizeof(F4_HeaderGNMF));
-                            var headerTextureChunks = r.ReadTArray<F4_HeaderTextureChunk>(sizeof(F4_HeaderTextureChunk), headerGNMF.NumChunks);
+                            var headerGNMF = r.ReadT<F4_GNMF>(sizeof(F4_GNMF));
+                            var headerTextureChunks = r.ReadTArray<F4_TextureChunk>(sizeof(F4_TextureChunk), headerGNMF.NumChunks);
                             files[i] = new FileSource
                             {
                                 FileInfo = headerGNMF,
@@ -165,7 +166,7 @@ namespace GameSpec.Bethesda.Formats
                     default: throw new ArgumentOutOfRangeException(nameof(header.Type), header.Type.ToString());
                 }
 
-                // Assign full names to each file
+                // assign full names to each file
                 if (header.NameTableOffset > 0)
                 {
                     r.Seek((long)header.NameTableOffset);
@@ -181,170 +182,163 @@ namespace GameSpec.Bethesda.Formats
         {
             const int GNF_HEADER_MAGIC = 0x20464E47;
             const int GNF_HEADER_CONTENT_SIZE = 248;
-            Stream fileData = null;
-            var magic = source.Magic;
-            // BSA2
-            if (magic == F4_BSAHEADER_FILEID)
+
+            // position
+            r.Seek(file.Position);
+
+            // General BA2 Format
+            if (file.FileInfo == null)
+                return Task.FromResult<Stream>(file.Compressed != 0
+                    ? new MemoryStream(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize))
+                    : new MemoryStream(r.ReadBytes((int)file.FileSize)));
+            // Texture BA2 Format
+            else if (file.FileInfo is F4_Texture tex)
             {
-                // position
-                r.Seek(file.Position);
-
-                // General BA2 Format
-                if (file.FileInfo == null)
-                    fileData = file.Compressed != 0
-                        ? new MemoryStream(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize))
-                        : new MemoryStream(r.ReadBytes((int)file.FileSize));
-                // Texture BA2 Format
-                else if (file.FileInfo is F4_HeaderTexture tex)
+                var s = new MemoryStream();
                 {
-                    var s = new MemoryStream();
+                    // write header
+                    var w = new BinaryWriter(s);
+                    var ddsHeader = new DDS_HEADER
                     {
-                        // write header
-                        var w = new BinaryWriter(s);
-                        var ddsHeader = new DDS_HEADER
-                        {
-                            dwSize = DDS_HEADER.SizeOf,
-                            dwFlags = DDSD.HEADER_FLAGS_TEXTURE | DDSD.HEADER_FLAGS_LINEARSIZE | DDSD.HEADER_FLAGS_MIPMAP,
-                            dwHeight = tex.Height,
-                            dwWidth = tex.Width,
-                            dwMipMapCount = tex.NumMips,
-                            dwCaps = DDSCAPS.SURFACE_FLAGS_TEXTURE | DDSCAPS.SURFACE_FLAGS_MIPMAP,
-                            dwCaps2 = tex.IsCubemap == 1 ? DDSCAPS2.CUBEMAP_ALLFACES : 0,
-                        };
-                        ddsHeader.ddspf.dwSize = DDS_PIXELFORMAT.SizeOf;
-                        switch ((DXGI_FORMAT)tex.Format)
-                        {
-                            case DXGI_FORMAT.BC1_UNORM:
-                                ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = FourCC.DXT1;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height / 2U); // 4bpp
-                                break;
-                            case DXGI_FORMAT.BC2_UNORM:
-                                ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = FourCC.DXT3;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
-                                break;
-                            case DXGI_FORMAT.BC3_UNORM:
-                                ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = FourCC.DXT5;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
-                                break;
-                            case DXGI_FORMAT.BC5_UNORM:
-                                ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = FourCC.ATI2;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
-                                break;
-                            case DXGI_FORMAT.BC1_UNORM_SRGB:
-                                ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = FourCC.DX10;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height / 2); // 4bpp
-                                break;
-                            case DXGI_FORMAT.BC3_UNORM_SRGB:
-                            case DXGI_FORMAT.BC4_UNORM:
-                            case DXGI_FORMAT.BC5_SNORM:
-                            case DXGI_FORMAT.BC7_UNORM:
-                            case DXGI_FORMAT.BC7_UNORM_SRGB:
-                                ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
-                                ddsHeader.ddspf.dwFourCC = FourCC.DX10;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
-                                break;
-                            case DXGI_FORMAT.R8G8B8A8_UNORM:
-                            case DXGI_FORMAT.R8G8B8A8_UNORM_SRGB:
-                                ddsHeader.ddspf.dwFlags = DDPF.RGB | DDPF.ALPHA;
-                                ddsHeader.ddspf.dwRGBBitCount = 32;
-                                ddsHeader.ddspf.dwRBitMask = 0x000000FF;
-                                ddsHeader.ddspf.dwGBitMask = 0x0000FF00;
-                                ddsHeader.ddspf.dwBBitMask = 0x00FF0000;
-                                ddsHeader.ddspf.dwABitMask = 0xFF000000;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height * 4); // 32bpp
-                                break;
-                            case DXGI_FORMAT.B8G8R8A8_UNORM:
-                            case DXGI_FORMAT.B8G8R8X8_UNORM:
-                                ddsHeader.ddspf.dwFlags = DDPF.RGB | DDPF.ALPHA;
-                                ddsHeader.ddspf.dwRGBBitCount = 32;
-                                ddsHeader.ddspf.dwRBitMask = 0x00FF0000;
-                                ddsHeader.ddspf.dwGBitMask = 0x0000FF00;
-                                ddsHeader.ddspf.dwBBitMask = 0x000000FF;
-                                ddsHeader.ddspf.dwABitMask = 0xFF000000;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height * 4); // 32bpp
-                                break;
-                            case DXGI_FORMAT.R8_UNORM:
-                                ddsHeader.ddspf.dwFlags = DDPF.RGB | DDPF.ALPHA;
-                                ddsHeader.ddspf.dwRGBBitCount = 8;
-                                ddsHeader.ddspf.dwRBitMask = 0xFF;
-                                ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
-                                break;
-                            default: throw new ArgumentOutOfRangeException(nameof(tex.Format), $"Unsupported DDS header format. File: {file.Path}");
-                        }
-                        w.Write(DDS_HEADER.MAGIC);
-                        w.WriteT(ddsHeader, sizeof(DDS_HEADER));
-                        switch ((DXGI_FORMAT)tex.Format)
-                        {
-                            case DXGI_FORMAT.BC1_UNORM_SRGB:
-                            case DXGI_FORMAT.BC3_UNORM_SRGB:
-                            case DXGI_FORMAT.BC4_UNORM:
-                            case DXGI_FORMAT.BC5_SNORM:
-                            case DXGI_FORMAT.BC7_UNORM:
-                            case DXGI_FORMAT.BC7_UNORM_SRGB:
-                                var dxt10 = new DDS_HEADER_DXT10
-                                {
-                                    dxgiFormat = (DXGI_FORMAT)tex.Format,
-                                    resourceDimension = D3D10_RESOURCE_DIMENSION.TEXTURE2D,
-                                    miscFlag = 0,
-                                    arraySize = 1,
-                                    miscFlags2 = (uint)DDS_ALPHA_MODE.ALPHA_MODE_UNKNOWN,
-                                };
-                                w.WriteT(dxt10, sizeof(DDS_HEADER_DXT10));
-                                break;
-                        }
-
-                        // write chunks
-                        var chunks = (F4_HeaderTextureChunk[])file.Tag;
-                        for (var i = 0; i < tex.NumChunks; i++)
-                        {
-                            var chunk = chunks[i];
-                            r.Seek((long)chunk.Offset);
-                            if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib((int)file.PackedSize, (int)file.FileSize));
-                            else s.WriteBytes(r, (int)file.FileSize);
-                        }
-                        s.Position = 0;
-                        fileData = s;
-                    }
-                }
-                // GNMF BA2 Format
-                else if (file.FileInfo is F4_HeaderGNMF gnmf)
-                {
-                    var s = new MemoryStream();
+                        dwSize = DDS_HEADER.SizeOf,
+                        dwFlags = DDSD.HEADER_FLAGS_TEXTURE | DDSD.HEADER_FLAGS_LINEARSIZE | DDSD.HEADER_FLAGS_MIPMAP,
+                        dwHeight = tex.Height,
+                        dwWidth = tex.Width,
+                        dwMipMapCount = tex.NumMips,
+                        dwCaps = DDSCAPS.SURFACE_FLAGS_TEXTURE | DDSCAPS.SURFACE_FLAGS_MIPMAP,
+                        dwCaps2 = tex.IsCubemap == 1 ? DDSCAPS2.CUBEMAP_ALLFACES : 0,
+                    };
+                    ddsHeader.ddspf.dwSize = DDS_PIXELFORMAT.SizeOf;
+                    switch ((DXGI_FORMAT)tex.Format)
                     {
-                        // write header
-                        var w = new BinaryWriter(s);
-                        w.Write(GNF_HEADER_MAGIC); // 'GNF ' magic
-                        w.Write(GNF_HEADER_CONTENT_SIZE); // Content-size. Seems to be either 4 or 8 bytes
-                        w.Write((byte)0x2); // Version
-                        w.Write((byte)0x1); // Texture Count
-                        w.Write((byte)0x8); // Alignment
-                        w.Write((byte)0x0); // Unused
-                        w.Write(BitConverter.GetBytes(gnmf.FileSize + 256).Reverse().ToArray()); // File size + header size
-                        w.Write(UnsafeX.ReadBytes(gnmf.Header, 32));
-                        for (var i = 0; i < 208; i++) w.Write((byte)0x0); // Padding
-
-                        // write chunks
-                        var chunks = (F4_HeaderTextureChunk[])file.Tag;
-                        for (var i = 0; i < gnmf.NumChunks; i++)
-                        {
-                            var chunk = chunks[i];
-                            r.Seek((long)chunk.Offset);
-                            if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize));
-                            else s.WriteBytes(r, (int)file.FileSize);
-                        }
-                        s.Position = 0;
-                        fileData = s;
+                        case DXGI_FORMAT.BC1_UNORM:
+                            ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
+                            ddsHeader.ddspf.dwFourCC = FourCC.DXT1;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height / 2U); // 4bpp
+                            break;
+                        case DXGI_FORMAT.BC2_UNORM:
+                            ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
+                            ddsHeader.ddspf.dwFourCC = FourCC.DXT3;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
+                            break;
+                        case DXGI_FORMAT.BC3_UNORM:
+                            ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
+                            ddsHeader.ddspf.dwFourCC = FourCC.DXT5;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
+                            break;
+                        case DXGI_FORMAT.BC5_UNORM:
+                            ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
+                            ddsHeader.ddspf.dwFourCC = FourCC.ATI2;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
+                            break;
+                        case DXGI_FORMAT.BC1_UNORM_SRGB:
+                            ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
+                            ddsHeader.ddspf.dwFourCC = FourCC.DX10;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height / 2); // 4bpp
+                            break;
+                        case DXGI_FORMAT.BC3_UNORM_SRGB:
+                        case DXGI_FORMAT.BC4_UNORM:
+                        case DXGI_FORMAT.BC5_SNORM:
+                        case DXGI_FORMAT.BC7_UNORM:
+                        case DXGI_FORMAT.BC7_UNORM_SRGB:
+                            ddsHeader.ddspf.dwFlags = DDPF.FOURCC;
+                            ddsHeader.ddspf.dwFourCC = FourCC.DX10;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
+                            break;
+                        case DXGI_FORMAT.R8G8B8A8_UNORM:
+                        case DXGI_FORMAT.R8G8B8A8_UNORM_SRGB:
+                            ddsHeader.ddspf.dwFlags = DDPF.RGB | DDPF.ALPHA;
+                            ddsHeader.ddspf.dwRGBBitCount = 32;
+                            ddsHeader.ddspf.dwRBitMask = 0x000000FF;
+                            ddsHeader.ddspf.dwGBitMask = 0x0000FF00;
+                            ddsHeader.ddspf.dwBBitMask = 0x00FF0000;
+                            ddsHeader.ddspf.dwABitMask = 0xFF000000;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height * 4); // 32bpp
+                            break;
+                        case DXGI_FORMAT.B8G8R8A8_UNORM:
+                        case DXGI_FORMAT.B8G8R8X8_UNORM:
+                            ddsHeader.ddspf.dwFlags = DDPF.RGB | DDPF.ALPHA;
+                            ddsHeader.ddspf.dwRGBBitCount = 32;
+                            ddsHeader.ddspf.dwRBitMask = 0x00FF0000;
+                            ddsHeader.ddspf.dwGBitMask = 0x0000FF00;
+                            ddsHeader.ddspf.dwBBitMask = 0x000000FF;
+                            ddsHeader.ddspf.dwABitMask = 0xFF000000;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height * 4); // 32bpp
+                            break;
+                        case DXGI_FORMAT.R8_UNORM:
+                            ddsHeader.ddspf.dwFlags = DDPF.RGB | DDPF.ALPHA;
+                            ddsHeader.ddspf.dwRGBBitCount = 8;
+                            ddsHeader.ddspf.dwRBitMask = 0xFF;
+                            ddsHeader.dwPitchOrLinearSize = (uint)(tex.Width * tex.Height); // 8bpp
+                            break;
+                        default: throw new ArgumentOutOfRangeException(nameof(tex.Format), $"Unsupported DDS header format. File: {file.Path}");
                     }
+                    w.Write(DDS_HEADER.MAGIC);
+                    w.WriteT(ddsHeader, sizeof(DDS_HEADER));
+                    switch ((DXGI_FORMAT)tex.Format)
+                    {
+                        case DXGI_FORMAT.BC1_UNORM_SRGB:
+                        case DXGI_FORMAT.BC3_UNORM_SRGB:
+                        case DXGI_FORMAT.BC4_UNORM:
+                        case DXGI_FORMAT.BC5_SNORM:
+                        case DXGI_FORMAT.BC7_UNORM:
+                        case DXGI_FORMAT.BC7_UNORM_SRGB:
+                            var dxt10 = new DDS_HEADER_DXT10
+                            {
+                                dxgiFormat = (DXGI_FORMAT)tex.Format,
+                                resourceDimension = D3D10_RESOURCE_DIMENSION.TEXTURE2D,
+                                miscFlag = 0,
+                                arraySize = 1,
+                                miscFlags2 = (uint)DDS_ALPHA_MODE.ALPHA_MODE_UNKNOWN,
+                            };
+                            w.WriteT(dxt10, sizeof(DDS_HEADER_DXT10));
+                            break;
+                    }
+
+                    // write chunks
+                    var chunks = (F4_TextureChunk[])file.Tag;
+                    for (var i = 0; i < tex.NumChunks; i++)
+                    {
+                        var chunk = chunks[i];
+                        r.Seek((long)chunk.Offset);
+                        if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib((int)file.PackedSize, (int)file.FileSize));
+                        else s.WriteBytes(r, (int)file.FileSize);
+                    }
+                    s.Position = 0;
+                    return Task.FromResult<Stream>(s);
                 }
-                else throw new ArgumentOutOfRangeException(nameof(file.FileInfo), file.FileInfo.ToString());
             }
-            else throw new InvalidOperationException("BAD MAGIC");
-            return Task.FromResult(fileData);
+            // GNMF BA2 Format
+            else if (file.FileInfo is F4_GNMF gnmf)
+            {
+                var s = new MemoryStream();
+                {
+                    // write header
+                    var w = new BinaryWriter(s);
+                    w.Write(GNF_HEADER_MAGIC); // 'GNF ' magic
+                    w.Write(GNF_HEADER_CONTENT_SIZE); // Content-size. Seems to be either 4 or 8 bytes
+                    w.Write((byte)0x2); // Version
+                    w.Write((byte)0x1); // Texture Count
+                    w.Write((byte)0x8); // Alignment
+                    w.Write((byte)0x0); // Unused
+                    w.Write(BitConverter.GetBytes(gnmf.FileSize + 256).Reverse().ToArray()); // File size + header size
+                    w.Write(UnsafeX.ReadBytes(gnmf.Header, 32));
+                    for (var i = 0; i < 208; i++) w.Write((byte)0x0); // Padding
+
+                    // write chunks
+                    var chunks = (F4_TextureChunk[])file.Tag;
+                    for (var i = 0; i < gnmf.NumChunks; i++)
+                    {
+                        var chunk = chunks[i];
+                        r.Seek((long)chunk.Offset);
+                        if (chunk.PackedSize != 0) s.WriteBytes(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize));
+                        else s.WriteBytes(r, (int)file.FileSize);
+                    }
+                    s.Position = 0;
+                    return Task.FromResult<Stream>(s);
+                }
+            }
+            else throw new ArgumentOutOfRangeException(nameof(file.FileInfo), file.FileInfo.ToString());
         }
     }
 }

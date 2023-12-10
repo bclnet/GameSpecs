@@ -234,13 +234,13 @@ namespace GameSpec
                 {
                     case SearchBy.Pak:
                         foreach (var path in p.paths)
-                            if (IsPakFile(path)) pakFiles.Add(CreatePakFileValue(fileSystem, path));
+                            if (IsPakFile(path)) pakFiles.Add(CreatePakFileObj(fileSystem, path));
                         break;
                     default:
-                        pakFiles.Add(CreatePakFileValue(fileSystem, p));
+                        pakFiles.Add(CreatePakFileObj(fileSystem, p));
                         break;
                 }
-            return WithPlatformGraphic(CreatePakFileValue(fileSystem, pakFiles));
+            return WithPlatformGraphic(CreatePakFileObj(fileSystem, pakFiles));
         }
 
         /// <summary>
@@ -250,14 +250,14 @@ namespace GameSpec
         /// <param name="value">The value.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public PakFile CreatePakFileValue(IFileSystem fileSystem, object value, object tag = null) => value switch
+        public PakFile CreatePakFileObj(IFileSystem fileSystem, object value, object tag = null) => value switch
         {
             string v => IsPakFile(v)
                 ? CreatePakFileType(fileSystem, v, tag)
                 : throw new InvalidOperationException($"{Id} missing {v}"),
             ValueTuple<string, string[]> v => v.Item2.Length == 1 && IsPakFile(v.Item2[0])
-                ? CreatePakFileValue(fileSystem, v.Item2[0], tag)
-                : new ManyPakFile(CreatePakFileType(fileSystem, "", tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
+                ? CreatePakFileObj(fileSystem, v.Item2[0], tag)
+                : new ManyPakFile(CreatePakFileType(fileSystem, "Base", tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
                 {
                     VisualPathSkip = v.Item1.Length > 0 ? v.Item1.Length + 1 : 0
                 },
@@ -297,7 +297,7 @@ namespace GameSpec
             foreach (var path in Paths ?? new[] { "" })
             {
                 var fileSearch = fileSystem.FindPaths(path, searchPattern);
-                if (gameIgnores != null) fileSearch = fileSearch.Where(x => gameIgnores.Contains(Path.GetFileName(x)));
+                if (gameIgnores != null) fileSearch = fileSearch.Where(x => !gameIgnores.Contains(Path.GetFileName(x)));
                 yield return (path, fileSearch.ToArray());
             }
         }

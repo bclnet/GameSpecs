@@ -56,14 +56,15 @@ class PakBinary_Danae(PakBinary):
         while b < fatSize:
             dirPath = readString().replace('\\', '/')
             numFiles = readInt32()
-            for _ in range(0, numFiles):
+            for _ in range(numFiles):
                 # get file
                 file = FileSource(
                     path = dirPath + readString().replace('\\', '/'),
                     position = readInt32(),
                     compressed = readInt32(),
                     fileSize = readInt32(),
-                    packedSize = readInt32())
+                    packedSize = readInt32()
+                    )
                 # special case
                 if file.path.endswith('.FTL'): file.compressed = 1
                 elif file.compressed == 0: file.fileSize = file.packedSize
@@ -75,4 +76,5 @@ class PakBinary_Danae(PakBinary):
         r.seek(file.position)
         return BytesIO(
             decompressBlast(r, file.packedSize, file.fileSize) if (file.compressed & 1) != 0 else \
-            r.read(file.packedSize))
+            r.read(file.packedSize)
+            )

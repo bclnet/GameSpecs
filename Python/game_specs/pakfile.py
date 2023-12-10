@@ -3,12 +3,15 @@ from enum import Enum
 from .utils import Reader
 
 class FileSource:
-    def __init__(self, path, compressed = None, position = None, fileSize = None, packedSize = None):
+    def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, pak = None, tag = None):
+        self.id = id
         self.path = path
         self.compressed = compressed
         self.position = position
         self.fileSize = fileSize
         self.packedSize = packedSize
+        self.pak = pak
+        self.tag = tag
     def __repr__(self): return f'{self.path}:{self.fileSize}'
 
 class PakFile:
@@ -46,6 +49,12 @@ class BinaryPakFile(PakFile):
         # options
         self.useReader = True
         self.useFileId = False
+        # state
+        # self.fileMask = None
+        self.params = {}
+        self.magic = None
+        self.version = None
+        # self.cryptKey
     def opening(self):
         if self.useReader:
             with self._getReader() as r: self.read(r)

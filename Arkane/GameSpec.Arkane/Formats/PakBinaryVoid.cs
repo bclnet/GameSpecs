@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats
@@ -17,38 +18,52 @@ namespace GameSpec.Arkane.Formats
             public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
         }
 
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct V_File
+        {
+            public static string Map = "B8B4B4B4B4B2";
+            public ulong Position;
+            public uint FileSize;
+            public uint PackedSize;
+            public uint Unknown1;
+            public uint Flags;
+            public ushort Flags2;
+        }
+
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            if (Path.GetExtension(source.FilePath) != ".index") throw new FormatException("must be a .index file");
-            var files2 = source.Files = new List<FileSource>();
+            // must be .index file
+            if (!source.FilePath.EndsWith(".index")) throw new FormatException("must be a .index file");
 
-            // index games
-            if (Path.GetFileName(source.FilePath) == "master.index")
+            // master.index file
+            if (source.FilePath == "master.index")
             {
                 const uint SubMarker = 0x18000000;
                 const uint EndMarker = 0x01000000;
 
-                var magic = MathX.Reverse(r.ReadUInt32());
+                var files2 = source.Files = new List<FileSource>();
+                var magic = r.ReadUInt32E();
                 if (magic != RES_MAGIC) throw new FormatException("BAD MAGIC");
                 r.Skip(4);
-                var state = 0;
-                do
+                var first = true;
+                while (true)
                 {
-                    var nameSize = r.ReadUInt32();
-                    if (nameSize == SubMarker) { state++; nameSize = r.ReadUInt32(); }
-                    else if (nameSize == EndMarker) break;
-                    var path = r.ReadFString((int)nameSize).Replace('\\', '/');
-                    var packId = state > 0 ? r.ReadUInt16() : 0;
+                    var pathSize = r.ReadUInt32();
+                    if (pathSize == SubMarker) { first = false; pathSize = r.ReadUInt32(); }
+                    else if (pathSize == EndMarker) break;
+                    var path = r.ReadFString((int)pathSize).Replace('\\', '/');
+                    var packId = first ? 0 : r.ReadUInt16();
+                    if (!path.EndsWith(".index")) continue;
                     files2.Add(new FileSource
                     {
                         Path = path,
                         Pak = new SubPakFile(source.Game, source.FileSystem, path),
                     });
                 }
-                while (true);
                 return Task.CompletedTask;
             }
 
+            // find files
             var fileSystem = source.FileSystem;
             var resourcePath = $"{source.FilePath[0..^6]}.resources";
             if (!fileSystem.FileExists(resourcePath)) throw new FormatException("Unable to find resources extension");
@@ -60,7 +75,7 @@ namespace GameSpec.Arkane.Formats
                 .FirstOrDefault(fileSystem.FileExists);
 
             r.Seek(4);
-            var mainFileSize = r.ReadUInt32E(); // mainFileSize
+            var mainFileSize = r.ReadUInt32E();
             r.Skip(24);
             var numFiles = r.ReadUInt32E();
             var files = source.Files = new FileSource[numFiles];
@@ -69,24 +84,25 @@ namespace GameSpec.Arkane.Formats
                 var id = r.ReadUInt32E();
                 var tag1 = r.ReadL32Encoding();
                 var tag2 = r.ReadL32Encoding();
-                var path = r.ReadL32Encoding()?.Replace('\\', '/');
-                var position = r.ReadUInt64E();
-                var fileSize = r.ReadUInt32E();
-                var packedSize = r.ReadUInt32E();
-                r.Skip(4);
-                var flags = r.ReadUInt32E();
-                var flags2 = r.ReadUInt16E();
-                var useSharedResources = (flags & 32) != 0 && flags2 == 0x8000;
+                var path = (r.ReadL32Encoding() ?? "").Replace('\\', '/');
+                var file = r.ReadTE<V_File>(sizeof(V_File), V_File.Map);
+                //var position = r.ReadUInt64E();
+                //var fileSize = r.ReadUInt32E();
+                //var packedSize = r.ReadUInt32E();
+                //r.Skip(4);
+                //var flags = r.ReadUInt32E();
+                //var flags2 = r.ReadUInt16E();
+                var useSharedResources = (file.Flags & 0x20) != 0 && file.Flags2 == 0x8000;
                 if (useSharedResources && sharedResourcePath == null) throw new FormatException("sharedResourcePath not available");
-                var newPath = !useSharedResources ? resourcePath : sharedResourcePath;
+                var newPath = useSharedResources ? sharedResourcePath : resourcePath;
                 files[i] = new FileSource
                 {
                     Id = (int)id,
                     Path = path,
-                    Compressed = fileSize != packedSize ? 1 : 0,
-                    FileSize = fileSize,
-                    PackedSize = packedSize,
-                    Position = (long)position,
+                    Compressed = file.FileSize != file.PackedSize ? 1 : 0,
+                    FileSize = file.FileSize,
+                    PackedSize = file.PackedSize,
+                    Position = (long)file.Position,
                     Tag = (newPath, tag1, tag2),
                 };
             }
