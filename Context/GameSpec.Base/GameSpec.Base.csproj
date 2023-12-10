@@ -10,28 +10,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\..\Specs\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\BethesdaFamily.json" Link="Families\BethesdaFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\BiowareFamily.json" Link="Families\BiowareFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\BlackFamily.json" Link="Families\BlackFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\CapcomFamily.json" Link="Families\CapcomFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\CigFamily.json" Link="Families\CigFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\CrypticFamily.json" Link="Families\CrypticFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\CrytekFamily.json" Link="Families\CrytekFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\CyanideFamily.json" Link="Families\CyanideFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\EpicFamily.json" Link="Families\EpicFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\FrictionalFamily.json" Link="Families\FrictionalFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\FrontierFamily.json" Link="Families\FrontierFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\IdFamily.json" Link="Families\IdFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\IWFamily.json" Link="Families\IWFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\MonolithFamily.json" Link="Families\MonolithFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\OriginFamily.json" Link="Families\OriginFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\RedFamily.json" Link="Families\RedFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\UnityFamily.json" Link="Families\UnityFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\UnknownFamily.json" Link="Families\UnknownFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\ValveFamily.json" Link="Families\ValveFamily.json" />
-    <EmbeddedResource Include="..\..\Specs\WbBFamily.json" Link="Families\WbBFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\ArkaneFamily.json" Link="Families\ArkaneFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\BethesdaFamily.json" Link="Families\BethesdaFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\BiowareFamily.json" Link="Families\BiowareFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\BlackFamily.json" Link="Families\BlackFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CapcomFamily.json" Link="Families\CapcomFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CigFamily.json" Link="Families\CigFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CrypticFamily.json" Link="Families\CrypticFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CrytekFamily.json" Link="Families\CrytekFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CyanideFamily.json" Link="Families\CyanideFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\EpicFamily.json" Link="Families\EpicFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\FrictionalFamily.json" Link="Families\FrictionalFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\FrontierFamily.json" Link="Families\FrontierFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\IdFamily.json" Link="Families\IdFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\IWFamily.json" Link="Families\IWFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\MonolithFamily.json" Link="Families\MonolithFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\OriginFamily.json" Link="Families\OriginFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\RedFamily.json" Link="Families\RedFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\UnityFamily.json" Link="Families\UnityFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\UnknownFamily.json" Link="Families\UnknownFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\ValveFamily.json" Link="Families\ValveFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\WbBFamily.json" Link="Families\WbBFamily.json" />
   </ItemGroup>
 
   <ItemGroup>
