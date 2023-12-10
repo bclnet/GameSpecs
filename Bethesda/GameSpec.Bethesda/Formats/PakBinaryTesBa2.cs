@@ -191,6 +191,7 @@ namespace GameSpec.Bethesda.Formats
                 return Task.FromResult<Stream>(file.Compressed != 0
                     ? new MemoryStream(r.DecompressZlib2((int)file.PackedSize, (int)file.FileSize))
                     : new MemoryStream(r.ReadBytes((int)file.FileSize)));
+
             // Texture BA2 Format
             else if (file.FileInfo is F4_Texture tex)
             {
