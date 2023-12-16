@@ -41,8 +41,8 @@ class FileManager:
     def getPathWithSpecialFolders(path, rootPath):
         return f'{rootPath}{path[6:]}' if path.startswith('%Path%') else \
         f'{FileManager.ApplicationPath}{path[9:]}' if path.startswith('%AppPath%') else \
-        f'{os.getenv('APPDATA')}{path[9:]}' if path.startswith('%AppData%') else \
-        f'{os.getenv('LOCALAPPDATA')}{path[14:]}' if path.startswith('%LocalAppData%') else \
+        f'{os.getenv("APPDATA")}{path[9:]}' if path.startswith('%AppData%') else \
+        f'{os.getenv("LOCALAPPDATA")}{path[14:]}' if path.startswith('%LocalAppData%') else \
         path
 
     @staticmethod

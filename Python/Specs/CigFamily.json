@@ -1,0 +1,49 @@
+﻿{
+  "id": "Cig",
+  "name": "Cloud Imperium Games",
+  "studio": "Cloud Imperium Games",
+  "description": "CIG formats used in StarCitizen",
+  "url": "https://en.wikipedia.org/wiki/Star_Citizen",
+  "familyType": "GameSpec.Cig.CigFamily, GameSpec.Cig",
+  "games": {
+    "*": {
+      "pakFileType": "GameSpec.Cig.CigPakFile, GameSpec.Cig",
+      "pak": "game:/"
+    },
+    "StarCitizen": {
+      "name": "Star Citizen",
+      "url": "https://robertsspaceindustries.com/playstarcitizen",
+      "key": "hex:5E7A2002302EEB1A3BB617C30FDE1E47",
+      "pakExt": "Data.p4k"
+    }
+  },
+  "apps": {
+    "DataForge": {
+      "name": "DataForge",
+      "familyAppType": "GameSpec.Cig.Apps.DataForgeApp, GameSpec.Cig",
+      "explorerAppType": "GameSpec.Cig.Apps.DataForge.App, GameSpec.Cig.Explorer"
+    },
+    "StarWords": {
+      "name": "StarWords",
+      "familyAppType": "GameSpec.Cig.Apps.StarWordsApp, GameSpec.Cig",
+      "explorerAppType": "GameSpec.Cig.Apps.StarWords.App, GameSpec.Cig.Explorer"
+    },
+    "Subsumption": {
+      "name": "Subsumption",
+      "familyAppType": "GameSpec.Cig.Apps.SubsumptionApp, GameSpec.Cig",
+      "explorerAppType": "GameSpec.Cig.Apps.Subsumption.App, GameSpec.Cig.Explorer"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "StarCitizen": {
+        "key": "Unknown:StarCitizen",
+        "reg": "81bfc699-f883-50c7-b674-2483b6baae23",
+        "dir": "StarCitizen/LIVE",
+        "81bfc699-f883-50c7-b674-2483b6baae23": {
+          "path": "%path%/../StarCitizen/LIVE"
+        }
+      }
+    }
+  }
+}

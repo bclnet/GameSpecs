@@ -1,0 +1,31 @@
+﻿{
+  "id": "Unknown",
+  "name": "Unknown",
+  "studio": "",
+  "description": "Unknown formats",
+  "familyType": "GameSpec.Unknown.UnknownFamily, GameSpec.Base",
+  "games": {
+    "*": {
+      "pakFileType": "GameSpec.Unknown.UnknownPakFile, GameSpec.Base",
+      "pak": "game:/"
+    },
+    "ACO": {
+      "name": "Assassin's Creed Origins",
+      "url": "https://store.steampowered.com/app/582160"
+    },
+    "APP": {
+      "name": "Application"
+    },
+    "CAT": {
+      "name": "Catalog",
+      "pak": "game:/main.yaml"
+    }
+  },
+  "fileManager": {
+    "direct": {
+      "APP": { "path": "%AppPath%" },
+      "CAT": { "path": "%AppPath%/catalogs" }
+    },
+    "application": { }
+  }
+}

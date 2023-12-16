@@ -56,7 +56,7 @@ fileManager: {self.fileManager if self.fileManager else None}'''
             (createFileSystem(fileSystemType, uri.path) if uri.path else None) if uri.scheme == 'file' else \
             (createFileSystem(fileSystemType, None, uri) if uri.netloc else None) if uri.scheme.startswith('http') else None
         if not fileSystem:
-            if throwOnError: raise Exception(f'Unknown schema: {uri}')
+            if throwOnError: raise Exception(f'Not located: {uri}')
             else: return None
         return Resource(fileSystem, game, searchPattern)
 
@@ -148,7 +148,7 @@ class FamilyGame:
     def createSearchPatterns(self, searchPattern: str) -> str:
         if searchPattern: return searchPattern
         elif not self.searchBy: return '*'
-        elif self.searchBy == 'Pak': return '' if not self.pakExts else f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({'*:'.join(self.pakExts)})'
+        elif self.searchBy == 'Pak': return '' if not self.pakExts else f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({"*:".join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
         elif self.searchBy == 'TwoDir': return '*/*'
         elif self.searchBy == 'AllDir': return '**/*'
