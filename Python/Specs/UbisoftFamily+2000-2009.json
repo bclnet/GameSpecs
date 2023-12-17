@@ -1,2807 +1,2313 @@
 ﻿{
   "id": "Ubisoft+2000-2009",
+  "url": "https://en.wikipedia.org/wiki/List_of_Ubisoft_games:_2000%E2%80%932009",
   "games": {
+    "*": {
+      "n/a": true
+    },
     "Papyrus": {
-      "n/a": true,
       "name": "Papyrus",
       "date": "2000-02-01"
     },
     "Theocracy": {
-      "n/a": true,
       "name": "Theocracy",
       "url": "https://en.wikipedia.org/wiki/Theocracy_(video_game)",
       "date": "2000-03-01"
     },
     "InspectorGadget:OM": {
-      "n/a": true,
       "name": "Inspector Gadget: Operation Madkactus",
       "url": "https://en.wikipedia.org/wiki/Inspector_Gadget:_Operation_Madkactus",
       "date": "2000-03-14"
     },
     "BusinessTycoon": {
-      "n/a": true,
       "name": "Business Tycoon",
       "date": "2000-03-25"
     },
     "DisneysDinosaur": {
-      "n/a": true,
       "name": "Disney's Dinosaur",
       "url": "https://en.wikipedia.org/wiki/Disney%27s_Dinosaur_(video_game)",
       "date": "2000-01-01"
     },
     "Evolution2:FoP": {
-      "n/a": true,
       "name": "Evolution 2: Far off Promise",
       "url": "https://en.wikipedia.org/wiki/Evolution_2:_Far_Off_Promise",
       "date": "2000-06-30"
     },
     "AllStarTennis2000": {
-      "n/a": true,
       "name": "All Star Tennis 2000",
       "date": "2000-06-01"
     },
     "Toonsylvania": {
-      "n/a": true,
       "name": "Toonsylvania",
       "date": "2000-06-01"
     },
     "SurfRiders": {
-      "n/a": true,
       "name": "Surf Riders",
       "url": "https://en.wikipedia.org/wiki/Surf_Riders",
       "date": "2000-08-10"
     },
     "DeepFighter": {
-      "n/a": true,
       "name": "Deep Fighter",
       "url": "https://en.wikipedia.org/wiki/Deep_Fighter",
       "date": "2000-08-23"
     },
     "Infestation": {
-      "n/a": true,
       "name": "Infestation",
       "date": "2000-09-01"
     },
     "OLearyManager2000": {
-      "n/a": true,
       "name": "O'Leary Manager 2000",
       "url": "https://en.wikipedia.org/wiki/O%27Leary_Manager_2000",
       "date": "2000-09-15"
     },
     "F1RacingChampionship": {
-      "n/a": true,
       "name": "F1 Racing Championship",
       "url": "https://en.wikipedia.org/wiki/F1_Racing_Championship",
       "date": "2000-09-26"
     },
     "CarlLewisAthletics2000": {
-      "n/a": true,
       "name": "Carl Lewis Athletics 2000",
       "url": "https://en.wikipedia.org/wiki/Carl_Lewis_Athletics_2000",
       "date": "2000-09-01"
     },
     "InColdBlood": {
-      "n/a": true,
       "name": "In Cold Blood",
       "url": "https://en.wikipedia.org/wiki/In_Cold_Blood_(video_game)",
       "date": "2000-10-10"
     },
     "Virtual Skipper": {
-      "n/a": true,
       "name": "Virtual Skipper",
       "url": "XXX",
       "date": "2000-10-18"
     },
     "BatmanBeyond:RotJ": {
-      "n/a": true,
       "name": "Batman Beyond: Return of the Joker",
       "url": "https://en.wikipedia.org/wiki/Batman_Beyond:_Return_of_the_Joker_(video_game)",
       "date": "2000-10-30"
     },
     "DisneysDonaldDuck:GQ": {
-      "n/a": true,
       "name": "Disney's Donald Duck: Goin' Quackers",
       "url": "https://en.wikipedia.org/wiki/Donald_Duck:_Goin%27_Quackers",
       "date": "2000-10-01"
     },
     "WaltDisneysTheJungleBook:RnG": {
-      "n/a": true,
       "name": "Walt Disney's The Jungle Book: Rhythm n' Groove",
       "date": "2000-11-01"
     },
     "GoldandGlory:TRtED": {
-      "n/a": true,
       "name": "Gold and Glory: The Road to El Dorado",
       "date": "2000-11-08"
     },
     "DisneysAladdin": {
-      "n/a": true,
       "name": "Disney's Aladdin",
       "url": "https://en.wikipedia.org/wiki/Disney%27s_Aladdin_(Virgin_Games_video_game)",
       "date": "2000-11-10"
     },
     "WaltDisneysTheJungleBook:MWA": {
-      "n/a": true,
       "name": "Walt Disney's The Jungle Book: Mowgli's Wild Adventure",
       "date": "2000-11-14"
     },
     "TomClancysRainbowSix:RS": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Rogue Spear",
       "url": "XXX",
       "date": "2000-11-27"
     },
     "GrandiaII": {
-      "n/a": true,
       "name": "Grandia II",
       "url": "https://en.wikipedia.org/wiki/Grandia_II",
       "date": "2000-11-05"
     },
     "PODSpeedZone": {
-      "n/a": true,
       "name": "POD SpeedZone",
       "url": "https://en.wikipedia.org/wiki/POD_2",
       "date": "2000-11-06"
     },
     "Rayman2Forever": {
-      "n/a": true,
       "name": "Rayman 2 Forever",
       "date": "2000-12-14"
     },
     "TokyoXtremeRacer2": {
-      "n/a": true,
       "name": "Tokyo Xtreme Racer 2",
       "url": "https://en.wikipedia.org/wiki/Tokyo_Xtreme_Racer_2",
       "date": "2000-12-14"
     },
     "DisneysTheEmperorsNewGroove": {
-      "n/a": true,
       "name": "Disney's The Emperor's New Groove",
       "url": "https://en.wikipedia.org/wiki/The_Emperor%27s_New_Groove_(video_game)",
       "date": "2000-12-01"
     },
     "EternalRing": {
-      "n/a": true,
       "name": "Eternal Ring",
       "url": "https://en.wikipedia.org/wiki/Eternal_Ring",
       "date": "2000-12-01"
     },
     "LittleNicky": {
-      "n/a": true,
       "name": "Little Nicky",
       "url": "https://en.wikipedia.org/wiki/Little_Nicky_(video_game)",
       "date": "2000-12-01"
     },
     "SnoCrossChampionshipRacing": {
-      "n/a": true,
       "name": "Sno-Cross Championship Racing",
       "url": "https://en.wikipedia.org/wiki/Sno-Cross_Championship_Racing",
       "date": "2000-12-01"
     },
     "Arcatera:TDB": {
-      "n/a": true,
       "name": "Arcatera: The Dark Brotherhood",
       "url": "XXX",
       "date": "2000-01-01"
     },
     "AmazingLearningGameswithRayman": {
-      "n/a": true,
       "name": "Amazing Learning Games with Rayman",
       "date": "2000-01-01"
     },
     "AnneMcCaffreysFreedom:FR": {
-      "n/a": true,
       "name": "Anne McCaffrey's Freedom: First Resistance",
       "url": "https://en.wikipedia.org/wiki/Freedom:_First_Resistance",
       "date": "2000-01-01"
     },
     "Animorphs": {
-      "n/a": true,
       "name": "Animorphs",
       "url": "https://en.wikipedia.org/wiki/Animorphs_(video_game)",
       "date": "2000-01-01"
     },
     "DavidOLearysTotalSoccer2000": {
-      "n/a": true,
       "name": "David O'Leary's Total Soccer 2000",
       "date": "2000-01-01"
     },
     "Grandia": {
-      "n/a": true,
       "name": "Grandia",
       "url": "https://en.wikipedia.org/wiki/Grandia_(video_game)",
       "date": "2000-01-01"
     },
     "Papyrus:LSdlCP": {
-      "n/a": true,
       "name": "Papyrus: Le Secret de la Cité Perdue",
       "date": "2000-01-01"
     },
     "PrincesseSissietTempete": {
-      "n/a": true,
       "name": "Princesse Sissi et Tempête",
       "date": "2000-01-01"
     },
     "ProRally2001": {
-      "n/a": true,
       "name": "Pro Rally 2001",
       "url": "https://en.wikipedia.org/wiki/Pro_Rally_2001",
       "date": "2000-01-01"
     },
     "RaymanRevolution": {
-      "n/a": true,
       "name": "Rayman Revolution",
       "url": "https://en.wikipedia.org/wiki/Rayman_2:_The_Great_Escape",
       "date": "2000-01-01"
     },
     "SeaDogs": {
-      "n/a": true,
       "name": "Sea Dogs",
       "url": "https://en.wikipedia.org/wiki/Sea_Dogs_(video_game)",
       "date": "2000-01-01"
     },
     "Spirou:TRI": {
-      "n/a": true,
       "name": "Spirou: The Robot Invasion",
       "url": "https://en.wikipedia.org/wiki/Spirou:_The_Robot_Invasion",
       "date": "2000-01-01"
     },
     "SuzukiAlstareExtremeRacing": {
-      "n/a": true,
       "name": "Suzuki Alstare Extreme Racing",
       "url": "https://en.wikipedia.org/wiki/Suzuki_Alstare_Extreme_Racing",
       "date": "2000-01-01"
     },
     "TheMaskofZorro": {
-      "n/a": true,
       "name": "The Mask of Zorro",
       "url": "https://en.wikipedia.org/wiki/The_Mask_of_Zorro_(video_game)",
       "date": "2000-01-01"
     },
     "TomandJerryinFistsofFurry": {
-      "n/a": true,
       "name": "Tom and Jerry in Fists of Furry",
       "url": "https://en.wikipedia.org/wiki/Tom_and_Jerry_in_Fists_of_Furry",
       "date": "2000-01-01"
     },
     "TonicTrouble": {
-      "n/a": true,
       "name": "Tonic Trouble",
       "url": "https://en.wikipedia.org/wiki/Tonic_Trouble",
       "date": "2000-01-01"
     },
     "StupidInvaders": {
-      "n/a": true,
       "name": "Stupid Invaders",
       "url": "https://en.wikipedia.org/wiki/Stupid_Invaders",
       "date": "2001-02-01"
     },
     "ArmoredCore2": {
-      "n/a": true,
       "name": "Armored Core 2",
       "url": "https://en.wikipedia.org/wiki/Armored_Core_2",
       "date": "2001-03-23"
     },
     "TheSettlersIV": {
-      "n/a": true,
       "name": "The Settlers IV",
       "url": "https://en.wikipedia.org/wiki/The_Settlers_IV",
       "date": "2001-04-04"
     },
     "FlipperLopaka": {
-      "n/a": true,
       "name": "Flipper & Lopaka",
       "date": "2001-04-13"
     },
     "Batman:CiG": {
-      "n/a": true,
       "name": "Batman: Chaos in Gotham",
       "url": "https://en.wikipedia.org/wiki/Batman:_Chaos_in_Gotham",
       "date": "2001-04-17"
     },
     "MystIII:E": {
-      "n/a": true,
       "name": "Myst III: Exile",
       "url": "https://en.wikipedia.org/wiki/Myst_III:_Exile",
       "date": "2001-05-07"
     },
     "ConflictZone": {
-      "n/a": true,
       "name": "Conflict Zone",
       "url": "https://en.wikipedia.org/wiki/Conflict_Zone",
       "date": "2001-05-25"
     },
     "EurofighterTyphoon": {
-      "n/a": true,
       "name": "Eurofighter Typhoon",
       "url": "https://en.wikipedia.org/wiki/Eurofighter_Typhoon_(video_game)",
       "date": "2001-05-01"
     },
     "Hype:TTQ": {
-      "n/a": true,
       "name": "Hype: The Time Quest",
       "url": "https://en.wikipedia.org/wiki/Hype:_The_Time_Quest",
       "date": "2001-05-01"
     },
     "RaymanAdvance": {
-      "n/a": true,
       "name": "Rayman Advance",
       "date": "2001-06-11"
     },
     "EuropaUniversalis": {
-      "n/a": true,
       "name": "Europa Universalis",
       "url": "https://en.wikipedia.org/wiki/Europa_Universalis",
       "date": "2001-06-01"
     },
     "RoswellConspiracies:AML": {
-      "n/a": true,
       "name": "Roswell Conspiracies: Aliens, Myths & Legends",
       "date": "2001-06-01"
     },
     "Moderngroove:MoSE": {
-      "n/a": true,
       "name": "Moderngroove: Ministry of Sound Edition",
       "date": "2001-07-13"
     },
     "VIP": {
-      "n/a": true,
       "name": "V.I.P.",
       "date": "2001-07-01"
     },
     "DragonRiders:CoP": {
-      "n/a": true,
       "name": "Dragon Riders: Chronicles of Pern",
       "url": "https://en.wikipedia.org/wiki/Dragonriders:_Chronicles_of_Pern",
       "date": "2001-08-07"
     },
     "Conquest:FW": {
-      "n/a": true,
       "name": "Conquest: Frontier Wars",
       "url": "https://en.wikipedia.org/wiki/Conquest:_Frontier_Wars",
       "date": "2001-08-18"
     },
     "PlanetoftheApes": {
-      "n/a": true,
       "name": "Planet of the Apes",
       "url": "https://en.wikipedia.org/wiki/Planet_of_the_Apes_(video_game)",
       "date": "2001-09-19"
     },
     "FinalFight": {
-      "n/a": true,
       "name": "Final Fight",
       "url": "https://en.wikipedia.org/wiki/Final_Fight_(video_game)",
       "date": "2001-09-27"
     },
     "PoolofRadiance:RoMD": {
-      "n/a": true,
       "name": "Pool of Radiance: Ruins of Myth Drannor",
       "url": "https://en.wikipedia.org/wiki/Pool_of_Radiance:_Ruins_of_Myth_Drannor",
       "date": "2001-09-27"
     },
     "EvilTwin:CC": {
-      "n/a": true,
       "name": "Evil Twin: Cyprien's Chronicles",
       "url": "https://en.wikipedia.org/wiki/Evil_Twin:_Cyprien%27s_Chronicles",
       "date": "2001-10-04"
     },
     "Batman:V": {
-      "n/a": true,
       "name": "Batman: Vengeance",
       "url": "https://en.wikipedia.org/wiki/Batman:_Vengeance",
       "date": "2001-10-16"
     },
     "Kohan:IS": {
-      "n/a": true,
       "name": "Kohan: Immortal Sovereigns",
       "url": "https://en.wikipedia.org/wiki/Kohan:_Immortal_Sovereigns",
       "date": "2001-10-16"
     },
     "TomClancysRainbowSix:RSBT": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Rogue Spear - Black Thorn",
       "date": "2001-10-17"
     },
     "GadgetTycoon": {
-      "n/a": true,
       "name": "Gadget Tycoon",
       "date": "2001-10-23"
     },
     "SunnyGarciaSurfing": {
-      "n/a": true,
       "name": "Sunny Garcia Surfing",
       "url": "https://en.wikipedia.org/wiki/Sunny_Garcia_Surfing",
       "date": "2001-10-23"
     },
     "RallyChampionship2002": {
-      "n/a": true,
       "name": "Rally Championship 2002",
       "url": "https://en.wikipedia.org/wiki/Rally_Championship_Xtreme",
       "date": "2001-11-02"
     },
     "SilentHunterII": {
-      "n/a": true,
       "name": "Silent Hunter II",
       "url": "https://en.wikipedia.org/wiki/Silent_Hunter_II",
       "date": "2001-11-07"
     },
     "BattleRealms": {
-      "n/a": true,
       "name": "Battle Realms",
       "url": "https://en.wikipedia.org/wiki/Battle_Realms",
       "date": "2001-11-08"
     },
     "TheFinalCut": {
-      "n/a": true,
       "name": "The Final Cut",
       "url": "https://en.wikipedia.org/wiki/Alfred_Hitchcock_Presents:_The_Final_Cut",
       "date": "2001-11-10"
     },
     "SuperStreetFighterII:TR": {
-      "n/a": true,
       "name": "Super Street Fighter II: Turbo Revival",
       "date": "2001-11-12"
     },
     "TomClancysGhostRecon": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_(2001_video_game)",
       "date": "2001-11-13"
     },
     "DisneysTarzanUntamed": {
-      "n/a": true,
       "name": "Disney's Tarzan Untamed",
       "url": "https://en.wikipedia.org/wiki/Tarzan:_Untamed",
       "date": "2001-11-16"
     },
     "IL2Sturmovik": {
-      "n/a": true,
       "name": "IL-2 Sturmovik",
       "url": "https://en.wikipedia.org/wiki/IL-2_Sturmovik_(video_game)",
       "date": "2001-11-20"
     },
     "WaltDisneysSnowWhiteandtheSevenDwarfs": {
-      "n/a": true,
       "name": "Walt Disney's Snow White and the Seven Dwarfs",
       "date": "2001-11-22"
     },
     "SuperBustAMove": {
-      "n/a": true,
       "name": "Super Bust-A-Move",
       "date": "2001-11-28"
     },
     "MegaManBattleNetwork": {
-      "n/a": true,
       "name": "Mega Man Battle Network",
       "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_(video_game)",
       "date": "2001-11-30"
     },
     "RaymanArena": {
-      "n/a": true,
       "name": "Rayman Arena",
       "date": "2001-11-30"
     },
     "TheLegendofAlonDar": {
-      "n/a": true,
       "name": "The Legend of Alon D'ar",
       "url": "https://en.wikipedia.org/wiki/The_Legend_of_Alon_D%27ar",
       "date": "2001-12-05"
     },
     "BreathofFire": {
-      "n/a": true,
       "name": "Breath of Fire",
       "url": "https://en.wikipedia.org/wiki/Breath_of_Fire_(video_game)",
       "date": "2001-12-14"
     },
     "WormsWorldParty": {
-      "n/a": true,
       "name": "Worms World Party",
       "url": "https://en.wikipedia.org/wiki/Worms_World_Party",
       "date": "2001-12-14"
     },
     "TrevorChansCapitalismII": {
-      "n/a": true,
       "name": "Trevor Chan's Capitalism II",
       "url": "https://en.wikipedia.org/wiki/Capitalism_II",
       "date": "2001-12-17"
     },
     "JadeCocoon2": {
-      "n/a": true,
       "name": "Jade Cocoon 2",
       "url": "https://en.wikipedia.org/wiki/Jade_Cocoon_2",
       "date": "2001-12-18"
     },
     "DonaldDuckAdvance": {
-      "n/a": true,
       "name": "Donald Duck Advance",
       "date": "2001-12-21"
     },
     "AlexFergusonsPlayerManager2001": {
-      "n/a": true,
       "name": "Alex Ferguson's Player Manager 2001",
       "date": "2001-01-01"
     },
     "Batman:GCR": {
-      "n/a": true,
       "name": "Batman: Gotham City Racer",
       "url": "https://en.wikipedia.org/wiki/Batman:_Gotham_City_Racer",
       "date": "2001-01-01"
     },
     "EscapefromMonkeyIsland": {
-      "n/a": true,
       "name": "Escape from Monkey Island",
       "url": "https://en.wikipedia.org/wiki/Escape_from_Monkey_Island",
       "date": "2001-01-01"
     },
     "Gunfighter:TLoJJ": {
-      "n/a": true,
       "name": "Gunfighter: The Legend of Jesse James",
       "url": "https://en.wikipedia.org/wiki/Gunfighter:_The_Legend_of_Jesse_James",
       "date": "2001-01-01"
     },
     "InspectorGadget:GCM": {
-      "n/a": true,
       "name": "Inspector Gadget: Gadget's Crazy Maze",
       "url": "https://en.wikipedia.org/wiki/Inspector_Gadget:_Gadget%27s_Crazy_Maze",
       "date": "2001-01-01"
     },
     "PearlHarbor:SaD": {
-      "n/a": true,
       "name": "Pearl Harbor: Strike at Dawn",
       "date": "2001-01-01"
     },
     "Scrabble": {
-      "n/a": true,
       "name": "Scrabble",
       "date": "2001-01-01"
     },
     "Taxi2": {
-      "n/a": true,
       "name": "Taxi 2",
       "date": "2001-01-01"
     },
     "TokyoXtremeRacer:Z": {
-      "n/a": true,
       "name": "Tokyo Xtreme Racer: Zero",
       "url": "https://en.wikipedia.org/wiki/Tokyo_Xtreme_Racer:_Zero",
       "date": "2001-01-01"
     },
     "SaltLake2002": {
-      "n/a": true,
       "name": "Salt Lake 2002",
       "url": "https://en.wikipedia.org/wiki/Salt_Lake_2002_(video_game)",
       "date": "2002-01-31"
     },
     "Echelon": {
-      "n/a": true,
       "name": "Echelon",
       "url": "https://en.wikipedia.org/wiki/Echelon_(2001_video_game)",
       "date": "2002-02-07"
     },
     "DestroyerCommand": {
-      "n/a": true,
       "name": "Destroyer Command",
       "url": "https://en.wikipedia.org/wiki/Destroyer_Command",
       "date": "2002-02-12"
     },
     "MikeTysonBoxing": {
-      "n/a": true,
       "name": "Mike Tyson Boxing",
       "url": "https://en.wikipedia.org/wiki/Mike_Tyson_Boxing",
       "date": "2002-03-01"
     },
     "EvolutionWorlds": {
-      "n/a": true,
       "name": "Evolution Worlds",
       "url": "https://en.wikipedia.org/wiki/Evolution_Worlds",
       "date": "2002-03-06"
     },
     "RaymanRush": {
-      "n/a": true,
       "name": "Rayman Rush",
       "date": "2002-03-08"
     },
     "Bratz": {
-      "n/a": true,
       "name": "Bratz",
       "date": "2002-03-11"
     },
     "Warlords:BII": {
-      "n/a": true,
       "name": "Warlords: Battlecry II",
       "url": "https://en.wikipedia.org/wiki/Warlords_Battlecry_II",
       "date": "2002-03-12"
     },
     "ETTheExtraTerrestrial:IM": {
-      "n/a": true,
       "name": "E.T. The Extra-Terrestrial: Interplanetary Mission",
       "date": "2002-03-19"
     },
     "DarkPlanet:BfN": {
-      "n/a": true,
       "name": "Dark Planet: Battle for Natrolis",
       "url": "https://en.wikipedia.org/wiki/Dark_Planet:_Battle_for_Natrolis",
       "date": "2002-03-21"
     },
     "JimHensonsBearintheBigBlueHouse": {
-      "n/a": true,
       "name": "Jim Henson's Bear in the Big Blue House",
       "url": "https://en.wikipedia.org/wiki/Jim_Henson%27s_Bear_in_the_Big_Blue_House",
       "date": "2002-03-21"
     },
     "XBladez:IS": {
-      "n/a": true,
       "name": "X-Bladez: Inline Skater",
       "date": "2002-11-22"
     },
     "TomClancysGhostRecon:DS": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon: Desert Siege",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon:_Desert_Siege",
       "date": "2002-03-26"
     },
     "ET:PHA": {
-      "n/a": true,
       "name": "E.T.: Phone Home Adventure",
       "date": "2002-03-27"
     },
     "ProRally2002": {
-      "n/a": true,
       "name": "Pro Rally 2002",
       "url": "https://en.wikipedia.org/wiki/Pro_Rally_2002",
       "date": "2002-03-29"
     },
     "EuropaUniversalisII": {
-      "n/a": true,
       "name": "Europa Universalis II",
       "url": "https://en.wikipedia.org/wiki/Europa_Universalis_II",
       "date": "2002-04-05"
     },
     "HootersRoadTrip": {
-      "n/a": true,
       "name": "Hooters Road Trip",
       "url": "https://en.wikipedia.org/wiki/Hooters_Road_Trip",
       "date": "2002-04-25"
     },
     "SabrinatheTeenageWitch:PC": {
-      "n/a": true,
       "name": "Sabrina, the Teenage Witch: Potion Commotion",
       "date": "2002-04-25"
     },
     "UltimateFightingChampionship:T": {
-      "n/a": true,
       "name": "Ultimate Fighting Championship: Tapout",
       "url": "https://en.wikipedia.org/wiki/Ultimate_Fighting_Championship:_Tapout",
       "date": "2002-04-25"
     },
     "MonsterJam:MD": {
-      "n/a": true,
       "name": "Monster Jam: Maximum Destruction",
       "date": "2002-04-28"
     },
     "TheSumofAllFears": {
-      "n/a": true,
       "name": "The Sum of All Fears",
       "url": "https://en.wikipedia.org/wiki/The_Sum_of_All_Fears_(video_game)",
       "date": "2002-04-31"
     },
     "UFC:T": {
-      "n/a": true,
       "name": "UFC: Throwdown",
       "url": "https://en.wikipedia.org/wiki/UFC:_Throwdown",
       "date": "2002-06-03"
     },
     "TheElderScrollsIII:M": {
-      "n/a": true,
       "name": "The Elder Scrolls III: Morrowind",
       "url": "https://en.wikipedia.org/wiki/The_Elder_Scrolls_III:_Morrowind",
       "date": "2002-06-08"
     },
     "SvenGoranErikssonsWorldManager": {
-      "n/a": true,
       "name": "Sven-Göran Eriksson's World Manager",
       "date": "2002-06-14"
     },
     "BreathofFireII": {
-      "n/a": true,
       "name": "Breath of Fire II",
       "url": "https://en.wikipedia.org/wiki/Breath_of_Fire_II",
       "date": "2002-06-28"
     },
     "MuppetPinballMayhem": {
-      "n/a": true,
       "name": "Muppet Pinball Mayhem",
       "date": "2002-07-04"
     },
     "TomClancysRainbowSix:LW": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Lone Wolf",
       "url": "XXX",
       "date": "2002-07-04"
     },
     "Dokapon:MH": {
-      "n/a": true,
       "name": "Dokapon: Monster Hunter",
       "url": "https://en.wikipedia.org/wiki/Dokapon:_Monster_Hunter",
       "date": "2002-07-18"
     },
     "TigerWoodsPGATourGolf": {
-      "n/a": true,
       "name": "Tiger Woods PGA Tour Golf",
       "date": "2002-08-02"
     },
     "WormsBlast": {
-      "n/a": true,
       "name": "Worms Blast",
       "url": "https://en.wikipedia.org/wiki/Worms_Blast",
       "date": "2002-09-04"
     },
     "LargoWinch:EUT": {
-      "n/a": true,
       "name": "Largo Winch: Empire Under Threat",
       "date": "2002-09-06"
     },
     "Chessmaster9000": {
-      "n/a": true,
       "name": "Chessmaster 9000",
       "url": "https://en.wikipedia.org/wiki/Chessmaster_9000",
       "date": "2002-09-10"
     },
     "ColinMcRaeRally20": {
-      "n/a": true,
       "name": "Colin McRae Rally 2.0",
       "url": "https://en.wikipedia.org/wiki/Colin_McRae_Rally_2.0",
       "date": "2002-09-17"
     },
     "SuperBustAMove2": {
-      "n/a": true,
       "name": "Super Bust-A-Move 2",
       "date": "2002-09-19"
     },
     "TomClancysGhostRecon:IT": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon: Island Thunder",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon:_Island_Thunder",
       "date": "2002-09-25"
     },
     "Deathrow": {
-      "n/a": true,
       "name": "Deathrow",
       "url": "https://en.wikipedia.org/wiki/Deathrow_(video_game)",
       "date": "2002-10-17"
     },
     "MegaManBattleNetwork2": {
-      "n/a": true,
       "name": "Mega Man Battle Network 2",
       "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_2",
       "date": "2002-10-17"
     },
     "Wizardry:TotFL": {
-      "n/a": true,
       "name": "Wizardry: Tale of the Forsaken Land",
       "url": "https://en.wikipedia.org/wiki/Wizardry:_Tale_of_the_Forsaken_Land",
       "date": "2002-10-17"
     },
     "SpeedChallenge:JVRV": {
-      "n/a": true,
       "name": "Speed Challenge: Jacques Villeneuve's Racing Vision",
       "url": "https://en.wikipedia.org/wiki/Speed_Challenge:_Jacques_Villeneuve%27s_Racing_Vision",
       "date": "2002-10-18"
     },
     "DisneysPK:OotS": {
-      "n/a": true,
       "name": "Disney's PK: Out of the Shadows",
       "url": "https://en.wikipedia.org/wiki/PK:_Out_of_the_Shadows",
       "date": "2002-10-30"
     },
     "RidingChampion:LoRH": {
-      "n/a": true,
       "name": "Riding Champion: Legacy of Rosemond Hill",
       "date": "2002-10-01"
     },
     "Rocky": {
-      "n/a": true,
       "name": "Rocky",
       "url": "https://en.wikipedia.org/wiki/Rocky_(2002_video_game)",
       "date": "2002-11-12"
     },
     "TombRaider:TP": {
-      "n/a": true,
       "name": "Tomb Raider: The Prophecy",
       "url": "https://en.wikipedia.org/wiki/Tomb_Raider:_The_Prophecy",
       "date": "2002-11-12"
     },
     "Catz5": {
-      "n/a": true,
       "name": "Catz 5",
       "date": "2002-11-18"
     },
     "Dogz5": {
-      "n/a": true,
       "name": "Dogz 5",
       "date": "2002-11-18"
     },
     "DragonsLair3D:RttL": {
-      "n/a": true,
       "name": "Dragon's Lair 3D: Return to the Lair",
       "url": "https://en.wikipedia.org/wiki/Dragon%27s_Lair_3D:_Return_to_the_Lair",
       "date": "2002-11-18"
     },
     "TomClancysSplinterCell": {
-      "n/a": true,
       "name": "Tom Clancy's Splinter Cell",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell_(video_game)",
       "date": "2002-11-18"
     },
     "TheMummy": {
-      "n/a": true,
       "name": "The Mummy",
       "date": "2002-11-22"
     },
     "StreetFighterAlpha3": {
-      "n/a": true,
       "name": "Street Fighter Alpha 3",
       "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha_3",
       "date": "2002-11-28"
     },
     "Globetrotter2": {
-      "n/a": true,
       "name": "Globetrotter 2",
       "url": "https://en.wikipedia.org/wiki/Globetrotter_2",
       "date": "2002-11-01"
     },
     "RS3:RST": {
-      "n/a": true,
       "name": "RS3: Racing Simulation Three",
       "url": "https://en.wikipedia.org/wiki/Racing_Simulation_3",
       "date": "2002-12-05"
     },
     "LunarLegend": {
-      "n/a": true,
       "name": "Lunar Legend",
       "url": "https://en.wikipedia.org/wiki/Lunar_Legend",
       "date": "2002-12-08"
     },
     "DisneysTreasurePlanet": {
-      "n/a": true,
       "name": "Disney's Treasure Planet",
       "date": "2002-12-01"
     },
     "MotoRacerAdvance": {
-      "n/a": true,
       "name": "Moto Racer Advance",
       "url": "https://en.wikipedia.org/wiki/Moto_Racer_Advance",
       "date": "2002-12-01"
     },
     "ETTheExtraTerrestrial:AFH": {
-      "n/a": true,
       "name": "E.T. The Extra-Terrestrial: Away From Home",
       "date": "2002-01-01"
     },
     "JetIonGP": {
-      "n/a": true,
       "name": "Jet Ion GP",
       "date": "2002-01-01"
     },
     "LargoWinch:CS": {
-      "n/a": true,
       "name": "Largo Winch .// Commando SAR",
       "date": "2002-01-01"
     },
     "Moorhen3:CC": {
-      "n/a": true,
       "name": "Moorhen 3: Chicken Chase",
       "url": "XXX",
       "date": "2001-11-01"
     },
     "SvenGoranErikssonsWorldChallenge": {
-      "n/a": true,
       "name": "Sven-Göran Eriksson's World Challenge",
       "date": "2002-01-01"
     },
     "TrainsTrucksTycoon": {
-      "n/a": true,
       "name": "Trains & Trucks Tycoon",
       "date": "2002-01-01"
     },
     "Taxi3": {
-      "n/a": true,
       "name": "Taxi 3",
       "date": "2003-01-30"
     },
     "SwordoftheSamurai": {
-      "n/a": true,
       "name": "Sword of the Samurai",
       "url": "https://en.wikipedia.org/wiki/Sword_of_the_Samurai_(video_game)",
       "date": "2003-02-13"
     },
     "WildArms3": {
-      "n/a": true,
       "name": "Wild Arms 3",
       "url": "https://en.wikipedia.org/wiki/Wild_Arms_3",
       "date": "2003-02-21"
     },
     "IL2Sturmovik:FB": {
-      "n/a": true,
       "name": "IL-2 Sturmovik: Forgotten Battles",
       "url": "https://en.wikipedia.org/wiki/IL-2_Sturmovik:_Forgotten_Battles",
       "date": "2003-03-03"
     },
     "Murakumo:RMP": {
-      "n/a": true,
       "name": "Murakumo: Renegade Mech Pursuit",
       "url": "https://en.wikipedia.org/wiki/Murakumo:_Renegade_Mech_Pursuit",
       "date": "2003-03-04"
     },
     "Rayman3:HH": {
-      "n/a": true,
       "name": "Rayman 3: Hoodlum Havoc",
       "url": "https://en.wikipedia.org/wiki/Rayman_3:_Hoodlum_Havoc",
       "date": "2003-03-04"
     },
     "GunfighterII:RoJJ": {
-      "n/a": true,
       "name": "Gunfighter II: Revenge of Jesse James",
       "url": "https://en.wikipedia.org/wiki/Gunfighter_II:_Revenge_of_Jesse_James",
       "date": "2003-03-14"
     },
     "TomClancysRainbowSix3:RS": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six 3: Raven Shield",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_3:_Raven_Shield",
       "date": "2003-03-18"
     },
     "CSI:CSI": {
-      "n/a": true,
       "name": "CSI: Crime Scene Investigation",
       "date": "2003-03-20"
     },
     "Shadowbane": {
-      "n/a": true,
       "name": "Shadowbane",
       "url": "https://en.wikipedia.org/wiki/Shadowbane",
       "date": "2003-03-25"
     },
     "Chessmaster": {
-      "n/a": true,
       "name": "Chessmaster",
       "url": "https://en.wikipedia.org/wiki/Chessmaster",
       "date": "2003-06-02"
     },
     "WillRock": {
-      "n/a": true,
       "name": "Will Rock",
       "url": "https://en.wikipedia.org/wiki/Will_Rock",
       "date": "2003-06-09"
     },
     "ApeEscape2": {
-      "n/a": true,
       "name": "Ape Escape 2",
       "url": "https://en.wikipedia.org/wiki/Ape_Escape_2",
       "date": "2003-07-01"
     },
     "CharliesAngels": {
-      "n/a": true,
       "name": "Charlie's Angels",
       "url": "https://en.wikipedia.org/wiki/Charlie%27s_Angels_(video_game)",
       "date": "2003-07-09"
     },
     "CrouchingTigerHiddenDragon": {
-      "n/a": true,
       "name": "Crouching Tiger, Hidden Dragon",
       "url": "https://en.wikipedia.org/wiki/Crouching_Tiger,_Hidden_Dragon_(video_game)",
       "date": "2003-10-09"
     },
     "XIII": {
-      "n/a": true,
       "name": "XIII",
       "url": "https://en.wikipedia.org/wiki/XIII_(video_game)",
       "date": "2003-10-09"
     },
     "Batman:RoST": {
-      "n/a": true,
       "name": "Batman: Rise of Sin Tzu",
       "url": "https://en.wikipedia.org/wiki/Batman:_Rise_of_Sin_Tzu",
       "date": "2003-10-16"
     },
     "InMemoriam": {
-      "n/a": true,
       "name": "In Memoriam",
       "url": "https://en.wikipedia.org/wiki/In_Memoriam_(video_game)",
       "date": "2003-10-16"
     },
     "WarlordsIV:HoE": {
-      "n/a": true,
       "name": "Warlords IV: Heroes of Etheria",
       "url": "https://en.wikipedia.org/wiki/Warlords_IV:_Heroes_of_Etheria",
       "date": "2003-10-21"
     },
     "PrinceofPersia:TSoT": {
-      "n/a": true,
       "name": "Prince of Persia: The Sands of Time",
       "url": "https://en.wikipedia.org/wiki/Prince_of_Persia:_The_Sands_of_Time",
       "date": "2003-10-28"
     },
     "BeyondGoodEvil": {
-      "n/a": true,
       "name": "Beyond Good & Evil",
       "url": "https://en.wikipedia.org/wiki/Beyond_Good_%26_Evil_(video_game)",
       "date": "2003-11-11"
     },
     "Uru:ABM": {
-      "n/a": true,
       "name": "Uru: Ages Beyond Myst",
       "url": "https://en.wikipedia.org/wiki/Uru:_Ages_Beyond_Myst",
       "date": "2003-11-11"
     },
     "SaddleUp:TtR": {
-      "n/a": true,
       "name": "Saddle Up: Time to Ride",
       "date": "2003-11-13"
     },
     "MuchaLucha:MotLC": {
-      "n/a": true,
       "name": "Mucha Lucha! Mascaritas of the Lost Code",
       "date": "2003-11-18"
     },
     "LockOn:MAC": {
-      "n/a": true,
       "name": "Lock On: Modern Air Combat",
       "url": "https://en.wikipedia.org/wiki/Lock_On:_Modern_Air_Combat",
       "date": "2003-11-20"
     },
     "Monster4x4:MoM": {
-      "n/a": true,
       "name": "Monster 4x4: Masters of Metal",
       "date": "2003-11-25"
     },
     "Biathlon2004": {
-      "n/a": true,
       "name": "Biathlon 2004",
       "date": "2003-11-28"
     },
     "DowntownRun": {
-      "n/a": true,
       "name": "Downtown Run",
       "url": "https://en.wikipedia.org/wiki/Downtown_Run",
       "date": "2003-01-01"
     },
     "Scrabble:2003E": {
-      "n/a": true,
       "name": "Scrabble: 2003 Edition",
       "date": "2003-01-01"
     },
     "TOCA:WTC": {
-      "n/a": true,
       "name": "TOCA: World Touring Cars",
       "url": "https://en.wikipedia.org/wiki/TOCA_World_Touring_Cars",
       "date": "2003-01-01"
     },
     "BaldursGate:DA": {
-      "n/a": true,
       "name": "Baldur's Gate: Dark Alliance",
       "url": "https://en.wikipedia.org/wiki/Baldur%27s_Gate:_Dark_Alliance",
       "date": "2004-02-05"
     },
     "TomClancysRainbowSix3:AS": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six 3: Athena Sword",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_3:_Raven_Shield",
       "date": "2004-03-09"
     },
     "TomClancysGhostRecon:JS": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon: Jungle Storm",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon:_Jungle_Storm",
       "date": "2004-03-17"
     },
     "CSI:DM": {
-      "n/a": true,
       "name": "CSI: Dark Motives",
       "url": "https://en.wikipedia.org/wiki/CSI:_Dark_Motives",
       "date": "2004-03-23"
     },
     "FarCry": {
-      "n/a": true,
       "name": "Far Cry",
       "url": "https://en.wikipedia.org/wiki/Far_Cry_(video_game)",
       "date": "2004-03-23"
     },
     "TomClancysSplinterCell:PT": {
-      "n/a": true,
       "name": "Tom Clancy's Splinter Cell: Pandora Tomorrow",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell:_Pandora_Tomorrow",
       "date": "2004-03-23"
     },
     "HarvestMoon:AWL": {
-      "n/a": true,
       "name": "Harvest Moon: A Wonderful Life",
       "url": "https://en.wikipedia.org/wiki/Harvest_Moon:_A_Wonderful_Life",
       "date": "2004-03-25"
     },
     "TomClancysGhostRecon2": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon 2",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_2",
       "date": "2004-03-01"
     },
     "FatalFrameII:CB": {
-      "n/a": true,
       "name": "Fatal Frame II: Crimson Butterfly",
       "url": "https://en.wikipedia.org/wiki/Fatal_Frame_II:_Crimson_Butterfly",
       "date": "2004-04-28"
     },
     "ChampionsofNorrath": {
-      "n/a": true,
       "name": "Champions of Norrath",
       "url": "https://en.wikipedia.org/wiki/Champions_of_Norrath",
       "date": "2004-06-25"
     },
     "TomClancysRainbowSix3:BA": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six 3: Black Arrow",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_3:_Raven_Shield",
       "date": "2004-08-05"
     },
     "ThePoliticalMachine": {
-      "n/a": true,
       "name": "The Political Machine",
       "url": "https://en.wikipedia.org/wiki/The_Political_Machine",
       "date": "2004-08-10"
     },
     "Chessmaster10thEdition": {
-      "n/a": true,
       "name": "Chessmaster 10th Edition",
       "url": "https://en.wikipedia.org/wiki/Chessmaster_10th_Edition",
       "date": "2004-08-16"
     },
     "AdvanceGuardianHeroes": {
-      "n/a": true,
       "name": "Advance Guardian Heroes",
       "url": "https://en.wikipedia.org/wiki/Advance_Guardian_Heroes",
       "date": "2004-09-14"
     },
     "StarWarsTrilogy:AotF": {
-      "n/a": true,
       "name": "Star Wars Trilogy: Apprentice of the Force",
       "url": "https://en.wikipedia.org/wiki/Star_Wars_Trilogy:_Apprentice_of_the_Force",
       "date": "2004-09-21"
     },
     "RockyLegends": {
-      "n/a": true,
       "name": "Rocky Legends",
       "url": "https://en.wikipedia.org/wiki/Rocky_Legends",
       "date": "2004-09-28"
     },
     "SherlockHolmes:TCotSE": {
-      "n/a": true,
       "name": "Sherlock Holmes: The Case of the Silver Earring",
       "url": "https://en.wikipedia.org/wiki/Sherlock_Holmes:_The_Case_of_the_Silver_Earring",
       "date": "2004-09-28"
     },
     "TheDukesofHazzard:RotGL": {
-      "n/a": true,
       "name": "The Dukes of Hazzard: Return of the General Lee",
       "url": "https://en.wikipedia.org/wiki/The_Dukes_of_Hazzard:_Return_of_the_General_Lee",
       "date": "2004-09-28"
     },
     "MystIV:R": {
-      "n/a": true,
       "name": "Myst IV: Revelation",
       "url": "https://en.wikipedia.org/wiki/Myst_IV:_Revelation",
       "date": "2004-09-29"
     },
     "ApeEscape:PP": {
-      "n/a": true,
       "name": "Ape Escape: Pumped & Primed",
       "url": "https://en.wikipedia.org/wiki/Ape_Escape:_Pumped_%26_Primed",
       "date": "2004-10-20"
     },
     "PacificFighters": {
-      "n/a": true,
       "name": "Pacific Fighters",
       "url": "https://en.wikipedia.org/wiki/Pacific_Fighters",
       "date": "2004-10-22"
     },
     "CSI:M": {
-      "n/a": true,
       "name": "CSI: Miami",
       "date": "2004-11-16"
     },
     "Asphalt:UG": {
-      "n/a": true,
       "name": "Asphalt: Urban GT",
       "url": "https://en.wikipedia.org/wiki/Asphalt_Urban_GT",
       "date": "2004-11-21"
     },
     "Alexander": {
-      "n/a": true,
       "name": "Alexander",
       "url": "https://en.wikipedia.org/wiki/Alexander_(video_game)",
       "date": "2004-11-23"
     },
     "PrinceofPersia:WW": {
-      "n/a": true,
       "name": "Prince of Persia: Warrior Within",
       "url": "https://en.wikipedia.org/wiki/Prince_of_Persia:_Warrior_Within",
       "date": "2004-11-30"
     },
     "Biathlon2005": {
-      "n/a": true,
       "name": "Biathlon 2005",
       "date": "2004-12-04"
     },
     "Sprung": {
-      "n/a": true,
       "name": "Sprung",
       "url": "https://en.wikipedia.org/wiki/Sprung_(video_game)",
       "date": "2004-12-08"
     },
     "Tork:PP": {
-      "n/a": true,
       "name": "Tork: Prehistoric Punk",
       "url": "https://en.wikipedia.org/wiki/Tork:_Prehistoric_Punk",
       "date": "2005-01-12"
     },
     "DisneysWinniethePooh:RTA": {
-      "n/a": true,
       "name": "Disney's Winnie the Pooh's Rumbly Tumbly Adventure",
       "url": "https://en.wikipedia.org/wiki/Winnie_the_Pooh%27s_Rumbly_Tumbly_Adventure",
       "date": "2005-02-08"
     },
     "HeritageofKings:TS": {
-      "n/a": true,
       "name": "Heritage of Kings: The Settlers",
       "url": "https://en.wikipedia.org/wiki/The_Settlers:_Heritage_of_Kings",
       "date": "2005-03-24"
     },
     "BrothersinArms:RtH3": {
-      "n/a": true,
       "name": "Brothers in Arms: Road to Hill 30",
       "url": "https://en.wikipedia.org/wiki/Brothers_in_Arms:_Road_to_Hill_30",
       "date": "2005-03-01"
     },
     "Playboy:TM": {
-      "n/a": true,
       "name": "Playboy: The Mansion",
       "url": "https://en.wikipedia.org/wiki/Playboy:_The_Mansion",
       "date": "2005-03-01"
     },
     "ColdFear": {
-      "n/a": true,
       "name": "Cold Fear",
       "url": "https://en.wikipedia.org/wiki/Cold_Fear",
       "date": "2005-03-15"
     },
     "Champions:RtA": {
-      "n/a": true,
       "name": "Champions: Return to Arms",
       "url": "https://en.wikipedia.org/wiki/Champions:_Return_to_Arms",
       "date": "2005-03-17"
     },
     "Rayman:HR": {
-      "n/a": true,
       "name": "Rayman: Hoodlum's Revenge",
       "url": "https://en.wikipedia.org/wiki/Rayman:_Hoodlums%27_Revenge",
       "date": "2005-03-17"
     },
     "SilentHunterIII": {
-      "n/a": true,
       "name": "Silent Hunter III",
       "url": "https://en.wikipedia.org/wiki/Silent_Hunter_III",
       "date": "2005-03-17"
     },
     "RaymanDS": {
-      "n/a": true,
       "name": "Rayman DS",
       "date": "2005-03-24"
     },
     "TheBardsTale": {
-      "n/a": true,
       "name": "The Bard's Tale",
       "url": "https://en.wikipedia.org/wiki/The_Bard%27s_Tale_(2004_video_game)",
       "date": "2001-11-01"
     },
     "Lumines:PF": {
-      "n/a": true,
       "name": "Lumines: Puzzle Fusion",
       "url": "https://en.wikipedia.org/wiki/Lumines:_Puzzle_Fusion",
       "date": "2005-03-25"
     },
     "TomClancysSplinterCell:CT": {
-      "n/a": true,
       "name": "Tom Clancy's Splinter Cell: Chaos Theory",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell:_Chaos_Theory",
       "date": "2005-03-28"
     },
     "StarWars:EIII": {
-      "n/a": true,
       "name": "Star Wars: Episode III - Revenge of the Sith",
       "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_III_-_Revenge_of_the_Sith_(video_game)",
       "date": "2001-11-01"
     },
     "Bomberman": {
-      "n/a": true,
       "name": "Bomberman",
       "url": "https://en.wikipedia.org/wiki/Bomberman_(Nintendo_DS)",
       "date": "2005-06-21"
     },
     "BombermanHardball": {
-      "n/a": true,
       "name": "Bomberman Hardball",
       "url": "https://en.wikipedia.org/wiki/Bomberman_Hardball",
       "date": "2005-07-01"
     },
     "TomClancysGhostRecon2:SS": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon 2: Summit Strike",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_2:_Summit_Strike",
       "date": "2005-08-02"
     },
     "Darkwatch": {
-      "n/a": true,
       "name": "Darkwatch",
       "url": "https://en.wikipedia.org/wiki/Darkwatch",
       "date": "2005-08-16"
     },
     "187:RoD": {
-      "n/a": true,
       "name": "187: Ride or Die",
       "url": "https://en.wikipedia.org/wiki/187_Ride_or_Die",
       "date": "2005-08-25"
     },
     "TomClancysRainbowSix:L": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Lockdown",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six:_Lockdown",
       "date": "2005-09-06"
     },
     "MystV:EoA": {
-      "n/a": true,
       "name": "Myst V: End of Ages",
       "url": "https://en.wikipedia.org/wiki/Myst_V:_End_of_Ages",
       "date": "2005-09-19"
     },
     "MarathonManager": {
-      "n/a": true,
       "name": "Marathon Manager",
       "date": "2005-09-22"
     },
     "FarCryInstincts": {
-      "n/a": true,
       "name": "Far Cry Instincts",
       "url": "https://en.wikipedia.org/wiki/Far_Cry_Instincts",
       "date": "2005-09-27"
     },
     "Lunar:DS": {
-      "n/a": true,
       "name": "Lunar: Dragon Song",
       "url": "https://en.wikipedia.org/wiki/Lunar:_Dragon_Song",
       "date": "2005-09-27"
     },
     "HeroesofthePacific": {
-      "n/a": true,
       "name": "Heroes of the Pacific",
       "url": "https://en.wikipedia.org/wiki/Heroes_of_the_Pacific",
       "date": "2005-09-30"
     },
     "BrothersinArms:EiB": {
-      "n/a": true,
       "name": "Brothers in Arms: Earned in Blood",
       "url": "https://en.wikipedia.org/wiki/Brothers_in_Arms:_Earned_in_Blood",
       "date": "2005-10-07"
     },
     "FLOW: Urban Dance Uprising": {
-      "n/a": true,
       "name": "FLOW: Urban Dance Uprising",
       "date": "2005-11-15"
     },
     "America's Army: Rise of a Soldier": {
-      "n/a": true,
       "name": "America's Army: Rise of a Soldier",
       "url": "https://en.wikipedia.org/wiki/America%27s_Army:_Rise_of_a_Soldier",
       "date": "2005-11-17"
     },
     "America's Army: True Soldiers": {
-      "n/a": true,
       "name": "America's Army: True Soldiers",
       "url": "https://en.wikipedia.org/wiki/America%27s_Army:_True_Soldiers",
       "date": "2005-11-17"
     },
     "GripShift": {
-      "n/a": true,
       "name": "GripShift",
       "url": "https://en.wikipedia.org/wiki/GripShift",
       "date": "2005-11-17"
     },
     "KingKong:TOGotM": {
-      "n/a": true,
       "name": "King Kong: The Official Game of the Movie",
       "url": "https://en.wikipedia.org/wiki/King_Kong_(2005_video_game)",
       "date": "2005-11-25"
     },
     "Kong:T8thWotWorld": {
-      "n/a": true,
       "name": "Kong: The 8th Wonder of the World",
       "date": "2005-11-25"
     },
     "Trollz:HA": {
-      "n/a": true,
       "name": "Trollz: Hair Affair!",
       "date": "2005-01-01"
     },
     "Frantix": {
-      "n/a": true,
       "name": "Frantix",
       "url": "https://en.wikipedia.org/wiki/Frantix",
       "date": "2005-12-01"
     },
     "PrinceofPersia:TTT": {
-      "n/a": true,
       "name": "Prince of Persia: The Two Thrones",
       "url": "XXX",
       "date": "2005-12-06"
     },
     "BattlesofPrinceofPersia": {
-      "n/a": true,
       "name": "Battles of Prince of Persia",
       "url": "https://en.wikipedia.org/wiki/Battles_of_Prince_of_Persia",
       "date": "2005-12-06"
     },
     "Biathlon2006:GfG": {
-      "n/a": true,
       "name": "Biathlon 2006: Go for Gold",
       "date": "2005-01-01"
     },
     "PippaFunnell:TSFI": {
-      "n/a": true,
       "name": "Pippa Funnell: The Stud Farm Inheritance",
       "date": "2006-01-27"
     },
     "RugbyChallenge2006": {
-      "n/a": true,
       "name": "Rugby Challenge 2006",
       "url": "https://en.wikipedia.org/wiki/Rugby_Challenge_2006",
       "date": "2006-02-03"
     },
     "Drakengard2": {
-      "n/a": true,
       "name": "Drakengard 2",
       "url": "https://en.wikipedia.org/wiki/Drakengard_2",
       "date": "2006-02-14"
     },
     "Exit": {
-      "n/a": true,
       "name": "Exit",
       "url": "https://en.wikipedia.org/wiki/Exit_(video_game)",
       "date": "2006-02-14"
     },
     "Curling2006": {
-      "n/a": true,
       "name": "Curling 2006",
       "date": "2006-02-01"
     },
     "TomClancysGhostReconAdvancedWarfighter": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon Advanced Warfighter",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Advanced_Warfighter",
       "date": "2006-03-09"
     },
     "CSI:3DoM": {
-      "n/a": true,
       "name": "CSI: 3 Dimensions of Murder",
       "url": "https://en.wikipedia.org/wiki/CSI:_3_Dimensions_of_Murder",
       "date": "2006-03-14"
     },
     "TomClancysRainbowSix:CH": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Critical Hour",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six:_Critical_Hour",
       "date": "2006-03-14"
     },
     "CallofCthulhu:DCotE": {
-      "n/a": true,
       "name": "Call of Cthulhu: Dark Corners of the Earth",
       "url": "https://en.wikipedia.org/wiki/Call_of_Cthulhu:_Dark_Corners_of_the_Earth",
       "date": "2006-03-17"
     },
     "BlazingAngels:SoWWII": {
-      "n/a": true,
       "name": "Blazing Angels: Squadrons of WWII",
       "url": "https://en.wikipedia.org/wiki/Blazing_Angels:_Squadrons_of_WWII",
       "date": "2006-03-23"
     },
     "Monster4x4:WC": {
-      "n/a": true,
       "name": "Monster 4x4: World Circuit",
       "url": "https://en.wikipedia.org/wiki/Monster_4x4:_World_Circuit",
       "date": "2006-03-23"
     },
     "StreetRiders": {
-      "n/a": true,
       "name": "Street Riders",
       "url": "https://en.wikipedia.org/wiki/Street_Riders",
       "date": "2006-03-24"
     },
     "FarCry:I": {
-      "n/a": true,
       "name": "Far Cry: Instincts",
       "url": "https://en.wikipedia.org/wiki/Far_Cry_Instincts",
       "date": "2006-03-28"
     },
     "PippaFunnell:TtR": {
-      "n/a": true,
       "name": "Pippa Funnell: Take the Reins",
       "url": "https://en.wikipedia.org/wiki/Pippa_Funnell:_Take_the_Reins",
       "date": "2006-03-31"
     },
     "TomClancysSplinterCell:E": {
-      "n/a": true,
       "name": "Tom Clancy's Splinter Cell: Essentials",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell:_Essentials",
       "date": "2006-03-31"
     },
     "Catz": {
-      "n/a": true,
       "name": "Catz",
       "date": "2006-01-01"
     },
     "Dogz": {
-      "n/a": true,
       "name": "Dogz",
       "date": "2006-04-20"
     },
     "LostMagic": {
-      "n/a": true,
       "name": "LostMagic",
       "url": "https://en.wikipedia.org/wiki/LostMagic",
       "date": "2006-04-25"
     },
     "Paradise": {
-      "n/a": true,
       "name": "Paradise",
       "url": "https://en.wikipedia.org/wiki/Paradise_(video_game)",
       "date": "2006-04-27"
     },
     "HeroesofMightandMagicV": {
-      "n/a": true,
       "name": "Heroes of Might and Magic V",
       "url": "https://en.wikipedia.org/wiki/Heroes_of_Might_and_Magic_V",
       "date": "2006-05-23"
     },
     "CallofJuarez": {
-      "n/a": true,
       "name": "Call of Juarez",
       "url": "https://en.wikipedia.org/wiki/Call_of_Juarez_(video_game)",
       "date": "2006-06-05"
     },
     "AND1Streetball": {
-      "n/a": true,
       "name": "AND 1 Streetball",
       "url": "https://en.wikipedia.org/wiki/AND_1_Streetball",
       "date": "2006-06-06"
     },
     "AstonishiaStory": {
-      "n/a": true,
       "name": "Astonishia Story",
       "url": "https://en.wikipedia.org/wiki/Astonishia_Story",
       "date": "2006-06-27"
     },
     "OverGFighters": {
-      "n/a": true,
       "name": "Over G Fighters",
       "url": "https://en.wikipedia.org/wiki/Over_G_Fighters",
       "date": "2006-06-27"
     },
     "PiratesoftheCaribbean:TLoJS": {
-      "n/a": true,
       "name": "Pirates of the Caribbean: The Legend of Jack Sparrow",
       "url": "https://en.wikipedia.org/wiki/Pirates_of_the_Caribbean:_The_Legend_of_Jack_Sparrow",
       "date": "2006-06-27"
     },
     "DevilMayCry3:DASE": {
-      "n/a": true,
       "name": "Devil May Cry 3: Dante's Awakening - Special Edition",
       "date": "2006-06-30"
     },
     "EnchantedArms": {
-      "n/a": true,
       "name": "Enchanted Arms",
       "url": "https://en.wikipedia.org/wiki/Enchanted_Arms",
       "date": "2006-08-29"
     },
     "FacesofWar": {
-      "n/a": true,
       "name": "Faces of War",
       "url": "https://en.wikipedia.org/wiki/Faces_of_War",
       "date": "2006-09-12"
     },
     "OpenSeason": {
-      "n/a": true,
       "name": "Open Season",
       "url": "https://en.wikipedia.org/wiki/Open_Season_(video_game)",
       "date": "2006-09-12"
     },
     "ImportTunerChallenge": {
-      "n/a": true,
       "name": "Import Tuner Challenge",
       "url": "https://en.wikipedia.org/wiki/Import_Tuner_Challenge",
       "date": "2006-09-26"
     },
     "TheSettlersII:10A": {
-      "n/a": true,
       "name": "The Settlers II: 10th Anniversary",
       "url": "https://en.wikipedia.org/wiki/The_Settlers_II_(10th_Anniversary)",
       "date": "2006-10-06"
     },
     "TomClancysSplinterCell:DA": {
-      "n/a": true,
       "name": "Tom Clancy's Splinter Cell: Double Agent",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell:_Double_Agent",
       "date": "2006-10-17"
     },
     "DarkMessiahofMightandMagic": {
-      "n/a": true,
       "name": "Dark Messiah of Might and Magic",
       "url": "https://en.wikipedia.org/wiki/Dark_Messiah_of_Might_and_Magic",
       "date": "2006-10-25"
     },
     "MindQuiz": {
-      "n/a": true,
       "name": "Mind Quiz",
       "url": "https://en.wikipedia.org/wiki/Mind_Quiz",
       "date": "2006-10-31"
     },
     "Asphalt:UGT2": {
-      "n/a": true,
       "name": "Asphalt: Urban GT 2",
       "url": "https://en.wikipedia.org/wiki/Asphalt:_Urban_GT_2",
       "date": "2006-11-06"
     },
     "GTProSeries": {
-      "n/a": true,
       "name": "GT Pro Series",
       "url": "https://en.wikipedia.org/wiki/GT_Pro_Series",
       "date": "2006-11-19"
     },
     "RaymanRavingRabbids": {
-      "n/a": true,
       "name": "Rayman Raving Rabbids",
       "url": "https://en.wikipedia.org/wiki/Rayman_Raving_Rabbids",
       "date": "2006-11-19"
     },
     "RedSteel": {
-      "n/a": true,
       "name": "Red Steel",
       "url": "https://en.wikipedia.org/wiki/Red_Steel",
       "date": "2006-11-19"
     },
     "TomClancysRainbowSix:V": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Vegas",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Vegas",
       "date": "2006-11-21"
     },
     "Horsez": {
-      "n/a": true,
       "name": "Horsez",
       "url": "https://en.wikipedia.org/wiki/Horsez",
       "date": "2006-11-28"
     },
     "SafariPhotoAfrica:WE": {
-      "n/a": true,
       "name": "Safari Photo Africa: Wild Earth",
       "date": "2006-01-01"
     },
     "BrothersinArms:DD": {
-      "n/a": true,
       "name": "Brothers in Arms: D-Day",
       "url": "https://en.wikipedia.org/wiki/Brothers_in_Arms:_D-Day",
       "date": "2006-12-05"
     },
     "StarWars:LA": {
-      "n/a": true,
       "name": "Star Wars: Lethal Alliance",
       "url": "https://en.wikipedia.org/wiki/Star_Wars:_Lethal_Alliance",
       "date": "2006-12-05"
     },
     "FarCryVengeance": {
-      "n/a": true,
       "name": "Far Cry Vengeance",
       "url": "https://en.wikipedia.org/wiki/Far_Cry_Vengeance",
       "date": "2006-12-06"
     },
     "PippaFunnell:TGSC": {
-      "n/a": true,
       "name": "Pippa Funnell: The Golden Stirrup Challenge",
       "date": "2006-01-01"
     },
     "Scrabble2007Edition": {
-      "n/a": true,
       "name": "Scrabble 2007 Edition",
       "url": "https://en.wikipedia.org/wiki/Scrabble_2007_Edition",
       "date": "2006-01-01"
     },
     "RockyBalboa": {
-      "n/a": true,
       "name": "Rocky Balboa",
       "url": "https://en.wikipedia.org/wiki/Rocky_Balboa_(video_game)",
       "date": "2007-01-26"
     },
     "ResidentEvil4": {
-      "n/a": true,
       "name": "Resident Evil 4",
       "url": "https://en.wikipedia.org/wiki/Resident_Evil_4",
       "date": "2007-02-23"
     },
     "TomClancysGhostReconAdvancedWarfighter2": {
-      "n/a": true,
       "name": "Tom Clancy's Ghost Recon Advanced Warfighter 2",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Advanced_Warfighter_2",
       "date": "2007-03-06"
     },
     "TMNT": {
-      "n/a": true,
       "name": "TMNT",
       "url": "https://en.wikipedia.org/wiki/TMNT_(video_game)",
       "date": "2007-03-14"
     },
     "Go:S": {
-      "n/a": true,
       "name": "Go! Sudoku",
       "url": "https://en.wikipedia.org/wiki/Go!_Sudoku",
       "date": "2007-03-21"
     },
     "SilentHunter4:WotP": {
-      "n/a": true,
       "name": "Silent Hunter 4: Wolves of the Pacific",
       "url": "https://en.wikipedia.org/wiki/Silent_Hunter_4:_Wolves_of_the_Pacific",
       "date": "2007-03-22"
     },
     "MindQuiz:YBC": {
-      "n/a": true,
       "name": "Mind Quiz: Your Brain Coach",
       "date": "2007-01-01"
     },
     "BeyondDivinity": {
-      "n/a": true,
       "name": "Beyond Divinity",
       "url": "https://en.wikipedia.org/wiki/Beyond_Divinity",
       "date": "2007-04-02"
     },
     "PrinceofPersia:RS": {
-      "n/a": true,
       "name": "Prince of Persia: Rival Swords",
       "date": "2007-04-03"
     },
     "TheElderScrollsIV:O": {
-      "n/a": true,
       "name": "The Elder Scrolls IV: Oblivion",
       "url": "https://en.wikipedia.org/wiki/The_Elder_Scrolls_IV:_Oblivion",
       "date": "2007-03-26"
     },
     "Driver76": {
-      "n/a": true,
       "name": "Driver 76",
       "url": "https://en.wikipedia.org/wiki/Driver_76",
       "date": "2007-05-08"
     },
     "PlatinumSudoku": {
-      "n/a": true,
       "name": "Platinum Sudoku",
       "date": "2007-05-11"
     },
     "WarTech:SnR": {
-      "n/a": true,
       "name": "WarTech: Senko no Ronde",
       "url": "https://en.wikipedia.org/wiki/WarTech:_Senko_no_Ronde",
       "date": "2007-05-22"
     },
     "SurfsUp": {
-      "n/a": true,
       "name": "Surf's Up",
       "url": "https://en.wikipedia.org/wiki/Surf%27s_Up_(video_game)",
       "date": "2007-05-29"
     },
     "PrinceofPersiaClassic": {
-      "n/a": true,
       "name": "Prince of Persia Classic",
       "url": "https://en.wikipedia.org/wiki/Prince_of_Persia_Classic",
       "date": "2007-07-13"
     },
     "BrothersinArmsDS": {
-      "n/a": true,
       "name": "Brothers in Arms DS",
       "url": "https://en.wikipedia.org/wiki/Brothers_in_Arms_DS",
       "date": "2007-07-19"
     },
     "Driver:PL": {
-      "n/a": true,
       "name": "Driver: Parallel Lines",
       "url": "https://en.wikipedia.org/wiki/Driver:_Parallel_Lines",
       "date": "2007-07-28"
     },
     "TheSettlers": {
-      "n/a": true,
       "name": "The Settlers",
       "date": "2007-07-12"
     },
     "TopTrumpsAdventures": {
-      "n/a": true,
       "name": "Top Trumps Adventures!",
       "date": "2007-07-12"
     },
     "CosmicFamily": {
-      "n/a": true,
       "name": "Cosmic Family",
       "url": "https://en.wikipedia.org/wiki/Cosmic_Family",
       "date": "2007-08-31"
     },
     "JamSessions": {
-      "n/a": true,
       "name": "Jam Sessions",
       "url": "https://en.wikipedia.org/wiki/Jam_Sessions",
       "date": "2007-09-11"
     },
     "BlazingAngels2:SMoWWII": {
-      "n/a": true,
       "name": "Blazing Angels 2: Secret Missions of WWII",
       "url": "https://en.wikipedia.org/wiki/Blazing_Angels_2:_Secret_Missions_of_WWII",
       "date": "2007-09-18"
     },
     "CSI:HE": {
-      "n/a": true,
       "name": "CSI: Hard Evidence",
       "url": "https://en.wikipedia.org/wiki/CSI:_Hard_Evidence",
       "date": "2007-09-25"
     },
     "BrainSpa": {
-      "n/a": true,
       "name": "Brain Spa",
       "date": "2007-09-01"
     },
     "TheSettlers:RoaE": {
-      "n/a": true,
       "name": "The Settlers: Rise of an Empire",
       "url": "https://en.wikipedia.org/wiki/The_Settlers:_Rise_of_an_Empire",
       "date": "2007-10-04"
     },
     "RealFootball20083D": {
-      "n/a": true,
       "name": "Real Football 2008 3D",
       "date": "2007-10-12"
     },
     "TopTrumps:DD": {
-      "n/a": true,
       "name": "Top Trumps: Dogs & Dinosaurs",
       "date": "2007-10-12"
     },
     "TopTrumps:HP": {
-      "n/a": true,
       "name": "Top Trumps: Horror & Predators",
       "date": "2007-10-12"
     },
     "HeroesofMightandMagicV:TotE": {
-      "n/a": true,
       "name": "Heroes of Might and Magic V: Tribes of the East",
       "url": "https://en.wikipedia.org/wiki/The_Settlers:_Rise_of_an_Empire",
       "date": "2007-10-17"
     },
     "TotallySpies3:SA": {
-      "n/a": true,
       "name": "Totally Spies! 3: Secret Agents",
       "date": "2007-10-18"
     },
     "Chessmaster:GE": {
-      "n/a": true,
       "name": "Chessmaster: Grandmaster Edition",
       "url": "https://en.wikipedia.org/wiki/Chessmaster",
       "date": "2007-10-23"
     },
     "Imagine:AD": {
-      "n/a": true,
       "name": "Imagine: Animal Doctor",
       "date": "2007-10-03"
     },
     "Imagine:B": {
-      "n/a": true,
       "name": "Imagine: Babyz",
       "date": "2007-10-03"
     },
     "Imagine:FD": {
-      "n/a": true,
       "name": "Imagine: Fashion Designer",
       "date": "2007-10-03"
     },
     "Imagine:MC": {
-      "n/a": true,
       "name": "Imagine: Master Chef",
       "date": "2007-10-03"
     },
     "Naruto:RoaN": {
-      "n/a": true,
       "name": "Naruto: Rise of a Ninja",
       "url": "https://en.wikipedia.org/wiki/Naruto:_Rise_of_a_Ninja",
       "date": "2007-10-30"
     },
     "PetzWildAnimals:D": {
-      "n/a": true,
       "name": "Petz Wild Animals: Dolphinz",
       "date": "2007-10-01"
     },
     "TellyAddicts": {
-      "n/a": true,
       "name": "Telly Addicts",
       "date": "2007-11-02"
     },
     "WhoWantstoBeaMillionaire:1E": {
-      "n/a": true,
       "name": "Who Wants to Be a Millionaire: 1st Edition",
       "date": "2007-11-02"
     },
     "Imagine:ID": {
-      "n/a": true,
       "name": "Imagine: Interior Designer",
       "date": "2007-11-04"
     },
     "Imagine:WD": {
-      "n/a": true,
       "name": "Imagine: Wedding Designer",
       "date": "2007-11-04"
     },
     "MyFrenchCoach": {
-      "n/a": true,
       "name": "My French Coach",
       "date": "2007-11-06"
     },
     "MySpanishCoach": {
-      "n/a": true,
       "name": "My Spanish Coach",
       "date": "2007-11-06"
     },
     "MyWordCoach": {
-      "n/a": true,
       "name": "My Word Coach",
       "url": "https://en.wikipedia.org/wiki/My_Word_Coach",
       "date": "2001-11-01"
     },
     "Beowulf:TG": {
-      "n/a": true,
       "name": "Beowulf: The Game",
       "url": "https://en.wikipedia.org/wiki/Beowulf:_The_Game",
       "date": "2007-11-13"
     },
     "Petz:C2": {
-      "n/a": true,
       "name": "Petz: Catz 2",
       "date": "2007-11-13"
     },
     "Petz:D2": {
-      "n/a": true,
       "name": "Petz: Dogz 2",
       "date": "2007-11-13"
     },
     "Petz:H2": {
-      "n/a": true,
       "name": "Petz: Horsez 2",
       "date": "2007-11-13"
     },
     "RaymanRavingRabbids2": {
-      "n/a": true,
       "name": "Rayman Raving Rabbids 2",
       "url": "https://en.wikipedia.org/wiki/Rayman_Raving_Rabbids_2",
       "date": "2007-11-13"
     },
     "AssassinsCreed": {
-      "n/a": true,
       "name": "Assassin's Creed",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_(video_game)",
       "date": "2007-11-14"
     },
     "Petz:Ha2": {
-      "n/a": true,
       "name": "Petz: Hamsterz 2",
       "date": "2007-11-23"
     },
     "CraniumKabookii": {
-      "n/a": true,
       "name": "Cranium Kabookii",
       "date": "2007-11-27"
     },
     "MiamiNights:SitC": {
-      "n/a": true,
       "name": "Miami Nights: Singles in the City",
       "url": "https://en.wikipedia.org/wiki/Miami_Nights:_Singles_in_the_City",
       "date": "2008-01-15"
     },
     "Nitrobike": {
-      "n/a": true,
       "name": "Nitrobike",
       "url": "https://en.wikipedia.org/wiki/Nitrobike",
       "date": "2008-01-15"
     },
     "NoMoreHeroes": {
-      "n/a": true,
       "name": "No More Heroes",
       "url": "https://en.wikipedia.org/wiki/No_More_Heroes_(video_game)",
       "date": "2008-01-22"
     },
     "ChessmasterLive": {
-      "n/a": true,
       "name": "Chessmaster Live",
       "url": "https://en.wikipedia.org/wiki/Chessmaster",
       "date": "2008-01-30"
     },
     "AssassinsCreed:AC": {
-      "n/a": true,
       "name": "Assassin's Creed: Altaïr's Chronicles",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed:_Alta%C3%AFr%27s_Chronicles",
       "date": "2001-11-01"
     },
     "PuppyPalace": {
-      "n/a": true,
       "name": "Puppy Palace",
       "date": "2008-02-05"
     },
     "DarkMessiah:MaME": {
-      "n/a": true,
       "name": "Dark Messiah: Might and Magic - Elements",
       "date": "2008-02-01"
     },
     "Chessmaster:TAoL": {
-      "n/a": true,
       "name": "Chessmaster: The Art of Learning",
       "url": "https://en.wikipedia.org/wiki/Chessmaster",
       "date": "2008-11-01"
     },
     "Lost:VD": {
-      "n/a": true,
       "name": "Lost: Via Domus",
       "url": "https://en.wikipedia.org/wiki/Lost:_Via_Domus",
       "date": "2008-02-26"
     },
     "Petz:WAT": {
-      "n/a": true,
       "name": "Petz: Wild Animals - Tigerz",
       "url": "https://en.wikipedia.org/wiki/Tigerz",
       "date": "2008-02-26"
     },
     "Anno1701:DoD": {
-      "n/a": true,
       "name": "Anno 1701: Dawn of Discovery",
       "url": "https://en.wikipedia.org/wiki/Anno_1701:_Dawn_of_Discovery",
       "date": "2008-03-04"
     },
     "Imagine:FS": {
-      "n/a": true,
       "name": "Imagine: Figure Skater",
       "date": "2008-03-04"
     },
     "Petz:B": {
-      "n/a": true,
       "name": "Petz: Bunnyz",
       "date": "2008-03-04"
     },
     "TomClancysRainbowSix:V2": {
-      "n/a": true,
       "name": "Tom Clancy's Rainbow Six: Vegas 2",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Vegas_2",
       "date": "2008-03-18"
     },
     "TheDogIsland": {
-      "n/a": true,
       "name": "The Dog Island",
       "url": "https://en.wikipedia.org/wiki/The_Dog_Island",
       "date": "2008-05-06"
     },
     "Haze": {
-      "n/a": true,
       "name": "Haze",
       "url": "https://en.wikipedia.org/wiki/Haze_(video_game)",
       "date": "2008-05-20"
     },
     "EmergencyHeroes": {
-      "n/a": true,
       "name": "Emergency Heroes",
       "url": "https://en.wikipedia.org/wiki/Emergency_Heroes",
       "date": "2008-05-27"
     },
     "Protothea": {
-      "n/a": true,
       "name": "Protöthea",
       "url": "https://en.wikipedia.org/wiki/Prot%C3%B6thea",
       "date": "2008-06-02"
     },
     "Stratego:NE": {
-      "n/a": true,
       "name": "Stratego: Next Edition",
       "date": "2008-06-13"
     },
     "Imagine:RS": {
-      "n/a": true,
       "name": "Imagine: Rock Star",
       "date": "2008-06-17"
     },
     "MyWeightLossCoach": {
-      "n/a": true,
       "name": "My Weight Loss Coach",
       "url": "https://en.wikipedia.org/wiki/My_Weight_Loss_Coach",
       "date": "2008-06-24"
     },
     "GourmetChef": {
-      "n/a": true,
       "name": "Gourmet Chef",
       "date": "2008-06-29"
     },
     "AnimalGenius": {
-      "n/a": true,
       "name": "Animal Genius",
       "url": "https://en.wikipedia.org/wiki/Animal_Genius",
       "date": "2001-11-01"
     },
     "QuickYogaTraining": {
-      "n/a": true,
       "name": "Quick Yoga Training",
       "date": "2008-08-05"
     },
     "Imagine:T": {
-      "n/a": true,
       "name": "Imagine: Teacher",
       "date": "2008-08-12"
     },
     "MyChineseCoach": {
-      "n/a": true,
       "name": "My Chinese Coach",
       "url": "https://en.wikipedia.org/wiki/My_Chinese_Coach",
       "date": "2008-08-26"
     },
     "TheSettlers:RoC": {
-      "n/a": true,
       "name": "The Settlers: Rise of Cultures",
       "url": "XXX",
       "date": "2008-08-28"
     },
     "HellsKitchen:TG": {
-      "n/a": true,
       "name": "Hell's Kitchen: The Game",
       "url": "https://en.wikipedia.org/wiki/Hell%27s_Kitchen:_The_Game",
       "date": "2001-11-01"
     },
     "ThePriceIsRight": {
-      "n/a": true,
       "name": "The Price Is Right",
       "date": "2008-09-09"
     },
     "ArmoredCore:FA": {
-      "n/a": true,
       "name": "Armored Core: For Answer",
       "url": "https://en.wikipedia.org/wiki/Armored_Core:_For_Answer",
       "date": "2008-09-18"
     },
     "BrothersinArms:HH": {
-      "n/a": true,
       "name": "Brothers in Arms: Hell's Highway",
       "url": "https://en.wikipedia.org/wiki/Brothers_in_Arms:_Hell%27s_Highway",
       "date": "2008-09-23"
     },
     "MySATCoach": {
-      "n/a": true,
       "name": "My SAT Coach",
       "url": "https://en.wikipedia.org/wiki/My_SAT_Coach",
       "date": "2008-09-23"
     },
     "BrothersinArms:DT": {
-      "n/a": true,
       "name": "Brothers in Arms: Double Time",
       "url": "https://en.wikipedia.org/wiki/Brothers_in_Arms:_Double_Time",
       "date": "2008-09-26"
     },
     "MySecretWorldbyImagine": {
-      "n/a": true,
       "name": "My Secret World by Imagine",
       "date": "2008-10-01"
     },
     "Imagine:B2": {
-      "n/a": true,
       "name": "Imagine: Babysitters",
       "date": "2008-10-07"
     },
     "Imagine:FDNY": {
-      "n/a": true,
       "name": "Imagine: Fashion Designer - New York",
       "date": "2008-10-07"
     },
     "Imagine:CR": {
-      "n/a": true,
       "name": "Imagine: Champion Rider",
       "date": "2008-10-09"
     },
     "BattleofGiants:D": {
-      "n/a": true,
       "name": "Battle of Giants: Dinosaurs",
       "date": "2008-10-14"
     },
     "CesarMillansDogWhisperer": {
-      "n/a": true,
       "name": "Cesar Millan's Dog Whisperer",
       "date": "2008-10-14"
     },
     "MyJapaneseCoach": {
-      "n/a": true,
       "name": "My Japanese Coach",
       "url": "https://en.wikipedia.org/wiki/My_Japanese_Coach",
       "date": "2008-10-14"
     },
     "CSI:NYTG": {
-      "n/a": true,
       "name": "CSI: NY - The Game",
       "date": "2008-10-19"
     },
     "CircusGames": {
-      "n/a": true,
       "name": "Circus Games",
       "date": "2008-10-21"
     },
     "Ener-G:DS": {
-      "n/a": true,
       "name": "Ener-G: Dance Squad",
       "date": "2008-10-21"
     },
     "FarCry2": {
-      "n/a": true,
       "name": "Far Cry 2",
       "url": "https://en.wikipedia.org/wiki/Far_Cry_2",
       "date": "2008-10-21"
     },
     "GuitarRockTour": {
-      "n/a": true,
       "name": "Guitar Rock Tour",
       "url": "https://en.wikipedia.org/wiki/Guitar_Rock_Tour",
       "date": "2008-10-24"
     },
     "Petz:HC": {
-      "n/a": true,
       "name": "Petz: Horse Club",
       "date": "2008-10-28"
     },
     "PetzRescue:OP": {
-      "n/a": true,
       "name": "Petz Rescue: Ocean Patrol",
       "date": "2008-10-28"
     },
     "PetzRescue:WV": {
-      "n/a": true,
       "name": "Petz Rescue: Wildlife Vet",
       "date": "2008-10-28"
     },
     "RaymanRavingRabbids:TVP": {
-      "n/a": true,
       "name": "Rayman Raving Rabbids: TV Party",
       "url": "https://en.wikipedia.org/wiki/Rayman_Raving_Rabbids:_TV_Party",
       "date": "2008-11-03"
     },
     "FamilyFestPresentsMovieGames": {
-      "n/a": true,
       "name": "Family Fest Presents Movie Games",
       "date": "2008-11-04"
     },
     "TomClancysEndWar": {
-      "n/a": true,
       "name": "Tom Clancy's EndWar",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_EndWar",
       "date": "2008-11-04"
     },
     "Imagine:PB": {
-      "n/a": true,
       "name": "Imagine: Party Babyz",
       "date": "2008-11-11"
     },
     "ShaunWhiteSnowboarding": {
-      "n/a": true,
       "name": "Shaun White Snowboarding",
       "url": "https://en.wikipedia.org/wiki/Shaun_White_Snowboarding",
       "date": "2001-11-13"
     },
     "ShaunWhiteSnowboarding:RT": {
-      "n/a": true,
       "name": "Shaun White Snowboarding: Road Trip",
       "date": "2008-11-16"
     },
     "Imagine:BS": {
-      "n/a": true,
       "name": "Imagine: Ballet Star",
       "date": "2008-11-18"
     },
     "Imagine:MS": {
-      "n/a": true,
       "name": "Imagine: Movie Star",
       "date": "2008-11-18"
     },
     "Naruto:TBB": {
-      "n/a": true,
       "name": "Naruto: The Broken Bond",
       "url": "https://en.wikipedia.org/wiki/Naruto:_The_Broken_Bond",
       "date": "2008-11-18"
     },
     "Petz:CM": {
-      "n/a": true,
       "name": "Petz: Crazy Monkeyz",
       "url": "https://en.wikipedia.org/wiki/Petz:_Crazy_Monkeyz",
       "date": "2008-11-18"
     },
     "Petz:MH": {
-      "n/a": true,
       "name": "Petz: Monkeyz House",
       "date": "2008-11-18"
     },
     "Petz:CC": {
-      "n/a": true,
       "name": "Petz: Catz Clan",
       "date": "2008-11-18"
     },
     "PetzRescue:EP": {
-      "n/a": true,
       "name": "Petz Rescue: Endangered Paradise",
       "date": "2008-11-18"
     },
     "WhoWantstoBeaMillionaire:2E": {
-      "n/a": true,
       "name": "Who Wants to Be a Millionaire: 2nd Edition",
       "date": "2008-11-28"
     },
     "MyStopSmokingCoach:ACE": {
-      "n/a": true,
       "name": "My Stop Smoking Coach: Allen Carr's EasyWay",
       "date": "2008-01-01"
     },
     "PetzSports": {
-      "n/a": true,
       "name": "Petz Sports",
       "date": "2008-01-01"
     },
     "HappyCooking": {
-      "n/a": true,
       "name": "Happy Cooking",
       "date": "2008-12-02"
     },
     "MyFunFactsCoach": {
-      "n/a": true,
       "name": "My Fun Facts Coach",
       "date": "2008-12-02"
     },
     "PrinceofPersia": {
-      "n/a": true,
       "name": "Prince of Persia",
       "url": "https://en.wikipedia.org/wiki/Prince_of_Persia_(2008_video_game)",
       "date": "2008-12-09"
     },
     "BabyLife": {
-      "n/a": true,
       "name": "Baby Life",
       "url": "https://en.wikipedia.org/wiki/Baby_Life",
       "date": "2008-01-01"
     },
     "MyFitnessCoach": {
-      "n/a": true,
       "name": "My Fitness Coach",
       "date": "2008-01-01"
     },
     "Imagine:FP": {
-      "n/a": true,
       "name": "Imagine: Fashion Party",
       "date": "2009-01-20"
     },
     "Imagine:PP": {
-      "n/a": true,
       "name": "Imagine: Party Planner",
       "date": "2009-01-26"
     },
     "Imagine:C": {
-      "n/a": true,
       "name": "Imagine: Cheerleader",
       "date": "2009-01-27"
     },
     "JojosFashionShow:DiaD": {
-      "n/a": true,
       "name": "Jojo's Fashion Show: Design in a Dash!",
       "date": "2009-01-27e"
     },
     "Imagine:J": {
-      "n/a": true,
       "name": "Imagine: Journalist",
       "date": "2009-02-02"
     },
     "Petz:HR": {
-      "n/a": true,
       "name": "Petz: Horseshoe Ranch",
       "date": "2009-02-03"
     },
     "Tenchu:SA": {
-      "n/a": true,
       "name": "Tenchu: Shadow Assassins",
       "url": "https://en.wikipedia.org/wiki/Tenchu:_Shadow_Assassins",
       "date": "2009-02-05"
     },
     "JakePower:F": {
-      "n/a": true,
       "name": "Jake Power: Fireman",
       "date": "2009-02-17"
     },
     "JakePower:P": {
-      "n/a": true,
       "name": "Jake Power: Policeman",
       "date": "2009-02-17"
     },
     "Imagine:IC": {
-      "n/a": true,
       "name": "Imagine: Ice Champions",
       "date": "2009-02-24"
     },
     "SixFlagsFunPark": {
-      "n/a": true,
       "name": "Six Flags Fun Park",
       "date": "2009-03-03"
     },
     "TomClancysHAWX": {
-      "n/a": true,
       "name": "Tom Clancy's H.A.W.X",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_H.A.W.X",
       "date": "2009-03-05"
     },
     "GreysAnatomy:TVG": {
-      "n/a": true,
       "name": "Grey's Anatomy: The Video Game",
       "url": "https://en.wikipedia.org/wiki/Grey%27s_Anatomy:_The_Video_Game",
       "date": "2009-03-11"
     },
     "WorldinConflict:SA": {
-      "n/a": true,
       "name": "World in Conflict: Soviet Assault",
       "url": "https://en.wikipedia.org/wiki/World_in_Conflict:_Soviet_Assault",
       "date": "2009-03-12"
     },
     "VacationSports": {
-      "n/a": true,
       "name": "Vacation Sports",
       "date": "2009-03-17"
     },
     "BrokenSword:SotTTDC": {
-      "n/a": true,
       "name": "Broken Sword: Shadow of the Templars - The Director's Cut",
       "url": "https://en.wikipedia.org/wiki/Broken_Sword:_Shadow_of_the_Templars_%E2%80%93_The_Director%27s_Cut",
       "date": "2009-03-24"
     },
     "Wheelman": {
-      "n/a": true,
       "name": "Wheelman",
       "url": "https://en.wikipedia.org/wiki/Wheelman_(video_game)",
       "date": "2009-03-23"
     },
     "Imagine:MR": {
-      "n/a": true,
       "name": "Imagine: My Restaurant",
       "date": "2009-03-27"
     },
     "FashionStudioParisCollection": {
-      "n/a": true,
       "name": "Fashion Studio Paris Collection",
       "date": "2009-03-31"
     },
     "Imagine:FD2": {
-      "n/a": true,
       "name": "Imagine: Family Doctor",
       "date": "2009-03-31"
     },
     "Imagine:MF": {
-      "n/a": true,
       "name": "Imagine: Music Fest",
       "date": "2009-05-05"
     },
     "Imagine:MA": {
-      "n/a": true,
       "name": "Imagine: Makeup Artist",
       "date": "2009-05-12"
     },
     "Imagine:BO": {
-      "n/a": true,
       "name": "Imagine: Boutique Owner",
       "date": "2009-06-02"
     },
     "CellFactor:PW": {
-      "n/a": true,
       "name": "CellFactor: Psychokinetic Wars",
       "url": "https://en.wikipedia.org/wiki/CellFactor:_Psychokinetic_Wars",
       "date": "2009-06-03"
     },
     "PetzFashion:DaC": {
-      "n/a": true,
       "name": "Petz Fashion: Dogz and Catz",
       "date": "2009-06-09"
     },
     "Anno1404": {
-      "n/a": true,
       "name": "Anno 1404",
       "url": "https://en.wikipedia.org/wiki/Anno_1404",
       "date": "2009-06-25"
     },
     "CallofJuarez:BiB": {
-      "n/a": true,
       "name": "Call of Juarez: Bound in Blood",
       "url": "https://en.wikipedia.org/wiki/Call_of_Juarez:_Bound_in_Blood",
       "date": "2009-06-30"
     },
     "TeenageMutantNinjaTurtles:TiTRS": {
-      "n/a": true,
       "name": "Teenage Mutant Ninja Turtles: Turtles in Time Re-Shelled",
       "url": "https://en.wikipedia.org/wiki/Teenage_Mutant_Ninja_Turtles:_Turtles_in_Time_Re-Shelled",
       "date": "2009-08-05"
     },
     "Imagine:SC": {
-      "n/a": true,
       "name": "Imagine: Soccer Captain",
       "date": "2009-08-11"
     },
     "Imagine:TCT": {
-      "n/a": true,
       "name": "Imagine: Teacher - Class Trip",
       "date": "2009-08-25"
     },
     "Imagine:D": {
-      "n/a": true,
       "name": "Imagine: Detective",
       "date": "2009-09-01"
     },
     "AcademyofChampions:S": {
-      "n/a": true,
       "name": "Academy of Champions: Soccer",
       "url": "https://en.wikipedia.org/wiki/Academy_of_Champions:_Soccer",
       "date": "2009-09-08"
     },
     "CloudywithaChanceofMeatballs": {
-      "n/a": true,
       "name": "Cloudy with a Chance of Meatballs",
       "url": "https://en.wikipedia.org/wiki/Cloudy_with_a_Chance_of_Meatballs_(video_game)",
       "date": "2009-09-15"
     },
     "HeroesOverEurope": {
-      "n/a": true,
       "name": "Heroes Over Europe",
       "url": "https://en.wikipedia.org/wiki/Heroes_Over_Europe",
       "date": "2009-09-17"
     },
     "NewU:FFPT": {
-      "n/a": true,
       "name": "NewU: Fitness First Personal Trainer",
       "date": "2009-09-18"
     },
     "TeenageMutantNinjaTurtles:SU": {
-      "n/a": true,
       "name": "Teenage Mutant Ninja Turtles: Smash-Up",
       "url": "https://en.wikipedia.org/wiki/Teenage_Mutant_Ninja_Turtles:_Smash-Up",
       "date": "2009-09-22"
     },
     "ThePriceisRight:2010E": {
-      "n/a": true,
       "name": "The Price is Right: 2010 Edition",
       "date": "2009-09-22"
     },
     "WheresWaldo:TFJ": {
-      "n/a": true,
       "name": "Where's Waldo? The Fantastic Journey",
       "url": "https://en.wikipedia.org/wiki/Where%27s_Waldo%3F_The_Fantastic_Journey_(video_game)",
       "date": "2009-09-22"
     },
     "BattleofGiants:D2": {
-      "n/a": true,
       "name": "Battle of Giants: Dragons",
       "date": "2009-09-29"
     },
     "FamilyFeud:2010E": {
-      "n/a": true,
       "name": "Family Feud: 2010 Edition",
       "date": "2009-09-29"
     },
     "Imagine:SS": {
-      "n/a": true,
       "name": "Imagine: Salon Stylist",
       "date": "2009-09-29"
     },
     "MetropolisCrimes": {
-      "n/a": true,
       "name": "Metropolis Crimes",
       "date": "2009-10-01"
     },
     "Imagine:Z": {
-      "n/a": true,
       "name": "Imagine: Zookeeper",
       "date": "2009-10-06"
     },
     "Imagine:S16": {
-      "n/a": true,
       "name": "Imagine: Sweet 16",
       "date": "2009-10-13"
     },
     "Petz:PBP": {
-      "n/a": true,
       "name": "Petz: Pony Beauty Pageant",
       "date": "2009-10-13"
     },
     "CoverGirl": {
-      "n/a": true,
       "name": "Cover Girl",
       "date": "2009-10-15"
     },
     "Imagine:FDWT": {
-      "n/a": true,
       "name": "Imagine: Fashion Designer - World Tour",
       "date": "2009-10-20"
     },
     "PetzDolphinzEncounter": {
-      "n/a": true,
       "name": "Petz Dolphinz Encounter",
       "date": "2009-10-20"
     },
     "JamSessions2": {
-      "n/a": true,
       "name": "Jam Sessions 2",
       "date": "2009-10-20"
     },
     "PanzerGeneral:AA": {
-      "n/a": true,
       "name": "Panzer General: Allied Assault",
       "url": "https://en.wikipedia.org/wiki/Panzer_General:_Allied_Assault",
       "date": "2009-10-21"
     },
     "CSI:DI": {
-      "n/a": true,
       "name": "CSI: Deadly Intent",
       "url": "https://en.wikipedia.org/wiki/CSI:_Deadly_Intent",
       "date": "2009-10-27"
     },
     "Imagine:A": {
-      "n/a": true,
       "name": "Imagine: Artist",
       "date": "2009-10-27"
     },
     "Monster4x4StuntRacer": {
-      "n/a": true,
       "name": "Monster 4x4 Stunt Racer",
       "date": "2009-10-27"
     },
     "Petz:DF": {
-      "n/a": true,
       "name": "Petz: Dogz Family",
       "date": "2009-10-27"
     },
     "RabbidsGoHome:ACA": {
-      "n/a": true,
       "name": "Rabbids Go Home: A Comedy Adventure",
       "date": "2009-11-01"
     },
     "BattleofGiants:DBE": {
-      "n/a": true,
       "name": "Battle of Giants: Dragons - Bronze Edition",
       "date": "2009-11-02"
     },
     "COP:TR": {
-      "n/a": true,
       "name": "C.O.P.: The Recruit",
       "url": "https://en.wikipedia.org/wiki/C.O.P._The_Recruit",
       "date": "2009-11-03"
     },
     "Imagine:BF": {
-      "n/a": true,
       "name": "Imagine: Babyz Fashion",
       "date": "2009-11-03"
     },
     "RabbidsGoHome": {
-      "n/a": true,
       "name": "Rabbids Go Home",
       "url": "https://en.wikipedia.org/wiki/Rabbids_Go_Home",
       "date": "2009-11-05"
     },
     "ShaunWhiteSnowboarding:WS": {
-      "n/a": true,
       "name": "Shaun White Snowboarding: World Stage",
       "url": "https://en.wikipedia.org/wiki/Shaun_White_Snowboarding:_World_Stage",
       "date": "2009-11-08"
     },
     "KnockoutParty": {
-      "n/a": true,
       "name": "Knockout Party",
       "date": "2009-11-09"
     },
     "Fairyland:MM": {
-      "n/a": true,
       "name": "Fairyland: Melody Magic",
       "date": "2009-11-10"
     },
     "PetzNursery": {
-      "n/a": true,
       "name": "Petz Nursery",
       "date": "2009-11-10"
     },
     "StyleLab:JD": {
-      "n/a": true,
       "name": "Style Lab: Jewelry Design",
       "date": "2009-11-10"
     },
     "StyleLab:M": {
-      "n/a": true,
       "name": "Style Lab: Makeover",
       "date": "2009-11-10"
     },
     "AssassinsCreedII": {
-      "n/a": true,
       "name": "Assassin's Creed II",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_II",
       "date": "2009-11-17"
     },
     "AssassinsCreedII:D": {
-      "n/a": true,
       "name": "Assassin's Creed II: Discovery",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_II:_Discovery",
       "date": "2009-11-17"
     },
     "JustDance": {
-      "n/a": true,
       "name": "Just Dance",
       "url": "https://en.wikipedia.org/wiki/Just_Dance_(video_game)",
       "date": "2009-11-17"
     },
     "Petz:DTS": {
-      "n/a": true,
       "name": "Petz: Dogz Talent Show",
       "date": "2009-11-17"
     },
     "AssassinsCreed:B": {
-      "n/a": true,
       "name": "Assassin's Creed: Bloodlines",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed:_Bloodlines",
       "date": "2009-11-19"
     },
     "CookWars": {
-      "n/a": true,
       "name": "Cook Wars",
       "date": "2009-11-24"
     },
     "Petz:HS": {
-      "n/a": true,
       "name": "Petz: Hamsterz Superstarz",
       "date": "2009-11-24"
     },
     "YourShape": {
-      "n/a": true,
       "name": "Your Shape",
       "url": "https://en.wikipedia.org/wiki/Your_Shape",
       "date": "2009-11-24"
     },
     "TeenageMutantNinjaTurtles:AA": {
-      "n/a": true,
       "name": "Teenage Mutant Ninja Turtles: Arcade Attack",
       "date": "2009-11-26"
     },
     "JamesCameronsAvatar:TG": {
-      "n/a": true,
       "name": "James Cameron's Avatar: The Game",
       "url": "https://en.wikipedia.org/wiki/James_Cameron%27s_Avatar:_The_Game",
       "date": "2009-12-01"
     },
     "MightMagic:CoH": {
-      "n/a": true,
       "name": "Might & Magic: Clash of Heroes",
       "url": "https://en.wikipedia.org/wiki/Might_%26_Magic:_Clash_of_Heroes",
       "date": "2009-12-01"
     },
     "Rayman": {
-      "n/a": true,
       "name": "Rayman",
       "url": "https://en.wikipedia.org/wiki/Rayman_(video_game)",
       "date": "2009-12-07"
     }
   },
   "fileManager": {
-    "application": {
-    }
+    "application": {}
   }
 }

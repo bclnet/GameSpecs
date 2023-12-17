@@ -4,5 +4,11 @@
   "studio": "Ubisoft",
   "description": "MonolithTech is a game engine developed by Monolith Productions and comparable with the Quake and Unreal engines",
   "url": [ "https://en.wikipedia.org/wiki/Ubisoft", "https://en.wikipedia.org/wiki/List_of_Ubisoft_games" ],
-  "familyType": "GameSpec.Ubisoft.UbisoftFamily, GameSpec.Ubisoft"
+  "familyType": "GameSpec.Ubisoft.UbisoftFamily, GameSpec.Ubisoft",
+  "jsons": [
+      "UbisoftFamily+1986-1999.json",
+      "UbisoftFamily+2000-2009.json",
+      "UbisoftFamily+2010-2019.json",
+      "UbisoftFamily+2020-present.json"
+  ]
 }

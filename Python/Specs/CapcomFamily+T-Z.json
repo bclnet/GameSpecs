@@ -3,7 +3,8 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_T%E2%80%93Z",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
     },
     "TNGCP:AS": {
       "name": "Taisen Net Gimmick Capcom & Psikyo All Stars",
@@ -339,6 +340,10 @@
       "name": "Zombie Cafe",
       "url": "https://en.wikipedia.org/wiki/Zombie_Cafe",
       "date": "May 20, 2013"
+    }
+  },
+  "fileManager": {
+    "application": {
     }
   }
 }

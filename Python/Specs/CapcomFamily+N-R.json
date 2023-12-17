@@ -3,7 +3,8 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_N%E2%80%93R",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
     },
     "NamcoxCapcom": {
       "name": "Namco × Capcom",
@@ -536,6 +537,10 @@
     "RockmanIQ:C": {
       "name": "Rockman IQ Challenge",
       "date": "1998-01-01"
+    }
+  },
+  "fileManager": {
+    "application": {
     }
   }
 }

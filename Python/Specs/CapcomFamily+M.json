@@ -3,7 +3,8 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_M",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
     },
     "MagicSword": {
       "name": "Magic Sword",
@@ -85,9 +86,15 @@
       "date": "November 11, 1999"
     },
     "MVC:I": {
+      "n/a": false,
       "name": "Marvel vs. Capcom: Infinite",
-      "url": [ "https://store.steampowered.com/app/493840", "https://en.wikipedia.org/wiki/Marvel_vs._Capcom:_Infinite" ],
-      "date": "September 19, 2017"
+      "url": [
+        "https://store.steampowered.com/app/493840",
+        "https://en.wikipedia.org/wiki/Marvel_vs._Capcom:_Infinite"
+      ],
+      "date": "September 19, 2017",
+      "path": "Paks",
+      "pakExt": ".pak"
     },
     "MVC:O": {
       "name": "Marvel vs. Capcom Origins",
@@ -175,9 +182,16 @@
       "date": "March 1, 2010"
     },
     "MM11": {
+      "n/a": false,
       "name": "Mega Man 11",
-      "url": [ "https://store.steampowered.com/app/742300", "https://en.wikipedia.org/wiki/Mega_Man_11" ],
-      "date": "October 2, 2018"
+      "url": [
+        "https://store.steampowered.com/app/742300",
+        "https://en.wikipedia.org/wiki/Mega_Man_11"
+      ],
+      "date": "October 2, 2018",
+      "path": "arc",
+      "pakExt": ".arc",
+      "pak": "game:/*/*.arc"
     },
     "MM:AC": {
       "name": "Mega Man Anniversary Collection",
@@ -320,14 +334,41 @@
       "date": "July 29, 2004"
     },
     "MMX:LC": {
+      "n/a": false,
       "name": "Mega Man X Legacy Collection",
-      "url": [ "https://store.steampowered.com/app/743890", "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection" ],
-      "date": "July 24, 2018"
+      "url": [
+        "https://store.steampowered.com/app/743890",
+        "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection"
+      ],
+      "date": "July 24, 2018",
+      "path": [
+        "Common/romPC",
+        "RXC1/romPC",
+        "X4/romPC",
+        "XChallenge/romPC"
+      ],
+      "pakExt": ".arc",
+      "pak": "game:/**/*.arc"
     },
     "MMX:LC2": {
+      "n/a": false,
       "name": "Mega Man X Legacy Collection 2",
-      "url": [ "https://store.steampowered.com/app/743900", "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection_2" ],
-      "date": "July 24, 2018"
+      "url": [
+        "https://store.steampowered.com/app/743900",
+        "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection_2"
+      ],
+      "date": "July 24, 2018",
+      "path": [
+        "Common/romPC",
+        "RXC2/romPC",
+        "X5/romPC",
+        "X6/romPC",
+        "X7/romPC",
+        "X8/romPC",
+        "XChallenge/romPC"
+      ],
+      "pakExt": ".arc",
+      "pak": "game:/**/*.arc"
     },
     "MMX2": {
       "name": "Mega Man X2",
@@ -563,9 +604,14 @@
       "date": "August 1, 2009"
     },
     "MH:W": {
+      "n/a": false,
       "name": "Monster Hunter: World",
-      "url": [ "https://store.steampowered.com/app/582010", "https://en.wikipedia.org/wiki/Monster_Hunter:_World" ],
-      "date": "January 26, 2018"
+      "url": [
+        "https://store.steampowered.com/app/582010",
+        "https://en.wikipedia.org/wiki/Monster_Hunter:_World"
+      ],
+      "date": "January 26, 2018",
+      "pakExt": ".bin"
     },
     "MHXX": {
       "name": "Monster Hunter XX",
@@ -626,6 +672,40 @@
       "name": "Muscle Bomber: The Body Explosion",
       "url": "https://en.wikipedia.org/wiki/Muscle_Bomber:_The_Body_Explosion",
       "date": "July 13, 1993"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "MVC:I": {
+        "key": "Steam:493840",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 493840",
+        "dir": "MARVEL VS. CAPCOM INFINITE",
+        "path": "MVCI/Content"
+      },
+      "MM11": {
+        "key": "Steam:742300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 742300",
+        "dir": "Mega Man 11",
+        "path": "nativeDX11x64"
+      },
+      "MMX:LC": {
+        "key": "Steam:743890",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 743890",
+        "dir": "Mega Man X Legacy Collection",
+        "path": "nativeDX10"
+      },
+      "MMX:LC2": {
+        "key": "Steam:743900",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 743900",
+        "dir": "Mega Man X Legacy Collection 2",
+        "path": "nativeDX10"
+      },
+      "MH:W": {
+        "key": "Steam:582010",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 582010",
+        "dir": "Monster Hunter World",
+        "path": "chunk"
+      }
     }
   }
 }

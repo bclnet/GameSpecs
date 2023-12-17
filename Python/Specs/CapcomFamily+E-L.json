@@ -3,7 +3,8 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_E%E2%80%93L",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
     },
     "EXTroopers": {
       "name": "E.X. Troopers",
@@ -157,9 +158,14 @@
       "date": "1996-10-01"
     },
     "Flock": {
+      "n/a": false,
       "name": "Flock!",
-      "url": [ "https://store.steampowered.com/app/21640", "https://en.wikipedia.org/wiki/Flock!" ],
-      "date": "2009-04-09"
+      "url": [
+        "https://store.steampowered.com/app/21640",
+        "https://en.wikipedia.org/wiki/Flock!"
+      ],
+      "date": "2009-04-09",
+      "pakExt": ".fpk"
     },
     "ForgottenWorlds": {
       "name": "Forgotten Worlds",
@@ -470,9 +476,18 @@
       "date": "1990-09-01"
     },
     "LP:EC": {
+      "n/a": false,
       "name": "Lost Planet: Extreme Condition",
-      "url": [ "https://store.steampowered.com/app/6510", "https://en.wikipedia.org/wiki/Lost_Planet:_Extreme_Condition" ],
-      "date": "2008-02-21"
+      "url": [
+        "https://store.steampowered.com/app/6510",
+        "https://en.wikipedia.org/wiki/Lost_Planet:_Extreme_Condition"
+      ],
+      "date": "2008-02-21",
+      "path": [
+        "ZZPack1",
+        "ZZPack2"
+      ],
+      "pakExt": ".arc"
     },
     "LP:C": {
       "name": "Lost Planet: Colonies",
@@ -485,9 +500,36 @@
       "date": "2010-03-11"
     },
     "LP3": {
+      "n/a": false,
       "name": "Lost Planet 3",
-      "url": [ "https://store.steampowered.com/app/226720", "https://en.wikipedia.org/wiki/Lost_Planet_3" ],
-      "date": "2013-08-27"
+      "url": [
+        "https://store.steampowered.com/app/226720",
+        "https://en.wikipedia.org/wiki/Lost_Planet_3"
+      ],
+      "date": "2013-08-27",
+      "pakExt": ".txt",
+      "pak": "game:/PCConsoleTOC.txt"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "Flock": {
+        "key": "Steam:21640",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21640",
+        "dir": "FLOCK"
+      },
+      "LP:EC": {
+        "key": "Steam:6510",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6510",
+        "dir": "lost planet extreme condition",
+        "path": "nativePC"
+      },
+      "LP3": {
+        "key": "Steam:226720",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 226720",
+        "dir": "Lost Planet 3",
+        "path": "LostPlanetGame"
+      }
     }
   }
 }

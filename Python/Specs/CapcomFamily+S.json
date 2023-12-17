@@ -3,7 +3,8 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_S",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
     },
     "SamuraiSword": {
       "name": "Samurai Sword",
@@ -482,6 +483,10 @@
       "name": "Sydney 2000",
       "url": "https://en.wikipedia.org/wiki/Sydney_2000_(video_game)",
       "date": "August 14, 2000"
+    }
+  },
+  "fileManager": {
+    "application": {
     }
   }
 }
