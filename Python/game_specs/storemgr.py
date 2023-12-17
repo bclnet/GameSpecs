@@ -14,6 +14,9 @@ def getPathByKey(key):
         case 'Epic':
             from .storemgr_epic import epicPaths
             return epicPaths[v] if v in epicPaths else None
+        case 'Ubisoft':
+            from .storemgr_ubisoft import ubisoftPaths
+            return ubisoftPaths[v] if v in ubisoftPaths else None
         case 'Unknown': return None
         case _: raise Exception(f'Unknown key: {key}')
 

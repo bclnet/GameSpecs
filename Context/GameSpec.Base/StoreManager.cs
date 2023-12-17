@@ -8,17 +8,19 @@ namespace GameSpec
     /// </summary>
     public static class StoreManager
     {
-        public static bool TryGetPathByKey(string key, out string path)
+        public static string GetPathByKey(string key)
         {
             var parts = key.Split(':', 2);
-            return parts[0] switch
+            string k = parts[0], v = parts[1];
+            return k switch
             {
-                "Steam" => SteamStoreManager.TryGetPathByKey(parts[1], out path),
-                "GOG" => GogStoreManager.TryGetPathByKey(parts[1], out path),
-                "Blizzard" => BlizzardStoreManager.TryGetPathByKey(parts[1], out path),
-                "Epic" => EpicStoreManager.TryGetPathByKey(parts[1], out path),
-                "Unknown" => UnknownStoreManager.TryGetPathByKey(parts[1], out path),
-                _ => throw new ArgumentOutOfRangeException(nameof(key), parts[0]),
+                "Steam" => StoreManager_Steam.SteamPaths.TryGetValue(v, out var z) ? z : null,
+                "GOG" => StoreManager_Gog.GogPaths.TryGetValue(v, out var z) ? z : null,
+                "Blizzard" => StoreManager_Blizzard.BlizzardPaths.TryGetValue(v, out var z) ? z : null,
+                "Epic" => StoreManager_Epic.EpicPaths.TryGetValue(v, out var z) ? z : null,
+                "Ubisoft" => StoreManager_Ubisoft.UbisoftPaths.TryGetValue(v, out var z) ? z : null,
+                "Unknown" => null,
+                _ => throw new ArgumentOutOfRangeException(nameof(key), key),
             };
         }
     }

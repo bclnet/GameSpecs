@@ -3,7 +3,7 @@ from io import BytesIO
 from typing import Any
 from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
-from ..utils import Reader
+from ..openstack_poly import Reader
 from ..compression import decompressBlast
 
 class PakBinary_Danae(PakBinary):

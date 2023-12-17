@@ -21,11 +21,13 @@ def init():
             paths = [os.path.join(home, path, 'data') for path in search]
         else: raise Exception(f'Unknown platform: {system}')
         return next(iter(x for x in paths if os.path.isdir(x)), None)
+
     # get dbPath
     root = getPath()
     if root is None: return
     dbPath = os.path.join(root, 'product.db')
     if not os.path.exists(dbPath): return
+
     # query games
     productDb = Database()
     with open(dbPath, 'rb') as f:

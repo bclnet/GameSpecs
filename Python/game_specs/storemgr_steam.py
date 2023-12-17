@@ -4,6 +4,7 @@ class AcfStruct:
     def read(path):
         if not os.path.exists(path): return None
         with open(path, 'r') as f: return AcfStruct(f.read())
+
     def __init__(self, region):
         def nextEndOf(str, open, close, startIndex):
             if open == close:
@@ -38,15 +39,13 @@ class AcfStruct:
                 acfs = AcfStruct(region[secondOpen + 1:secondClose]);
                 index = secondClose + 1
                 self.get[first] = acfs
+
     def repr(self, depth):
         b = []
         for (k,v) in self.value.items():
-            b.append('  '*depth)
-            b.append(f'"{k}": "{v}"\n')
+            b.append(f'{"  "*depth}"{k}": "{v}"\n')
         for (k,v) in self.get.items():
-            b.append('  '*depth)
-            b.append(f'"{k}" {{\n')
-            b.append('  '*depth)
+            b.append(f'{"  "*depth}"{k}" {{\n{"  "*depth}')
             if not v is None: b.append(v.repr(depth + 1))
             b.append(f'}}\n')
         return ''.join(b)
@@ -79,17 +78,18 @@ def init():
     # get dbPath
     root = getPath()
     if root is None: return
+
     # query games
     libraryFolders = AcfStruct.read(os.path.join(root, 'steamapps', 'libraryfolders.vdf'))
     for folder in libraryFolders.get['libraryfolders'].get.values():
-            path = folder.value['path']
-            if not os.path.isdir(path): return
-            for appId in folder.get['apps'].value.keys():
-                appManifest = AcfStruct.read(os.path.join(path, 'steamapps', f'appmanifest_{appId}.acf'))
-                if appManifest is None: continue
-                # add appPath if exists
-                appPath = os.path.join(path, 'steamapps', 'common', appManifest.get['AppState'].value['installdir'])
-                if os.path.isdir(appPath): steamPaths[appId] = appPath
+        path = folder.value['path']
+        if not os.path.isdir(path): continue
+        for appId in folder.get['apps'].value.keys():
+            appManifest = AcfStruct.read(os.path.join(path, 'steamapps', f'appmanifest_{appId}.acf'))
+            if appManifest is None: continue
+            # add appPath if exists
+            appPath = os.path.join(path, 'steamapps', 'common', appManifest.get['AppState'].value['installdir'])
+            if os.path.isdir(appPath): steamPaths[appId] = appPath
 
 steamPaths = {}
 init()

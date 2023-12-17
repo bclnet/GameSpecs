@@ -2,7 +2,7 @@ import os, json, glob, re
 from typing import Any
 from urllib.parse import urlparse
 from importlib import resources
-from .utils import findType
+from .openstack_poly import findType
 from .pakfile import PakFile, ManyPakFile, MultiPakFile
 from .filesys import FileSystem, HostFileSystem, createFileSystem
 from .filemgr import FileManager
@@ -10,13 +10,17 @@ from .filemgr import FileManager
 class FamilyGame: pass
 class Resource: pass
 
+def _value(d, key, default = None): return d[key] if key in d else default
+def _list(d, key, default = None): return (d[key] if isinstance(d[key], list) else [d[key]]) if key in d else default
+def _method(method, d, key, default = None): return method(d[key]) if key in d else default
+
 class Family:
     def __init__(self, d):
         self.id = d['id']
-        self.name = d['name'] if 'name' in d else None
-        self.studio = d['studio'] if 'studio' in d else None
-        self.description = d['description'] if 'description' in d else None
-        self.urls = (d['url'] if isinstance(d['url'], list) else [d['url']]) if 'url' in d else []
+        self.name = _value(d, 'name')
+        self.studio = _value(d, 'studio')
+        self.description = _value(d, 'description')
+        self.urls = _list(d, 'url')
         # engines
         self.engines = engines = {}
         if 'engines' in d:
@@ -31,7 +35,7 @@ class Family:
                 if id.startswith('*'): dgame = game
                 else: games[id] = game
         # file manager
-        self.fileManager = FileManager(d['fileManager']) if 'fileManager' in d else None
+        self.fileManager = _method(FileManager, d, 'fileManager')
     def __repr__(self): return f'''
 {self.id}: {self.name}
 engines: {[x for x in self.engines.values()] if self.engines else None}
@@ -46,7 +50,8 @@ fileManager: {self.fileManager if self.fileManager else None}'''
 
     # parse Resource
     def parseResource(self, uri: str, throwOnError: bool = True) -> Resource:
-        if uri is None or not (uri := urlparse(uri)).fragment: return Resource(Game = FamilyGame(None, self, None, None))
+        if uri is None or not (uri := urlparse(uri)).fragment:
+            return Resource(Game = FamilyGame(None, self, None, None))
         game = self.getGame(uri.fragment)
         searchPattern = '' if uri.scheme == 'file' else uri.path[1:]
         paths = self.fileManager.paths
@@ -75,48 +80,58 @@ class FamilyEngine:
     def __init__(self, family: Family, id: str, d):
         self.family = family
         self.id = id
-        self.name = d['name'] if 'name' in d else None
+        self.name = _value(d, 'name')
     def __repr__(self): return f'\n  {self.id}: {self.name}'
+
+# parse key
+@staticmethod
+def parseKey(key) -> Any:
+    if not key: return None
+    elif key.startswith('hex:'): return bytes.fromhex(key[4:].replace('/x', ''))
+    elif key.startswith('txt:'): return key[4:].encode('ascii')
+    else: raise Exception(f'Unknown key: {key}')
 
 class FamilyGame:
     class Edition:
         def __init__(self, id: str, d):
             self.id = id
-            self.name = d['name'] if 'name' in d else None
-            self.key = self.parseKey(d['key']) if 'key' in d else None
+            self.name = _value(d, 'name')
+            self.key = _method(parseKey, d, 'key')
         def __repr__(self): return f'{self.id}: {self.name}'
     class DownloadableContent:
         def __init__(self, id: str, d):
             self.id = id
-            self.name = d['name'] if 'name' in d else None
-            self.path = d['path'] if 'path' in d else None
+            self.name = _value(d, 'name')
+            self.path = _value(d, 'path')
         def __repr__(self): return f'{self.id}: {self.name}'
     class Locale:
         def __init__(self, id: str, d):
             self.id = id
-            self.name = d['name'] if 'name' in d else None
+            self.name = _value(d, 'name')
         def __repr__(self): return f'{self.id}: {self.name}'
     def __init__(self, dgame, family: Family, id: str, d):
         self.family = family
         self.id = id
-        if not dgame: self.ignore = False; self.engine = self.paths = self.key = self.fileSystemType = self.searchBy = self.pakFileType = self.pakExts = None; return
-        self.ignore = d['n/a'] if 'n/a' in d else dgame.ignore
-        self.name = d['name'] if 'name' in d else None
-        self.engine = d['engine'] if 'engine' in d else dgame.engine
-        self.urls = (d['url'] if isinstance(d['url'], list) else [d['url']]) if 'url' in d else None
-        self.date = d['date'] if 'date' in d else None
-        #self.option
-        #self.paks
-        #self.dats
-        self.paths = (d['path'] if isinstance(d['path'], list) else [d['path']]) if 'path' in d else dgame.paths
-        self.key = self.parseKey(d['key']) if 'key' in d else dgame.key
-        self.status = d['status'] if 'status' in d else None
-        self.tags = d['tags'] if 'tags' in d else None
+        if not dgame: self.ignore = False; self.engine = \
+            self.paths = self.key = self.fileSystemType = \
+            self.searchBy = self.pakFileType = self.pakExts = None; return
+        self.ignore = _value(d, 'n/a', dgame.ignore)
+        self.name = _value(d, 'name')
+        self.engine = _value(d, 'engine', dgame.engine)
+        self.urls = _list(d, 'url')
+        self.date = _value(d, 'date')
+        #self.option = _list(d, 'option', dgame.option)
+        #self.paks = _list(d, 'paks', dgame.paks)
+        #self.dats = _list(d, 'dats', dgame.dats)
+        self.paths = _list(d, 'path', dgame.paths)
+        self.key = _method(parseKey, d, 'key', dgame.key)
+        self.status = _value(d, 'status')
+        self.tags = _value(d, 'tags')
         # interface
-        self.fileSystemType = d['fileSystemType'] if 'fileSystemType' in d else dgame.fileSystemType
-        self.searchBy = d['searchBy'] if 'searchBy' in d else dgame.searchBy
-        self.pakFileType = d['pakFileType'] if 'pakFileType' in d else dgame.pakFileType
-        self.pakExts = (d['pakExt'] if isinstance(d['pakExt'], list) else [d['pakExt']]) if 'pakExt' in d else dgame.pakExts
+        self.fileSystemType = _value(d, 'fileSystemType', dgame.fileSystemType)
+        self.searchBy = _value(d, 'searchBy', dgame.searchBy)
+        self.pakFileType = _value(d, 'pakFileType', dgame.pakFileType)
+        self.pakExts = _list(d, 'pakExt', dgame.pakExts) 
         # related
         self.editions = editions = {}
         if 'editions' in d:
@@ -136,19 +151,12 @@ class FamilyGame:
   - dlcs: {self.dlcs if self.dlcs else None}
   - locales: {self.locales if self.locales else None}'''
   
-    # parse key
-    @staticmethod
-    def parseKey(key) -> Any:
-        if not key: return None
-        elif key.startswith('hex:'): return bytes.fromhex(key[4:].replace('/x', ''))
-        elif key.startswith('txt:'): return key[4:].encode('ascii')
-        else: raise Exception(f'Unknown key: {key}')
-
     # create SearchPatterns
     def createSearchPatterns(self, searchPattern: str) -> str:
         if searchPattern: return searchPattern
         elif not self.searchBy: return '*'
-        elif self.searchBy == 'Pak': return '' if not self.pakExts else f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({"*:".join(self.pakExts)})'
+        elif self.searchBy == 'Pak': return '' if not self.pakExts else \
+            f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({"*:".join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
         elif self.searchBy == 'TwoDir': return '*/*'
         elif self.searchBy == 'AllDir': return '**/*'
@@ -156,7 +164,8 @@ class FamilyGame:
 
     # create PakFile
     def createPakFile(self, fileSystem: FileSystem, searchPattern: str, throwOnError: bool) -> PakFile:
-        if isinstance(fileSystem, HostFileSystem): raise Exception('HostFileSystem not supported')
+        if isinstance(fileSystem, HostFileSystem):
+            raise Exception('HostFileSystem not supported')
         searchPattern = self.createSearchPatterns(searchPattern)
         pakFiles = []
         for p in self.findPaths(fileSystem, searchPattern):

@@ -5,61 +5,67 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Text.Json;
 
 namespace GameSpec.StoreManagers
 {
     /// <summary>
-    /// SteamStoreManager
+    /// StoreManager_Steam
     /// </summary>
-    internal static class SteamStoreManager
+    internal static class StoreManager_Steam
     {
-        static Dictionary<string, string> AppPaths = new Dictionary<string, string>();
+        internal static Dictionary<string, string> SteamPaths = new Dictionary<string, string>();
 
-        static SteamStoreManager()
+        static StoreManager_Steam()
         {
+            // get dbPath
             var root = GetPath();
             if (root == null) return;
+
+            // query games
             var libraryFolders = AcfStruct.Read(Path.Join(root, "steamapps", "libraryfolders.vdf"));
             foreach (var folder in libraryFolders.Get["libraryfolders"].Get.Values)
             {
                 var path = folder.Value["path"];
-                if (!Directory.Exists(path)) { continue; }
+                if (!Directory.Exists(path)) continue;
                 foreach (var appId in folder.Get["apps"].Value.Keys)
                 {
                     var appManifest = AcfStruct.Read(Path.Join(path, "steamapps", $"appmanifest_{appId}.acf"));
-                    if (appManifest == null) { continue; }
+                    if (appManifest == null) continue;
+                    // add appPath if exists
                     var appPath = Path.Join(path, "steamapps", Path.Join("common", appManifest.Get["AppState"].Value["installdir"]));
-                    if (Directory.Exists(appPath)) AppPaths.Add(appId, appPath);
+                    if (Directory.Exists(appPath)) SteamPaths.Add(appId, appPath);
                 }
             }
         }
 
-        public static bool TryGetPathByKey(string key, out string path) => AppPaths.TryGetValue(key, out path);
-
         static string GetPath()
         {
+            IEnumerable<string> paths;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam") ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
-                if (key != null && key.GetValue("SteamPath") is string path) return path;
+                // windows paths
+                var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam")
+                    ?? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"SOFTWARE\Valve\Steam");
+                if (key == null) return null;
+                return (string)key.GetValue("SteamPath");
             }
             else if (RuntimeInformation.OSDescription.StartsWith("android-")) return null;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
+                // linux paths
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                return new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" }
-                    .Select(path => Path.Join(home, path, "appcache"))
-                    .FirstOrDefault(Directory.Exists);
+                var search = new[] { ".steam", ".steam/steam", ".steam/root", ".local/share/Steam" };
+                paths = search.Select(path => Path.Join(home, path, "appcache"));
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
+                // mac paths
                 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                return new[] { "Library/Application Support/Steam" }
-                    .Select(path => Path.Join(home, path, "appcache"))
-                    .FirstOrDefault(Directory.Exists);
+                var search = new[] { "Library/Application Support/Steam" };
+                paths = search.Select(path => Path.Join(home, path, "appcache"));
             }
-            throw new PlatformNotSupportedException();
+            else throw new PlatformNotSupportedException();
+            return paths.FirstOrDefault(Directory.Exists);
         }
 
         #region steamapp

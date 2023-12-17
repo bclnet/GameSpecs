@@ -1,5 +1,5 @@
 ﻿//#define Arkane
-#define Bethesda
+//#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
@@ -16,7 +16,8 @@
 //#define Monolith
 //#define Origin
 //#define Red
-//#define Unreal
+//#define Ubisoft
+//#define Unity
 //#define Valve
 //#define WbB
 
@@ -326,6 +327,15 @@ namespace GameSpec
             //GameId = "CP77", // Cyberpunk 2077
             //GameId = "Witcher4", // The Witcher 4 Polaris (future)
         };
+#elif Ubisoft
+        static string[] FamilyKeys = new[] { "Ubisoft", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            Family = "Ubisoft",
+            //GameId = "XX", // xx
+        };
 #elif Unity
         static string[] FamilyKeys = new[] { "Unity", "Unknown" };
 
@@ -431,7 +441,7 @@ namespace GameSpec
             GameId = "AC", // Asheron's Call [open, read, texture:GL]
         };
 #else
-        static string[] FamilyKeys = new[] { "Arkane", "Bethesda", "Bioware", "Black", "Blizzard", "Capcom", "Cig", "Cryptic", "Crytek", "Cyanide", "Epic", "Frictional", "Frontier", "Id", "IW", "Monolith", "Origin", "Red", "Unity", "Unknown", "Valve", "WbB" };
+        static string[] FamilyKeys = new[] { "Arkane", "Bethesda", "Bioware", "Black", "Blizzard", "Capcom", "Cig", "Cryptic", "Crytek", "Cyanide", "Epic", "Frictional", "Frontier", "Id", "IW", "Monolith", "Origin", "Red", "Ubisoft", "Unity", "Unknown", "Valve", "WbB" };
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {

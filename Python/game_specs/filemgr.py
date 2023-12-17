@@ -2,6 +2,8 @@ import os, platform, psutil, winreg
 from . import storemgr
 GAMESPATH = 'Games'
 
+def _list(d, key, default = None): return (d[key] if isinstance(d[key], list) else [d[key]]) if key in d else default
+
 class FileManager:
     ApplicationPath = os.getcwd()
     # get locale games
@@ -12,13 +14,13 @@ class FileManager:
     def addApplication(self, id, d):
         system = platform.system()
         if system == 'Windows' and 'reg' in d:
-            for key in d['reg'] if isinstance(d['reg'], list) else [d['reg']]:
+            for key in _list(d, 'reg'):
                 if not id in self.paths and (z := self.getPathByRegistryKey(key, d)): self.addPath(id, d, z)
         if 'key' in d:
-            for key in d['key'] if isinstance(d['key'], list) else [d['key']]:
+            for key in _list(d, 'key'):
                 if not id in self.paths and (z := storemgr.getPathByKey(key)): self.addPath(id, d, z)
         if 'dir' in d:
-            for key in d['dir'] if isinstance(d['dir'], list) else [d['dir']]:
+            for key in _list(d, 'dir'):
                 if not id in self.paths and key in FileManager.games: self.addPath(id, d, games[key])
     
     def addFilter(self, id, d):
@@ -31,7 +33,7 @@ class FileManager:
 
     def addPath(self, id, d, path, usePath = True):
         if path is None or not os.path.isdir(path := FileManager.getPathWithSpecialFolders(path, '')): return
-        paths = (d['path'] if isinstance(d['path'], list) else [d['path']]) if usePath and 'path' in d else [path]
+        paths = _list(d, 'path') if usePath and 'path' in d else [path]
         for p in [os.path.join(path, x) for x in paths]:
             if not os.path.isdir(p): continue
             if not id in self.paths: self.paths[id] = []
@@ -97,12 +99,12 @@ class FileManager:
         if 'direct' in d:
             for (id, val) in d['direct'].items():
                 if 'path' in val:
-                    for key in val['path'] if isinstance(val['path'], list) else [val['path']]:
+                    for key in _list(val, 'path'):
                         self.addPath(id, d, key, False)
         # ignores
         if 'ignores' in d:
             for (id, val) in d['ignores'].items():
-                self.addIgnore(id, val['path'] if isinstance(val['path'], list) else [val['path']])
+                self.addIgnore(id, _list(val, 'path'))
         # filters
         if 'filters' in d:
             for (id, val) in d['filters'].items():

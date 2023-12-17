@@ -1,5 +1,5 @@
 import os, pathlib
-from .utils import findType
+from .openstack_poly import findType
 
 class FileSystem:
     def findPaths(self, path: str, searchPattern: str):

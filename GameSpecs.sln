@@ -300,6 +300,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Black", "Black\Gam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Black.Platform", "Black\GameSpec.Black.Platform\GameSpec.Black.Platform.csproj", "{54DF5834-5B66-4228-AF26-22ABD8F8947B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ubisoft", "Ubisoft", "{C26368F1-6CE3-4692-84F3-3E936E6FCCD1}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Families\Ubisoft\Readme.md = Documents\Families\Ubisoft\Readme.md
+		Python\Specs\UbisoftFamily.json = Python\Specs\UbisoftFamily.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Ubisoft", "Ubisoft\GameSpec.Ubisoft\GameSpec.Ubisoft.csproj", "{FC227CD2-4DE2-4400-8A10-00CDC2B591CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Ubisoft.Platform", "Ubisoft\GameSpec.Ubisoft.Platform\GameSpec.Ubisoft.Platform.csproj", "{DB788EB1-2607-4935-A414-9AEDFD0220E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -574,6 +584,14 @@ Global
 		{54DF5834-5B66-4228-AF26-22ABD8F8947B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54DF5834-5B66-4228-AF26-22ABD8F8947B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54DF5834-5B66-4228-AF26-22ABD8F8947B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC227CD2-4DE2-4400-8A10-00CDC2B591CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC227CD2-4DE2-4400-8A10-00CDC2B591CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC227CD2-4DE2-4400-8A10-00CDC2B591CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC227CD2-4DE2-4400-8A10-00CDC2B591CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB788EB1-2607-4935-A414-9AEDFD0220E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB788EB1-2607-4935-A414-9AEDFD0220E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB788EB1-2607-4935-A414-9AEDFD0220E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB788EB1-2607-4935-A414-9AEDFD0220E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -649,6 +667,8 @@ Global
 		{ED929375-9174-4087-8BB0-86350999FA57} = {228CD927-3DD3-45AA-9529-B703AC15A1AA}
 		{CDA9519E-93E6-4F7C-8399-6C33B18C5FE6} = {231779E5-20EB-435B-BAAF-48A1D0BF6E1C}
 		{54DF5834-5B66-4228-AF26-22ABD8F8947B} = {231779E5-20EB-435B-BAAF-48A1D0BF6E1C}
+		{FC227CD2-4DE2-4400-8A10-00CDC2B591CF} = {C26368F1-6CE3-4692-84F3-3E936E6FCCD1}
+		{DB788EB1-2607-4935-A414-9AEDFD0220E4} = {C26368F1-6CE3-4692-84F3-3E936E6FCCD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

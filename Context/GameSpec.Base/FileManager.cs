@@ -89,10 +89,11 @@ namespace GameSpec
                 foreach (var key in z.GetStringOrArray())
                     if (!Paths.ContainsKey(prop.Name) && TryGetPathByRegistryKey(key, prop.Value.TryGetProperty(key, out z) ? z : (JsonElement?)null, out var path))
                         AddPath(prop, path);
+            string path2;
             if (prop.Value.TryGetProperty("key", out z))
                 foreach (var key in z.GetStringOrArray())
-                    if (!Paths.ContainsKey(prop.Name) && StoreManager.TryGetPathByKey(key, out var path))
-                        AddPath(prop, path);
+                    if (!Paths.ContainsKey(prop.Name) && (path2 = StoreManager.GetPathByKey(key)) != null)
+                        AddPath(prop, path2);
             if (prop.Value.TryGetProperty("dir", out z))
                 foreach (var key in z.GetStringOrArray())
                     if (!Paths.ContainsKey(prop.Name) && games.TryGetValue(key, out var path))

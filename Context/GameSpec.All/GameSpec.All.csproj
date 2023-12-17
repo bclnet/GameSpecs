@@ -40,8 +40,10 @@
     <ProjectReference Include="..\..\Monolith\GameSpec.Monolith\GameSpec.Monolith.csproj" />
     <ProjectReference Include="..\..\Origin\GameSpec.Origin.Platform\GameSpec.Origin.Platform.csproj" />
     <ProjectReference Include="..\..\Origin\GameSpec.Origin\GameSpec.Origin.csproj" />
-    <ProjectReference Include="..\..\Red\GameSpec.Red.Resource\GameSpec.Red.Resource.csproj" />
+    <ProjectReference Include="..\..\Red\GameSpec.Red.Platform\GameSpec.Red.Platform.csproj" />
     <ProjectReference Include="..\..\Red\GameSpec.Red\GameSpec.Red.csproj" />
+	<ProjectReference Include="..\..\Ubisoft\GameSpec.Ubisoft.Platform\GameSpec.Ubisoft.Platform.csproj" />
+	<ProjectReference Include="..\..\Ubisoft\GameSpec.Ubisoft\GameSpec.Ubisoft.csproj" />
     <ProjectReference Include="..\..\Unity\GameSpec.Unity.Platform\GameSpec.Unity.Platform.csproj" />
     <ProjectReference Include="..\..\Unity\GameSpec.Unity\GameSpec.Unity.csproj" />
     <ProjectReference Include="..\..\Valve\GameSpec.Valve.Platform\GameSpec.Valve.Platform.csproj" />

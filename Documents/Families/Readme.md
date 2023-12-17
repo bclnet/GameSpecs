@@ -11,12 +11,14 @@ The following are the current families:
 | [Arkane](Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
 | [Bethesda](Bethesda/Readme.md)| The Elder Scrolls         | Skyrim            | In Development
 | [Bioware](Bioware/Readme.md)  | BioWare Bioware           | Neverwinter Nights| In Development
+| [Black](Black/Readme.md)      | Black Isle Studios        | Fallout           | In Development
 | [Blizzard](Blizzard/Readme.md)| Blizzard                  | StarCraft         | In Development
 | [Capcom](Capcom/Readme.md)    | Capcom                    | X                 | In Development
 | [Cig](Rsi/Readme.md)          | Roberts Space Industries  | Star Citizen      | In Development
 | [Cryptic](Cryptic/Readme.md)  | Cryptic                   | Star Trek Online  | In Development
 | [Crytek](Crytek/Readme.md)    | Crytek                    | MechWarrior Online| In Development
 | [Cyanide](Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
+| [Epic](Epic/Readme.md)        | Epic                      | BioShock          | In Development
 | [Frictional](Frictional/Readme.md)| Frictional Games      | SOMA              | In Development
 | [Frontier](Frontier/Readme.md)| Frontier Games            | x                 | In Development
 | [Id](Id/Readme.md)            | id Software               | Doom              | In Development
@@ -24,8 +26,8 @@ The following are the current families:
 | [Monolith](Monolith/Readme.md)| Monolith                  | F.E.A.R.          | In Development
 | [Origin](Origin/Readme.md)    | Origin Systems            | Ultima Online     | In Development
 | [Red](Red/Readme.md)          | REDengine                 | The Witcher 3: Wild Hunt | In Development
+| [Ubisoft](Ubisoft/Readme.md)  | Ubisoft                   | -                 | In Development
 | [Unity](Unity/Readme.md)      | Unity                     | AmongUs           | In Development
 | [Unknown](Unknown/Readme.md)  | Unknown                   | N/A               | In Development
-| [Unreal](Unreal/Readme.md)    | Unreal                    | BioShock          | In Development
 | [Valve](Valve/Readme.md)      | Valve                     | Dota 2            | In Development
 | [WbB](WbB/Readme.md)          | Asheron's Call            | Asheron's Call    | In Development

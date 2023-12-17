@@ -26,6 +26,8 @@ def init():
     root = getPath()
     if root is None: return
     dbPath = os.path.join(root, 'Manifests')
+    if not os.path.exists(dbPath): return
+
     # query games
     for s in [s for s in os.listdir(dbPath) if s.endswith('.item')]:
         with open(os.path.join(dbPath, s), 'r') as f:

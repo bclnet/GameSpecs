@@ -1,6 +1,6 @@
 import os
 from enum import Enum
-from .utils import Reader
+from .openstack_poly import Reader
 
 class FileSource:
     def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, pak = None, tag = None):
@@ -42,7 +42,9 @@ class PakFile:
 
 class BinaryPakFile(PakFile):
     def __init__(self, game, fileSystem, filePath: str, pakBinary, tag: object = None):
-        super().__init__(game, os.path.basename(filePath) if os.path.basename(filePath) else os.path.basename(os.path.dirname(filePath)), tag)
+        name = os.path.basename(filePath) if os.path.basename(filePath) else \
+            os.path.basename(os.path.dirname(filePath))
+        super().__init__(game, name, tag)
         self.fileSystem = fileSystem
         self.filePath = filePath
         self.pakBinary = pakBinary

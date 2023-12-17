@@ -28,6 +28,7 @@
     <EmbeddedResource Include="..\..\Python\Specs\MonolithFamily.json" Link="Families\MonolithFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\OriginFamily.json" Link="Families\OriginFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\RedFamily.json" Link="Families\RedFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily.json" Link="Families\UbisoftFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\UnityFamily.json" Link="Families\UnityFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\UnknownFamily.json" Link="Families\UnknownFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\ValveFamily.json" Link="Families\ValveFamily.json" />
