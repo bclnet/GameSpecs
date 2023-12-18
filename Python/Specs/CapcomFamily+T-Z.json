@@ -160,14 +160,24 @@
       "date": "August 13, 2006"
     },
     "UMVC3": {
+      "n/a": false,
       "name": "Ultimate Marvel vs. Capcom 3",
-      "url": [ "https://store.steampowered.com/app/357190", "https://en.wikipedia.org/wiki/Ultimate_Marvel_vs._Capcom_3" ],
-      "date": "November 15, 2011"
+      "url": [
+        "https://store.steampowered.com/app/357190",
+        "https://en.wikipedia.org/wiki/Ultimate_Marvel_vs._Capcom_3"
+      ],
+      "date": "November 15, 2011",
+      "pakExt": ".?"
     },
     "UmbrellaCorps": {
+      "n/a": false,
       "name": "Umbrella Corps",
-      "url": [ "https://store.steampowered.com/app/390340", "https://en.wikipedia.org/wiki/Umbrella_Corps" ],
-      "date": "June 21, 2016"
+      "url": [
+        "https://store.steampowered.com/app/390340",
+        "https://en.wikipedia.org/wiki/Umbrella_Corps"
+      ],
+      "date": "June 21, 2016",
+      "pakExt": ".?"
     },
     "UnderTheSkin": {
       "name": "Under the Skin",
@@ -344,6 +354,18 @@
   },
   "fileManager": {
     "application": {
+      "UMVC3": {
+        "key": "Steam:357190",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 357190",
+        "dir": "Ultimate Marvel vs Capcom 3",
+        "path": "main"
+      },
+      "UmbrellaCorps": {
+        "key": "Steam:390340",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 390340",
+        "dir": "Umbrella Corps",
+        "path": "main"
+      }
     }
   }
 }

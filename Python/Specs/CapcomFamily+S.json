@@ -175,9 +175,14 @@
       "date": "August 30, 1987"
     },
     "SF:30AC": {
+      "n/a": false,
       "name": "Street Fighter 30th Anniversary Collection",
-      "url": [ "https://store.steampowered.com/app/586200", "https://en.wikipedia.org/wiki/Street_Fighter_30th_Anniversary_Collection" ],
-      "date": "May 29, 2018"
+      "url": [
+        "https://store.steampowered.com/app/586200",
+        "https://en.wikipedia.org/wiki/Street_Fighter_30th_Anniversary_Collection"
+      ],
+      "date": "May 29, 2018",
+      "pakExt": ".?"
     },
     "SF2010:TFF": {
       "name": "Street Fighter 2010: The Final Fight",
@@ -308,9 +313,14 @@
       "date": "June 30, 2011"
     },
     "SF5": {
+      "n/a": false,
       "name": "Street Fighter V",
-      "url": [ "https://store.steampowered.com/app/310950", "https://en.wikipedia.org/wiki/Street_Fighter_V" ],
-      "date": "February 16, 2016"
+      "url": [
+        "https://store.steampowered.com/app/310950",
+        "https://en.wikipedia.org/wiki/Street_Fighter_V"
+      ],
+      "date": "February 16, 2016",
+      "pakExt": ".?"
     },
     "SF5:AV": {
       "name": "Street Fighter V: Arcade Version",
@@ -372,9 +382,14 @@
       "date": "1989-01-01"
     },
     "Strider": {
+      "n/a": false,
       "name": "Strider (2014 video game)",
-      "url": [ "https://store.steampowered.com/app/235210", "https://en.wikipedia.org/wiki/Strider_(2014_video_game)" ],
-      "date": "February 18, 2014"
+      "url": [
+        "https://store.steampowered.com/app/235210",
+        "https://en.wikipedia.org/wiki/Strider_(2014_video_game)"
+      ],
+      "date": "February 18, 2014",
+      "pakExt": ".?"
     },
     "Strider:NES": {
       "name": "Strider (1989 NES video game)",
@@ -487,6 +502,24 @@
   },
   "fileManager": {
     "application": {
+      "SF:30AC": {
+        "key": "Steam:586200",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 586200",
+        "dir": "Street Fighter 30th Anniversary Collection",
+        "path": "main"
+      },
+      "SF5": {
+        "key": "Steam:310950",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 310950",
+        "dir": "Street Fighter V",
+        "path": "main"
+      },
+      "Strider": {
+        "key": "Steam:235210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 235210",
+        "dir": "Strider",
+        "path": "main"
+      }
     }
   }
 }
