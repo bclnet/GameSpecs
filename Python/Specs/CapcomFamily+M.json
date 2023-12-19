@@ -271,12 +271,12 @@
     "MML3": {
       "name": "Mega Man Legends 3",
       "url": "https://en.wikipedia.org/wiki/Mega_Man_Legends_3",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "MM:M": {
       "name": "Mega Man Mania",
       "url": "https://en.wikipedia.org/wiki/Mega_Man_Mania",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "MM:NT": {
       "name": "Mega Man Network Transmission",
@@ -311,7 +311,7 @@
     "MM:U": {
       "name": "Mega Man Universe",
       "url": "https://en.wikipedia.org/wiki/Mega_Man_Universe",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "MMV": {
       "name": "Mega Man V",

@@ -3,6 +3,8 @@ using OpenStack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using static GameSpec.FamilyManager;
 
 namespace GameSpec
 {
@@ -19,32 +21,8 @@ namespace GameSpec
             Id = string.Empty,
             Name = "Empty",
             Games = new Dictionary<string, FamilyGame>(),
-            FileManager = FamilyManager.CreateFileManager(),
+            FileManager = new FileManager(),
         };
-
-        static unsafe Family()
-        {
-            if (FamilyPlatform.InTestHost && FamilyPlatform.Startups.Count == 0) FamilyPlatform.Startups.Add(TestPlatform.Startup);
-            foreach (var startup in FamilyPlatform.Startups) if (startup()) return;
-            FamilyPlatform.Platform = FamilyPlatform.Type.Unknown;
-            FamilyPlatform.GraphicFactory = source => null; // throw new Exception("No GraphicFactory");
-            Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
-            Debug.LogFunc = a => System.Diagnostics.Debug.Print(a);
-            Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);
-        }
-
-        /// <summary>
-        /// Touches this instance.
-        /// </summary>
-        public static void Bootstrap() { }
-
-        /// <summary>
-        /// Converts to string.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString() => Name;
 
         /// <summary>
         /// Gets the file filters.
@@ -92,6 +70,12 @@ namespace GameSpec
         public Uri[] Urls { get; set; }
 
         /// <summary>
+        /// Gets the families specs.
+        /// </summary>
+        /// <returns></returns>
+        public string[] Specs { get; set; }
+
+        /// <summary>
         /// Gets the family engines.
         /// </summary>
         /// <returns></returns>
@@ -116,6 +100,78 @@ namespace GameSpec
         /// The file manager.
         /// </value>
         public FileManager FileManager { get; set; }
+
+        static unsafe Family()
+        {
+            if (FamilyPlatform.InTestHost && FamilyPlatform.Startups.Count == 0) FamilyPlatform.Startups.Add(TestPlatform.Startup);
+            foreach (var startup in FamilyPlatform.Startups) if (startup()) return;
+            FamilyPlatform.Platform = FamilyPlatform.Type.Unknown;
+            FamilyPlatform.GraphicFactory = source => null; // throw new Exception("No GraphicFactory");
+            Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
+            Debug.LogFunc = a => System.Diagnostics.Debug.Print(a);
+            Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);
+        }
+
+        /// <summary>
+        /// Family
+        /// </summary>
+        internal Family() { }
+        /// <summary>
+        /// Family
+        /// </summary>
+        /// <param name="elem"></param>
+        public Family(JsonElement elem)
+        {
+            //try
+            //{
+            FamilyGame dgame = null;
+            var fileManager = elem.TryGetProperty("fileManager", out var z) ? CreateFileManager(z) : default;
+            var paths = fileManager?.Paths;
+            Id = (elem.TryGetProperty("id", out z) ? z.GetString() : default) ?? throw new ArgumentNullException("id");
+            Name = elem.TryGetProperty("name", out z) ? z.GetString() : default;
+            Studio = elem.TryGetProperty("studio", out z) ? z.GetString() : default;
+            Description = elem.TryGetProperty("description", out z) ? z.GetString() : default;
+            Urls = elem.TryGetProperty("url", out z) ? z.GetStringOrArray(x => new Uri(x)) : default;
+            FileManager = fileManager;
+            Specs = elem.TryGetProperty("specs", out z) ? z.GetStringOrArray(x => x) : default;
+            Engines = elem.TryGetProperty("engines", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => CreateFamilyEngine(this, x.Name, x.Value)) : new Dictionary<string, FamilyEngine>();
+            Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: CreateFamilyGame(this, x.Name, x.Value, ref dgame, paths))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value) : new Dictionary<string, FamilyGame>();
+            Apps = elem.TryGetProperty("apps", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => CreateFamilyApp(this, x.Name, x.Value)) : new Dictionary<string, FamilyApp>();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //    Console.WriteLine(e.StackTrace);
+            //    throw;
+            //}
+        }
+
+        /// <summary>
+        /// Touches this instance.
+        /// </summary>
+        public static void Bootstrap() { }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => Name;
+
+        /// <summary>
+        /// Merges the family.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public void Merge(Family source)
+        {
+            if (source == null) return;
+            foreach (var s in source.Engines) Engines.Add(s.Key, s.Value);
+            foreach (var s in source.Games) Games.Add(s.Key, s.Value);
+            foreach (var s in source.Apps) Apps.Add(s.Key, s.Value);
+            if (FileManager != null) FileManager.Merge(source.FileManager);
+            else FileManager = source.FileManager;
+        }
 
         /// <summary>
         /// Gets the specified family game.

@@ -1,6 +1,6 @@
 ﻿using GameSpec.Metadata;
 using System;
-using System.Resources;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GameSpec.Cig.Apps
@@ -11,9 +11,8 @@ namespace GameSpec.Cig.Apps
     /// <seealso cref="FamilyApp" />
     public class SubsumptionApp : FamilyApp
     {
-        public override Task OpenAsync(Type explorerType, MetadataManager manager)
-        {
-            return base.OpenAsync(explorerType, manager);
-        }
+        public SubsumptionApp(Family family, string id, JsonElement elem) : base(family, id, elem) { }
+
+        public override Task OpenAsync(Type explorerType, MetadataManager manager) => base.OpenAsync(explorerType, manager);
     }
 }

@@ -3,7 +3,6 @@
   "name": "Id",
   "studio": "id Software",
   "url": "https://en.wikipedia.org/wiki/List_of_id_Software_games",
-  "familyType": "GameSpec.Id.IdFamily, GameSpec.Id",
   "engines": {
     "idTech0": { "name": "id Tech 0" },
     "idTech1": { "name": "id Tech 1" },

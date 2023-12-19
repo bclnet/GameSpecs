@@ -6,12 +6,7 @@
   "familyType": "GameSpec.Unknown.UnknownFamily, GameSpec.Base",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Unknown.UnknownPakFile, GameSpec.Base",
-      "pak": "game:/"
-    },
-    "ACO": {
-      "name": "Assassin's Creed Origins",
-      "url": "https://store.steampowered.com/app/582160"
+      "pakFileType": "GameSpec.Unknown.UnknownPakFile, GameSpec.Base"
     },
     "APP": {
       "name": "Application"

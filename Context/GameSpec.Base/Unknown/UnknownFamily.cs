@@ -1,4 +1,6 @@
-﻿namespace GameSpec.Unknown
+﻿using System.Text.Json;
+
+namespace GameSpec.Unknown
 {
     /// <summary>
     /// UnknownFamily
@@ -9,6 +11,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="UnknownFamily"/> class.
         /// </summary>
-        public UnknownFamily() : base() { }
+        internal UnknownFamily() : base() { }
+        public UnknownFamily(JsonElement elem) : base(elem) { }
     }
 }

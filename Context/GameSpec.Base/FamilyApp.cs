@@ -1,6 +1,7 @@
 ﻿using GameSpec.Metadata;
 using System;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GameSpec
@@ -30,6 +31,21 @@ namespace GameSpec
         /// Gets or sets the explorer2 type.
         /// </summary>
         public Type Explorer2Type { get; set; }
+
+        /// <summary>
+        /// FamilyApp
+        /// </summary>
+        /// <param name="family"></param>
+        /// <param name="id"></param>
+        /// <param name="elem"></param>
+        public FamilyApp(Family family, string id, JsonElement elem)
+        {
+            Family = family;
+            Id = id;
+            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+            ExplorerType = elem.TryGetProperty("explorerAppType", out z) ? Type.GetType(z.GetString(), false) : default;
+            Explorer2Type = elem.TryGetProperty("explorer2AppType", out z) ? Type.GetType(z.GetString(), false) : default;
+        }
 
         /// <summary>
         /// Converts to string.

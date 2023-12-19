@@ -32,7 +32,7 @@ namespace GameSpec
     'fileManager': {
     }
 }";
-        public static readonly Family Family = FamilyManager.ParseFamily(FamilyJson.Replace("'", "\""));
+        public static readonly Family Family = FamilyManager.CreateFamily(FamilyJson.Replace("'", "\""));
 
         public class SomePakFile : PakFile
         {

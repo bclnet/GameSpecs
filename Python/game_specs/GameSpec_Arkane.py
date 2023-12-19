@@ -1,4 +1,4 @@
-from .pakfile import BinaryPakFile
+from . import BinaryPakFile
 from .Arkane.pakbinary_danae import PakBinary_Danae
 from .Arkane.pakbinary_void import PakBinary_Void
 

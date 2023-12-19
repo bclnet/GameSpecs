@@ -4,7 +4,6 @@
   "studio": "Frontier Developments",
   "description": "Frontier Games file formats",
   "url": "https://en.wikipedia.org/wiki/Frontier_Developments",
-  "familyType": "GameSpec.Frontier.FrontierFamily, GameSpec.Frontier",
   "games": {
     "*": {
       "pakFileType": "GameSpec.Frontier.FrontierPakFile, GameSpec.Frontier",

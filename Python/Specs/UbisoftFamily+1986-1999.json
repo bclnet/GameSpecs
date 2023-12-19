@@ -3,10 +3,11 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Ubisoft_games:_1986%E2%80%931999",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Ubisoft.UbisoftPakFile, GameSpec.Ubisoft"
     },
-    "Zombi": {
-      "name": "Zombi",
+    "Zombi86": {
+      "name": "Zombi '86",
       "url": "https://en.wikipedia.org/wiki/Zombi_(1986_video_game)",
       "date": "1986-01-01"
     },
@@ -132,8 +133,8 @@
       "url": "https://en.wikipedia.org/wiki/Battle_Isle_(video_game)",
       "date": "1991-01-01"
     },
-    "Bomberman": {
-      "name": "Bomberman",
+    "Bomberman91": {
+      "name": "Bomberman '91",
       "url": "https://en.wikipedia.org/wiki/Bomberman_(1990_video_game)",
       "date": "1991-01-01"
     },
@@ -205,7 +206,7 @@
       "url": "https://en.wikipedia.org/wiki/F1_Pole_Position_(video_game)",
       "date": "1993-12-01"
     },
-    "IndianaJonesandtheLastCrusade:TAG": {
+    "IJLC:TAG": {
       "name": "Indiana Jones and the Last Crusade: The Action Game",
       "url": "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Action_Game",
       "date": "1993-12-01"
@@ -234,7 +235,7 @@
       "url": "https://en.wikipedia.org/wiki/Soul_Blazer",
       "date": "1994-01-01"
     },
-    "Rayman95": {
+    "RY95": {
       "name": "Rayman (95)",
       "url": "https://en.wikipedia.org/wiki/Rayman_(video_game)",
       "date": "1995-09-01"
@@ -247,27 +248,27 @@
       "name": "Action Soccer",
       "date": "1995-01-01"
     },
-    "KiyekoandtheLostNight": {
+    "KatLN": {
       "name": "Kiyeko and the Lost Night",
       "date": "1995-01-01"
     },
-    "PayutaandtheIceGod": {
+    "PatIG": {
       "name": "Payuta and the Ice God",
       "date": "1996-01-01"
     },
-    "AdventuresinMusicwiththeRecorder": {
+    "AiMwtR": {
       "name": "Adventures in Music with the Recorder",
       "date": "1996-01-01"
     },
-    "AmazingLearningGameswithRayman": {
-      "name": "Amazing Learning Games with Rayman",
+    "ALGwRY96": {
+      "name": "Amazing Learning Games with Rayman '96",
       "date": "1996-01-01"
     },
-    "MathsandEnglishwithRayman:V2": {
+    "MaEwRY:V2": {
       "name": "Maths and English with Rayman: Volume 2",
       "date": "1996-01-01"
     },
-    "MathsandEnglishwithRayman:V3": {
+    "MaEwRY:V3": {
       "name": "Maths and English with Rayman: Volume 3",
       "date": "1996-01-01"
     },
@@ -276,7 +277,7 @@
       "url": "https://en.wikipedia.org/wiki/Secrets_of_the_Luxor",
       "date": "1996-01-01"
     },
-    "TheAdventuresofValdoMarie": {
+    "TAoVM": {
       "name": "The Adventures of Valdo & Marie",
       "url": "https://en.wikipedia.org/wiki/The_Adventures_of_Valdo_%26_Marie",
       "date": "1996-01-01"
@@ -315,12 +316,12 @@
       "url": "https://en.wikipedia.org/wiki/Pro_Pinball:_Timeshock!",
       "date": "1992-01-01"
     },
-    "RaymanDesigner": {
+    "RYDesigner": {
       "name": "Rayman Designer",
       "url": "https://en.wikipedia.org/wiki/Rayman_Designer",
       "date": "1997-01-01"
     },
-    "SeanDundeesWorldClubFootball": {
+    "SDWCFootball": {
       "name": "Sean Dundee's World Club Football",
       "date": "1997-01-01"
     },
@@ -358,7 +359,7 @@
       "url": "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Racer",
       "date": "1999-04-01"
     },
-    "MonacoGrandPrixRacingSimulation2": {
+    "MGPRS2": {
       "name": "Monaco Grand Prix Racing Simulation 2",
       "date": "1999-06-01"
     },
@@ -371,9 +372,9 @@
       "name": "Wall Street Tycoon",
       "date": "1999-10-20"
     },
-    "Rayman2:TGE": {
+    "RY2:TGE": {
       "name": "Rayman 2: The Great Escape",
-      "url": "XXX",
+      "url": "https://en.wikipedia.org/wiki/Rayman_2:_The_Great_Escape",
       "date": "1999-11-04"
     },
     "Rocket:RoW": {
@@ -381,7 +382,7 @@
       "url": "https://en.wikipedia.org/wiki/Rocket:_Robot_on_Wheels",
       "date": "1999-11-17"
     },
-    "Mobil1RallyChampionship": {
+    "M1RC": {
       "name": "Mobil 1 Rally Championship",
       "url": "https://en.wikipedia.org/wiki/Mobil_1_Rally_Championship",
       "date": "1999-11-01"
@@ -430,7 +431,7 @@
       "url": "https://en.wikipedia.org/wiki/Speed_Devils",
       "date": "1999-01-01"
     },
-    "SuzukiAlstareExtremeRacing": {
+    "SAXR": {
       "name": "Suzuki Alstare Extreme Racing",
       "url": "https://en.wikipedia.org/wiki/Suzuki_Alstare_Extreme_Racing",
       "date": "1999-01-01"

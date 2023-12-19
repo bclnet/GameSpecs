@@ -1,8 +1,10 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using static GameSpec.FamilyManager;
 
 namespace GameSpec
@@ -39,6 +41,19 @@ namespace GameSpec
             /// The key
             /// </summary>
             public object Key { get; set; }
+
+            /// <summary>
+            /// Edition
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="elem"></param>
+            /// <exception cref="ArgumentNullException"></exception>
+            public Edition(string id, JsonElement elem)
+            {
+                Id = id;
+                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+                Key = elem.TryGetProperty("key", out z) ? ParseKey(z.GetString()) : default;
+            }
         }
 
         /// <summary>
@@ -54,6 +69,18 @@ namespace GameSpec
             /// The name
             /// </summary>
             public string Name { get; set; }
+
+            /// <summary>
+            /// DownloadableContent
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="elem"></param>
+            /// <exception cref="ArgumentNullException"></exception>
+            public DownloadableContent(string id, JsonElement elem)
+            {
+                Id = id;
+                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+            }
         }
 
         /// <summary>
@@ -69,8 +96,23 @@ namespace GameSpec
             /// The name
             /// </summary>
             public string Name { get; set; }
+
+            /// <summary>
+            /// Locale
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="elem"></param>
+            /// <exception cref="ArgumentNullException"></exception>
+            public Locale(string id, JsonElement elem)
+            {
+                Id = id;
+                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+            }
         }
 
+        /// Gets or sets the game type.
+        /// </summary>
+        public Type GameType { get; set; }
         /// <summary>
         /// Gets or sets the family.
         /// </summary>
@@ -99,10 +141,6 @@ namespace GameSpec
         /// Gets or sets the game date.
         /// </summary>
         public DateTime Date { get; set; }
-        /// <summary>
-        /// Gets or sets the game type.
-        /// </summary>
-        public Type GameType { get; set; }
         /// <summary>
         /// Gets or sets the search by.
         /// </summary>
@@ -173,6 +211,44 @@ namespace GameSpec
         /// The name of the displayed.
         /// </value>
         public string DisplayedName => $"{Name}{(Found ? " - found" : null)}";
+
+        /// <summary>
+        /// FamilyGame
+        /// </summary>
+        internal FamilyGame() { }
+        /// <summary>
+        /// FamilyGame
+        /// </summary>
+        /// <param name="family"></param>
+        /// <param name="id"></param>
+        /// <param name="elem"></param>
+        /// <param name="dgame"></param>
+        public FamilyGame(Family family, string id, JsonElement elem, FamilyGame dgame)
+        {
+            Family = family;
+            Id = id;
+            Ignore = elem.TryGetProperty("n/a", out var z) ? z.GetBoolean() : dgame != null && dgame.Ignore;
+            Name = elem.TryGetProperty("name", out z) ? z.GetString() : default;
+            Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : dgame?.Engine;
+            Urls = elem.TryGetProperty("url", out z) ? z.GetStringOrArray(x => new Uri(x)) : default;
+            Date = elem.TryGetProperty("date", out z) ? DateTime.Parse(z.GetString()) : default;
+            Option = elem.TryGetProperty("option", out z) ? Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}") : dgame != null ? dgame.Option : default;
+            Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Paks;
+            Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Dats;
+            Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : dgame?.Paths;
+            Key = elem.TryGetProperty("key", out z) ? ParseKey(z.GetString()) : dgame?.Key;
+            Status = elem.TryGetProperty("status", out z) ? z.GetStringOrArray() : default;
+            Tags = elem.TryGetProperty("tags", out z) ? z.GetStringOrArray() : default;
+            // interface
+            FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}") : dgame?.FileSystemType;
+            SearchBy = elem.TryGetProperty("searchBy", out z) ? Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}") : dgame != null ? dgame.SearchBy : default;
+            PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}") : dgame?.PakFileType;
+            PakExts = elem.TryGetProperty("pakExt", out z) ? z.GetStringOrArray(x => x) : dgame?.PakExts;
+            // related
+            Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => new Edition(x.Name, x.Value)) : new Dictionary<string, Edition>();
+            Dlcs = elem.TryGetProperty("dlcs", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => new DownloadableContent(x.Name, x.Value)) : new Dictionary<string, DownloadableContent>();
+            Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => new Locale(x.Name, x.Value)) : new Dictionary<string, Locale>();
+        }
 
         /// <summary>
         /// Converts to string.

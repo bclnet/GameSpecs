@@ -151,7 +151,6 @@
     },
     "BionicCommando:NES": {
       "name": "Bionic Commando (NES video game)",
-      "url": "",
       "date": "2008-11-11"
     },
     "BionicCommando:GB": {
@@ -300,9 +299,12 @@
       "date": "1989-10-01"
     },
     "BEU:B": {
+      "n/a": false,
       "name": "Capcom Beat 'Em Up Bundle",
       "url": "https://store.steampowered.com/app/885150",
-      "date": "Oct 10, 2018"
+      "date": "Oct 10, 2018",
+      "path": "arc",
+      "pakExt": ".arc"
     },
     "Bowling": {
       "name": "Capcom Bowling",
@@ -642,7 +644,7 @@
     "DeepDown": {
       "name": "Deep Down",
       "url": "https://en.wikipedia.org/wiki/Deep_Down_(video_game)",
-      "date": "Future"
+      "tags": "Coming"
     },
     "DemonsCrest": {
       "name": "Demon's Crest",
@@ -906,6 +908,12 @@
           ".",
           "dlc"
         ]
+      },
+      "BEU:B": {
+        "key": "Steam:885150",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 885150",
+        "dir": "CBEUB",
+        "path": "nativeDX11x64"
       },
       "DV": {
         "key": "Steam:45710",

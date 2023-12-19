@@ -16,6 +16,12 @@
     <EmbeddedResource Include="..\..\Python\Specs\BlackFamily.json" Link="Families\BlackFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\BlizzardFamily.json" Link="Families\BlizzardFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\CapcomFamily.json" Link="Families\CapcomFamily.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CapcomFamily+0-D.json" Link="Families\CapcomFamily+0-D.json" />
+    <EmbeddedResource Include="..\..\Python\Specs\CapcomFamily+E-L.json" Link="Families\CapcomFamily+E-L.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\CapcomFamily+M.json" Link="Families\CapcomFamily+M.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\CapcomFamily+N-R.json" Link="Families\CapcomFamily+N-R.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\CapcomFamily+S.json" Link="Families\CapcomFamily+S.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\CapcomFamily+T-Z.json" Link="Families\CapcomFamily+T-Z.json" />
     <EmbeddedResource Include="..\..\Python\Specs\CigFamily.json" Link="Families\CigFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\CrypticFamily.json" Link="Families\CrypticFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\CrytekFamily.json" Link="Families\CrytekFamily.json" />
@@ -28,7 +34,11 @@
     <EmbeddedResource Include="..\..\Python\Specs\MonolithFamily.json" Link="Families\MonolithFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\OriginFamily.json" Link="Families\OriginFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\RedFamily.json" Link="Families\RedFamily.json" />
-    <EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily.json" Link="Families\UbisoftFamily.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily.json" Link="Families\UbisoftFamily.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily+1986-1999.json" Link="Families\UbisoftFamily+1986-1999.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily+2000-2009.json" Link="Families\UbisoftFamily+2000-2009.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily+2010-2019.json" Link="Families\UbisoftFamily+2010-2019.json" />
+	<EmbeddedResource Include="..\..\Python\Specs\UbisoftFamily+2020-present.json" Link="Families\UbisoftFamily+2020-present.json" />
     <EmbeddedResource Include="..\..\Python\Specs\UnityFamily.json" Link="Families\UnityFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\UnknownFamily.json" Link="Families\UnknownFamily.json" />
     <EmbeddedResource Include="..\..\Python\Specs\ValveFamily.json" Link="Families\ValveFamily.json" />

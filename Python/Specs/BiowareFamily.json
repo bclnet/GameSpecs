@@ -4,7 +4,6 @@
   "studio": "BioWare",
   "description": "BioWare used the Bioware Engine",
   "url": "https://en.wikipedia.org/wiki/List_of_BioWare_video_games",
-  "familyType": "GameSpec.Bioware.BiowareFamily, GameSpec.Bioware",
   "games": {
     "*": {
       "pakFileType": "GameSpec.Bioware.BiowarePakFile, GameSpec.Bioware",

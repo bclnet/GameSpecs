@@ -4,7 +4,6 @@
   "studio": "Epic Games",
   "description": "Epic formats",
   "url": "https://wiki.beyondunreal.com/List_of_Unreal_Engine_games",
-  "familyType": "GameSpec.Epic.EpicFamily, GameSpec.Epic",
   "engines": {
     "Unreal": {
       "name": "Unreal Engine"

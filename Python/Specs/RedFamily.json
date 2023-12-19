@@ -7,7 +7,6 @@
   "studio": "CD Projekt Red",
   "description": "REDengine file formats including the Witcher Series",
   "url": "https://en.wikipedia.org/wiki/CD_Projekt",
-  "familyType": "GameSpec.Red.RedFamily, GameSpec.Red",
   "games": {
     "*": {
       "pakFileType": "GameSpec.Red.RedPakFile, GameSpec.Red",

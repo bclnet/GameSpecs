@@ -4,8 +4,7 @@
   "studio": "Capcom",
   "description": "Capcom file formats",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games",
-  "familyType": "GameSpec.Capcom.CapcomFamily, GameSpec.Capcom",
-  "jsons": [
+  "specs": [
     "CapcomFamily+0-D.json",
     "CapcomFamily+E-L.json",
     "CapcomFamily+M.json",
@@ -17,6 +16,7 @@
     "BionicCommando": {},
     "BionicCommando:R": {},
     "Arcade:S": {},
+    "BEU:B": {},
     "DV": {},
     "DV:Z": {},
     "DR": {},
@@ -78,13 +78,6 @@
       "url": "https://store.steampowered.com/app/1515950",
       "date": "May 24, 2021",
       "pakExt": ".pak"
-    },
-    "BEU:B": {
-      "name": "Capcom Beat 'Em Up Bundle",
-      "url": "https://store.steampowered.com/app/885150",
-      "date": "Oct 10, 2018",
-      "path": "arc",
-      "pakExt": ".arc"
     },
     "Fighting:C": {
       "name": "Capcom Fighting Collection",
@@ -197,12 +190,6 @@
           ".",
           "dlc"
         ]
-      },
-      "BEU:B": {
-        "key": "Steam:885150",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 885150",
-        "dir": "CBEUB",
-        "path": "nativeDX11x64"
       },
       "Fighting:C": {
         "key": "Steam:1685750",

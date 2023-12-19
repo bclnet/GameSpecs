@@ -4,7 +4,6 @@
   "studio": "Infinity Ward",
   "description": "Infinity Ward file formats",
   "url": "https://en.wikipedia.org/wiki/IW_(game_engine)",
-  "familyType": "GameSpec.IW.IWFamily, GameSpec.IW",
   "games": {
     "*": {
       "pakFileType": "GameSpec.IW.IWPakFile, GameSpec.IW",

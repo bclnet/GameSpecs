@@ -4,7 +4,6 @@
   "studio": "Cyanide",
   "description": "Cyanide Formats",
   "url": "https://en.wikipedia.org/wiki/Cyanide_(company)",
-  "familyType": "GameSpec.Cyanide.CyanideFamily, GameSpec.Cyanide",
   "games": {
     "*": {
       "pakFileType": "GameSpec.Cyanide.CyanidePakFile, GameSpec.Cyanide",

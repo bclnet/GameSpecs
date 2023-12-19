@@ -18,7 +18,7 @@
     "Talisman": {
       "name": "Talisman",
       "url": "https://en.wikipedia.org/wiki/Talisman_(video_game)",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "TVC:UAS": {
       "name": "Tatsunoko vs. Capcom: Ultimate All-Stars",
@@ -72,7 +72,7 @@
     },
     "TheMagicalNinja:JK": {
       "name": "The Magical Ninja: Jiraiya Kenzan!",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "TMOTB": {
       "name": "The Misadventures of Tron Bonne",
@@ -246,7 +246,7 @@
     "WOTF": {
       "name": "War of the Grail",
       "url": "https://en.wikipedia.org/wiki/War_of_the_Grail",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "Warauinu:SGL": {
       "name": "Warauinu no Bouken GB: Silly Go Lucky!",

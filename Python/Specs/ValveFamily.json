@@ -1,10 +1,9 @@
 ﻿{
   "id": "Valve",
   "name": "Valve",
-  "studio": "",
+  "studio": "Valve",
   "description": "Valve formats used by Source/Source 2",
   "url": "https://en.wikipedia.org/wiki/List_of_Valve_games",
-  "familyType": "GameSpec.Valve.ValveFamily, GameSpec.Valve",
   "games": {
     "*": {
       "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
@@ -176,9 +175,18 @@
       "tags": "Left4Dead",
       "path": [ "platform", "hl2", "left4dead2", "update" ],
       "dlcs": {
-        "dlc1": { "name": "dlc1", "path": "left4dead2_dlc1" },
-        "dlc2": { "name": "dlc2", "path": "left4dead2_dlc2" },
-        "dlc3": { "name": "dlc3", "path": "left4dead2_dlc3" }
+        "dlc1": {
+          "name": "dlc1",
+          "path": "left4dead2_dlc1"
+        },
+        "dlc2": {
+          "name": "dlc2",
+          "path": "left4dead2_dlc2"
+        },
+        "dlc3": {
+          "name": "dlc3",
+          "path": "left4dead2_dlc3"
+        }
       },
       "status": [ "open", "read" ]
     },
@@ -213,32 +221,110 @@
       "tags": "Dota",
       "path": [ "core", "dota" ],
       "dlcs": {
-        "addon_template": { "name": "koreana", "path": "dota_addons/addon_template" },
-        "adventure_example": { "name": "adventure_example", "path": "dota_addons/adventure_example" },
-        "aghanim": { "name": "aghanim", "path": "dota_addons/aghanim" },
-        "cavern": { "name": "cavern", "path": "dota_addons/cavern" },
-        "conquest": { "name": "conquest", "path": "dota_addons/conquest" },
-        "diretide2020": { "name": "diretide2020", "path": "dota_addons/diretide2020" },
-        "dungeon": { "name": "dungeon", "path": "dota_addons/dungeon" },
-        "frostivus_2017": { "name": "frostivus_2017", "path": "dota_addons/frostivus_2017" },
-        "hero_demo": { "name": "hero_demo", "path": "dota_addons/hero_demo" },
-        "holdout": { "name": "holdout", "path": "dota_addons/holdout" },
-        "holdout_example": { "name": "holdout_example", "path": "dota_addons/holdout_example" },
-        "jungle_spirits_2019": { "name": "jungle_spirits_2019", "path": "dota_addons/jungle_spirits_2019" },
-        "last_hit_trainer": { "name": "last_hit_trainer", "path": "dota_addons/last_hit_trainer" },
-        "lua_ability_example": { "name": "lua_ability_example", "path": "dota_addons/lua_ability_example" },
-        "manyplayer_example": { "name": "manyplayer_example", "path": "dota_addons/manyplayer_example" },
-        "nemestice": { "name": "nemestice", "path": "dota_addons/nemestice" },
-        "new_bloom_2017": { "name": "schinese", "path": "dota_addons/workshop_testbed" },
-        "npx_2019": { "name": "npx_2019", "path": "dota_addons/npx_2019" },
-        "overthrow": { "name": "overthrow", "path": "dota_addons/overthrow" },
-        "rpg_example": { "name": "rpg_example", "path": "dota_addons/rpg_example" },
-        "tutorial_assist_game": { "name": "tutorial_assist_game", "path": "dota_addons/tutorial_assist_game" },
-        "tutorial_basics": { "name": "tutorial_basics", "path": "dota_addons/tutorial_basics" },
-        "ui_example": { "name": "ui_example", "path": "dota_addons/ui_example" },
-        "winter_2018": { "name": "winter_2018", "path": "dota_addons/winter_2018" },
-        "winter2022": { "name": "winter2022", "path": "dota_addons/winter2022" },
-        "workshop_testbed": { "name": "workshop_testbed", "path": "dota_addons/workshop_testbed" }
+        "addon_template": {
+          "name": "koreana",
+          "path": "dota_addons/addon_template"
+        },
+        "adventure_example": {
+          "name": "adventure_example",
+          "path": "dota_addons/adventure_example"
+        },
+        "aghanim": {
+          "name": "aghanim",
+          "path": "dota_addons/aghanim"
+        },
+        "cavern": {
+          "name": "cavern",
+          "path": "dota_addons/cavern"
+        },
+        "conquest": {
+          "name": "conquest",
+          "path": "dota_addons/conquest"
+        },
+        "diretide2020": {
+          "name": "diretide2020",
+          "path": "dota_addons/diretide2020"
+        },
+        "dungeon": {
+          "name": "dungeon",
+          "path": "dota_addons/dungeon"
+        },
+        "frostivus_2017": {
+          "name": "frostivus_2017",
+          "path": "dota_addons/frostivus_2017"
+        },
+        "hero_demo": {
+          "name": "hero_demo",
+          "path": "dota_addons/hero_demo"
+        },
+        "holdout": {
+          "name": "holdout",
+          "path": "dota_addons/holdout"
+        },
+        "holdout_example": {
+          "name": "holdout_example",
+          "path": "dota_addons/holdout_example"
+        },
+        "jungle_spirits_2019": {
+          "name": "jungle_spirits_2019",
+          "path": "dota_addons/jungle_spirits_2019"
+        },
+        "last_hit_trainer": {
+          "name": "last_hit_trainer",
+          "path": "dota_addons/last_hit_trainer"
+        },
+        "lua_ability_example": {
+          "name": "lua_ability_example",
+          "path": "dota_addons/lua_ability_example"
+        },
+        "manyplayer_example": {
+          "name": "manyplayer_example",
+          "path": "dota_addons/manyplayer_example"
+        },
+        "nemestice": {
+          "name": "nemestice",
+          "path": "dota_addons/nemestice"
+        },
+        "new_bloom_2017": {
+          "name": "schinese",
+          "path": "dota_addons/workshop_testbed"
+        },
+        "npx_2019": {
+          "name": "npx_2019",
+          "path": "dota_addons/npx_2019"
+        },
+        "overthrow": {
+          "name": "overthrow",
+          "path": "dota_addons/overthrow"
+        },
+        "rpg_example": {
+          "name": "rpg_example",
+          "path": "dota_addons/rpg_example"
+        },
+        "tutorial_assist_game": {
+          "name": "tutorial_assist_game",
+          "path": "dota_addons/tutorial_assist_game"
+        },
+        "tutorial_basics": {
+          "name": "tutorial_basics",
+          "path": "dota_addons/tutorial_basics"
+        },
+        "ui_example": {
+          "name": "ui_example",
+          "path": "dota_addons/ui_example"
+        },
+        "winter_2018": {
+          "name": "winter_2018",
+          "path": "dota_addons/winter_2018"
+        },
+        "winter2022": {
+          "name": "winter2022",
+          "path": "dota_addons/winter2022"
+        },
+        "workshop_testbed": {
+          "name": "workshop_testbed",
+          "path": "dota_addons/workshop_testbed"
+        }
       },
       "locales": {
         "ko": { "name": "koreana" },

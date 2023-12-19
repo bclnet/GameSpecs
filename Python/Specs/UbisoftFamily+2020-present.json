@@ -3,44 +3,26 @@
   "url": "https://en.wikipedia.org/wiki/List_of_Ubisoft_games:_2020%E2%80%93present",
   "games": {
     "*": {
-      "n/a": true
+      "n/a": true,
+      "pakFileType": "GameSpec.Ubisoft.UbisoftPakFile, GameSpec.Ubisoft"
     },
-    "MightMagic:CR": {
+    "MnM:CR": {
       "name": "Might & Magic: Chess Royale",
       "date": "2020-01-29"
-    },
-    "TomClancysTheDivision2": {
-      "name": "Tom Clancy's The Division 2",
-      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division_2",
-      "date": "2020-03-17"
-    },
-    "TheCrew2": {
-      "name": "The Crew 2",
-      "url": "https://en.wikipedia.org/wiki/The_Crew_2",
-      "date": "2020-03-25"
     },
     "Trackmania": {
       "name": "Trackmania",
       "url": "https://en.wikipedia.org/wiki/TrackMania_(2020_video_game)",
       "date": "2020-07-01"
     },
-    "Brawlhalla": {
-      "name": "Brawlhalla",
-      "url": "https://en.wikipedia.org/wiki/Brawlhalla",
-      "date": "2020-08-06"
-    },
     "HyperScape": {
       "name": "Hyper Scape",
       "url": "https://en.wikipedia.org/wiki/Hyper_Scape",
       "date": "2020-08-11"
     },
-    "TomClancysEliteSquad": {
+    "TCES": {
       "name": "Tom Clancy's Elite Squad",
       "date": "2020-08-25"
-    },
-    "Rabbids:C": {
-      "name": "Rabbids: Coding!",
-      "date": "2020-10-08"
     },
     "Rabbids:WR": {
       "name": "Rabbids: Wild Race",
@@ -55,7 +37,7 @@
       "url": "https://en.wikipedia.org/wiki/Watch_Dogs:_Legion",
       "date": "2020-10-29"
     },
-    "AssassinsCreedValhalla": {
+    "ACValhalla": {
       "name": "Assassin's Creed Valhalla",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Valhalla",
       "date": "2020-11-10"
@@ -69,11 +51,6 @@
       "url": "https://en.wikipedia.org/wiki/Just_Dance_2021",
       "date": "2020-11-12"
     },
-    "TomClancysRainbowSixSiege": {
-      "name": "Tom Clancy's Rainbow Six Siege",
-      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Siege",
-      "date": "2020-12-01"
-    },
     "IdleRestaurantTycoon": {
       "name": "Idle Restaurant Tycoon",
       "date": "2020-12-03"
@@ -83,12 +60,12 @@
       "url": "https://en.wikipedia.org/wiki/Immortals_Fenyx_Rising",
       "date": "2020-12-03"
     },
-    "ScottPilgrimvsTheWorld:TGCE": {
+    "SPVTW:TGCE": {
       "name": "Scott Pilgrim vs. The World: The Game - Complete Edition",
       "url": "https://en.wikipedia.org/wiki/Scott_Pilgrim_vs._The_World:_The_Game_-_Complete_Edition",
       "date": "2021-01-14"
     },
-    "FarCry6": {
+    "FC6": {
       "name": "Far Cry 6",
       "url": "https://en.wikipedia.org/wiki/Far_Cry_6",
       "date": "2021-10-07"
@@ -115,14 +92,10 @@
       "name": "Clash of Beasts",
       "date": "2022-01-11"
     },
-    "TomClancysRainbowSixExtraction": {
+    "TCRSExtraction": {
       "name": "Tom Clancy's Rainbow Six Extraction",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Extraction",
       "date": "2022-01-20"
-    },
-    "AssassinsCreed:TEC": {
-      "name": "Assassin's Creed: The Ezio Collection",
-      "date": "2022-02-17"
     },
     "TrivialPursuitLive:2": {
       "name": "Trivial Pursuit Live! 2",
@@ -141,7 +114,7 @@
       "name": "Wild Arena Survivors",
       "date": "2022-08-30"
     },
-    "Rocksmith": {
+    "Rocksmith:P": {
       "name": "Rocksmith+",
       "url": "https://en.wikipedia.org/wiki/Rocksmith%2B",
       "date": "2022-09-06"
@@ -165,7 +138,7 @@
       "name": "Valiant Hearts: Coming Home",
       "date": "2023-01-31"
     },
-    "TheSettlers:NA": {
+    "TS:NA": {
       "name": "The Settlers: New Allies",
       "url": "https://en.wikipedia.org/wiki/The_Settlers:_New_Allies",
       "date": "2023-02-17"
@@ -179,7 +152,7 @@
       "url": "https://en.wikipedia.org/wiki/The_Crew_Motorfest",
       "date": "2023-09-14"
     },
-    "AssassinsCreedMirage": {
+    "ACMirage": {
       "name": "Assassin's Creed Mirage",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Mirage",
       "date": "2023-10-05"
@@ -189,7 +162,7 @@
       "url": "https://en.wikipedia.org/wiki/Just_Dance_2024_Edition",
       "date": "2023-10-24"
     },
-    "AssassinsCreedNexusVR": {
+    "ACNexusVR": {
       "name": "Assassin's Creed Nexus VR",
       "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Nexus_VR",
       "date": "2023-11-16"
@@ -199,7 +172,7 @@
       "url": "https://en.wikipedia.org/wiki/Avatar:_Frontiers_of_Pandora",
       "date": "2023-12-07"
     },
-    "PrinceofPersia:TLC": {
+    "PoP:TLC": {
       "name": "Prince of Persia: The Lost Crown",
       "url": "https://en.wikipedia.org/wiki/Prince_of_Persia:_The_Lost_Crown",
       "date": "2024-01-18"
@@ -213,12 +186,12 @@
       "name": "Invincible: Guarding the Globe",
       "date": "2024-01-01"
     },
-    "TomClancysRainbowSixMobile": {
+    "TCRSMobile": {
       "name": "Tom Clancy's Rainbow Six Mobile",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Mobile",
       "date": "2024-04-01"
     },
-    "TomClancysTheDivisionResurgence": {
+    "TCTDResurgence": {
       "name": "Tom Clancy's The Division Resurgence",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division_Resurgence",
       "date": "2024-01-01"
@@ -233,39 +206,39 @@
       "url": "https://en.wikipedia.org/wiki/XDefiant",
       "date": "2024-01-01"
     },
-    "AssassinsCreed:CH": {
+    "AC:CH": {
       "name": "Assassin's Creed: Codename Hexe"
     },
-    "AssassinsCreed:CI": {
+    "AC:CI": {
       "name": "Assassin's Creed: Codename Invictus"
     },
-    "AssassinsCreed:CR": {
+    "AC:CR": {
       "name": "Assassin's Creed: Codename Red"
     },
-    "AssassinsCreedJade": {
+    "ACJade": {
       "name": "Assassin's Creed Jade"
     },
     "BeyondGoodandEvil2": {
       "name": "Beyond Good and Evil 2",
       "url": "https://en.wikipedia.org/wiki/Beyond_Good_and_Evil_2"
     },
-    "PrinceofPersia:TSoTR": {
+    "PoP:TSoTR": {
       "name": "Prince of Persia: The Sands of Time (remake)"
     },
     "ProjectU": {
       "name": "Project U"
     },
-    "TomClancysTheDivision3": {
+    "TCTD3": {
       "name": "Tom Clancy's The Division 3"
     },
-    "TomClancysTheDivisionHeartland": {
+    "TCTDHeartland": {
       "name": "Tom Clancy's The Division Heartland",
       "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division_Heartland"
     },
-    "TomClancysSplinterCell:R": {
+    "TCSC:R": {
       "name": "Tom Clancy's Splinter Cell (remake)"
     },
-    "UntitledAssassinsCreedmobilegame": {
+    "UntitledACmobilegame": {
       "name": "Untitled Assassin's Creed mobile game"
     }
   },

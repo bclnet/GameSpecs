@@ -47,9 +47,8 @@ namespace GameSpec
         /// </summary>
         public readonly IDictionary<string, IDictionary<string, string>> Filters = new Dictionary<string, IDictionary<string, string>>();
 
-        #region Parse File-Manager
-
-        public virtual FileManager ParseFileManager(JsonElement elem)
+        internal FileManager() { }
+        public FileManager(JsonElement elem)
         {
             // applications
             if (elem.TryGetProperty("application", out var z))
@@ -73,12 +72,25 @@ namespace GameSpec
                 foreach (var prop in z.EnumerateObject())
                     foreach (var filter in prop.Value.EnumerateObject())
                         AddFilter(prop, filter.Name, filter.Value);
-            return this;
         }
+
+        /// <summary>
+        /// Merges the family.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public void Merge(FileManager source)
+        {
+            foreach (var s in source.Paths) Paths.Add(s.Key, s.Value);
+            foreach (var s in source.Ignores) Ignores.Add(s.Key, s.Value);
+            foreach (var s in source.Filters) Filters.Add(s.Key, s.Value);
+        }
+
+        #region Parse File-Manager
 
         protected void AddApplication(JsonProperty prop)
         {
             const string GAMESPATH = "Games";
+
             // get locale games
             var platformOS = FamilyPlatform.PlatformOS;
             var gameRoots = DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, GAMESPATH)).ToList();

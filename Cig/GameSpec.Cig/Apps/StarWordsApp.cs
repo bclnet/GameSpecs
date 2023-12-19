@@ -1,11 +1,7 @@
-﻿using GameSpec.Metadata;
-using GameSpec.Cig.Apps.StarWords;
+﻿using GameSpec.Cig.Apps.StarWords;
+using GameSpec.Metadata;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GameSpec.Cig.Apps
@@ -17,6 +13,8 @@ namespace GameSpec.Cig.Apps
     public class StarWordsApp : FamilyApp
     {
         public readonly Database Db = new Database();
+
+        public StarWordsApp(Family family, string id, JsonElement elem) : base(family, id, elem) { }
 
         public override async Task OpenAsync(Type explorerType, MetadataManager manager)
         {

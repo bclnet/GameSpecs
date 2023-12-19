@@ -4,7 +4,6 @@
   "studio": "WB Games Boston",
   "url": "https://en.wikipedia.org/wiki/WB_Games_Boston",
   "description": "The file formats used in WB Games Boston games.",
-  "familyType": "GameSpec.WbB.WbBFamily, GameSpec.WbB",
   "games": {
     "*": {
       "gameType": "GameSpec.WbB.WbBGame, GameSpec.WbB",

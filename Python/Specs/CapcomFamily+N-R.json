@@ -27,7 +27,7 @@
     "SMBW:CW": {
       "name": "New Super Mario Bros. Wii Coin World",
       "url": "https://en.wikipedia.org/wiki/New_Super_Mario_Bros._Wii#New_Super_Mario_Bros._Wii_Coin_World",
-      "date": "2011"
+      "date": "2011-01-01"
     },
     "NightWarrior:DR": {
       "name": "Night Warriors: Darkstalkers' Revenge",
@@ -187,7 +187,7 @@
     "Pragmata": {
       "name": "Pragmata",
       "url": "https://en.wikipedia.org/wiki/Pragmata",
-      "date": "Coming"
+      "tags": "Coming"
     },
     "Fishing:PCS": {
       "name": "Pro Cast Sports Fishing",
@@ -467,7 +467,7 @@
     "RE:P": {
       "name": "Resident Evil Portable",
       "url": "https://en.wikipedia.org/wiki/Resident_Evil_Portable",
-      "date": "Cancelled"
+      "tags": "Cancelled"
     },
     "RE:R": {
       "n/a": false,

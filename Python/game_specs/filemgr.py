@@ -11,6 +11,11 @@ class FileManager:
     if platform.system() == 'Android': gameRoots.append(os.path.join('/sdcard', GAMESPATH))
     games = {x:os.path.join(r,x) for r in gameRoots if os.path.isdir(r) for x in os.listdir(r)}
     
+    def merge(self, source) -> None:
+        self.paths.update(source.paths)
+        self.ignores.update(source.ignores)
+        self.filters.update(source.filters)
+
     def addApplication(self, id, d):
         system = platform.system()
         if system == 'Windows' and 'reg' in d:

@@ -1,4 +1,7 @@
-﻿namespace GameSpec
+﻿using System;
+using System.Text.Json;
+
+namespace GameSpec
 {
     /// <summary>
     /// FamilyEngine
@@ -17,6 +20,20 @@
         /// Gets or sets the game name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// FamilyEngine
+        /// </summary>
+        /// <param name="family"></param>
+        /// <param name="id"></param>
+        /// <param name="elem"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public FamilyEngine(Family family, string id, JsonElement elem)
+        {
+            Family = family;
+            Id = id;
+            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+        }
 
         /// <summary>
         /// Converts to string.
