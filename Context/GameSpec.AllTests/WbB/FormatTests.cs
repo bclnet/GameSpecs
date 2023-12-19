@@ -59,7 +59,7 @@ namespace GameSpec.WbB
 
                 using var r = new BinaryReader(await source.LoadFileDataAsync(metadata));
                 await factory(r, metadata, source);
-                if (r.Position() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Position()} of {metadata.FileSize}");
+                if (r.Tell() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Tell()} of {metadata.FileSize}");
             }
         }
 
@@ -89,7 +89,7 @@ namespace GameSpec.WbB
 
                 using var r = new BinaryReader(await source.LoadFileDataAsync(metadata));
                 await factory(r, metadata, source);
-                if (r.Position() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Position()} of {metadata.FileSize}");
+                if (r.Tell() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Tell()} of {metadata.FileSize}");
             }
         }
 
@@ -114,7 +114,7 @@ namespace GameSpec.WbB
 
                 using var r = new BinaryReader(await source.LoadFileDataAsync(metadata));
                 await factory(r, metadata, source);
-                if (r.Position() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Position()} of {metadata.FileSize}");
+                if (r.Tell() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Tell()} of {metadata.FileSize}");
             }
         }
 

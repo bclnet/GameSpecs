@@ -70,13 +70,13 @@ namespace GameSpec.Valve.Formats.Blocks
                         structEntry.Add(field.FieldName, MakeValue<byte?>(field.Type, null, true)); // being byte shouldn't matter 
                         return;
                     }
-                    prevOffset = r.Position();
+                    prevOffset = r.Tell();
                     r.Skip(offset - 4);
                 }
                 else if (indirection == NTRO.SchemaIndirectionType.ResourceArray)
                 {
                     count = r.ReadUInt32();
-                    prevOffset = r.Position();
+                    prevOffset = r.Tell();
                     if (count > 0) r.Skip(offset - 8);
                 }
                 else throw new ArgumentOutOfRangeException(nameof(indirection), $"Unsupported indirection {indirection}");

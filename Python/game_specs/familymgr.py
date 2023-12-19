@@ -2,7 +2,7 @@ import os, json, glob, re
 from typing import Any
 from urllib.parse import urlparse
 from importlib import resources
-from .openstack_poly import findType
+from .openstk_poly import findType
 from .pakfile import PakFile, ManyPakFile, MultiPakFile
 from .filesys import FileSystem, HostFileSystem, createFileSystem
 from .filemgr import FileManager

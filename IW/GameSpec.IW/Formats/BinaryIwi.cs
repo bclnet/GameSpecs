@@ -211,7 +211,7 @@ namespace GameSpec.IW.Formats
 
                 var mips = r.ReadTArray<int>(sizeof(int), version < VERSION.CODBO1 ? 4 : 8);
                 var mipsLength = mips[0] == mips[1] || mips[0] == mips[^1] ? 1 : mips.Length - 1;
-                var mipsBase = mipsLength == 1 ? (int)r.Position() : mips[^1];
+                var mipsBase = mipsLength == 1 ? (int)r.Tell() : mips[^1];
                 var size = (int)(r.BaseStream.Length - mipsBase);
                 ranges = mipsLength > 1
                     ? Enumerable.Range(0, mipsLength).Select(i => new Range(mips[i + 1] - mipsBase, mips[i] - mipsBase)).ToArray()

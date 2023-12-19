@@ -174,7 +174,7 @@ namespace GameSpec.Epic.Formats.Core
                 // Read compression tables.
                 var NumChunks = r.ReadInt32();
                 var Chunks = new FCompressedChunk[NumChunks];
-                var UncompOffset = (int)r.Position() - 4;              //?? there should be a flag signalling presence of compression structures, because of "Tell()-4"
+                var UncompOffset = (int)r.Tell() - 4;              //?? there should be a flag signalling presence of compression structures, because of "Tell()-4"
                 for (var i = 0; i < NumChunks; i++)
                 {
                     var Offset = r.ReadInt32();

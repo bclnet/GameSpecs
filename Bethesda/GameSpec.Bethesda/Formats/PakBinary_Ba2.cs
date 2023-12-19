@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bethesda.Formats
 {
-    public unsafe class PakBinaryBethesdaBa2 : PakBinary
+    public unsafe class PakBinary_Ba2 : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryBethesdaBa2();
+        public static readonly PakBinary Instance = new PakBinary_Ba2();
 
         // Header : TES5
         #region Header : TES5

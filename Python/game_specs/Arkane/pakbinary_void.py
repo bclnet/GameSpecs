@@ -5,7 +5,7 @@ from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
 from ..familymgr import FamilyGame
 from ..filesys import FileSystem
-from ..openstack_poly import Reader
+from ..openstk_poly import Reader
 
 
 class PakBinary_Void(PakBinary):

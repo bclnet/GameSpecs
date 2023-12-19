@@ -3,7 +3,7 @@ from io import BytesIO
 from typing import Any
 from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
-from ..openstack_poly import Reader
+from ..openstk_poly import Reader
 from ..compression import decompressLzss, decompressZlib
 
 class PakBinary_Dat(PakBinary):

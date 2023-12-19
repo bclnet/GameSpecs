@@ -87,7 +87,7 @@ namespace GameSpec.Unity.Formats
 
                 public FileHeader(BinaryReader r)
                 {
-                    var beginPosition = r.Position();
+                    var beginPosition = r.Tell();
                     var dw00 = r.ReadUInt32E();
                     var dw04 = r.ReadUInt32E();
                     Format = r.ReadUInt32E();
@@ -466,7 +466,7 @@ namespace GameSpec.Unity.Formats
                 if (format < 9) r.Seek(Header.FileSize - Header.MetadataSize + 1);
                 Tree = new TypeTree(r, format, bigEndian);
                 if (Tree.UnityVersion[0] < '0' || Tree.UnityVersion[0] > '9') throw new FormatException("Bad Version");
-                AssetTablePos = r.Position();
+                AssetTablePos = r.Tell();
                 //
                 AssetCount = (int)r.ReadUInt32E(bigEndian);
                 if (format >= 0x0E && AssetCount > 0) r.Align();
@@ -918,7 +918,7 @@ namespace GameSpec.Unity.Formats
                         if (string.Equals(template.Type, "TypelessData", StringComparison.OrdinalIgnoreCase))
                         {
                             var curRawData = r.ReadBytes(arrayLen);
-                            if (r.Position() <= maxFilePos)
+                            if (r.Tell() <= maxFilePos)
                             {
                                 curValue = new TypeValue(ValueType.ByteArray, curRawData);
                                 valueFields.Add(new TypeValueField(curValue, template, 0, null));
@@ -933,7 +933,7 @@ namespace GameSpec.Unity.Formats
                             {
                                 arrayItemList[i] = valueFields[^1];
                                 _RecursiveMakeValues(template.Children[1], r, maxFilePos, valueFields, bigEndian);
-                                if (r.Position() > maxFilePos) break;
+                                if (r.Tell() > maxFilePos) break;
                             }
                         }
                         if (template.Align) r.Align();
@@ -941,7 +941,7 @@ namespace GameSpec.Unity.Formats
                     else if (template.ValueType == ValueType.String)
                     {
                         var stringLen = (int)r.ReadUInt32E(bigEndian);
-                        if ((r.Position() + stringLen) > maxFilePos) stringLen = (int)(maxFilePos - r.Position());
+                        if ((r.Tell() + stringLen) > maxFilePos) stringLen = (int)(maxFilePos - r.Tell());
                         var bytes = r.ReadBytes(stringLen);
                         curValue = new TypeValue(ValueType.String, Encoding.ASCII.GetString(bytes));
                         valueFields.Add(new TypeValueField(curValue, template, 0, null));
@@ -966,7 +966,7 @@ namespace GameSpec.Unity.Formats
                             case ValueType.String: break;
                         }
                         if (template.Align) r.Align();
-                        if (r.Position() <= maxFilePos)
+                        if (r.Tell() <= maxFilePos)
                         {
                             curValue = new TypeValue(template.ValueType, valueContainer);
                             valueFields.Add(new TypeValueField(curValue, template, 0, null));
@@ -980,7 +980,7 @@ namespace GameSpec.Unity.Formats
                     //int newValueByteLen = 0; int childListByteLen = 0; int rawDataByteLen = 0;
                     ////Set to true if it goes EOF while reading an array; This allows parsing empty files and having them filled with zeros without risking crashes on invalid files. 
                     //var readFailed = false;
-                    var firstPosition = r.Position();
+                    var firstPosition = r.Tell();
                     //var position = 0L;
                     //var newChildrenCount = _RecursiveGetValueFieldCount(this, r, firstPosition + fileLen, ref position, ref newValueByteLen, ref childListByteLen, ref rawDataByteLen, ref readFailed, bigEndian);
                     ////ppValueField will be set to pValueFieldMemory so the caller knows which pointer to free
@@ -1423,7 +1423,7 @@ namespace GameSpec.Unity.Formats
             public ClassDatabaseFile(BinaryReader r)
             {
                 Header = new FileHeader(r);
-                long compressedFilePos = r.Position(), postHeaderPos = r.Position();
+                long compressedFilePos = r.Tell(), postHeaderPos = r.Tell();
                 var ds = r.BaseStream;
                 if (Header.CompressionType != 0 && Header.CompressionType < 3)
                 {

@@ -5,7 +5,7 @@ from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
 from ..familymgr import FamilyGame
 from ..filesys import FileSystem
-from ..openstack_poly import Reader
+from ..openstk_poly import Reader
 from ..compression import decompressLz4, decompressZlib2
 
 class PakBinary_Bsa(PakBinary):
@@ -108,7 +108,7 @@ class PakBinary_Bsa(PakBinary):
             compressedToggle = (header.archiveFlags & self.OB_BSAARCHIVE_COMPRESSFILES) > 0
             if header.version == self.F3_BSAHEADER_VERSION \
                 or header.version == self.SSE_BSAHEADER_VERSION:
-                source.params['namePrefix'] = 'Y' if (header.archiveFlags & self.F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0 else 'N'
+                source.tag = (header.archiveFlags & self.F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0
 
             # read-all folders
             foldersFiles = [x.fileCount for x in r.readTArray(self.OB_FolderSSE, header.folderCount)] if header.version == self.SSE_BSAHEADER_VERSION else \
@@ -145,6 +145,7 @@ class PakBinary_Bsa(PakBinary):
             for i in range(header.fileCount):
                 headerFile = headerFiles[i]
                 files[i] = FileSource(
+                    compressed = 0,
                     packedSize = headerFile.getSize(),
                     position = dataOffset + headerFile.fileOffset
                     )
@@ -163,7 +164,7 @@ class PakBinary_Bsa(PakBinary):
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
         fileSize = file.packedSize & self.OB_BSAFILE_SIZEMASK if source.version == self.SSE_BSAHEADER_VERSION else file.packedSize
         r.seek(file.position)
-        if source.params['namePrefix'] == 'Y':
+        if source.tag:
             prefixLength = r.readByte() + 1
             if source.version == self.SSE_BSAHEADER_VERSION: fileSize -= prefixLength
             r.seek(file.position + prefixLength)

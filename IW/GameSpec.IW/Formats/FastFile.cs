@@ -344,7 +344,7 @@ namespace GameSpec.IW.Formats
             public COD_Material(BinaryReader r)
             {
                 Size = r.ReadInt16();
-                var end = r.Position() + Size;
+                var end = r.Tell() + Size;
                 B1 = r.ReadByte();
                 B2 = r.ReadByte();
                 var moreHeader = r.ReadBytes(0x10);

@@ -27,9 +27,9 @@ namespace GameSpec.Bethesda.Formats
     /// PakBinaryBethesdaEsm
     /// </summary>
     /// <seealso cref="GameSpec.Formats._Packages.PakBinaryBethesdaEsm" />
-    public unsafe class PakBinaryBethesdaEsm : PakBinary
+    public unsafe class PakBinary_Esm : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryBethesdaEsm();
+        public static readonly PakBinary Instance = new PakBinary_Esm();
 
         const int RecordHeaderSizeInBytes = 16;
         public BethesdaFormat Format;
@@ -73,8 +73,8 @@ namespace GameSpec.Bethesda.Formats
                 group.AddHeader(new Header
                 {
                     Label = null,
-                    DataSize = (uint)(r.BaseStream.Length - r.Position()),
-                    Position = r.Position(),
+                    DataSize = (uint)(r.BaseStream.Length - r.Tell()),
+                    Position = r.Tell(),
                 });
                 group.Load();
                 Groups = group.Records.GroupBy(x => x.Header.Type)
@@ -93,7 +93,7 @@ namespace GameSpec.Bethesda.Formats
             {
                 var header = new Header(r, Format, null);
                 if (header.Type != "GRUP") throw new InvalidOperationException($"{header.Type} not GRUP");
-                var nextPosition = r.Position() + header.DataSize;
+                var nextPosition = r.Tell() + header.DataSize;
                 var label = Encoding.ASCII.GetString(header.Label);
                 if (!Groups.TryGetValue(label, out var group)) { group = new RecordGroup(poolAction, filePath, Format, recordLevel); Groups.Add(label, group); }
                 group.AddHeader(header);

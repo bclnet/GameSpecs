@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bethesda.Formats
 {
-    public unsafe class PakBinaryBethesdaBsa : PakBinary
+    public unsafe class PakBinary_Bsa : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryBethesdaBsa();
+        public static readonly PakBinary Instance = new PakBinary_Bsa();
 
         // Header : TES4
         #region Header : TES4
@@ -128,7 +128,7 @@ namespace GameSpec.Bethesda.Formats
                 // calculate some useful values
                 var compressedToggle = (header.ArchiveFlags & OB_BSAARCHIVE_COMPRESSFILES) > 0;
                 if (header.Version == F3_BSAHEADER_VERSION || header.Version == SSE_BSAHEADER_VERSION)
-                    source.Params["namePrefix"] = (header.ArchiveFlags & F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0 ? "Y" : "N";
+                    source.Tag = (header.ArchiveFlags & F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0;
 
                 // read-all folders
                 var foldersFiles = header.Version == SSE_BSAHEADER_VERSION
@@ -182,7 +182,7 @@ namespace GameSpec.Bethesda.Formats
                 var filenameOffsets = r.ReadTArray<uint>(sizeof(uint), (int)header.FileCount); // relative offset in filenames section
 
                 // read filenames
-                var filenamesPosition = r.Position();
+                var filenamesPosition = r.Tell();
                 for (var i = 0; i < files.Length; i++)
                 {
                     r.Seek(filenamesPosition + filenameOffsets[i]);
@@ -200,7 +200,7 @@ namespace GameSpec.Bethesda.Formats
                 ? file.PackedSize & OB_BSAFILE_SIZEMASK
                 : file.PackedSize);
             r.Seek(file.Position);
-            if (source.Params.TryGetValue("namePrefix", out var z2) && z2 == "Y")
+            if (source.Tag != null && (bool)source.Tag)
             {
                 var prefixLength = r.ReadByte() + 1;
                 if (source.Version == SSE_BSAHEADER_VERSION)

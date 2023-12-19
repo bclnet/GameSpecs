@@ -32,7 +32,7 @@ namespace GameSpec.Bethesda.Formats
 
         public void Read(BinaryReader r, string filePath, BethesdaFormat format)
         {
-            var startPosition = r.Position();
+            var startPosition = r.Tell();
             var endPosition = startPosition + Header.DataSize;
             while (r.BaseStream.Position < endPosition)
             {
@@ -61,7 +61,7 @@ namespace GameSpec.Bethesda.Formats
                     throw new FormatException($"Failed reading {Header.Type}:{fieldHeader.Type} field data at offset {position} in {filePath} of {r.BaseStream.Position - position - fieldHeader.DataSize}");
             }
             // check full read
-            if (r.Position() != endPosition)
+            if (r.Tell() != endPosition)
                 throw new FormatException($"Failed reading {Header.Type} record data at offset {startPosition} in {filePath}");
         }
     }

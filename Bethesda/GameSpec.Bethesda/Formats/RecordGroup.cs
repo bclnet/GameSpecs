@@ -86,20 +86,20 @@ namespace GameSpec.Bethesda.Formats
                 GroupType = (HeaderGroupType)r.ReadInt32();
                 r.ReadUInt32(); // stamp | stamp + uknown
                 if (format != BethesdaFormat.TES4) r.ReadUInt32(); // version + uknown
-                Position = r.Position();
+                Position = r.Tell();
                 return;
             }
             DataSize = r.ReadUInt32();
             if (format == BethesdaFormat.TES3) r.ReadUInt32(); // Unknown
             Flags = (HeaderFlags)r.ReadUInt32();
-            if (format == BethesdaFormat.TES3) { Position = r.Position(); return; }
+            if (format == BethesdaFormat.TES3) { Position = r.Tell(); return; }
             // tes4
             FormId = r.ReadUInt32();
             r.ReadUInt32();
-            if (format == BethesdaFormat.TES4) { Position = r.Position(); return; }
+            if (format == BethesdaFormat.TES4) { Position = r.Tell(); return; }
             // tes5
             r.ReadUInt32();
-            Position = r.Position();
+            Position = r.Tell();
         }
 
         struct RecordType
@@ -287,7 +287,7 @@ namespace GameSpec.Bethesda.Formats
 
         RecordGroup ReadGRUP(BinaryReader r, Header header, Header recordHeader)
         {
-            var nextPosition = r.Position() + recordHeader.DataSize;
+            var nextPosition = r.Tell() + recordHeader.DataSize;
             if (Groups == null)
                 Groups = new List<RecordGroup>();
             var group = new RecordGroup(_poolAction, _filePath, _format, _recordLevel);

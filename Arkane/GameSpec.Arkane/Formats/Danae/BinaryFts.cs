@@ -284,7 +284,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (fsh.SizeZ != Bkg.ZSize) throw new FormatException("BAD HEADER");
             Level.PlayerPos = fsh.PlayerPos;
             Level.MscenePos = fsh.MscenePos;
-            Log($"Header2: {r2.Position():x}, {sizeof(FAST_SCENE_HEADER)}");
+            Log($"Header2: {r2.Tell():x}, {sizeof(FAST_SCENE_HEADER)}");
 
             // textures
             var textures = Level.Textures = new E_TEXTURE[fsh.NumTextures];

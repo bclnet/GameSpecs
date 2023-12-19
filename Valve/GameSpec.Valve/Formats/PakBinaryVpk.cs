@@ -109,7 +109,7 @@ namespace GameSpec.Valve.Formats
             var version = r.ReadUInt32();
             if (version > 2) throw new FormatException($"Bad VPK version. ({version})");
             var header = r.ReadT<Header>(version == 1 ? Header.SizeOfV1 : Header.SizeOfV2);
-            var headerPosition = (uint)r.Position();
+            var headerPosition = (uint)r.Tell();
 
             // sourceFilePath
             var sourceFilePath = source.FilePath;

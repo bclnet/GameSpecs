@@ -12,7 +12,8 @@ pakFile = family.openPakFile('game:/Morrowind.bsa#Morrowind')
 print(f'pak: {pakFile}')
 
 # get file
-data = pakFile.loadFileData('GRAPH/particles/DEFAULT.jpg')
+data = pakFile.loadFileData('bookart/boethiah_256.dds')
+# data = pakFile.loadFileData('GRAPH/particles/DEFAULT.jpg')
 # data = pakFile.loadFileData('strings/english_m.lang')
 # data = pakFile.loadFileData('Meshes/Marker_Error.NIF')
 print(f'dat: {data}')

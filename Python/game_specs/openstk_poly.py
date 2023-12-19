@@ -79,7 +79,7 @@ class Reader:
     def readFString(self, length: int, zstring: bool = False) -> str: return self.f.read(length)[:length - 1 if zstring else length].decode('ascii') if length != 0 else None
     def readZAString(self, length: int = 65535) -> str:
         f = self.f; buf = BytesIO()
-        while length > 0 and (c := f.read(1)) != 0: length -= 1; buf.write(c)
+        while length > 0 and (c := f.read(1)) != b'\x00': length -= 1; buf.write(c)
         buf.seek(0)
         return buf.read().decode('ascii', 'ignore')
     # string : encoding

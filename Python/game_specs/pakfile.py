@@ -1,6 +1,6 @@
 import os
 from enum import Enum
-from .openstack_poly import Reader
+from .openstk_poly import Reader
 
 class FileSource:
     def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, pak = None, tag = None):
@@ -63,7 +63,8 @@ class BinaryPakFile(PakFile):
         else: self.read(None)
         self.process()
     def _getReader(self): return Reader(self.fileSystem.open(self.filePath, 'rb'))
-    def loadFileData(self, path):
+    def loadFileData(self, path: FileSource | str):
+        # print(self.filesByPath[path])
         # FileSource
         if isinstance(path, FileSource):
             if self.useReader:

@@ -1,5 +1,5 @@
 ﻿//#define Arkane
-//#define Bethesda
+#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
@@ -58,10 +58,10 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             // Game:Morrowind
-            //ForcePath = "bookart/boethiah_256.dds",
+            ForcePath = "bookart/boethiah_256.dds",
             //ForcePath = "icons/handtohand.dds",
 
-            //ForceOpen = true,
+            ForceOpen = true,
             Family = "Bethesda",
 
             GameId = "Morrowind", // The Elder Scrolls III: Morrowind

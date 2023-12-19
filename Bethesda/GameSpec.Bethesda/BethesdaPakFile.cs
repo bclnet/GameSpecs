@@ -61,10 +61,10 @@ namespace GameSpec.Bethesda
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
             => Path.GetExtension(filePath).ToLowerInvariant() switch
             {
-                "" => PakBinaryBethesdaBsa.Instance,
-                ".bsa" => PakBinaryBethesdaBsa.Instance,
-                ".ba2" => PakBinaryBethesdaBa2.Instance,
-                ".esm" => PakBinaryBethesdaEsm.Instance,
+                "" => PakBinary_Bsa.Instance,
+                ".bsa" => PakBinary_Bsa.Instance,
+                ".ba2" => PakBinary_Ba2.Instance,
+                ".esm" => PakBinary_Esm.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
             };
 

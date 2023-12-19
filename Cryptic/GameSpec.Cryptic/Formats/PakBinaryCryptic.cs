@@ -106,8 +106,8 @@ namespace GameSpec.Cryptic.Formats
             r.Seek(HOGG_STRINGTABLE_OFFSET);
             var stringTableSize = r.ReadInt32();
             r.Skip(4);
-            var endPosition = r.Position() + stringTableSize;
-            while (r.Position() < endPosition)
+            var endPosition = r.Tell() + stringTableSize;
+            while (r.Tell() < endPosition)
             {
                 var s = r.ReadT<DataTableEntry>(DataTableEntry.SizeOf);
                 dataList.Add(s.Unknown == 1 ? r.ReadFAString(s.DataLength, true) : null);
