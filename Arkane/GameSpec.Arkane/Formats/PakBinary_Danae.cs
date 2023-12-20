@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats
 {
-    public unsafe class PakBinaryDanae : PakBinary
+    public unsafe class PakBinary_Danae : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryDanae();
+        public static readonly PakBinary Instance = new PakBinary_Danae();
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

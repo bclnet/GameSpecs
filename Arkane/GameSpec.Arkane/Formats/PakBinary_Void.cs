@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats
 {
-    public unsafe class PakBinaryVoid : PakBinary
+    public unsafe class PakBinary_Void : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryVoid();
+        public static readonly PakBinary Instance = new PakBinary_Void();
         const uint RES_MAGIC = 0x04534552;
 
         class SubPakFile : BinaryPakFile

@@ -47,8 +47,8 @@ namespace GameSpec.Arkane
         static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
-                "Danae" => PakBinaryDanae.Instance,
-                "Void" => PakBinaryVoid.Instance,
+                "Danae" => PakBinary_Danae.Instance,
+                "Void" => PakBinary_Void.Instance,
                 "CryEngine" => Crytek.Formats.PakBinaryCry3.Instance,
                 "Unreal" => Epic.Formats.PakBinaryPck.Instance,
                 "Valve" => Valve.Formats.PakBinaryVpk.Instance,
