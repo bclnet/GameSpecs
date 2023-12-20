@@ -78,21 +78,21 @@ class Family:
         # engines
         self.engines = engines = {}
         if 'engines' in val:
-            for (id, val) in val['engines'].items():
+            for id,val in val['engines'].items():
                 engines[id] = createFamilyEngine(self, id, val)
         # games
         self.games = games = {}
         dgame = FamilyGame(self, None, None, None)
         if 'games' in val:
-            for (id, val) in val['games'].items():
+            for id,val in val['games'].items():
                 game = createFamilyGame(self, id, val, dgame, paths)
                 if id.startswith('*'): dgame = game
                 else: games[id] = game
         
     def __repr__(self): return f'''
 {self.id}: {self.name}
-engines: {[x for x in self.engines.values()] if self.engines else None}
-games: {[x for x in self.games.values()] if self.games else None}
+engines: {[x for x in self.engines.values()]}
+games: {[x for x in self.games.values()]}
 fileManager: {self.fileManager if self.fileManager else None}'''
 
     # merge
@@ -105,7 +105,7 @@ fileManager: {self.fileManager if self.fileManager else None}'''
 
     # get Game
     def getGame(self, id: str, throwOnError: bool = True) -> FamilyGame:
-        game = self.games[id] if id in self.games else None
+        game = _value(self.games, id)
         if not game and throwOnError: raise Exception(f'Unknown game: {id}')
         return game
 
@@ -188,15 +188,15 @@ class FamilyGame:
         # related
         self.editions = editions = {}
         if 'editions' in val:
-            for (id, val) in val['editions'].items():
+            for id,val in val['editions'].items():
                 editions[id] = FamilyGame.Edition(id, val)
         self.dlcs = dlcs = {}
         if 'dlcs' in val:
-            for (id, val) in val['dlcs'].items():
+            for id,val in val['dlcs'].items():
                 dlcs[id] = FamilyGame.DownloadableContent(id, val)
         self.locales = locales = {}
         if 'locales' in val:
-            for (id, val) in val['locales'].items():
+            for id,val in val['locales'].items():
                 locales[id] = FamilyGame.Locale(id, val)
     def __repr__(self): return f'''
    {self.id}: {self.name} - {self.found}'''
@@ -255,7 +255,7 @@ class FamilyGame:
     # find Paths
     def findPaths(self, fileSystem: FileSystem, searchPattern: str):
         ignores = self.family.fileManager.ignores
-        gameIgnores = ignores[self.id] if self.id in ignores else None
+        gameIgnores = _value(ignores, self.id)
         for path in self.paths or ['']:
             fileSearch = fileSystem.findPaths(path, searchPattern)
             if gameIgnores: fileSearch = [x for x in fileSearch if not os.path.basename(x) in gameIgnores]
@@ -281,7 +281,7 @@ def init():
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
         return re.sub(pattern, replacer, text)
     def loadJson(path: str) -> dict[str, Any]:
-        body = resources.files('Specs').joinpath(path).read_text(encoding='utf-8')
+        body = resources.files().joinpath('specs', path).read_text(encoding='utf-8')
         return json.loads(commentRemover(body).encode().decode('utf-8-sig'))
     families = {}
     for path in [f'{x}Family.json' for x in familyKeys]:
@@ -291,7 +291,7 @@ def init():
 
 @staticmethod
 def getFamily(id: str, throwOnError: bool = True) -> Family:
-    family = families[id] if id in families else None
+    family = _value(families, id)
     if not family and throwOnError: raise Exception(f'Unknown family: {id}')
     return family
 

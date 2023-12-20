@@ -10,49 +10,50 @@ namespace GameSpec.App.Cli
 {
     partial class Program
     {
-        [Verb("list", HelpText = "Extract files contents to folder.")]
+        [Verb("list", HelpText = "List files contents.")]
         class ListOptions
         {
             [Option('f', "family", HelpText = "Family")]
             public string Family { get; set; }
 
-            [Option('u', "uri", HelpText = "Pak file to be extracted")]
+            [Option('u', "uri", HelpText = "Pak file to be list")]
             public Uri Uri { get; set; }
         }
 
-        static Task<int> RunListAsync(ListOptions opts)
+        static Task<int> RunListAsync(ListOptions args)
         {
             // list families
-            if (string.IsNullOrEmpty(opts.Family))
+            if (string.IsNullOrEmpty(args.Family))
             {
                 Console.WriteLine("Families installed:\n");
                 foreach (var _ in FamilyManager.Families) Console.WriteLine($"{_.Key} - {_.Value.Name}");
                 return Task.FromResult(0);
             }
 
-            // get estate
-            var family = FamilyManager.GetFamily(opts.Family, false);
-            if (family == null) { Console.WriteLine($"No Estate found named {opts.Family}."); return Task.FromResult(0); }
+            // get family
+            var family = FamilyManager.GetFamily(args.Family, false);
+            if (family == null) { Console.WriteLine($"No family found named \"{args.Family}\"."); return Task.FromResult(0); }
 
-            // list found locations in estate
-            if (opts.Uri == null)
+            // list found paths in family
+            if (args.Uri == null)
             {
                 Console.WriteLine($"{family.Name}\nDescription: {family.Description}\nStudio: {family.Studio}");
                 Console.WriteLine($"\nGames:");
-                foreach (var game in family.Games.Values) Console.WriteLine($"{game.Name}{(game.Found ? $" -> {string.Join(',', (IEnumerable<Uri>)game.Paks)}" : null)}");
-                Console.WriteLine("\nLocations:");
+                foreach (var game in family.Games.Values)
+                    Console.WriteLine($"{game.Name}{(game.Found ? $" -> {string.Join(',', (IEnumerable<Uri>)game.Paks)}" : null)}");
                 var paths = family.FileManager.Paths;
-                if (paths.Count == 0) { Console.WriteLine($"No locations found for estate {opts.Family}."); return Task.FromResult(0); }
+                Console.WriteLine("\nPaths:");
+                if (paths.Count == 0) { Console.WriteLine($"No paths found for family \"{args.Family}\"."); return Task.FromResult(0); }
                 foreach (var path in paths) Console.WriteLine($"{family.GetGame(path.Key)} - {string.Join(", ", path.Value)}");
                 return Task.FromResult(0);
             }
 
-            // list files in pack for estate
+            // list files in pack for family
             else
             {
-                Console.WriteLine($"{family.Name} - {opts.Uri}\n");
+                Console.WriteLine($"{family.Name} - {args.Uri}\n");
                 //if (estate.OpenPakFile(estate.ParseResource(opts.Uri)) is not MultiPakFile multiPak) throw new InvalidOperationException("multiPak not a MultiPakFile");
-                using var multiPak = family.OpenPakFile(family.ParseResource(opts.Uri)) as MultiPakFile ?? throw new InvalidOperationException("multiPak not a MultiPakFile");
+                using var multiPak = family.OpenPakFile(args.Uri) as MultiPakFile ?? throw new InvalidOperationException("multiPak not a MultiPakFile");
                 if (multiPak.PakFiles.Count == 0) { Console.WriteLine("No paks found."); return Task.FromResult(0); }
                 Console.WriteLine("Paks found:");
                 foreach (var p in multiPak.PakFiles)

@@ -6,8 +6,8 @@ namespace GameSpec.App.Cli
 {
     partial class Program
     {
-        [Verb("export", HelpText = "Extract files contents to folder.")]
-        class ExportOptions
+        [Verb("get", HelpText = "Get files contents to folder.")]
+        class GetOptions
         {
             [Option('f', "family", Required = true, HelpText = "Family")]
             public string Family { get; set; }
@@ -22,11 +22,17 @@ namespace GameSpec.App.Cli
             public DataOption Option { get; set; }
         }
 
-        static async Task<int> RunExportAsync(ExportOptions opts)
+        static async Task<int> RunGetAsync(GetOptions args)
         {
             var from = ProgramState.Load(data => Convert.ToInt32(data), 0);
-            var family = FamilyManager.GetFamily(opts.Family);
-            await ExportManager.ExportAsync(family, family.ParseResource(opts.Uri), GetPlatformPath(opts.Path), from, opts.Option);
+
+            // get family
+            var family = FamilyManager.GetFamily(args.Family);
+            if (family == null) { Console.WriteLine($"No family found named \"{args.Family}\"."); return 0; }
+
+            // export
+            await ExportManager.ExportAsync(family, family.ParseResource(args.Uri), GetPlatformPath(args.Path), from, args.Option);
+
             ProgramState.Clear();
             return 0;
         }

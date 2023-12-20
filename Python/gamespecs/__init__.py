@@ -1,5 +1,8 @@
+
+from ._version import __title__, __version__
+
 from .filemgr import FileManager
 from .filesys import FileSystem
 from .pakbinary import PakBinary
 from .pakfile import FileSource, PakFile, BinaryPakFile, ManyPakFile, MultiPakFile
-from .familymgr import Family, FamilyEngine, FamilyGame, Resource, getFamily
+from .familymgr import Family, FamilyEngine, FamilyGame, Resource, families, getFamily

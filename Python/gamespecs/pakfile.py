@@ -25,6 +25,8 @@ class PakFile:
         self.game = game
         self.name = name
         self.tag = tag
+    def __enter__(self): return self
+    def __exit__(self, type, value, traceback): self.close()
     def __repr__(self): return f'{self.name}#{self.game.id}'
     def close(self):
         self.status = self.PakStatus.CLOSING
@@ -63,20 +65,19 @@ class BinaryPakFile(PakFile):
         else: self.read(None)
         self.process()
     def _getReader(self): return Reader(self.fileSystem.open(self.filePath, 'rb'))
-    def loadFileData(self, path: FileSource | str):
-        # print(self.filesByPath[path])
+    def loadFileData(self, path: FileSource | str | int):
         # FileSource
         if isinstance(path, FileSource):
             if self.useReader:
                 with self._getReader() as r: return self.readData(r, path)
             else: return self.readData(None, path)
         # str
-        if isinstance(path, str) and self.filesByPath:
+        elif isinstance(path, str) and self.filesByPath:
             pak, nextPath = self.tryFindSubPak(path)
             if pak: return pak.loadFileData(nextPath)
             return self.loadFileData(file) if (path := path.replace('\\', '/')) in self.filesByPath and (file := self.filesByPath[path]) else None
         # int
-        if isinstance(path, int) and self.filesById:
+        elif isinstance(path, int) and self.filesById:
             return self.loadFileData(file) if path in self.filesById and (file := self.filesById[path]) else None
         else: raise Exception(f'Unknown: {path}')
     def process(self):

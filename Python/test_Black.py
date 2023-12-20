@@ -1,4 +1,4 @@
-from game_specs import familymgr
+from gamespecs import familymgr
 
 # get family
 family = familymgr.getFamily('Black')

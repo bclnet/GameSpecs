@@ -3,6 +3,8 @@ from typing import List, Any
 from struct import unpack
 from io import BytesIO
 
+moduleRoot = 'gamespecs'
+
 # finds a type
 @staticmethod
 def findType(klass):
@@ -10,11 +12,10 @@ def findType(klass):
     klass, modulePath = klass.rsplit(',', 1)
     try:
         _, className = klass.rsplit('.', 1)
-        module = import_module(moduleName := f"game_specs.{modulePath.strip().replace('.', '_')}")
+        module = import_module(moduleName := f"{moduleRoot}.{modulePath.strip().replace('.', '_')}")
         return getattr(module, className)
     except (ImportError, AttributeError) as e:
         raise ImportError(klass)
-        #moduleName, className 
 
 class Reader:
     def __init__(self, f): self.f = f

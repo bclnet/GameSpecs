@@ -112,11 +112,11 @@ namespace GameSpec.App.Cli
         static void Main(string[] args)
         {
             Register();
-            Parser.Default.ParseArguments<TestOptions, ListOptions, ExportOptions, ImportOptions>(argsValveNull)
+            Parser.Default.ParseArguments<TestOptions, ListOptions, GetOptions, ImportOptions>(argsValveNull)
             .MapResult(
                 (TestOptions opts) => RunTestAsync(opts).GetAwaiter().GetResult(),
                 (ListOptions opts) => RunListAsync(opts).GetAwaiter().GetResult(),
-                (ExportOptions opts) => RunExportAsync(opts).GetAwaiter().GetResult(),
+                (GetOptions opts) => RunGetAsync(opts).GetAwaiter().GetResult(),
                 (ImportOptions opts) => RunImportAsync(opts).GetAwaiter().GetResult(),
                 errs => 1);
         }

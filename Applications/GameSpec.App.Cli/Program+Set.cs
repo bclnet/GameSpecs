@@ -22,11 +22,17 @@ namespace GameSpec.App.Cli
             public DataOption Option { get; set; }
         }
 
-        static async Task<int> RunImportAsync(ImportOptions opts)
+        static async Task<int> RunImportAsync(ImportOptions args)
         {
             var from = ProgramState.Load(data => Convert.ToInt32(data), 0);
-            var family = FamilyManager.GetFamily(opts.Family);
-            await ImportManager.ImportAsync(family, family.ParseResource(opts.Uri), GetPlatformPath(opts.Path), from, opts.Option);
+
+            // get family
+            var family = FamilyManager.GetFamily(args.Family);
+            if (family == null) { Console.WriteLine($"No family found named \"{args.Family}\"."); return 0; }
+
+            // import
+            await ImportManager.ImportAsync(family, family.ParseResource(args.Uri), GetPlatformPath(args.Path), from, args.Option);
+            
             ProgramState.Clear();
             return 0;
         }

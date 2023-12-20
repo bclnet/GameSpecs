@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.App.Cli
 {
-    [Verb("dev", HelpText = "Extract files contents to folder.")]
+    [Verb("dev", HelpText = "Test.")]
     class TestOptions
     {
         [Option('f', "family", HelpText = "Family")]
@@ -16,7 +16,7 @@ namespace GameSpec.App.Cli
 
     partial class Program
     {
-        static async Task<int> RunTestAsync(TestOptions opts)
+        static async Task<int> RunTestAsync(TestOptions args)
         {
             await new FamilyTest().TestAsync();
             return 0;
