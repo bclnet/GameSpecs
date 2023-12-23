@@ -26,7 +26,6 @@ namespace GameSpec.Valve
         /// <param name="tag">The tag.</param>
         public ValvePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             PathFinders.Add(typeof(object), FindBinary);
         }

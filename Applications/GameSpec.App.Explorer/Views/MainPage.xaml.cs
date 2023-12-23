@@ -58,12 +58,12 @@ namespace GameSpec.App.Explorer.Views
             foreach (var pakFile in PakFiles) pakFile?.Dispose();
             PakFiles.Clear();
             if (family == null) return this;
+            FamilyApps = family.Apps;
             foreach (var pakUri in pakUris)
             {
                 Status.WriteLine($"Opening {pakUri}");
                 PakFiles.Add(family.OpenPakFile(pakUri));
             }
-            FamilyApps = family.Apps;
             Status.WriteLine("Done");
             OnOpenedAsync(family, path).Wait();
             OnReady();

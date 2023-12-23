@@ -23,7 +23,6 @@ namespace GameSpec.Epic
         /// <param name="tag">The tag.</param>
         public EpicPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryPck.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
 

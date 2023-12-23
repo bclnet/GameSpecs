@@ -23,6 +23,17 @@
 
 namespace GameSpec
 {
+    /// <summary>
+    /// Default Options for Applications.
+    /// </summary>
+    public class DefaultOptions
+    {
+        public string Family { get; set; }
+        public string GameId { get; set; }
+        public string ForcePath { get; set; }
+        public bool ForceOpen { get; set; }
+    }
+
     public partial class FamilyManager
     {
 #if Arkane
@@ -61,7 +72,7 @@ namespace GameSpec
             ForcePath = "bookart/boethiah_256.dds",
             //ForcePath = "icons/handtohand.dds",
 
-            ForceOpen = true,
+            //ForceOpen = true,
             Family = "Bethesda",
 
             GameId = "Morrowind", // The Elder Scrolls III: Morrowind
@@ -183,15 +194,15 @@ namespace GameSpec
             
             ForceOpen = true,
             Family = "Crytek",
-            GameId = "ArcheAge", // ArcheAge
-            GameId = "Hunt", // Hunt: Showdown
-            GameId = "MWO", // MechWarrior Online
-            GameId = "Warface", // Warface
-            GameId = "Wolcen", // Wolcen: Lords of Mayhem
-            GameId = "Crysis", // Crysis Remastered
-            GameId = "Ryse", // Ryse: Son of Rome
-            GameId = "Robinson", // Robinson: The Journey
-            GameId = "Snow", // SNOW - The Ultimate Edition
+            //GameId = "ArcheAge", // ArcheAge
+            //GameId = "Hunt", // Hunt: Showdown
+            //GameId = "MWO", // MechWarrior Online
+            //GameId = "Warface", // Warface
+            //GameId = "Wolcen", // Wolcen: Lords of Mayhem
+            //GameId = "Crysis", // Crysis Remastered
+            //GameId = "Ryse", // Ryse: Son of Rome
+            //GameId = "Robinson", // Robinson: The Journey
+            //GameId = "Snow", // SNOW - The Ultimate Edition
         };
 #elif Cyanide
         static string[] FamilyKeys = new[] { "Cyanide", "Unknown" };
@@ -200,8 +211,8 @@ namespace GameSpec
         {
             ForceOpen = true,
             Family = "Cyanide",
-            GameId = "Council", // Council
-            GameId = "Werewolf:TA", // Werewolf: The Apocalypse - Earthblood
+            //GameId = "Council", // Council
+            //GameId = "Werewolf:TA", // Werewolf: The Apocalypse - Earthblood
         };
 #elif Epic
         static string[] FamilyKeys = new[] { "Epic", "Unknown" };
@@ -228,13 +239,13 @@ namespace GameSpec
         {
             ForceOpen = true,
             Family = "Frictional",
-            GameId = "P:O", // Penumbra: Overture
-            GameId = "P:BP", // Penumbra: Black Plague
-            GameId = "P:R", // Penumbra: Requiem
-            GameId = "A:TDD", // Amnesia: The Dark Descent
-            GameId = "A:AMFP", // Amnesia: A Machine for Pigs
-            GameId = "SOMA", // SOMA
-            GameId = "A:R", // Amnesia: Rebirth
+            //GameId = "P:O", // Penumbra: Overture
+            //GameId = "P:BP", // Penumbra: Black Plague
+            //GameId = "P:R", // Penumbra: Requiem
+            //GameId = "A:TDD", // Amnesia: The Dark Descent
+            //GameId = "A:AMFP", // Amnesia: A Machine for Pigs
+            //GameId = "SOMA", // SOMA
+            //GameId = "A:R", // Amnesia: Rebirth
         };
 #elif Frontier
         static string[] FamilyKeys = new[] { "Frontier", "Unknown" };

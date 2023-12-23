@@ -25,7 +25,6 @@ namespace GameSpec.Capcom
         /// <param name="tag">The tag.</param>
         public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = game.Engine switch
             {
                 "Unity" => Unity.Formats.FormatExtensions.GetObjectFactoryFactory,

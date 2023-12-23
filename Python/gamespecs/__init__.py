@@ -1,5 +1,5 @@
 
-from ._version import __title__, __version__
+from ._config import __title__, __version__, appDefaultOptions
 
 from .filemgr import FileManager
 from .filesys import FileSystem

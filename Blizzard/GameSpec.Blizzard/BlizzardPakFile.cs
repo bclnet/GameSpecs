@@ -23,7 +23,6 @@ namespace GameSpec.Blizzard
         /// <param name="tag">The tag.</param>
         public BlizzardPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryBlizzard.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             UseReader = false;
         }

@@ -28,7 +28,6 @@ namespace GameSpec.Cig.Formats
                 UseReader = false;
                 var entry = (ZipEntry)Tag;
                 Stream = pak.GetInputStream(entry.ZipFileIndex);
-                GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
                 GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
                 //Open();
             }

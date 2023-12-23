@@ -25,7 +25,6 @@ namespace GameSpec.Black
         /// <param name="tag">The tag.</param>
         public BlackPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
 

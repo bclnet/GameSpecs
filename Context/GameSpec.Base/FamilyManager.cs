@@ -40,17 +40,6 @@ namespace GameSpec
             //Stream = 0x2,
         }
 
-        /// <summary>
-        /// Default Options for Applications.
-        /// </summary>
-        public class DefaultOptions
-        {
-            public string Family { get; set; }
-            public string GameId { get; set; }
-            public string ForcePath { get; set; }
-            public bool ForceOpen { get; set; }
-        }
-
         static readonly Func<string, Stream> GetManifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream;
         static string FamilyLoader(string path)
         {

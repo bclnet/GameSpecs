@@ -30,7 +30,7 @@ namespace GameSpec.Formats
         public object CryptKey;
 
         // metadata
-        internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems;
+        internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
         protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>>();
 
         // object-factory

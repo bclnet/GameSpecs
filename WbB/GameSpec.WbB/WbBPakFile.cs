@@ -26,7 +26,6 @@ namespace GameSpec.WbB
         /// <param name="tag">The tag.</param>
         public WbBPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryAC.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             UseFileId = true;
         }

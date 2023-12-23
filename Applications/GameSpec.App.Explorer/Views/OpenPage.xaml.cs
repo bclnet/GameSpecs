@@ -91,9 +91,12 @@ namespace GameSpec.App.Explorer.Views
         {
             var selected = (Family)Family.SelectedItem;
             FamilyGames = selected?.Games.Values.Where(x => !x.Ignore).ToList();
-            if (selected.Id == Config.DefaultFamily && !string.IsNullOrEmpty(Config.DefaultGameId)) FamilyGame.SelectedIndex = ((List<FamilyGame>)FamilyGames).FindIndex(x => x.Id == Config.DefaultGameId);
+            if (selected.Id == Config.DefaultFamily && !string.IsNullOrEmpty(Config.DefaultGameId))
+            {
+                FamilyGame.SelectedIndex = ((List<FamilyGame>)FamilyGames).FindIndex(x => x.Id == Config.DefaultGameId);
+                if (Config.ForceOpen) Open_Click(null, null);
+            }
             else FamilyGame.SelectedIndex = -1;
-            OnReady();
         }
 
         void FamilyGame_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -147,11 +150,6 @@ namespace GameSpec.App.Explorer.Views
         {
             DialogResult = true;
             Close();
-        }
-
-        void OnReady()
-        {
-            if (Config.ForceOpen && Config.DefaultGameId != null) Open_Click(null, null);
         }
     }
 }

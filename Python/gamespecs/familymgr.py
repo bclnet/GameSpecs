@@ -1,4 +1,5 @@
 import os, json, glob, re
+from ._config import familyKeys
 from typing import Any
 from urllib.parse import urlparse
 from importlib import resources
@@ -78,14 +79,14 @@ class Family:
         # engines
         self.engines = engines = {}
         if 'engines' in val:
-            for id,val in val['engines'].items():
-                engines[id] = createFamilyEngine(self, id, val)
+            for id,v in val['engines'].items():
+                engines[id] = createFamilyEngine(self, id, v)
         # games
         self.games = games = {}
         dgame = FamilyGame(self, None, None, None)
         if 'games' in val:
-            for id,val in val['games'].items():
-                game = createFamilyGame(self, id, val, dgame, paths)
+            for id,v in val['games'].items():
+                game = createFamilyGame(self, id, v, dgame, paths)
                 if id.startswith('*'): dgame = game
                 else: games[id] = game
         
@@ -166,7 +167,7 @@ class FamilyGame:
         self.family = family
         self.id = id
         if not dgame: self.ignore = False; self.gameType = self.engine = \
-            self.paths = self.key = self.fileSystemType = \
+            self.paks = self.paths = self.key = self.fileSystemType = \
             self.searchBy = self.pakFileType = self.pakExts = None; return
         self.ignore = _value(val, 'n/a', dgame.ignore)
         self.name = _value(val, 'name')
@@ -174,7 +175,7 @@ class FamilyGame:
         self.urls = _list(val, 'url')
         self.date = _value(val, 'date')
         #self.option = _list(val, 'option', dgame.option)
-        #self.paks = _list(val, 'paks', dgame.paks)
+        self.paks = _list(val, 'pak', dgame.paks)
         #self.dats = _list(val, 'dats', dgame.dats)
         self.paths = _list(val, 'path', dgame.paths)
         self.key = _method(parseKey, val, 'key', dgame.key)
@@ -188,16 +189,16 @@ class FamilyGame:
         # related
         self.editions = editions = {}
         if 'editions' in val:
-            for id,val in val['editions'].items():
-                editions[id] = FamilyGame.Edition(id, val)
+            for id,v in val['editions'].items():
+                editions[id] = FamilyGame.Edition(id, v)
         self.dlcs = dlcs = {}
         if 'dlcs' in val:
-            for id,val in val['dlcs'].items():
-                dlcs[id] = FamilyGame.DownloadableContent(id, val)
+            for id,v in val['dlcs'].items():
+                dlcs[id] = FamilyGame.DownloadableContent(id, v)
         self.locales = locales = {}
         if 'locales' in val:
-            for id,val in val['locales'].items():
-                locales[id] = FamilyGame.Locale(id, val)
+            for id,v in val['locales'].items():
+                locales[id] = FamilyGame.Locale(id, v)
     def __repr__(self): return f'''
    {self.id}: {self.name} - {self.found}'''
 #     def __repr__(self): return f'''
@@ -205,6 +206,10 @@ class FamilyGame:
 #   - editions: {self.editions if self.editions else None}
 #   - dlcs: {self.dlcs if self.dlcs else None}
 #   - locales: {self.locales if self.locales else None}'''
+
+    # create Pak
+    def toPaks(self) -> list[str]:
+        return [f'{x}#{self.id}' for x in self.paks] if self.paks else []
 
     # create SearchPatterns
     def createSearchPatterns(self, searchPattern: str) -> str:
@@ -271,8 +276,6 @@ class Resource:
         self.game = game
         self.searchPattern = searchPattern
     def __repr__(self): return f'res:/{self.searchPattern}#{self.game}'
-
-familyKeys = ["Arkane", "Bethesda", "Bioware", "Black", "Blizzard", "Capcom", "Cig", "Cryptic", "Crytek", "Cyanide", "Epic", "Frictional", "Frontier", "Id", "IW", "Monolith", "Origin", "Red", "Unity", "Unknown", "Valve", "WbB"]
 
 @staticmethod
 def init():

@@ -23,7 +23,6 @@ namespace GameSpec.Unity
         /// <param name="tag">The tag.</param>
         public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryUnity.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
 

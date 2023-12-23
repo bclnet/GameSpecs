@@ -23,7 +23,6 @@ namespace GameSpec.Frontier
         /// <param name="tag">The tag.</param>
         public FrontierPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryFrontier.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
 

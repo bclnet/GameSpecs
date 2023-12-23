@@ -23,7 +23,6 @@ namespace GameSpec.IW
         /// <param name="tag">The tag.</param>
         public IWPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryIW.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             UseReader = false;
         }

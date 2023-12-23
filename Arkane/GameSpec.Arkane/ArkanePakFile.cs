@@ -25,7 +25,6 @@ namespace GameSpec.Arkane
         /// <param name="tag">The tag.</param>
         public ArkanePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = game.Engine switch
             {
                 "CryEngine" => Crytek.Formats.FormatExtensions.GetObjectFactoryFactory,

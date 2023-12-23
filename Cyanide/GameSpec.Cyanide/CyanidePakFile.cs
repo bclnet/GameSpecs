@@ -23,7 +23,6 @@ namespace GameSpec.Cyanide
         /// <param name="tag">The tag.</param>
         public CyanidePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryCyanide.Instance, tag)
         {
-            GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
 
