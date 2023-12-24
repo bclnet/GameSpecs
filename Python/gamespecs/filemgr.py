@@ -1,8 +1,8 @@
 import os, platform, psutil, winreg
 from . import storemgr
-GAMESPATH = 'Games'
+from .util import _list
 
-def _list(d, key, default = None): return (d[key] if isinstance(d[key], list) else [d[key]]) if key in d else default
+GAMESPATH = 'Games'
 
 class FileManager:
     ApplicationPath = os.getcwd()
@@ -10,35 +10,61 @@ class FileManager:
     gameRoots = [os.path.join(x.mountpoint, GAMESPATH) for x in psutil.disk_partitions()]
     if platform.system() == 'Android': gameRoots.append(os.path.join('/sdcard', GAMESPATH))
     games = {x:os.path.join(r,x) for r in gameRoots if os.path.isdir(r) for x in os.listdir(r)}
-    
+    def __init__(self, elem):
+        self.filters = {}
+        self.paths = {}
+        self.ignores = {}
+        # applications
+        if 'application' in elem:
+            for k,v in elem['application'].items():
+                if not k in self.paths: self.addApplication(k, v)
+        # direct
+        if 'direct' in elem:
+            for k,v in elem['direct'].items():
+                if 'path' in v:
+                    for key in _list(v, 'path'):
+                        self.addPath(k, elem, key, False)
+        # ignores
+        if 'ignores' in elem:
+            for k,v in elem['ignores'].items():
+                self.addIgnore(k, _list(v, 'path'))
+        # filters
+        if 'filters' in elem:
+            for (id, val) in elem['filters'].items():
+                self.addFilter(id, val)
+    def __repr__(self): return f'''
+- paths: {list(self.paths.keys()) if self.paths else None}
+- ignores: {list(self.ignores.keys()) if self.ignores else None}
+- filters: {list(self.filters.keys()) if self.filters else None}'''
+
     def merge(self, source) -> None:
         self.paths.update(source.paths)
         self.ignores.update(source.ignores)
         self.filters.update(source.filters)
 
-    def addApplication(self, id, d):
+    def addApplication(self, id, elem):
         system = platform.system()
-        if system == 'Windows' and 'reg' in d:
-            for key in _list(d, 'reg'):
-                if not id in self.paths and (z := self.getPathByRegistryKey(key, d)): self.addPath(id, d, z)
-        if 'key' in d:
-            for key in _list(d, 'key'):
-                if not id in self.paths and (z := storemgr.getPathByKey(key)): self.addPath(id, d, z)
-        if 'dir' in d:
-            for key in _list(d, 'dir'):
-                if not id in self.paths and key in FileManager.games: self.addPath(id, d, games[key])
+        if system == 'Windows' and 'reg' in elem:
+            for key in _list(elem, 'reg'):
+                if not id in self.paths and (z := self.getPathByRegistryKey(key, elem)): self.addPath(id, elem, z)
+        if 'key' in elem:
+            for key in _list(elem, 'key'):
+                if not id in self.paths and (z := storemgr.getPathByKey(key)): self.addPath(id, elem, z)
+        if 'dir' in elem:
+            for key in _list(elem, 'dir'):
+                if not id in self.paths and key in FileManager.games: self.addPath(id, elem, games[key])
     
-    def addFilter(self, id, d):
+    def addFilter(self, id, elem):
         if not id in self.filters: self.filters[id] = []
-        self.filters[id].append(d)
+        self.filters[id].append(elem)
 
     def addIgnore(self, id, paths):
         if not id in self.ignores: self.ignores[id] = set()
         for v in paths: self.ignores[id].add(v)
 
-    def addPath(self, id, d, path, usePath = True):
+    def addPath(self, id, elem, path, usePath = True):
         if path is None or not os.path.isdir(path := FileManager.getPathWithSpecialFolders(path, '')): return
-        paths = _list(d, 'path') if usePath and 'path' in d else [path]
+        paths = _list(elem, 'path') if usePath and 'path' in elem else [path]
         for p in [os.path.join(path, x) for x in paths]:
             if not os.path.isdir(p): continue
             if not id in self.paths: self.paths[id] = []
@@ -82,39 +108,13 @@ class FileManager:
         return None
 
     @staticmethod
-    def getPathByRegistryKey(key, d):
+    def getPathByRegistryKey(key, elem):
         path = FileManager.findRegistryPath([f'Wow6432Node\\{key}', key])
-        if d is None: return path
-        #if 'path' in d: d['path'] { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
+        if elem is None: return path
+        #if 'path' in elem: elem['path'] { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
         # else if (keyElem.Value.TryGetProperty("xml", out var xml)
         #     && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
         #     && TryGetSingleFileValue(GetPathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
         #     return !string.IsNullOrEmpty(path)
         return path
 
-    def __init__(self, d):
-        self.filters = {}
-        self.paths = {}
-        self.ignores = {}
-        # applications
-        if 'application' in d:
-            for (id, val) in d['application'].items():
-                if not id in self.paths: self.addApplication(id, val)
-        # direct
-        if 'direct' in d:
-            for (id, val) in d['direct'].items():
-                if 'path' in val:
-                    for key in _list(val, 'path'):
-                        self.addPath(id, d, key, False)
-        # ignores
-        if 'ignores' in d:
-            for (id, val) in d['ignores'].items():
-                self.addIgnore(id, _list(val, 'path'))
-        # filters
-        if 'filters' in d:
-            for (id, val) in d['filters'].items():
-                self.addFilter(id, val)
-    def __repr__(self): return f'''
-- paths: {list(self.paths.keys()) if self.paths else None}
-- ignores: {list(self.ignores.keys()) if self.ignores else None}
-- filters: {list(self.filters.keys()) if self.filters else None}'''

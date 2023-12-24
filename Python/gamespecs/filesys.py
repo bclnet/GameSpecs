@@ -1,4 +1,5 @@
 import os, pathlib
+from typing import Any
 from .openstk_poly import findType
 
 class FileSystem:
@@ -18,13 +19,15 @@ class StandardFileSystem(FileSystem):
         g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern)
         return [str(x)[self.skip:] for x in g]
     def fileExists(self, path: str) -> bool: return os.path.exists(os.path.join(self.root, path))
-    def open(self, path: str, mode: str): return open(os.path.join(self.root, path), mode) 
+    def fileInfo(self, path: str) -> Any: return os.stat(os.path.join(self.root, path))
+    def openReader(self, path: str, mode: str = 'rb'): return open(os.path.join(self.root, path), mode) 
 
 class HostFileSystem(FileSystem):
     def __init__(self, uri): self.uri = uri
     def glob(self, path: str, searchPattern: str): raise Exception('Not Implemented')
     def fileExists(self, path: str) -> bool: raise Exception('Not Implemented')
-    def open(self, path: str, mode: str): raise Exception('Not Implemented')
+    def fileInfo(self, path: str) -> Any: raise Exception('Not Implemented')
+    def openReader(self, path: str, mode: str = 'rb'): raise Exception('Not Implemented')
 
 # create FileSystem
 @staticmethod

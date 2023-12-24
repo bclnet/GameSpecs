@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using static GameSpec.Util;
 
 namespace GameSpec
 {
@@ -83,11 +84,12 @@ namespace GameSpec
         /// <summary>
         /// Parse Key.
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="elem"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal static object ParseKey(string str)
+        internal static object ParseKey(JsonElement elem)
         {
+            var str = elem.ToString();
             if (string.IsNullOrEmpty(str)) { return null; }
             else if (str.StartsWith("hex:", StringComparison.OrdinalIgnoreCase))
             {
@@ -118,7 +120,7 @@ namespace GameSpec
             if (string.IsNullOrEmpty(json)) throw new ArgumentNullException(nameof(json));
             using var doc = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
             var elem = doc.RootElement;
-            var familyType = elem.TryGetProperty("familyType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", $"Unknown type: {z}") : default;
+            var familyType = _value(elem, "familyType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", $"Unknown type: {z}"));
             var family = familyType != null ? (Family)Activator.CreateInstance(familyType, elem) : new Family(elem);
             if (family.Specs != null)
                 foreach (var spec in family.Specs)
@@ -136,7 +138,7 @@ namespace GameSpec
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal static FamilyEngine CreateFamilyEngine(Family family, string id, JsonElement elem)
         {
-            var engineType = elem.TryGetProperty("engineType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("engineType", $"Unknown type: {z}") : default;
+            var engineType = _value(elem, "engineType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("engineType", $"Unknown type: {z}"));
             return engineType != null ? (FamilyEngine)Activator.CreateInstance(engineType, family, id, elem) : new FamilyEngine(family, id, elem);
         }
 
@@ -152,7 +154,7 @@ namespace GameSpec
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal static FamilyGame CreateFamilyGame(Family family, string id, JsonElement elem, ref FamilyGame dgame, IDictionary<string, HashSet<string>> paths)
         {
-            var gameType = elem.TryGetProperty("gameType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", $"Unknown type: {z}") : dgame?.GameType;
+            var gameType = _value(elem, "gameType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", $"Unknown type: {z}"), dgame?.GameType);
             var game = gameType != null ? (FamilyGame)Activator.CreateInstance(gameType, family, id, elem, dgame) : new FamilyGame(family, id, elem, dgame);
             game.GameType = gameType;
             game.Found = paths != null && paths.ContainsKey(id);
@@ -170,7 +172,7 @@ namespace GameSpec
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal static FamilyApp CreateFamilyApp(Family family, string id, JsonElement elem)
         {
-            var appType = elem.TryGetProperty("appType", out var z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("appType", $"Unknown type: {z}") : default;
+            var appType = _value(elem, "appType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("appType", $"Unknown type: {z}"));
             return appType != null ? (FamilyApp)Activator.CreateInstance(appType, family, id, elem) : new FamilyApp(family, id, elem);
         }
 

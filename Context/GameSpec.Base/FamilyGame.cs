@@ -1,11 +1,11 @@
 ﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using static GameSpec.FamilyManager;
+using static GameSpec.Util;
 
 namespace GameSpec
 {
@@ -51,8 +51,8 @@ namespace GameSpec
             public Edition(string id, JsonElement elem)
             {
                 Id = id;
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
-                Key = elem.TryGetProperty("key", out z) ? ParseKey(z.GetString()) : default;
+                Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+                Key = _method(elem, "key", ParseKey);
             }
         }
 
@@ -69,6 +69,10 @@ namespace GameSpec
             /// The name
             /// </summary>
             public string Name { get; set; }
+            /// <summary>
+            /// The Path
+            /// </summary>
+            public string Path { get; set; }
 
             /// <summary>
             /// DownloadableContent
@@ -79,7 +83,8 @@ namespace GameSpec
             public DownloadableContent(string id, JsonElement elem)
             {
                 Id = id;
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+                Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+                Path = _value(elem, "path");
             }
         }
 
@@ -106,7 +111,7 @@ namespace GameSpec
             public Locale(string id, JsonElement elem)
             {
                 Id = id;
-                Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+                Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
             }
         }
 
@@ -227,27 +232,27 @@ namespace GameSpec
         {
             Family = family;
             Id = id;
-            Ignore = elem.TryGetProperty("n/a", out var z) ? z.GetBoolean() : dgame != null && dgame.Ignore;
-            Name = elem.TryGetProperty("name", out z) ? z.GetString() : default;
-            Engine = elem.TryGetProperty("engine", out z) ? z.GetString() : dgame?.Engine;
-            Urls = elem.TryGetProperty("url", out z) ? z.GetStringOrArray(x => new Uri(x)) : default;
-            Date = elem.TryGetProperty("date", out z) ? DateTime.Parse(z.GetString()) : default;
-            Option = elem.TryGetProperty("option", out z) ? Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}") : dgame != null ? dgame.Option : default;
-            Paks = elem.TryGetProperty("pak", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Paks;
-            Dats = elem.TryGetProperty("dat", out z) ? z.GetStringOrArray(x => new Uri(x)) : dgame?.Dats;
-            Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray() : dgame?.Paths;
-            Key = elem.TryGetProperty("key", out z) ? ParseKey(z.GetString()) : dgame?.Key;
-            Status = elem.TryGetProperty("status", out z) ? z.GetStringOrArray() : default;
-            Tags = elem.TryGetProperty("tags", out z) ? z.GetStringOrArray() : default;
+            Ignore = _valueBool(elem, "n/a", dgame != null && dgame.Ignore);
+            Name = _value(elem, "name");
+            Engine = _value(elem, "engine", dgame?.Engine);
+            Urls = _list(elem, "url", x => new Uri(x));
+            Date = _value(elem, "date", z => DateTime.Parse(z.GetString()));
+            Option = _value(elem, "option", z => Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}"), dgame != null ? dgame.Option : default);
+            Paks = _list(elem, "pak", x => new Uri(x), dgame?.Paks);
+            Dats = _list(elem, "dat", x => new Uri(x), dgame?.Dats);
+            Paths = _list(elem, "path", dgame?.Paths);
+            Key = _method(elem, "key", ParseKey, dgame?.Key);
+            Status = _list(elem, "status");
+            Tags = _list(elem, "tags");
             // interface
-            FileSystemType = elem.TryGetProperty("fileSystemType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}") : dgame?.FileSystemType;
-            SearchBy = elem.TryGetProperty("searchBy", out z) ? Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}") : dgame != null ? dgame.SearchBy : default;
-            PakFileType = elem.TryGetProperty("pakFileType", out z) ? Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}") : dgame?.PakFileType;
-            PakExts = elem.TryGetProperty("pakExt", out z) ? z.GetStringOrArray(x => x) : dgame?.PakExts;
+            FileSystemType = _value(elem, "fileSystemType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}"), dgame?.FileSystemType);
+            SearchBy = _value(elem, "searchBy", z => Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}"), dgame != null ? dgame.SearchBy : default);
+            PakFileType = _value(elem, "pakFileType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}"), dgame?.PakFileType);
+            PakExts = _list(elem, "pakExt", dgame?.PakExts);
             // related
-            Editions = elem.TryGetProperty("editions", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => new Edition(x.Name, x.Value)) : new Dictionary<string, Edition>();
-            Dlcs = elem.TryGetProperty("dlcs", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => new DownloadableContent(x.Name, x.Value)) : new Dictionary<string, DownloadableContent>();
-            Locales = elem.TryGetProperty("locals", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => new Locale(x.Name, x.Value)) : new Dictionary<string, Locale>();
+            Editions = _related(elem, "editions", (k, v) => new Edition(k, v));
+            Dlcs = _related(elem, "dlcs", (k, v) => new DownloadableContent(k, v));
+            Locales = _related(elem, "locals", (k, v) => new Locale(k, v));
         }
 
         /// <summary>
@@ -302,8 +307,8 @@ namespace GameSpec
         internal PakFile CreatePakFile(IFileSystem fileSystem, string searchPattern, bool throwOnError)
         {
             if (fileSystem is HostFileSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
-            searchPattern = CreateSearchPatterns(searchPattern); // ?? (throwOnError ? throw new InvalidOperationException($"{Id} missing PakExts") : (string)default);
-            //if (searchPattern == null) return default;
+            searchPattern = CreateSearchPatterns(searchPattern);
+            if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
             foreach (var p in FindPaths(fileSystem, searchPattern))
                 switch (SearchBy)
@@ -388,7 +393,7 @@ namespace GameSpec
             if (!string.IsNullOrEmpty(searchPattern)) return searchPattern;
             return SearchBy switch
             {
-                SearchBy.None => "*",
+                SearchBy.None => null,
                 SearchBy.Pak => PakExts == null || PakExts.Length == 0 ? ""
                     : PakExts.Length == 1 ? $"*{PakExts[0]}" : $"({string.Join("*:", PakExts)})",
                 SearchBy.TopDir => "*",

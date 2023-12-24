@@ -44,7 +44,7 @@ namespace GameSpec.App.Explorer.Views
                 PakFiles.Add(family.OpenPakFile(pakUri));
             }
             Status.WriteLine("Done");
-            OnOpenedAsync(path).Wait();
+            OnOpenedAsync(family, path).Wait();
         }
 
         public static readonly BindableProperty MainTabsProperty = BindableProperty.Create(nameof(MainTabs), typeof(IList<ExplorerMainTab>), typeof(MainPage),
@@ -62,7 +62,7 @@ namespace GameSpec.App.Explorer.Views
 
         public readonly IList<PakFile> PakFiles = new List<PakFile>();
 
-        public Task OnOpenedAsync(string path = null)
+        public Task OnOpenedAsync(Family family, string path = null)
         {
             var tabs = PakFiles.Where(x => x != null).Select(pakFile => new ExplorerMainTab
             {
@@ -70,11 +70,12 @@ namespace GameSpec.App.Explorer.Views
                 PakFile = pakFile,
                 OpenPath = path,
             }).ToList();
-            tabs.Add(new ExplorerMainTab
-            {
-                Name = "Information",
-                Text = @"Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-            });
+            if (family.Description != null)
+                tabs.Add(new ExplorerMainTab
+                {
+                    Name = "Information",
+                    Text = family.Description,
+                });
             MainTabs = tabs;
             return Task.CompletedTask;
         }

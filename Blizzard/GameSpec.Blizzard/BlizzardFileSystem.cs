@@ -46,7 +46,7 @@ namespace GameSpec.Blizzard
             throw new System.NotImplementedException();
         }
 
-        public FileInfo GetFileInfo(string path)
+        public FileInfo FileInfo(string path)
         {
             throw new System.NotImplementedException();
         }

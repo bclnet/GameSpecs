@@ -69,7 +69,6 @@ class OpenWidget(QWidget):
             self.familyInput.setCurrentIndex(index + 1)
 
     def closeEvent(self, e=None):
-        self.callback(self)
         self.app.sub_widget_closed(self)
 
     @property
@@ -98,11 +97,9 @@ class OpenWidget(QWidget):
         self.gameValues = list(selected.games.values())
         self.gameInput.addItems([None] + [x.name for x in self.gameValues])
         # default game
-        if selected.id == config.Family and config.GameId:
+        if self.familySelected.id == config.Family and config.GameId:
             index = [x.id for x in self.gameValues].index(config.GameId)
             self.gameInput.setCurrentIndex(index + 1)
-            # force close
-            if config.ForceOpen: self.open_click()
 
     def game_change(self, index):
         selected = self.gameSelected = self.gameValues[index - 1] if index > 0 else None
@@ -130,8 +127,12 @@ class OpenWidget(QWidget):
         self.pak3uriInput.setText(uri)
 
     def cancel_click(self):
-        self.closeEvent()
+        self.close()
 
     def open_click(self):
-        self.result = True
-        self.closeEvent()
+        self.callback(self)
+        self.close()
+
+    def onReady(self):
+        if self.familySelected.id == config.Family and config.GameId and config.ForceOpen:
+            self.open_click()

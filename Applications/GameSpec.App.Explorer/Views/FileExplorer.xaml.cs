@@ -102,6 +102,13 @@ namespace GameSpec.App.Explorer.Views
             set { _nodes = value; OnPropertyChanged(); }
         }
 
+        List<MetadataInfo> _infos;
+        public List<MetadataInfo> Infos
+        {
+            get => _infos;
+            set { _infos = value; OnPropertyChanged(); }
+        }
+
         MetadataItem _selectedItem;
         public MetadataItem SelectedItem
         {
@@ -135,7 +142,7 @@ namespace GameSpec.App.Explorer.Views
         public void OnFileInfo(IEnumerable<MetadataInfo> infos)
         {
             FileContent.Instance.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
-            FileInfo.Infos = infos?.Where(x => x.Name != null).ToList();
+            Infos = infos?.Where(x => x.Name != null).ToList();
         }
 
         void OnNodeSelected(object sender, RoutedPropertyChangedEventArgs<object> e)

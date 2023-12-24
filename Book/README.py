@@ -10,7 +10,7 @@ def writeFile(z, path, marker, body):
 
 def getUrl(url):
     if url == '': return ''
-    file = f'{url.replace(':', '').replace('/', '_').replace('.', '').replace('&', '+').replace("'", '+')}.png'
+    file = f'{url.replace(':', '').replace('_', '').replace('/', '_').replace('.', '').replace('&', '+').replace("'", '+')}.png'
     path = os.path.join('.', 'qrcodes', file)
     if not os.path.exists(path):
         img = qrcode.make(url, box_size=5)
@@ -50,7 +50,7 @@ def GameFamily(f):
             s_fa = f.fileManager.applications[s.id] if f.fileManager and s.id in f.fileManager.applications else None
             s_fi = f.fileManager.ignores[s.id] if f.fileManager and s.id in f.fileManager.ignores else None
             s_ff = f.fileManager.filters[s.id] if f.fileManager and s.id in f.fileManager.filters else None
-            multi = s_fa or s.key or s.editions or s.dlc or s.locales
+            multi = s_fa or s.key or s.editions or s.dlcs or s.locales
             b.append('\n')
             if multi: b.append('.2+')
             b.append(f'|{s.id}\n')
@@ -76,13 +76,13 @@ def GameFamily(f):
                         b.append(f'!{t.name}\n')
                     b.append('!===\n')
                     b.append(f'\n')
-                # dlc
-                if s.dlc:
+                # dlcs
+                if s.dlcs:
                     b.append(f'DLCs:\n')
                     b.append('[cols="1,1,1"]\n')
                     b.append('!===\n')
                     b.append(f'!ID !Name !Path\n')
-                    for t in s.dlc.values():
+                    for t in s.dlcs.values():
                         b.append('\n')
                         b.append(f'!{t.id}\n')
                         b.append(f'!{t.name}\n')
@@ -119,7 +119,8 @@ def GameFamily(f):
         b.append(f'\n')
     return ''.join(b)
 
-for f in base.init('../').values():
+for f in base.init('../Python').values():
     print(f.id)
     body = GameFamily(f)
+    # print(body)
     writeFile(f, f'book/A-families/{f.id}.asc', '==== Family Info\n', body)

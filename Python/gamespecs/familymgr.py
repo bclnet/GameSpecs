@@ -7,16 +7,9 @@ from .openstk_poly import findType
 from .pakfile import PakFile, ManyPakFile, MultiPakFile
 from .filesys import FileSystem, HostFileSystem, createFileSystem
 from .filemgr import FileManager
+from .util import _value, _list, _method, _related, _relatedTrim
 
-def _value(val: dict[str, Any], key: str, default: Any = None) -> Any:
-    return val[key] if key in val else default
-
-def _list(val: dict[str, Any], key: str, default: Any = None) -> Any:
-    return (val[key] if isinstance(val[key], list) else [val[key]]) if key in val else default
-
-def _method(method: Any, val: dict[str, Any], key: str, default: Any = None) -> Any:
-    return method(val[key]) if key in val else default
-
+class FamilyApp: pass
 class FamilyEngine: pass
 class FamilyGame: pass
 class Resource: pass
@@ -33,10 +26,10 @@ def parseKey(key: str) -> Any:
 # create Family
 @staticmethod
 def createFamily(path: str, loader: Any) -> Family:
-    val = loader(path)
-    familyType = _value(val, 'familyType')
-    family = findType(familyType)(val) if familyType else \
-        Family(val)
+    elem = loader(path)
+    familyType = _value(elem, 'familyType')
+    family = findType(familyType)(elem) if familyType else \
+        Family(elem)
     if family.specs:
         for spec in family.specs:
             family.merge(createFamily(spec, loader))
@@ -44,52 +37,56 @@ def createFamily(path: str, loader: Any) -> Family:
 
 # create FamilyEngine
 @staticmethod
-def createFamilyEngine(family: Family, id: str, val: dict[str, Any]) -> FamilyEngine:
-    engineType = _value(val, 'engineType')
-    engine = findType(engineType)(family, id, val) if engineType else \
-        FamilyEngine(family, id, val)
+def createFamilyEngine(family: Family, id: str, elem: dict[str, Any]) -> FamilyEngine:
+    engineType = _value(elem, 'engineType')
+    engine = findType(engineType)(family, id, elem) if engineType else \
+        FamilyEngine(family, id, elem)
     return engine
 
 # create FamilyGame
 @staticmethod
-def createFamilyGame(family: Family, id: str, val: dict[str, Any], dgame: FamilyGame, paths: dict[str, Any]) -> FamilyGame:
-    gameType = _value(val, 'gameType', dgame.gameType)
-    game = findType(gameType)(family, id, val, dgame) if gameType else \
-        FamilyGame(family, id, val, dgame)
+def createFamilyGame(family: Family, id: str, elem: dict[str, Any], dgame: FamilyGame, paths: dict[str, Any]) -> FamilyGame:
+    gameType = _value(elem, 'gameType', dgame.gameType)
+    game = findType(gameType)(family, id, elem, dgame) if gameType else \
+        FamilyGame(family, id, elem, dgame)
     game.gameType = gameType
     game.found = id in paths if paths else False
     return game
 
+# create FamilyApp
+@staticmethod
+def createFamilyApp(family: Family, id: str, elem: dict[str, Any]) -> FamilyApp:
+    appType = _value(elem, 'appType')
+    app = findType(appType)(family, id, elem) if appType else \
+        FamilyApp(family, id, elem)
+    return app
+
 # create FileManager
 @staticmethod
-def createFileManager(val: dict[str, Any]) -> FileManager:
-    return FileManager(val)
+def createFileManager(elem: dict[str, Any]) -> FileManager:
+    return FileManager(elem)
 
 class Family:
-    def __init__(self, val: dict[str, Any]):
-        self.id = val['id']
-        self.name = _value(val, 'name')
-        self.studio = _value(val, 'studio')
-        self.description = _value(val, 'description')
-        self.urls = _list(val, 'url')
-        self.specs = _list(val, 'specs')
+    def __init__(self, elem: dict[str, Any]):
+        self.id = _value(elem, 'id')
+        self.name = _value(elem, 'name')
+        self.studio = _value(elem, 'studio')
+        self.description = _value(elem, 'description')
+        self.urls = _list(elem, 'url')
+        self.specs = _list(elem, 'specs')
         # file manager
-        self.fileManager = _method(createFileManager, val, 'fileManager')
+        self.fileManager = _method(elem, 'fileManager', createFileManager)
         paths = self.fileManager.paths if self.fileManager else None
-        # engines
-        self.engines = engines = {}
-        if 'engines' in val:
-            for id,v in val['engines'].items():
-                engines[id] = createFamilyEngine(self, id, v)
-        # games
-        self.games = games = {}
+        # related
         dgame = FamilyGame(self, None, None, None)
-        if 'games' in val:
-            for id,v in val['games'].items():
-                game = createFamilyGame(self, id, v, dgame, paths)
-                if id.startswith('*'): dgame = game
-                else: games[id] = game
-        
+        def gameMethod(k, v):
+            nonlocal dgame
+            game = createFamilyGame(self, k, v, dgame, paths)
+            if k.startswith('*'): dgame = game; return None
+            return game
+        self.engines = _related(elem, 'engines', lambda k,v:createFamilyEngine(self, k, v))
+        self.games = _relatedTrim(elem, 'games', gameMethod)
+        self.apps = _related(elem, 'apps', lambda k,v:createFamilyApp(self, k, v))
     def __repr__(self): return f'''
 {self.id}: {self.name}
 engines: {[x for x in self.engines.values()]}
@@ -138,67 +135,65 @@ fileManager: {self.fileManager if self.fileManager else None}'''
         if not resource.game: raise Exception(f'Undefined Game')
         return (pak := resource.game.createPakFile(resource.fileSystem, resource.searchPattern, throwOnError)) and pak.open()
 
-class FamilyEngine:
-    def __init__(self, family: Family, id: str, val: dict[str, Any]):
+class FamilyApp:
+    def __init__(self, family: Family, id: str, elem: dict[str, Any]):
         self.family = family
         self.id = id
-        self.name = _value(val, 'name')
+        self.name = _value(elem, 'name')
+    def __repr__(self): return f'\n  {self.id}: {self.name}'
+
+class FamilyEngine:
+    def __init__(self, family: Family, id: str, elem: dict[str, Any]):
+        self.family = family
+        self.id = id
+        self.name = _value(elem, 'name')
     def __repr__(self): return f'\n  {self.id}: {self.name}'
 
 class FamilyGame:
     class Edition:
-        def __init__(self, id: str, val: dict[str, Any]):
+        def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
-            self.name = _value(val, 'name')
-            self.key = _method(parseKey, val, 'key')
+            self.name = _value(elem, 'name')
+            self.key = _method(elem, 'key', parseKey)
         def __repr__(self): return f'{self.id}: {self.name}'
     class DownloadableContent:
-        def __init__(self, id: str, val: dict[str, Any]):
+        def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
-            self.name = _value(val, 'name')
-            self.path = _value(val, 'path')
+            self.name = _value(elem, 'name')
+            self.path = _value(elem, 'path')
         def __repr__(self): return f'{self.id}: {self.name}'
     class Locale:
-        def __init__(self, id: str, val: dict[str, Any]):
+        def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
-            self.name = _value(val, 'name')
+            self.name = _value(elem, 'name')
         def __repr__(self): return f'{self.id}: {self.name}'
-    def __init__(self, family: Family, id: str, val: dict[str, Any], dgame: FamilyGame):
+    def __init__(self, family: Family, id: str, elem: dict[str, Any], dgame: FamilyGame):
         self.family = family
         self.id = id
         if not dgame: self.ignore = False; self.gameType = self.engine = \
             self.paks = self.paths = self.key = self.fileSystemType = \
             self.searchBy = self.pakFileType = self.pakExts = None; return
-        self.ignore = _value(val, 'n/a', dgame.ignore)
-        self.name = _value(val, 'name')
-        self.engine = _value(val, 'engine', dgame.engine)
-        self.urls = _list(val, 'url')
-        self.date = _value(val, 'date')
-        #self.option = _list(val, 'option', dgame.option)
-        self.paks = _list(val, 'pak', dgame.paks)
-        #self.dats = _list(val, 'dats', dgame.dats)
-        self.paths = _list(val, 'path', dgame.paths)
-        self.key = _method(parseKey, val, 'key', dgame.key)
-        self.status = _value(val, 'status')
-        self.tags = _value(val, 'tags')
+        self.ignore = _value(elem, 'n/a', dgame.ignore)
+        self.name = _value(elem, 'name')
+        self.engine = _value(elem, 'engine', dgame.engine)
+        self.urls = _list(elem, 'url')
+        self.date = _value(elem, 'date')
+        #self.option = _list(elem, 'option', dgame.option)
+        self.paks = _list(elem, 'pak', dgame.paks)
+        #self.dats = _list(elem, 'dats', dgame.dats)
+        self.paths = _list(elem, 'path', dgame.paths)
+        self.key = _method(elem, 'key', parseKey, dgame.key)
+        self.status = _value(elem, 'status')
+        self.tags = _value(elem, 'tags')
         # interface
-        self.fileSystemType = _value(val, 'fileSystemType', dgame.fileSystemType)
-        self.searchBy = _value(val, 'searchBy', dgame.searchBy)
-        self.pakFileType = _value(val, 'pakFileType', dgame.pakFileType)
-        self.pakExts = _list(val, 'pakExt', dgame.pakExts) 
+        self.fileSystemType = _value(elem, 'fileSystemType', dgame.fileSystemType)
+        self.searchBy = _value(elem, 'searchBy', dgame.searchBy)
+        self.pakFileType = _value(elem, 'pakFileType', dgame.pakFileType)
+        self.pakExts = _list(elem, 'pakExt', dgame.pakExts) 
         # related
-        self.editions = editions = {}
-        if 'editions' in val:
-            for id,v in val['editions'].items():
-                editions[id] = FamilyGame.Edition(id, v)
-        self.dlcs = dlcs = {}
-        if 'dlcs' in val:
-            for id,v in val['dlcs'].items():
-                dlcs[id] = FamilyGame.DownloadableContent(id, v)
-        self.locales = locales = {}
-        if 'locales' in val:
-            for id,v in val['locales'].items():
-                locales[id] = FamilyGame.Locale(id, v)
+        self.editions = _related(elem, 'editions', lambda k,v:FamilyGame.Edition(k, v))
+        self.dlcs = _related(elem, 'dlcs', lambda k,v:FamilyGame.DownloadableContent(k, v))
+        self.locales = _related(elem, 'locales', lambda k,v:FamilyGame.Locale(k, v))
     def __repr__(self): return f'''
    {self.id}: {self.name} - {self.found}'''
 #     def __repr__(self): return f'''
@@ -215,6 +210,7 @@ class FamilyGame:
     def createSearchPatterns(self, searchPattern: str) -> str:
         if searchPattern: return searchPattern
         elif not self.searchBy: return '*'
+        elif self.searchBy == 'None': return None
         elif self.searchBy == 'Pak': return '' if not self.pakExts else \
             f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({"*:".join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
@@ -226,6 +222,7 @@ class FamilyGame:
     def createPakFile(self, fileSystem: FileSystem, searchPattern: str, throwOnError: bool) -> PakFile:
         if isinstance(fileSystem, HostFileSystem): raise Exception('HostFileSystem not supported')
         searchPattern = self.createSearchPatterns(searchPattern)
+        if not searchPattern: return None
         pakFiles = []
         for p in self.findPaths(fileSystem, searchPattern):
             if self.searchBy == 'Pak':

@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static GameSpec.Util;
 
 namespace GameSpec
 {
@@ -42,9 +43,9 @@ namespace GameSpec
         {
             Family = family;
             Id = id;
-            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
-            ExplorerType = elem.TryGetProperty("explorerAppType", out z) ? Type.GetType(z.GetString(), false) : default;
-            Explorer2Type = elem.TryGetProperty("explorer2AppType", out z) ? Type.GetType(z.GetString(), false) : default;
+            Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+            ExplorerType = _value(elem, "explorerAppType", z => Type.GetType(z.GetString(), false));
+            Explorer2Type = _value(elem, "explorer2AppType", z => Type.GetType(z.GetString(), false));
         }
 
         /// <summary>

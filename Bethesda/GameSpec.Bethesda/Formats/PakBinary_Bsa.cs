@@ -105,7 +105,7 @@ namespace GameSpec.Bethesda.Formats
         {
             public uint FileSize;           // File size
             public uint FileOffset;         // File offset relative to data position
-            public uint Size => FileSize > 0 ? FileSize & 0x3FFFFFFF : 0; // The size of the file inside the BSA
+            public readonly uint Size => FileSize > 0 ? FileSize & 0x3FFFFFFF : 0; // The size of the file inside the BSA
         }
 
         #endregion
@@ -146,12 +146,14 @@ namespace GameSpec.Bethesda.Formats
                     foreach (var headerFile in headerFiles)
                     {
                         var compressed = (headerFile.Size & OB_BSAFILE_SIZECOMPRESS) != 0;
+                        var packedSize = compressed ? headerFile.Size ^ OB_BSAFILE_SIZECOMPRESS : headerFile.Size;
                         files[fileIdx++] = new FileSource
                         {
                             Path = folderName,
                             Position = headerFile.Offset,
                             Compressed = compressed ^ compressedToggle ? 1 : 0,
-                            PackedSize = compressed ? headerFile.Size ^ OB_BSAFILE_SIZECOMPRESS : headerFile.Size,
+                            PackedSize = packedSize,
+                            FileSize = source.Version == SSE_BSAHEADER_VERSION ? packedSize & OB_BSAFILE_SIZEMASK : packedSize,
                         };
                     };
                 }
@@ -171,10 +173,12 @@ namespace GameSpec.Bethesda.Formats
                 for (var i = 0; i < headerFiles.Length; i++)
                 {
                     ref MW_File headerFile = ref headerFiles[i];
+                    var size = headerFile.Size;
                     files[i] = new FileSource
                     {
-                        PackedSize = headerFile.Size,
                         Position = dataOffset + headerFile.FileOffset,
+                        FileSize = size,
+                        PackedSize = size,
                     };
                 }
 
@@ -196,9 +200,7 @@ namespace GameSpec.Bethesda.Formats
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
             // position
-            var fileSize = (int)(source.Version == SSE_BSAHEADER_VERSION
-                ? file.PackedSize & OB_BSAFILE_SIZEMASK
-                : file.PackedSize);
+            var fileSize = (int)file.FileSize;
             r.Seek(file.Position);
             if (source.Tag != null && (bool)source.Tag)
             {

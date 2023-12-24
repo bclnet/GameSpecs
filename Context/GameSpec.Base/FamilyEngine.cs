@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json;
+using static GameSpec.Util;
 
 namespace GameSpec
 {
@@ -32,7 +33,7 @@ namespace GameSpec
         {
             Family = family;
             Id = id;
-            Name = (elem.TryGetProperty("name", out var z) ? z.GetString() : default) ?? throw new ArgumentNullException("name");
+            Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
         }
 
         /// <summary>

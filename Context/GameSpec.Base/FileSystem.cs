@@ -17,7 +17,7 @@ namespace GameSpec
         IEnumerable<string> Glob(string path, string searchPattern);
         string GetFile(string path);
         bool FileExists(string path);
-        FileInfo GetFileInfo(string path);
+        FileInfo FileInfo(string path);
         BinaryReader OpenReader(string path);
         BinaryWriter OpenWriter(string path);
     }
@@ -40,7 +40,7 @@ namespace GameSpec
         //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(Path.Combine(Root, path), searchPattern).Select(x => x[Skip..]).ToArray();
         public string GetFile(string path) => File.Exists(path = Path.Combine(Root, path)) ? path[Skip..] : null;
         public bool FileExists(string path) => File.Exists(Path.Combine(Root, path));
-        public FileInfo GetFileInfo(string path) => new FileInfo(Path.Combine(Root, path));
+        public FileInfo FileInfo(string path) => new FileInfo(Path.Combine(Root, path));
         public BinaryReader OpenReader(string path) => new BinaryReader(File.Open(Path.Combine(Root, path), FileMode.Open, FileAccess.Read, FileShare.Read));
         public BinaryWriter OpenWriter(string path) => new BinaryWriter(File.Open(Path.Combine(Root, path), FileMode.Open, FileAccess.Write, FileShare.Write));
     }
@@ -82,7 +82,7 @@ namespace GameSpec
         //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
         public string GetFile(string path) => File.Exists(path) ? path : null;
         public bool FileExists(string path) => File.Exists(path);
-        public FileInfo GetFileInfo(string path) => null;
+        public FileInfo FileInfo(string path) => null;
         public BinaryReader OpenReader(string path) => null;
         public BinaryWriter OpenWriter(string path) => null;
     }

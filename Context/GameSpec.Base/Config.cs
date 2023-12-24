@@ -72,7 +72,7 @@ namespace GameSpec
             ForcePath = "bookart/boethiah_256.dds",
             //ForcePath = "icons/handtohand.dds",
 
-            //ForceOpen = true,
+            ForceOpen = true,
             Family = "Bethesda",
 
             GameId = "Morrowind", // The Elder Scrolls III: Morrowind

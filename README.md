@@ -108,7 +108,7 @@ The following are the current games:
 | [W:CP](https://store.steampowered.com/app/1056970) | Wolfenstein: Cyberpilot | - | - | -- -- -- | -- -- -- | -- -- --
 | [DL](https://store.steampowered.com/app/1252330) | Deathloop | - | - | -- -- -- | -- -- -- | -- -- --
 | [RF](https://bethesda.net/en/game/redfall) | Redfall (future) | - | - | -- -- -- | -- -- -- | -- -- --
-| **Bethesda** | **Bethesda**
+| **Bethesda** | **Bethesda Game Studios**
 | [Morrowind](https://store.steampowered.com/app/22320) | The Elder Scrolls III: Morrowind | - | - | -- -- -- | -- -- -- | -- -- --
 | [Oblivion](https://store.steampowered.com/app/22330) | The Elder Scrolls IV: Oblivion | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout3](https://store.steampowered.com/app/22370) | Fallout 3 | - | - | -- -- -- | -- -- -- | -- -- --
@@ -144,7 +144,7 @@ The following are the current games:
 | [ME:LE](https://store.steampowered.com/app/1328670) | Mass Effect: Legendary Edition | - | - | -- -- -- | -- -- -- | -- -- --
 | [DA:D](https://www.ea.com/en-gb/games/dragon-age/dragon-age-dreadwolf) | Dragon Age: Dreadwolf (future) | - | - | -- -- -- | -- -- -- | -- -- --
 | [ME5](https://en.wikipedia.org/wiki/Mass_Effect) | Mass Effect 5 (future) | - | - | -- -- -- | -- -- -- | -- -- --
-| **Black** | **Black Isle**
+| **Black** | **Black Isle Studios**
 | [Fallout](https://store.steampowered.com/app/38400) | Fallout | - | - | -- -- -- | -- -- -- | -- -- --
 | [Fallout2](https://store.steampowered.com/app/38410) | Fallout 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [P:T](https://en.wikipedia.org/wiki/Planescape:_Torment) | Planescape: Torment | - | - | -- -- -- | -- -- -- | -- -- --
@@ -152,7 +152,7 @@ The following are the current games:
 | [ID:HoW](https://en.wikipedia.org/wiki/Icewind_Dale:_Heart_of_Winter) | Icewind Dale: Heart of Winter | - | - | -- -- -- | -- -- -- | -- -- --
 | [ID2](https://en.wikipedia.org/wiki/Icewind_Dale_II) | Icewind Dale II | - | - | -- -- -- | -- -- -- | -- -- --
 | [BG:DA2](https://en.wikipedia.org/wiki/Baldur%27s_Gate:_Dark_Alliance_II) | Baldur's Gate: Dark Alliance II | - | - | -- -- -- | -- -- -- | -- -- --
-| **Blizzard** | **Blizzard**
+| **Blizzard** | **Blizzard Entertainment**
 | [SC](https://us.shop.battle.net/en-us/product/starcraft) | StarCraft | - | - | -- -- -- | -- -- -- | -- -- --
 | [D2R](https://us.shop.battle.net/en-us/product/diablo_ii_resurrected) | Diablo II: Resurrected | - | - | -- -- -- | -- -- -- | -- -- --
 | [W3](https://us.shop.battle.net/en-us/product/warcraft-iii-reforged) | Warcraft III: Reign of Chaos | - | - | -- -- -- | -- -- -- | -- -- --
@@ -166,21 +166,29 @@ The following are the current games:
 | [DI](https://diabloimmortal.blizzard.com/en-us/) | Diablo Immortal | - | - | -- -- -- | -- -- -- | -- -- --
 | [OW2](https://us.shop.battle.net/en-us/product/overwatch) | Overwatch 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [D4](https://diablo4.blizzard.com/en-us/) | Diablo IV | - | - | -- -- -- | -- -- -- | -- -- --
-| **Capcom+0-D** | **None**
-| **Capcom+E-L** | **None**
-| **Capcom+M** | **None**
-| **Capcom+N-R** | **None**
-| **Capcom+S** | **None**
-| **Capcom+T-Z** | **None**
 | **Capcom** | **Capcom**
-| [BionicCommando](https://store.steampowered.com/app/21670) | Bionic Commando | - | - | -- -- -- | -- -- -- | -- -- --
+| [Arcade](https://store.steampowered.com/app/1515950) | Capcom Arcade Stadium | - | - | -- -- -- | -- -- -- | -- -- --
+| [Fighting:C](https://store.steampowered.com/app/1685750) | Capcom Fighting Collection | - | - | -- -- -- | -- -- -- | -- -- --
+| [GNG:R](https://store.steampowered.com/app/1375400) | Ghosts 'n Goblins Resurrection | - | - | -- -- -- | -- -- -- | -- -- --
+| [MM:LC](https://store.steampowered.com/app/363440) | Mega Man Legacy Collection | - | - | -- -- -- | -- -- -- | -- -- --
+| [MM:LC2](https://store.steampowered.com/app/495050) | Mega Man Legacy Collection 2 | - | - | -- -- -- | -- -- -- | -- -- --
+| [MM:XD](https://store.steampowered.com/app/1582620) | Mega Man X DiVE | - | - | -- -- -- | -- -- -- | -- -- --
+| [MMZX:LC](https://store.steampowered.com/app/999020) | Mega Man Zero/ZX Legacy Collection | - | - | -- -- -- | -- -- -- | -- -- --
+| [MH:R](https://store.steampowered.com/app/1446780) | Monster Hunter Rise | - | - | -- -- -- | -- -- -- | -- -- --
+| [MH:S2](https://store.steampowered.com/app/1277400) | Monster Hunter Stories 2: Wings of Ruin | - | - | -- -- -- | -- -- -- | -- -- --
+| [PWAA:T](https://store.steampowered.com/app/787480) | Phoenix Wright: Ace Attorney Trilogy | - | - | -- -- -- | -- -- -- | -- -- --
+| [RDR2](https://store.steampowered.com/app/1174180) | Red Dead Redemption 2 | - | - | -- -- -- | -- -- -- | -- -- --
+| [RER](https://store.steampowered.com/app/952070) | Resident Evil Resistance | - | - | -- -- -- | -- -- -- | -- -- --
+| [RE:RV](https://store.steampowered.com/app/1236300) | Resident Evil Re:Verse | - | - | -- -- -- | -- -- -- | -- -- --
+| [Disney:AC](https://store.steampowered.com/app/525040) | The Disney Afternoon Collection | - | - | -- -- -- | -- -- -- | -- -- --
+| [TGAA:C](https://store.steampowered.com/app/1158850) | The Great Ace Attorney Chronicles | - | - | -- -- -- | -- -- -- | -- -- --
+| [USF4](https://store.steampowered.com/app/45760) | Ultra Street Fighter IV | - | - | -- -- -- | -- -- -- | -- -- --
+| [BionicCommando](https://store.steampowered.com/app/21670) | Bionic Commando (2009 video game) | - | - | -- -- -- | -- -- -- | -- -- --
 | [BionicCommando:R](https://store.steampowered.com/app/21680) | Bionic Commando Rearmed | - | - | -- -- -- | -- -- -- | -- -- --
 | [Arcade:S](https://store.steampowered.com/app/1755910) | Capcom Arcade 2nd Stadium | - | - | -- -- -- | -- -- -- | -- -- --
-| [Arcade](https://store.steampowered.com/app/1515950) | Capcom Arcade Stadium | - | - | -- -- -- | -- -- -- | -- -- --
 | [BEU:B](https://store.steampowered.com/app/885150) | Capcom Beat 'Em Up Bundle | - | - | -- -- -- | -- -- -- | -- -- --
-| [Fighting:C](https://store.steampowered.com/app/1685750) | Capcom Fighting Collection | - | - | -- -- -- | -- -- -- | -- -- --
 | [DV](https://store.steampowered.com/app/45710) | Dark Void | - | - | -- -- -- | -- -- -- | -- -- --
-| [DV:Z](https://store.steampowered.com/app/45730/Dark_Void_Zero/) | Dark Void Zero | - | - | -- -- -- | -- -- -- | -- -- --
+| [DV:Z](https://store.steampowered.com/app/45730) | Dark Void Zero | - | - | -- -- -- | -- -- -- | -- -- --
 | [DR](https://store.steampowered.com/app/427190) | Dead Rising | - | - | -- -- -- | -- -- -- | -- -- --
 | [DR2](https://store.steampowered.com/app/45740) | Dead Rising 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [DR2:OtR](https://store.steampowered.com/app/45770) | Dead Rising 2: Off the Record | - | - | -- -- -- | -- -- -- | -- -- --
@@ -190,49 +198,35 @@ The following are the current games:
 | [DMC4:S](https://store.steampowered.com/app/329050) | Devil May Cry 4: Special Edition | - | - | -- -- -- | -- -- -- | -- -- --
 | [DMC5](https://store.steampowered.com/app/601150) | Devil May Cry 5 | - | - | -- -- -- | -- -- -- | -- -- --
 | [DMC:HD](https://store.steampowered.com/app/631510) | Devil May Cry: HD Collection | - | - | -- -- -- | -- -- -- | -- -- --
-| [Disney:AC](https://store.steampowered.com/app/525040) | The Disney Afternoon Collection | - | - | -- -- -- | -- -- -- | -- -- --
 | [DMC:DMC](https://store.steampowered.com/app/220440) | DmC: Devil May Cry | - | - | -- -- -- | -- -- -- | -- -- --
 | [Dragon](https://store.steampowered.com/app/367500) | Dragon's Dogma | - | - | -- -- -- | -- -- -- | -- -- --
 | [DT:R](https://store.steampowered.com/app/237630) | DuckTales: Remastered | - | - | -- -- -- | -- -- -- | -- -- --
 | [Flock](https://store.steampowered.com/app/21640) | Flock! | - | - | -- -- -- | -- -- -- | -- -- --
-| [GNG:R](https://store.steampowered.com/app/1375400) | Ghosts 'n Goblins Resurrection | - | - | -- -- -- | -- -- -- | -- -- --
-| [TGAA:C](https://store.steampowered.com/app/1158850) | The Great Ace Attorney Chronicles | - | - | -- -- -- | -- -- -- | -- -- --
 | [LP:EC](https://store.steampowered.com/app/6510) | Lost Planet: Extreme Condition | - | - | -- -- -- | -- -- -- | -- -- --
 | [LP3](https://store.steampowered.com/app/226720) | Lost Planet 3 | - | - | -- -- -- | -- -- -- | -- -- --
 | [MVC:I](https://store.steampowered.com/app/493840) | Marvel vs. Capcom: Infinite | - | - | -- -- -- | -- -- -- | -- -- --
 | [MM11](https://store.steampowered.com/app/742300) | Mega Man 11 | - | - | -- -- -- | -- -- -- | -- -- --
-| [MM:LC](https://store.steampowered.com/app/363440) | Mega Man Legacy Collection | - | - | -- -- -- | -- -- -- | -- -- --
-| [MM:LC2](https://store.steampowered.com/app/495050) | Mega Man Legacy Collection 2 | - | - | -- -- -- | -- -- -- | -- -- --
-| [MM:XD](https://store.steampowered.com/app/1582620) | Mega Man X DiVE | - | - | -- -- -- | -- -- -- | -- -- --
 | [MMX:LC](https://store.steampowered.com/app/743890) | Mega Man X Legacy Collection | - | - | -- -- -- | -- -- -- | -- -- --
 | [MMX:LC2](https://store.steampowered.com/app/743900) | Mega Man X Legacy Collection 2 | - | - | -- -- -- | -- -- -- | -- -- --
-| [MMZX:LC](https://store.steampowered.com/app/999020) | Mega Man Zero/ZX Legacy Collection | - | - | -- -- -- | -- -- -- | -- -- --
-| [MH:R](https://store.steampowered.com/app/1446780) | Monster Hunter Rise | - | - | -- -- -- | -- -- -- | -- -- --
-| [MH:S2](https://store.steampowered.com/app/1277400) | Monster Hunter Stories 2: Wings of Ruin | - | - | -- -- -- | -- -- -- | -- -- --
 | [MH:W](https://store.steampowered.com/app/582010) | Monster Hunter: World | - | - | -- -- -- | -- -- -- | -- -- --
 | [Okami:HD](https://store.steampowered.com/app/587620) | Ōkami HD | - | - | -- -- -- | -- -- -- | -- -- --
 | [O:W](https://store.steampowered.com/app/761600) | Onimusha: Warlords | - | - | -- -- -- | -- -- -- | -- -- --
-| [PWAA:T](https://store.steampowered.com/app/787480) | Phoenix Wright: Ace Attorney Trilogy | - | - | -- -- -- | -- -- -- | -- -- --
-| [RDR2](https://store.steampowered.com/app/1174180) | Red Dead Redemption 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [RememberMe](https://store.steampowered.com/app/228300) | Remember Me | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE](https://store.steampowered.com/app/304240) | Resident Evil | - | - | -- -- -- | -- -- -- | -- -- --
-| [REZ](https://store.steampowered.com/app/339340) | Resident Evil Zero | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE2](https://store.steampowered.com/app/883710) | Resident Evil 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE3](https://store.steampowered.com/app/952060) | Resident Evil 3 | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE4](https://store.steampowered.com/app/254700) | Resident Evil 4 | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE5](https://store.steampowered.com/app/21690) | Resident Evil 5 | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE6](https://store.steampowered.com/app/221040) | Resident Evil 6 | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE7](https://store.steampowered.com/app/418370) | Resident Evil 7: Biohazard | - | - | -- -- -- | -- -- -- | -- -- --
-| [RER](https://store.steampowered.com/app/952070) | Resident Evil Resistance | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE:R](https://store.steampowered.com/app/222480) | Resident Evil: Revelations | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE:R2](https://store.steampowered.com/app/287290) | Resident Evil: Revelations 2 | - | - | -- -- -- | -- -- -- | -- -- --
-| [RE:RV](https://store.steampowered.com/app/1236300) | Resident Evil Re:Verse | - | - | -- -- -- | -- -- -- | -- -- --
 | [RE:V](https://store.steampowered.com/app/1196590) | Resident Evil Village | - | - | -- -- -- | -- -- -- | -- -- --
+| [REZ](https://store.steampowered.com/app/339340) | Resident Evil Zero | - | - | -- -- -- | -- -- -- | -- -- --
 | [SF:30AC](https://store.steampowered.com/app/586200) | Street Fighter 30th Anniversary Collection | - | - | -- -- -- | -- -- -- | -- -- --
 | [SF5](https://store.steampowered.com/app/310950) | Street Fighter V | - | - | -- -- -- | -- -- -- | -- -- --
 | [Strider](https://store.steampowered.com/app/235210) | Strider (2014 video game) | - | - | -- -- -- | -- -- -- | -- -- --
 | [UMVC3](https://store.steampowered.com/app/357190) | Ultimate Marvel vs. Capcom 3 | - | - | -- -- -- | -- -- -- | -- -- --
-| [USF4](https://store.steampowered.com/app/45760) | Ultra Street Fighter IV | - | - | -- -- -- | -- -- -- | -- -- --
 | [UmbrellaCorps](https://store.steampowered.com/app/390340) | Umbrella Corps | - | - | -- -- -- | -- -- -- | -- -- --
 | **Cig** | **Cloud Imperium Games**
 | [StarCitizen](https://robertsspaceindustries.com/playstarcitizen) | Star Citizen | - | - | -- -- -- | -- -- -- | -- -- --
@@ -296,7 +290,7 @@ The following are the current games:
 | [D3](https://store.steampowered.com/app/9050) | Doom 3 | - | - | -- -- -- | -- -- -- | -- -- --
 | [Q:L](https://store.steampowered.com/app/282440) | Quake Live | - | - | -- -- -- | -- -- -- | -- -- --
 | [R](https://store.steampowered.com/app/0) | Rage | - | - | -- -- -- | -- -- -- | -- -- --
-| [D](https://store.steampowered.com/app/0) | Doom | - | - | -- -- -- | -- -- -- | -- -- --
+| [D](https://store.steampowered.com/app/0) | Doom (2016) | - | - | -- -- -- | -- -- -- | -- -- --
 | [D:VFR](https://store.steampowered.com/app/650000) | Doom VFR | - | - | -- -- -- | -- -- -- | -- -- --
 | [R2](https://store.steampowered.com/app/0) | Rage 2 | - | - | -- -- -- | -- -- -- | -- -- --
 | [D:E](https://store.steampowered.com/app/0) | Doom Eternal | - | - | -- -- -- | -- -- -- | -- -- --
@@ -335,6 +329,7 @@ The following are the current games:
 | [Witcher3](https://www.gog.com/en/game/the_witcher_3_wild_hunt) | The Witcher 3: Wild Hunt | - | - | -- -- -- | -- -- -- | -- -- --
 | [CP77](https://store.steampowered.com/app/1091500) | Cyberpunk 2077 | - | - | -- -- -- | -- -- -- | -- -- --
 | [Witcher4](https://en.wikipedia.org/wiki/The_Witcher_(video_game_series)) | The Witcher 4 Polaris (future) | - | - | -- -- -- | -- -- -- | -- -- --
+| **Ubisoft** | **Ubisoft**
 | **Unity** | **Unity**
 | [AmongUs](https://store.steampowered.com/app/945360) | Among Us | - | - | -- -- -- | -- -- -- | -- -- --
 | [Cities](https://store.steampowered.com/app/255710) | Cities: Skylines | - | - | -- -- -- | -- -- -- | -- -- --
@@ -342,7 +337,6 @@ The following are the current games:
 | [UBoat](https://store.steampowered.com/app/1272010) | Destroyer: The U-Boat Hunter | - | - | -- -- -- | -- -- -- | -- -- --
 | [7D2D](https://store.steampowered.com/app/251570) | 7 Days to Die | - | - | -- -- -- | -- -- -- | -- -- --
 | **Unknown** | **Unknown**
-| [ACO](https://store.steampowered.com/app/582160) | Assassin's Creed Origins | - | - | -- -- -- | -- -- -- | -- -- --
 | [APP]() | Application | - | - | -- -- -- | -- -- -- | -- -- --
 | [CAT]() | Catalog | - | - | -- -- -- | -- -- -- | -- -- --
 | **Valve** | **Valve**

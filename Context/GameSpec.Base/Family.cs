@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using static GameSpec.FamilyManager;
+using static GameSpec.Util;
 
 namespace GameSpec
 {
@@ -124,19 +125,20 @@ namespace GameSpec
         {
             //try
             //{
+            Id = _value(elem, "id") ?? throw new ArgumentNullException("id");
+            Name = _value(elem, "name");
+            Studio = _value(elem, "studio");
+            Description = _value(elem, "description");
+            Urls = _list(elem, "url", x => new Uri(x));
+            Specs = _list(elem, "specs");
+            // file manager
+            FileManager = _method(elem, "fileManager", CreateFileManager);
+            var paths = FileManager?.Paths;
+            // related
             FamilyGame dgame = null;
-            var fileManager = elem.TryGetProperty("fileManager", out var z) ? CreateFileManager(z) : default;
-            var paths = fileManager?.Paths;
-            Id = (elem.TryGetProperty("id", out z) ? z.GetString() : default) ?? throw new ArgumentNullException("id");
-            Name = elem.TryGetProperty("name", out z) ? z.GetString() : default;
-            Studio = elem.TryGetProperty("studio", out z) ? z.GetString() : default;
-            Description = elem.TryGetProperty("description", out z) ? z.GetString() : default;
-            Urls = elem.TryGetProperty("url", out z) ? z.GetStringOrArray(x => new Uri(x)) : default;
-            FileManager = fileManager;
-            Specs = elem.TryGetProperty("specs", out z) ? z.GetStringOrArray(x => x) : default;
-            Engines = elem.TryGetProperty("engines", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => CreateFamilyEngine(this, x.Name, x.Value)) : new Dictionary<string, FamilyEngine>();
-            Games = elem.TryGetProperty("games", out z) ? z.EnumerateObject().Select(x => (x.Name, Value: CreateFamilyGame(this, x.Name, x.Value, ref dgame, paths))).Where(x => x.Value != null).ToDictionary(x => x.Name, x => x.Value) : new Dictionary<string, FamilyGame>();
-            Apps = elem.TryGetProperty("apps", out z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => CreateFamilyApp(this, x.Name, x.Value)) : new Dictionary<string, FamilyApp>();
+            Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
+            Games = _relatedTrim(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths));
+            Apps = _related(elem, "apps", (k, v) => CreateFamilyApp(this, k, v));
             //}
             //catch (Exception e)
             //{

@@ -9,7 +9,8 @@
       "pakFileType": "GameSpec.Unknown.UnknownPakFile, GameSpec.Base"
     },
     "APP": {
-      "name": "Application"
+      "name": "Application",
+      "searchBy": "None"
     },
     "CAT": {
       "name": "Catalog",

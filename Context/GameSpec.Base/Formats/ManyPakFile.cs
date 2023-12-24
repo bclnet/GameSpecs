@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,13 +39,12 @@ namespace GameSpec.Formats
         /// <returns></returns>
         public override Task ReadAsync(BinaryReader r, object tag = default)
         {
-            Files = Paths.Select(s => (s, p: Game.IsPakFile(s), i: FileSystem.GetFileInfo(s)))
-                .Select(s => new FileSource
-                {
-                    Path = s.s.Replace('/', '\\'),
-                    Pak = s.p ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, s.s, null) : default,
-                    FileSize = s.i.Length,
-                }).ToArray();
+            Files = Paths.Select(s => new FileSource
+            {
+                Path = s.Replace('/', '\\'),
+                Pak = Game.IsPakFile(s) ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, s) : default,
+                FileSize = FileSystem.FileInfo(s).Length,
+            }).ToArray();
             return Task.CompletedTask;
         }
 

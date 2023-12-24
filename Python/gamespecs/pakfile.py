@@ -64,7 +64,7 @@ class BinaryPakFile(PakFile):
             with self._getReader() as r: self.read(r)
         else: self.read(None)
         self.process()
-    def _getReader(self): return Reader(self.fileSystem.open(self.filePath, 'rb'))
+    def _getReader(self): return Reader(self.fileSystem.openReader(self.filePath))
     def loadFileData(self, path: FileSource | str | int):
         # FileSource
         if isinstance(path, FileSource):
@@ -95,12 +95,24 @@ class BinaryPakFile(PakFile):
 class ManyPakFile(BinaryPakFile):
     def __init__(self, basis, game, name: str, fileSystem, paths, tag: object = None, visualPathSkip = 0):
         super().__init__(game, fileSystem, name, None, tag)
-        self.basis = basis
-    def opening(self): return f'opening'
-    def closing(self): return f'closing'
+        if isinstance(basis, BinaryPakFile):
+            # self.getMetadataItems = basis.getMetadataItems
+            # self.getObjectFactoryFactory = basis.getObjectFactoryFactory
+            pass
+        self.paths = paths
+        self.useReader = False
+    def read(self, r: Reader, tag: object = None):
+        self.files = [FileSource(
+            path = s.replace('\\', '/'),
+            pak = self.game.createPakFileType(self.fileSystem, s) if self.game.isPakFile(s) else None,
+            fileSize = self.fileSystem.fileInfo(s).st_size
+            )
+            for s in self.paths]
+
+    def readData(self, r: Reader, file: FileSource):
+        return None
 
 class MultiPakFile(PakFile):
     def __init__(self, game, name: str, fileSystem, pakFiles, tag: object = None):
         super().__init__(game, name, tag)
-    def opening(self): return f'opening'
-    def closing(self): return f'closing'
+    def read(self, r: Reader, tag: object = None): return f'opening'

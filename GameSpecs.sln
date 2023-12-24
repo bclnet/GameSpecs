@@ -276,7 +276,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Cryptic.Platform",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Platform.Vulken", "Platforms\GameSpec.Platform.Vulken\GameSpec.Platform.Vulken.csproj", "{AF223B61-5BB1-4F9D-B22E-9362AA2A26D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.App.Explorer2", "Applications\GameSpec.App.Explorer2\GameSpec.App.Explorer2.csproj", "{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.App.ExplorerM", "Applications\GameSpec.App.ExplorerM\GameSpec.App.ExplorerM.csproj", "{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Platform.StereoKit", "Platforms\GameSpec.Platform.StereoKit\GameSpec.Platform.StereoKit.csproj", "{4380936C-E21D-4CA9-ACF7-F290A8720673}"
 EndProject

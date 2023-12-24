@@ -27,6 +27,6 @@ The following are the current games:\n
         for g in [x for x in f.games.values() if not x.ignore]:
             b.append(f'| [{g.id}]({g.urls[0] if g.urls else ''}) | {g.name} | {single(g.status, "open")} | {single(g.status, "read")} | {platform(g.status, "texture")} | {platform(g.status, "model")} | {platform(g.status, "level")}\n')
     return ''.join(b)
-body = GamesBody(base.init(''))
-# print(body)
-writeFile('README.md', '## Games\n', body)
+body = GamesBody(base.init('Python'))
+print(body)
+#writeFile('README.md', '## Games\n', body)

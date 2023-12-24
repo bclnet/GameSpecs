@@ -123,11 +123,13 @@ class PakBinary_Bsa(PakBinary):
                 headerFiles = r.readTArray(self.OB_File, foldersFiles[i])
                 for headerFile in headerFiles:
                     compressed = (headerFile.size & self.OB_BSAFILE_SIZECOMPRESS) != 0
+                    packedSize = headerFile.size ^ self.OB_BSAFILE_SIZECOMPRESS if compressed else headerFile.size
                     files[fileIdx] = FileSource(
                         path = folderName,
                         position = headerFile.offset,
                         compressed = 1 if compressed ^ compressedToggle else 0,
-                        packedSize = headerFile.size ^ self.OB_BSAFILE_SIZECOMPRESS if compressed else headerFile.size
+                        packedSize = packedSize,
+                        fileSize = packedSize & self.OB_BSAFILE_SIZEMASK if source.version == self.SSE_BSAHEADER_VERSION else packedSize
                         )
                     fileIdx += 1
             # read-all names
@@ -144,10 +146,12 @@ class PakBinary_Bsa(PakBinary):
             headerFiles = r.readTArray(self.MW_File, header.fileCount)
             for i in range(header.fileCount):
                 headerFile = headerFiles[i]
+                size = headerFile.getSize()
                 files[i] = FileSource(
+                    position = dataOffset + headerFile.fileOffset,
                     compressed = 0,
-                    packedSize = headerFile.getSize(),
-                    position = dataOffset + headerFile.fileOffset
+                    fileSize = size,
+                    packedSize = size
                     )
 
             # read filename offsets
