@@ -32,13 +32,13 @@ namespace GameSpec.Metadata
         public List<MetadataItem> Items { get; private set; }
         public PakFile PakFile { get; set; }
 
-        public MetadataItem(object source, string name, object icon, object tag = null, List<MetadataItem> children = null)
+        public MetadataItem(object source, string name, object icon, object tag = null, List<MetadataItem> items = null)
         {
             Source = source;
             Name = name;
             Icon = icon;
             Tag = tag;
-            Items = children ?? new List<MetadataItem>();
+            Items = items ?? new List<MetadataItem>();
         }
 
         public MetadataItem Search(Func<MetadataItem, bool> predicate)

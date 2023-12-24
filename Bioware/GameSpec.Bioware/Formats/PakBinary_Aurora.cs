@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bioware.Formats
 {
-    public unsafe class PakBinaryAurora : PakBinary
+    public unsafe class PakBinary_Aurora : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryAurora();
+        public static readonly PakBinary Instance = new PakBinary_Aurora();
 
         // https://nwn2.fandom.com/wiki/File_formats
 

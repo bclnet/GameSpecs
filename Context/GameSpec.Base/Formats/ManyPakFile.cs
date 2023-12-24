@@ -24,7 +24,7 @@ namespace GameSpec.Formats
         {
             if (basis is BinaryPakFile b)
             {
-                GetMetadataItems = b.GetMetadataItems;
+                GetMetadataItemsMethod = b.GetMetadataItemsMethod;
                 GetObjectFactoryFactory = b.GetObjectFactoryFactory;
             }
             Paths = paths;

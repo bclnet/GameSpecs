@@ -2,6 +2,7 @@
 using GameSpec.Unknown;
 using MimeKit;
 using Org.BouncyCastle.Cms;
+using StereoKit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,10 +62,11 @@ namespace GameSpec.App.Explorer.Views
             FamilyApps = family.Apps;
             foreach (var pakUri in pakUris)
             {
-                Status.WriteLine($"Opening {pakUri}");
-                PakFiles.Add(family.OpenPakFile(pakUri));
+                Log.WriteLine($"Opening {pakUri}");
+                var pak = family.OpenPakFile(pakUri);
+                if (pak != null) PakFiles.Add(pak);
             }
-            Status.WriteLine("Done");
+            Log.WriteLine("Done");
             OnOpenedAsync(family, path).Wait();
             OnReady();
             return this;
@@ -83,7 +85,7 @@ namespace GameSpec.App.Explorer.Views
         public Task OnOpenedAsync(Family family, string path = null)
         {
             MainTabControl.SelectedIndex = 0; // family.Apps != null ? 1 : 0;
-            var tabs = PakFiles.Where(x => x != null).Select(pakFile => new ExplorerMainTab
+            var tabs = PakFiles.Select(pakFile => new ExplorerMainTab
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
@@ -119,7 +121,8 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath) && Config.ForcePath.StartsWith("app:") && FamilyApps != null && FamilyApps.TryGetValue(Config.ForcePath[4..], out var app)) App_Click(new Button { DataContext = app }, null);
+            if (!string.IsNullOrEmpty(Config.ForcePath) && Config.ForcePath.StartsWith("app:") && FamilyApps != null && FamilyApps.TryGetValue(Config.ForcePath[4..], out var app))
+                App_Click(new Button { DataContext = app }, null);
         }
 
         #region Menu

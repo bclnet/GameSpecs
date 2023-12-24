@@ -68,6 +68,6 @@
             <views:FileContent x:Name="FileContent" />
         </Frame>
 
-        <Entry x:Name="Status" Grid.Row="1" Grid.ColumnSpan="3" Margin="5,0,5,5" BackgroundColor="LightGrey" />
+        <Entry x:Name="Log" Grid.Row="1" Grid.ColumnSpan="3" Margin="5,0,5,5" BackgroundColor="LightGrey" />
     </Grid>
 </ContentPage>

@@ -7,9 +7,7 @@ from ..familymgr import FamilyGame
 from ..filesys import FileSystem
 from ..openstk_poly import Reader
 
-
 class PakBinary_Void(PakBinary):
-
     class SubPakFile(BinaryPakFile):
         def __init__(self, game: FamilyGame, fileSystem: FileSystem, filePath: str, tag: Any = None):
             super().__init__(game, fileSystem, filePath, PakBinary_Void(), tag)

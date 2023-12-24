@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bioware.Formats
 {
-    public unsafe class PakBinaryMyp : PakBinary
+    public unsafe class PakBinary_Myp : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryMyp();
+        public static readonly PakBinary Instance = new PakBinary_Myp();
 
         // Headers : MYP
         #region Headers : KEY/BIF

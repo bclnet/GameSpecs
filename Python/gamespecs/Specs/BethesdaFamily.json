@@ -30,8 +30,8 @@
       "url": "https://store.steampowered.com/app/22330",
       "date": "2007-09-11",
       "pakExt": ".bsa",
-      "pak": "game:/Oblivion - Meshes.bsa",
-      "pak_": "game:/Oblivion*.bsa",
+      "pak": "game:/Oblivion*.bsa",
+      "pakx": "game:/Oblivion - Meshes.bsa",
       "dat": "game:/Oblivion.esm"
     },
     "Fallout3": {
@@ -116,11 +116,13 @@
       "pak": "game:/Starfield*.ba2",
       "dat": "game:/Starfield.esm"
     },
-    "Unknown1": {
+    "Tes6": {
+      "n/a": true,
       "name": "The Elder Scrolls VI (future)",
       "url": "https://en.wikipedia.org/wiki/The_Elder_Scrolls"
     },
     "Fallout5": {
+      "n/a": true,
       "name": "Fallout 5 (future)",
       "url": "https://en.wikipedia.org/wiki/Fallout_(series)"
     }
@@ -197,11 +199,6 @@
         "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1716740" ],
         "dir": "Starfield",
         "path": "Data"
-      }
-    },
-    "ignores": {
-      "Fallout2": {
-        "path": "unins000.dat"
       }
     }
   }

@@ -30,10 +30,10 @@ namespace GameSpec.Formats
         public object CryptKey;
 
         // metadata
-        internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItems = StandardMetadataItem.GetPakFilesAsync;
+        internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItemsMethod = StandardMetadataItem.GetPakFilesAsync;
         protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>>();
 
-        // object-factory
+        // factory
         internal protected Func<FileSource, FamilyGame, (DataOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
 
         // From: BinaryPakManyFile
@@ -360,7 +360,7 @@ namespace GameSpec.Formats
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager) => Valid && GetMetadataItems != null ? await GetMetadataItems(manager, this) : default;
+        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager) => Valid && GetMetadataItemsMethod != null ? await GetMetadataItemsMethod(manager, this) : default;
 
         /// <summary>
         /// Gets the explorer information nodes.

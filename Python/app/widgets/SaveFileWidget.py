@@ -50,8 +50,8 @@ class SaveFileWidget(QWidget):
     def prepare_transfer(self):
         #Verify / Get destination
         self.items_to_save = self.get_items_in_folder(self.items)
-        self.completion_count=0
-        self.finishedBytes=0
+        self.completion_count = 0
+        self.finishedBytes = 0
         self.to_complete=len(self.items_to_save)
         self.progressbar.setMinimum(0)
         self.progressbar.setMaximum(self.to_complete)
@@ -113,4 +113,4 @@ class SaveFileWidget(QWidget):
 
     def closeEvent(self, e):
         self.stopped=True
-        self.app.sub_widget_closed(self)
+        self.app.closeWidget(self)

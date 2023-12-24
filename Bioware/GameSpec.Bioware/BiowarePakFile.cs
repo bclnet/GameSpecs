@@ -40,8 +40,8 @@ namespace GameSpec.Bioware
         static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
-                "HeroEngine" => PakBinaryMyp.Instance,
-                _ => PakBinaryAurora.Instance,
+                "HeroEngine" => PakBinary_Myp.Instance,
+                _ => PakBinary_Aurora.Instance,
             };
 
         #endregion

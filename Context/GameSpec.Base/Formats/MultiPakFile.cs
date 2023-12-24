@@ -158,7 +158,7 @@ namespace GameSpec.Formats
         {
             var root = new List<MetadataItem>();
             foreach (var pakFile in PakFiles.Where(x => x.Valid))
-                root.Add(new MetadataItem(pakFile, pakFile.Name, manager.PackageIcon, children: await pakFile.GetMetadataItemsAsync(manager)) { PakFile = pakFile });
+                root.Add(new MetadataItem(pakFile, pakFile.Name, manager.PackageIcon, items: await pakFile.GetMetadataItemsAsync(manager)) { PakFile = pakFile });
             return root;
         }
 

@@ -66,6 +66,11 @@
         "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410", "GOG.com/Games/1440151285" ],
         "dir": "Fallout 2"
       }
+    },
+    "ignores": {
+      "Fallout2": {
+        "path": "unins000.dat"
+      }
     }
   }
 }

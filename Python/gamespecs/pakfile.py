@@ -1,6 +1,8 @@
-import os
+import os, time
 from enum import Enum
+from io import BytesIO
 from .openstk_poly import Reader
+from .metadata import StandardMetadataItem, MetadataManager, MetadataItem, MetadataInfo
 
 class FileSource:
     def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, pak = None, tag = None):
@@ -16,11 +18,12 @@ class FileSource:
 
 class PakFile:
     class PakStatus(Enum):
-        OPENING = 1
-        OPENED = 2
-        CLOSING = 3
-        CLOSED = 4
+        Opening = 1
+        Opened = 2
+        Closing = 3
+        Closed = 4
     def __init__(self, game, name, tag = None):
+        self.status = self.PakStatus.Closed
         self.family = game.family
         self.game = game
         self.name = name
@@ -28,16 +31,24 @@ class PakFile:
     def __enter__(self): return self
     def __exit__(self, type, value, traceback): self.close()
     def __repr__(self): return f'{self.name}#{self.game.id}'
+    def valid(self): return True
     def close(self):
-        self.status = self.PakStatus.CLOSING
+        self.status = self.PakStatus.Closing
         self.closing()
-        self.status = self.PakStatus.CLOSED
+        self.status = self.PakStatus.Closed
         return self
     def closing(self): pass
-    def open(self):
-        self.status = self.PakStatus.CLOSING
+    def open(self, items = None, manager = None):
+        if self.status != self.PakStatus.Closed: return this
+        self.status = self.PakStatus.Opening
+        start = time.time()
         self.opening()
-        self.status = self.PakStatus.CLOSED
+        end = time.time()
+        self.status = self.PakStatus.Opened
+        elapsed = round(end - start, 4)
+        # if items:
+        #     items[]
+        print(f'Opened: {self.name} @ {elapsed}ms')
         return self
     def opening(self): pass
     def loadFileData(self, path): pass
@@ -59,6 +70,13 @@ class BinaryPakFile(PakFile):
         self.magic = None
         self.version = None
         # self.cryptKey
+        # metadata
+        self.getMetadataItemsMethod = StandardMetadataItem.getPakFiles
+        self.metadataInfos = {}
+        # factory
+        self.getObjectFactoryFactory = None
+
+    def valid(self): return not self.files.isEmpty()
     def opening(self):
         if self.useReader:
             with self._getReader() as r: self.read(r)
@@ -92,12 +110,22 @@ class BinaryPakFile(PakFile):
         pak = self.filesByPath[p].pak if len(paths) > 1 and p in self.filesByPath else None
         return (pak, paths[1]) if pak else (None, None)
 
+    #region Metadata
+    
+    def getMetadataItems(manager: MetadataManager) -> list[MetadataItem]:
+        self.getMetadataItemsMethod(manager, self) if self.valid and self.getMetadataItemsMethod else None
+
+    def getMetadataInfos(manager: MetadataManager, item: MetadataItem) -> list[MetadataInfo]:
+        pass
+    
+    #endregion
+
 class ManyPakFile(BinaryPakFile):
     def __init__(self, basis, game, name: str, fileSystem, paths, tag: object = None, visualPathSkip = 0):
         super().__init__(game, fileSystem, name, None, tag)
         if isinstance(basis, BinaryPakFile):
-            # self.getMetadataItems = basis.getMetadataItems
-            # self.getObjectFactoryFactory = basis.getObjectFactoryFactory
+            self.getMetadataItemsMethod = basis.getMetadataItemsMethod
+            self.getObjectFactoryFactory = basis.getObjectFactoryFactory
             pass
         self.paths = paths
         self.useReader = False
@@ -110,7 +138,8 @@ class ManyPakFile(BinaryPakFile):
             for s in self.paths]
 
     def readData(self, r: Reader, file: FileSource):
-        return None
+        if file.pak: return None
+        return BytesIO(self.fileSystem.openReader(file.path).read(file.fileSize))
 
 class MultiPakFile(PakFile):
     def __init__(self, game, name: str, fileSystem, pakFiles, tag: object = None):

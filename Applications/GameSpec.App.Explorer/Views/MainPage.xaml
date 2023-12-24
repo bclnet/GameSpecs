@@ -93,7 +93,7 @@
 
         <views:FileContent x:Name="FileContent" Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" />
 
-        <TextBox Name="Status" Grid.Row="2" Grid.ColumnSpan="3" Margin="7.5,0,7.5,7.5" Padding="3"
+        <TextBox Name="Log" Grid.Row="2" Grid.ColumnSpan="3" Margin="7.5,0,7.5,7.5" Padding="3"
                  TextWrapping="Wrap" 
                  ScrollViewer.VerticalScrollBarVisibility="Auto" />
 

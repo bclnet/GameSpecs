@@ -112,10 +112,10 @@ namespace GameSpec
             var watch = new Stopwatch();
             watch.Start();
             Opening();
-            Log($"Opening: {Name} @ {watch.ElapsedMilliseconds}ms");
             watch.Stop();
             Status = PakStatus.Opened;
             items?.AddRange(GetMetadataItemsAsync(manager).Result);
+            Log($"Opened: {Name} @ {watch.ElapsedMilliseconds}ms");
             return this;
         }
 

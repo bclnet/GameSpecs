@@ -7,7 +7,6 @@ from ..openstk_poly import Reader
 from ..compression import decompressBlast
 
 class PakBinary_Danae(PakBinary):
-
     _instance = None
     def __new__(cls):
         if cls._instance is None: cls._instance = super().__new__(cls)

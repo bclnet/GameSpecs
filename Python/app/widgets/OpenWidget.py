@@ -8,7 +8,7 @@ config = appDefaultOptions
 familyValues = list(families.values())
 
 class OpenWidget(QWidget):
-    def __init__(self, app, callback): 
+    def __init__(self, app, callback):
         super().__init__()
         self.app = app
         self.callback = callback
@@ -69,7 +69,7 @@ class OpenWidget(QWidget):
             self.familyInput.setCurrentIndex(index + 1)
 
     def closeEvent(self, e=None):
-        self.app.sub_widget_closed(self)
+        self.app.closeWidget(self)
 
     @property
     def pakUris(self):

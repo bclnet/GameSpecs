@@ -55,7 +55,7 @@ namespace GameSpec
             //GameId = "AF", // Arx Fatalis [open, read, texture:GL]
             //GameId = "DOM", // Dark Messiah of Might and Magic [open, read]
             //GameId = "D", // Dishonored [unreal]
-            GameId = "D2", // Dishonored 2 [open, read]
+            //GameId = "D2", // Dishonored 2 [open, read]
             //GameId = "P", // Prey [open, read]
             //GameId = "D:DOTO", // Dishonored: Death of the Outsider
             //GameId = "W:YB", // Wolfenstein: Youngblood
@@ -69,14 +69,14 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             // Game:Morrowind
-            ForcePath = "bookart/boethiah_256.dds",
+            //ForcePath = "bookart/boethiah_256.dds",
             //ForcePath = "icons/handtohand.dds",
 
             ForceOpen = true,
             Family = "Bethesda",
 
-            GameId = "Morrowind", // The Elder Scrolls III: Morrowind
-            //GameId = "Oblivion", // The Elder Scrolls IV: Oblivion
+            //GameId = "Morrowind", // The Elder Scrolls III: Morrowind
+            GameId = "Oblivion", // The Elder Scrolls IV: Oblivion
             //GameId = "Fallout3", // Fallout 3
             //GameId = "FalloutNV", // Fallout New Vegas
             //GameId = "Skyrim", // The Elder Scrolls V: Skyrim
@@ -87,8 +87,6 @@ namespace GameSpec
             //GameId = "SkyrimVR", // The Elder Scrolls V: Skyrim VR
             //GameId = "Fallout76", // Fallout 76
             //GameId = "Starfield", // Starfield (future)
-            //GameId = "Unknown1", // The Elder Scrolls VI (future)
-            //GameId = "Fallout5", // Fallout 5 (future)
         };
 #elif Bioware
         static string[] FamilyKeys = new[] { "Bioware", "Unknown" };

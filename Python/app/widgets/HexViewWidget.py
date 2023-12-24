@@ -77,7 +77,7 @@ class HexViewWidget(QWidget):
         if self.type == 'txt': # show strings as normal text files
             self.setWindowTitle(f'TextView: Viewing {filename}')
             self.showText()
-        elif self.type in ['audio', 'video', 'media']: # play the audio/video externally   
+        elif self.type in ['audio', 'video', 'media']: # play the audio/video externally
             self.setWindowTitle(f'MediaView: Viewing {filename}')
             self.showMedia()
         else: # show binary data in hexview
@@ -110,4 +110,4 @@ class HexViewWidget(QWidget):
     def closeEvent(self, e):
         self.text_edit = None
         self.layout = None
-        self.app.sub_widget_closed(self)
+        self.app.closeWidget(self)

@@ -40,26 +40,24 @@ match 'Bethesda':
 
         appDefaultOptions = DefaultOptions(
             # Game:Morrowind
-            ForcePath = "bookart/boethiah_256.dds",
-            #ForcePath = "icons/handtohand.dds",
+            # ForcePath = "bookart/boethiah_256.dds",
+            # ForcePath = "icons/handtohand.dds",
 
             ForceOpen = True,
             Family = "Bethesda",
 
-            GameId = "Morrowind", # The Elder Scrolls III: Morrowind
-            #GameId = "Oblivion", # The Elder Scrolls IV: Oblivion
-            #GameId = "Fallout3", # Fallout 3
-            #GameId = "FalloutNV", # Fallout New Vegas
-            #GameId = "Skyrim", # The Elder Scrolls V: Skyrim
-            #GameId = "Fallout4", # Fallout 4
-            #GameId = "SkyrimSE", # The Elder Scrolls V: Skyrim – Special Edition
-            #GameId = "Fallout:S", # Fallout Shelter
-            #GameId = "Fallout4VR", # Fallout 4 VR
-            #GameId = "SkyrimVR", # The Elder Scrolls V: Skyrim VR
-            #GameId = "Fallout76", # Fallout 76
-            #GameId = "Starfield", # Starfield (future)
-            #GameId = "Unknown1", # The Elder Scrolls VI (future)
-            #GameId = "Fallout5", # Fallout 5 (future)
+            # GameId = "Morrowind", # The Elder Scrolls III: Morrowind
+            GameId = "Oblivion", # The Elder Scrolls IV: Oblivion
+            # GameId = "Fallout3", # Fallout 3
+            # GameId = "FalloutNV", # Fallout New Vegas
+            # GameId = "Skyrim", # The Elder Scrolls V: Skyrim
+            # GameId = "Fallout4", # Fallout 4
+            # GameId = "SkyrimSE", # The Elder Scrolls V: Skyrim – Special Edition
+            # GameId = "Fallout:S", # Fallout Shelter
+            # GameId = "Fallout4VR", # Fallout 4 VR
+            # GameId = "SkyrimVR", # The Elder Scrolls V: Skyrim VR
+            # GameId = "Fallout76", # Fallout 76
+            # GameId = "Starfield", # Starfield (future)
         )
     case 'Bioware':
         familyKeys = [ "Bioware", "Unknown" ]

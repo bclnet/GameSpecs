@@ -40,10 +40,11 @@ namespace GameSpec.App.Explorer.Views
             if (family == null) return;
             foreach (var pakUri in pakUris)
             {
-                Status.WriteLine($"Opening {pakUri}");
-                PakFiles.Add(family.OpenPakFile(pakUri));
+                Log.WriteLine($"Opening {pakUri}");
+                var pak = family.OpenPakFile(pakUri);
+                if (pak != null) PakFiles.Add(pak);
             }
-            Status.WriteLine("Done");
+            Log.WriteLine("Done");
             OnOpenedAsync(family, path).Wait();
         }
 
@@ -64,7 +65,7 @@ namespace GameSpec.App.Explorer.Views
 
         public Task OnOpenedAsync(Family family, string path = null)
         {
-            var tabs = PakFiles.Where(x => x != null).Select(pakFile => new ExplorerMainTab
+            var tabs = PakFiles.Select(pakFile => new ExplorerMainTab
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
