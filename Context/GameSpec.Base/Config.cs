@@ -1,11 +1,11 @@
 ﻿//#define Arkane
-#define Bethesda
+//#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
 //#define Capcom
 //#define Cig
-//#define Cryptic
+#define Cryptic
 //#define Crytek
 //#define Cyanide
 //#define Epic
