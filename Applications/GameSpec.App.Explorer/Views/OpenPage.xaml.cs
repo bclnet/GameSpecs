@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -26,7 +27,7 @@ namespace GameSpec.App.Explorer.Views
         {
             InitializeComponent();
             DataContext = this;
-            if (!string.IsNullOrEmpty(Config.DefaultFamily)) Family.SelectedIndex = FamilyManager.Families.Keys.ToList().IndexOf(Config.DefaultFamily);
+            Loaded += OnReady;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -66,6 +67,13 @@ namespace GameSpec.App.Explorer.Views
             set { _familyGames = value; OnPropertyChanged(); }
         }
 
+        ICollection<FamilyGame.Edition> _familyGameEditions;
+        public ICollection<FamilyGame.Edition> FamilyGameEditions
+        {
+            get => _familyGameEditions;
+            set { _familyGameEditions = value; OnPropertyChanged(); }
+        }
+
         Uri _pakUri;
         public Uri PakUri
         {
@@ -91,18 +99,22 @@ namespace GameSpec.App.Explorer.Views
         {
             var selected = (Family)Family.SelectedItem;
             FamilyGames = selected?.Games.Values.Where(x => !x.Ignore).ToList();
-            if (selected.Id == Config.DefaultFamily && !string.IsNullOrEmpty(Config.DefaultGameId))
-            {
-                FamilyGame.SelectedIndex = ((List<FamilyGame>)FamilyGames).FindIndex(x => x.Id == Config.DefaultGameId);
-                if (Config.ForceOpen) Open_Click(null, null);
-            }
-            else FamilyGame.SelectedIndex = -1;
+            FamilyGame.SelectedIndex = -1;
         }
 
         void FamilyGame_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = (FamilyGame)FamilyGame.SelectedItem;
-            PakUris = selected?.ToPaks();
+            FamilyGameEditions = selected?.Editions.Values.ToList();
+            FamilyGameEdition.SelectedIndex = -1;
+            PakUris = selected?.ToPaks(null);
+        }
+
+        void FamilyGameEdition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedGame = (FamilyGame)FamilyGame.SelectedItem;
+            var selected = (FamilyGame.Edition)FamilyGameEdition.SelectedItem;
+            PakUris = selectedGame?.ToPaks(selected?.Id);
         }
 
         void PakUriFile_Click(object sender, RoutedEventArgs e)
@@ -150,6 +162,17 @@ namespace GameSpec.App.Explorer.Views
         {
             DialogResult = true;
             Close();
+        }
+
+        void OnReady(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Config.DefaultFamily)) return;
+            Family.SelectedIndex = FamilyManager.Families.Keys.ToList().IndexOf(Config.DefaultFamily);
+            if (string.IsNullOrEmpty(Config.DefaultGame)) return;
+            FamilyGame.SelectedIndex = ((List<FamilyGame>)FamilyGames).FindIndex(x => x.Id == Config.DefaultGame);
+            if (!string.IsNullOrEmpty(Config.DefaultEdition))
+                FamilyGameEdition.SelectedIndex = ((List<FamilyGame.Edition>)FamilyGameEditions).FindIndex(x => x.Id == Config.DefaultEdition);
+            if (Config.ForceOpen) Open_Click(null, null);
         }
     }
 }

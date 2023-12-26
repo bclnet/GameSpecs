@@ -12,12 +12,12 @@ namespace GameSpec.Crytek.Formats
     /// PakBinaryCry3
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public unsafe class PakBinaryCry3 : PakBinary
+    public unsafe class PakBinary_Cry3 : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryCry3();
+        public static readonly PakBinary Instance = new PakBinary_Cry3();
         readonly byte[] Key;
 
-        public PakBinaryCry3(byte[] key = null) => Key = key;
+        public PakBinary_Cry3(byte[] key = null) => Key = key;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

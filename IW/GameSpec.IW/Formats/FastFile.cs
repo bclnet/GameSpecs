@@ -7,8 +7,8 @@ using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using FF_Header = GameSpec.IW.Formats.PakBinaryIW.FF_Header;
-using FF_VERSION = GameSpec.IW.Formats.PakBinaryIW.FF_VERSION;
+using FF_Header = GameSpec.IW.Formats.PakBinary_IW.FF_Header;
+using FF_VERSION = GameSpec.IW.Formats.PakBinary_IW.FF_VERSION;
 
 namespace GameSpec.IW.Formats
 {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Frictional.Formats
 {
-    public unsafe class PakBinaryFrictional : PakBinary
+    public unsafe class PakBinary_Hpl : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryFrictional();
+        public static readonly PakBinary Instance = new PakBinary_Hpl();
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

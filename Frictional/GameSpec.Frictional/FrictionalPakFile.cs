@@ -21,7 +21,7 @@ namespace GameSpec.Frictional
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public FrictionalPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryFrictional.Instance, tag)
+        public FrictionalPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Hpl.Instance, tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }

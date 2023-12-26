@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Crytek.Formats
 {
-    public class PakBinaryArcheAge : PakBinary
+    public class PakBinary_ArcheAge : PakBinary
     {
         readonly byte[] Key;
 
-        public PakBinaryArcheAge(byte[] key) => Key = key;
+        public PakBinary_ArcheAge(byte[] key) => Key = key;
 
         // Header
         #region Header

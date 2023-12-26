@@ -1,25 +1,23 @@
 ﻿using GameSpec.Formats;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Capcom.Formats
+namespace GameSpec.Origin.Formats
 {
-    public unsafe class PakBinaryCapcom : PakBinary
+    public unsafe class PakBinary_UO : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryCapcom();
+        public static readonly PakBinary Instance = new PakBinary_UO();
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            var files = source.Files = new List<FileSource>();
-
             return Task.CompletedTask;
         }
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
-            throw new NotImplementedException();
+            r.Seek(file.Position);
+            return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));
         }
     }
 }

@@ -37,8 +37,8 @@ namespace GameSpec.Crytek
         static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
-                "ArcheAge" => new PakBinaryArcheAge((byte[])game.Key),
-                _ => new PakBinaryCry3((byte[])game.Key),
+                "ArcheAge" => new PakBinary_ArcheAge((byte[])game.Key),
+                _ => new PakBinary_Cry3((byte[])game.Key),
             };
 
         #endregion

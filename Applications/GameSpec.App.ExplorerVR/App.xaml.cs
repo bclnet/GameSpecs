@@ -75,7 +75,7 @@ namespace GameSpec.App.Explorer
         int RunDefault(DefaultOptions opts)
         {
             var page = (MainPage)MainPage;
-            page.OnFirstLoad();
+            page.OnReady();
             return 0;
         }
 
@@ -93,7 +93,7 @@ namespace GameSpec.App.Explorer
             // string startTest = "welcome";
 
             var page = (MainPage)MainPage;
-            page.OnFirstLoad();
+            page.OnReady();
             return 0;
         }
 

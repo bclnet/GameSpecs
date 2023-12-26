@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Cyanide.Formats
 {
-    public unsafe class PakBinaryCyanide : PakBinary
+    public unsafe class PakBinary_Cpk : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryCyanide();
+        public static readonly PakBinary Instance = new PakBinary_Cpk();
 
         // Headers
         #region Headers

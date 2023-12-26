@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Monolith.Formats
 {
-    public unsafe class PakBinaryLith : PakBinary
+    public unsafe class PakBinary_Lith : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryLith();
+        public static readonly PakBinary Instance = new PakBinary_Lith();
 
         // Headers
         #region X_Headers

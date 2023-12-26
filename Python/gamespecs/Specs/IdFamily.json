@@ -126,7 +126,11 @@
       "name": "Quake",
       "engine": "idTech2",
       "url": [ "https://store.steampowered.com/app/2310", "https://en.wikipedia.org/wiki/Quake_(video_game)" ],
-      "date": "1996-06-22"
+      "date": "1996-06-22",
+      "editions": {
+        "": { "name": "original" },
+        "remake": { "name": "rerelease", "path": "rerelease" }
+      }
     },
     "Q2": {
       "name": "Quake II",

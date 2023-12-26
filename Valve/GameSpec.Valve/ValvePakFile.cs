@@ -40,9 +40,9 @@ namespace GameSpec.Valve
         static PakBinary PakBinaryFactory(FamilyGame game, string extension)
             => game.Engine switch
             {
-                "Unity" => Unity.Formats.PakBinaryUnity.Instance,
-                "Source" => PakBinaryVpk.Instance,
-                "HL" => PakBinaryWad.Instance,
+                "Unity" => Unity.Formats.PakBinary_Unity.Instance,
+                "Source" => PakBinary_Vpk.Instance,
+                "HL" => PakBinary_Wad.Instance,
                 _ => null,
                 //_ => extension switch
                 //{

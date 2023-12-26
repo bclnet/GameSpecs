@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace GameSpec.Valve.Formats
 {
     // https://developer.valvesoftware.com/wiki/VPK_File_Format
-    public unsafe class PakBinaryVpk : PakBinary
+    public unsafe class PakBinary_Vpk : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryVpk();
+        public static readonly PakBinary Instance = new PakBinary_Vpk();
 
         #region Headers
 

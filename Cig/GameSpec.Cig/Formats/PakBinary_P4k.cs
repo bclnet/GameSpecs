@@ -14,9 +14,9 @@ namespace GameSpec.Cig.Formats
     /// PakBinaryP4k
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public class PakBinaryP4k : PakBinary
+    public class PakBinary_P4k : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryP4k();
+        public static readonly PakBinary Instance = new PakBinary_P4k();
         static readonly byte[] DefaultKey = new byte[] { 0x5E, 0x7A, 0x20, 0x02, 0x30, 0x2E, 0xEB, 0x1A, 0x3B, 0xB6, 0x17, 0xC3, 0x0F, 0xDE, 0x1E, 0x47 };
         readonly byte[] Key;
 
@@ -39,7 +39,7 @@ namespace GameSpec.Cig.Formats
             }
         }
 
-        PakBinaryP4k() => Key = DefaultKey;
+        PakBinary_P4k() => Key = DefaultKey;
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

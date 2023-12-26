@@ -271,7 +271,7 @@ namespace GameSpec
         /// <summary>
         /// Converts the Paks to Application Paks.
         /// </summary>
-        public IList<Uri> ToPaks() => Paks.Select(x => new Uri($"{x}#{Id}")).ToList();
+        public IList<Uri> ToPaks(string edition) => Paks.Select(x => new Uri($"{x}#{Id}")).ToList();
 
         #region Pak
 

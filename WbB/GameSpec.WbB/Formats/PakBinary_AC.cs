@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.WbB.Formats
 {
-    public unsafe class PakBinaryAC : PakBinary
+    public unsafe class PakBinary_AC : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryAC();
+        public static readonly PakBinary Instance = new PakBinary_AC();
 
         #region Headers
 

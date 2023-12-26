@@ -30,6 +30,10 @@ class OpenWidget(QWidget):
         gameInput = self.gameInput = QComboBox(self)
         gameInput.currentIndexChanged.connect(self.game_change)
 
+        editionLabel = QLabel(self); editionLabel.setText("Edition:")
+        editionInput = self.editionInput = QComboBox(self)
+        editionInput.currentIndexChanged.connect(self.edition_change)
+
         pak1uriLabel = QLabel(self); pak1uriLabel.setText("Resource Uri:")
         pak1uriInput = self.pak1uriInput = QLineEdit(self)
         pak1uriButton = QPushButton(self); pak1uriButton.setText("*")
@@ -53,20 +57,15 @@ class OpenWidget(QWidget):
         layout = QGridLayout()
         layout.addWidget(familyLabel, 0, 0); layout.addWidget(familyInput, 0, 1)
         layout.addWidget(gameLabel, 1, 0); layout.addWidget(gameInput, 1, 1)
-        layout.addWidget(pak1uriLabel, 2, 0); layout.addWidget(pak1uriInput, 2, 1); layout.addWidget(pak1uriButton, 2, 2)
-        layout.addWidget(pak2uriLabel, 3, 0); layout.addWidget(pak2uriInput, 3, 1); layout.addWidget(pak2uriButton, 3, 2)
-        layout.addWidget(pak3uriLabel, 4, 0); layout.addWidget(pak3uriInput, 4, 1); layout.addWidget(pak3uriButton, 4, 2)
-        layout.addWidget(cancelButton, 5, 1); layout.addWidget(openButton, 5, 2)
+        layout.addWidget(editionLabel, 2, 0); layout.addWidget(editionInput, 2, 1)
+        layout.addWidget(pak1uriLabel, 3, 0); layout.addWidget(pak1uriInput, 3, 1); layout.addWidget(pak1uriButton, 3, 2)
+        layout.addWidget(pak2uriLabel, 4, 0); layout.addWidget(pak2uriInput, 4, 1); layout.addWidget(pak2uriButton, 4, 2)
+        layout.addWidget(pak3uriLabel, 5, 0); layout.addWidget(pak3uriInput, 5, 1); layout.addWidget(pak3uriButton, 5, 2)
+        layout.addWidget(cancelButton, 6, 1); layout.addWidget(openButton, 6, 2)
         self.setLayout(layout)
         # setup
-        self.setup()
-
-    def setup(self):
         self.familyInput.addItems([None] + [x.name for x in familyValues])
-        # default family
-        if config.Family:
-            index = [x.id for x in familyValues].index(config.Family)
-            self.familyInput.setCurrentIndex(index + 1)
+        self.onReady()
 
     def closeEvent(self, e=None):
         self.app.closeWidget(self)
@@ -92,18 +91,23 @@ class OpenWidget(QWidget):
 
     def family_change(self, index):
         selected = self.familySelected = familyValues[index - 1] if index > 0 else None
+        # related
         self.gameInput.clear()
         if not selected or not selected.games: return
         self.gameValues = list(selected.games.values())
         self.gameInput.addItems([None] + [x.name for x in self.gameValues])
-        # default game
-        if self.familySelected.id == config.Family and config.GameId:
-            index = [x.id for x in self.gameValues].index(config.GameId)
-            self.gameInput.setCurrentIndex(index + 1)
 
     def game_change(self, index):
         selected = self.gameSelected = self.gameValues[index - 1] if index > 0 else None
         self.pakUris = selected.toPaks() if selected else None
+        # related
+        self.editionInput.clear()
+        if not selected or not selected.editions: return
+        self.editionValues = list(selected.editions.values())
+        self.editionInput.addItems([None] + [x.name for x in self.editionValues])
+
+    def edition_change(self, index):
+        selected = self.editionSelected = self.editionValues[index - 1] if index > 0 else None
 
     def pak1uri_click(self):
         openDialog = QFileDialog.getExistingDirectory(self, "Directory", os.getcwd())
@@ -134,5 +138,10 @@ class OpenWidget(QWidget):
         self.close()
 
     def onReady(self):
-        if self.familySelected.id == config.Family and config.GameId and config.ForceOpen:
-            self.open_click()
+        if not config.Family: return
+        self.familyInput.setCurrentIndex([x.id for x in familyValues].index(config.Family) + 1)
+        if not config.Game: return
+        self.gameInput.setCurrentIndex([x.id for x in self.gameValues].index(config.Game) + 1)
+        if not config.Edition: return
+        self.editionInput.setCurrentIndex([x.id for x in self.editionValues].index(config.Edition) + 1)
+        if config.ForceOpen: self.open_click()

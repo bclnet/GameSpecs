@@ -71,7 +71,9 @@
   },
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom",
+      "searchBy": "Pak",
+      "pak": "game:/"
     },
     "Arcade": {
       "name": "Capcom Arcade Stadium",

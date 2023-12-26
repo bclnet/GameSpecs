@@ -69,14 +69,14 @@ namespace GameSpec.App.Explorer
         int RunDefault(DefaultOptions opts)
         {
             var page = (AppShell)MainPage;
-            page.OnFirstLoad().Wait();
+            page.OnReady();
             return 0;
         }
 
         int RunTest(TestOptions opts)
         {
             var page = (AppShell)MainPage;
-            page.OnFirstLoad().Wait();
+            page.OnReady();
             return 0;
         }
 

@@ -67,9 +67,9 @@ namespace GameSpec.App.Explorer
 
         #endregion
 
-        static int RunDefault(DefaultOptions opts) { var page = new MainPage(); page.OnFirstLoad(); page.Show(); return 0; }
+        static int RunDefault(DefaultOptions opts) { var page = new MainPage(); page.OnReady(); page.Show(); return 0; }
 
-        static int RunTest(TestOptions opts) { var page = new MainPage(); page.OnFirstLoad(); page.Show(); return 0; }
+        static int RunTest(TestOptions opts) { var page = new MainPage(); page.OnReady(); page.Show(); return 0; }
 
         static int RunOpen(OpenOptions opts) { var page = new MainPage().Open(FamilyManager.GetFamily(opts.Family), new[] { opts.Uri }, opts.Path); page.Show(); return 0; }
 

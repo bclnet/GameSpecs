@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats
 {
-    public unsafe class PakBinaryOriginU9 : PakBinary
+    public unsafe class PakBinary_U9 : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryOriginU9();
+        public static readonly PakBinary Instance = new PakBinary_U9();
 
         // Headers
         #region Headers

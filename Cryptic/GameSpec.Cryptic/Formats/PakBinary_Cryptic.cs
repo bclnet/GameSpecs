@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace GameSpec.Cryptic.Formats
 {
     // https://github.com/nohbdy/libhogg
-    public unsafe class PakBinaryCryptic : PakBinary
+    public unsafe class PakBinary_Cryptic : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryCryptic();
+        public static readonly PakBinary Instance = new PakBinary_Cryptic();
 
         // Headers
         #region Headers

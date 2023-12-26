@@ -25,8 +25,6 @@
         // https://dev.to/davidortinau/making-a-tabbar-or-segmentedcontrol-in-net-maui-54ha
         void MainTab_Changed(object sender, CheckedChangedEventArgs e) => MainTabContent.BindingContext = ((RadioButton)sender).BindingContext;
 
-        internal void OnFirstLoad() => OpenPage_Click(null, null);
-
         public void Open(Family family, IEnumerable<Uri> pakUris, string path = null)
         {
             foreach (var pakFile in PakFiles) pakFile?.Dispose();
@@ -75,11 +73,17 @@
             return Task.CompletedTask;
         }
 
+        internal void OnReady()
+        {
+            OpenPage_Click(null, null);
+        }
+
         #region Menu
 
         void OpenPage_Click(object sender, EventArgs e)
         {
             var openPage = new OpenPage();
+            openPage.OnReady();
             Navigation.PushModalAsync(openPage).Wait();
         }
 

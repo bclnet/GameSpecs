@@ -21,7 +21,7 @@ namespace GameSpec.Frontier
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public FrontierPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryFrontier.Instance, tag)
+        public FrontierPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Frontier.Instance, tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }

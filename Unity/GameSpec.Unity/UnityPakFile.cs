@@ -21,7 +21,7 @@ namespace GameSpec.Unity
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryUnity.Instance, tag)
+        public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Unity.Instance, tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }

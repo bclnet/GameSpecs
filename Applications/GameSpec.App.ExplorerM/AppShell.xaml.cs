@@ -10,9 +10,10 @@ namespace GameSpec.App.Explorer
             Application.Current.MainPage = this;
         }
 
-        internal Task OnFirstLoad()
+        internal Task OnReady()
         {
             var openPage = new OpenPage();
+            openPage.OnReady();
             Navigation.PushAsync(openPage);
             return Task.CompletedTask;
         }

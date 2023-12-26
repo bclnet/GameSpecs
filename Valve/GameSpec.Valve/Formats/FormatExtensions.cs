@@ -21,7 +21,7 @@ namespace GameSpec.Valve.Formats
                 var input = r.Peek(z => z.ReadBytes(6));
                 var magic = BitConverter.ToUInt32(input, 0);
                 var magicResourceVersion = BitConverter.ToUInt16(input, 4);
-                if (magic == PakBinaryVpk.MAGIC) throw new InvalidOperationException("Pak File");
+                if (magic == PakBinary_Vpk.MAGIC) throw new InvalidOperationException("Pak File");
                 else if (magic == CompiledShader.MAGIC) return Task.FromResult((object)new CompiledShader(r, f.Path));
                 else if (magic == ClosedCaptions.MAGIC) return Task.FromResult((object)new ClosedCaptions(r));
                 else if (magic == ToolsAssetInfo.MAGIC) return Task.FromResult((object)new ToolsAssetInfo(r));

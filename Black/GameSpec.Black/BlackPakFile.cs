@@ -32,10 +32,10 @@ namespace GameSpec.Black
 
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
             => string.IsNullOrEmpty(filePath)
-                ? PakBinaryBlackDat.Instance
+                ? PakBinary_Dat.Instance
                 : Path.GetExtension(filePath).ToLowerInvariant() switch
                 {
-                    ".dat" => PakBinaryBlackDat.Instance,
+                    ".dat" => PakBinary_Dat.Instance,
                     _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
                 };
 

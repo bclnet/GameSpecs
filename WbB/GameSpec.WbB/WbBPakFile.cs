@@ -24,7 +24,7 @@ namespace GameSpec.WbB
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public WbBPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryAC.Instance, tag)
+        public WbBPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinary_AC.Instance, tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             UseFileId = true;

@@ -49,8 +49,6 @@ namespace GameSpec.App.Explorer.Views
             DataContext = this;
         }
 
-        public void OnFirstLoad() => OpenPage_Click(null, null);
-
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
@@ -68,7 +66,6 @@ namespace GameSpec.App.Explorer.Views
             }
             Log.WriteLine("Done");
             OnOpenedAsync(family, path).Wait();
-            OnReady();
             return this;
         }
 
@@ -119,10 +116,11 @@ namespace GameSpec.App.Explorer.Views
             app.OpenAsync(app.ExplorerType, Manager).Wait();
         }
 
-        void OnReady()
+        internal void OnReady()
         {
             if (!string.IsNullOrEmpty(Config.ForcePath) && Config.ForcePath.StartsWith("app:") && FamilyApps != null && FamilyApps.TryGetValue(Config.ForcePath[4..], out var app))
                 App_Click(new Button { DataContext = app }, null);
+            OpenPage_Click(null, null);
         }
 
         #region Menu

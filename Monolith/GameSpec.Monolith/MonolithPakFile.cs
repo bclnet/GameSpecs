@@ -32,7 +32,7 @@ namespace GameSpec.Monolith
 
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
             => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
-                ? PakBinaryLith.Instance
+                ? PakBinary_Lith.Instance
                 : PakBinarySystemZip.Instance;
 
         #endregion

@@ -30,8 +30,8 @@ namespace GameSpec.Origin
 
         static PakBinary GetPakBinary(FamilyGame game)
             => game.Id == "UO"
-            ? PakBinaryOriginUO.Instance
-            : PakBinaryOriginU9.Instance;
+            ? PakBinary_UO.Instance
+            : PakBinary_U9.Instance;
 
         #endregion
 

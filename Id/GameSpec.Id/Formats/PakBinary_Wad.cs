@@ -1,20 +1,17 @@
 ﻿using GameSpec.Formats;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace GameSpec.Id.Formats
 {
-    public unsafe class PakBinaryId : PakBinary
+    public unsafe class PakBinary_Wad : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryId();
-        PakBinaryId() { }
+        public static readonly PakBinary Instance = new PakBinary_Wad();
+        PakBinary_Wad() { }
 
         // Headers
-        // https://github.com/Rupan/HLLib/blob/master/HLLib/WADFile.h
         #region WAD
 
         const uint WAD_MAGIC = 0x33444157; //: WAD3
@@ -53,16 +50,8 @@ namespace GameSpec.Id.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             // read file
-            switch (Path.GetExtension(source.FilePath).ToLowerInvariant())
-            {
-                case ".wad":
-                    {
-                        var header = r.ReadT<WAD_Header>(sizeof(WAD_Header));
-                        if (header.Signature != WAD_MAGIC) throw new FormatException("BAD MAGIC");
-                        break;
-                    }
-            }
-
+            var header = r.ReadT<WAD_Header>(sizeof(WAD_Header));
+            if (header.Signature != WAD_MAGIC) throw new FormatException("BAD MAGIC");
             return Task.CompletedTask;
         }
 

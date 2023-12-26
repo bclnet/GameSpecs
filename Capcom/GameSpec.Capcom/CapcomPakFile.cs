@@ -7,6 +7,7 @@ using GameSpec.Transforms;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System;
+using System.IO;
 
 namespace GameSpec.Capcom
 {
@@ -23,7 +24,7 @@ namespace GameSpec.Capcom
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
+        public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
             GetObjectFactoryFactory = game.Engine switch
             {
@@ -36,15 +37,21 @@ namespace GameSpec.Capcom
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPakBinary(FamilyGame game)
-            => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game));
+        static PakBinary GetPakBinary(FamilyGame game, string filePath)
+            => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game, filePath));
 
-        static PakBinary PakBinaryFactory(FamilyGame game)
+        static PakBinary PakBinaryFactory(FamilyGame game, string filePath)
             => game.Engine switch
             {
-                "Capcom" => PakBinaryCapcom.Instance,
-                "Unity" => Unity.Formats.PakBinaryUnity.Instance,
-                _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
+                "Unity" => Unity.Formats.PakBinary_Unity.Instance,
+                _ => Path.GetExtension(filePath).ToLowerInvariant() switch
+                {
+                    ".arc" => PakBinary_Arc.Instance,
+                    ".big" => PakBinary_Big.Instance,
+                    ".bundle" => PakBinary_Bundle.Instance,
+                    ".mbundle" => PakBinary_MBundle.Instance,
+                    _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
+                },
             };
 
         #endregion

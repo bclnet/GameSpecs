@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Frontier.Formats
+namespace GameSpec.Capcom.Formats
 {
-    public unsafe class PakBinaryFrontier : PakBinary
+    public unsafe class PakBinary_Bundle : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryFrontier();
+        public static readonly PakBinary Instance = new PakBinary_Bundle();
 
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace GameSpec.Black.Formats
 {
     // Fallout 2
-    public unsafe class PakBinaryBlackDat : PakBinary
+    public unsafe class PakBinary_Dat : PakBinary
     {
-        public static readonly PakBinary Instance = new PakBinaryBlackDat();
+        public static readonly PakBinary Instance = new PakBinary_Dat();
 
         // Header : F1
         #region Header : F1
@@ -79,9 +79,7 @@ namespace GameSpec.Black.Formats
         {
             var gameId = source.Game.Id;
 
-            if (!string.Equals(Path.GetExtension(source.FilePath), ".dat", StringComparison.OrdinalIgnoreCase))
-                throw new InvalidOperationException("BAD MAGIC");
-
+            // Fallout
             if (gameId == "Fallout")
             {
                 source.Magic = F1_HEADER_FILEID;
@@ -110,6 +108,8 @@ namespace GameSpec.Black.Formats
                     }
                 }
             }
+
+            // Fallout2
             else if (gameId == "Fallout2")
             {
                 source.Magic = F2_HEADER_FILEID;

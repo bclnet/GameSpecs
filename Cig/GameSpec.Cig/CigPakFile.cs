@@ -21,7 +21,7 @@ namespace GameSpec.Cig
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CigPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinaryP4k.Instance, tag)
+        public CigPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_P4k.Instance, tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
