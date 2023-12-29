@@ -4,16 +4,13 @@ from gamespecs import familymgr
 family = familymgr.getFamily('Capcom')
 print(f'studio: {family.studio}')
 
+# file = ('game:/re_chunk_000.pak#Arcade', 'File0001.tex')
+file = ('game:/arc/pc/game.arc#Fighting:C', 'common/pause_blur.sdl')
+
 # get pak with game:/uri
-pakFile = family.openPakFile('game:/Morrowind.bsa#Morrowind')
-# pakFile = family.openPakFile('game:/Oblivion - Meshes.bsa#Oblivion')
-# pakFile = family.openPakFile('game:/Fallout - Meshes.bsa#Fallout3')
-# pakFile = family.openPakFile('game:/Fallout4 - Meshes.ba2#Fallout4')
+pakFile = family.openPakFile(file[0])
 print(f'pak: {pakFile}')
 
 # get file
-# data = pakFile.loadFileData('bookart/boethiah_256.dds')
-# data = pakFile.loadFileData('GRAPH/particles/DEFAULT.jpg')
-# data = pakFile.loadFileData('strings/english_m.lang')
-# data = pakFile.loadFileData('Meshes/Marker_Error.NIF')
-# print(f'dat: {data}')
+data = pakFile.loadFileData(file[1])
+print(f'dat: {data}')

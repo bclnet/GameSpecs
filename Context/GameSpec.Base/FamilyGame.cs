@@ -51,7 +51,7 @@ namespace GameSpec
             public Edition(string id, JsonElement elem)
             {
                 Id = id;
-                Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+                Name = _value(elem, "name") ?? id;
                 Key = _method(elem, "key", ParseKey);
             }
         }
@@ -83,7 +83,7 @@ namespace GameSpec
             public DownloadableContent(string id, JsonElement elem)
             {
                 Id = id;
-                Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+                Name = _value(elem, "name") ?? id;
                 Path = _value(elem, "path");
             }
         }
@@ -111,7 +111,7 @@ namespace GameSpec
             public Locale(string id, JsonElement elem)
             {
                 Id = id;
-                Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+                Name = _value(elem, "name") ?? id;
             }
         }
 
@@ -138,6 +138,10 @@ namespace GameSpec
         /// Gets or sets the game engine.
         /// </summary>
         public string Engine { get; set; }
+        /// <summary>
+        /// Gets or sets the game resource.
+        /// </summary>
+        public string Resource { get; set; }
         /// <summary>
         /// Gets or sets the game urls.
         /// </summary>
@@ -181,7 +185,7 @@ namespace GameSpec
         /// <summary>
         /// Gets or sets the Status.
         /// </summary>
-        public string[] Status { get; set; }
+        //public string[] Status { get; set; }
         /// <summary>
         /// Gets or sets the Tags.
         /// </summary>
@@ -232,23 +236,24 @@ namespace GameSpec
         {
             Family = family;
             Id = id;
-            Ignore = _valueBool(elem, "n/a", dgame != null && dgame.Ignore);
+            Ignore = _valueBool(elem, "n/a", dgame.Ignore);
             Name = _value(elem, "name");
-            Engine = _value(elem, "engine", dgame?.Engine);
+            Engine = _value(elem, "engine", dgame.Engine);
+            Resource = _value(elem, "resource", dgame.Resource);
             Urls = _list(elem, "url", x => new Uri(x));
             Date = _value(elem, "date", z => DateTime.Parse(z.GetString()));
-            Option = _value(elem, "option", z => Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}"), dgame != null ? dgame.Option : default);
-            Paks = _list(elem, "pak", x => new Uri(x), dgame?.Paks);
-            Dats = _list(elem, "dat", x => new Uri(x), dgame?.Dats);
-            Paths = _list(elem, "path", dgame?.Paths);
-            Key = _method(elem, "key", ParseKey, dgame?.Key);
-            Status = _list(elem, "status");
-            Tags = _list(elem, "tags");
+            Option = _value(elem, "option", z => Enum.TryParse<GameOption>(z.GetString(), true, out var zT) ? zT : throw new ArgumentOutOfRangeException("option", $"Unknown option: {z}"), dgame.Option);
+            Paks = _list(elem, "pak", x => new Uri(x), dgame.Paks);
+            Dats = _list(elem, "dat", x => new Uri(x), dgame.Dats);
+            Paths = _list(elem, "path", dgame.Paths);
+            Key = _method(elem, "key", ParseKey, dgame.Key);
+            //Status = _value(elem, "status");
+            Tags = _value(elem, "tags", string.Empty).Split(' ');
             // interface
-            FileSystemType = _value(elem, "fileSystemType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}"), dgame?.FileSystemType);
-            SearchBy = _value(elem, "searchBy", z => Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}"), dgame != null ? dgame.SearchBy : default);
-            PakFileType = _value(elem, "pakFileType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}"), dgame?.PakFileType);
-            PakExts = _list(elem, "pakExt", dgame?.PakExts);
+            FileSystemType = _value(elem, "fileSystemType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("fileSystemType", $"Unknown type: {z}"), dgame.FileSystemType);
+            SearchBy = _value(elem, "searchBy", z => Enum.TryParse<SearchBy>(z.GetString(), true, out var zS) ? zS : throw new ArgumentOutOfRangeException("searchBy", $"Unknown option: {z}"), dgame.SearchBy);
+            PakFileType = _value(elem, "pakFileType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("pakFileType", $"Unknown type: {z}"), dgame.PakFileType);
+            PakExts = _list(elem, "pakExt", dgame.PakExts);
             // related
             Editions = _related(elem, "editions", (k, v) => new Edition(k, v));
             Dlcs = _related(elem, "dlcs", (k, v) => new DownloadableContent(k, v));
@@ -299,28 +304,29 @@ namespace GameSpec
         /// <summary>
         /// Create pak file.
         /// </summary>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        internal PakFile CreatePakFile(IFileSystem fileSystem, string searchPattern, bool throwOnError)
+        internal PakFile CreatePakFile(IFileSystem fileSystem, Edition edition, string searchPattern, bool throwOnError)
         {
             if (fileSystem is HostFileSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
             searchPattern = CreateSearchPatterns(searchPattern);
             if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
-            foreach (var p in FindPaths(fileSystem, searchPattern))
-                switch (SearchBy)
-                {
-                    case SearchBy.Pak:
-                        foreach (var path in p.paths)
-                            if (IsPakFile(path)) pakFiles.Add(CreatePakFileObj(fileSystem, path));
-                        break;
-                    default:
-                        pakFiles.Add(CreatePakFileObj(fileSystem, p));
-                        break;
-                }
+            foreach (var key in (new string[] { null }).Concat(Dlcs.Keys))
+                foreach (var p in FindPaths(fileSystem, edition, key != null ? Dlcs[key] : null, searchPattern))
+                    switch (SearchBy)
+                    {
+                        case SearchBy.Pak:
+                            foreach (var path in p.paths)
+                                if (IsPakFile(path)) pakFiles.Add(CreatePakFileObj(fileSystem, path));
+                            break;
+                        default:
+                            pakFiles.Add(CreatePakFileObj(fileSystem, p));
+                            break;
+                    }
             return WithPlatformGraphic(CreatePakFileObj(fileSystem, pakFiles));
         }
 
@@ -338,7 +344,7 @@ namespace GameSpec
                 : throw new InvalidOperationException($"{Id} missing {v}"),
             ValueTuple<string, string[]> v => v.Item2.Length == 1 && IsPakFile(v.Item2[0])
                 ? CreatePakFileObj(fileSystem, v.Item2[0], tag)
-                : new ManyPakFile(CreatePakFileType(fileSystem, "Base", tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
+                : new ManyPakFile(CreatePakFileType(fileSystem, null, tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
                 {
                     VisualPathSkip = v.Item1.Length > 0 ? v.Item1.Length + 1 : 0
                 },
@@ -366,18 +372,19 @@ namespace GameSpec
         public bool IsPakFile(string path) => PakExts != null && PakExts.Any(x => path.EndsWith(x, StringComparison.OrdinalIgnoreCase));
 
         /// <summary>
-        /// Get the games paths.
+        /// Find the games paths.
         /// </summary>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <returns></returns>
-        public IEnumerable<(string root, string[] paths)> FindPaths(IFileSystem fileSystem, string searchPattern)
+        public IEnumerable<(string root, string[] paths)> FindPaths(IFileSystem fileSystem, Edition edition, DownloadableContent dlc, string searchPattern)
         {
             var gameIgnores = Family.FileManager.Ignores.TryGetValue(Id, out var z) ? z : null;
             foreach (var path in Paths ?? new[] { "" })
             {
-                var fileSearch = fileSystem.FindPaths(path, searchPattern);
+                var dlcPath = dlc?.Path != null ? Path.Join(path, dlc.Path) : path;
+                var fileSearch = fileSystem.FindPaths(dlcPath, searchPattern);
                 if (gameIgnores != null) fileSearch = fileSearch.Where(x => !gameIgnores.Contains(Path.GetFileName(x)));
                 yield return (path, fileSearch.ToArray());
             }
@@ -395,7 +402,7 @@ namespace GameSpec
             {
                 SearchBy.None => null,
                 SearchBy.Pak => PakExts == null || PakExts.Length == 0 ? ""
-                    : PakExts.Length == 1 ? $"*{PakExts[0]}" : $"({string.Join("*:", PakExts)})",
+                    : PakExts.Length == 1 ? $"*{PakExts[0]}" : $"(*{string.Join(":*", PakExts)})",
                 SearchBy.TopDir => "*",
                 SearchBy.TwoDir => "*/*",
                 SearchBy.AllDir => "**/*",

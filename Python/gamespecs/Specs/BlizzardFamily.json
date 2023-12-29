@@ -6,8 +6,7 @@
   "url": [ "https://en.wikipedia.org/wiki/Blizzard_Entertainment", "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games" ],
   "games": {
     "*": {
-      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard",
-      "pak": "game:/"
+      "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard"
     },
     "TDAROS": {
       "n/a": true,

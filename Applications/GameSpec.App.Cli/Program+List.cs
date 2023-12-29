@@ -44,7 +44,7 @@ namespace GameSpec.App.Cli
                 var paths = family.FileManager.Paths;
                 Console.WriteLine("\nPaths:");
                 if (paths.Count == 0) { Console.WriteLine($"No paths found for family \"{args.Family}\"."); return Task.FromResult(0); }
-                foreach (var path in paths) Console.WriteLine($"{family.GetGame(path.Key)} - {string.Join(", ", path.Value)}");
+                foreach (var path in paths) Console.WriteLine($"{family.GetGame(path.Key, out var _)} - {string.Join(", ", path.Value)}");
                 return Task.FromResult(0);
             }
 

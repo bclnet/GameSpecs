@@ -157,9 +157,9 @@ namespace GameSpec
             //Game = "GNG:R", // Ghosts 'n Goblins Resurrection
             //Game = "MM:LC", // Mega Man Legacy Collection
             //Game = "MM:LC2", // Mega Man Legacy Collection 2
-            //Game = "MM:XD", // Mega Man X DiVE
+            //Game = "MM:XD", // Mega Man X DiVE [Unity]
             //Game = "MMZX:LC", // Mega Man Zero/ZX Legacy Collection
-            //Game = "MH:R", // Monster Hunter Rise
+            Game = "MHR", // Monster Hunter Rise
             //Game = "MH:S2", // Monster Hunter Stories 2: Wings of Ruin
 
             //Game = "PWAA:T", // Phoenix Wright: Ace Attorney Trilogy
@@ -167,10 +167,9 @@ namespace GameSpec
             //Game = "RER", // Resident Evil Resistance
             //Game = "RE:RV", // Resident Evil Re:Verse
 
-            Game = "Disney:AC", // The Disney Afternoon Collection
+            //Game = "Disney:AC", // The Disney Afternoon Collection
             //Game = "TGAA:C", // The Great Ace Attorney Chronicles
             //Game = "USF4", // Ultra Street Fighter IV
-
 
             //Game = "BionicCommando", // Bionic Commando (2009 video game)
             //Game = "BionicCommando:R", // Bionic Commando Rearmed

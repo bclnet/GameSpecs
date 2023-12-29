@@ -135,12 +135,19 @@
       "date": "1996-01-01"
     },
     "RE7:BH": {
+      "n/a": false,
       "name": "Resident Evil 7: Biohazard",
-      "url": "https://en.wikipedia.org/wiki/Resident_Evil_7:_Biohazard",
-      "date": "2017-01-24"
+      "url": [
+        "https://store.steampowered.com/app/418370",
+        "https://en.wikipedia.org/wiki/Resident_Evil_7:_Biohazard"
+      ],
+      "date": "2017-01-24",
+      "engine": "RE",
+      "resource": "RE7_PC_Release",
+      "pakExt": ".pak"
     },
     "RE:VC": {
-      "name": "Resident Evil – Code: Veronica",
+      "name": "Resident Evil - Code: Veronica",
       "url": "https://en.wikipedia.org/wiki/Resident_Evil_%E2%80%93_Code:_Veronica",
       "date": "2000-02-03"
     },
@@ -275,7 +282,7 @@
       "url": "https://en.wikipedia.org/wiki/Cannon_Spike",
       "date": "2000-01-01"
     },
-    "Arcade:S": {
+    "CAS2": {
       "n/a": false,
       "name": "Capcom Arcade 2nd Stadium",
       "url": [
@@ -283,14 +290,16 @@
         "https://en.wikipedia.org/wiki/Capcom_Arcade_Stadium#Capcom_Arcade_2nd_Stadium"
       ],
       "date": "2022-07-22",
+      "engine": "RE",
+      "resource": "CAS2_PC_Release",
       "pakExt": ".pak"
     },
-    "Arcade:C": {
+    "CAC": {
       "name": "Capcom Arcade Cabinet",
       "url": "https://en.wikipedia.org/wiki/Capcom_Arcade_Cabinet",
       "date": "2003-11-11"
     },
-    "Arcade:V2": {
+    "CAH:V2": {
       "name": "Capcom Arcade Hits Volume 2",
       "date": "2003-01-01"
     },
@@ -721,6 +730,8 @@
         "https://store.steampowered.com/app/601150",
         "https://en.wikipedia.org/wiki/Devil_May_Cry_5"
       ],
+      "engine": "RE",
+      "resource": "DMC5_PC_Release",
       "date": "2019-03-08",
       "pakExt": ".pak"
     },
@@ -835,7 +846,8 @@
     "Dragon2": {
       "name": "Dragon's Dogma II",
       "url": "https://en.wikipedia.org/wiki/Dragon%27s_Dogma#Sequel",
-      "date": "2008-11-11"
+      "date": "2008-11-11",
+      "engine": "RE"
     },
     "DT": {
       "name": "DuckTales",
@@ -888,6 +900,11 @@
   },
   "fileManager": {
     "application": {
+      "RE7:BH": {
+        "key": "Steam:418370",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 418370",
+        "dir": "RESIDENT EVIL 7 biohazard"
+      },
       "BionicCommando": {
         "key": "Steam:21670",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21670",
@@ -900,7 +917,7 @@
         "dir": "Bionic Commando Rearmed",
         "path": "bundles"
       },
-      "Arcade:S": {
+      "CAS2": {
         "key": "Steam:1755910",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1755910",
         "dir": "Capcom Arcade 2nd Stadium",

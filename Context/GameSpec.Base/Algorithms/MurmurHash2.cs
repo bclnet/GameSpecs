@@ -10,23 +10,23 @@ namespace GameSpec.Algorithms
         public static uint Hash(string data, uint seed) => Hash(Encoding.ASCII.GetBytes(data), seed);
         public static uint Hash(byte[] data, uint seed)
         {
-            var length = data.Length;
-            if (length == 0) return 0;
+            var l = data.Length;
+            if (l == 0) return 0;
 
-            var h = seed ^ (uint)length;
-            var currentIndex = 0;
-            while (length >= 4)
+            var h = seed ^ (uint)l;
+            var i = 0;
+            while (l >= 4)
             {
-                var k = (uint)(data[currentIndex++] | data[currentIndex++] << 8 | data[currentIndex++] << 16 | data[currentIndex++] << 24);
+                var k = (uint)(data[i++] | data[i++] << 8 | data[i++] << 16 | data[i++] << 24);
                 k *= M; k ^= k >> R; k *= M;
-                h *= M; h ^= k; length -= 4;
+                h *= M; h ^= k; l -= 4;
             }
 
-            switch (length)
+            switch (l)
             {
-                case 3: h ^= (ushort)(data[currentIndex++] | data[currentIndex++] << 8); h ^= (uint)(data[currentIndex] << 16); h *= M; break;
-                case 2: h ^= (ushort)(data[currentIndex++] | data[currentIndex] << 8); h *= M; break;
-                case 1: h ^= data[currentIndex]; h *= M; break;
+                case 3: h ^= (ushort)(data[i++] | data[i++] << 8); h ^= (uint)(data[i] << 16); h *= M; break;
+                case 2: h ^= (ushort)(data[i++] | data[i] << 8); h *= M; break;
+                case 1: h ^= data[i]; h *= M; break;
                 default: break;
             }
             h ^= h >> 13;

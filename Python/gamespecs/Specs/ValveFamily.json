@@ -9,8 +9,7 @@
       "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",
       "engine": "HL",
       "searchBy": "AllDir",
-      "pakExt": ".wad",
-      "pak": "game:/"
+      "pakExt": ".wad"
     },
     "HL": {
       "name": "Half-Life",
@@ -18,7 +17,7 @@
       "date": "1998-11-08",
       "tags": "HalfLife",
       "path": [ "valve", "valve_hd" ],
-      "status": [ "open", "read", "texture:GL" ]
+      "status": "open;read;texture:GL"
     },
     "TF": {
       "name": "Team Fortress Classic",
@@ -26,7 +25,7 @@
       "date": "1999-04-01",
       "tags": "TeamFortress",
       "path": "tfc",
-      "status": [ "open", "read", "texture:GL" ]
+      "status": "open;read;texture:GL"
     },
     "HL:OF": {
       "name": "Half-Life: Opposing Force",
@@ -34,7 +33,7 @@
       "date": "1999-11-01",
       "tags": "HalfLife",
       "path": [ "gearbox", "gearbox_hd" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "CS": {
       "name": "Counter-Strike",
@@ -42,7 +41,7 @@
       "date": "2000-11-01",
       "tags": "CounterStrike",
       "path": "cstrike",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "Ricochet": {
       "name": "Ricochet",
@@ -50,7 +49,7 @@
       "date": "2000-11-01",
       "tags": "",
       "path": "ricochet",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "DM": {
       "name": "Deathmatch Classic",
@@ -58,7 +57,7 @@
       "date": "2001-06-01",
       "tags": "HalfLife",
       "path": "dmc",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "HL:BS": {
       "name": "Half-Life: Blue Shift",
@@ -66,7 +65,7 @@
       "date": "2001-06-01",
       "tags": "HalfLife",
       "path": "bshift",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "DOD": {
       "name": "Day of Defeat",
@@ -74,7 +73,7 @@
       "date": "2003-05-01",
       "tags": "DayOfDefeat",
       "path": "dod",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "CS:CZ": {
       "name": "Counter-Strike: Condition Zero",
@@ -82,7 +81,7 @@
       "date": "2004-05-01",
       "tags": "CounterStrike",
       "path": "czero",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "*2": {
       "engine": "Source",
@@ -94,7 +93,7 @@
       "date": "2004-06-01",
       "tags": "HalfLife",
       "path": [ "platform", "hl1" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "CS:Src": {
       "name": "Counter-Strike: Source",
@@ -102,7 +101,7 @@
       "date": "2004-11-01",
       "tags": "CounterStrike",
       "path": [ "platform", "hl2", "cstrike" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "HL2": {
       "name": "Half-Life 2",
@@ -110,7 +109,7 @@
       "date": "2004-11-16",
       "tags": "HalfLife2",
       "path": [ "platform", "hl2" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "HL2:DM": {
       "name": "Half-Life 2: Deathmatch",
@@ -118,7 +117,7 @@
       "date": "2004-11-01",
       "tags": "HalfLife2",
       "path": [ "platform", "hl2", "hl2mp" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "HL:DM:Src": {
       "name": "Half-Life Deathmatch: Source",
@@ -126,7 +125,7 @@
       "date": "2006-05-01",
       "tags": "HalfLife",
       "path": [ "platform", "hl2", "hl1mp" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "HL2:E1": {
       "name": "Half-Life 2: Episode One",
@@ -134,7 +133,7 @@
       "date": "2006-06-01",
       "tags": "HalfLife2",
       "path": [ "platform", "hl2", "episodic" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "Portal": {
       "name": "Portal",
@@ -142,7 +141,7 @@
       "date": "2007-10-10",
       "tags": "Portal",
       "path": [ "portal", "hl2" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "HL2:E2": {
       "name": "Half-Life 2: Episode Two",
@@ -150,7 +149,7 @@
       "date": "2007-10-10",
       "tags": "HalfLife2",
       "path": [ "ep2", "hl2" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "TF2": {
       "name": "Team Fortress 2",
@@ -158,7 +157,7 @@
       "date": "2007-10-10",
       "tags": "TeamFortress",
       "path": [ "tf", "hl2" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "L4D": {
       "name": "Left 4 Dead",
@@ -166,7 +165,7 @@
       "date": "2008-11-17",
       "tags": "Left4Dead",
       "path": [ "platform", "hl2", "left4dead" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "L4D2": {
       "name": "Left 4 Dead 2",
@@ -175,20 +174,11 @@
       "tags": "Left4Dead",
       "path": [ "platform", "hl2", "left4dead2", "update" ],
       "dlcs": {
-        "dlc1": {
-          "name": "dlc1",
-          "path": "left4dead2_dlc1"
-        },
-        "dlc2": {
-          "name": "dlc2",
-          "path": "left4dead2_dlc2"
-        },
-        "dlc3": {
-          "name": "dlc3",
-          "path": "left4dead2_dlc3"
-        }
+        "dlc1": { "path": "left4dead2_dlc1" },
+        "dlc2": { "path": "left4dead2_dlc2" },
+        "dlc3": { "path": "left4dead2_dlc3" }
       },
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "DOD:Src": {
       "name": "Day of Defeat: Source",
@@ -196,7 +186,7 @@
       "date": "2010-07-12",
       "tags": "DayOfDefeat",
       "path": [ "platform", "hl2", "dod" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "Portal2": {
       "name": "Portal 2",
@@ -204,7 +194,7 @@
       "date": "2011-04-18",
       "tags": "Portal",
       "path": [ "platform", "portal2", "portal2_dlc1", "portal2_dlc2", "update" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "CS:GO": {
       "name": "Counter-Strike: Global Offensive",
@@ -212,7 +202,7 @@
       "date": "2012-08-21",
       "tags": "CounterStrike",
       "path": [ "csgo", "platform" ],
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "D2": {
       "name": "Dota 2",
@@ -221,117 +211,39 @@
       "tags": "Dota",
       "path": [ "core", "dota" ],
       "dlcs": {
-        "addon_template": {
-          "name": "koreana",
-          "path": "dota_addons/addon_template"
-        },
-        "adventure_example": {
-          "name": "adventure_example",
-          "path": "dota_addons/adventure_example"
-        },
-        "aghanim": {
-          "name": "aghanim",
-          "path": "dota_addons/aghanim"
-        },
-        "cavern": {
-          "name": "cavern",
-          "path": "dota_addons/cavern"
-        },
-        "conquest": {
-          "name": "conquest",
-          "path": "dota_addons/conquest"
-        },
-        "diretide2020": {
-          "name": "diretide2020",
-          "path": "dota_addons/diretide2020"
-        },
-        "dungeon": {
-          "name": "dungeon",
-          "path": "dota_addons/dungeon"
-        },
-        "frostivus_2017": {
-          "name": "frostivus_2017",
-          "path": "dota_addons/frostivus_2017"
-        },
-        "hero_demo": {
-          "name": "hero_demo",
-          "path": "dota_addons/hero_demo"
-        },
-        "holdout": {
-          "name": "holdout",
-          "path": "dota_addons/holdout"
-        },
-        "holdout_example": {
-          "name": "holdout_example",
-          "path": "dota_addons/holdout_example"
-        },
-        "jungle_spirits_2019": {
-          "name": "jungle_spirits_2019",
-          "path": "dota_addons/jungle_spirits_2019"
-        },
-        "last_hit_trainer": {
-          "name": "last_hit_trainer",
-          "path": "dota_addons/last_hit_trainer"
-        },
-        "lua_ability_example": {
-          "name": "lua_ability_example",
-          "path": "dota_addons/lua_ability_example"
-        },
-        "manyplayer_example": {
-          "name": "manyplayer_example",
-          "path": "dota_addons/manyplayer_example"
-        },
-        "nemestice": {
-          "name": "nemestice",
-          "path": "dota_addons/nemestice"
-        },
-        "new_bloom_2017": {
-          "name": "schinese",
-          "path": "dota_addons/workshop_testbed"
-        },
-        "npx_2019": {
-          "name": "npx_2019",
-          "path": "dota_addons/npx_2019"
-        },
-        "overthrow": {
-          "name": "overthrow",
-          "path": "dota_addons/overthrow"
-        },
-        "rpg_example": {
-          "name": "rpg_example",
-          "path": "dota_addons/rpg_example"
-        },
-        "tutorial_assist_game": {
-          "name": "tutorial_assist_game",
-          "path": "dota_addons/tutorial_assist_game"
-        },
-        "tutorial_basics": {
-          "name": "tutorial_basics",
-          "path": "dota_addons/tutorial_basics"
-        },
-        "ui_example": {
-          "name": "ui_example",
-          "path": "dota_addons/ui_example"
-        },
-        "winter_2018": {
-          "name": "winter_2018",
-          "path": "dota_addons/winter_2018"
-        },
-        "winter2022": {
-          "name": "winter2022",
-          "path": "dota_addons/winter2022"
-        },
-        "workshop_testbed": {
-          "name": "workshop_testbed",
-          "path": "dota_addons/workshop_testbed"
-        }
+        "addon_template": { "path": "dota_addons/addon_template" },
+        "adventure_example": { "path": "dota_addons/adventure_example" },
+        "aghanim": { "path": "dota_addons/aghanim" },
+        "cavern": { "path": "dota_addons/cavern" },
+        "conquest": { "path": "dota_addons/conquest" },
+        "diretide2020": { "path": "dota_addons/diretide2020" },
+        "dungeon": { "path": "dota_addons/dungeon" },
+        "frostivus_2017": { "path": "dota_addons/frostivus_2017" },
+        "hero_demo": { "path": "dota_addons/hero_demo" },
+        "holdout": { "path": "dota_addons/holdout" },
+        "holdout_example": { "path": "dota_addons/holdout_example" },
+        "jungle_spirits_2019": { "path": "dota_addons/jungle_spirits_2019" },
+        "last_hit_trainer": { "path": "dota_addons/last_hit_trainer" },
+        "lua_ability_example": { "path": "dota_addons/lua_ability_example" },
+        "manyplayer_example": { "path": "dota_addons/manyplayer_example" },
+        "nemestice": { "path": "dota_addons/nemestice" },
+        "new_bloom_2017": { "path": "dota_addons/new_bloom_2017" },
+        "npx_2019": { "path": "dota_addons/npx_2019" },
+        "overthrow": { "path": "dota_addons/overthrow" },
+        "rpg_example": { "path": "dota_addons/rpg_example" },
+        "tutorial_assist_game": { "path": "dota_addons/tutorial_assist_game" },
+        "tutorial_basics": { "path": "dota_addons/tutorial_basics" },
+        "ui_example": { "path": "dota_addons/ui_example" },
+        "winter_2018": { "path": "dota_addons/winter_2018" },
+        "winter2022": { "path": "dota_addons/winter2022" },
+        "workshop_testbed": { "path": "dota_addons/workshop_testbed" }
       },
       "locales": {
         "ko": { "name": "koreana" },
         "ru": { "name": "russian" },
-        "zh": { "name": "schinese" }
+        "zh": { "name": "chinese" }
       },
-      "status": [ "open", "read", "texture:GL" ]
+      "status": "open;read;texture:GL"
     },
     "TheLab:RR": {
       "name": "The Lab: Robot Repair",
@@ -339,7 +251,7 @@
       "date": "2016-05-05",
       "tags": "VR",
       "path": [ "core", "portal2_imported", "vr" ],
-      "status": [ "open", "read", "texture:GL", "model:GL" ]
+      "status": "open;read;texture:GL;model:GL"
     },
     "TheLab:SS": {
       "name": "The Lab: Secret Shop",
@@ -348,7 +260,7 @@
       "date": "2016-05-05",
       "tags": "VR",
       "pakExt": ".assets",
-      "status": [ "!unity" ]
+      "status": "!unity"
     },
     "TheLab:TL": {
       "name": "The Lab: The Lab",
@@ -357,7 +269,7 @@
       "date": "2016-05-05",
       "tags": "VR",
       "pakExt": ".assets",
-      "status": [ "!unity" ]
+      "status": "!unity"
     },
     "HL:Alyx": {
       "name": "Half-Life: Alyx",
@@ -365,7 +277,7 @@
       "date": "2020-03-23",
       "tags": "HalfLife VR",
       "path": [ "core", "hlvr" ],
-      "status": [ "open", "read", "texture:GL", "model:GL" ]
+      "status": "open;read;texture:GL;model:GL"
     }
   },
   "fileManager": {

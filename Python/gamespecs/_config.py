@@ -9,7 +9,7 @@ class DefaultOptions:
         self.ForcePath = ForcePath
         self.ForceOpen = ForceOpen
 
-match 'Id':
+match '':
     case 'Arkane':
         familyKeys = [ "Arkane", "Unknown" ]
 

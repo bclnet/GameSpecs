@@ -5,7 +5,7 @@
   "description": "The file formats used in Cry and Lumberyard",
   "url": "https://en.wikipedia.org/wiki/Crytek",
   "engines": {
-    "CryEngine": { "name": "CryEngine" }
+    "CryEngine": {}
   },
   "games": {
     "*": {

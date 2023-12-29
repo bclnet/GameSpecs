@@ -4,10 +4,13 @@
   "studio": "BioWare",
   "description": "BioWare used the Bioware Engine",
   "url": "https://en.wikipedia.org/wiki/List_of_BioWare_video_games",
+  "engines": {
+    "HeroEngine": {},
+    "Aurora": {}
+  },
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Bioware.BiowarePakFile, GameSpec.Bioware",
-      "pak": "game:/*"
+      "pakFileType": "GameSpec.Bioware.BiowarePakFile, GameSpec.Bioware"
     },
     "SS": {
       "name": "Shattered Steel",

@@ -2,8 +2,8 @@
 using GameSpec.Blizzard.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Transforms;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Blizzard
@@ -21,11 +21,18 @@ namespace GameSpec.Blizzard
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BlizzardPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinaryBlizzard.Instance, tag)
+        public BlizzardPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             UseReader = false;
         }
+
+        #region GetPakBinary
+
+        static PakBinary GetPakBinary(FamilyGame game, string extension)
+            => PakBinaryBlizzard.Instance;
+
+        #endregion
 
         #region Transforms
 

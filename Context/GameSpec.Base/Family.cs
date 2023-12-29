@@ -135,7 +135,7 @@ namespace GameSpec
             FileManager = _method(elem, "fileManager", CreateFileManager);
             var paths = FileManager?.Paths;
             // related
-            FamilyGame dgame = null;
+            var dgame = new FamilyGame { SearchBy = SearchBy.Pak, Paks = new[] { new Uri("game:/") } };
             Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
             Games = _relatedTrim(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths));
             Apps = _related(elem, "apps", (k, v) => CreateFamilyApp(this, k, v));
@@ -181,7 +181,14 @@ namespace GameSpec
         /// <param name="id">The game id.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">game</exception>
-        public FamilyGame GetGame(string id, bool throwOnError = true) => Games.TryGetValue(id, out var game) ? game : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(id), id) : (FamilyGame)default);
+        public FamilyGame GetGame(string id, out FamilyGame.Edition edition, bool throwOnError = true)
+        {
+            var ids = id.Split('.', 2);
+            var game = Games.TryGetValue(ids[0], out var z1) ? z1
+                : (throwOnError ? throw new ArgumentOutOfRangeException(nameof(id), id) : (FamilyGame)default);
+            edition = ids.Length > 1 && game.Editions.TryGetValue(ids[1], out var z2) ? z2 : default;
+            return game;
+        }
 
         /// <summary>
         /// Parses the family resource uri.
@@ -192,7 +199,7 @@ namespace GameSpec
         public Resource ParseResource(Uri uri, bool throwOnError = true)
         {
             if (uri == null || string.IsNullOrEmpty(uri.Fragment)) return new Resource { Game = new FamilyGame() };
-            var game = GetGame(uri.Fragment[1..]);
+            var game = GetGame(uri.Fragment[1..], out var edition);
             var searchPattern = uri.IsFile ? null : uri.LocalPath[1..];
             var paths = FileManager.Paths;
             var fileSystem =
@@ -203,7 +210,13 @@ namespace GameSpec
             if (fileSystem == null)
                 if (throwOnError) throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to resources");
                 else return default;
-            return new Resource { FileSystem = fileSystem, Game = game, SearchPattern = searchPattern };
+            return new Resource
+            {
+                FileSystem = fileSystem,
+                Game = game,
+                Edition = edition,
+                SearchPattern = searchPattern
+            };
         }
 
         #region Pak
@@ -213,11 +226,12 @@ namespace GameSpec
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="path">The file path.</param>
+        /// <param name="edition">The game edition.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(FamilyGame game, string path, string searchPattern, bool throwOnError = true) => game != null
-            ? game.CreatePakFile(game.CreateFileSystem(path), searchPattern, throwOnError)?.Open()
+        public PakFile OpenPakFile(FamilyGame game, FamilyGame.Edition edition, string path, string searchPattern, bool throwOnError = true) => game != null
+            ? game.CreatePakFile(game.CreateFileSystem(path), edition, searchPattern, throwOnError)?.Open()
             : throw new ArgumentNullException(nameof(game));
 
         /// <summary>
@@ -227,7 +241,7 @@ namespace GameSpec
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => resource.Game != null
-            ? resource.Game.CreatePakFile(resource.FileSystem, resource.SearchPattern, throwOnError)?.Open()
+            ? resource.Game.CreatePakFile(resource.FileSystem, resource.Edition, resource.SearchPattern, throwOnError)?.Open()
             : throw new ArgumentNullException(nameof(resource.Game));
 
         /// <summary>
@@ -241,7 +255,7 @@ namespace GameSpec
         {
             var resource = ParseResource(uri);
             return resource.Game != null
-                ? resource.Game.CreatePakFile(resource.FileSystem, resource.SearchPattern, throwOnError)?.Open()
+                ? resource.Game.CreatePakFile(resource.FileSystem, resource.Edition, resource.SearchPattern, throwOnError)?.Open()
                 : throw new ArgumentNullException(nameof(resource.Game));
         }
 

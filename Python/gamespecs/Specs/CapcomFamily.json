@@ -12,10 +12,16 @@
     "CapcomFamily+S.json",
     "CapcomFamily+T-Z.json"
   ],
+  "engines": {
+    "RE": {
+      "name": "RE Engine",
+      "url": "https://en.wikipedia.org/wiki/RE_Engine"
+    }
+  },
   "games+0-D": {
     "BionicCommando": {},
     "BionicCommando:R": {},
-    "Arcade:S": {},
+    "CAS2": {},
     "BEU:B": {},
     "DV": {},
     "DV:Z": {},
@@ -71,67 +77,73 @@
   },
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom",
-      "searchBy": "Pak",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Capcom.CapcomPakFile, GameSpec.Capcom"
     },
-    "Arcade": {
+    "CAS": {
       "name": "Capcom Arcade Stadium",
       "url": "https://store.steampowered.com/app/1515950",
       "date": "May 24, 2021",
-      "pakExt": ".pak"
+      "engine": "RE",
+      "resource": "CAS_PC_Release",
+      "pakExt": ".pak",
+      "dlcs": {
+        "dlc": {
+          "path": "dlc"
+        }
+      }
     },
     "Fighting:C": {
       "name": "Capcom Fighting Collection",
       "url": "https://store.steampowered.com/app/1685750",
       "date": "Jun 23, 2022",
-      "path": "arc/pc",
-      "pakExt": ".arc",
-      "pak": "game:/*/*.arc"
+      "searchBy": "AllDir",
+      "pakExt": ".arc"
     },
     "GNG:R": {
       "name": "Ghosts 'n Goblins Resurrection",
       "url": "https://store.steampowered.com/app/1375400",
       "date": "May 31, 2021",
+      "engine": "RE",
+      "resource": "GGR_PC_Release",
       "pakExt": ".pak"
     },
-
     "MM:LC": {
       "name": "Mega Man Legacy Collection",
       "url": "https://store.steampowered.com/app/363440",
       "date": "Aug 24, 2015",
-      "pakExt": ".pie",
-      "pak": "game:/data.pie"
+      "key": "txt:P091uWEdwe4lI6StDNMNlkodPGvJ38bL3HW6t3BCMYdFi83FXKu7k0NsHP8caDKS",
+      "engine": "Zip",
+      "pakExt": "data.pie"
     },
     "MM:LC2": {
       "name": "Mega Man Legacy Collection 2",
       "url": "https://store.steampowered.com/app/495050",
       "date": "Aug 8, 2017",
-      "pakExt": [
-        ".disc",
-        ".res"
-      ],
-      "pak": "game:/(disc:res*)"
+      "key": "txt:NEED",
+      "engine": "Zip",
+      "pakExt": "disc"
     },
     "MM:XD": {
       "name": "Mega Man X DiVE",
       "url": "https://store.steampowered.com/app/1582620",
       "date": "Aug 8, 2017",
-      "engine": "unity",
+      "engine": "Unity",
       "pakExt": ".assets"
     },
     "MMZX:LC": {
       "name": "Mega Man Zero/ZX Legacy Collection",
       "url": "https://store.steampowered.com/app/999020",
       "date": "Feb 25, 2020",
+      "searchBy": "AllDir",
       "path": "RZZC/romPC",
-      "pakExt": ".arc",
-      "pak": "game:/**/*.arc"
+      "pakExt": ".arc"
     },
-    "MH:R": {
+    "MHR": {
       "name": "Monster Hunter Rise",
       "url": "https://store.steampowered.com/app/1446780",
       "date": "Jan 12, 2022",
+      "engine": "RE",
+      "resource": "MHR_PC_Release",
       "pakExt": ".pak"
     },
     "MH:S2": {
@@ -142,7 +154,6 @@
       "pakExt": ".arc",
       "pak": "game:/**/*.arc"
     },
-
     "PWAA:T": {
       "name": "Phoenix Wright: Ace Attorney Trilogy",
       "url": "https://store.steampowered.com/app/787480",
@@ -162,12 +173,15 @@
       "url": "https://store.steampowered.com/app/1236300",
       "date": "Oct 27, 2022"
     },
-
     "Disney:AC": {
       "name": "The Disney Afternoon Collection",
       "url": "https://store.steampowered.com/app/525040",
       "date": "Apr 18, 2017",
-      "pakExt": ".mbundle"
+      "pakExt": [
+        ".pie",
+        ".mbundle"
+      ],
+      "status": "open;read;texture:GL"
     },
     "TGAA:C": {
       "name": "The Great Ace Attorney Chronicles",
@@ -184,14 +198,10 @@
   },
   "fileManager": {
     "application": {
-      "Arcade": {
+      "CAS": {
         "key": "Steam:1515950",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1515950",
-        "dir": "Capcom Arcade Stadium",
-        "path": [
-          ".",
-          "dlc"
-        ]
+        "dir": "Capcom Arcade Stadium"
       },
       "Fighting:C": {
         "key": "Steam:1685750",
@@ -204,7 +214,6 @@
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1375400",
         "dir": "Makaimura_GG_RE"
       },
-
       "MM:LC": {
         "key": "Steam:363440",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 363440",
@@ -213,11 +222,7 @@
       "MM:LC2": {
         "key": "Steam:495050",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 495050",
-        "dir": "MegaMan2",
-        "path": [
-          ".",
-          "resource"
-        ]
+        "dir": "MegaMan2"
       },
       "MM:XD": {
         "key": "Steam:1582620",
@@ -231,7 +236,7 @@
         "dir": "MZZXLC",
         "path": "nativePCx64"
       },
-      "MH:R": {
+      "MHR": {
         "key": "Steam:1446780",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1446780",
         "dir": "MonsterHunterRise"
@@ -242,7 +247,6 @@
         "dir": "Monster Hunter Stories 2",
         "path": "nativeDX11x64"
       },
-
       "PWAA:T": {
         "key": "Steam:787480",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 787480",
@@ -267,7 +271,6 @@
         "dir": "Resident Evil ReVerse",
         "path": "main"
       },
-      
       "Disney:AC": {
         "key": "Steam:525040",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 525040",

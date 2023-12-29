@@ -36,7 +36,7 @@ namespace GameSpec.Blizzard.Formats.Casc
                 files.Add(new FileSource
                 {
                     Path = f.FullName,
-                    Digest = f.Hash,
+                    Hash = f.Hash,
                     //FileSize = f.GetFileSize(f.Hash),
                 });
             foreach (var f in folder.Folders.Values)
@@ -70,6 +70,6 @@ namespace GameSpec.Blizzard.Formats.Casc
         }
 
         public Stream ReadData(FileSource file)
-            => handle.OpenFile(file.Digest);
+            => handle.OpenFile(file.Hash);
     }
 }

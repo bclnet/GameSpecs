@@ -91,6 +91,8 @@ namespace GameSpec
         {
             var str = elem.ToString();
             if (string.IsNullOrEmpty(str)) { return null; }
+            else if (str.StartsWith("b64:", StringComparison.OrdinalIgnoreCase))
+                return Convert.FromBase64String(str[4..]);
             else if (str.StartsWith("hex:", StringComparison.OrdinalIgnoreCase))
             {
                 var keyStr = str[4..];
@@ -99,10 +101,7 @@ namespace GameSpec
                     : Enumerable.Range(0, keyStr.Length >> 1).Select(x => byte.Parse(keyStr.Substring(x << 1, 2), NumberStyles.HexNumber)).ToArray();
             }
             else if (str.StartsWith("txt:", StringComparison.OrdinalIgnoreCase))
-            {
-                var keyStr = str[4..];
-                return Encoding.ASCII.GetBytes(keyStr);
-            }
+                return str[4..];
             else throw new ArgumentOutOfRangeException(nameof(str), str);
         }
 
@@ -154,7 +153,7 @@ namespace GameSpec
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal static FamilyGame CreateFamilyGame(Family family, string id, JsonElement elem, ref FamilyGame dgame, IDictionary<string, HashSet<string>> paths)
         {
-            var gameType = _value(elem, "gameType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", $"Unknown type: {z}"), dgame?.GameType);
+            var gameType = _value(elem, "gameType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", $"Unknown type: {z}"), dgame.GameType);
             var game = gameType != null ? (FamilyGame)Activator.CreateInstance(gameType, family, id, elem, dgame) : new FamilyGame(family, id, elem, dgame);
             game.GameType = gameType;
             game.Found = paths != null && paths.ContainsKey(id);

@@ -128,7 +128,7 @@ namespace GameSpec.Bethesda.Formats
                 // calculate some useful values
                 var compressedToggle = (header.ArchiveFlags & OB_BSAARCHIVE_COMPRESSFILES) > 0;
                 if (header.Version == F3_BSAHEADER_VERSION || header.Version == SSE_BSAHEADER_VERSION)
-                    source.Tag = (header.ArchiveFlags & F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0;
+                    source.Tag = (header.ArchiveFlags & F3_BSAARCHIVE_PREFIXFULLFILENAMES) > 0 ? 'Y' : 'N';
 
                 // read-all folders
                 var foldersFiles = header.Version == SSE_BSAHEADER_VERSION
@@ -202,7 +202,7 @@ namespace GameSpec.Bethesda.Formats
             // position
             var fileSize = (int)file.FileSize;
             r.Seek(file.Position);
-            if (source.Tag != null && (bool)source.Tag)
+            if ((char)source.Tag == 'Y')
             {
                 var prefixLength = r.ReadByte() + 1;
                 if (source.Version == SSE_BSAHEADER_VERSION)

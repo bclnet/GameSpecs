@@ -14,7 +14,7 @@ namespace GameSpec.Arkane.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
-            var key = (byte[])source.Game.Key; int keyLength = key.Length, keyIndex = 0;
+            var key = Encoding.ASCII.GetBytes((string)source.Game.Key); int keyLength = key.Length, keyIndex = 0;
 
             int readInt32(ref byte* b)
             {

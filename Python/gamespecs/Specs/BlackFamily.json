@@ -6,8 +6,7 @@
   "url": "https://en.wikipedia.org/wiki/Black_Isle_Studios",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Black.BlackPakFile, GameSpec.Black",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Black.BlackPakFile, GameSpec.Black"
     },
     "Fallout": {
       "name": "Fallout",

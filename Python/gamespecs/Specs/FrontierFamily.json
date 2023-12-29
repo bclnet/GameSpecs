@@ -161,7 +161,6 @@
       "url": [ "https://store.steampowered.com/app/359320", "https://en.wikipedia.org/wiki/Elite_Dangerous" ],
       "date": "2014-12-16",
       "pak": "game:/**/*.ovl",
-      "pathx": [ "elite-dangerous-odyssey-64" ],
       "dlcs": {
         "Odyssey": {
           "name": "Elite Dangerous: Odyssey",

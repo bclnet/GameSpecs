@@ -7,8 +7,7 @@
   "games": {
     "*": {
       "pakFileType": "GameSpec.IW.IWPakFile, GameSpec.IW",
-      "pakExt": ".iwd",
-      "pak": "game:/"
+      "pakExt": ".iwd"
     },
     "COD": {
       "name": "Call of Duty",

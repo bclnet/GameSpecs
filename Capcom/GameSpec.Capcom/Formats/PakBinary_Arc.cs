@@ -1,8 +1,11 @@
 ﻿using GameSpec.Formats;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
+using static GameSpec.Util;
 
 namespace GameSpec.Capcom.Formats
 {
@@ -10,16 +13,63 @@ namespace GameSpec.Capcom.Formats
     {
         public static readonly PakBinary Instance = new PakBinary_Arc();
 
+        // Header
+        #region Header
+
+        const uint K_MAGIC = 0x00435241;
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct K_Header
+        {
+            public ushort Version;
+            public ushort NumFiles;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
+        struct K_File
+        {
+            public fixed byte Path[0x40];
+            public uint Compressed;
+            public uint PackedSize;
+            public uint FileSize;
+            public uint Position;
+        }
+
+        #endregion
+
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
-            var files = source.Files = new List<FileSource>();
+            var magic = r.ReadUInt32();
+            if (magic != K_MAGIC) throw new FormatException("BAD MAGIC");
 
+            // get header
+            var header = r.ReadT<K_Header>(sizeof(K_Header));
+
+            // get files
+            source.Files = r.ReadTArray<K_File>(sizeof(K_File), header.NumFiles)
+                .Select(x => new FileSource
+                {
+                    Path = $"{Encoding.UTF8.GetString(new Span<byte>(x.Path, 0x40)).TrimEnd('\0')}{GetExtension(r, x.Position)}".Replace('\\', '/'),
+                    Compressed = (int)x.Compressed,
+                    PackedSize = x.PackedSize,
+                    FileSize = x.FileSize,
+                    Position = x.Position,
+                }).ToArray();
             return Task.CompletedTask;
         }
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
         {
-            throw new NotImplementedException();
+            r.Seek(file.Position);
+            return Task.FromResult<Stream>(new MemoryStream(Decompress(r, (int)file.PackedSize, (int)file.FileSize)));
+        }
+
+        static byte[] Decompress(BinaryReader r, int length, int newLength = 0) => r.DecompressZlib(length, newLength);
+
+        static string GetExtension(BinaryReader r, long position)
+        {
+            r.Seek(position);
+            return _guessExtension(Decompress(r, 150));
         }
     }
 }

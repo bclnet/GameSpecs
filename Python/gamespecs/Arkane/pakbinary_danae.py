@@ -15,7 +15,7 @@ class PakBinary_Danae(PakBinary):
     # read
     def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
         source.files = files = []
-        key = source.game.key; keyLength = len(key); keyIndex = 0
+        key = source.game.key.encode('ascii'); keyLength = len(key); keyIndex = 0
 
         # move to fat table
         r.seek(r.readUInt32())

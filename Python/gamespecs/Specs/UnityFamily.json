@@ -7,8 +7,7 @@
   "games": {
     "*": {
       "pakFileType": "GameSpec.Unity.UnityPakFile, GameSpec.Unity",
-      "pakExt": ".assets",
-      "pak": "game:/"
+      "pakExt": ".assets"
     },
     "AmongUs": {
       "name": "Among Us",

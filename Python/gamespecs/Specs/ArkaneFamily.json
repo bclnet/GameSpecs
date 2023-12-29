@@ -5,13 +5,12 @@
   "description": "The file formats used in the Void engine",
   "url": "https://en.wikipedia.org/wiki/Arkane_Studios",
   "engines": {
-    "Danae": { "name": "Danae" },
-    "Void": { "name": "Void" }
+    "Danae": {},
+    "Void": {}
   },
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Arkane.ArkanePakFile, GameSpec.Arkane",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Arkane.ArkanePakFile, GameSpec.Arkane"
     },
     "AF": {
       "name": "Arx Fatalis",
@@ -20,7 +19,7 @@
       "date": "2002-11-12",
       "key": "txt:AVQF3FCKE50GRIAYXJP2AMEYO5QGA0JGIIH2NHBTVOA1VOGGU5H3GSSIARKPRQPQKKYEOIAQG1XRX0J4F5OEAEFI4DD3LL45VJTVOA1VOGGUKE50GRIAYX",
       "pakExt": ".pak",
-      "status": [ "open", "read", "texture:GL" ]
+      "status": "open;read;texture:GL"
     },
     "DOM": {
       "name": "Dark Messiah of Might and Magic",
@@ -28,7 +27,7 @@
       "url": "https://store.steampowered.com/app/2100",
       "date": "2006-10-25",
       "pakExt": "dir.vpk",
-      "status": [ "open", "read" ]
+      "status": "open;read"
     },
     "KS": {
       "n/a": true,
@@ -46,7 +45,7 @@
       "pakx2": "game:/CharTextures.tfc",
       "pakx3": "game:/*.(tfc:upk)",
       "pakx4": "game:/*.(pck|INT)",
-      "status": [ "unreal" ]
+      "status": "unreal"
     },
     "D2": {
       "name": "Dishonored 2",
@@ -56,7 +55,7 @@
       "pakExt": ".index",
       "searchBy": "Pak",
       "pak": "game:/master.index",
-      "status": [ "open", "read" ]
+      "status": "open;read"
     },
     "P": {
       "name": "Prey",
@@ -64,7 +63,7 @@
       "url": "https://www.gog.com/en/game/prey",
       "date": "2017-05-04",
       "pakExt": ".pak",
-      "status": [ "open", "read" ]
+      "status": "open;read"
     },
     "D:DOTO": {
       "name": "Dishonored: Death of the Outsider",

@@ -63,7 +63,7 @@
                 PakFile = pakFile,
                 OpenPath = path,
             }).ToList();
-            if (family.Description != null)
+            if (!string.IsNullOrEmpty(family.Description))
                 tabs.Add(new ExplorerMainTab
                 {
                     Name = "Information",

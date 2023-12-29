@@ -6,9 +6,7 @@
   "url": "https://en.wikipedia.org/wiki/Cryptic_Studios",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Cryptic.CrypticPakFile, GameSpec.Cryptic",
-      "searchBy": "Pak",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Cryptic.CrypticPakFile, GameSpec.Cryptic"
     },
     "COH": {
       "n/a": true,
@@ -21,20 +19,20 @@
       "date": "2009-09-01",
       "url": "https://store.steampowered.com/app/9880",
       "pakExt": ".hogg",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "STO": {
       "name": "Star Trek Online",
       "date": "2010-02-02",
       "url": "https://store.steampowered.com/app/9900",
       "pakExt": ".hogg",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "NVW": {
       "name": "Neverwinter",
       "date": "2013-12-05",
       "url": "https://store.steampowered.com/app/109600",
-      "status": [ "open", "read" ]
+      "status": "open;read" 
     },
     "MTG": {
       "n/a": true,

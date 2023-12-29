@@ -114,10 +114,10 @@ namespace GameSpec.Formats
         #endregion
 
         #region Zlib
-        public static byte[] DecompressZlib(this BinaryReader r, int length, int newLength)
+        public static byte[] DecompressZlib(this BinaryReader r, int length, int newLength, bool noHeader = false)
         {
             var fileData = r.ReadBytes(length);
-            var inflater = new Inflater(false);
+            var inflater = new Inflater(noHeader);
             inflater.SetInput(fileData, 0, fileData.Length);
             int count;
             var buffer = new byte[BufferSize];

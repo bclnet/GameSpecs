@@ -89,7 +89,7 @@ namespace GameSpec.App.Explorer.Views
                 OpenPath = path,
             }).ToList();
             var firstPakFile = tabs.FirstOrDefault()?.PakFile ?? PakFile.Empty;
-            if (FamilyApps != null)
+            if (FamilyApps.Count > 0)
                 tabs.Add(new ExplorerMainTab
                 {
                     Name = "Apps",
@@ -98,7 +98,7 @@ namespace GameSpec.App.Explorer.Views
                     Text = "Choose an application.",
                     OpenPath = path,
                 });
-            if (family.Description != null)
+            if (!string.IsNullOrEmpty(family.Description))
                 tabs.Add(new ExplorerMainTab
                 {
                     Name = "Information",

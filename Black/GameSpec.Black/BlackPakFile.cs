@@ -23,21 +23,23 @@ namespace GameSpec.Black
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BlackPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        public BlackPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
 
         #region GetPakBinary
 
-        static PakBinary GetPakBinary(FamilyGame game, string filePath)
-            => string.IsNullOrEmpty(filePath)
-                ? PakBinary_Dat.Instance
-                : Path.GetExtension(filePath).ToLowerInvariant() switch
-                {
-                    ".dat" => PakBinary_Dat.Instance,
-                    _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
-                };
+        static PakBinary GetPakBinary(FamilyGame game, string extension)
+            => PakBinary_Dat.Instance;
+
+        //string.IsNullOrEmpty(extension)
+        //? PakBinary_Dat.Instance
+        //: extension switch
+        //{
+        //    ".dat" => PakBinary_Dat.Instance,
+        //    _ => throw new ArgumentOutOfRangeException(nameof(extension)),
+        //};
 
         #endregion
 

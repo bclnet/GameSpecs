@@ -13,9 +13,8 @@
     "*": {
       "pakFileType": "GameSpec.Epic.EpicPakFile, GameSpec.Epic",
       "engine": "Unreal",
-      "searchBy": "TopDir",
+      "searchBy": "TopDir"
       //"paths": [ "Animations", "Maps", "Sounds", "StaticMeshes", "System", "Systextures", "XboxTextures", "XboxAnimations", "Textures" ],
-      "pak": "game:/"
     },
     "UE1": {
       "name": "Unreal",

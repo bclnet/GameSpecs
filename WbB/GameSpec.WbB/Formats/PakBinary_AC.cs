@@ -86,7 +86,7 @@ namespace GameSpec.WbB.Formats
                         Id = (int)entry.ObjectId,
                         Position = entry.FileOffset,
                         FileSize = entry.FileSize,
-                        Digest = (ulong)blockSize,
+                        Hash = (ulong)blockSize,
                         Tag = entry,
                     };
                     metadata.Path = Path.Combine(path, metadata.GetPath(r, pakType, out var type));
@@ -109,7 +109,7 @@ namespace GameSpec.WbB.Formats
         }
 
         public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
-            => Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Position, (int)file.FileSize, (int)file.Digest)));
+            => Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Position, (int)file.FileSize, (int)file.Hash)));
 
         static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize)
             => UnsafeX.MarshalT<T>(ReadBytes(r, offset, size, blockSize));

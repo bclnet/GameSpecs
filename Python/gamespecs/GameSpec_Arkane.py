@@ -1,10 +1,11 @@
+import os
 from . import BinaryPakFile
 from .Arkane.pakbinary_danae import PakBinary_Danae
 from .Arkane.pakbinary_void import PakBinary_Void
 
 class ArkanePakFile(BinaryPakFile):
     @staticmethod
-    def getPakBinary(game, filePath):
+    def getPakBinary(game, extension):
         match game.engine:
             case 'Danae': return PakBinary_Danae()
             case 'Void': return PakBinary_Void()
@@ -15,4 +16,4 @@ class ArkanePakFile(BinaryPakFile):
             case _: raise Exception(f'Unknown: {game.engine}')
 
     def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, filePath), tag)
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, os.path.splitext(filePath)[1].lower()), tag)

@@ -4,6 +4,7 @@ using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Metadata;
 using GameSpec.Transforms;
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace GameSpec.Bioware
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BiowarePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        public BiowarePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
         }
@@ -32,16 +33,17 @@ namespace GameSpec.Bioware
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPakBinary(FamilyGame game, string filePath)
-            => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
+        static PakBinary GetPakBinary(FamilyGame game, string extension)
+            => extension != ".zip"
                 ? PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game))
-                : PakBinarySystemZip.Instance;
+                : PakBinary_Zip.GetPakBinary(game);
 
         static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
+                "Aurora" => PakBinary_Aurora.Instance,
                 "HeroEngine" => PakBinary_Myp.Instance,
-                _ => PakBinary_Aurora.Instance,
+                _ => throw new ArgumentOutOfRangeException(nameof(game.Engine))
             };
 
         #endregion

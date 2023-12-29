@@ -139,7 +139,7 @@ namespace GameSpec.Valve.Formats
                         var metadata = new FileSource
                         {
                             Path = $"{(directoryName[0] != ' ' ? $"{directoryName}/" : null)}{fileName}.{typeName}",
-                            Digest = r.ReadUInt32(),
+                            Hash = r.ReadUInt32(),
                             Extra = new byte[r.ReadUInt16()],
                             Id = r.ReadUInt16(),
                             Position = r.ReadUInt32(),
@@ -198,7 +198,7 @@ namespace GameSpec.Valve.Formats
                     r.Read(data, file.Extra.Length, (int)file.FileSize);
                 }
             }
-            if (file.Digest != Crc32Digest.Compute(data)) throw new InvalidDataException("CRC32 mismatch for read data.");
+            if (file.Hash != Crc32Digest.Compute(data)) throw new InvalidDataException("CRC32 mismatch for read data.");
             return Task.FromResult((Stream)new MemoryStream(data));
         }
     }

@@ -8,7 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Bioware\GameSpec.Bioware\GameSpec.Bioware.csproj" />
     <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
-    <ProjectReference Include="..\GameSpec.Red.Resource\GameSpec.Red.Resource.csproj" />
+    <ProjectReference Include="..\..\Context\GameSpec.Resource\GameSpec.Resource.csproj" />
   </ItemGroup>
 
 </Project>

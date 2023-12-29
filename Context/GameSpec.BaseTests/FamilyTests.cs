@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using static GameSpec.FamilyGame;
 
 namespace GameSpec
 {
@@ -25,9 +26,9 @@ namespace GameSpec
         public void ShouldGetGame()
         {
             var family = Some.Family;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.GetGame("Wrong"));
-            Assert.IsNotNull(family.GetGame("Missing"));
-            Assert.IsNotNull(family.GetGame("Found"));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.GetGame("Wrong", out var _));
+            Assert.IsNotNull(family.GetGame("Missing", out var _));
+            Assert.IsNotNull(family.GetGame("Found", out var _));
         }
 
         [TestMethod]
@@ -41,11 +42,11 @@ namespace GameSpec
         public void ShouldOpenPakFile_Paths()
         {
             var family = Some.Family;
-            Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(null, null, null));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile(family.GetGame("Missing"), null, null));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile(family.GetGame("Found"), null, null));
-            Assert.IsNull(family.OpenPakFile(family.GetGame("Missing"), null, null, throwOnError: false));
-            Assert.IsNotNull(family.OpenPakFile(family.GetGame("Found"), "path", null));
+            Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(null, null, null, null));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile(family.GetGame("Missing", out var edition), edition, null, null));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile(family.GetGame("Found", out var edition), edition, null, null));
+            Assert.IsNull(family.OpenPakFile(family.GetGame("Missing", out var edition), edition, null, null, throwOnError: false));
+            Assert.IsNotNull(family.OpenPakFile(family.GetGame("Found", out edition), edition, "path", null));
         }
 
         [TestMethod]

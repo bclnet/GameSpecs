@@ -6,8 +6,7 @@
   "url": "https://en.wikipedia.org/wiki/Cyanide_(company)",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Cyanide.CyanidePakFile, GameSpec.Cyanide",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Cyanide.CyanidePakFile, GameSpec.Cyanide"
     },
     "TC": {
       "name": "The Council",

@@ -19,8 +19,7 @@
   "games": {
     "*": {
       "pakFileType": "GameSpec.Id.IdPakFile, GameSpec.Id",
-      "pakExt": ".pak",
-      "pak": "game:/"
+      "pakExt": ".pak"
     },
     "CK:IOTV": {
       "n/a": true,
@@ -128,8 +127,8 @@
       "url": [ "https://store.steampowered.com/app/2310", "https://en.wikipedia.org/wiki/Quake_(video_game)" ],
       "date": "1996-06-22",
       "editions": {
-        "": { "name": "original" },
-        "remake": { "name": "rerelease", "path": "rerelease" }
+        "q": { "name": "original" },
+        "qr": { "name": "rerelease", "path": "rerelease" }
       }
     },
     "Q2": {

@@ -19,8 +19,9 @@ class Family: pass
 @staticmethod
 def parseKey(key: str) -> Any:
     if not key: return None
+    elif key.startswith('b64:'): return base64.b64decode(key[4:].encode('ascii')) 
     elif key.startswith('hex:'): return bytes.fromhex(key[4:].replace('/x', ''))
-    elif key.startswith('txt:'): return key[4:].encode('ascii')
+    elif key.startswith('txt:'): return key[4:]
     else: raise Exception(f'Unknown key: {key}')
 
 # create Family
@@ -103,15 +104,17 @@ fileManager: {self.fileManager if self.fileManager else None}'''
 
     # get Game
     def getGame(self, id: str, throwOnError: bool = True) -> FamilyGame:
-        game = _value(self.games, id)
+        ids = id.rsplit('.', 1)
+        game = _value(self.games, ids[0])
         if not game and throwOnError: raise Exception(f'Unknown game: {id}')
-        return game
+        edition = _value(self.games.editions, ids[1]) if len(ids) > 1 else None
+        return (game, edition)
 
     # parse Resource
     def parseResource(self, uri: str, throwOnError: bool = True) -> Resource:
         if uri is None or not (uri := urlparse(uri)).fragment:
             return Resource(Game = FamilyGame(self, None, None, None))
-        game = self.getGame(uri.fragment)
+        game, edition = self.getGame(uri.fragment)
         searchPattern = '' if uri.scheme == 'file' else uri.path[1:]
         paths = self.fileManager.paths
         fileSystemType = game.fileSystemType
@@ -122,7 +125,12 @@ fileManager: {self.fileManager if self.fileManager else None}'''
         if not fileSystem:
             if throwOnError: raise Exception(f'Not located: {game.id}')
             else: return None
-        return Resource(fileSystem, game, searchPattern)
+        return Resource(
+            fileSystem = fileSystem,
+            game = game,
+            edition = edition,
+            searchPattern = searchPattern
+            )
 
     # open PakFile
     def openPakFile(self, res: Resource | str, throwOnError: bool = True) -> PakFile:
@@ -133,49 +141,53 @@ fileManager: {self.fileManager if self.fileManager else None}'''
             if throwOnError: raise Exception(f'Unknown res: {res}')
             else: return None
         if not resource.game: raise Exception(f'Undefined Game')
-        return (pak := resource.game.createPakFile(resource.fileSystem, resource.searchPattern, throwOnError)) and pak.open()
+        return (pak := resource.game.createPakFile(resource.fileSystem, resource.edition, resource.searchPattern, throwOnError)) and pak.open()
 
 class FamilyApp:
     def __init__(self, family: Family, id: str, elem: dict[str, Any]):
         self.family = family
         self.id = id
-        self.name = _value(elem, 'name')
+        self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
 
 class FamilyEngine:
     def __init__(self, family: Family, id: str, elem: dict[str, Any]):
         self.family = family
         self.id = id
-        self.name = _value(elem, 'name')
+        self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
 
 class FamilyGame:
     class Edition:
         def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
-            self.name = _value(elem, 'name')
+            self.name = _value(elem, 'name') or id
             self.key = _method(elem, 'key', parseKey)
         def __repr__(self): return f'{self.id}: {self.name}'
     class DownloadableContent:
         def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
-            self.name = _value(elem, 'name')
+            self.name = _value(elem, 'name') or id
             self.path = _value(elem, 'path')
         def __repr__(self): return f'{self.id}: {self.name}'
     class Locale:
         def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
-            self.name = _value(elem, 'name')
+            self.name = _value(elem, 'name') or id
         def __repr__(self): return f'{self.id}: {self.name}'
     def __init__(self, family: Family, id: str, elem: dict[str, Any], dgame: FamilyGame):
         self.family = family
         self.id = id
-        if not dgame: self.ignore = False; self.gameType = self.engine = \
-            self.paks = self.paths = self.key = self.fileSystemType = \
-            self.searchBy = self.pakFileType = self.pakExts = None; return
+        if not dgame:
+            self.ignore = False; self.searchBy = 'Pak'; self.paks = ['game:/']
+            self.gameType = self.engine = self.resource = \
+            self.paths = self.key = self.fileSystemType = \
+            self.pakFileType = self.pakExts = None
+            return
         self.ignore = _value(elem, 'n/a', dgame.ignore)
         self.name = _value(elem, 'name')
         self.engine = _value(elem, 'engine', dgame.engine)
+        self.resource = _value(elem, 'resource', dgame.resource)
         self.urls = _list(elem, 'url')
         self.date = _value(elem, 'date')
         #self.option = _list(elem, 'option', dgame.option)
@@ -183,8 +195,8 @@ class FamilyGame:
         #self.dats = _list(elem, 'dats', dgame.dats)
         self.paths = _list(elem, 'path', dgame.paths)
         self.key = _method(elem, 'key', parseKey, dgame.key)
-        self.status = _value(elem, 'status')
-        self.tags = _value(elem, 'tags')
+        # self.status = _value(elem, 'status')
+        self.tags = _value(elem, 'tags', '').split(' ')
         # interface
         self.fileSystemType = _value(elem, 'fileSystemType', dgame.fileSystemType)
         self.searchBy = _value(elem, 'searchBy', dgame.searchBy)
@@ -212,23 +224,24 @@ class FamilyGame:
         elif not self.searchBy: return '*'
         elif self.searchBy == 'None': return None
         elif self.searchBy == 'Pak': return '' if not self.pakExts else \
-            f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'({"*:".join(self.pakExts)})'
+            f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'(*{":*".join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
         elif self.searchBy == 'TwoDir': return '*/*'
         elif self.searchBy == 'AllDir': return '**/*'
         else: raise Exception(f'Unknown searchBy: {self.searchBy}')
 
     # create PakFile
-    def createPakFile(self, fileSystem: FileSystem, searchPattern: str, throwOnError: bool) -> PakFile:
+    def createPakFile(self, fileSystem: FileSystem, edition: Edition, searchPattern: str, throwOnError: bool) -> PakFile:
         if isinstance(fileSystem, HostFileSystem): raise Exception('HostFileSystem not supported')
         searchPattern = self.createSearchPatterns(searchPattern)
         if not searchPattern: return None
         pakFiles = []
-        for p in self.findPaths(fileSystem, searchPattern):
-            if self.searchBy == 'Pak':
-                for path in p[1]:
-                    if self.isPakFile(path): pakFiles.append(self.createPakFileObj(fileSystem, path))
-            else: pakFiles.append(self.createPakFileObj(fileSystem, p))
+        for key in [None]+list(self.dlcs.keys()):
+            for p in self.findPaths(fileSystem, edition, self.dlcs[key] if key else None, searchPattern):
+                if self.searchBy == 'Pak':
+                    for path in p[1]:
+                        if self.isPakFile(path): pakFiles.append(self.createPakFileObj(fileSystem, path))
+                else: pakFiles.append(self.createPakFileObj(fileSystem, p))
         return self.createPakFileObj(fileSystem, pakFiles)
 
     # create createPakFileObj
@@ -240,7 +253,7 @@ class FamilyGame:
             p, l = value
             return self.createPakFileObj(fileSystem, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
                 else ManyPakFile(
-                    self.createPakFileType(fileSystem, 'Base', tag), self, \
+                    self.createPakFileType(fileSystem, None, tag), self, \
                         p if len(p) > 0 else 'Many', fileSystem, l, visualPathSkip = len(p) + 1 if len(p) > 0 else 0
                     )
         elif isinstance(value, list):
@@ -255,11 +268,12 @@ class FamilyGame:
         return findType(self.pakFileType)(self, fileSystem, path, tag)
 
     # find Paths
-    def findPaths(self, fileSystem: FileSystem, searchPattern: str):
+    def findPaths(self, fileSystem: FileSystem, edition: Edition, dlc: DownloadableContent, searchPattern: str):
         ignores = self.family.fileManager.ignores
         gameIgnores = _value(ignores, self.id)
         for path in self.paths or ['']:
-            fileSearch = fileSystem.findPaths(path, searchPattern)
+            dlcPath = os.path.join(path, dlc.path) if dlc and dlc.path else path
+            fileSearch = fileSystem.findPaths(dlcPath, searchPattern)
             if gameIgnores: fileSearch = [x for x in fileSearch if not os.path.basename(x) in gameIgnores]
             yield (path, list(fileSearch))
 
@@ -268,9 +282,10 @@ class FamilyGame:
         return any([x for x in self.pakExts if path.endswith(x)])
 
 class Resource:
-    def __init__(self, fileSystem: FileSystem, game: FamilyGame, searchPattern: str):
+    def __init__(self, fileSystem: FileSystem, game: FamilyGame, edition: FamilyGame.Edition, searchPattern: str):
         self.fileSystem = fileSystem
         self.game = game
+        self.edition = edition
         self.searchPattern = searchPattern
     def __repr__(self): return f'res:/{self.searchPattern}#{self.game}'
 

@@ -1,13 +1,12 @@
-﻿using GameSpec.Formats;
-using GameSpec.Formats.Unknown;
-using GameSpec.Capcom.Formats;
+﻿using GameSpec.Capcom.Formats;
 using GameSpec.Capcom.Transforms;
-using GameSpec.Metadata;
+using GameSpec.Formats;
+using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GameSpec.Capcom
 {
@@ -24,7 +23,7 @@ namespace GameSpec.Capcom
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, filePath != null ? GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()) : null, tag)
         {
             GetObjectFactoryFactory = game.Engine switch
             {
@@ -37,20 +36,21 @@ namespace GameSpec.Capcom
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPakBinary(FamilyGame game, string filePath)
-            => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game, filePath));
+        static PakBinary GetPakBinary(FamilyGame game, string extension) => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game, extension));
 
-        static PakBinary PakBinaryFactory(FamilyGame game, string filePath)
+        static PakBinary PakBinaryFactory(FamilyGame game, string extension)
             => game.Engine switch
             {
+                "Zip" => PakBinary_Zip.GetPakBinary(game),
                 "Unity" => Unity.Formats.PakBinary_Unity.Instance,
-                _ => Path.GetExtension(filePath).ToLowerInvariant() switch
+                _ => extension switch
                 {
+                    ".pak" => PakBinary_Kpka.Instance,
                     ".arc" => PakBinary_Arc.Instance,
                     ".big" => PakBinary_Big.Instance,
                     ".bundle" => PakBinary_Bundle.Instance,
-                    ".mbundle" => PakBinary_MBundle.Instance,
-                    _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
+                    ".mbundle" => PakBinary_Plist.Instance,
+                    _ => throw new ArgumentOutOfRangeException(nameof(extension)),
                 },
             };
 

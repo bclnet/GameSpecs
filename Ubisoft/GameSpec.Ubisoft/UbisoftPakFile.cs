@@ -33,7 +33,7 @@ namespace GameSpec.Ubisoft
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
             => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
                 ? PakBinaryLith.Instance
-                : PakBinarySystemZip.Instance;
+                : PakBinary_Zip.GetPakBinary(game);
 
         #endregion
 

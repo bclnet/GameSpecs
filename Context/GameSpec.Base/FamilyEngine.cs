@@ -33,7 +33,7 @@ namespace GameSpec
         {
             Family = family;
             Id = id;
-            Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+            Name = _value(elem, "name") ?? id;
         }
 
         /// <summary>

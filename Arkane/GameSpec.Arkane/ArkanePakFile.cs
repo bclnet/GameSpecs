@@ -6,6 +6,7 @@ using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Arkane
@@ -23,7 +24,7 @@ namespace GameSpec.Arkane
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public ArkanePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
+        public ArkanePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetObjectFactoryFactory = game.Engine switch
             {
@@ -40,7 +41,7 @@ namespace GameSpec.Arkane
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
-        static PakBinary GetPakBinary(FamilyGame game)
+        static PakBinary GetPakBinary(FamilyGame game, string extension)
             => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game));
 
         static PakBinary PakBinaryFactory(FamilyGame game)

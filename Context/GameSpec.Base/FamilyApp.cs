@@ -43,7 +43,7 @@ namespace GameSpec
         {
             Family = family;
             Id = id;
-            Name = _value(elem, "name") ?? throw new ArgumentNullException("name");
+            Name = _value(elem, "name") ?? id;
             ExplorerType = _value(elem, "explorerAppType", z => Type.GetType(z.GetString(), false));
             Explorer2Type = _value(elem, "explorer2AppType", z => Type.GetType(z.GetString(), false));
         }

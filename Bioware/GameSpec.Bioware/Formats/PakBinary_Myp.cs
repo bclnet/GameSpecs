@@ -1,5 +1,4 @@
-﻿using GameSpec.Bioware.Resource;
-using GameSpec.Formats;
+﻿using GameSpec.Formats;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,7 +83,7 @@ namespace GameSpec.Bioware.Formats
                         FileSize = headerFile.FileSize,
                         PackedSize = headerFile.PackedSize,
                         Position = (long)(headerFile.Offset + headerFile.HeaderSize),
-                        Digest = hash,
+                        Hash = hash,
                         Compressed = headerFile.Compressed
                     });
                 }

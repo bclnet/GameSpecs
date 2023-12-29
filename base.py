@@ -116,10 +116,14 @@ class FamilyGame:
     def __init__(self, family, id, elem, dgame):
         self.family = family
         self.id = id
-        if not dgame: self.ignore = False; self.engine = self.searchBy = self.pakExts = None; return
+        if not dgame:
+            self.ignore = False; self.searchBy = 'Pak'; self.paks = ['game:/']
+            self.engine = self.resource = self.searchBy = self.pakExts = None
+            return
         self.ignore = _value(elem, 'n/a', dgame.ignore)
         self.name = _value(elem, 'name')
         self.engine = _value(elem, 'engine', dgame.engine)
+        self.resource = _value(elem, 'resource', dgame.resource)
         self.urls = _list(elem, 'url')
         self.date = _value(elem, 'date')
         self.key = _value(elem, 'key')

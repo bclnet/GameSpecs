@@ -1,12 +1,14 @@
-﻿using static GameSpec.FileManager;
-
-namespace GameSpec
+﻿namespace GameSpec
 {
     /// <summary>
     /// Resource
     /// </summary>
     public struct Resource
     {
+        /// <summary>
+        /// The game edition.
+        /// </summary>
+        public FamilyGame.Edition Edition;
         /// <summary>
         /// The filesystem.
         /// </summary>

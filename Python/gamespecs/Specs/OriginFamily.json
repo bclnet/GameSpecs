@@ -6,8 +6,7 @@
   "url": "https://en.wikipedia.org/wiki/Origin_Systems",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin"
     },
     "UO": {
       "name": "Ultima Online",

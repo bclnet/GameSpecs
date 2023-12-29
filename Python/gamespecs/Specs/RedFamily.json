@@ -9,8 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/CD_Projekt",
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Red.RedPakFile, GameSpec.Red",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.Red.RedPakFile, GameSpec.Red"
     },
     "Witcher": {
       "name": "The Witcher Enhanced Edition",

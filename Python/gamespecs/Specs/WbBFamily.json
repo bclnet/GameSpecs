@@ -7,8 +7,7 @@
   "games": {
     "*": {
       "gameType": "GameSpec.WbB.WbBGame, GameSpec.WbB",
-      "pakFileType": "GameSpec.WbB.WbBPakFile, GameSpec.WbB",
-      "pak": "game:/"
+      "pakFileType": "GameSpec.WbB.WbBPakFile, GameSpec.WbB"
     },
     "AC": {
       "name": "Asheron's Call",
@@ -22,7 +21,7 @@
       "pakExt": ".dat",
       "pakx": "game:/client_portal.dat",
       "tags": "Shutdown",
-      "status": [ "open", "read", "texture:GL" ]
+      "status": "open;read;texture:GL"
     },
     "AC2": {
       "name": "Asheron's Call 2: Fallen Kings",

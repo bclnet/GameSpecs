@@ -14,8 +14,7 @@ class BethesdaGame(FamilyGame):
 
 class BethesdaPakFile(BinaryPakFile):
     @staticmethod
-    def getPakBinary(game, filePath):
-        extension = os.path.splitext(filePath)[1].lower()
+    def getPakBinary(game, extension):
         match extension:
             case '': return PakBinary_Bsa()
             case '.bsa': return PakBinary_Bsa()
@@ -23,4 +22,4 @@ class BethesdaPakFile(BinaryPakFile):
             case _: raise Exception(f'Unknown: {extension}')
 
     def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, filePath), tag)
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, os.path.splitext(filePath)[1].lower()), tag)

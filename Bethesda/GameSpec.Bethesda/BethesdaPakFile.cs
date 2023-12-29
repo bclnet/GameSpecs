@@ -25,7 +25,7 @@ namespace GameSpec.Bethesda
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BethesdaPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        public BethesdaPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
             PathFinders.Add(typeof(ITexture), FindTexture);
@@ -57,14 +57,14 @@ namespace GameSpec.Bethesda
 
         #region GetPakBinary
 
-        static PakBinary GetPakBinary(FamilyGame game, string filePath)
-            => Path.GetExtension(filePath).ToLowerInvariant() switch
+        static PakBinary GetPakBinary(FamilyGame game, string extension)
+            => extension switch
             {
                 "" => PakBinary_Bsa.Instance,
                 ".bsa" => PakBinary_Bsa.Instance,
                 ".ba2" => PakBinary_Ba2.Instance,
                 ".esm" => PakBinary_Esm.Instance,
-                _ => throw new ArgumentOutOfRangeException(nameof(filePath)),
+                _ => throw new ArgumentOutOfRangeException(nameof(extension)),
             };
 
         #endregion

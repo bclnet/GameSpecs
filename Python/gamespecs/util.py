@@ -15,6 +15,12 @@ def _related(elem: dict[str, Any], key: str, method: Any, default: Any = None) -
 def _relatedTrim(elem: dict[str, Any], key: str, method: Any, default: Any = None) -> Any:
     return { k:v for k,v in { k:method(k, v) for k,v in elem[key].items() }.items() if v } if key in elem else {}
 
+def _guessExtension(buf):
+    if len(buf) < 4: return ''
+    extensionInt = int.from_bytes(buf, 'little', signed=False)
+    extension = f'.{buf[0:3].decode('ascii', 'ignore')}' if extensionInt != 0x75B22630 else '.asf'
+    return extension.lower()
+
 def grammerSize(i):
     t, c=['','K','M','G','T'], 0
     while i > 1024: i /= 1024; c += 1

@@ -57,7 +57,7 @@ namespace GameSpec.Formats
             : base(game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)), tag)
         {
             FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-            FilePath = filePath ?? throw new ArgumentNullException(nameof(filePath));
+            FilePath = filePath;
             PakBinary = pakBinary;
         }
 

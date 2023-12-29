@@ -7,12 +7,25 @@ https://github.com/vgmtrans/vgmtrans/blob/master/README.md
 
 
 https://github.com/shawngmc/game-extraction-toolbox/tree/main/src/gex/lib/archive
-https://github.com/darkxex/Rune-Factory-4-Special-Mbundle-Extractor/blob/main/mbundle%20extractor/Program.cs
 
 
 https://www.xentax.com/
 https://watto.org/source_code.html
 
 
-https://github.com/HTV04/mmlc-dac-extractor/blob/master/src/dac-extractor.py
+https://github.com/Ekey/REE.PAK.Tool
+
 https://gist.github.com/anpage/b895a34efb0bf1e4a9a4f52228067fa8
+
+
+# mega man passwords
+https://www.reddit.com/r/Megaman/comments/13qyeek/how_to_extract_the_disc_file_in_megaman_legacy/
+
+
+
+# Sub ROMs in the Exes
+https://github.com/HTV04/mmlc-dac-extractor/tree/master
+
+
+# whole different family
+https://github.com/darkxex/Rune-Factory-4-Special-Mbundle-Extractor/blob/main/mbundle%20extractor/Program.cs
