@@ -9,7 +9,8 @@
     "EXTroopers": {
       "name": "E.X. Troopers",
       "url": "https://en.wikipedia.org/wiki/E.X._Troopers",
-      "date": "2012-11-21"
+      "date": "2012-11-21",
+      "engine": "MT2"
     },
     "EcoFighters": {
       "name": "Eco Fighters",
@@ -393,7 +394,8 @@
     "JoJo:HD": {
       "name": "JoJo's Bizarre Adventure HD",
       "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(video_game)",
-      "date": "2012-08-21"
+      "date": "2012-08-21",
+      "engine": "MT2"
     },
     "JoJo:HftF": {
       "name": "JoJo's Bizarre Adventure: Heritage for the Future",
@@ -483,6 +485,7 @@
         "https://en.wikipedia.org/wiki/Lost_Planet:_Extreme_Condition"
       ],
       "date": "2008-02-21",
+      "engine": "MT1",
       "path": [
         "ZZPack1",
         "ZZPack2"
@@ -497,7 +500,8 @@
     "LP2": {
       "name": "Lost Planet 2",
       "url": "https://en.wikipedia.org/wiki/Lost_Planet_2",
-      "date": "2010-03-11"
+      "date": "2010-03-11",
+      "engine": "MT2"
     },
     "LP3": {
       "n/a": false,

@@ -73,7 +73,8 @@
     "MVC3:AFoTW": {
       "name": "Marvel vs. Capcom 3: Fate of Two Worlds",
       "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom_3:_Fate_of_Two_Worlds",
-      "date": "February 15, 2011"
+      "date": "February 15, 2011",
+      "engine": "MT2"
     },
     "MVC:CoSH": {
       "name": "Marvel vs. Capcom: Clash of Super Heroes",
@@ -189,6 +190,7 @@
         "https://en.wikipedia.org/wiki/Mega_Man_11"
       ],
       "date": "October 2, 2018",
+      "engine": "MT2",
       "path": "arc",
       "pakExt": ".arc",
       "pak": "game:/*/*.arc"
@@ -341,6 +343,7 @@
         "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection"
       ],
       "date": "July 24, 2018",
+      "engine": "MT2",
       "path": [
         "Common/romPC",
         "RXC1/romPC",
@@ -358,6 +361,7 @@
         "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection_2"
       ],
       "date": "July 24, 2018",
+      "engine": "MT2",
       "path": [
         "Common/romPC",
         "RXC2/romPC",
@@ -536,12 +540,14 @@
     "MH3": {
       "name": "Monster Hunter 3 Ultimate",
       "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Tri#Monster_Hunter_3_Ultimate",
-      "date": "December 10, 2011"
+      "date": "December 10, 2011",
+      "engine": "MTFM"
     },
     "MH4": {
       "name": "Monster Hunter 4",
       "url": "https://en.wikipedia.org/wiki/Monster_Hunter_4",
-      "date": "September 14, 2013"
+      "date": "September 14, 2013",
+      "engine": "MTFM"
     },
     "MH:F": {
       "name": "Monster Hunter Freedom",
@@ -581,7 +587,8 @@
     "MH:GU": {
       "name": "Monster Hunter Generations Ultimate",
       "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Generations",
-      "date": "November 28, 2015"
+      "date": "November 28, 2015",
+      "engine": "MT2"
     },
     "MH:P3": {
       "name": "Monster Hunter Portable 3rd",
@@ -596,7 +603,8 @@
     "MH:S": {
       "name": "Monster Hunter Stories",
       "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Stories",
-      "date": "October 8, 2016"
+      "date": "October 8, 2016",
+      "engine": "MTFM"
     },
     "MH:T": {
       "name": "Monster Hunter Tri",
@@ -611,17 +619,20 @@
         "https://en.wikipedia.org/wiki/Monster_Hunter:_World"
       ],
       "date": "January 26, 2018",
+      "engine": "MT2",
       "pakExt": ".bin"
     },
     "MHXX": {
       "name": "Monster Hunter XX",
       "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Generations",
-      "date": "March 18, 2017"
-    },
-    "MHXX:NS": {
-      "name": "Monster Hunter XX: Nintendo Switch Ver.",
-      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Generations",
-      "date": "August 25, 2017"
+      "date": "March 18, 2017",
+      "editions": {
+        "NS": {
+          "name": "Monster Hunter XX: Nintendo Switch Ver.",
+          "date": "August 25, 2017"
+        }    
+      },
+      "engine": "MTFM"
     },
     "MotoGP": {
       "name": "MotoGP",

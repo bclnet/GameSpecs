@@ -40,6 +40,7 @@ namespace GameSpec.Capcom.Formats
         public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
         {
             var magic = r.ReadUInt32();
+            magic &= 0x00FFFFFF;
             if (magic != K_MAGIC) throw new FormatException("BAD MAGIC");
 
             // get header

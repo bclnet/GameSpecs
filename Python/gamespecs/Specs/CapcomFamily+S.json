@@ -48,17 +48,20 @@
     "Sengoku:SH": {
       "name": "Sengoku Basara: Samurai Heroes",
       "url": "https://en.wikipedia.org/wiki/Sengoku_Basara:_Samurai_Heroes",
-      "date": "July 29, 2010"
+      "date": "July 29, 2010",
+      "engine": "MTFL"
     },
     "Sengoku4": {
       "name": "Sengoku Basara 4",
       "url": "https://en.wikipedia.org/wiki/Sengoku_Basara_4",
-      "date": "January 23, 2014"
+      "date": "January 23, 2014",
+      "engine": "MT2"
     },
     "Sengoku:SYD": {
       "name": "Sengoku Basara: Sanada Yukimura-Den",
       "url": "https://en.wikipedia.org/wiki/Sengoku_Basara",
-      "date": "August 25, 2016"
+      "date": "August 25, 2016",
+      "engine": "MT2"
     },
     "Shadow of Rome": {
       "name": "Shadow of Rome",
@@ -478,7 +481,8 @@
     "SSF4:3D": {
       "name": "Super Street Fighter IV: 3D Edition",
       "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_IV:_3D_Edition",
-      "date": "February 26, 2011"
+      "date": "February 26, 2011",
+      "engine": "MTFM"
     },
     "SSF4:A": {
       "name": "Super Street Fighter IV: Arcade Edition",

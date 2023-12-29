@@ -312,6 +312,7 @@
       "name": "Capcom Beat 'Em Up Bundle",
       "url": "https://store.steampowered.com/app/885150",
       "date": "Oct 10, 2018",
+      "engine": "MT2",
       "path": "arc",
       "pakExt": ".arc"
     },
@@ -584,6 +585,7 @@
         "https://en.wikipedia.org/wiki/Dead_Rising_(video_game)"
       ],
       "date": "2006-08-08",
+      "engine": "MT1",
       "pakExt": ".arc",
       "pak": "game:/**/*.arc"
     },
@@ -705,12 +707,15 @@
     "DMC4": {
       "name": "Devil May Cry 4",
       "url": "https://en.wikipedia.org/wiki/Devil_May_Cry_4",
-      "date": "2008-01-31"
-    },
-    "DMC4:R": {
-      "name": "Devil May Cry 4: Refrain",
-      "url": "https://en.wikipedia.org/wiki/Devil_May_Cry_4",
-      "date": "2011-02-03"
+      "date": "2008-01-31",
+      "engine": "MT1",
+      "editions": {
+        "R": {
+          "name": "Devil May Cry 4: Refrain",
+          "date": "2011-02-03",
+          "tags": "iOS"
+        }
+      }
     },
     "DMC4:S": {
       "n/a": false,
@@ -720,8 +725,10 @@
         "https://en.wikipedia.org/wiki/Devil_May_Cry_4:_Special_Edition"
       ],
       "date": "2015-06-18",
+      "engine": "MT2",
+      "searchBy": "AllDir",
       "pakExt": ".arc",
-      "pak": "game:/**/*.arc"
+      "pakx": "game:/**/*.arc"
     },
     "DMC5": {
       "n/a": false,
@@ -835,13 +842,16 @@
         "https://en.wikipedia.org/wiki/Dragon%27s_Dogma"
       ],
       "date": "2012-05-22",
+      "editions": {
+        "DA": {
+          "name": "Dragon's Dogma: Dark Arisen",
+          "url": "https://en.wikipedia.org/wiki/Dragon%27s_Dogma#Dragon's_Dogma:_Dark_Arisen",
+          "date": "2013-04-25"
+        }
+      },
+      "engine": "MT2",
       "pakExt": ".arc",
       "pak": "game:/**/*.arc"
-    },
-    "Dragon:DA": {
-      "name": "Dragon's Dogma: Dark Arisen",
-      "url": "https://en.wikipedia.org/wiki/Dragon%27s_Dogma#Dragon's_Dogma:_Dark_Arisen",
-      "date": "2013-04-25"
     },
     "Dragon2": {
       "name": "Dragon's Dogma II",

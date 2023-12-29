@@ -13,7 +13,8 @@
     },
     "NazoWakuYakata": {
       "name": "Nazo Waku Yakata",
-      "date": "2011-01-01"
+      "date": "2011-01-01",
+      "engine": "MTFM"
     },
     "Nemo": {
       "name": "Nemo",
@@ -120,7 +121,8 @@
     "PWAA:DD": {
       "name": "Phoenix Wright: Ace Attorney - Dual Destinies",
       "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney_%E2%88%92_Dual_Destinies",
-      "date": "July 25, 2013"
+      "date": "July 25, 2013",
+      "engine": "MTFM"
     },
     "PWAA:JfA": {
       "name": "Phoenix Wright: Ace Attorney - Justice for All",
@@ -130,7 +132,8 @@
     "PWAA:SoJ": {
       "name": "Phoenix Wright: Ace Attorney - Spirit of Justice",
       "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney_%E2%88%92_Spirit_of_Justice",
-      "date": "June 9, 2016"
+      "date": "June 9, 2016",
+      "engine": "MTFM"
     },
     "PWAA:TaT": {
       "name": "Phoenix Wright: Ace Attorney - Trials and Tribulations",
@@ -288,12 +291,15 @@
         "https://en.wikipedia.org/wiki/Resident_Evil_(1996_video_game)"
       ],
       "date": "March 22, 1996",
+      "editions": {
+        "+": {
+          "name": "Resident Evil HD Remaster",
+          "url": "https://en.wikipedia.org/wiki/Resident_Evil_(2002_video_game)",
+          "date": "March 22, 2002"
+        }
+      },
+      "engine": "MT2",
       "pakExt": ".?"
-    },
-    "RE+": {
-      "name": "Resident Evil (remake)",
-      "url": "https://en.wikipedia.org/wiki/Resident_Evil_(2002_video_game)",
-      "date": "March 22, 2002"
     },
     "RE2": {
       "n/a": false,
@@ -373,12 +379,14 @@
         "https://en.wikipedia.org/wiki/Resident_Evil_5"
       ],
       "date": "March 5, 2009",
+      "editions": {
+        "G": {
+          "name": "Resident Evil 5: Gold Edition",
+          "date": "February 18, 2010"
+        }
+      },
+      "engine": "MT1",
       "pakExt": ".?"
-    },
-    "RE5:G": {
-      "name": "Resident Evil 5: Gold Edition",
-      "url": "https://en.wikipedia.org/wiki/Resident_Evil_5:_Gold_Edition",
-      "date": "February 18, 2010"
     },
     "RE6": {
       "n/a": false,
@@ -388,6 +396,7 @@
         "https://en.wikipedia.org/wiki/Resident_Evil_6"
       ],
       "date": "October 2, 2012",
+      "engine": "MT2",
       "pakExt": ".?"
     },
     "RE7": {
@@ -423,7 +432,8 @@
     "REC:VXHD": {
       "name": "Resident Evil - Code: Veronica X HD",
       "url": "https://en.wikipedia.org/wiki/Resident_Evil_%E2%80%93_Code:_Veronica",
-      "date": "September 27, 2011"
+      "date": "September 27, 2011",
+      "engine": "MT2"
     },
     "RE:DA": {
       "name": "Resident Evil: Dead Aim",
@@ -482,6 +492,7 @@
         "https://en.wikipedia.org/wiki/Resident_Evil:_Revelations"
       ],
       "date": "January 26, 2012",
+      "engine": "MT2",
       "pakExt": ".?"
     },
     "RE:R2": {
@@ -492,6 +503,7 @@
         "https://en.wikipedia.org/wiki/Resident_Evil:_Revelations_2"
       ],
       "date": "February 24, 2015",
+      "engine": "MT2",
       "pakExt": ".?"
     },
     "RE:RU": {
@@ -512,12 +524,14 @@
     "RE:TDC": {
       "name": "Resident Evil: The Darkside Chronicles",
       "url": "https://en.wikipedia.org/wiki/Resident_Evil:_The_Darkside_Chronicles",
-      "date": "November 17, 2009"
+      "date": "November 17, 2009",
+      "engine": "MTFL"
     },
     "RE:TM3D": {
       "name": "Resident Evil: The Mercenaries 3D",
       "url": "https://en.wikipedia.org/wiki/Resident_Evil:_The_Mercenaries_3D",
-      "date": "June 2, 2011"
+      "date": "June 2, 2011",
+      "engine": "MTFM"
     },
     "RE:TUC": {
       "name": "Resident Evil: The Umbrella Chronicles",
@@ -542,6 +556,13 @@
         "https://en.wikipedia.org/wiki/Resident_Evil_Zero"
       ],
       "date": "November 12, 2002",
+      "editions": {
+        "+": {
+          "name": "Resident Evil Zero HD Remaster",
+          "date": "January 19, 2016"
+        }
+      },
+      "engine": "MT2",
       "pakExt": ".?"
     },
     "RivalSchools:UBF": {

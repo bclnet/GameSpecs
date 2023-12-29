@@ -159,8 +159,8 @@ namespace GameSpec
             //Game = "MM:LC2", // Mega Man Legacy Collection 2
             //Game = "MM:XD", // Mega Man X DiVE [Unity]
             //Game = "MMZX:LC", // Mega Man Zero/ZX Legacy Collection
-            Game = "MHR", // Monster Hunter Rise
-            //Game = "MH:S2", // Monster Hunter Stories 2: Wings of Ruin
+            //Game = "MHR", // Monster Hunter Rise
+            Game = "MH:S2", // Monster Hunter Stories 2: Wings of Ruin
 
             //Game = "PWAA:T", // Phoenix Wright: Ace Attorney Trilogy
             //Game = "RDR2", // Red Dead Redemption 2

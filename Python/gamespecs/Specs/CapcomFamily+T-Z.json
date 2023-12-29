@@ -33,7 +33,8 @@
     "TGAA:A": {
       "name": "The Great Ace Attorney: Adventures",
       "url": "https://en.wikipedia.org/wiki/The_Great_Ace_Attorney:_Adventures",
-      "date": "July 9, 2015"
+      "date": "July 9, 2015",
+      "engine": "MTFM "
     },
     "TGAA2:R": {
       "name": "The Great Ace Attorney 2: Resolve",
@@ -167,6 +168,7 @@
         "https://en.wikipedia.org/wiki/Ultimate_Marvel_vs._Capcom_3"
       ],
       "date": "November 15, 2011",
+      "engine": "MT2",
       "pakExt": ".?"
     },
     "UmbrellaCorps": {
