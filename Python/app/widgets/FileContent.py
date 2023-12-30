@@ -1,11 +1,72 @@
 import sys, os
-from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QProgressBar, QTableView, QTableWidget, QTableWidgetItem, QGridLayout, QHeaderView, QAbstractItemView, QLabel, QTextEdit, QHBoxLayout, QMenu, QFileDialog, QSplitter, QTabWidget
+from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QSizePolicy, QProgressBar, QScrollArea, QTableView, QTableWidget, QTableWidgetItem, QGridLayout, QHeaderView, QAbstractItemView, QLabel, QTextEdit, QHBoxLayout, QMenu, QFileDialog, QSplitter, QTabWidget
 from PyQt6.QtGui import QIcon, QFont, QDrag, QPixmap, QPainter, QColor, QBrush, QAction
 from PyQt6.QtCore import pyqtSlot, Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
+from gamespecs import PakFile, MetadataInfo, MetadataContent
+
+class TextBlock(QWidget):
+    def __init__(self, parent, tab):
+        super().__init__()
+        mainWidget = QScrollArea(self)
+        mainWidget.setStyleSheet('border:0px;')
+        label = QLabel(mainWidget)
+        label.setText(tab.value)
+        label.setWordWrap(True)
+        label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+
+class HexBlock(QWidget):
+    def __init__(self, parent, tab):
+        super().__init__()
+
+class NullBlock(QWidget):
+    def __init__(self, parent, tab):
+        super().__init__()
 
 class FileContent(QWidget):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
+        self.parent = parent
+        self._graphic = []
+        self._contentTabs = []
+        self.initUI()
+
+    def initUI(self):
+        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        self.setStyleSheet('background-color: darkgreen;')
+        # content tab
+        contentTab = self.contentTab = QTabWidget(self)
+        contentTab.sizeHint()
+        # contentTab.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+        contentTab.setMinimumWidth(300)
+        contentTab.setMinimumHeight(300)
+        # contentTab.setMaximumWidth(500)
+
+    def updateTabs(self):
+        self.contentTab.clear()
+        if not self.contentTabs: return
+        for tab in self.contentTabs:
+            control = TextBlock(self, tab) if tab.type == 'Text' else \
+                HexBlock(self, tab) if tab.type == 'Hex' else \
+                NullBlock(self, tab)
+            self.contentTab.addTab(control, tab.name)
+
+    @property
+    def graphic(self): return self._graphic
+    @graphic.setter
+    def graphic(self, value):
+        self._graphic = value
+
+    @property
+    def contentTabs(self) -> list[MetadataContent]: return self._contentTabs
+    @contentTabs.setter
+    def contentTabs(self, value: list[MetadataContent]):
+        self._contentTabs = value
+        self.updateTabs()
+
+    def onInfo(self, pakFile: PakFile, infos: list[MetadataInfo] = None):
+        self.graphic = pakFile.graphic
+        self.contentTabs = [x.tag for x in infos if isinstance(x.tag, MetadataContent)] if infos else None
+        self.contentTab.selectedIndex = 0 if infos else -1

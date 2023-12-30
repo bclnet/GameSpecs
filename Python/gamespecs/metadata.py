@@ -39,7 +39,7 @@ class MetadataItem(object):
         self.pakFile = pakFile
         self.items = items if items else []
     def findByPath(self, path: str, manager: MetadataManager):
-        paths = re.split('\\|/|:', path, 2)
+        paths = re.split('\\\\|/|:', path, 2)
         node = next([x for x in self.items if x.name == paths[0]], None)
         if node and node.source.pak: node.source.pak.open(node.items, manager)
         return node if node or len(paths) == 1 else node.findByPath(paths[1], manager)
@@ -71,7 +71,7 @@ class StandardMetadataItem(object):
                             currentFolder = found.items
             # pakfile
             if file.pak:
-                items = getPakFiles(manager, file.pak)
+                items = StandardMetadataItem.getPakFiles(manager, file.pak)
                 currentFolder.append(MetadataItem(file, os.path.basename(file.path), manager.packageIcon, pakFile=pakFile, items=items))
                 continue
             # file

@@ -41,7 +41,7 @@ match 'Bethesda':
 
         appDefaultOptions = DefaultOptions(
             # Game:Morrowind
-            # ForcePath = "bookart/boethiah_256.dds",
+            ForcePath = "bookart/boethiah_256.dds",
             # ForcePath = "icons/handtohand.dds",
 
             ForceOpen = True,

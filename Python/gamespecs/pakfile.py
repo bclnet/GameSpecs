@@ -28,6 +28,7 @@ class PakFile:
         self.game = game
         self.name = name
         self.tag = tag
+        self.graphic = None
     def __enter__(self): return self
     def __exit__(self, type, value, traceback): self.close()
     def __repr__(self): return f'{self.name}#{self.game.id}'
@@ -39,15 +40,14 @@ class PakFile:
         return self
     def closing(self): pass
     def open(self, items = None, manager = None):
-        if self.status != self.PakStatus.Closed: return this
+        if self.status != self.PakStatus.Closed: return self
         self.status = self.PakStatus.Opening
         start = time.time()
         self.opening()
         end = time.time()
         self.status = self.PakStatus.Opened
         elapsed = round(end - start, 4)
-        # if items:
-        #     items[]
+        # if items: items[]
         print(f'Opened: {self.name} @ {elapsed}ms')
         return self
     def opening(self): pass

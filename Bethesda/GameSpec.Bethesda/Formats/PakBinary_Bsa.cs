@@ -202,7 +202,7 @@ namespace GameSpec.Bethesda.Formats
             // position
             var fileSize = (int)file.FileSize;
             r.Seek(file.Position);
-            if ((char)source.Tag == 'Y')
+            if (source.Tag is char? && ((char?)source.Tag).Value == 'Y')
             {
                 var prefixLength = r.ReadByte() + 1;
                 if (source.Version == SSE_BSAHEADER_VERSION)

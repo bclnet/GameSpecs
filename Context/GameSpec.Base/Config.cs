@@ -1,9 +1,9 @@
 ﻿//#define Arkane
-//#define Bethesda
+#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
-#define Capcom
+//#define Capcom
 //#define Cig
 //#define Cryptic
 //#define Crytek
@@ -72,14 +72,14 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             // Game:Morrowind
-            //ForcePath = "bookart/boethiah_256.dds",
+            ForcePath = "bookart/boethiah_256.dds",
             //ForcePath = "icons/handtohand.dds",
 
             ForceOpen = true,
             Family = "Bethesda",
 
-            //Game = "Morrowind", // The Elder Scrolls III: Morrowind
-            Game = "Oblivion", // The Elder Scrolls IV: Oblivion
+            Game = "Morrowind", // The Elder Scrolls III: Morrowind
+            //Game = "Oblivion", // The Elder Scrolls IV: Oblivion
             //Game = "Fallout3", // Fallout 3
             //Game = "FalloutNV", // Fallout New Vegas
             //Game = "Skyrim", // The Elder Scrolls V: Skyrim

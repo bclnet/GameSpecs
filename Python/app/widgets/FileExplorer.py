@@ -1,11 +1,11 @@
-import sys, os, traceback
+import sys, os, re, traceback
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QProgressBar, QTreeView, QTableView, QTableWidget, QTableWidgetItem, QGridLayout, QHeaderView, QAbstractItemView, QLabel, QComboBox, QTextEdit, QHBoxLayout, QMenu, QFileDialog, QSplitter, QTabWidget
 from PyQt6.QtGui import QIcon, QFont, QDrag, QPixmap, QPainter, QColor, QBrush, QAction, QStandardItem, QStandardItemModel
 from PyQt6.QtCore import pyqtSlot, Qt, QObject, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal, QItemSelectionModel
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import Family, PakFile, util, MetadataItem, MetadataInfo
+from gamespecs import Family, PakFile, util, MetadataManager, MetadataItem, MetadataInfo, appDefaultOptions as config
 
 # https://doc.qt.io/qt-6/qtreeview.html
 # https://gist.github.com/skriticos/5415869
@@ -22,14 +22,22 @@ class MetadataItemToTreeViewNodeConverter:
 
 class MetadataInfoToTreeViewNodeConverter:
     @staticmethod
-    def toTreeNodes(source: list[MetadataInfo]) -> QStandardItemModel:
-        pass
+    def toTreeNodes(root: object, source: list[MetadataInfo]) -> None:
+        if not source: return
+        for s in source:
+            item = QStandardItem(s.name)
+            item.setData(s, Qt.ItemDataRole.UserRole)
+            root.appendRow(item)
+            if s.items: MetadataItemToTreeViewNodeConverter.toTreeNodes(item, s.items)
 
 class FileExplorer(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
         self.parent = parent
         self.resource = parent.resource
+        self._nodes = []
+        self._infos = []
+        self._selectedItem = None
         self.initUI()
         # ready
         self.setPakFile(tab.pakFile)
@@ -37,7 +45,7 @@ class FileExplorer(QWidget):
     def setPakFile(self, pakFile):
         self.pakFile = pakFile
         self.filters = pakFile.getMetadataFilters(self.resource)
-        self.nodes = pakFile.getMetadataItems(self.resource)
+        self.nodes = self.pakNodes = pakFile.getMetadataItems(self.resource)
         self.onReady()
 
     def initUI(self):
@@ -74,28 +82,31 @@ class FileExplorer(QWidget):
         layout.addWidget(infoView, 3, 0); layout.setRowStretch(3, 30)
         self.setLayout(layout)
 
-    _nodes = []
+    def findByPath(self, path: str, manager: MetadataManager) -> MetadataItem:
+        paths = re.split('\\\\|/|:', path, 2)
+        node = next(iter([x for x in self.pakNodes if x.name == paths[0]]), None)
+        if node and node.source.pak: node.source.pak.open(node.items, manager)
+        return node if node or len(paths) == 1 else node.findByPath(paths[1], manager)
+
     @property
-    def nodes(self): return _nodes
+    def nodes(self): return self._nodes
     @nodes.setter
     def nodes(self, value):
-        _nodes = value
+        self._nodes = value
         self.nodeModel.clear()
         MetadataItemToTreeViewNodeConverter.toTreeNodes(self.nodeModel, value)
     
-    _infos = []
     @property
-    def infos(self): return _infos
+    def infos(self): return self._infos
     @nodes.setter
     def infos(self, value):
-        _infos = value
+        self._infos = value
         self.infoModel.clear()
         MetadataInfoToTreeViewNodeConverter.toTreeNodes(self.infoModel, value)
 
     def filter_change(self, index):
         pass
 
-    _selectedItem = None
     def node_change(self, newSelection, oldSelection):
         index = next(iter(newSelection.indexes()), None)
         value = self._selectedItem = index.data(Qt.ItemDataRole.UserRole)
@@ -118,12 +129,14 @@ class FileExplorer(QWidget):
     def onFilterKeyUp(self, a, b):
         pass
 
-    def onInfo(self, a = None):
-        # FileContent.Instance.onInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
-        # Infos = infos?.Where(x => x.Name != null).ToList();
-        pass
+    def onInfo(self, infos: list[MetadataInfo] = None):
+        self.parent.contentBlock.onInfo(self.pakFile, [x for x in infos if not x.name] if infos else None)
+        self.infos = [x for x in infos if x.name] if infos else None
 
     def onReady(self):
-        # if config.ForcePath: SelectedItem = FindByPath(Config.ForcePath, Resource)
-        # self.nodeView.selectionModel().select(model.indexFromItem(child3), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
+        if config.ForcePath and not config.ForcePath.startswith('app:'):
+            selectedItem = self.findByPath(config.ForcePath, self.resource)
+            index = self.nodeModel.indexFromItem(selectedItem)
+            print(index)
+            # self.nodeView.selectionModel().select(self.nodeModel.indexFromItem(child3), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
         pass

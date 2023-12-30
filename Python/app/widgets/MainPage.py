@@ -6,22 +6,20 @@ from PyQt6.QtCore import pyqtSlot, Qt, QBuffer, QByteArray, QUrl, QMimeData, pyq
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import Family, util, appDefaultOptions
+from gamespecs import Family, util, appDefaultOptions as config
 from .HexViewWidget import HexViewWidget
 from .SaveFileWidget import SaveFileWidget
 from .OpenWidget import OpenWidget
+from .FileContent import FileContent
 from .FileExplorer import FileExplorer
 from .resourcemgr import ResourceManager
 
-config = appDefaultOptions
-
 class ExplorerMainTab:
-    def __init__(self, name: str=None, pakFile: Any=None, appList: list[Any]=None, text: str=None, openPath: str=None):
+    def __init__(self, name: str=None, pakFile: Any=None, appList: list[Any]=None, text: str=None):
         self.name = name
         self.pakFile = pakFile
         self.appList = appList
         self.text = text
-        self.openPath = openPath
 
 class TextBlock(QWidget):
     def __init__(self, parent, tab):
@@ -85,9 +83,10 @@ class MainPage(QMainWindow):
         self.updateTabs()
 
         # contentBlock
-        contentBlock = self.contentBlock = QWidget(self)
-        contentBlock.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        contentBlock.setStyleSheet('background-color: darkgreen;')
+        contentBlock = self.contentBlock = FileContent(self)
+        contentBlock.setContentsMargins(50, 50, 50, 50)
+        # contentBlock.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        # contentBlock.setStyleSheet('background-color: darkgreen;')
 
         # splitter
         splitter = QSplitter(self)
@@ -133,9 +132,6 @@ class MainPage(QMainWindow):
         text = logBar.text()
         logBar.setText(text + value + '\n')
 
-    def onFirstLoad(self):
-        self.openPage_click()
-
     def open(self, family: Family, pakUris: list[str], path: str = None):
         self.pakFiles.clear()
         if not family: return
@@ -146,23 +142,21 @@ class MainPage(QMainWindow):
             if pak: self.pakFiles.append(pak)
         self.log('Done')
         self.onOpened(family, path)
-        self.onReady()
 
     def onOpened(self, family, path):
         tabs = [ExplorerMainTab(
             name = pakFile.name,
-            pakFile = pakFile,
-            openPath = path
+            pakFile = pakFile
         ) for pakFile in self.pakFiles]
         if family.description:
             tabs.append(ExplorerMainTab(
                 name = 'Information',
-                text = family.description,
-                openPath = path
+                text = family.description
             ))
         self.mainTabs = tabs
         self.updateTabs()
 
     def onReady(self):
-        if config.ForcePath and config.ForcePath.startsWith('app:') and self.familyApps and config.ForcePath[:4] in self.familyApps:
+        if config.ForcePath and config.ForcePath.startswith('app:') and self.familyApps and config.ForcePath[:4] in self.familyApps:
             app = self.familyApps[config.ForcePath[:4]]
+        self.openPage_click()
