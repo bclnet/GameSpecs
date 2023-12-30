@@ -8,7 +8,6 @@
         public string Name { get; set; }
         public PakFile PakFile { get; set; }
         public string Text { get; set; }
-        public string OpenPath { get; set; }
     }
 
     public partial class MainPage : ContentPage
@@ -61,7 +60,6 @@
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
-                OpenPath = path,
             }).ToList();
             if (!string.IsNullOrEmpty(family.Description))
                 tabs.Add(new ExplorerMainTab

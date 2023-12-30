@@ -15,11 +15,11 @@
             <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
         <Label Content="File Filter" Grid.Row="0"/>
-        <ComboBox Name="NodeFilter" Grid.Row="1" Margin="7.5,0,0,0"
+        <ComboBox Name="Filter" Grid.Row="1" Margin="7.5,0,0,0"
                   IsEditable="True"
-                  ItemsSource="{Binding NodeFilters}"
-                  KeyUp="OnNodeFilterKeyUp"
-                  SelectionChanged="OnNodeFilterSelected"/>
+                  ItemsSource="{Binding Filters}"
+                  KeyUp="OnFilterKeyUp"
+                  SelectionChanged="OnFilterSelected"/>
         <TreeView Name="Node" Grid.Row="2" Margin="7.5,7.5,0,0"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   VirtualizingStackPanel.IsVirtualizing="True"
@@ -40,7 +40,7 @@
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <TreeView Name="FileInfo" Grid.Row="3" Margin="7.5,7.5,0,0"
+        <TreeView Name="Info" Grid.Row="3" Margin="7.5,7.5,0,0"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             VirtualizingStackPanel.IsVirtualizing="False"
             VirtualizingStackPanel.VirtualizationMode="Recycling"

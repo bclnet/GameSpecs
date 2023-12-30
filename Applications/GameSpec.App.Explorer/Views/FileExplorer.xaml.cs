@@ -22,7 +22,7 @@ namespace GameSpec.App.Explorer.Views
     /// </summary>
     public partial class FileExplorer : UserControl, INotifyPropertyChanged
     {
-        public static MetadataManager Resource = new ResourceManagerProvider();
+        public static MetadataManager Resource = new ResourceManager();
         public static FileExplorer Instance;
 
         public FileExplorer()
@@ -35,20 +35,12 @@ namespace GameSpec.App.Explorer.Views
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public static readonly DependencyProperty OpenPathProperty = DependencyProperty.Register(nameof(OpenPath), typeof(string), typeof(FileExplorer));
-        public string OpenPath
-        {
-            get => (string)GetValue(OpenPathProperty);
-            set => SetValue(OpenPathProperty, value);
-        }
-
         public static readonly DependencyProperty PakFileProperty = DependencyProperty.Register(nameof(PakFile), typeof(PakFile), typeof(FileExplorer),
             new PropertyMetadata((d, e) =>
             {
                 if (d is not FileExplorer fileExplorer || e.NewValue is not PakFile pakFile) return;
-                fileExplorer.NodeFilters = pakFile.GetMetadataItemFiltersAsync(Resource).Result;
+                fileExplorer.Filters = pakFile.GetMetadataFiltersAsync(Resource).Result;
                 fileExplorer.Nodes = new ObservableCollection<MetadataItem>(fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result.ToList());
-                fileExplorer.SelectedItem = string.IsNullOrEmpty(fileExplorer.OpenPath) ? null : fileExplorer.FindByPath(fileExplorer.OpenPath, Resource);
                 fileExplorer.OnReady();
             }));
         public PakFile PakFile
@@ -65,31 +57,31 @@ namespace GameSpec.App.Explorer.Views
             return paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
         }
 
-        List<MetadataItem.Filter> _nodeFilters;
-        public List<MetadataItem.Filter> NodeFilters
+        List<MetadataItem.Filter> _filters;
+        public List<MetadataItem.Filter> Filters
         {
-            get => _nodeFilters;
-            set { _nodeFilters = value; OnPropertyChanged(); }
+            get => _filters;
+            set { _filters = value; OnPropertyChanged(); }
         }
 
-        void OnNodeFilterKeyUp(object sender, KeyEventArgs e)
+        void OnFilterKeyUp(object sender, KeyEventArgs e)
         {
-            if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = new ObservableCollection<MetadataItem>(PakNodes);
-            else Nodes = new ObservableCollection<MetadataItem>(PakNodes.Select(x => x.Search(y => y.Name.Contains(NodeFilter.Text))).Where(x => x != null));
+            if (string.IsNullOrEmpty(Filter.Text)) Nodes = new ObservableCollection<MetadataItem>(PakNodes);
+            else Nodes = new ObservableCollection<MetadataItem>(PakNodes.Select(x => x.Search(y => y.Name.Contains(Filter.Text))).Where(x => x != null));
             //var view = (CollectionView)CollectionViewSource.GetDefaultView(Node.ItemsSource);
             //view.Filter = o =>
             //{
-            //    if (string.IsNullOrEmpty(NodeFilter.Text)) return true;
-            //    else return (o as MetadataItem).Name.Contains(NodeFilter.Text);
+            //    if (string.IsNullOrEmpty(Filter.Text)) return true;
+            //    else return (o as MetadataItem).Name.Contains(Filter.Text);
             //};
             //view.Refresh();
         }
 
-        void OnNodeFilterSelected(object sender, SelectionChangedEventArgs e)
+        void OnFilterSelected(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count <= 0) return;
             var filter = e.AddedItems[0] as MetadataItem.Filter;
-            if (string.IsNullOrEmpty(NodeFilter.Text)) Nodes = new ObservableCollection<MetadataItem>(PakNodes);
+            if (string.IsNullOrEmpty(Filter.Text)) Nodes = new ObservableCollection<MetadataItem>(PakNodes);
             else Nodes = new ObservableCollection<MetadataItem>(PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).Where(x => x != null));
         }
 
@@ -117,21 +109,22 @@ namespace GameSpec.App.Explorer.Views
             {
                 if (_selectedItem == value) return;
                 _selectedItem = value;
+                if (value == null) { OnInfo(); return; }
                 try
                 {
-                    var pak = (value?.Source as FileSource)?.Pak;
+                    var pak = (value.Source as FileSource)?.Pak;
                     if (pak != null)
                     {
                         if (pak.Status == PakFile.PakStatus.Opened) return;
                         pak.Open(value.Items, Resource);
                         //value.Items.AddRange(pak.GetMetadataItemsAsync(Resource).Result);
-                        OnNodeFilterKeyUp(null, null);
+                        OnFilterKeyUp(null, null);
                     }
-                    OnFileInfo(value?.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
+                    OnInfo(value.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
                 }
                 catch (Exception ex)
                 {
-                    OnFileInfo(new[] {
+                    OnInfo(new[] {
                         new MetadataInfo($"EXCEPTION: {ex.Message}"),
                         new MetadataInfo(ex.StackTrace),
                     });
@@ -139,9 +132,9 @@ namespace GameSpec.App.Explorer.Views
             }
         }
 
-        public void OnFileInfo(IEnumerable<MetadataInfo> infos)
+        public void OnInfo(IEnumerable<MetadataInfo> infos = null)
         {
-            FileContent.Instance.OnFileInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
+            FileContent.Instance.OnInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             Infos = infos?.Where(x => x.Name != null).ToList();
         }
 
@@ -154,6 +147,7 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
+            //SelectedItem = string.IsNullOrEmpty(OpenPath) ? null : FindByPath(OpenPath, Resource);
             if (!string.IsNullOrEmpty(Config.ForcePath) && !Config.ForcePath.StartsWith("app:")) SelectedItem = FindByPath(Config.ForcePath, Resource);
         }
     }

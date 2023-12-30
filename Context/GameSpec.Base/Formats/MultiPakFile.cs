@@ -24,14 +24,14 @@ namespace GameSpec.Formats
         /// <param name="fileSystem">The file system.</param>
         /// <param name="pakFiles">The packs.</param>
         /// <param name="tag">The tag.</param>
-        public MultiPakFile(FamilyGame game, string name, IFileSystem fileSystem, IList<PakFile> pakFiles, object tag = null) : base(game, name, tag) => PakFiles = pakFiles;
+        public MultiPakFile(FamilyGame game, string name, IFileSystem fileSystem, IList<PakFile> pakFiles, object tag = null) : base(game, name, tag) => PakFiles = pakFiles ?? throw new ArgumentNullException(nameof(pakFiles));
 
         /// <summary>
         /// Closes this instance.
         /// </summary>
         public override void Closing()
         {
-            if (PakFiles != null) foreach (var pakFile in PakFiles) pakFile.Close();
+            foreach (var pakFile in PakFiles) pakFile.Close();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace GameSpec.Formats
         /// </summary>
         public override void Opening()
         {
-            if (PakFiles != null) foreach (var pakFile in PakFiles) pakFile.Open();
+            foreach (var pakFile in PakFiles) pakFile.Open();
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace GameSpec.Formats
         {
             var root = new List<MetadataItem>();
             foreach (var pakFile in PakFiles.Where(x => x.Valid))
-                root.Add(new MetadataItem(pakFile, pakFile.Name, manager.PackageIcon, items: await pakFile.GetMetadataItemsAsync(manager)) { PakFile = pakFile });
+                root.Add(new MetadataItem(pakFile, pakFile.Name, manager.PackageIcon, pakFile: pakFile, items: await pakFile.GetMetadataItemsAsync(manager)));
             return root;
         }
 

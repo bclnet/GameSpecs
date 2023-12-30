@@ -11,10 +11,11 @@ from .HexViewWidget import HexViewWidget
 from .SaveFileWidget import SaveFileWidget
 from .OpenWidget import OpenWidget
 from .FileExplorer import FileExplorer
+from .resourcemgr import ResourceManager
 
 config = appDefaultOptions
 
-class ExplorerMainTab(object):
+class ExplorerMainTab:
     def __init__(self, name: str=None, pakFile: Any=None, appList: list[Any]=None, text: str=None, openPath: str=None):
         self.name = name
         self.pakFile = pakFile
@@ -32,6 +33,20 @@ class TextBlock(QWidget):
         label.setWordWrap(True)
         label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
 
+class LogBar(QLabel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+    def contextMenuEvent(self, e):
+        context = QMenu(self)
+        clearAction = QAction('Clear', self)
+        clearAction.triggered.connect(lambda:self.setText(''))
+        quitAction = QAction('Quit', self)
+        quitAction.triggered.connect(lambda:exit(0))
+        context.addAction(clearAction)
+        context.addAction(quitAction)
+        context.exec(e.globalPos())
+
 class AppList(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
@@ -39,9 +54,10 @@ class AppList(QWidget):
 class MainPage(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.resource = ResourceManager()
         self.title = 'Explorer'
-        self.width = 700
-        self.height = 500
+        self.width = 800
+        self.height = 600
         self.pakFiles = []
         self.openWidgets = []
         self.mainTabs = []
@@ -79,7 +95,7 @@ class MainPage(QMainWindow):
         splitter.addWidget(contentBlock)
 
         # logBar
-        logBar = self.logBar = QLabel(self)
+        logBar = self.logBar = LogBar(self)
         logBar.setAlignment(Qt.AlignmentFlag.AlignTop)
         logBar.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         logBar.setStyleSheet('background-color: lightgray;')
@@ -150,9 +166,3 @@ class MainPage(QMainWindow):
     def onReady(self):
         if config.ForcePath and config.ForcePath.startsWith('app:') and self.familyApps and config.ForcePath[:4] in self.familyApps:
             app = self.familyApps[config.ForcePath[:4]]
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    p = MainPage()
-    p.onFirstLoad()
-    sys.exit(app.exec())

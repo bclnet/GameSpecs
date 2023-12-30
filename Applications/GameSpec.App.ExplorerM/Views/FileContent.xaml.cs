@@ -30,7 +30,7 @@ namespace GameSpec.App.Explorer.Views
             set { _contentTabs = value; OnPropertyChanged(); }
         }
 
-        public void OnFileInfo(PakFile pakFile, List<MetadataInfo> infos)
+        public void OnInfo(PakFile pakFile, List<MetadataInfo> infos)
         {
             if (ContentTabs != null) foreach (var dispose in ContentTabs.Where(x => x.Dispose != null).Select(x => x.Dispose)) dispose.Dispose();
             Graphic = pakFile.Graphic;

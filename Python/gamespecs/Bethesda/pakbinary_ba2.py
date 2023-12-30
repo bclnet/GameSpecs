@@ -30,7 +30,7 @@ class PakBinary_Ba2(PakBinary):
         Unknown = 0
 
     class F4_Header:
-        struct = ('=IIIQ', 20)
+        struct = ('<IIIQ', 20)
         def __init__(self, tuple):
             self.version, \
             self.type, \
@@ -39,7 +39,7 @@ class PakBinary_Ba2(PakBinary):
             self.type = PakBinary_Ba2.F4_HeaderType(self.type)
 
     class F4_File:
-        struct = ('=I4sIIQIII', 36)
+        struct = ('<I4sIIQIII', 36)
         def __init__(self, tuple):
             self.nameHash, \
             self.ext, \
@@ -51,7 +51,7 @@ class PakBinary_Ba2(PakBinary):
             self.align = tuple
 
     class F4_Texture:
-        struct = ('=I4sIBBHHHBBBB', 24)
+        struct = ('<I4sIBBHHHBBBB', 24)
         def __init__(self, tuple):
             self.nameHash, \
             self.ext, \
@@ -67,7 +67,7 @@ class PakBinary_Ba2(PakBinary):
             self.tileMode = tuple
 
     class F4_GNMF:
-        struct = ('=I4sIBBH32sQIIII', 72)
+        struct = ('<I4sIBBH32sQIIII', 72)
         def __init__(self, tuple):
             self.nameHash, \
             self.ext, \
@@ -83,7 +83,7 @@ class PakBinary_Ba2(PakBinary):
             self.align = tuple
 
     class F4_TextureChunk:
-        struct = ('=QIIHHI', 24)
+        struct = ('<QIIHHI', 24)
         def __init__(self, tuple):
             self.offset, \
             self.packedSize, \
@@ -160,7 +160,7 @@ class PakBinary_Ba2(PakBinary):
 
         # General BA2 Format
         if file.fileInfo == None:
-            return ByteIO(
+            return BytesIO(
                 decompressZlib2(r, file.packedSize, file.fileSize) if file.compressed != 0 else \
                 r.read(file.fileSize)
                 )

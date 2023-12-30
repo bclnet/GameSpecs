@@ -12,7 +12,7 @@
     <Grid RowDefinitions="25,.8*,.2*">
         <HorizontalStackLayout Grid.Row="0" BackgroundColor="DarkGrey">
             <Label Text="File Filter" />
-            <Picker x:Name="NodeFilter" ItemsSource="{Binding NodeFilters}" SelectedIndexChanged="OnNodeFilterSelected" />
+            <Picker x:Name="Filter" ItemsSource="{Binding Filters}" SelectedIndexChanged="OnFilterSelected" />
         </HorizontalStackLayout>
         <ScrollView Grid.Row="1" BackgroundColor="LightGray">
             <t:TreeView x:Name="Node" ItemsSource="{Binding Path=Nodes, Converter={StaticResource metadataItemToTreeViewNode}}">
@@ -31,7 +31,7 @@
             </t:TreeView>
         </ScrollView>
         <ScrollView>
-            <t:TreeView x:Name="FileInfo" Grid.Row="2" BackgroundColor="DarkGrey" ItemsSource="{Binding Path=Infos, Converter={StaticResource metadataInfoToTreeViewNode}}">
+            <t:TreeView x:Name="Info" Grid.Row="2" BackgroundColor="DarkGrey" ItemsSource="{Binding Path=Infos, Converter={StaticResource metadataInfoToTreeViewNode}}">
                 <t:TreeView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>

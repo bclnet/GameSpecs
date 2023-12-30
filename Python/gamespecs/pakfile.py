@@ -2,7 +2,7 @@ import os, time
 from enum import Enum
 from io import BytesIO
 from .openstk_poly import Reader
-from .metadata import StandardMetadataItem, MetadataManager, MetadataItem, MetadataInfo
+from .metadata import StandardMetadataItem, MetadataManager, MetadataItem, MetadataInfo, MetadataContent
 
 class FileSource:
     def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, pak = None, tag = None):
@@ -53,6 +53,19 @@ class PakFile:
     def opening(self): pass
     def loadFileData(self, path): pass
 
+    #region Metadata
+
+    def getMetadataFilters(self, manager: MetadataManager) -> list[MetadataItem.Filter]:
+        return [MetadataItem.Filter(
+            key = x.key,
+            value = x.value
+            ) for x in self.family.fileManager.filters[self.game.id].items()] \
+            if self.family.fileManager and self.game.id in self.family.fileManager.filters else None
+    def getMetadataInfos(self, manager: MetadataManager, item: MetadataItem) -> list[MetadataItem]: raise Exception('Not Implemented')
+    def getMetadataItems(self, manager: MetadataManager) -> list[MetadataInfo]: raise Exception('Not Implemented')
+
+    #endregion
+
 class BinaryPakFile(PakFile):
     def __init__(self, game, fileSystem, filePath: str, pakBinary, tag: object = None):
         name = os.path.basename(filePath) if os.path.basename(filePath) else \
@@ -64,19 +77,26 @@ class BinaryPakFile(PakFile):
         # options
         self.useReader = True
         self.useFileId = False
+
         # state
-        # self.fileMask = None
+        self.fileMask = None
         self.params = {}
         self.magic = None
         self.version = None
         # self.cryptKey
-        # metadata
+
+        # metadata/factory
         self.getMetadataItemsMethod = StandardMetadataItem.getPakFiles
         self.metadataInfos = {}
-        # factory
         self.getObjectFactoryFactory = None
 
-    def valid(self): return not self.files.isEmpty()
+        # BinaryPakManyFile
+        self.files = {}
+        self.filesById = {}
+        self.filesByPath = {}
+        self.pathSkip = 0
+
+    def valid(self): return self.files
     def opening(self):
         if self.useReader:
             with self._getReader() as r: self.read(r)
@@ -112,11 +132,13 @@ class BinaryPakFile(PakFile):
 
     #region Metadata
     
-    def getMetadataItems(manager: MetadataManager) -> list[MetadataItem]:
-        self.getMetadataItemsMethod(manager, self) if self.valid and self.getMetadataItemsMethod else None
+    def getMetadataInfos(self, manager: MetadataManager, item: MetadataItem) -> list[MetadataInfo]:
+        nodes = []
+        nodes.append(MetadataInfo(None, MetadataContent(type='Hex',name='TEST',value=BytesIO())))
+        return nodes
 
-    def getMetadataInfos(manager: MetadataManager, item: MetadataItem) -> list[MetadataInfo]:
-        pass
+    def getMetadataItems(self, manager: MetadataManager) -> list[MetadataItem]:
+        return self.getMetadataItemsMethod(manager, self) if self.valid() and self.getMetadataItemsMethod else None
     
     #endregion
 
@@ -144,4 +166,20 @@ class ManyPakFile(BinaryPakFile):
 class MultiPakFile(PakFile):
     def __init__(self, game, name: str, fileSystem, pakFiles, tag: object = None):
         super().__init__(game, name, tag)
-    def read(self, r: Reader, tag: object = None): return f'opening'
+        self.pakFiles = pakFiles
+
+    def closing(self):
+        for pakFile in self.pakFiles: pakFile.close()
+
+    def opening(self):
+        for pakFile in self.pakFiles: pakFile.open()
+
+    #region Metadata
+
+    def getMetadataItems(self, manager: MetadataManager) -> list[MetadataInfo]:
+        root = []
+        for pakFile in [x for x in self.pakFiles if x.valid()]:
+            root.append(MetadataItem(pakFile, pakFile.name, manager.packageIcon, pakFile=pakFile, items=pakFile.getMetadataItems(manager)))
+        return root
+
+    #endregion

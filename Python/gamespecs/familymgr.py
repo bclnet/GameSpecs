@@ -296,7 +296,7 @@ def init():
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
         return re.sub(pattern, replacer, text)
     def loadJson(path: str) -> dict[str, Any]:
-        body = resources.files().joinpath('specs', path).read_text(encoding='utf-8')
+        body = resources.files().joinpath('Specs', path).read_text(encoding='utf-8')
         return json.loads(commentRemover(body).encode().decode('utf-8-sig'))
     families = {}
     for path in [f'{x}Family.json' for x in familyKeys]:

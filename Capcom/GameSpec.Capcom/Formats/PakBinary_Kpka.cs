@@ -77,7 +77,9 @@ namespace GameSpec.Capcom.Formats
                 source.Files = tr.ReadTArray<K_FileV2>(sizeof(K_FileV2), header.NumFiles)
                     .Select(x => new FileSource
                     {
-                        Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z) ? z : $"__Unknown/{x.HashName:x16}{GetExtension(r, x.Position, 0)}",
+                        Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z)
+                            ? z.Replace('\\', '/')
+                            : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Position, 0)}",
                         Position = x.Position,
                         FileSize = x.FileSize,
                     }).ToArray();
@@ -89,7 +91,9 @@ namespace GameSpec.Capcom.Formats
                     .Select(x => new FileSource
                     {
                         Compressed = compressed = GetCompressed(x.Flag),
-                        Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z) ? z.Replace('\\', '/') : $"_Unknown/{x.HashName:x16}{GetExtension(r, x.Position, compressed)}",
+                        Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z)
+                            ? z.Replace('\\', '/')
+                            : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Position, compressed)}",
                         Position = x.Position,
                         PackedSize = x.PackedSize,
                         FileSize = x.FileSize,
@@ -121,7 +125,7 @@ namespace GameSpec.Capcom.Formats
             return _guessExtension(Decompress(r, compressed, 150));
         }
 
-        static readonly BigInteger Modulus = new BigInteger(new byte[]{
+        static readonly BigInteger Modulus = new BigInteger(new byte[] {
             0x7D, 0x0B, 0xF8, 0xC1, 0x7C, 0x23, 0xFD, 0x3B, 0xD4, 0x75, 0x16, 0xD2, 0x33, 0x21, 0xD8, 0x10,
             0x71, 0xF9, 0x7C, 0xD1, 0x34, 0x93, 0xBA, 0x77, 0x26, 0xFC, 0xAB, 0x2C, 0xEE, 0xDA, 0xD9, 0x1C,
             0x89, 0xE7, 0x29, 0x7B, 0xDD, 0x8A, 0xAE, 0x50, 0x39, 0xB6, 0x01, 0x6D, 0x21, 0x89, 0x5D, 0xA5,
@@ -133,7 +137,7 @@ namespace GameSpec.Capcom.Formats
             0x00
         });
 
-        static readonly BigInteger Exponent = new BigInteger(new byte[]{
+        static readonly BigInteger Exponent = new BigInteger(new byte[] {
             0x01, 0x00, 0x01, 0x00
         });
 

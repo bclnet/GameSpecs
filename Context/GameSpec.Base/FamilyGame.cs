@@ -346,7 +346,7 @@ namespace GameSpec
                 ? CreatePakFileObj(fileSystem, v.Item2[0], tag)
                 : new ManyPakFile(CreatePakFileType(fileSystem, null, tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
                 {
-                    VisualPathSkip = v.Item1.Length > 0 ? v.Item1.Length + 1 : 0
+                    PathSkip = v.Item1.Length > 0 ? v.Item1.Length + 1 : 0
                 },
             IList<PakFile> v => v.Count == 1
                 ? v[0]

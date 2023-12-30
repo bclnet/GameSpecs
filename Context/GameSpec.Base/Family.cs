@@ -31,7 +31,7 @@ namespace GameSpec
         /// <value>
         /// The file filters.
         /// </value>
-        public IDictionary<string, IDictionary<string, string>> FileFilters => FileManager.Filters;
+        //public IDictionary<string, IDictionary<string, string>> Filters => FileManager.Filters;
 
         /// <summary>
         /// Gets or sets the family identifier.

@@ -33,7 +33,7 @@ class PakBinary_Bsa(PakBinary):
     OB_BSAFILE_SIZECOMPRESS = 0xC0000000 # Bit mask with OB_HeaderFile:SizeFlags to get the compression status
 
     class OB_Header:
-        struct = ('=IIIIIIII', 32)
+        struct = ('<IIIIIIII', 32)
         def __init__(self, tuple):
             self.version, \
             self.folderRecordOffset, \
@@ -45,14 +45,14 @@ class PakBinary_Bsa(PakBinary):
             self.fileFlags = tuple
 
     class OB_Folder:
-        struct = ('=QII', 16)
+        struct = ('<QII', 16)
         def __init__(self, tuple):
             self.hash, \
             self.fileCount, \
             self.offset = tuple
 
     class OB_FolderSSE:
-        struct = ('=QIIQ', 24)
+        struct = ('<QIIQ', 24)
         def __init__(self, tuple):
             self.hash, \
             self.fileCount, \
@@ -60,7 +60,7 @@ class PakBinary_Bsa(PakBinary):
             self.offset = tuple
 
     class OB_File:
-        struct = ('=QII', 16)
+        struct = ('<QII', 16)
         def __init__(self, tuple):
             self.hash, \
             self.size, \
@@ -73,13 +73,13 @@ class PakBinary_Bsa(PakBinary):
     MW_BSAHEADER_FILEID = 0x00000100    # Magic for Morrowind BSA
 
     class MW_Header:
-        struct = ('=II', 8)
+        struct = ('<II', 8)
         def __init__(self, tuple):
             self.hashOffset, \
             self.fileCount = tuple
 
     class MW_File:
-        struct = ('=II', 8)
+        struct = ('<II', 8)
         def __init__(self, tuple):
             self.fileSize, \
             self.fileOffset = tuple

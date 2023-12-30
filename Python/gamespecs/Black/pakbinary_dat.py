@@ -32,12 +32,12 @@ class PakBinary_Dat(PakBinary):
 
     F2_HEADER_FILEID = 0x000000011
     class F2_Header:
-        struct = ('=II', 8)
+        struct = ('<II', 8)
         def __init__(self, tuple):
             self.treeSize, \
             self.dataSize = tuple
     class F2_File:
-        struct = ('=BIII', 13)
+        struct = ('<BIII', 13)
         def __init__(self, tuple):
             self.type, \
             self.realSize, \

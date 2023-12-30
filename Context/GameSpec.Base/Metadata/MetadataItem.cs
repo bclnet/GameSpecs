@@ -29,15 +29,16 @@ namespace GameSpec.Metadata
         public string Name { get; }
         public object Icon { get; }
         public object Tag { get; }
+        public PakFile PakFile { get; }
         public List<MetadataItem> Items { get; private set; }
-        public PakFile PakFile { get; set; }
 
-        public MetadataItem(object source, string name, object icon, object tag = null, List<MetadataItem> items = null)
+        public MetadataItem(object source, string name, object icon, object tag = null, List<MetadataItem> items = null, PakFile pakFile = null)
         {
             Source = source;
             Name = name;
             Icon = icon;
             Tag = tag;
+            PakFile = pakFile;
             Items = items ?? new List<MetadataItem>();
         }
 

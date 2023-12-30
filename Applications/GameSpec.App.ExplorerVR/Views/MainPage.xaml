@@ -31,7 +31,7 @@
                 </Grid>
             </ControlTemplate>
             <ControlTemplate x:Key="FileExplorerTemplate" x:DataType="{x:Type views:ExplorerMainTab}">
-                <views:FileExplorer OpenPath="{TemplateBinding BindingContext.OpenPath}" PakFile="{TemplateBinding BindingContext.PakFile}" />
+                <views:FileExplorer PakFile="{TemplateBinding BindingContext.PakFile}" />
             </ControlTemplate>
             <ControlTemplate x:Key="TextBlockTemplate" x:DataType="{x:Type views:ExplorerMainTab}">
                 <ScrollView>

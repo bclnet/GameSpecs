@@ -21,6 +21,8 @@
 //#define Valve
 //#define WbB
 
+using System.Collections.Generic;
+
 namespace GameSpec
 {
     /// <summary>
@@ -149,18 +151,22 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
+            //CAS
+            //ForcePath = "_unknown/01b0b43beac40c00.pfb", //CAS:Unknown
+            ForcePath = "_unknown/fa6e19ba4922338a.pfb", //CAS:Unknown
+
             ForceOpen = true,
             Family = "Capcom",
 
-            //Game = "Arcade", // Capcom Arcade Stadium
-            //Game = "Fighting:C", // Capcom Fighting Collection
+            Game = "CAS", // [Kpka] Capcom Arcade Stadium
+            //Game = "Fighting:C", // [] Capcom Fighting Collection
             //Game = "GNG:R", // Ghosts 'n Goblins Resurrection
             //Game = "MM:LC", // Mega Man Legacy Collection
             //Game = "MM:LC2", // Mega Man Legacy Collection 2
             //Game = "MM:XD", // Mega Man X DiVE [Unity]
             //Game = "MMZX:LC", // Mega Man Zero/ZX Legacy Collection
             //Game = "MHR", // Monster Hunter Rise
-            Game = "MH:S2", // Monster Hunter Stories 2: Wings of Ruin
+            //Game = "MH:S2", // Monster Hunter Stories 2: Wings of Ruin
 
             //Game = "PWAA:T", // Phoenix Wright: Ace Attorney Trilogy
             //Game = "RDR2", // Red Dead Redemption 2

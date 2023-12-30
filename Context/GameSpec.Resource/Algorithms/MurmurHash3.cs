@@ -27,11 +27,9 @@ namespace GameSpec.Algorithms
                     case 3: k = (uint)(chunk[0] | chunk[1] << 8 | chunk[2] << 16); k *= C1; k = Rotl32(k, 15); k *= C2; h ^= k; break;
                     case 2: k = (uint)(chunk[0] | chunk[1] << 8); k *= C1; k = Rotl32(k, 15); k *= C2; h ^= k; break;
                     case 1: k = (uint)(chunk[0]); k *= C1; k = Rotl32(k, 15); k *= C2; h ^= k; break;
-
                 }
                 chunk = r.ReadBytes(4);
             }
-
             h ^= l;
             h = Fmix(h);
             unchecked { return h; }

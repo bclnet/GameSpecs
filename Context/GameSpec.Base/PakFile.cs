@@ -268,20 +268,12 @@ namespace GameSpec
         #region Metadata
 
         /// <summary>
-        /// Gets the metadata items.
-        /// </summary>
-        /// <param name="manager">The resource.</param>
-        /// <returns></returns>
-        public virtual Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
-            => throw new NotImplementedException();
-
-        /// <summary>
         /// Gets the metadata item filters.
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<MetadataItem.Filter>> GetMetadataItemFiltersAsync(MetadataManager manager)
-            => Task.FromResult(Family.FileFilters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetadataItem.Filter(x.Key, x.Value)).ToList() : null);
+        public virtual Task<List<MetadataItem.Filter>> GetMetadataFiltersAsync(MetadataManager manager)
+            => Task.FromResult(Family.FileManager != null && Family.FileManager.Filters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetadataItem.Filter(x.Key, x.Value)).ToList() : null);
 
         /// <summary>
         /// Gets the metadata infos.
@@ -290,6 +282,14 @@ namespace GameSpec
         /// <param name="item">The item.</param>
         /// <returns></returns>
         public virtual Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// Gets the metadata items.
+        /// </summary>
+        /// <param name="manager">The resource.</param>
+        /// <returns></returns>
+        public virtual Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
             => throw new NotImplementedException();
 
         #endregion

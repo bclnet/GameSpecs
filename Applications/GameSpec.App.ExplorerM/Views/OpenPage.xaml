@@ -11,37 +11,37 @@
             SelectedIndexChanged="Family_SelectionChanged" />
 
         <Label Grid.Row="1">Game:</Label>
-        <Picker x:Name="FamilyGame" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"
-            ItemsSource="{Binding FamilyGames}"
+        <Picker x:Name="Game" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"
+            ItemsSource="{Binding Games}"
             ItemDisplayBinding="{Binding DisplayedName}"
-            SelectedIndexChanged="FamilyGame_SelectionChanged" />
+            SelectedIndexChanged="Game_SelectionChanged" />
 
         <Label Grid.Row="2">Game Edition:</Label>
-        <Picker x:Name="FamilyGameEdition" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"
-            ItemsSource="{Binding FamilyGameEditions}"
+        <Picker x:Name="Edition" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"
+            ItemsSource="{Binding Editions}"
             ItemDisplayBinding="{Binding Name}"
-            SelectedIndexChanged="FamilyGameEdition_SelectionChanged" />
+            SelectedIndexChanged="Edition_SelectionChanged" />
 
         <Label Grid.Row="3">Resource Uri:</Label>
         <Editor Grid.Row="3" Grid.Column="1" Margin="0,0,0,5"
-                Text="{Binding PakUri}" />
+                Text="{Binding PakUri1}" />
         <Button Grid.Row="3" Grid.Column="2" Margin="2,0,0,5" HorizontalOptions="End"
                 Text="*"
-                Clicked="PakUriFile_Click" />
+                Clicked="Pak1Uri_Click" />
 
         <Label Grid.Row="4">Resource Uri:</Label>
         <Editor Grid.Row="4" Grid.Column="1" Margin="0,0,0,5"
                  Text="{Binding Pak2Uri}" />
         <Button Grid.Row="4" Grid.Column="2" Margin="2,0,0,5" HorizontalOptions="End"
                 Text="*"
-                Clicked="Pak2UriFile_Click" />
+                Clicked="Pak2Uri_Click" />
 
         <Label Grid.Row="5">Resource Uri:</Label>
         <Editor Grid.Row="5" Grid.Column="1" Margin="0,0,0,5"
                  Text="{Binding Pak3Uri}" />
         <Button Grid.Row="5" Grid.Column="2" Margin="2,0,0,5" HorizontalOptions="End"
                 Text="*"
-                Clicked="Pak3UriFile_Click" />
+                Clicked="Pak3Uri_Click" />
 
         <HorizontalStackLayout Grid.Row="6" Grid.Column="1" HorizontalOptions="End">
             <Button Margin="0,0,0,5" Text=" Cancel " Clicked="Cancel_Click" />

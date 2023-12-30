@@ -10,12 +10,12 @@ from ..util import _guessExtension
 class PakBinary_Arc(PakBinary):
     K_MAGIC = 0x00435241
     class K_Header:
-        struct = ('=HH', 4)
+        struct = ('<HH', 4)
         def __init__(self, tuple):
             self.version, \
             self.numFiles = tuple
     class K_File:
-        struct = ('=64sIIII', 80)
+        struct = ('<64sIIII', 80)
         def __init__(self, tuple):
             self.path, \
             self.compress, \

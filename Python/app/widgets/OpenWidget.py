@@ -23,7 +23,7 @@ class OpenWidget(QWidget):
         self.resize(400, 200)
 
         familyLabel = QLabel(self); familyLabel.setText("Family:")
-        familyInput = self.familyInput = QComboBox(self);
+        familyInput = self.familyInput = QComboBox(self)
         familyInput.currentIndexChanged.connect(self.family_change)
 
         gameLabel = QLabel(self); gameLabel.setText("Game:")
@@ -65,7 +65,6 @@ class OpenWidget(QWidget):
         self.setLayout(layout)
         # setup
         self.familyInput.addItems([None] + [x.name for x in familyValues])
-        self.onReady()
 
     def closeEvent(self, e=None):
         self.app.closeWidget(self)
@@ -142,6 +141,6 @@ class OpenWidget(QWidget):
         self.familyInput.setCurrentIndex([x.id for x in familyValues].index(config.Family) + 1)
         if not config.Game: return
         self.gameInput.setCurrentIndex([x.id for x in self.gameValues].index(config.Game) + 1)
-        if not config.Edition: return
-        self.editionInput.setCurrentIndex([x.id for x in self.editionValues].index(config.Edition) + 1)
+        if config.Edition:
+            self.editionInput.setCurrentIndex([x.id for x in self.editionValues].index(config.Edition) + 1)
         if config.ForceOpen: self.open_click()

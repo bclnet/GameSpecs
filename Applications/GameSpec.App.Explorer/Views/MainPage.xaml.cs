@@ -31,7 +31,6 @@ namespace GameSpec.App.Explorer.Views
         public PakFile PakFile { get; set; }
         public IList<FamilyApp> AppList { get; set; }
         public string Text { get; set; }
-        public string OpenPath { get; set; }
     }
 
     /// <summary>
@@ -39,7 +38,7 @@ namespace GameSpec.App.Explorer.Views
     /// </summary>
     public partial class MainPage : Window, INotifyPropertyChanged
     {
-        public static MetadataManager Manager = new ResourceManagerProvider();
+        public static MetadataManager Manager = new ResourceManager();
         public static MainPage Instance;
 
         public MainPage()
@@ -86,7 +85,6 @@ namespace GameSpec.App.Explorer.Views
             {
                 Name = pakFile.Name,
                 PakFile = pakFile,
-                OpenPath = path,
             }).ToList();
             var firstPakFile = tabs.FirstOrDefault()?.PakFile ?? PakFile.Empty;
             if (FamilyApps.Count > 0)
@@ -96,14 +94,12 @@ namespace GameSpec.App.Explorer.Views
                     PakFile = firstPakFile,
                     AppList = FamilyApps.Values.ToList(),
                     Text = "Choose an application.",
-                    OpenPath = path,
                 });
             if (!string.IsNullOrEmpty(family.Description))
                 tabs.Add(new ExplorerMainTab
                 {
                     Name = "Information",
                     Text = family.Description,
-                    OpenPath = path,
                 });
             MainTabs = tabs;
             return Task.CompletedTask;

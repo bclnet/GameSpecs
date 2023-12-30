@@ -102,6 +102,7 @@
       "engine": "RE",
       "resource": "CAS_PC_Release",
       "pakExt": ".pak",
+      "pakx": "game:/re_chunk_000.pak.patch_001.pak",
       "dlcs": {
         "dlc": {
           "path": "dlc"

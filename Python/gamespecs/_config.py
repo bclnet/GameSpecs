@@ -9,7 +9,7 @@ class DefaultOptions:
         self.ForcePath = ForcePath
         self.ForceOpen = ForceOpen
 
-match '':
+match 'Bethesda':
     case 'Arkane':
         familyKeys = [ "Arkane", "Unknown" ]
 
@@ -47,8 +47,8 @@ match '':
             ForceOpen = True,
             Family = "Bethesda",
 
-            # Game = "Morrowind", # The Elder Scrolls III: Morrowind
-            Game = "Oblivion", # The Elder Scrolls IV: Oblivion
+            Game = "Morrowind", # The Elder Scrolls III: Morrowind
+            # Game = "Oblivion", # The Elder Scrolls IV: Oblivion
             # Game = "Fallout3", # Fallout 3
             # Game = "FalloutNV", # Fallout New Vegas
             # Game = "Skyrim", # The Elder Scrolls V: Skyrim
@@ -118,7 +118,7 @@ match '':
         appDefaultOptions = DefaultOptions(
             ForceOpen = True,
             Family = "Capcom",
-            Game = "XX", # XX
+            Game = "CAS", # [Kpka] Capcom Arcade Stadium
         )
     case 'Cig':
         familyKeys = [ "Cig", "Unknown" ]

@@ -6,9 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <EmbeddedResource Include="Bioware\TOR.zst" />
-	  <EmbeddedResource Include="Capcom\RE.zip" />
-	  <EmbeddedResource Include="Red\CP77.zip" />
+    <EmbeddedResource Include="..\..\Python\gamespecs\Resources\Bioware\TOR.zst" Link="Bioware\TOR.zst" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Python\gamespecs\Resources\Capcom\RE.zip" Link="Capcom\RE.zip" />
+    <EmbeddedResource Include="..\..\Python\gamespecs\Resources\Red\CP77.zip" Link="Red\CP77.zip" />
   </ItemGroup>
 
   <ItemGroup>

@@ -29,11 +29,9 @@ namespace GameSpec.Formats
         public uint Version;
         public object CryptKey;
 
-        // metadata
+        // metadata/factory
         internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItemsMethod = StandardMetadataItem.GetPakFilesAsync;
         protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>>();
-
-        // factory
         internal protected Func<FileSource, FamilyGame, (DataOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
 
         // From: BinaryPakManyFile
@@ -43,7 +41,7 @@ namespace GameSpec.Formats
         public HashSet<string> FilesRawSet;
         public ILookup<int, FileSource> FilesById { get; private set; }
         public ILookup<string, FileSource> FilesByPath { get; private set; }
-        public int VisualPathSkip;
+        public int PathSkip;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakFile" /> class.
@@ -355,14 +353,6 @@ namespace GameSpec.Formats
         #region Metadata
 
         /// <summary>
-        /// Gets the explorer item nodes.
-        /// </summary>
-        /// <param name="manager">The resource.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager) => Valid && GetMetadataItemsMethod != null ? await GetMetadataItemsMethod(manager, this) : default;
-
-        /// <summary>
         /// Gets the explorer information nodes.
         /// </summary>
         /// <param name="manager">The resource.</param>
@@ -404,6 +394,15 @@ namespace GameSpec.Formats
             //nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Image", Name = "TEST", MaxWidth = 500, MaxHeight = 500, Value = null }));
             return nodes;
         }
+
+        /// <summary>
+        /// Gets the explorer item nodes.
+        /// </summary>
+        /// <param name="manager">The resource.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
+            => Valid && GetMetadataItemsMethod != null ? await GetMetadataItemsMethod(manager, this) : default;
 
         #endregion
     }
