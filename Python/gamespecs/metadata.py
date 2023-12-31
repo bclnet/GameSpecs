@@ -1,14 +1,14 @@
 import os, re, pathlib
 from typing import Any
 
-class MetadataManager(object):
+class MetadataManager:
     def __init__(self, folderIcon: Any=None, packageIcon: Any=None):
         self.folderIcon = folderIcon
         self.packageIcon = packageIcon
     def getIcon(self, name: str) -> Any: pass
     def getImage(self, name: str) -> Any: pass
         
-class MetadataContent(object):
+class MetadataContent:
     def __init__(self, type: str, name: str, value: Any=None, tag: Any=None, maxWidth: int=None, maxHeight: int=None, dispose: Any=None, engineType: Any=None):
         self.type = type
         self.name = name
@@ -19,15 +19,15 @@ class MetadataContent(object):
         self.dispose = dispose
         self.engineType = engineType
 
-class MetadataInfo(object):
+class MetadataInfo:
     def __init__(self, name: str, tag: Any=None, items: list[Any]=None, clickable: bool=False):
         self.name = name
         self.tag = tag
         self.items = items if items else []
         self.clickable = clickable
-
-class MetadataItem(object):
-    class Filter(object):
+class MetadataItem: pass
+class MetadataItem:
+    class Filter:
         def __init__(self, name: str, description: str=None):
             self.name = name
             self.description = description
@@ -38,11 +38,24 @@ class MetadataItem(object):
         self.tag = tag
         self.pakFile = pakFile
         self.items = items if items else []
-    def findByPath(self, path: str, manager: MetadataManager):
-        paths = re.split('\\\\|/|:', path, 2)
+    def findByPath(self, model: object, path: str, manager: MetadataManager) -> (MetadataItem, object):
+        paths = re.split('\\\\|/|:', path, 1)
         node = next([x for x in self.items if x.name == paths[0]], None)
+        index = next(iter([x for x in model.items if x.name == paths[0]]), None) if model else None
         if node and node.source.pak: node.source.pak.open(node.items, manager)
-        return node if node or len(paths) == 1 else node.findByPath(paths[1], manager)
+        return node, index if node or len(paths) == 1 else node.findByPath(index, paths[1], manager)
+    @staticmethod
+    def findByPath(nodes: list[MetadataItem], model: object, path: str, manager: MetadataManager) -> (MetadataItem, object):
+        def findIndex(name):
+            for r in range(model.rowCount()):
+                i = model.index(r, 0)
+                if model.data(i) == name: return i
+            return None
+        paths = re.split('\\\\|/|:', path, 1)
+        node = next(iter([x for x in nodes if x.name == paths[0]]), None)
+        index = findIndex(paths[0])
+        if node and node.source.pak: node.source.pak.open(node.items, manager)
+        return node, index if node and len(paths) == 1 else node.findByPath(index, paths[1], manager)
 
 class StandardMetadataItem(object):
     @staticmethod

@@ -33,13 +33,6 @@ namespace GameSpec.App.Explorer.Views
             set => SetValue(PakFileProperty, value);
         }
 
-        public MetadataItem FindByPath(string path, MetadataManager manager)
-        {
-            var paths = path.Split(new[] { '\\', '/', ':' }, 2);
-            var node = PakNodes.FirstOrDefault(x => x.Name == paths[0]);
-            return paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
-        }
-
         List<MetadataItem.Filter> _filters;
         public List<MetadataItem.Filter> Filters
         {
@@ -129,7 +122,7 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = FindByPath(Config.ForcePath, Resource);
+            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = MetadataItem.FindByPath(PakNodes, Config.ForcePath, Resource);
         }
     }
 }

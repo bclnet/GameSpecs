@@ -67,5 +67,12 @@ namespace GameSpec.Metadata
             if (node != null && node.Source is FileSource z) z.Pak?.Open(node.Items, manager);
             return node == null || paths.Length == 1 ? node : node.FindByPath(paths[1], manager);
         }
+
+        public static MetadataItem FindByPath(List<MetadataItem> nodes, string path, MetadataManager manager)
+        {
+            var paths = path.Split(new[] { '\\', '/', ':' }, 2);
+            var node = nodes.FirstOrDefault(x => x.Name == paths[0]);
+            return paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
+        }
     }
 }

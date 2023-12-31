@@ -82,12 +82,6 @@ class FileExplorer(QWidget):
         layout.addWidget(infoView, 3, 0); layout.setRowStretch(3, 30)
         self.setLayout(layout)
 
-    def findByPath(self, path: str, manager: MetadataManager) -> MetadataItem:
-        paths = re.split('\\\\|/|:', path, 2)
-        node = next(iter([x for x in self.pakNodes if x.name == paths[0]]), None)
-        if node and node.source.pak: node.source.pak.open(node.items, manager)
-        return node if node or len(paths) == 1 else node.findByPath(paths[1], manager)
-
     @property
     def nodes(self): return self._nodes
     @nodes.setter
@@ -135,8 +129,8 @@ class FileExplorer(QWidget):
 
     def onReady(self):
         if config.ForcePath and not config.ForcePath.startswith('app:'):
-            selectedItem = self.findByPath(config.ForcePath, self.resource)
-            index = self.nodeModel.indexFromItem(selectedItem)
+            selectedItem, index = MetadataItem.findByPath(self.pakNodes, self.nodeModel, config.ForcePath, self.resource)
+            # index = self.nodeModel.indexFromItem(selectedItem)
             print(index)
             # self.nodeView.selectionModel().select(self.nodeModel.indexFromItem(child3), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
         pass
