@@ -11,7 +11,7 @@ namespace GameSpec.Epic.Formats
     public static class FormatExtensions
     {
         // object factory
-        public static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
+        public static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 var x when x == ".cfg" || x == ".txt" => (0, BinaryTxt.Factory),

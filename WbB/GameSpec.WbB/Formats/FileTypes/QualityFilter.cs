@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.QualityFilter)]
-    public class QualityFilter : FileType, IGetMetadataInfo
+    public class QualityFilter : FileType, IHaveMetaInfo
     {
         public readonly uint[] IntStatFilter;
         public readonly uint[] Int64StatFilter;
@@ -48,10 +48,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: New
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(QualityFilter)}: {Id:X8}", items: new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(QualityFilter)}: {Id:X8}", items: new List<MetaInfo> {
                 })
             };
             return nodes;

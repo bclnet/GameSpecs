@@ -7,7 +7,7 @@
 
 //namespace GameSpec.WbB.Formats.FileTypes
 //{
-//    public class WorldObject : IGetMetadataInfo
+//    public class WorldObject : IGetMetaInfo
 //    {
 //        public uint Id { get; set; }
 
@@ -116,10 +116,10 @@
 //        };
 
 //        //: FileTypes.ChatPoseTable
-//        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileMetadata file, object tag)
+//        List<MetaInfo> IGetMetaInfo.GetInfoNodes(MetaManager resource, FileMetadata file, object tag)
 //        {
-//            var nodes = new List<MetadataInfo> {
-//                new MetadataInfo($"{nameof(WorldObject)}: {Id:X8}", items: new List<MetadataInfo> {
+//            var nodes = new List<MetaInfo> {
+//                new MetaInfo($"{nameof(WorldObject)}: {Id:X8}", items: new List<MetaInfo> {
 //                })
 //            };
 //            return nodes;

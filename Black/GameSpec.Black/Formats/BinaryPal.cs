@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Black.Formats
 {
-    public unsafe class BinaryPal : IGetMetadataInfo
+    public unsafe class BinaryPal : IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryPal(r, f));
 
@@ -33,9 +33,9 @@ namespace GameSpec.Black.Formats
             for (var i = 248; i <= 254; i++) Rgba32[i] = 0x0000ff00; // bright blue (computer screens)
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Null", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo($"{nameof(BinaryPal)}", items: new List<MetadataInfo> {
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Null", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo($"{nameof(BinaryPal)}", items: new List<MetaInfo> {
             })
         };
     }

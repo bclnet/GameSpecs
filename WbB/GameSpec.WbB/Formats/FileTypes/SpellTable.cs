@@ -10,7 +10,7 @@ using System.Text;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.SpellTable)]
-    public class SpellTable : FileType, IGetMetadataInfo
+    public class SpellTable : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E00000E;
 
@@ -28,12 +28,12 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.SpellTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(SpellTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Spells", items: Spells.Select(x => new MetadataInfo($"{x.Key}: {x.Value.Name}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
-                    new MetadataInfo("Spell Sets", items: SpellSet.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key}: {(EquipmentSet)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(SpellTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Spells", items: Spells.Select(x => new MetaInfo($"{x.Key}: {x.Value.Name}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(tag: tag)))),
+                    new MetaInfo("Spell Sets", items: SpellSet.OrderBy(i => i.Key).Select(x => new MetaInfo($"{x.Key}: {(EquipmentSet)x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

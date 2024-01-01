@@ -11,7 +11,7 @@ namespace GameSpec.Formats
 
         #region Export
 
-        public static async Task ExportAsync(this BinaryPakFile source, string filePath, int from = 0, DataOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
+        public static async Task ExportAsync(this BinaryPakFile source, string filePath, int from = 0, FileOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
         {
             // write pak
             if (!string.IsNullOrEmpty(filePath) && !Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
@@ -30,40 +30,40 @@ namespace GameSpec.Formats
                 if (file.Pak != null) { await file.Pak.ExportAsync(newPath); return; }
 
                 // ensure cached object factory
-                if ((option & (DataOption.Stream | DataOption.Model)) != 0) source.EnsureCachedObjectFactory(file);
+                if ((option & (FileOption.Stream | FileOption.Model)) != 0) source.EnsureCachedObjectFactory(file);
 
                 // extract file
                 try
                 {
-                    await ExportFileAsync(file, source, newPath, option, exception);
-                    if (file.Parts != null && (option & DataOption.Raw) != 0)
-                        foreach (var part in file.Parts) await ExportFileAsync(part, source, Path.Combine(filePath, part.Path), option, exception);
+                    await ExportFileAsync(file, source, newPath, option);
+                    if (file.Parts != null && (option & FileOption.Raw) != 0)
+                        foreach (var part in file.Parts) await ExportFileAsync(part, source, Path.Combine(filePath, part.Path), option);
                     advance?.Invoke(file, index);
                 }
                 catch (Exception e) { exception?.Invoke(file, $"Exception: {e.Message}"); }
             });
 
             // write pak-raw
-            if ((option & DataOption.Marker) != 0) await new StreamPakFile(source, source.Game, null, filePath).WriteAsync(null, null);
+            if ((option & FileOption.Marker) != 0) await new StreamPakFile(source, source.Game, null, filePath).WriteAsync(null, null);
         }
 
-        static async Task ExportFileAsync(FileSource file, BinaryPakFile source, string newPath, DataOption option = 0, Action<FileSource, string> exception = null)
+        static async Task ExportFileAsync(FileSource file, BinaryPakFile source, string newPath, FileOption option = default)
         {
             if (file.FileSize == 0 && file.PackedSize == 0) return;
             var fileOption = file.CachedDataOption;
             if ((option & fileOption) != 0)
             {
-                if ((fileOption & DataOption.Model) != 0)
+                if ((fileOption & FileOption.Model) != 0)
                 {
                     var model = await source.LoadFileObjectAsync<IUnknownFileModel>(file, FamilyManager.UnknownPakFile);
                     UnknownFileWriter.Factory("default", model).Write(newPath, false);
                     return;
                 }
-                else if ((fileOption & DataOption.Stream) != 0)
+                else if ((fileOption & FileOption.Stream) != 0)
                 {
                     if (!(await source.LoadFileObjectAsync<object>(file) is IHaveStream haveStream))
                     {
-                        exception?.Invoke(null, $"ExportFileAsync: {file.Path} @ {file.FileSize}");
+                        PakBinary.HandleException(null, option, $"ExportFileAsync: {file.Path} @ {file.FileSize}");
                         throw new InvalidOperationException();
                     }
                     using var b2 = haveStream.GetStream();
@@ -74,15 +74,15 @@ namespace GameSpec.Formats
                     return;
                 }
             }
-            using var b = await source.LoadFileDataAsync(file, option, exception);
+            using var b = await source.LoadFileDataAsync(file, option);
             using var s = newPath != null
                 ? new FileStream(newPath, FileMode.Create, FileAccess.Write)
                 : (Stream)new MemoryStream();
             b.CopyTo(s);
-            if (file.Parts != null && (option & DataOption.Raw) == 0)
+            if (file.Parts != null && (option & FileOption.Raw) == 0)
                 foreach (var part in file.Parts)
                 {
-                    using var b2 = await source.LoadFileDataAsync(part, option, exception);
+                    using var b2 = await source.LoadFileDataAsync(part, option);
                     b2.CopyTo(s);
                 }
         }
@@ -91,7 +91,7 @@ namespace GameSpec.Formats
 
         #region Import
 
-        public static async Task ImportAsync(this BinaryPakFile source, BinaryWriter w, string filePath, int from = 0, DataOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
+        public static async Task ImportAsync(this BinaryPakFile source, BinaryWriter w, string filePath, int from = 0, FileOption option = 0, Action<FileSource, int> advance = null, Action<FileSource, string> exception = null)
         {
             // read pak
             if (string.IsNullOrEmpty(filePath) || !Directory.Exists(filePath)) { exception?.Invoke(null, $"Directory Missing: {filePath}"); return; }
@@ -119,10 +119,10 @@ namespace GameSpec.Formats
                 try
                 {
                     await source.PakBinary.WriteAsync(source, w);
-                    using (var s = File.Open(newPath, FileMode.Open, FileAccess.Read, FileShare.Read)) await source.WriteDataAsync(w, file, s, option, exception);
+                    using (var s = File.Open(newPath, FileMode.Open, FileAccess.Read, FileShare.Read)) await source.WriteDataAsync(w, file, s, option);
                     advance?.Invoke(file, index);
                 }
-                catch (Exception e) { exception?.Invoke(file, $"Exception: {e.Message}"); }
+                catch (Exception e) { PakBinary.HandleException(file, option, $"Exception: {e.Message}"); }
             });
         }
 

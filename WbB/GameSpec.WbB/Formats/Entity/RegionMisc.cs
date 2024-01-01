@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class RegionMisc : IGetMetadataInfo
+    public class RegionMisc : IHaveMetaInfo
     {
         public readonly uint Version;
         public readonly uint GameMapID;
@@ -25,15 +25,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.RegionMisc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Version: {Version}"),
-                new MetadataInfo($"GameMap ID: {GameMapID:X8}", clickable: true),
-                new MetadataInfo($"AutoTest Map ID: {AutotestMapId:X8}", clickable: true),
-                new MetadataInfo($"AutoTest Map Size: {AutotestMapSize}"),
-                new MetadataInfo($"ClearCell ID: {ClearCellId:X8}", clickable: true),
-                new MetadataInfo($"ClearMonster ID: {ClearMonsterId:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Version: {Version}"),
+                new MetaInfo($"GameMap ID: {GameMapID:X8}", clickable: true),
+                new MetaInfo($"AutoTest Map ID: {AutotestMapId:X8}", clickable: true),
+                new MetaInfo($"AutoTest Map Size: {AutotestMapSize}"),
+                new MetaInfo($"ClearCell ID: {ClearCellId:X8}", clickable: true),
+                new MetaInfo($"ClearMonster ID: {ClearMonsterId:X8}", clickable: true),
             };
             return nodes;
         }

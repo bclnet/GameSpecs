@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// This is the client_portal.dat file starting with 0x13 -- There is only one of these, which is why REGION_ID is a constant.
     /// </summary>
     [PakFileType(PakFileType.Region)]
-    public class RegionDesc : FileType, IGetMetadataInfo
+    public class RegionDesc : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x13000000;
 
@@ -45,21 +45,21 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Region
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(RegionDesc)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"RegionNum: {RegionNumber}"),
-                    new MetadataInfo($"Version: {Version}"),
-                    new MetadataInfo($"Name: {RegionName}"),
-                    new MetadataInfo("LandDefs", items: (LandDefs as IGetMetadataInfo).GetInfoNodes()),
-                    new MetadataInfo("GameTime", items: (GameTime as IGetMetadataInfo).GetInfoNodes()),
-                    new MetadataInfo($"PartsMask: {PartsMask:X8}"),
-                    (PartsMask & 0x10) != 0 ? new MetadataInfo("SkyInfo", items: (SkyInfo as IGetMetadataInfo).GetInfoNodes()) : null,
-                    (PartsMask & 0x01) != 0 ? new MetadataInfo("SoundInfo", items: (SoundInfo as IGetMetadataInfo).GetInfoNodes()) : null,
-                    (PartsMask & 0x02) != 0 ? new MetadataInfo("SceneInfo", items: (SceneInfo as IGetMetadataInfo).GetInfoNodes()) : null,
-                    new MetadataInfo("TerrainInfo", items: (TerrainInfo as IGetMetadataInfo).GetInfoNodes()),
-                    (PartsMask & 0x200) != 0 ? new MetadataInfo("RegionMisc", items: (RegionMisc as IGetMetadataInfo).GetInfoNodes()) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(RegionDesc)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"RegionNum: {RegionNumber}"),
+                    new MetaInfo($"Version: {Version}"),
+                    new MetaInfo($"Name: {RegionName}"),
+                    new MetaInfo("LandDefs", items: (LandDefs as IHaveMetaInfo).GetInfoNodes()),
+                    new MetaInfo("GameTime", items: (GameTime as IHaveMetaInfo).GetInfoNodes()),
+                    new MetaInfo($"PartsMask: {PartsMask:X8}"),
+                    (PartsMask & 0x10) != 0 ? new MetaInfo("SkyInfo", items: (SkyInfo as IHaveMetaInfo).GetInfoNodes()) : null,
+                    (PartsMask & 0x01) != 0 ? new MetaInfo("SoundInfo", items: (SoundInfo as IHaveMetaInfo).GetInfoNodes()) : null,
+                    (PartsMask & 0x02) != 0 ? new MetaInfo("SceneInfo", items: (SceneInfo as IHaveMetaInfo).GetInfoNodes()) : null,
+                    new MetaInfo("TerrainInfo", items: (TerrainInfo as IHaveMetaInfo).GetInfoNodes()),
+                    (PartsMask & 0x200) != 0 ? new MetaInfo("RegionMisc", items: (RegionMisc as IHaveMetaInfo).GetInfoNodes()) : null,
                 })
             };
             return nodes;

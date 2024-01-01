@@ -11,7 +11,7 @@ namespace GameSpec.Formats
     // https://github.com/dreamstalker/rehlds/blob/master/rehlds/engine/model.cpp
     // https://greg-kennedy.com/hl_materials/
     // https://github.com/tmp64/BSPRenderer
-    public unsafe class BinaryWad3 : ITexture, IGetMetadataInfo
+    public unsafe class BinaryWad3 : ITexture, IHaveMetaInfo
     {
         struct CharInfo
         {
@@ -147,13 +147,13 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("Texture", items: new List<MetadataInfo> {
-                new MetadataInfo($"Format: {Format.type}"),
-                new MetadataInfo($"Width: {Width}"),
-                new MetadataInfo($"Height: {Height}"),
-                new MetadataInfo($"Mipmaps: {MipMaps}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo("Texture", items: new List<MetaInfo> {
+                new MetaInfo($"Format: {Format.type}"),
+                new MetaInfo($"Width: {Width}"),
+                new MetaInfo($"Height: {Height}"),
+                new MetaInfo($"Mipmaps: {MipMaps}"),
             }),
         };
     }

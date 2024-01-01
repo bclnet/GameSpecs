@@ -8,7 +8,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class AnimationHook : IGetMetadataInfo
+    public class AnimationHook : IHaveMetaInfo
     {
         public static readonly AnimationHook AnimDoneHook = new AnimationHook();
         protected readonly AnimationHook Base;
@@ -100,10 +100,10 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AnimationHook
-        public virtual List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public virtual List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Dir: {Direction}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Dir: {Direction}"),
             };
             return nodes;
         }

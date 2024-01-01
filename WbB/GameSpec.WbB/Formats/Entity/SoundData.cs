@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SoundData : IGetMetadataInfo
+    public class SoundData : IHaveMetaInfo
     {
         public readonly SoundTableData[] Data;
         public readonly uint Unknown;
@@ -18,16 +18,16 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SoundData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("SoundTable", items: Data.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("SoundTable", items: Data.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("Sound ID: ", "");
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items, clickable: true);
+                    return new MetaInfo(name, items: items, clickable: true);
                 })),
-                new MetadataInfo($"Unknown: {Unknown}"),
+                new MetaInfo($"Unknown: {Unknown}"),
             };
             return nodes;
         }

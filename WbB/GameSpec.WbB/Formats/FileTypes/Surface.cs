@@ -12,7 +12,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// As the name implies this contains surface info for an object. Either texture reference or color and whatever effects applied to it.
     /// </summary>
     [PakFileType(PakFileType.Surface)]
-    public class Surface : FileType, IGetMetadataInfo
+    public class Surface : FileType, IHaveMetaInfo
     {
         public readonly SurfaceType Type;
         public readonly uint OrigTextureId;
@@ -33,18 +33,18 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Surface
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var hasSurface = Type.HasFlag(SurfaceType.Base1Image) || Type.HasFlag(SurfaceType.Base1ClipMap);
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Surface)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Type: {Type}"),
-                    hasSurface ? new MetadataInfo($"Surface Texture: {OrigTextureId:X8}", clickable: true) : null,
-                    hasSurface && OrigPaletteId != 0 ? new MetadataInfo($"Palette ID: {OrigPaletteId:X8}", clickable: true) : null,
-                    !hasSurface ? new MetadataInfo($"Color: {ColorX.ToRGBA(ColorValue)}") : null,
-                    /*Translucency != 0f ?*/ new MetadataInfo($"Translucency: {Translucency}") /*: null*/,
-                    /*Luminosity != 0f ?*/ new MetadataInfo($"Luminosity: {Luminosity}") /*: null*/,
-                    /*Diffuse != 1f ?*/ new MetadataInfo($"Diffuse: {Diffuse}") /*: null*/,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Surface)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"Type: {Type}"),
+                    hasSurface ? new MetaInfo($"Surface Texture: {OrigTextureId:X8}", clickable: true) : null,
+                    hasSurface && OrigPaletteId != 0 ? new MetaInfo($"Palette ID: {OrigPaletteId:X8}", clickable: true) : null,
+                    !hasSurface ? new MetaInfo($"Color: {ColorX.ToRGBA(ColorValue)}") : null,
+                    /*Translucency != 0f ?*/ new MetaInfo($"Translucency: {Translucency}") /*: null*/,
+                    /*Luminosity != 0f ?*/ new MetaInfo($"Luminosity: {Luminosity}") /*: null*/,
+                    /*Diffuse != 1f ?*/ new MetaInfo($"Diffuse: {Diffuse}") /*: null*/,
                 })
             };
             return nodes;

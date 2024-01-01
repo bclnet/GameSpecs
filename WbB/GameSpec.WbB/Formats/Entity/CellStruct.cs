@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CellStruct : IGetMetadataInfo
+    public class CellStruct : IHaveMetaInfo
     {
         public readonly CVertexArray VertexArray;
         public readonly Dictionary<ushort, Polygon> Polygons;
@@ -34,16 +34,16 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.CellStruct
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"VertexArray", items: (VertexArray as IGetMetadataInfo).GetInfoNodes()),
-                new MetadataInfo($"Polygons", items: Polygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
-                new MetadataInfo($"Portals", items: Portals.Select(x => new MetadataInfo($"{x:X8}"))),
-                new MetadataInfo($"CellBSP", items: (CellBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Cell).First().Items),
-                new MetadataInfo($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
-                new MetadataInfo($"PhysicsBSP", items: (PhysicsBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Physics).First().Items),
-                DrawingBSP != null ? new MetadataInfo($"DrawingBSP", items: (DrawingBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"VertexArray", items: (VertexArray as IHaveMetaInfo).GetInfoNodes()),
+                new MetaInfo($"Polygons", items: Polygons.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
+                new MetaInfo($"Portals", items: Portals.Select(x => new MetaInfo($"{x:X8}"))),
+                new MetaInfo($"CellBSP", items: (CellBSP as IHaveMetaInfo).GetInfoNodes(tag: BSPType.Cell).First().Items),
+                new MetaInfo($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
+                new MetaInfo($"PhysicsBSP", items: (PhysicsBSP as IHaveMetaInfo).GetInfoNodes(tag: BSPType.Physics).First().Items),
+                DrawingBSP != null ? new MetaInfo($"DrawingBSP", items: (DrawingBSP as IHaveMetaInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
             };
             return nodes;
         }

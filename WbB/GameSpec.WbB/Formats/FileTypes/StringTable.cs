@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.StringTable)]
-    public class StringTable : FileType, IGetMetadataInfo
+    public class StringTable : FileType, IHaveMetaInfo
     {
         public static uint CharacterTitle_FileID = 0x2300000E;
 
@@ -25,17 +25,17 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.StringTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(StringTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Language: {Language}"),
-                    new MetadataInfo($"Unknown: {Unknown}"),
-                    new MetadataInfo("String Tables", items: StringTableData.Select(x => {
-                        var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(StringTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"Language: {Language}"),
+                    new MetaInfo($"Unknown: {Unknown}"),
+                    new MetaInfo("String Tables", items: StringTableData.Select(x => {
+                        var items = (x as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name;
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items);
+                        return new MetaInfo(name, items: items);
                     })),
                 })
             };

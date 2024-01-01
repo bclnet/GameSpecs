@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class LightInfo : IGetMetadataInfo
+    public class LightInfo : IHaveMetaInfo
     {
         public readonly Frame ViewerSpaceLocation;
         public readonly uint Color; // _RGB Color. Red is bytes 3-4, Green is bytes 5-6, Blue is bytes 7-8. Bytes 1-2 are always FF (?)
@@ -24,14 +24,14 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.LightInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Viewer space location: {ViewerSpaceLocation}"),
-                new MetadataInfo($"Color: {ColorX.ToRGBA(Color)}"),
-                new MetadataInfo($"Intensity: {Intensity}"),
-                new MetadataInfo($"Falloff: {Falloff}"),
-                new MetadataInfo($"ConeAngle: {ConeAngle}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Viewer space location: {ViewerSpaceLocation}"),
+                new MetaInfo($"Color: {ColorX.ToRGBA(Color)}"),
+                new MetaInfo($"Intensity: {Intensity}"),
+                new MetaInfo($"Falloff: {Falloff}"),
+                new MetaInfo($"ConeAngle: {ConeAngle}"),
             };
             return nodes;
         }

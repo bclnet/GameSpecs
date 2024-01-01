@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkillCG : IGetMetadataInfo
+    public class SkillCG : IHaveMetaInfo
     {
         public readonly Skill SkillNum;
         public readonly int NormalCost;
@@ -20,12 +20,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkillCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Skill: {SkillNum}"),
-                new MetadataInfo($"Normal Cost: {NormalCost}"),
-                new MetadataInfo($"Primary Cost: {PrimaryCost}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Skill: {SkillNum}"),
+                new MetaInfo($"Normal Cost: {NormalCost}"),
+                new MetaInfo($"Primary Cost: {PrimaryCost}"),
             };
             return nodes;
         }

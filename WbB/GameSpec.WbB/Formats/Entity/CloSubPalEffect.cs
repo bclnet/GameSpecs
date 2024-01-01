@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CloSubPalEffect : IGetMetadataInfo
+    public class CloSubPalEffect : IHaveMetaInfo
     {
         /// <summary>
         /// Icon portal.dat 0x06000000
@@ -21,15 +21,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ClothingSubPaletteEffect
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Icon: {Icon:X8}", clickable: true),
-                new MetadataInfo("SubPalettes", items: CloSubPalettes.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Icon: {Icon:X8}", clickable: true),
+                new MetaInfo("SubPalettes", items: CloSubPalettes.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[1].Name.Replace("Palette Set: ", "");
                     items.RemoveAt(1);
-                    return new MetadataInfo(name, items: items, clickable: true);
+                    return new MetaInfo(name, items: items, clickable: true);
                 })),
             };
             return nodes;

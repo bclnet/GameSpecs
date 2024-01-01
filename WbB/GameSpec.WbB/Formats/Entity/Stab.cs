@@ -10,7 +10,7 @@ namespace GameSpec.WbB.Formats.Entity
     /// It is an object and a corresponding position. 
     /// Note that since these are referenced by either a landblock or a cellblock, the corresponding Landblock and Cell should come from the parent.
     /// </summary>
-    public class Stab : IGetMetadataInfo
+    public class Stab : IHaveMetaInfo
     {
         public readonly uint Id;
         public readonly Frame Frame;
@@ -22,11 +22,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Stab
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"ID: {Id:X8}", clickable: true),
-                new MetadataInfo($"Frame: {Frame}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"ID: {Id:X8}", clickable: true),
+                new MetaInfo($"Frame: {Frame}"),
             };
             return nodes;
         }

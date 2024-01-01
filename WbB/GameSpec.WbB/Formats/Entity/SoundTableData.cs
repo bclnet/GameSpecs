@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SoundTableData : IGetMetadataInfo
+    public class SoundTableData : IHaveMetaInfo
     {
         public readonly uint SoundId; // Corresponds to the DatFileType.Wave
         public readonly float Priority;
@@ -21,13 +21,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SoundTableData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Sound ID: {SoundId:X8}", clickable: true),
-                new MetadataInfo($"Priority: {Priority}"),
-                new MetadataInfo($"Probability: {Probability}"),
-                new MetadataInfo($"Volume: {Volume}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Sound ID: {SoundId:X8}", clickable: true),
+                new MetaInfo($"Priority: {Priority}"),
+                new MetaInfo($"Probability: {Probability}"),
+                new MetaInfo($"Volume: {Volume}"),
             };
             return nodes;
         }

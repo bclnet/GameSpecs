@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkillBase : IGetMetadataInfo
+    public class SkillBase : IHaveMetaInfo
     {
         public readonly string Description;
         public readonly string Name;
@@ -50,21 +50,21 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkillBase
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo($"Description: {Description}"),
-                new MetadataInfo($"Icon: {IconId:X8}", clickable: true),
-                new MetadataInfo($"TrainedCost: {TrainedCost}"),
-                new MetadataInfo($"SpecializedCost: {SpecializedCost}"),
-                new MetadataInfo($"Category: {(SpellCategory)Category}"),
-                new MetadataInfo($"CharGenUse: {ChargenUse}"),
-                new MetadataInfo($"MinLevel: {MinLevel}"),
-                new MetadataInfo("SkillFormula", items: (Formula as IGetMetadataInfo).GetInfoNodes()),
-                new MetadataInfo($"UpperBound: {UpperBound}"),
-                new MetadataInfo($"LowerBound: {LowerBound}"),
-                new MetadataInfo($"LearnMod: {LearnMod}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo($"Description: {Description}"),
+                new MetaInfo($"Icon: {IconId:X8}", clickable: true),
+                new MetaInfo($"TrainedCost: {TrainedCost}"),
+                new MetaInfo($"SpecializedCost: {SpecializedCost}"),
+                new MetaInfo($"Category: {(SpellCategory)Category}"),
+                new MetaInfo($"CharGenUse: {ChargenUse}"),
+                new MetaInfo($"MinLevel: {MinLevel}"),
+                new MetaInfo("SkillFormula", items: (Formula as IHaveMetaInfo).GetInfoNodes()),
+                new MetaInfo($"UpperBound: {UpperBound}"),
+                new MetaInfo($"LowerBound: {LowerBound}"),
+                new MetaInfo($"LearnMod: {LearnMod}"),
             };
             return nodes;
         }

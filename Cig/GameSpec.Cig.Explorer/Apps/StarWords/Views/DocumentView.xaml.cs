@@ -35,8 +35,8 @@ namespace GameSpec.Cig.Apps.StarWords.Views
             new PropertyMetadata((d, e) =>
             {
                 //if (d is not FileExplorer fileExplorer || e.NewValue is not PakFile pakFile) return;
-                //fileExplorer.NodeFilters = pakFile.GetMetadataItemFiltersAsync(Resource).Result;
-                //fileExplorer.Nodes = new ObservableCollection<MetadataItem>(fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result.ToList());
+                //fileExplorer.NodeFilters = pakFile.GetMetaItemFiltersAsync(Resource).Result;
+                //fileExplorer.Nodes = new ObservableCollection<MetaItem>(fileExplorer.PakNodes = pakFile.GetMetaItemsAsync(Resource).Result.ToList());
                 //fileExplorer.SelectedItem = string.IsNullOrEmpty(fileExplorer.OpenPath) ? null : fileExplorer.FindByPath(fileExplorer.OpenPath);
                 //fileExplorer.OnReady();
             }));

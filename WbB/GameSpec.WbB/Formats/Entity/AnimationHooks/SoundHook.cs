@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class SoundHook : AnimationHook, IGetMetadataInfo
+    public class SoundHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint Id;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => Id = r.ReadUInt32();
 
         //: Entity.SoundHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is SoundHook s) nodes.Add(new MetadataInfo($"Id: {s.Id:X8}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is SoundHook s) nodes.Add(new MetaInfo($"Id: {s.Id:X8}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.NameFilterTable)]
-    public class NameFilterTable : FileType, IGetMetadataInfo
+    public class NameFilterTable : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E000020;
 
@@ -22,11 +22,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.GeneratorTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(NameFilterTable)}: {Id:X8}", items: LanguageData.Select(
-                    x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag))
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(NameFilterTable)}: {Id:X8}", items: LanguageData.Select(
+                    x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(tag: tag))
                 ))
             };
             return nodes;

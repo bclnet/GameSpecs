@@ -13,6 +13,6 @@ namespace GameSpec.Cig.Apps
     {
         public SubsumptionApp(Family family, string id, JsonElement elem) : base(family, id, elem) { }
 
-        public override Task OpenAsync(Type explorerType, MetadataManager manager) => base.OpenAsync(explorerType, manager);
+        public override Task OpenAsync(Type explorerType, MetaManager manager) => base.OpenAsync(explorerType, manager);
     }
 }

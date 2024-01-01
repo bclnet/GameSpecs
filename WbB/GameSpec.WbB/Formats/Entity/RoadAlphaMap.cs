@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class RoadAlphaMap : IGetMetadataInfo
+    public class RoadAlphaMap : IHaveMetaInfo
     {
         public readonly uint RCode;
         public readonly uint RoadTexGID;
@@ -17,11 +17,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
         
         //: Entity.RoadAlphaMap
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"RoadCode: {RCode}"),
-                new MetadataInfo($"RoadTexGID: {RoadTexGID:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"RoadCode: {RCode}"),
+                new MetaInfo($"RoadTexGID: {RoadTexGID:X8}", clickable: true),
             };
             return nodes;
         }

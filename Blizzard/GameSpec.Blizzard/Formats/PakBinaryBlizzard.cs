@@ -25,7 +25,7 @@ namespace GameSpec.Blizzard.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
             => Task.FromResult(casc.ReadData(file));
     }
 }

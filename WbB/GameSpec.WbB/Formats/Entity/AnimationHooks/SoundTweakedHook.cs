@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class SoundTweakedHook : AnimationHook, IGetMetadataInfo
+    public class SoundTweakedHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint SoundID;
         public readonly float Priority;
@@ -22,15 +22,15 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.SoundTweakedHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
+            var nodes = new List<MetaInfo>();
             if (Base is SoundTweakedHook s)
             {
-                nodes.Add(new MetadataInfo($"SoundID: {s.SoundID:X8}"));
-                nodes.Add(new MetadataInfo($"Priority: {s.Priority}"));
-                nodes.Add(new MetadataInfo($"Probability: {s.Probability}"));
-                nodes.Add(new MetadataInfo($"Volume: {s.Volume}"));
+                nodes.Add(new MetaInfo($"SoundID: {s.SoundID:X8}"));
+                nodes.Add(new MetaInfo($"Priority: {s.Priority}"));
+                nodes.Add(new MetaInfo($"Probability: {s.Probability}"));
+                nodes.Add(new MetaInfo($"Volume: {s.Volume}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

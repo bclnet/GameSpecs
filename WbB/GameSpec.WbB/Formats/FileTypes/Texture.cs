@@ -12,7 +12,7 @@ using static GameSpec.WbB.Formats.Props.SurfacePixelFormat;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.Texture)]
-    public unsafe class Texture : FileType, IGetMetadataInfo, ITexture
+    public unsafe class Texture : FileType, IHaveMetaInfo, ITexture
     {
         public readonly int Unknown;
         public readonly SurfacePixelFormat PixFormat;
@@ -187,18 +187,18 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                //new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }),
-                new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-                new MetadataInfo($"{nameof(Texture)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Unknown: {Unknown}"),
-                    new MetadataInfo($"Format: {Format.type}"),
-                    new MetadataInfo($"Width: {Width}"),
-                    new MetadataInfo($"Height: {Height}"),
-                    new MetadataInfo($"Type: {Format}"),
-                    new MetadataInfo($"Size: {Length} bytes"),
+            var nodes = new List<MetaInfo> {
+                //new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }),
+                new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+                new MetaInfo($"{nameof(Texture)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"Unknown: {Unknown}"),
+                    new MetaInfo($"Format: {Format.type}"),
+                    new MetaInfo($"Width: {Width}"),
+                    new MetaInfo($"Height: {Height}"),
+                    new MetaInfo($"Type: {Format}"),
+                    new MetaInfo($"Size: {Length} bytes"),
                 })
             };
             return nodes;

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class ObjDesc : IGetMetadataInfo
+    public class ObjDesc : IHaveMetaInfo
     {
         public readonly uint PaletteID;
         public readonly List<SubPalette> SubPalettes;
@@ -34,18 +34,18 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ObjDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                PaletteID != 0 ? new MetadataInfo($"Palette ID: {PaletteID:X8}", clickable: true) : null,
-                SubPalettes.Count > 0 ? new MetadataInfo("SubPalettes", items: SubPalettes.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                PaletteID != 0 ? new MetaInfo($"Palette ID: {PaletteID:X8}", clickable: true) : null,
+                SubPalettes.Count > 0 ? new MetaInfo("SubPalettes", items: SubPalettes.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name;
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })) : null,
-                TextureChanges.Count > 0 ? new MetadataInfo("Texture Changes", items: TextureChanges.Select(x => new MetadataInfo($"{x}", clickable: true))) : null,
-                AnimPartChanges.Count > 0 ? new MetadataInfo("AnimPart Changes", items: AnimPartChanges.Select(x => new MetadataInfo($"{x}", clickable: true))) : null,
+                TextureChanges.Count > 0 ? new MetaInfo("Texture Changes", items: TextureChanges.Select(x => new MetaInfo($"{x}", clickable: true))) : null,
+                AnimPartChanges.Count > 0 ? new MetaInfo("AnimPart Changes", items: AnimPartChanges.Select(x => new MetaInfo($"{x}", clickable: true))) : null,
             };
             return nodes;
         }

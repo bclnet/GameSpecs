@@ -10,7 +10,7 @@ namespace GameSpec.WbB.Formats.Entity
     /// <summary>
     /// A vertex position, normal, and texture coords
     /// </summary>
-    public class SWVertex : IGetMetadataInfo
+    public class SWVertex : IHaveMetaInfo
     {
         public readonly Vector3 Origin;
         public readonly Vector3 Normal;
@@ -31,12 +31,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Vertex
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Origin: {Origin}"),
-                new MetadataInfo($"Normal: {Normal}"),
-                new MetadataInfo($"UVs", items: UVs.SelectMany(x => (x as IGetMetadataInfo).GetInfoNodes(resource, file))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Origin: {Origin}"),
+                new MetaInfo($"Normal: {Normal}"),
+                new MetaInfo($"UVs", items: UVs.SelectMany(x => (x as IHaveMetaInfo).GetInfoNodes(resource, file))),
             };
             return nodes;
         }

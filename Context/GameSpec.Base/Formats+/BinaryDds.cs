@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 // https://github.com/paroj/nv_dds/blob/master/nv_dds.cpp
 namespace GameSpec.Formats
 {
-    public class BinaryDds : ITexture, IGetMetadataInfo
+    public class BinaryDds : ITexture, IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryDds(r));
 
@@ -59,13 +59,13 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("Texture", items: new List<MetadataInfo> {
-                new MetadataInfo($"Format: {Format.type}"),
-                new MetadataInfo($"Width: {Width}"),
-                new MetadataInfo($"Height: {Height}"),
-                new MetadataInfo($"Mipmaps: {MipMaps}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo("Texture", items: new List<MetaInfo> {
+                new MetaInfo($"Format: {Format.type}"),
+                new MetaInfo($"Width: {Width}"),
+                new MetaInfo($"Height: {Height}"),
+                new MetaInfo($"Mipmaps: {MipMaps}"),
             }),
         };
     }

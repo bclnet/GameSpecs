@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class EyeStripCG : IGetMetadataInfo
+    public class EyeStripCG : IHaveMetaInfo
     {
         public readonly uint IconImage;
         public readonly uint IconImageBald;
@@ -21,13 +21,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.EyeStripCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                IconImage != 0 ? new MetadataInfo($"Icon: {IconImage:X8}", clickable: true) : null,
-                IconImageBald != 0 ? new MetadataInfo($"Bald Icon: {IconImageBald:X8}", clickable: true) : null,
-                new MetadataInfo("ObjDesc", items: (ObjDesc as IGetMetadataInfo).GetInfoNodes()),
-                new MetadataInfo("ObjDescBald", items: (ObjDescBald as IGetMetadataInfo).GetInfoNodes()),
+            var nodes = new List<MetaInfo> {
+                IconImage != 0 ? new MetaInfo($"Icon: {IconImage:X8}", clickable: true) : null,
+                IconImageBald != 0 ? new MetaInfo($"Bald Icon: {IconImageBald:X8}", clickable: true) : null,
+                new MetaInfo("ObjDesc", items: (ObjDesc as IHaveMetaInfo).GetInfoNodes()),
+                new MetaInfo("ObjDescBald", items: (ObjDescBald as IHaveMetaInfo).GetInfoNodes()),
             };
             return nodes;
         }

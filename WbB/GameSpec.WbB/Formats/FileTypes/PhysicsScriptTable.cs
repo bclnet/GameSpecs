@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x34. 
     /// </summary>
     [PakFileType(PakFileType.PhysicsScriptTable)]
-    public class PhysicsScriptTable : FileType, IGetMetadataInfo
+    public class PhysicsScriptTable : FileType, IHaveMetaInfo
     {
         public readonly Dictionary<uint, PhysicsScriptTableData> ScriptTable;
 
@@ -22,11 +22,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.PhysicsScriptTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(PhysicsScriptTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("ScriptTable", items: ScriptTable.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(PhysicsScriptTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("ScriptTable", items: ScriptTable.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

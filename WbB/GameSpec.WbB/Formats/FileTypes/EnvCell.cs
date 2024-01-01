@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Very special thanks again to David Simpson for his early work on reading the cell.dat. Even bigger thanks for his documentation of it!
     /// </remarks>
     [PakFileType(PakFileType.EnvCell)]
-    public class EnvCell : FileType, IGetMetadataInfo
+    public class EnvCell : FileType, IHaveMetaInfo
     {
         public readonly EnvCellFlags Flags;
         public readonly uint[] Surfaces; // 0x08000000 surfaces (which contains degrade/quality info to reference the specific 0x06000000 graphics)
@@ -51,18 +51,18 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.EnvCell
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(EnvCell)}: {Id:X8}", items: new List<MetadataInfo> {
-                    Flags != 0 ? new MetadataInfo($"Flags: {Flags}") : null,
-                    new MetadataInfo("Surfaces", items: Surfaces.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
-                    new MetadataInfo($"Environment: {EnvironmentId:X8}", clickable: true),
-                    CellStructure != 0 ? new MetadataInfo($"CellStructure: {CellStructure}") : null,
-                    new MetadataInfo($"Position: {Position}"),
-                    CellPortals.Length > 0 ? new MetadataInfo("CellPortals", items: CellPortals.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))) : null,
-                    StaticObjects.Length > 0 ? new MetadataInfo("StaticObjects", items: StaticObjects.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))) : null,
-                    RestrictionObj != 0 ? new MetadataInfo($"RestrictionObj: {RestrictionObj:X8}", clickable: true) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(EnvCell)}: {Id:X8}", items: new List<MetaInfo> {
+                    Flags != 0 ? new MetaInfo($"Flags: {Flags}") : null,
+                    new MetaInfo("Surfaces", items: Surfaces.Select(x => new MetaInfo($"{x:X8}", clickable: true))),
+                    new MetaInfo($"Environment: {EnvironmentId:X8}", clickable: true),
+                    CellStructure != 0 ? new MetaInfo($"CellStructure: {CellStructure}") : null,
+                    new MetaInfo($"Position: {Position}"),
+                    CellPortals.Length > 0 ? new MetaInfo("CellPortals", items: CellPortals.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))) : null,
+                    StaticObjects.Length > 0 ? new MetaInfo("StaticObjects", items: StaticObjects.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))) : null,
+                    RestrictionObj != 0 ? new MetaInfo($"RestrictionObj: {RestrictionObj:X8}", clickable: true) : null,
                 })
             };
             return nodes;

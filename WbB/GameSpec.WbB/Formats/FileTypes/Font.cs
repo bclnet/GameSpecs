@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// It is essentially a map to a specific texture file (spritemap) that contains all the characters in this font.
     /// </summary>
     [PakFileType(PakFileType.Font)]
-    public class Font : FileType, IGetMetadataInfo
+    public class Font : FileType, IHaveMetaInfo
     {
         public readonly uint MaxCharHeight;
         public readonly uint MaxCharWidth;
@@ -37,10 +37,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: New
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Font)}: {Id:X8}", items: new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Font)}: {Id:X8}", items: new List<MetaInfo> {
                 })
             };
             return nodes;

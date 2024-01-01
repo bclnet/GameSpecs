@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class CreateParticleHook : AnimationHook, IGetMetadataInfo
+    public class CreateParticleHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint EmitterInfoId;
         public readonly uint PartIndex;
@@ -22,15 +22,15 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.CreateParticleHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
+            var nodes = new List<MetaInfo>();
             if (Base is CreateParticleHook s)
             {
-                nodes.Add(new MetadataInfo($"EmitterInfoId: {s.EmitterInfoId:X8}"));
-                nodes.Add(new MetadataInfo($"PartIndex: {(int)s.PartIndex}"));
-                nodes.Add(new MetadataInfo($"Offset: {s.Offset}"));
-                nodes.Add(new MetadataInfo($"EmitterId: {s.EmitterId}"));
+                nodes.Add(new MetaInfo($"EmitterInfoId: {s.EmitterInfoId:X8}"));
+                nodes.Add(new MetaInfo($"PartIndex: {(int)s.PartIndex}"));
+                nodes.Add(new MetaInfo($"Offset: {s.Offset}"));
+                nodes.Add(new MetaInfo($"EmitterId: {s.EmitterId}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

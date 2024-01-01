@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class Polygon : IGetMetadataInfo
+    public class Polygon : IHaveMetaInfo
     {
         public byte NumPts;
         public StipplingType Stippling; // Whether it has that textured/bumpiness to it
@@ -35,17 +35,17 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Polygon
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                //new MetadataInfo($"NumPoints: {NumPts}"),
-                new MetadataInfo($"Stippling: {Stippling}"),
-                new MetadataInfo($"CullMode: {SidesType}"),
-                new MetadataInfo($"PosSurface: {PosSurface}"),
-                new MetadataInfo($"NegSurface: {NegSurface}"),
-                new MetadataInfo($"Vertex IDs: {string.Join(", ", VertexIds)}"),
-                new MetadataInfo($"PosUVIndices: {string.Join(", ", PosUVIndices)}"),
-                new MetadataInfo($"NegUVIndices: {string.Join(", ", NegUVIndices)}"),
+            var nodes = new List<MetaInfo> {
+                //new MetaInfo($"NumPoints: {NumPts}"),
+                new MetaInfo($"Stippling: {Stippling}"),
+                new MetaInfo($"CullMode: {SidesType}"),
+                new MetaInfo($"PosSurface: {PosSurface}"),
+                new MetaInfo($"NegSurface: {NegSurface}"),
+                new MetaInfo($"Vertex IDs: {string.Join(", ", VertexIds)}"),
+                new MetaInfo($"PosUVIndices: {string.Join(", ", PosUVIndices)}"),
+                new MetaInfo($"NegUVIndices: {string.Join(", ", NegUVIndices)}"),
             };
             return nodes;
         }

@@ -105,7 +105,7 @@ namespace GameSpec
         /// <summary>
         /// Opens this instance.
         /// </summary>
-        public virtual PakFile Open(List<MetadataItem> items = null, MetadataManager manager = null)
+        public virtual PakFile Open(List<MetaItem> items = null, MetaManager manager = null)
         {
             if (Status != PakStatus.Closed) return this;
             Status = PakStatus.Opening;
@@ -114,7 +114,7 @@ namespace GameSpec
             Opening();
             watch.Stop();
             Status = PakStatus.Opened;
-            items?.AddRange(GetMetadataItemsAsync(manager).Result);
+            items?.AddRange(GetMetaItemsAsync(manager).Result);
             Log($"Opened: {Name} @ {watch.ElapsedMilliseconds}ms");
             return this;
         }
@@ -131,16 +131,7 @@ namespace GameSpec
         /// <returns>
         ///   <c>true</c> if [contains] [the specified file path]; otherwise, <c>false</c>.
         /// </returns>
-        public abstract bool Contains(string path);
-
-        /// <summary>
-        /// Determines whether this instance contains the item.
-        /// </summary>
-        /// <param name="fileId">The fileId.</param>
-        /// <returns>
-        ///   <c>true</c> if [contains] [the specified file path]; otherwise, <c>false</c>.
-        /// </returns>
-        public abstract bool Contains(int fileId);
+        public abstract bool Contains(object path);
 
         /// <summary>
         /// Gets the pak item count.
@@ -163,54 +154,31 @@ namespace GameSpec
         }
 
         /// <summary>
+        /// Gets the graphic.
+        /// </summary>
+        /// <value>
+        /// The graphic.
+        /// </value>
+        public IOpenGraphic Graphic { get; internal set; }
+
+        /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
         /// <param name="path">The file path.</param>
         /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null);
-        /// <summary>
-        /// Loads the file data asynchronous.
-        /// </summary>
-        /// <param name="fileId">The fileId.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null);
-        /// <summary>
-        /// Loads the file data asynchronous.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = 0, Action<FileSource, string> exception = null);
+        public abstract Task<Stream> LoadFileDataAsync(object path, FileOption option = default);
 
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="path">The file path.</param>
-        /// <param name="exception">The exception.</param>
+        /// <param name="option">The option.</param>
         /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = null);
-        /// <summary>
-        /// Loads the object asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fileId">The fileId.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = null);
-        /// <summary>
-        /// Loads the object asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception = null);
+        public abstract Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default);
+
+        #region Transform
 
         /// <summary>
         /// Loads the object transformed asynchronous.
@@ -218,31 +186,10 @@ namespace GameSpec
         /// <typeparam name="T"></typeparam>
         /// <param name="path">The file path.</param>
         /// <param name="transformTo">The transformTo.</param>
-        /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(string path, PakFile transformTo, Action<FileSource, string> exception = null)
-            => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(path, exception));
-        /// <summary>
-        /// Loads the object transformed asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fileId">The fileId.</param>
-        /// <param name="transformTo">The transformTo.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(int fileId, PakFile transformTo, Action<FileSource, string> exception = null)
-            => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(fileId, exception));
-        /// <summary>
-        /// Loads the object transformed asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="transformTo">The transformTo.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(FileSource fileId, PakFile transformTo, Action<FileSource, string> exception = null)
-            => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(fileId, exception));
-
+        public async Task<T> LoadFileObjectAsync<T>(object path, PakFile transformTo)
+            => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(path));
+        
         /// <summary>
         /// Transforms the file object asynchronous.
         /// </summary>
@@ -257,13 +204,7 @@ namespace GameSpec
             else throw new ArgumentOutOfRangeException(nameof(transformTo));
         }
 
-        /// <summary>
-        /// Gets the graphic.
-        /// </summary>
-        /// <value>
-        /// The graphic.
-        /// </value>
-        public IOpenGraphic Graphic { get; internal set; }
+        #endregion
 
         #region Metadata
 
@@ -272,8 +213,8 @@ namespace GameSpec
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<MetadataItem.Filter>> GetMetadataFiltersAsync(MetadataManager manager)
-            => Task.FromResult(Family.FileManager != null && Family.FileManager.Filters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetadataItem.Filter(x.Key, x.Value)).ToList() : null);
+        public virtual Task<List<MetaItem.Filter>> GetMetadataFiltersAsync(MetaManager manager)
+            => Task.FromResult(Family.FileManager != null && Family.FileManager.Filters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetaItem.Filter(x.Key, x.Value)).ToList() : null);
 
         /// <summary>
         /// Gets the metadata infos.
@@ -281,7 +222,7 @@ namespace GameSpec
         /// <param name="manager">The resource.</param>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public virtual Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
+        public virtual Task<List<MetaInfo>> GetMetaInfosAsync(MetaManager manager, MetaItem item)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -289,7 +230,7 @@ namespace GameSpec
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
+        public virtual Task<List<MetaItem>> GetMetaItemsAsync(MetaManager manager)
             => throw new NotImplementedException();
 
         #endregion

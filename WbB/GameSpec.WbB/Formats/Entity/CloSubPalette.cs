@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CloSubPalette : IGetMetadataInfo
+    public class CloSubPalette : IHaveMetaInfo
     {
         /// <summary>
         /// Contains a list of valid offsets & color values
@@ -24,13 +24,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ClothingSubPalette
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
                 Ranges.Length == 1
-                    ? new MetadataInfo($"Range: {Ranges[0]}")
-                    : new MetadataInfo($"SubPalette Ranges", items: Ranges.Select(x => new MetadataInfo($"{x}"))),
-                new MetadataInfo($"Palette Set: {PaletteSet:X8}", clickable: true),
+                    ? new MetaInfo($"Range: {Ranges[0]}")
+                    : new MetaInfo($"SubPalette Ranges", items: Ranges.Select(x => new MetaInfo($"{x}"))),
+                new MetaInfo($"Palette Set: {PaletteSet:X8}", clickable: true),
             };
             return nodes;
         }

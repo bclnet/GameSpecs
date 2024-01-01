@@ -12,16 +12,16 @@ namespace GameSpec.Cig.Formats
     public static class FormatExtensions
     {
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
+        internal static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 //".cfg" => (0, BinaryDcb.Factory),
                 var x when x == ".cfg" || x == ".txt" => (0, BinaryTxt.Factory),
-                var x when x == ".mtl" || x == ".xml" => (DataOption.Stream, CryXmlFile.Factory),
+                var x when x == ".mtl" || x == ".xml" => (FileOption.Stream, CryXmlFile.Factory),
                 ".dds" => (0, BinaryDds.Factory),
                 ".a" => (0, BinaryDdsA.Factory),
                 ".dcb" => (0, BinaryDcb.Factory),
-                var x when x == ".soc" || x == ".cgf" || x == ".cga" || x == ".chr" || x == ".skin" || x == ".anim" => (DataOption.Model, CryFile.Factory),
+                var x when x == ".soc" || x == ".cgf" || x == ".cga" || x == ".chr" || x == ".skin" || x == ".anim" => (FileOption.Model, CryFile.Factory),
                 _ => (0, null),
             };
     }

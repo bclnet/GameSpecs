@@ -12,7 +12,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// I'm not sure of an instance where the server would ever need this data, but it's fun nonetheless and included for completion sake.
     /// </summary>
     [PakFileType(PakFileType.Wave)]
-    public class Wave : FileType, IGetMetadataInfo
+    public class Wave : FileType, IHaveMetaInfo
     {
         public byte[] Header { get; private set; }
         public byte[] Data { get; private set; }
@@ -27,15 +27,15 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Sound
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var type = Header[0] == 0x55 ? ".mp3" : ".wav";
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = null, Tag = type }),
-                new MetadataInfo($"{nameof(Wave)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Type: {type}"),
-                    new MetadataInfo($"Header Size: {Header.Length}"),
-                    new MetadataInfo($"Data Size: {Data.Length}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo(null, new MetaContent { Type = "AudioPlayer", Name = "Sound", Value = null, Tag = type }),
+                new MetaInfo($"{nameof(Wave)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"Type: {type}"),
+                    new MetaInfo($"Header Size: {Header.Length}"),
+                    new MetaInfo($"Data Size: {Data.Length}"),
                 })
             };
             return nodes;

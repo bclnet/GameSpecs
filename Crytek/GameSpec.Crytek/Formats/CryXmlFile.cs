@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace GameSpec.Crytek.Formats
 {
-    public class CryXmlFile : XmlDocument, IHaveStream, IGetMetadataInfo
+    public class CryXmlFile : XmlDocument, IHaveStream, IHaveMetaInfo
     {
         class Node
         {
@@ -29,8 +29,8 @@ namespace GameSpec.Crytek.Formats
         public static Task<object> Factory(BinaryReader r, FileSource m, PakFile s)
             => Task.FromResult((object)new CryXmlFile(r, false));
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = this }),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = this }),
         };
 
         public CryXmlFile(string inFile, bool writeLog = false) : this(new BinaryReader(File.OpenRead(inFile)), writeLog) { }

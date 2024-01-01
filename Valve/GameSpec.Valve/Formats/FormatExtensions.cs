@@ -13,7 +13,7 @@ namespace GameSpec.Valve.Formats
     public static class FormatExtensions
     {
         // object factory
-        public static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
+        public static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
         {
             Task<object> BinaryPakFactory(BinaryReader r, FileSource f, PakFile s)
             {

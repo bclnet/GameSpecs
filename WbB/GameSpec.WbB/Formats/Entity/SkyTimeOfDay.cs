@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkyTimeOfDay : IGetMetadataInfo
+    public class SkyTimeOfDay : IHaveMetaInfo
     {
         public readonly float Begin;
 
@@ -46,25 +46,25 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkyTimeOfDay
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Begin: {Begin}"),
-                new MetadataInfo($"DirBright: {DirBright}"),
-                new MetadataInfo($"DirHeading: {DirHeading}"),
-                new MetadataInfo($"DirPitch: {DirPitch}"),
-                new MetadataInfo($"DirColor: {DirColor:X8}"),
-                new MetadataInfo($"AmbientBrightness: {AmbBright}"),
-                new MetadataInfo($"AmbientColor: {AmbColor:X8}"),
-                new MetadataInfo($"MinFog: {MinWorldFog}"),
-                new MetadataInfo($"MaxFog: {MaxWorldFog}"),
-                new MetadataInfo($"FogColor: {WorldFogColor:X8}"),
-                new MetadataInfo($"Fog: {WorldFog}"),
-                new MetadataInfo("SkyObjectReplace", items: SkyObjReplace.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Begin: {Begin}"),
+                new MetaInfo($"DirBright: {DirBright}"),
+                new MetaInfo($"DirHeading: {DirHeading}"),
+                new MetaInfo($"DirPitch: {DirPitch}"),
+                new MetaInfo($"DirColor: {DirColor:X8}"),
+                new MetaInfo($"AmbientBrightness: {AmbBright}"),
+                new MetaInfo($"AmbientColor: {AmbColor:X8}"),
+                new MetaInfo($"MinFog: {MinWorldFog}"),
+                new MetaInfo($"MaxFog: {MaxWorldFog}"),
+                new MetaInfo($"FogColor: {WorldFogColor:X8}"),
+                new MetaInfo($"Fog: {WorldFog}"),
+                new MetaInfo("SkyObjectReplace", items: SkyObjReplace.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("ObjIdx: ", "");
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
             };
             return nodes;

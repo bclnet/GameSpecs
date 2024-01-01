@@ -15,7 +15,7 @@ namespace GameSpec.Cig.Apps.DataForge
         public List<Node> Items { get; } = new List<Node>();
         public List<Entity> Entities { get; } = new List<Entity>();
 
-        public static void CreateNode(MetadataManager manager, List<Node> nodes, BinaryDcb.Record v)
+        public static void CreateNode(MetaManager manager, List<Node> nodes, BinaryDcb.Record v)
         {
             var path = v.FileName?[21..] ?? v.Name;
             var icon = manager.FolderIcon;
@@ -58,7 +58,7 @@ namespace GameSpec.Cig.Apps.DataForge
 
         public List<Node> Nodes = new List<Node>();
 
-        public async Task OpenAsync(MetadataManager manager)
+        public async Task OpenAsync(MetaManager manager)
         {
             family = FamilyManager.GetFamily("Cig");
             pakFile = family.OpenPakFile(new Uri("game:/#StarCitizen"));

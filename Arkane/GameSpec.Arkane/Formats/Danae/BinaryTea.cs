@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats.Danae
 {
-    public class BinaryTea : IGetMetadataInfo
+    public class BinaryTea : IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryTea(r));
 
         public BinaryTea() { }
         public BinaryTea(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("BinaryTEA", items: new List<MetadataInfo> {
-                    //new MetadataInfo($"Type: {Type}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryTEA", items: new List<MetaInfo> {
+                    //new MetaInfo($"Type: {Type}"),
                 })
             };
             return nodes;

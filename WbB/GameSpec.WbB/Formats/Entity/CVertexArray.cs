@@ -10,7 +10,7 @@ namespace GameSpec.WbB.Formats.Entity
     /// <summary>
     /// A list of indexed vertices, and their associated type
     /// </summary>
-    public class CVertexArray : IGetMetadataInfo
+    public class CVertexArray : IHaveMetaInfo
     {
         public readonly int VertexType;
         public readonly Dictionary<ushort, SWVertex> Vertices;
@@ -24,11 +24,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.VertexArray
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"VertexType: {VertexType}"),
-                new MetadataInfo($"Vertices", items: Vertices.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(resource, file)))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"VertexType: {VertexType}"),
+                new MetaInfo($"Vertices", items: Vertices.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(resource, file)))),
             };
             return nodes;
         }

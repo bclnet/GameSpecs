@@ -12,54 +12,54 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="NullTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="NullTemplate" DataType="{x:Type model:MetaContent}">
                 <TextBlock Text="Null" Margin="5,5,5,5" FontFamily="GenericMonospace" />
             </DataTemplate>
-            <DataTemplate x:Key="HexTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="HexTemplate" DataType="{x:Type model:MetaContent}">
                 <control:HexEditor Margin="5,5,5,5" Stream="{Binding Value}"/>
             </DataTemplate>
-            <DataTemplate x:Key="TextTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="TextTemplate" DataType="{x:Type model:MetaContent}">
                 <ScrollViewer>
                     <TextBlock TextWrapping="Wrap" Text="{Binding Value}" Margin="5,5,5,5" FontFamily="Courier New" />
                 </ScrollViewer>
             </DataTemplate>
-            <DataTemplate x:Key="DataGridTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="DataGridTemplate" DataType="{x:Type model:MetaContent}">
                 <DataGrid VerticalAlignment="Top" ItemsSource="{Binding Value}" Margin="5,5,5,5" />
             </DataTemplate>
-            <DataTemplate x:Key="AudioPlayerTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="AudioPlayerTemplate" DataType="{x:Type model:MetaContent}">
                 <views:AudioPlayer Source="{Binding Value}" Format="{Binding Tag}" Margin="5,5,5,5" />
             </DataTemplate>
-            <DataTemplate x:Key="ImageTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="ImageTemplate" DataType="{x:Type model:MetaContent}">
                 <Image MaxWidth="{Binding MaxWidth}" MaxHeight="{Binding MaxHeight}" Margin="5,5,5,5" />
             </DataTemplate>
-            <DataTemplate x:Key="MaterialTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="MaterialTemplate" DataType="{x:Type model:MetaContent}">
                 <control1:GLMaterialViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
-            <DataTemplate x:Key="ParticleTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="ParticleTemplate" DataType="{x:Type model:MetaContent}">
                 <control1:GLParticleViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
-            <DataTemplate x:Key="TextureTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="TextureTemplate" DataType="{x:Type model:MetaContent}">
                 <control1:GLTextureViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
-            <DataTemplate x:Key="ModelTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="ModelTemplate" DataType="{x:Type model:MetaContent}">
                 <control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
-            <DataTemplate x:Key="WorldTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="WorldTemplate" DataType="{x:Type model:MetaContent}">
                 <control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding RelativeSource={RelativeSource AncestorType={x:Type views:FileContent}}, Path=Graphic}" Margin="3,3,3,3" />
             </DataTemplate>
-            <DataTemplate x:Key="CustomTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="CustomTemplate" DataType="{x:Type model:MetaContent}">
                 <views:Custom Source="{Binding Value}" Margin="3,3,3,3" />
             </DataTemplate>
         </Grid.Resources>
 
         <TabControl x:Name="ContentTab" Grid.Row="1" Margin="0,0,0,0" ItemsSource="{Binding ContentTabs}">
             <TabControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type model:MetadataContent}">
+                <DataTemplate DataType="{x:Type model:MetaContent}">
                     <TextBlock Text="{Binding Name}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
-                <DataTemplate DataType="{x:Type model:MetadataContent}">
+                <DataTemplate DataType="{x:Type model:MetaContent}">
                     <ContentControl Content="{Binding}">
                         <ContentControl.Style>
                             <Style TargetType="ContentControl">

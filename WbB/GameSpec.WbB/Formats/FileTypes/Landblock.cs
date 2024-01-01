@@ -21,7 +21,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Very special thanks to David Simpson for his early work on reading the cell.dat. Even bigger thanks for his documentation of it!
     /// </remarks>
     [PakFileType(PakFileType.LandBlock)]
-    public class Landblock : FileType, IGetMetadataInfo
+    public class Landblock : FileType, IHaveMetaInfo
     {
         /// <summary>
         /// Places in the inland sea, for example, are false. Should denote presence of xxxxFFFE (where xxxx is the cell).
@@ -55,14 +55,14 @@ namespace GameSpec.WbB.Formats.FileTypes
         public static ushort GetTerrain(ushort terrain, ushort mask, byte shift) => (ushort)((terrain & mask) >> shift);
 
         //: FileTypes.CellLandblock
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var terrainTypes = DatabaseManager.Portal.RegionDesc.TerrainInfo.TerrainTypes;
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Landblock)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"HasObjects: {HasObjects}"),
-                    new MetadataInfo("Terrain", items: Terrain.Select((x, i) => new MetadataInfo($"{i}: Road: {GetRoad(x)}, Type: {terrainTypes[GetType(x)].TerrainName}, Scenery: {GetScenery(x)}"))),
-                    new MetadataInfo("Heights", items: Height.Select((x, i) => new MetadataInfo($"{i}: {x}"))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Landblock)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"HasObjects: {HasObjects}"),
+                    new MetaInfo("Terrain", items: Terrain.Select((x, i) => new MetaInfo($"{i}: Road: {GetRoad(x)}, Type: {terrainTypes[GetType(x)].TerrainName}, Scenery: {GetScenery(x)}"))),
+                    new MetaInfo("Heights", items: Height.Select((x, i) => new MetaInfo($"{i}: {x}"))),
                 })
             };
             return nodes;

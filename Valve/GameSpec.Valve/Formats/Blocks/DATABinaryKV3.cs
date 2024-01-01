@@ -11,7 +11,7 @@ using K4os.Compression.LZ4.Encoders;
 namespace GameSpec.Valve.Formats.Blocks
 {
     //was:Resource/ResourceTypes/BinaryKV3
-    public class DATABinaryKV3 : DATA, IGetMetadataInfo
+    public class DATABinaryKV3 : DATA, IHaveMetaInfo
     {
         public enum KVFlag //was:Serialization/KeyValues/KVFlaggedValue
         {
@@ -51,12 +51,12 @@ namespace GameSpec.Valve.Formats.Blocks
         public const int MAGIC2 = 0x4B563301; // KV3\x01
         public const int MAGIC3 = 0x4B563302; // KV3\x02
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "BinaryKV3", Value = ToString() }),
-            new MetadataInfo("BinaryKV3", items: new List<MetadataInfo> {
-                new MetadataInfo($"Data: {Data.Count}"),
-                new MetadataInfo($"Encoding: {Encoding}"),
-                new MetadataInfo($"Format: {Format}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Text", Name = "BinaryKV3", Value = ToString() }),
+            new MetaInfo("BinaryKV3", items: new List<MetaInfo> {
+                new MetaInfo($"Data: {Data.Count}"),
+                new MetaInfo($"Encoding: {Encoding}"),
+                new MetaInfo($"Format: {Format}"),
             }),
         };
 

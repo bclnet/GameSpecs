@@ -5,7 +5,7 @@ namespace GameSpec.App.Explorer.Views
 {
     public partial class FileExplorer : ContentView
     {
-        public static MetadataManager Resource = new ResourceManager();
+        public static MetaManager Resource = new ResourceManager();
         public static FileExplorer Instance;
 
         public FileExplorer()
@@ -20,7 +20,7 @@ namespace GameSpec.App.Explorer.Views
             {
                 if (d is not FileExplorer fileExplorer || n is not PakFile pakFile) return;
                 fileExplorer.Filters = pakFile.GetMetadataFiltersAsync(Resource).Result;
-                fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetadataItemsAsync(Resource).Result;
+                fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetaItemsAsync(Resource).Result;
                 fileExplorer.OnReady();
             });
         public PakFile PakFile
@@ -29,8 +29,8 @@ namespace GameSpec.App.Explorer.Views
             set => SetValue(PakFileProperty, value);
         }
 
-        List<MetadataItem.Filter> _filters;
-        public List<MetadataItem.Filter> Filters
+        List<MetaItem.Filter> _filters;
+        public List<MetaItem.Filter> Filters
         {
             get => _filters;
             set { _filters = value; OnPropertyChanged(); }
@@ -44,29 +44,29 @@ namespace GameSpec.App.Explorer.Views
         //    //view.Filter = o =>
         //    //{
         //    //    if (string.IsNullOrEmpty(Filter.Text)) return true;
-        //    //    else return (o as MetadataItem).Name.Contains(Filter.Text);
+        //    //    else return (o as MetaItem).Name.Contains(Filter.Text);
         //    //};
         //    //view.Refresh();
         //}
 
         void OnFilterSelected(object s, EventArgs e)
         {
-            var filter = (MetadataItem.Filter)Filter.SelectedItem;
+            var filter = (MetaItem.Filter)Filter.SelectedItem;
             if (filter == null) Nodes = PakNodes;
             else Nodes = PakNodes.Select(x => x.Search(y => y.Name.Contains(filter.Description))).Where(x => x != null).ToList();
         }
 
-        List<MetadataItem> PakNodes;
+        List<MetaItem> PakNodes;
 
-        List<MetadataItem> _nodes;
-        public List<MetadataItem> Nodes
+        List<MetaItem> _nodes;
+        public List<MetaItem> Nodes
         {
             get => _nodes;
             set { _nodes = value; OnPropertyChanged(); }
         }
 
-        List<MetadataInfo> _infos;
-        public List<MetadataInfo> Infos
+        List<MetaInfo> _infos;
+        public List<MetaInfo> Infos
         {
             get => _infos;
             set { _infos = value; OnPropertyChanged(); }
@@ -75,12 +75,12 @@ namespace GameSpec.App.Explorer.Views
         void OnNodeSelected(object s, EventArgs args)
         {
             var parameter = ((TappedEventArgs)args).Parameter;
-            if (parameter is MetadataItem item && item.PakFile != null) SelectedItem = item;
+            if (parameter is MetaItem item && item.PakFile != null) SelectedItem = item;
             //e.Handled = true;
         }
 
-        MetadataItem _selectedItem;
-        public MetadataItem SelectedItem
+        MetaItem _selectedItem;
+        public MetaItem SelectedItem
         {
             get => _selectedItem;
             set
@@ -95,22 +95,22 @@ namespace GameSpec.App.Explorer.Views
                     {
                         if (pak.Status == PakFile.PakStatus.Opened) return;
                         pak.Open(value.Items, Resource);
-                        //value.Items.AddRange(pak.GetMetadataItemsAsync(Resource).Result);
+                        //value.Items.AddRange(pak.GetMetaItemsAsync(Resource).Result);
                         //OnFilterKeyUp(null, null);
                     }
-                    OnInfo(value.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
+                    OnInfo(value.PakFile?.GetMetaInfosAsync(Resource, value).Result);
                 }
                 catch (Exception ex)
                 {
                     OnInfo(new[] {
-                        new MetadataInfo($"EXCEPTION: {ex.Message}"),
-                        new MetadataInfo(ex.StackTrace),
+                        new MetaInfo($"EXCEPTION: {ex.Message}"),
+                        new MetaInfo(ex.StackTrace),
                     });
                 }
             }
         }
 
-        public void OnInfo(IEnumerable<MetadataInfo> infos = null)
+        public void OnInfo(IEnumerable<MetaInfo> infos = null)
         {
             FileContent.Instance.OnInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             Infos = infos?.Where(x => x.Name != null).ToList();
@@ -118,7 +118,7 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = MetadataItem.FindByPath(PakNodes, Config.ForcePath, Resource);
+            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = MetaItem.findByPathForNodes(PakNodes, Config.ForcePath, Resource);
         }
     }
 }

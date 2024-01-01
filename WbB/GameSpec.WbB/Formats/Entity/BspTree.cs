@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class BspTree : IGetMetadataInfo
+    public class BspTree : IHaveMetaInfo
     {
         public readonly BspNode RootNode;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity
             => RootNode = BspNode.Factory(r, treeType);
 
         //: Entity.BSPTree
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Root", items: (RootNode as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Root", items: (RootNode as IHaveMetaInfo).GetInfoNodes(tag: tag)),
             };
             return nodes;
         }

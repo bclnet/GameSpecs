@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// 
     /// Special thanks to the GDLE team for pointing me the right direction on how/where to find this info in the dat files- OptimShi
     /// </summary>
-    public class Iteration : FileType, IGetMetadataInfo
+    public class Iteration : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0xFFFF0001;
 
@@ -36,10 +36,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: New
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Iteration)}: {Id:X8}", items: new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Iteration)}: {Id:X8}", items: new List<MetaInfo> {
                 })
             };
             return nodes;

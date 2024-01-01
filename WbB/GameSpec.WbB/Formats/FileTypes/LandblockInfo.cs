@@ -17,7 +17,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Very special thanks again to David Simpson for his early work on reading the cell.dat. Even bigger thanks for his documentation of it!
     /// </remarks>
     [PakFileType(PakFileType.LandBlockInfo)]
-    public class LandblockInfo : FileType, IGetMetadataInfo
+    public class LandblockInfo : FileType, IHaveMetaInfo
     {
         /// <summary>
         /// number of EnvCells in the landblock. This should match up to the unique items in the building stab lists.
@@ -52,22 +52,22 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.LandblockInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var landblock = Id & 0xFFFF0000;
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(LandblockInfo)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"NumCells: {NumCells}"),
-                    NumCells > 0 ? new MetadataInfo("Objects", items: Enumerable.Range(0, (int)NumCells).Select(i => new MetadataInfo($"{landblock + 0x100 + i:X8}", clickable: true))) : null,
-                    Objects.Length > 0 ? new MetadataInfo("Objects", items: Objects.Select(x => {
-                        var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(LandblockInfo)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"NumCells: {NumCells}"),
+                    NumCells > 0 ? new MetaInfo("Objects", items: Enumerable.Range(0, (int)NumCells).Select(i => new MetaInfo($"{landblock + 0x100 + i:X8}", clickable: true))) : null,
+                    Objects.Length > 0 ? new MetaInfo("Objects", items: Objects.Select(x => {
+                        var items = (x as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("ID: ", "");
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items, clickable: true);
+                        return new MetaInfo(name, items: items, clickable: true);
                     })) : null,
-                    //PackMask != 0 ? new MetadataInfo($"PackMask: {PackMask}") : null,
-                    Buildings.Length > 0 ? new MetadataInfo("Buildings", items: Buildings.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))) : null,
-                    RestrictionTables.Count > 0 ? new MetadataInfo("Restrictions", items: RestrictionTables.Select(x => new MetadataInfo($"{x.Key:X8}: {x.Value:X8}"))) : null,
+                    //PackMask != 0 ? new MetaInfo($"PackMask: {PackMask}") : null,
+                    Buildings.Length > 0 ? new MetaInfo("Buildings", items: Buildings.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))) : null,
+                    RestrictionTables.Count > 0 ? new MetaInfo("Restrictions", items: RestrictionTables.Select(x => new MetaInfo($"{x.Key:X8}: {x.Value:X8}"))) : null,
                 })
             };
             return nodes;

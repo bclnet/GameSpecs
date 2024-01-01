@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class NoDrawHook : AnimationHook, IGetMetadataInfo
+    public class NoDrawHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint NoDraw;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => NoDraw = r.ReadUInt32();
 
         //: Entity.NoDrawHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is NoDrawHook s) nodes.Add(new MetadataInfo($"NoDraw: {s.NoDraw}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is NoDrawHook s) nodes.Add(new MetaInfo($"NoDraw: {s.NoDraw}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

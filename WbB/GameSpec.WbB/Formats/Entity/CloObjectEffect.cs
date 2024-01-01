@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CloObjectEffect : IGetMetadataInfo
+    public class CloObjectEffect : IHaveMetaInfo
     {
         public readonly uint Index;
         public readonly uint ModelId;
@@ -20,12 +20,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ClothingObjectEffect
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Index: {Index}"),
-                new MetadataInfo($"Model ID: {ModelId:X8}", clickable: true),
-                new MetadataInfo($"Texture Effects", items: CloTextureEffects.Select(x=> new MetadataInfo($"{x}", clickable: true))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Index: {Index}"),
+                new MetaInfo($"Model ID: {ModelId:X8}", clickable: true),
+                new MetaInfo($"Texture Effects", items: CloTextureEffects.Select(x=> new MetaInfo($"{x}", clickable: true))),
             };
             return nodes;
         }

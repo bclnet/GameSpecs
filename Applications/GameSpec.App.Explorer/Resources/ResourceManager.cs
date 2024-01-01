@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace GameSpec.App.Explorer
 {
-    public class ResourceManager : MetadataManager
+    public class ResourceManager : MetaManager
     {
         readonly Dictionary<string, BitmapImage> Icons = new();
         readonly ConcurrentDictionary<string, BitmapImage> ImageCache = new();

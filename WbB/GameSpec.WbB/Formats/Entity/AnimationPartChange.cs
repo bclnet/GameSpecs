@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.WbB.Formats.Entity
 {
     //: Entity+AnimationPartChange
-    public class AnimationPartChange : IGetMetadataInfo
+    public class AnimationPartChange : IHaveMetaInfo
     {
         public readonly byte PartIndex;
         public readonly uint PartID;
@@ -23,11 +23,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AnimPartChange
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Part Idx: {PartIndex}"),
-                new MetadataInfo($"Part ID: {PartID:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Part Idx: {PartIndex}"),
+                new MetaInfo($"Part ID: {PartID:X8}", clickable: true),
             };
             return nodes;
         }

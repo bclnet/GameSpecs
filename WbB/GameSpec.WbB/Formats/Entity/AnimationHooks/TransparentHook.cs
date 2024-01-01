@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class TransparentHook : AnimationHook, IGetMetadataInfo
+    public class TransparentHook : AnimationHook, IHaveMetaInfo
     {
         public readonly float Start;
         public readonly float End;
@@ -20,10 +20,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.TransparentHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is TransparentHook s) nodes.Add(new MetadataInfo($"Start: {s.Start}, End: {s.End}, Time: {s.Time}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is TransparentHook s) nodes.Add(new MetaInfo($"Start: {s.Start}, End: {s.End}, Time: {s.Time}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

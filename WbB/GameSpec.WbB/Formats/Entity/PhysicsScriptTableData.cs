@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class PhysicsScriptTableData : IGetMetadataInfo
+    public class PhysicsScriptTableData : IHaveMetaInfo
     {
         public readonly ScriptAndModData[] Scripts;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity
             => Scripts = r.ReadL32Array(x => new ScriptAndModData(r));
 
         //: Entity.PhysicsScriptTableData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("ScriptMods", items: Scripts.Select(x=>new MetadataInfo($"{x}", clickable: true))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("ScriptMods", items: Scripts.Select(x=>new MetaInfo($"{x}", clickable: true))),
             };
             return nodes;
         }

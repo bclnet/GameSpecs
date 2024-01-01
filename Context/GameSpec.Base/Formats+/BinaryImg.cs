@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class BinaryImg : IGetMetadataInfo, ITexture
+    public class BinaryImg : IHaveMetaInfo, ITexture
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryImg(r, f));
 
@@ -72,13 +72,13 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo($"{nameof(BinaryImg)}", items: new List<MetadataInfo> {
-                new MetadataInfo($"Format: {Format.type}"),
-                new MetadataInfo($"Width: {Width}"),
-                new MetadataInfo($"Height: {Height}"),
-                new MetadataInfo($"Type: {Format}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo($"{nameof(BinaryImg)}", items: new List<MetaInfo> {
+                new MetaInfo($"Format: {Format.type}"),
+                new MetaInfo($"Width: {Width}"),
+                new MetaInfo($"Height: {Height}"),
+                new MetaInfo($"Type: {Format}"),
             })
         };
     }

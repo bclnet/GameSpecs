@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.WbB.Formats.Entity
 {
     // TODO: refactor to use existing PaletteOverride object
-    public class SubPalette : IGetMetadataInfo
+    public class SubPalette : IHaveMetaInfo
     {
         public uint SubID;
         public uint Offset;
@@ -24,12 +24,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SubPalette
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"SubID: {SubID:X8}", clickable: true),
-                new MetadataInfo($"Offset: {Offset}"),
-                new MetadataInfo($"NumColors: {NumColors}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"SubID: {SubID:X8}", clickable: true),
+                new MetaInfo($"Offset: {Offset}"),
+                new MetaInfo($"NumColors: {NumColors}"),
             };
             return nodes;
         }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class StarterArea : IGetMetadataInfo
+    public class StarterArea : IHaveMetaInfo
     {
         public readonly string Name;
         public readonly Position[] Locations;
@@ -18,15 +18,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.StarterArea
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo("Locations", items: Locations.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo("Locations", items: Locations.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("ObjCellID: ", "");
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items, clickable: true);
+                    return new MetaInfo(name, items: items, clickable: true);
                 })),
             };
             return nodes;

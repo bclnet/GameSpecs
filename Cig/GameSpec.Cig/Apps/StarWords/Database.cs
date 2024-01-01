@@ -17,7 +17,7 @@ namespace GameSpec.Cig.Apps.StarWords
         public List<Node> Items { get; } = new List<Node>();
         public List<Entity> Entities { get; } = new List<Entity>();
 
-        public static void CreateNode(MetadataManager manager, List<Node> nodes, string k, string v)
+        public static void CreateNode(MetaManager manager, List<Node> nodes, string k, string v)
         {
             var parts = k.Split("_");
             var pathTake = parts.Length > 3 ? 3 : 1;
@@ -78,7 +78,7 @@ namespace GameSpec.Cig.Apps.StarWords
         public List<Node> Nodes = new List<Node>();
         public Dictionary<string, Dictionary<string, string>> Others = new Dictionary<string, Dictionary<string, string>>();
 
-        public async Task OpenAsync(MetadataManager manager)
+        public async Task OpenAsync(MetaManager manager)
         {
             family = FamilyManager.GetFamily("Cig");
             pakFile = family.OpenPakFile(new Uri("game:/Data.p4k#StarCitizen"));

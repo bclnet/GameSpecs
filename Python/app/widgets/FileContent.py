@@ -5,7 +5,7 @@ from PyQt6.QtCore import pyqtSlot, Qt, QBuffer, QByteArray, QUrl, QMimeData, pyq
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import PakFile, MetadataInfo, MetadataContent
+from gamespecs import PakFile, MetaInfo, MetaContent
 
 class TextBlock(QWidget):
     def __init__(self, parent, tab):
@@ -25,7 +25,7 @@ class NullBlock(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
 
-class FileContent(QWidget):
+class FileContent(QTabWidget):
     def __init__(self, parent):
         super().__init__()
         self.parent = parent
@@ -34,15 +34,12 @@ class FileContent(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        self.setStyleSheet('background-color: darkgreen;')
+        # self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        # self.setStyleSheet('background-color: darkgreen;')
         # content tab
-        contentTab = self.contentTab = QTabWidget(self)
-        contentTab.sizeHint()
-        # contentTab.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
-        contentTab.setMinimumWidth(300)
-        contentTab.setMinimumHeight(300)
-        # contentTab.setMaximumWidth(500)
+        contentTab = self.contentTab = self #QTabWidget(self)
+        # contentTab.setMinimumWidth(300)
+        # contentTab.setMinimumHeight(300)
 
     def updateTabs(self):
         self.contentTab.clear()
@@ -60,13 +57,13 @@ class FileContent(QWidget):
         self._graphic = value
 
     @property
-    def contentTabs(self) -> list[MetadataContent]: return self._contentTabs
+    def contentTabs(self) -> list[MetaContent]: return self._contentTabs
     @contentTabs.setter
-    def contentTabs(self, value: list[MetadataContent]):
+    def contentTabs(self, value: list[MetaContent]):
         self._contentTabs = value
         self.updateTabs()
 
-    def onInfo(self, pakFile: PakFile, infos: list[MetadataInfo] = None):
+    def onInfo(self, pakFile: PakFile, infos: list[MetaInfo] = None):
         self.graphic = pakFile.graphic
-        self.contentTabs = [x.tag for x in infos if isinstance(x.tag, MetadataContent)] if infos else None
+        self.contentTabs = [x.tag for x in infos if isinstance(x.tag, MetaContent)] if infos else None
         self.contentTab.selectedIndex = 0 if infos else -1

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SpellBase : IGetMetadataInfo
+    public class SpellBase : IHaveMetaInfo
     {
         public readonly string Name;
         public readonly string Desc;
@@ -132,37 +132,37 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SpellBase
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var componentTable = DatabaseManager.Portal.SpellComponentTable;
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo($"Description: {Desc}"),
-                new MetadataInfo($"School: {School}"),
-                new MetadataInfo($"Icon: {Icon:X8}", clickable: true),
-                new MetadataInfo($"Category: {Category}"),
-                new MetadataInfo($"Flags: {(SpellFlags)Bitfield}"),
-                new MetadataInfo($"BaseMana: {BaseMana}"),
-                new MetadataInfo($"BaseRangeConstant: {BaseRangeConstant}"),
-                new MetadataInfo($"BaseRangeMod: {BaseRangeMod}"),
-                new MetadataInfo($"Power: {Power}"),
-                new MetadataInfo($"SpellEconomyMod: {SpellEconomyMod}"),
-                new MetadataInfo($"FormulaVersion: {FormulaVersion}"),
-                new MetadataInfo($"ComponentLoss: {ComponentLoss}"),
-                new MetadataInfo($"MetaSpellType: {MetaSpellType}"),
-                new MetadataInfo($"MetaSpellId: {MetaSpellId}"),
-                new MetadataInfo($"Duration: {Duration}"),
-                new MetadataInfo($"DegradeModifier: {DegradeModifier}"),
-                new MetadataInfo($"DegradeLimit: {DegradeLimit}"),
-                new MetadataInfo("Formula", items: Formula.Select(x => new MetadataInfo($"{x}: {componentTable.SpellComponents[x].Name}"))),
-                new MetadataInfo($"CasterEffect: {(PlayScript)CasterEffect}"),
-                new MetadataInfo($"TargetEffect: {(PlayScript)TargetEffect}"),
-                new MetadataInfo($"FizzleEffect: {(PlayScript)FizzleEffect}"),
-                new MetadataInfo($"RecoveryInterval: {RecoveryInterval}"),
-                new MetadataInfo($"RecoveryAmount: {RecoveryAmount}"),
-                new MetadataInfo($"DisplayOrder: {DisplayOrder}"),
-                new MetadataInfo($"NonComponentTargetType: {(ItemType)NonComponentTargetType}"),
-                new MetadataInfo($"ManaMod: {ManaMod}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo($"Description: {Desc}"),
+                new MetaInfo($"School: {School}"),
+                new MetaInfo($"Icon: {Icon:X8}", clickable: true),
+                new MetaInfo($"Category: {Category}"),
+                new MetaInfo($"Flags: {(SpellFlags)Bitfield}"),
+                new MetaInfo($"BaseMana: {BaseMana}"),
+                new MetaInfo($"BaseRangeConstant: {BaseRangeConstant}"),
+                new MetaInfo($"BaseRangeMod: {BaseRangeMod}"),
+                new MetaInfo($"Power: {Power}"),
+                new MetaInfo($"SpellEconomyMod: {SpellEconomyMod}"),
+                new MetaInfo($"FormulaVersion: {FormulaVersion}"),
+                new MetaInfo($"ComponentLoss: {ComponentLoss}"),
+                new MetaInfo($"MetaSpellType: {MetaSpellType}"),
+                new MetaInfo($"MetaSpellId: {MetaSpellId}"),
+                new MetaInfo($"Duration: {Duration}"),
+                new MetaInfo($"DegradeModifier: {DegradeModifier}"),
+                new MetaInfo($"DegradeLimit: {DegradeLimit}"),
+                new MetaInfo("Formula", items: Formula.Select(x => new MetaInfo($"{x}: {componentTable.SpellComponents[x].Name}"))),
+                new MetaInfo($"CasterEffect: {(PlayScript)CasterEffect}"),
+                new MetaInfo($"TargetEffect: {(PlayScript)TargetEffect}"),
+                new MetaInfo($"FizzleEffect: {(PlayScript)FizzleEffect}"),
+                new MetaInfo($"RecoveryInterval: {RecoveryInterval}"),
+                new MetaInfo($"RecoveryAmount: {RecoveryAmount}"),
+                new MetaInfo($"DisplayOrder: {DisplayOrder}"),
+                new MetaInfo($"NonComponentTargetType: {(ItemType)NonComponentTargetType}"),
+                new MetaInfo($"ManaMod: {ManaMod}"),
             };
             return nodes;
         }

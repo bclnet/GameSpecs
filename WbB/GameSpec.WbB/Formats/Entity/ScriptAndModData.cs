@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class ScriptAndModData : IGetMetadataInfo
+    public class ScriptAndModData : IHaveMetaInfo
     {
         public readonly float Mod;
         public readonly uint ScriptId;
@@ -17,11 +17,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ScriptMod
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{Mod}"),
-                new MetadataInfo($"{ScriptId:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{Mod}"),
+                new MetaInfo($"{ScriptId:X8}", clickable: true),
             };
             return nodes;
         }

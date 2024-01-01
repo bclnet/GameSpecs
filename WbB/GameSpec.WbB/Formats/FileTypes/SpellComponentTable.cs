@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.SpellComponentTable)]
-    public class SpellComponentTable : FileType, IGetMetadataInfo
+    public class SpellComponentTable : FileType, IHaveMetaInfo
     {
         public enum Type
         {
@@ -35,11 +35,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.SpellComponentTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(SpellComponentTable)}: {Id:X8}", items: SpellComponents.Select(
-                    x => new MetadataInfo($"{x.Key} - {x.Value.Name}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag))
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(SpellComponentTable)}: {Id:X8}", items: SpellComponents.Select(
+                    x => new MetaInfo($"{x.Key} - {x.Value.Name}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(tag: tag))
                 ))
             };
             return nodes;

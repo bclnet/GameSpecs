@@ -16,7 +16,7 @@ namespace GameSpec.Cig.Apps
 
         public DataForgeApp(Family family, string id, JsonElement elem) : base(family, id, elem) { }
 
-        public override async Task OpenAsync(Type explorerType, MetadataManager manager)
+        public override async Task OpenAsync(Type explorerType, MetaManager manager)
         {
             await Db.OpenAsync(manager);
             await base.OpenAsync(explorerType, manager);

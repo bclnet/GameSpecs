@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkyDesc : IGetMetadataInfo
+    public class SkyDesc : IHaveMetaInfo
     {
         public readonly double TickSize;
         public readonly double LightTickSize;
@@ -20,12 +20,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkyDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"TickSize: {TickSize}"),
-                new MetadataInfo($"LightTickSize: {LightTickSize}"),
-                new MetadataInfo("DayGroups", items: DayGroups.Select((x, i) => new MetadataInfo($"{i:D2}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"TickSize: {TickSize}"),
+                new MetaInfo($"LightTickSize: {LightTickSize}"),
+                new MetaInfo("DayGroups", items: DayGroups.Select((x, i) => new MetaInfo($"{i:D2}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
             };
             return nodes;
         }

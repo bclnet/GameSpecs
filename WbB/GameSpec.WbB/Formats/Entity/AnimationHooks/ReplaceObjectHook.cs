@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class ReplaceObjectHook : AnimationHook, IGetMetadataInfo
+    public class ReplaceObjectHook : AnimationHook, IHaveMetaInfo
     {
         public readonly AnimationPartChange APChange;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => APChange = new AnimationPartChange(r, r.ReadUInt16());
 
         //: Entity.ReplaceObjectHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is ReplaceObjectHook s) nodes.AddRange((s.APChange as IGetMetadataInfo).GetInfoNodes(tag: tag));
+            var nodes = new List<MetaInfo>();
+            if (Base is ReplaceObjectHook s) nodes.AddRange((s.APChange as IHaveMetaInfo).GetInfoNodes(tag: tag));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

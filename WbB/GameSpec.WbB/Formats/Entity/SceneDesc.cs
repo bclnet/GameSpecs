@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SceneDesc : IGetMetadataInfo
+    public class SceneDesc : IHaveMetaInfo
     {
         public readonly SceneType[] SceneTypes;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity
             => SceneTypes = r.ReadL32Array(x => new SceneType(x));
 
         //: Entity.SceneDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("SceneTypes", items: SceneTypes.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("SceneTypes", items: SceneTypes.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
             };
             return nodes;
         }

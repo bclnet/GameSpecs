@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class FaceStripCG : IGetMetadataInfo
+    public class FaceStripCG : IHaveMetaInfo
     {
         public readonly uint IconImage;
         public readonly ObjDesc ObjDesc;
@@ -17,11 +17,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.FaceStripCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                IconImage != 0 ? new MetadataInfo($"Icon: {IconImage:X8}", clickable: true) : null,
-                new MetadataInfo("ObjDesc", items: (ObjDesc as IGetMetadataInfo).GetInfoNodes()),
+            var nodes = new List<MetaInfo> {
+                IconImage != 0 ? new MetaInfo($"Icon: {IconImage:X8}", clickable: true) : null,
+                new MetaInfo("ObjDesc", items: (ObjDesc as IHaveMetaInfo).GetInfoNodes()),
             };
             return nodes;
         }

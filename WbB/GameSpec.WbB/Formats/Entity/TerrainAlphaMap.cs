@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class TerrainAlphaMap : IGetMetadataInfo
+    public class TerrainAlphaMap : IHaveMetaInfo
     {
         public readonly uint TCode;
         public readonly uint TexGID;
@@ -17,11 +17,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TerrainAlphaMap
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"TerrainCode: {TCode}"),
-                new MetadataInfo($"TextureGID: {TexGID:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"TerrainCode: {TCode}"),
+                new MetaInfo($"TextureGID: {TexGID:X8}", clickable: true),
             };
             return nodes;
         }

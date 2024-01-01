@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class TerrainTex : IGetMetadataInfo
+    public class TerrainTex : IHaveMetaInfo
     {
         public readonly uint TexGID;
         public readonly uint TexTiling;
@@ -33,19 +33,19 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TerrainTex
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"TexGID: {TexGID:X8}", clickable: true),
-                new MetadataInfo($"TexTiling: {TexTiling}"),
-                new MetadataInfo($"MaxVertBrightness: {MaxVertBright}"),
-                new MetadataInfo($"MinVertBrightness: {MinVertBright}"),
-                new MetadataInfo($"MaxVertSaturate: {MaxVertSaturate}"),
-                new MetadataInfo($"MinVertSaturate: {MinVertSaturate}"),
-                new MetadataInfo($"MaxVertHue: {MaxVertHue}"),
-                new MetadataInfo($"MinVertHue: {MinVertHue}"),
-                new MetadataInfo($"DetailTexTiling: {DetailTexTiling}"),
-                new MetadataInfo($"DetailTexGID: {DetailTexGID:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"TexGID: {TexGID:X8}", clickable: true),
+                new MetaInfo($"TexTiling: {TexTiling}"),
+                new MetaInfo($"MaxVertBrightness: {MaxVertBright}"),
+                new MetaInfo($"MinVertBrightness: {MinVertBright}"),
+                new MetaInfo($"MaxVertSaturate: {MaxVertSaturate}"),
+                new MetaInfo($"MinVertSaturate: {MinVertSaturate}"),
+                new MetaInfo($"MaxVertHue: {MaxVertHue}"),
+                new MetaInfo($"MinVertHue: {MinVertHue}"),
+                new MetaInfo($"DetailTexTiling: {DetailTexTiling}"),
+                new MetaInfo($"DetailTexGID: {DetailTexGID:X8}", clickable: true),
             };
             return nodes;
         }

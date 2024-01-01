@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class LandDefs : IGetMetadataInfo
+    public class LandDefs : IHaveMetaInfo
     {
         public readonly int NumBlockLength;
         public readonly int NumBlockWidth;
@@ -32,18 +32,18 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.LandDefs
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"NumBlockLength: {NumBlockLength}"),
-                new MetadataInfo($"NumBlockWidth: {NumBlockWidth}"),
-                new MetadataInfo($"SquareLength: {SquareLength}"),
-                new MetadataInfo($"LBlockLength: {LBlockLength}"),
-                new MetadataInfo($"VertexPerCell: {VertexPerCell}"),
-                new MetadataInfo($"MaxObjHeight: {MaxObjHeight}"),
-                new MetadataInfo($"SkyHeight: {SkyHeight}"),
-                new MetadataInfo($"RoadWidth: {RoadWidth}"),
-                new MetadataInfo("LandHeightTable", items: LandHeightTable.Select((x, i) => new MetadataInfo($"{i}: {x}"))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"NumBlockLength: {NumBlockLength}"),
+                new MetaInfo($"NumBlockWidth: {NumBlockWidth}"),
+                new MetaInfo($"SquareLength: {SquareLength}"),
+                new MetaInfo($"LBlockLength: {LBlockLength}"),
+                new MetaInfo($"VertexPerCell: {VertexPerCell}"),
+                new MetaInfo($"MaxObjHeight: {MaxObjHeight}"),
+                new MetaInfo($"SkyHeight: {SkyHeight}"),
+                new MetaInfo($"RoadWidth: {RoadWidth}"),
+                new MetaInfo("LandHeightTable", items: LandHeightTable.Select((x, i) => new MetaInfo($"{i}: {x}"))),
             };
             return nodes;
         }

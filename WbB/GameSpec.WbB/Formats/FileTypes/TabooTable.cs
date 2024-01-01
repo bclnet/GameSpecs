@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.TabooTable)]
-    public class TabooTable : FileType, IGetMetadataInfo
+    public class TabooTable : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E00001E;
 
@@ -30,15 +30,15 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.TabooTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                //new MetadataInfo($"{nameof(TabooTable)}: {Id:X8}", items: TabooTableEntries.OrderBy(i => i.Key).Select(
-                //    x => new MetadataInfo($"{x.Key:X8}", items: x.Value.BannedPatterns.Select(y => new MetadataInfo($"{y}")))
+            var nodes = new List<MetaInfo> {
+                //new MetaInfo($"{nameof(TabooTable)}: {Id:X8}", items: TabooTableEntries.OrderBy(i => i.Key).Select(
+                //    x => new MetaInfo($"{x.Key:X8}", items: x.Value.BannedPatterns.Select(y => new MetaInfo($"{y}")))
                 //))
             };
             foreach (var x in TabooTableEntries.OrderBy(i => i.Key))
-                nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Text", Name = $"F:{x.Key:X8}", Value = string.Join(", ", x.Value.BannedPatterns) }));
+                nodes.Add(new MetaInfo(null, new MetaContent { Type = "Text", Name = $"F:{x.Key:X8}", Value = string.Join(", ", x.Value.BannedPatterns) }));
             return nodes;
         }
 

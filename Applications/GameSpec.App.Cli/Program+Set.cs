@@ -19,7 +19,7 @@ namespace GameSpec.App.Cli
             public string Path { get; set; }
 
             [Option("option", Default = 0, HelpText = "Data option")]
-            public DataOption Option { get; set; }
+            public FileOption Option { get; set; }
         }
 
         static async Task<int> RunImportAsync(ImportOptions args)

@@ -15,7 +15,7 @@ using static GameSpec.Valve.Formats.Blocks.DATATexture;
 namespace GameSpec.Valve.Formats
 {
     //was:Resource/Resource
-    public class BinaryPak : IDisposable, IGetMetadataInfo, IRedirected<ITexture>, IRedirected<IMaterial>, IRedirected<IMesh>, IRedirected<IModel>, IRedirected<IParticleSystem>
+    public class BinaryPak : IDisposable, IHaveMetaInfo, IRedirected<ITexture>, IRedirected<IMaterial>, IRedirected<IMesh>, IRedirected<IModel>, IRedirected<IParticleSystem>
     {
         internal const ushort KnownHeaderVersion = 12;
 
@@ -35,14 +35,14 @@ namespace GameSpec.Valve.Formats
         IModel IRedirected<IModel>.Value => DATA as IModel;
         IParticleSystem IRedirected<IParticleSystem>.Value => DATA as IParticleSystem;
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("BinaryPak", items: new List<MetadataInfo> {
-                    new MetadataInfo($"FileSize: {FileSize}"),
-                    new MetadataInfo($"Version: {Version}"),
-                    new MetadataInfo($"Blocks: {Blocks.Count}"),
-                    new MetadataInfo($"DataType: {DataType}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryPak", items: new List<MetaInfo> {
+                    new MetaInfo($"FileSize: {FileSize}"),
+                    new MetaInfo($"Version: {Version}"),
+                    new MetaInfo($"Blocks: {Blocks.Count}"),
+                    new MetaInfo($"DataType: {DataType}"),
                 })
             };
             switch (DataType)
@@ -52,29 +52,29 @@ namespace GameSpec.Valve.Formats
                         var data = (DATATexture)DATA;
                         try
                         {
-                            nodes.AddRange(new List<MetadataInfo> {
-                                //new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }), //(tex.GenerateBitmap().ToBitmap(), tex.Width, tex.Height)
-                                new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
-                                new MetadataInfo("Texture", items: new List<MetadataInfo> {
-                                    new MetadataInfo($"Width: {data.Width}"),
-                                    new MetadataInfo($"Height: {data.Height}"),
-                                    new MetadataInfo($"NumMipMaps: {data.NumMipMaps}"),
+                            nodes.AddRange(new List<MetaInfo> {
+                                //new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "PICTURE" }), //(tex.GenerateBitmap().ToBitmap(), tex.Width, tex.Height)
+                                new MetaInfo(null, new MetaContent { Type = "Texture", Name = "Texture", Value = this, Dispose = this }),
+                                new MetaInfo("Texture", items: new List<MetaInfo> {
+                                    new MetaInfo($"Width: {data.Width}"),
+                                    new MetaInfo($"Height: {data.Height}"),
+                                    new MetaInfo($"NumMipMaps: {data.NumMipMaps}"),
                                 })
                             });
                         }
                         catch (Exception e)
                         {
-                            nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Exception", Value = e.Message }));
+                            nodes.Add(new MetaInfo(null, new MetaContent { Type = "Text", Name = "Exception", Value = e.Message }));
                         }
                     }
                     break;
                 case ResourceType.Panorama:
                     {
                         var data = (DATAPanorama)DATA;
-                        nodes.AddRange(new List<MetadataInfo> {
-                            new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Panorama Names", Value = data.Names }),
-                            new MetadataInfo("Panorama", items: new List<MetadataInfo> {
-                                new MetadataInfo($"Names: {data.Names.Count}"),
+                        nodes.AddRange(new List<MetaInfo> {
+                            new MetaInfo(null, new MetaContent { Type = "DataGrid", Name = "Panorama Names", Value = data.Names }),
+                            new MetaInfo("Panorama", items: new List<MetaInfo> {
+                                new MetaInfo($"Names: {data.Names.Count}"),
                             })
                         });
                     }
@@ -82,30 +82,30 @@ namespace GameSpec.Valve.Formats
                 case ResourceType.PanoramaLayout: break;
                 case ResourceType.PanoramaScript: break;
                 case ResourceType.PanoramaStyle: break;
-                case ResourceType.Particle: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
+                case ResourceType.Particle: nodes.Add(new MetaInfo(null, new MetaContent { Type = "Particle", Name = "Particle", Value = this, Dispose = this })); break;
                 case ResourceType.Sound:
                     {
                         var sound = (DATASound)DATA;
                         var stream = sound.GetSoundStream();
-                        nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = $".{sound.SoundType}", Dispose = this }));
+                        nodes.Add(new MetaInfo(null, new MetaContent { Type = "AudioPlayer", Name = "Sound", Value = stream, Tag = $".{sound.SoundType}", Dispose = this }));
                     }
                     break;
-                case ResourceType.World: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
-                case ResourceType.WorldNode: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
-                case ResourceType.Model: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
-                case ResourceType.Mesh: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
-                case ResourceType.Material: nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
+                case ResourceType.World: nodes.Add(new MetaInfo(null, new MetaContent { Type = "World", Name = "World", Value = (DATAWorld)DATA, Dispose = this })); break;
+                case ResourceType.WorldNode: nodes.Add(new MetaInfo(null, new MetaContent { Type = "World", Name = "World Node", Value = (DATAWorldNode)DATA, Dispose = this })); break;
+                case ResourceType.Model: nodes.Add(new MetaInfo(null, new MetaContent { Type = "Model", Name = "Model", Value = this, Dispose = this })); break;
+                case ResourceType.Mesh: nodes.Add(new MetaInfo(null, new MetaContent { Type = "Model", Name = "Mesh", Value = this, Dispose = this })); break;
+                case ResourceType.Material: nodes.Add(new MetaInfo(null, new MetaContent { Type = "Material", Name = "Material", Value = this, Dispose = this })); break;
             }
             foreach (var block in Blocks)
             {
-                if (block is RERL repl) { nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "External Refs", Value = repl.RERLInfos })); continue; }
+                if (block is RERL repl) { nodes.Add(new MetaInfo(null, new MetaContent { Type = "DataGrid", Name = "External Refs", Value = repl.RERLInfos })); continue; }
                 else if (block is NTRO ntro)
                 {
-                    if (ntro.ReferencedStructs.Count > 0) nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Introspection Manifest: Structs", Value = ntro.ReferencedStructs }));
-                    if (ntro.ReferencedEnums.Count > 0) nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Introspection Manifest: Enums", Value = ntro.ReferencedEnums }));
+                    if (ntro.ReferencedStructs.Count > 0) nodes.Add(new MetaInfo(null, new MetaContent { Type = "DataGrid", Name = "Introspection Manifest: Structs", Value = ntro.ReferencedStructs }));
+                    if (ntro.ReferencedEnums.Count > 0) nodes.Add(new MetaInfo(null, new MetaContent { Type = "DataGrid", Name = "Introspection Manifest: Enums", Value = ntro.ReferencedEnums }));
                 }
-                var tab = new MetadataContent { Type = "Text", Name = block.GetType().Name };
-                nodes.Add(new MetadataInfo(null, tab));
+                var tab = new MetaContent { Type = "Text", Name = block.GetType().Name };
+                nodes.Add(new MetaInfo(null, tab));
                 if (block is DATA)
                     switch (DataType)
                     {
@@ -119,7 +119,7 @@ namespace GameSpec.Valve.Formats
                     }
                 else tab.Value = block.ToString();
             }
-            if (!nodes.Any(x => (x.Tag as MetadataContent)?.Dispose != null)) Dispose();
+            if (!nodes.Any(x => (x.Tag as MetaContent)?.Dispose != null)) Dispose();
             return nodes;
         }
 

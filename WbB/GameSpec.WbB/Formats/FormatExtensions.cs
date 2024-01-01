@@ -28,7 +28,7 @@ namespace GameSpec.WbB.Formats
         }
 
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
+        internal static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
         {
             var (pakType, type) = ((PakType, PakFileType?))source.ExtraArgs;
             if ((uint)source.Id == Iteration.FILE_ID) return (0, (r, m, s) => Task.FromResult((object)new Iteration(r)));

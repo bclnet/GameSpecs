@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class TerrainType : IGetMetadataInfo
+    public class TerrainType : IHaveMetaInfo
     {
         public readonly string TerrainName;
         public readonly uint TerrainColor;
@@ -21,12 +21,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TerrainType
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"TerrainName: {TerrainName}"),
-                new MetadataInfo($"TerrainColor: {TerrainColor:X8}"),
-                new MetadataInfo("SceneTypes", items: SceneTypes.Select((x, i) => new MetadataInfo($"{i}: {x}"))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"TerrainName: {TerrainName}"),
+                new MetaInfo($"TerrainColor: {TerrainColor:X8}"),
+                new MetaInfo("SceneTypes", items: SceneTypes.Select((x, i) => new MetaInfo($"{i}: {x}"))),
             };
             return nodes;
         }

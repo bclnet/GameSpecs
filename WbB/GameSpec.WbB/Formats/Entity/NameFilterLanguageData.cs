@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class NameFilterLanguageData : IGetMetadataInfo
+    public class NameFilterLanguageData : IHaveMetaInfo
     {
         public readonly uint MaximumVowelsInARow; 
         public readonly uint FirstNCharactersMustHaveAVowel;
@@ -26,15 +26,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.NameFilterLanguageData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"MaximumVowelsInARow: {MaximumVowelsInARow}"),
-                new MetadataInfo($"FirstNCharactersMustHaveAVowel: {FirstNCharactersMustHaveAVowel}"),
-                new MetadataInfo($"VowelContainingSubstringLength: {VowelContainingSubstringLength}"),
-                new MetadataInfo($"ExtraAllowedCharacters: {ExtraAllowedCharacters}"),
-                new MetadataInfo($"Unknown: {Unknown}"),
-                new MetadataInfo($"CompoundLetterGrounds", items: CompoundLetterGroups.Select(x => new MetadataInfo($"{x}"))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"MaximumVowelsInARow: {MaximumVowelsInARow}"),
+                new MetaInfo($"FirstNCharactersMustHaveAVowel: {FirstNCharactersMustHaveAVowel}"),
+                new MetaInfo($"VowelContainingSubstringLength: {VowelContainingSubstringLength}"),
+                new MetaInfo($"ExtraAllowedCharacters: {ExtraAllowedCharacters}"),
+                new MetaInfo($"Unknown: {Unknown}"),
+                new MetaInfo($"CompoundLetterGrounds", items: CompoundLetterGroups.Select(x => new MetaInfo($"{x}"))),
             };
             return nodes;
         }

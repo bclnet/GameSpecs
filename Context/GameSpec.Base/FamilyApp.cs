@@ -59,7 +59,7 @@ namespace GameSpec
         /// <summary>
         /// Gets or sets the game name.
         /// </summary>
-        public virtual Task OpenAsync(Type explorerType, MetadataManager manager)
+        public virtual Task OpenAsync(Type explorerType, MetaManager manager)
         {
             var explorer = Activator.CreateInstance(explorerType);
             var startupMethod = explorerType.GetMethod("Application_Startup", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new ArgumentOutOfRangeException(nameof(explorerType), "No Application_Startup found");

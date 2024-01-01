@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class GfxObjInfo : IGetMetadataInfo
+    public class GfxObjInfo : IHaveMetaInfo
     {
         public readonly uint Id;
         public readonly uint DegradeMode;
@@ -23,14 +23,14 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.GfxObjInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"ID: {Id:X8}", clickable: true),
-                new MetadataInfo($"DegradeMode: {DegradeMode}"),
-                new MetadataInfo($"MinDist: {MinDist}"),
-                new MetadataInfo($"IdealDist: {IdealDist}"),
-                new MetadataInfo($"MaxDist: {MaxDist}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"ID: {Id:X8}", clickable: true),
+                new MetaInfo($"DegradeMode: {DegradeMode}"),
+                new MetaInfo($"MinDist: {MinDist}"),
+                new MetaInfo($"IdealDist: {IdealDist}"),
+                new MetaInfo($"MaxDist: {MaxDist}"),
             };
             return nodes;
         }

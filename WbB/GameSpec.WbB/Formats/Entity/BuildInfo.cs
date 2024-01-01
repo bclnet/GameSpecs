@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class BuildInfo : IGetMetadataInfo
+    public class BuildInfo : IHaveMetaInfo
     {
         /// <summary>
         /// 0x01 or 0x02 model of the building
@@ -34,13 +34,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.BuildInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Model ID: {ModelId:X8}", clickable: true),
-                new MetadataInfo($"Frame: {Frame}"),
-                new MetadataInfo($"NumLeaves: {NumLeaves}"),
-                new MetadataInfo($"Portals", items: Portals.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Model ID: {ModelId:X8}", clickable: true),
+                new MetaInfo($"Frame: {Frame}"),
+                new MetaInfo($"NumLeaves: {NumLeaves}"),
+                new MetaInfo($"Portals", items: Portals.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
             };
             return nodes;
         }

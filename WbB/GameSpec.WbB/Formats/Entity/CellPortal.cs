@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CellPortal : IGetMetadataInfo
+    public class CellPortal : IHaveMetaInfo
     {
         public readonly PortalFlags Flags;
         public readonly ushort PolygonId;
@@ -24,13 +24,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.CellPortal
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                Flags != 0 ? new MetadataInfo($"Flags: {Flags}") : null,
-                new MetadataInfo($"Polygon ID: {PolygonId}"),
-                OtherCellId != 0 ? new MetadataInfo($"OtherCell ID: {OtherCellId:X}") : null,
-                OtherPortalId != 0 ? new MetadataInfo($"OtherPortal ID: {OtherPortalId:X}") : null,
+            var nodes = new List<MetaInfo> {
+                Flags != 0 ? new MetaInfo($"Flags: {Flags}") : null,
+                new MetaInfo($"Polygon ID: {PolygonId}"),
+                OtherCellId != 0 ? new MetaInfo($"OtherCell ID: {OtherCellId:X}") : null,
+                OtherPortalId != 0 ? new MetaInfo($"OtherPortal ID: {OtherPortalId:X}") : null,
             };
             return nodes;
         }

@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x30. 
     /// </summary>
     [PakFileType(PakFileType.CombatTable)]
-    public class CombatManeuverTable : FileType, IGetMetadataInfo
+    public class CombatManeuverTable : FileType, IHaveMetaInfo
     {
         public readonly CombatManeuver[] CMT;
         public readonly Dictionary<MotionStance, AttackHeights> Stances;
@@ -33,11 +33,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.CombatTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(CombatManeuverTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Maneuvers", items: CMT.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(CombatManeuverTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Maneuvers", items: CMT.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

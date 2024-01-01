@@ -11,7 +11,7 @@ namespace GameSpec.Capcom.Formats
     public static class FormatExtensions
     {
         // object factory
-        internal static (DataOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
+        internal static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) GetObjectFactoryFactory(this FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 ".png" => (0, BinaryImg.Factory),

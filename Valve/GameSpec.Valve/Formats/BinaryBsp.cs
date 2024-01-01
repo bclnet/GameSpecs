@@ -11,7 +11,7 @@ namespace GameSpec.Formats
 {
     // https://hlbsp.sourceforge.net/index.php?content=bspdef
     // https://github.com/bernhardmgruber/hlbsp/tree/master/src
-    public unsafe class BinaryBsp : IGetMetadataInfo
+    public unsafe class BinaryBsp : IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryBsp(r, f));
 
@@ -89,12 +89,12 @@ namespace GameSpec.Formats
             if (header.Version != 30) throw new FormatException("BAD VERSION");
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            //new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("Bsp", items: new List<MetadataInfo> {
-                //new MetadataInfo($"Width: {Width}"),
-                //new MetadataInfo($"Height: {Height}"),
-                //new MetadataInfo($"Mipmaps: {MipMaps}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            //new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo("Bsp", items: new List<MetaInfo> {
+                //new MetaInfo($"Width: {Width}"),
+                //new MetaInfo($"Height: {Height}"),
+                //new MetaInfo($"Mipmaps: {MipMaps}"),
             }),
         };
     }

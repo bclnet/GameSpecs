@@ -7,7 +7,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.BadData)]
-    public class BadData : FileType, IGetMetadataInfo
+    public class BadData : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E00001A;
 
@@ -21,11 +21,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.BadData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Bad Data", Value = string.Join(", ", Bad.Keys.OrderBy(x => x)) }),
-                new MetadataInfo($"{nameof(TabooTable)}: {Id:X8}")
+            var nodes = new List<MetaInfo> {
+                new MetaInfo(null, new MetaContent { Type = "Text", Name = "Bad Data", Value = string.Join(", ", Bad.Keys.OrderBy(x => x)) }),
+                new MetaInfo($"{nameof(TabooTable)}: {Id:X8}")
             };
             return nodes;
         }

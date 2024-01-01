@@ -8,7 +8,7 @@ namespace GameSpec.App
 {
     public static class ExportManager
     {
-        public static async Task ExportAsync(Family family, Resource resource, string filePath, int from, DataOption option)
+        public static async Task ExportAsync(Family family, Resource resource, string filePath, int from, FileOption option)
         {
             using var pak = family.OpenPakFile(resource);
 
@@ -20,7 +20,7 @@ namespace GameSpec.App
             }
 
             // write paks
-            if ((option & DataOption.Marker) != 0)
+            if ((option & FileOption.Marker) != 0)
             {
                 if (!string.IsNullOrEmpty(filePath) && !Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
                 var setPath = Path.Combine(filePath, ".set");
@@ -33,7 +33,7 @@ namespace GameSpec.App
             foreach (var _ in multiPak.PakFiles) await ExportPakAsync(filePath, from, option, _);
         }
 
-        static async Task ExportPakAsync(string filePath, int from, DataOption option, PakFile _)
+        static async Task ExportPakAsync(string filePath, int from, FileOption option, PakFile _)
         {
             if (!(_ is BinaryPakFile pak)) throw new InvalidOperationException("pak not a BinaryPakFile");
             var newPath = filePath != null ? Path.Combine(filePath, Path.GetFileName(pak.FilePath)) : null;

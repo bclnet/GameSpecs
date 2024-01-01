@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class PhysicsScriptData : IGetMetadataInfo
+    public class PhysicsScriptData : IHaveMetaInfo
     {
         public readonly double StartTime;
         public readonly AnimationHook Hook;
@@ -17,11 +17,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.PhysicsScriptData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"StartTime: {StartTime}"),
-                new MetadataInfo($"Hook:", items: (Hook as IGetMetadataInfo).GetInfoNodes(tag:tag)),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"StartTime: {StartTime}"),
+                new MetaInfo($"Hook:", items: (Hook as IHaveMetaInfo).GetInfoNodes(tag:tag)),
             };
             return nodes;
         }

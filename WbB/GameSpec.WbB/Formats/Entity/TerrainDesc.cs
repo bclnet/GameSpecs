@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class TerrainDesc : IGetMetadataInfo
+    public class TerrainDesc : IHaveMetaInfo
     {
         public readonly TerrainType[] TerrainTypes;
         public readonly LandSurf LandSurfaces;
@@ -18,16 +18,16 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TerrainDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("TerrainTypes", items: TerrainTypes.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("TerrainTypes", items: TerrainTypes.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("TerrainName: ", "");
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
-                new MetadataInfo($"LandSurf", items: (LandSurfaces as IGetMetadataInfo).GetInfoNodes()),
+                new MetaInfo($"LandSurf", items: (LandSurfaces as IHaveMetaInfo).GetInfoNodes()),
             };
             return nodes;
         }

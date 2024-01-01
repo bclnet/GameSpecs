@@ -18,8 +18,8 @@ namespace GameSpec.App.Cli
             [Option("path", Default = @".\out", HelpText = "Output folder")]
             public string Path { get; set; }
 
-            [Option("option", Default = DataOption.Stream | DataOption.Model, HelpText = "Data option")]
-            public DataOption Option { get; set; }
+            [Option("option", Default = FileOption.Stream | FileOption.Model, HelpText = "Data option")]
+            public FileOption Option { get; set; }
         }
 
         static async Task<int> RunGetAsync(GetOptions args)

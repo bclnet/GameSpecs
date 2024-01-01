@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class TemplateCG : IGetMetadataInfo
+    public class TemplateCG : IHaveMetaInfo
     {
         public string Name;
         public uint IconImage;
@@ -39,20 +39,20 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TemplateCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo($"Icon: {IconImage:X8}", clickable: true),
-                new MetadataInfo($"Title: {Title}"),
-                new MetadataInfo($"Strength: {Strength}"),
-                new MetadataInfo($"Endurance: {Endurance}"),
-                new MetadataInfo($"Coordination: {Coordination}"),
-                new MetadataInfo($"Quickness: {Quickness}"),
-                new MetadataInfo($"Focus: {Focus}"),
-                new MetadataInfo($"Self: {Self}"),
-                NormalSkillsList.Length > 0 ? new MetadataInfo("Normal Skills", items: NormalSkillsList.Select(x => new MetadataInfo($"{x}"))) : null,
-                PrimarySkillsList.Length > 0 ? new MetadataInfo("Primary Skills", items: PrimarySkillsList.Select(x => new MetadataInfo($"{x}"))) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo($"Icon: {IconImage:X8}", clickable: true),
+                new MetaInfo($"Title: {Title}"),
+                new MetaInfo($"Strength: {Strength}"),
+                new MetaInfo($"Endurance: {Endurance}"),
+                new MetaInfo($"Coordination: {Coordination}"),
+                new MetaInfo($"Quickness: {Quickness}"),
+                new MetaInfo($"Focus: {Focus}"),
+                new MetaInfo($"Self: {Self}"),
+                NormalSkillsList.Length > 0 ? new MetaInfo("Normal Skills", items: NormalSkillsList.Select(x => new MetaInfo($"{x}"))) : null,
+                PrimarySkillsList.Length > 0 ? new MetaInfo("Primary Skills", items: PrimarySkillsList.Select(x => new MetaInfo($"{x}"))) : null,
             };
             return nodes;
         }

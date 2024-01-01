@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CloSubPaletteRange : IGetMetadataInfo
+    public class CloSubPaletteRange : IHaveMetaInfo
     {
         public readonly uint Offset;
         public readonly uint NumColors;
@@ -17,11 +17,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ClothingSubPaletteRange
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Offset: {Offset}"),
-                new MetadataInfo($"NumColors: {NumColors}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Offset: {Offset}"),
+                new MetaInfo($"NumColors: {NumColors}"),
             };
             return nodes;
         }

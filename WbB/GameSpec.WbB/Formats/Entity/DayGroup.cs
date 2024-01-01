@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class DayGroup : IGetMetadataInfo
+    public class DayGroup : IHaveMetaInfo
     {
         public readonly float ChanceOfOccur;
         public readonly string DayName;
@@ -23,13 +23,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.DayGroup
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"ChanceOfOccur: {ChanceOfOccur}"),
-                new MetadataInfo($"Weather: {DayName}"),
-                new MetadataInfo("SkyObjects", items: SkyObjects.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
-                new MetadataInfo("SkyTimesOfDay", items: SkyTime.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"ChanceOfOccur: {ChanceOfOccur}"),
+                new MetaInfo($"Weather: {DayName}"),
+                new MetaInfo("SkyObjects", items: SkyObjects.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
+                new MetaInfo("SkyTimesOfDay", items: SkyTime.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
             };
             return nodes;
         }

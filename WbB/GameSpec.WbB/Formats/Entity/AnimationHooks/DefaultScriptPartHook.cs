@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class DefaultScriptPartHook : AnimationHook, IGetMetadataInfo
+    public class DefaultScriptPartHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint PartIndex;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => PartIndex = r.ReadUInt32();
 
         //: Entity.DefaultScriptPartHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is DefaultScriptPartHook s) nodes.Add(new MetadataInfo($"PartIndex: {s.PartIndex}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is DefaultScriptPartHook s) nodes.Add(new MetaInfo($"PartIndex: {s.PartIndex}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

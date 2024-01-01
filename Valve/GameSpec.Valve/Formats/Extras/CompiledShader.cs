@@ -8,7 +8,7 @@ using Decoder = SevenZip.Compression.LZMA.Decoder;
 
 namespace GameSpec.Valve.Formats.Extras
 {
-    public class CompiledShader : IGetMetadataInfo
+    public class CompiledShader : IHaveMetaInfo
     {
         public const int MAGIC = 0x32736376; // "vcs2"
 
@@ -19,11 +19,11 @@ namespace GameSpec.Valve.Formats.Extras
         public CompiledShader() { }
         public CompiledShader(BinaryReader r, string filename) => Read(r, filename);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Shader", Value = Shader }),
-            new MetadataInfo("CompiledShader", items: new List<MetadataInfo> {
-                new MetadataInfo($"ShaderType: {ShaderType}"),
-                new MetadataInfo($"ShaderPlatform: {ShaderPlatform}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Text", Name = "Shader", Value = Shader }),
+            new MetaInfo("CompiledShader", items: new List<MetaInfo> {
+                new MetaInfo($"ShaderType: {ShaderType}"),
+                new MetaInfo($"ShaderPlatform: {ShaderPlatform}"),
             }),
         };
 

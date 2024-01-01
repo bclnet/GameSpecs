@@ -6,10 +6,10 @@ using System.IO;
 namespace GameSpec.IW.Formats
 {
     // https://github.com/SE2Dev/gsc_parser
-    public class BinaryGsc : IGetMetadataInfo
+    public class BinaryGsc : IHaveMetaInfo
     {
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "GSC", Name = Path.GetFileName(file.Path), Value = this })
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "GSC", Name = Path.GetFileName(file.Path), Value = this })
         };
     }
 }

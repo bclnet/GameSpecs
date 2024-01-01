@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// And thanks alot to Pea as well whos hard work surely helped in the creation of those Tools too.
     /// </summary>
     [PakFileType(PakFileType.ObjectHierarchy)]
-    public class GeneratorTable : FileType, IGetMetadataInfo
+    public class GeneratorTable : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E00000D;
 
@@ -36,13 +36,13 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.GeneratorTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(GeneratorTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Generators", items: (Generators as IGetMetadataInfo).GetInfoNodes(tag: tag)),
-                    new MetadataInfo("PlayDayItems", items: PlayDayItems.Select(x => new MetadataInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
-                    new MetadataInfo("WeenieObjectsItems", items: WeenieObjectsItems.Select(x => new MetadataInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(GeneratorTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Generators", items: (Generators as IHaveMetaInfo).GetInfoNodes(tag: tag)),
+                    new MetaInfo("PlayDayItems", items: PlayDayItems.Select(x => new MetaInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IHaveMetaInfo).GetInfoNodes(tag: tag)))),
+                    new MetaInfo("WeenieObjectsItems", items: WeenieObjectsItems.Select(x => new MetaInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : $"{x.Name}", items: (x as IHaveMetaInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

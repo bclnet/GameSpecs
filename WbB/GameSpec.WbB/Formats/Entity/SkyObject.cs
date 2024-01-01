@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkyObject : IGetMetadataInfo
+    public class SkyObject : IHaveMetaInfo
     {
         public readonly float BeginTime;
         public readonly float EndTime;
@@ -32,18 +32,18 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkyObject
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                BeginTime != 0 ? new MetadataInfo($"BeginTime: {BeginTime}") : null,
-                EndTime != 0 ? new MetadataInfo($"EndTime: {EndTime}") : null,
-                BeginAngle != 0 ? new MetadataInfo($"BeginAngle: {BeginAngle}") : null,
-                EndAngle != 0 ? new MetadataInfo($"EndAngle: {EndAngle}") : null,
-                TexVelocityX != 0 ? new MetadataInfo($"TexVelocityX: {TexVelocityX}") : null,
-                TexVelocityY != 0 ? new MetadataInfo($"TexVelocityY: {TexVelocityY}") : null,
-                DefaultGFXObjectId != 0 ? new MetadataInfo($"DefaultGFXObjectId: {DefaultGFXObjectId:X8}", clickable: true) : null,
-                DefaultPESObjectId != 0 ? new MetadataInfo($"DefaultPESObjectId: {DefaultPESObjectId:X8}", clickable: true) : null,
-                Properties != 0 ? new MetadataInfo($"Properties: {Properties:X}") : null,
+            var nodes = new List<MetaInfo> {
+                BeginTime != 0 ? new MetaInfo($"BeginTime: {BeginTime}") : null,
+                EndTime != 0 ? new MetaInfo($"EndTime: {EndTime}") : null,
+                BeginAngle != 0 ? new MetaInfo($"BeginAngle: {BeginAngle}") : null,
+                EndAngle != 0 ? new MetaInfo($"EndAngle: {EndAngle}") : null,
+                TexVelocityX != 0 ? new MetaInfo($"TexVelocityX: {TexVelocityX}") : null,
+                TexVelocityY != 0 ? new MetaInfo($"TexVelocityY: {TexVelocityY}") : null,
+                DefaultGFXObjectId != 0 ? new MetaInfo($"DefaultGFXObjectId: {DefaultGFXObjectId:X8}", clickable: true) : null,
+                DefaultPESObjectId != 0 ? new MetaInfo($"DefaultPESObjectId: {DefaultPESObjectId:X8}", clickable: true) : null,
+                Properties != 0 ? new MetaInfo($"Properties: {Properties:X}") : null,
             };
             return nodes;
         }

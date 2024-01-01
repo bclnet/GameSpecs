@@ -9,7 +9,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.SkillTable)]
-    public class SkillTable : FileType, IGetMetadataInfo
+    public class SkillTable : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E000004;
 
@@ -23,11 +23,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.SkillTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(SkillTable)}: {Id:X8}", items: SkillBaseHash.OrderBy(i => i.Key).Where(x => !string.IsNullOrEmpty(x.Value.Name)).Select(
-                    x => new MetadataInfo($"{x.Key}: {x.Value.Name}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag))
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(SkillTable)}: {Id:X8}", items: SkillBaseHash.OrderBy(i => i.Key).Where(x => !string.IsNullOrEmpty(x.Value.Name)).Select(
+                    x => new MetaInfo($"{x.Key}: {x.Value.Name}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(tag: tag))
                 ))
             };
             return nodes;

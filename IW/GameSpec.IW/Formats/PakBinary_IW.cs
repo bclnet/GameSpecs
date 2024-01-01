@@ -350,7 +350,7 @@ namespace GameSpec.IW.Formats
             }
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             switch ((Magic)source.Magic)
             {
@@ -362,13 +362,13 @@ namespace GameSpec.IW.Formats
                     try
                     {
                         using var input = pak.GetInputStream(entry);
-                        if (!input.CanRead) { Log($"Unable to read stream for file: {file.Path}"); exception?.Invoke(file, $"Unable to read stream for file: {file.Path}"); return Task.FromResult(System.IO.Stream.Null); }
+                        if (!input.CanRead) { HandleException(file, option, $"Unable to read stream for file: {file.Path}"); return Task.FromResult(System.IO.Stream.Null); }
                         var s = new MemoryStream();
                         input.CopyTo(s);
                         s.Position = 0;
                         return Task.FromResult((Stream)s);
                     }
-                    catch (Exception e) { Log($"{file.Path} - Exception: {e.Message}"); exception?.Invoke(file, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
+                    catch (Exception e) { HandleException(file, option, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
                 case Magic.FF:
                     {
                         var s = new MemoryStream();

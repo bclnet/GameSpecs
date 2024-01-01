@@ -180,7 +180,7 @@ namespace GameSpec.Valve.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             var data = new byte[file.Extra.Length + file.FileSize];
             if (file.Extra.Length > 0) file.Extra.CopyTo(data, 0);

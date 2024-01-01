@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkillFormula : IGetMetadataInfo
+    public class SkillFormula : IHaveMetaInfo
     {
         public readonly uint W;
         public readonly uint X;
@@ -34,15 +34,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkillFormula
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Attr1: {(PropertyAttribute)Attr1}"),
-                new MetadataInfo($"Attr2: {(PropertyAttribute)Attr2}"),
-                new MetadataInfo($"W: {W}"),
-                new MetadataInfo($"X: {X}"),
-                new MetadataInfo($"Y: {Y}"),
-                new MetadataInfo($"Z (divisor): {Z}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Attr1: {(PropertyAttribute)Attr1}"),
+                new MetaInfo($"Attr2: {(PropertyAttribute)Attr2}"),
+                new MetaInfo($"W: {W}"),
+                new MetaInfo($"X: {X}"),
+                new MetaInfo($"Y: {Y}"),
+                new MetaInfo($"Z (divisor): {Z}"),
             };
             return nodes;
         }

@@ -178,7 +178,7 @@ namespace GameSpec.Bethesda.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             const int GNF_HEADER_MAGIC = 0x20464E47;
             const int GNF_HEADER_CONTENT_SIZE = 248;

@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class CallPESHook : AnimationHook, IGetMetadataInfo
+    public class CallPESHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint PES;
         public readonly float Pause;
@@ -18,10 +18,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.CallPESHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is CallPESHook s) nodes.Add(new MetadataInfo($"PES: {s.PES:X8}, Pause: {s.Pause}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is CallPESHook s) nodes.Add(new MetaInfo($"PES: {s.PES:X8}, Pause: {s.Pause}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

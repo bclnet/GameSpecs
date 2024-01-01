@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class DestroyParticleHook : AnimationHook, IGetMetadataInfo
+    public class DestroyParticleHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint EmitterId;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => EmitterId = r.ReadUInt32();
 
         //: Entity.DestroyParticleHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is DestroyParticleHook s) nodes.Add(new MetadataInfo($"EmitterId: {s.EmitterId}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is DestroyParticleHook s) nodes.Add(new MetaInfo($"EmitterId: {s.EmitterId}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

@@ -6,8 +6,8 @@
              xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
              x:Class="GameSpec.App.Explorer.Views.FileExplorer">
     <ContentView.Resources>
-        <views:MetadataItemToTreeViewNodeConverter x:Key="metadataItemToTreeViewNode" />
-        <views:MetadataInfoToTreeViewNodeConverter x:Key="metadataInfoToTreeViewNode" />
+        <views:MetaItemToViewModel x:Key="metaItemToViewModel" />
+        <views:MetaInfoToViewModel x:Key="metaInfoToViewModel" />
     </ContentView.Resources>
     <Grid RowDefinitions="25,.8*,.2*">
         <HorizontalStackLayout Grid.Row="0" BackgroundColor="DarkGrey">
@@ -15,7 +15,7 @@
             <Picker x:Name="Filter" ItemsSource="{Binding Filters}" SelectedIndexChanged="OnFilterSelected" />
         </HorizontalStackLayout>
         <ScrollView Grid.Row="1" BackgroundColor="LightGray">
-            <t:TreeView x:Name="Node" ItemsSource="{Binding Path=Nodes, Converter={StaticResource metadataItemToTreeViewNode}}">
+            <t:TreeView x:Name="Node" ItemsSource="{Binding Path=Nodes, Converter={StaticResource metaItemToViewModel}}">
                 <t:TreeView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>
@@ -31,7 +31,7 @@
             </t:TreeView>
         </ScrollView>
         <ScrollView>
-            <t:TreeView x:Name="Info" Grid.Row="2" BackgroundColor="DarkGrey" ItemsSource="{Binding Path=Infos, Converter={StaticResource metadataInfoToTreeViewNode}}">
+            <t:TreeView x:Name="Info" Grid.Row="2" BackgroundColor="DarkGrey" ItemsSource="{Binding Path=Infos, Converter={StaticResource metaInfoToViewModel}}">
                 <t:TreeView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>

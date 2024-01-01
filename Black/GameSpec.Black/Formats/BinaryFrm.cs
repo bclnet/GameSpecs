@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Black.Formats
 {
-    public class BinaryFrm : IGetMetadataInfo, ITexture, ITextureMultiple
+    public class BinaryFrm : IHaveMetaInfo, ITexture, ITextureMultiple
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryFrm(r, f, s));
 
@@ -125,12 +125,12 @@ namespace GameSpec.Black.Formats
             Height = Frames[index].f.Height;
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo($"{nameof(BinaryFrm)}", items: new List<MetadataInfo> {
-                new MetadataInfo($"Frames: {Frames.Length}"),
-                new MetadataInfo($"Width: {Width}"),
-                new MetadataInfo($"Height: {Height}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo($"{nameof(BinaryFrm)}", items: new List<MetaInfo> {
+                new MetaInfo($"Frames: {Frames.Length}"),
+                new MetaInfo($"Width: {Width}"),
+                new MetaInfo($"Height: {Height}"),
             })
         };
     }

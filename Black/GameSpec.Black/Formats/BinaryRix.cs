@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Black.Formats
 {
-    public unsafe class BinaryRix : IGetMetadataInfo, ITexture
+    public unsafe class BinaryRix : IHaveMetaInfo, ITexture
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryRix(r, f));
 
@@ -81,11 +81,11 @@ namespace GameSpec.Black.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo($"{nameof(BinaryRix)}", items: new List<MetadataInfo> {
-                new MetadataInfo($"Width: {Width}"),
-                new MetadataInfo($"Height: {Height}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo($"{nameof(BinaryRix)}", items: new List<MetaInfo> {
+                new MetaInfo($"Width: {Width}"),
+                new MetaInfo($"Height: {Height}"),
             })
         };
     }

@@ -5,30 +5,31 @@ from PyQt6.QtCore import pyqtSlot, Qt, QObject, QBuffer, QByteArray, QUrl, QMime
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import Family, PakFile, util, MetadataManager, MetadataItem, MetadataInfo, appDefaultOptions as config
+from gamespecs import Family, PakFile, util, MetaManager, MetaItem, MetaInfo, appDefaultOptions as config
 
 # https://doc.qt.io/qt-6/qtreeview.html
 # https://gist.github.com/skriticos/5415869
 
-class MetadataItemToTreeViewNodeConverter:
+class MetaItemToViewModel:
     @staticmethod
-    def toTreeNodes(root: object, source: list[MetadataItem]) -> None:
+    def toTreeNodes(model: object, modelMap: dict[object, object], source: list[MetaItem]) -> None:
         if not source: return
         for s in source:
             item = QStandardItem(s.icon, s.name) if isinstance(s.icon, QIcon) else QStandardItem(s.name)
             item.setData(s, Qt.ItemDataRole.UserRole)
-            root.appendRow(item)
-            if s.items: MetadataItemToTreeViewNodeConverter.toTreeNodes(item, s.items)
+            modelMap[s] = item
+            model.appendRow(item)
+            if s.items: MetaItemToViewModel.toTreeNodes(item, modelMap, s.items)
 
-class MetadataInfoToTreeViewNodeConverter:
+class MetaInfoToViewModel:
     @staticmethod
-    def toTreeNodes(root: object, source: list[MetadataInfo]) -> None:
+    def toTreeNodes(model: object, source: list[MetaInfo]) -> None:
         if not source: return
         for s in source:
             item = QStandardItem(s.name)
             item.setData(s, Qt.ItemDataRole.UserRole)
-            root.appendRow(item)
-            if s.items: MetadataItemToTreeViewNodeConverter.toTreeNodes(item, s.items)
+            model.appendRow(item)
+            if s.items: MetaInfoToViewModel.toTreeNodes(item, s.items)
 
 class FileExplorer(QWidget):
     def __init__(self, parent, tab):
@@ -44,16 +45,17 @@ class FileExplorer(QWidget):
 
     def setPakFile(self, pakFile):
         self.pakFile = pakFile
-        self.filters = pakFile.getMetadataFilters(self.resource)
-        self.nodes = self.pakNodes = pakFile.getMetadataItems(self.resource)
+        self.filters = pakFile.getMetaFilters(self.resource)
+        self.nodes = self.pakNodes = pakFile.getMetaItems(self.resource)
         self.onReady()
 
     def initUI(self):
-        filterLabel = QLabel(self); filterLabel.setText("File Filter:")
+        filterLabel = QLabel(self); filterLabel.setText('File Filter:')
         filterInput = self.filterInput = QComboBox(self)
         filterInput.currentIndexChanged.connect(self.filter_change)
 
         # nodeModel
+        self.nodeModelMap = {}
         nodeModel = self.nodeModel = QStandardItemModel()
         nodeModel.setHorizontalHeaderLabels(['path'])
         
@@ -88,7 +90,8 @@ class FileExplorer(QWidget):
     def nodes(self, value):
         self._nodes = value
         self.nodeModel.clear()
-        MetadataItemToTreeViewNodeConverter.toTreeNodes(self.nodeModel, value)
+        self.nodeModelMap.clear()
+        MetaItemToViewModel.toTreeNodes(self.nodeModel, self.nodeModelMap, value)
     
     @property
     def infos(self): return self._infos
@@ -96,7 +99,7 @@ class FileExplorer(QWidget):
     def infos(self, value):
         self._infos = value
         self.infoModel.clear()
-        MetadataInfoToTreeViewNodeConverter.toTreeNodes(self.infoModel, value)
+        MetaInfoToViewModel.toTreeNodes(self.infoModel, value)
 
     def filter_change(self, index):
         pass
@@ -112,25 +115,23 @@ class FileExplorer(QWidget):
                 pak.open(value.ttems, self.resource)
                 # value.Items.AddRange(pak.GetMetadataItemsAsync(Resource).Result)
                 self.onFilterKeyUp(None, None)
-            self.onInfo(value.pakFile.getMetadataInfos(self.resource, value) if value.pakFile else None)
+            self.onInfo(value.pakFile.getMetaInfos(self.resource, value) if value.pakFile else None)
         except:
             print(traceback.format_exc())
             self.onInfo([
-                MetadataInfo(f'EXCEPTION: {sys.exc_info()[1]}'),
-                MetadataInfo(traceback.format_exc())
+                MetaInfo(f'EXCEPTION: {sys.exc_info()[1]}'),
+                MetaInfo(traceback.format_exc())
             ])
 
     def onFilterKeyUp(self, a, b):
         pass
 
-    def onInfo(self, infos: list[MetadataInfo] = None):
+    def onInfo(self, infos: list[MetaInfo] = None):
         self.parent.contentBlock.onInfo(self.pakFile, [x for x in infos if not x.name] if infos else None)
         self.infos = [x for x in infos if x.name] if infos else None
 
     def onReady(self):
         if config.ForcePath and not config.ForcePath.startswith('app:'):
-            selectedItem, index = MetadataItem.findByPath(self.pakNodes, self.nodeModel, config.ForcePath, self.resource)
-            # index = self.nodeModel.indexFromItem(selectedItem)
-            print(index)
-            # self.nodeView.selectionModel().select(self.nodeModel.indexFromItem(child3), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
-        pass
+            node = MetaItem.findByPathForNodes(self.pakNodes, config.ForcePath, self.resource)
+            index = self.nodeModel.indexFromItem(self.nodeModelMap[node])
+            self.nodeView.selectionModel().select(index, QItemSelectionModel.SelectionFlag.Select)

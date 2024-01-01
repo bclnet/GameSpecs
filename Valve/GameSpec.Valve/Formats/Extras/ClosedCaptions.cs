@@ -18,17 +18,17 @@ namespace GameSpec.Valve.Formats.Extras
         public string Text;
     }
 
-    public class ClosedCaptions : IEnumerable<ClosedCaption>, IGetMetadataInfo
+    public class ClosedCaptions : IEnumerable<ClosedCaption>, IHaveMetaInfo
     {
         public const int MAGIC = 0x44434356; // "VCCD"
 
         public ClosedCaptions() { }
         public ClosedCaptions(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "DataGrid", Name = "Captions", Value = Captions }),
-            new MetadataInfo("ClosedCaptions", items: new List<MetadataInfo> {
-                new MetadataInfo($"Count: {Captions.Count}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "DataGrid", Name = "Captions", Value = Captions }),
+            new MetaInfo("ClosedCaptions", items: new List<MetaInfo> {
+                new MetaInfo($"Count: {Captions.Count}"),
             }),
         };
 

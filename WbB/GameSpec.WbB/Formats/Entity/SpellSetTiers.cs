@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SpellSetTiers : IGetMetadataInfo
+    public class SpellSetTiers : IHaveMetaInfo
     {
         /// <summary>
         /// A list of spell ids that are active in the spell set tier
@@ -17,10 +17,10 @@ namespace GameSpec.WbB.Formats.Entity
             => Spells = r.ReadL32Array<uint>(sizeof(uint));
 
         //: Entity.SpellSetTier
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var spells = DatabaseManager.Portal.SpellTable.Spells;
-            var nodes = Spells.Select(x => new MetadataInfo($"{x} - {spells[x].Name}")).ToList();
+            var nodes = Spells.Select(x => new MetaInfo($"{x} - {spells[x].Name}")).ToList();
             return nodes;
         }
     }

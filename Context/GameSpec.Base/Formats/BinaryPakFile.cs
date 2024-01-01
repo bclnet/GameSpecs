@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,22 +22,15 @@ namespace GameSpec.Formats
         // options
         public bool UseReader = true;
         public bool UseFileId = false;
-
         // state
         public Func<string, string> FileMask;
         public readonly Dictionary<string, string> Params = new Dictionary<string, string>();
         public uint Magic;
         public uint Version;
-        public object CryptKey;
-
         // metadata/factory
-        internal protected Func<MetadataManager, BinaryPakFile, Task<List<MetadataItem>>> GetMetadataItemsMethod = StandardMetadataItem.GetPakFilesAsync;
-        protected Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>> MetadataInfos = new Dictionary<string, Func<MetadataManager, BinaryPakFile, FileSource, Task<List<MetadataInfo>>>>();
-        internal protected Func<FileSource, FamilyGame, (DataOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
-
-        // From: BinaryPakManyFile
-
-        public override bool Valid => Files != null;
+        protected Dictionary<string, Func<MetaManager, BinaryPakFile, FileSource, Task<List<MetaInfo>>>> MetaInfos = new Dictionary<string, Func<MetaManager, BinaryPakFile, FileSource, Task<List<MetaInfo>>>>();
+        internal protected Func<FileSource, FamilyGame, (FileOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
+        // binary
         public IList<FileSource> Files;
         public HashSet<string> FilesRawSet;
         public ILookup<int, FileSource> FilesById { get; private set; }
@@ -78,6 +72,11 @@ namespace GameSpec.Formats
             => Readers.GetOrAdd(path ?? FilePath, filePath => FileSystem.FileExists(filePath) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(filePath), retainInPool) : default);
 
         /// <summary>
+        /// Valid
+        /// </summary>
+        public override bool Valid => Files != null;
+
+        /// <summary>
         /// Closes this instance.
         /// </summary>
         public override void Closing()
@@ -97,45 +96,21 @@ namespace GameSpec.Formats
         /// <returns>
         ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Contains(string path) => TryFindSubPak(path ?? throw new ArgumentNullException(nameof(path)), out var pak, out var nextPath)
-            ? pak.Contains(nextPath)
-            : FilesByPath.Contains(path.Replace('\\', '/'));
-        /// <summary>
-        /// Determines whether the pak contains the specified file path.
-        /// </summary>
-        /// <param name="fileId">The fileId.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
-        /// </returns>
-        public override bool Contains(int fileId) => FilesById.Contains(fileId);
+        public override bool Contains(object path)
+            => path switch
+            {
+                null => throw new ArgumentNullException(nameof(path)),
+                string s => TryFindSubPak(s, out var pak, out var nextPath)
+                    ? pak.Contains(nextPath)
+                    : FilesByPath != null && FilesByPath.Contains(s.Replace('\\', '/')),
+                int i => FilesById != null && FilesById.Contains(i),
+                _ => throw new ArgumentOutOfRangeException(nameof(path))
+            };
 
         /// <summary>Gets the count.</summary>
         /// <value>The count.</value>
         /// <exception cref="System.NotSupportedException"></exception>
         public override int Count => FilesByPath.Count;
-
-        // string or bytes
-        /// <summary>
-        /// The get string or bytes encoding
-        /// </summary>
-        public Encoding GetStringOrBytesEncoding = Encoding.UTF8;
-
-        /// <summary>
-        /// Gets the string or bytes.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <returns></returns>
-        public virtual object GetStringOrBytes(Stream stream, bool dispose = true)
-        {
-            using var ms = new MemoryStream();
-            stream.Position = 0;
-            stream.CopyTo(ms);
-            var bytes = ms.ToArray();
-            if (dispose) stream.Dispose();
-            return !bytes.Contains<byte>(0x00)
-                ? (object)GetStringOrBytesEncoding.GetString(bytes)
-                : bytes;
-        }
 
         /// <summary>
         /// Finds the texture.
@@ -149,82 +124,96 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="path">The file path.</param>
         /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = default, Action<FileSource, string> exception = default)
+        public override Task<Stream> LoadFileDataAsync(object path, FileOption option = default)
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
-            if (TryFindSubPak(path, out var pak, out var nextPath)) return pak.LoadFileDataAsync(nextPath, option, exception);
-            var files = FilesByPath[path.Replace('\\', '/')].ToArray();
-            if (files.Length == 1) return LoadFileDataAsync(files[0], option, exception);
-            exception?.Invoke(null, $"LoadFileDataAsync: {path} @ {files.Length}"); //Log($"LoadFileDataAsync: {filePath} @ {files.Length}");
-            throw new FileNotFoundException(files.Length == 0 ? path : $"More then one file found for {path}");
+            switch (path)
+            {
+                case null: throw new ArgumentNullException(nameof(path));
+                case FileSource f:
+                    {
+                        return UseReader ? GetBinaryReader().Func(r => ReadDataAsync(r, f, option))
+                            : ReadDataAsync(null, f, option);
+                    }
+                case string s:
+                    {
+                        if (TryFindSubPak(s, out var pak, out var nextPath)) return pak.LoadFileDataAsync(nextPath, option);
+                        var files = FilesByPath[s.Replace('\\', '/')].ToArray();
+                        if (files.Length == 1) return LoadFileDataAsync(files[0], option);
+                        Log($"ERROR.LoadFileDataAsync: {s} @ {files.Length}");
+                        throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
+                    }
+                case int i:
+                    {
+                        var files = FilesById[i].ToArray();
+                        if (files.Length == 1) return LoadFileDataAsync(files[0], option);
+                        Log($"ERROR.LoadFileDataAsync: {i} @ {files.Length}");
+                        throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
+                    }
+                default: throw new ArgumentOutOfRangeException(nameof(path));
+            }
         }
+
         /// <summary>
-        /// Loads the file data asynchronous.
+        /// Loads the file object asynchronous.
         /// </summary>
-        /// <param name="fileId">The fileId.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="path">The file.</param>
         /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = default, Action<FileSource, string> exception = default)
+        public override async Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default)
         {
-            var files = FilesById[fileId].ToArray();
-            if (files.Length == 1) return LoadFileDataAsync(files[0], option, exception);
-            exception?.Invoke(null, $"LoadFileDataAsync: {fileId}"); //Log($"LoadFileDataAsync: {fileId} @ {files.Length}");
-            throw new FileNotFoundException(files.Length == 0 ? $"{fileId}" : $"More then one file found for {fileId}");
-        }
-
-        /// <summary>
-        /// Loads the file data asynchronous.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The file.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
-            => UseReader
-            ? GetBinaryReader().Func(r => ReadDataAsync(r, file, option, exception))
-            : ReadDataAsync(null, file, option, exception);
-
-        /// <summary>
-        /// Loads the object asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">The file path.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = default)
-        {
-            if (path == null) throw new ArgumentNullException(nameof(path));
-            if (TryFindSubPak(path, out var pak, out var nextPath)) return pak.LoadFileObjectAsync<T>(nextPath, exception);
-            if (PathFinders.Count > 0) path = FindPath<T>(path);
-            var files = FilesByPath[path.Replace('\\', '/')].ToArray();
-            if (files.Length == 1) return LoadFileObjectAsync<T>(files[0], exception);
-            exception?.Invoke(null, $"LoadFileObjectAsync: {path} @ {files.Length}"); //Log($"LoadFileObjectAsync: {filePath} @ {files.Length}");
-            throw new FileNotFoundException(files.Length == 0 ? path : $"More then one file found for {path}");
-        }
-        /// <summary>
-        /// Loads the object asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fileId">The fileId.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = default)
-        {
-            var files = FilesById[fileId].ToArray();
-            if (files.Length == 1) return LoadFileObjectAsync<T>(files[0], exception);
-            exception?.Invoke(null, $"LoadFileObjectAsync: {fileId}"); //Log($"LoadFileObjectAsync: {fileId} @ {files.Length}");
-            throw new FileNotFoundException(files.Length == 0 ? $"{fileId}" : $"More then one file found for {fileId}");
+            switch (path)
+            {
+                case null: throw new ArgumentNullException(nameof(path));
+                case FileSource f:
+                    {
+                        var type = typeof(T);
+                        var data = await LoadFileDataAsync(f, option);
+                        if (data == null) return default;
+                        var objectFactory = EnsureCachedObjectFactory(f);
+                        if (objectFactory == FileSource.EmptyObjectFactory)
+                            return type == typeof(Stream) || type == typeof(object)
+                                ? (T)(object)data
+                                : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
+                        var r = new BinaryReader(data);
+                        object value = null;
+                        Task<object> task = null;
+                        try
+                        {
+                            task = objectFactory(r, f, this);
+                            if (task == null)
+                                return type == typeof(Stream) || type == typeof(object)
+                                    ? (T)(object)data
+                                    : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
+                            value = await task;
+                            return value is T z ? z
+                                : value is IRedirected<T> y ? y.Value
+                                : throw new InvalidCastException();
+                        }
+                        catch (Exception e) { Log(e.Message); throw e; }
+                        finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
+                    }
+                case string s:
+                    {
+                        if (TryFindSubPak(s, out var pak, out var nextPath)) return await pak.LoadFileObjectAsync<T>(nextPath);
+                        if (PathFinders.Count > 0) path = FindPath<T>(s);
+                        var files = FilesByPath[s.Replace('\\', '/')].ToArray();
+                        if (files.Length == 1) return await LoadFileObjectAsync<T>(files[0], option);
+                        Log($"ERROR.LoadFileObjectAsync: {s} @ {files.Length}");
+                        throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
+                    }
+                case int i:
+                    {
+                        var files = FilesById[i].ToArray();
+                        if (files.Length == 1) return await LoadFileObjectAsync<T>(files[0], option);
+                        Log($"LoadFileObjectAsync: {i} @ {files.Length}");
+                        throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
+                    }
+                default: throw new ArgumentOutOfRangeException(nameof(path));
+            }
         }
 
         /// <summary>
@@ -235,48 +224,10 @@ namespace GameSpec.Formats
         public Func<BinaryReader, FileSource, PakFile, Task<object>> EnsureCachedObjectFactory(FileSource file)
         {
             if (file.CachedObjectFactory != null) return file.CachedObjectFactory;
-
             var factory = GetObjectFactoryFactory(file, Game);
             file.CachedDataOption = factory.option;
             file.CachedObjectFactory = factory.factory ?? FileSource.EmptyObjectFactory;
             return file.CachedObjectFactory;
-        }
-
-        /// <summary>
-        /// Loads the file data asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public override async Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception = default)
-        {
-            var type = typeof(T);
-            var stream = await LoadFileDataAsync(file, 0, exception);
-            if (stream == null) return default;
-            var objectFactory = EnsureCachedObjectFactory(file);
-            if (objectFactory == FileSource.EmptyObjectFactory)
-                return type == typeof(Stream) || type == typeof(object)
-                    ? (T)(object)stream
-                    : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {file.Path} with {type.Name}");
-            var r = new BinaryReader(stream);
-            object value = null;
-            Task<object> task = null;
-            try
-            {
-                task = objectFactory(r, file, this);
-                if (task == null)
-                    return type == typeof(Stream) || type == typeof(object)
-                        ? (T)(object)stream
-                        : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {file.Path} with {type.Name}");
-                value = await task;
-                return value is T z ? z
-                    : value is IRedirected<T> y ? y.Value
-                    : throw new InvalidCastException();
-            }
-            catch (Exception e) { Log(e.Message); throw e; }
-            finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
         }
 
         /// <summary>
@@ -288,43 +239,6 @@ namespace GameSpec.Formats
             FilesByPath = Files?.Where(x => x != null).ToLookup(x => x.Path, StringComparer.OrdinalIgnoreCase);
             PakBinary?.Process(this);
         }
-
-        /// <summary>
-        /// Reads the asynchronous.
-        /// </summary>
-        /// <param name="r">The r.</param>
-        /// <param name="tag">The tag.</param>
-        /// <returns></returns>
-        public virtual Task ReadAsync(BinaryReader r, object tag = default) => PakBinary.ReadAsync(this, r, tag);
-
-        /// <summary>
-        /// Writes the asynchronous.
-        /// </summary>
-        /// <param name="w">The w.</param>
-        /// <param name="tag">The tag.</param>
-        /// <returns></returns>
-        public virtual Task WriteAsync(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
-
-        /// <summary>
-        /// Reads the file data asynchronous.
-        /// </summary>
-        /// <param name="r">The r.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public virtual Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.ReadDataAsync(this, r, file, option, exception);
-
-        /// <summary>
-        /// Writes the file data asynchronous.
-        /// </summary>
-        /// <param name="w">The w.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="data">The data.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        public virtual Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = default, Action<FileSource, string> exception = default) => PakBinary.WriteDataAsync(this, w, file, data, option, exception);
 
         /// <summary>
         /// Adds the raw file.
@@ -350,50 +264,56 @@ namespace GameSpec.Formats
             return false;
         }
 
+        #region PakBinary
+
+        /// <summary>
+        /// Reads the asynchronous.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        public virtual Task ReadAsync(BinaryReader r, object tag = default) => PakBinary.ReadAsync(this, r, tag);
+
+        /// <summary>
+        /// Reads the file data asynchronous.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="option">The option.</param>
+        /// <returns></returns>
+        public virtual Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadDataAsync(this, r, file, option);
+
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="w">The w.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        public virtual Task WriteAsync(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
+
+        /// <summary>
+        /// Writes the file data asynchronous.
+        /// </summary>
+        /// <param name="w">The w.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="option">The option.</param>
+        /// <returns></returns>
+        public virtual Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteDataAsync(this, w, file, data, option);
+
+        #endregion
+
         #region Metadata
 
         /// <summary>
         /// Gets the explorer information nodes.
         /// </summary>
-        /// <param name="manager">The resource.</param>
+        /// <param name="manager">The manager.</param>
         /// <param name="item">The item.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<MetadataInfo>> GetMetadataInfosAsync(MetadataManager manager, MetadataItem item)
-        {
-            if (!(item.Source is FileSource file)) return null;
-            List<MetadataInfo> nodes = null;
-            var obj = await LoadFileObjectAsync<object>(file);
-            if (obj == null) return null;
-            else if (obj is IGetMetadataInfo info) nodes = info.GetInfoNodes(manager, file);
-            else if (obj is Stream stream)
-            {
-                var value = GetStringOrBytes(stream);
-                nodes = value is string text ? new List<MetadataInfo> {
-                        new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = text }),
-                        new MetadataInfo("Text", items: new List<MetadataInfo> {
-                            new MetadataInfo($"Length: {text.Length}"),
-                        }) }
-                    : value is byte[] bytes ? new List<MetadataInfo> {
-                        new MetadataInfo(null, new MetadataContent { Type = "Hex", Name = "Hex", Value = new MemoryStream(bytes) }),
-                        new MetadataInfo("Bytes", items: new List<MetadataInfo> {
-                            new MetadataInfo($"Length: {bytes.Length}"),
-                        }) }
-                    : throw new ArgumentOutOfRangeException(nameof(value), value.GetType().Name);
-            }
-            else if (obj is IDisposable disposable) disposable.Dispose();
-            if (nodes == null) return null;
-            nodes.Add(new MetadataInfo("File", items: new List<MetadataInfo> {
-                new MetadataInfo($"Path: {file.Path}"),
-                new MetadataInfo($"FileSize: {file.FileSize}"),
-                file.Parts != null
-                    ? new MetadataInfo("Parts", items: file.Parts.Select(part => new MetadataInfo($"{part.FileSize}@{part.Path}")))
-                    : null
-            }));
-            //nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Hex", Name = "TEST", Value = new MemoryStream() }));
-            //nodes.Add(new MetadataInfo(null, new MetadataContent { Type = "Image", Name = "TEST", MaxWidth = 500, MaxHeight = 500, Value = null }));
-            return nodes;
-        }
+        public override Task<List<MetaInfo>> GetMetaInfosAsync(MetaManager manager, MetaItem item)
+            => Valid ? MetaManager.GetMetaInfosAsync(manager, this, item.Source as FileSource) : default;
 
         /// <summary>
         /// Gets the explorer item nodes.
@@ -401,8 +321,8 @@ namespace GameSpec.Formats
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
-            => Valid && GetMetadataItemsMethod != null ? await GetMetadataItemsMethod(manager, this) : default;
+        public override Task<List<MetaItem>> GetMetaItemsAsync(MetaManager manager)
+            => Valid ? MetaManager.GetMetaItemsAsync(manager, this) : default;
 
         #endregion
     }

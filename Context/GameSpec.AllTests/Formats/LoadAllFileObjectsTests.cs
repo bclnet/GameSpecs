@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using GameSpec.Metadata;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace GameSpec.Formats
                 var obj = await pak.LoadFileObjectAsync<object>(file);
                 if (obj is Stream stream)
                 {
-                    var value = pak.GetStringOrBytes(stream);
+                    var value = MetaManager.GuessStringOrBytes(stream);
                 }
                 else if (obj is IDisposable disposable) disposable.Dispose();
             });

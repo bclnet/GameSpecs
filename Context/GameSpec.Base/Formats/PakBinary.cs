@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data.Common;
 using System.IO;
 using System.Threading.Tasks;
+using static OpenStack.Debug;
 
 namespace GameSpec.Formats
 {
@@ -19,7 +21,18 @@ namespace GameSpec.Formats
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag = null) => throw new NotSupportedException();
+        public virtual Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag = default) => throw new NotSupportedException();
+
+        /// <summary>
+        /// Reads the asynchronous.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="option">The option.</param>
+        /// <returns></returns>
+        /// <exception cref="NotSupportedException"></exception>
+        public virtual Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Writes the asynchronous.
@@ -29,19 +42,7 @@ namespace GameSpec.Formats
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag = null) => throw new NotSupportedException();
-
-        /// <summary>
-        /// Reads the asynchronous.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="r">The r.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="NotSupportedException"></exception>
-        public virtual Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
+        public virtual Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Writes the asynchronous.
@@ -51,10 +52,9 @@ namespace GameSpec.Formats
         /// <param name="file">The file.</param>
         /// <param name="option">The option.</param>
         /// <param name="data">The data.</param>
-        /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
+        public virtual Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Processes this instance.
@@ -62,5 +62,18 @@ namespace GameSpec.Formats
         /// <param name="source">The source.</param>
         /// <exception cref="NotSupportedException"></exception>
         public virtual void Process(BinaryPakFile source) { }
+
+        /// <summary>
+        /// handles an exception.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="option">The option.</param>
+        /// <param name="message">The message.</param>
+        /// <exception cref="NotSupportedException"></exception>
+        public static void HandleException(object source, FileOption option, string message)
+        {
+            Log(message);
+            if ((option & FileOption.Supress) != 0) throw new Exception(message);
+        }
     }
 }

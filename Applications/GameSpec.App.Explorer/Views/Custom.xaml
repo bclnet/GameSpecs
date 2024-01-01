@@ -9,15 +9,15 @@
              d:DesignHeight="200" d:DesignWidth="200">
     <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="NullTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="NullTemplate" DataType="{x:Type model:MetaContent}">
                 <TextBlock Text="Null" Margin="5,5,5,5" FontFamily="GenericMonospace" />
             </DataTemplate>
-            <DataTemplate x:Key="TextTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="TextTemplate" DataType="{x:Type model:MetaContent}">
                 <ScrollViewer>
                     <TextBlock TextWrapping="Wrap" Text="{Binding Value}" Margin="5,5,5,5" FontFamily="Courier New" />
                 </ScrollViewer>
             </DataTemplate>
-            <DataTemplate x:Key="DataForgeTemplate" DataType="{x:Type model:MetadataContent}">
+            <DataTemplate x:Key="DataForgeTemplate" DataType="{x:Type model:MetaContent}">
                 <cigDataForge:NoteControl Margin="5,5,5,5" />
             </DataTemplate>
         </Grid.Resources>

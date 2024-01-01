@@ -9,7 +9,7 @@ using System.Text;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.EnumMapper)]
-    public class EnumMapper : FileType, IGetMetadataInfo
+    public class EnumMapper : FileType, IHaveMetaInfo
     {
         public readonly uint BaseEnumMap; // _base_emp_did
         public readonly NumberingType NumberingType;
@@ -24,13 +24,13 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.EnumMapper
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(EnumMapper)}: {Id:X8}", items: new List<MetadataInfo> {
-                    BaseEnumMap != 0 ? new MetadataInfo($"BaseEnumMap: {BaseEnumMap:X8}") : null,
-                    NumberingType != NumberingType.Undefined ? new MetadataInfo($"NumberingType: {NumberingType}") : null,
-                    IdToStringMap.Count > 0 ? new MetadataInfo("IdToStringMap", items: IdToStringMap.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(EnumMapper)}: {Id:X8}", items: new List<MetaInfo> {
+                    BaseEnumMap != 0 ? new MetaInfo($"BaseEnumMap: {BaseEnumMap:X8}") : null,
+                    NumberingType != NumberingType.Undefined ? new MetaInfo($"NumberingType: {NumberingType}") : null,
+                    IdToStringMap.Count > 0 ? new MetaInfo("IdToStringMap", items: IdToStringMap.OrderBy(x => x.Key).Select(x => new MetaInfo($"{x.Key}: {x.Value::X8}"))) : null,
                 })
             };
             return nodes;

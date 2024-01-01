@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class AnimationFrame : IGetMetadataInfo
+    public class AnimationFrame : IHaveMetaInfo
     {
         public readonly Frame[] Frames;
         public readonly AnimationHook[] Hooks;
@@ -18,11 +18,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AnimationFrame
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Frames", items: Frames.Select(x => new MetadataInfo($"{x}"))),
-                MetadataInfo.WrapWithGroup(Hooks, "Hooks", Hooks.Select(x => new MetadataInfo($"HookType: {x.HookType}", items: (AnimationHook.Factory(x) as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Frames", items: Frames.Select(x => new MetaInfo($"{x}"))),
+                MetaInfo.WrapWithGroup(Hooks, "Hooks", Hooks.Select(x => new MetaInfo($"HookType: {x.HookType}", items: (AnimationHook.Factory(x) as IHaveMetaInfo).GetInfoNodes(tag: tag)))),
             };
             return nodes;
         }

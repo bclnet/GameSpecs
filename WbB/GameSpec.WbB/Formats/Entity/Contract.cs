@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class Contract : IGetMetadataInfo
+    public class Contract : IHaveMetaInfo
     {
         public readonly uint Version;
         public readonly uint ContractId;
@@ -54,25 +54,25 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Contract
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"ContractId: {ContractId}"),
-                new MetadataInfo($"ContractName: {ContractName}"),
-                new MetadataInfo($"Version: {Version}"),
-                new MetadataInfo($"Description: {Description}"),
-                new MetadataInfo($"DescriptionProgress: {DescriptionProgress}"),
-                new MetadataInfo($"NameNPCStart: {NameNPCStart}"),
-                new MetadataInfo($"NameNPCEnd: {NameNPCEnd}"),
-                new MetadataInfo($"QuestflagStamped: {QuestflagStamped}"),
-                new MetadataInfo($"QuestflagStarted: {QuestflagStarted}"),
-                new MetadataInfo($"QuestflagFinished: {QuestflagFinished}"),
-                new MetadataInfo($"QuestflagProgress: {QuestflagProgress}"),
-                new MetadataInfo($"QuestflagTimer: {QuestflagTimer}"),
-                new MetadataInfo($"QuestflagRepeatTime: {QuestflagRepeatTime}"),
-                new MetadataInfo("LocationNPCStart", items: (LocationNPCStart as IGetMetadataInfo).GetInfoNodes(tag: tag)),
-                new MetadataInfo("LocationNPCEnd", items: (LocationNPCEnd as IGetMetadataInfo).GetInfoNodes(tag: tag)),
-                new MetadataInfo("LocationQuestArea", items: (LocationQuestArea as IGetMetadataInfo).GetInfoNodes(tag: tag)),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"ContractId: {ContractId}"),
+                new MetaInfo($"ContractName: {ContractName}"),
+                new MetaInfo($"Version: {Version}"),
+                new MetaInfo($"Description: {Description}"),
+                new MetaInfo($"DescriptionProgress: {DescriptionProgress}"),
+                new MetaInfo($"NameNPCStart: {NameNPCStart}"),
+                new MetaInfo($"NameNPCEnd: {NameNPCEnd}"),
+                new MetaInfo($"QuestflagStamped: {QuestflagStamped}"),
+                new MetaInfo($"QuestflagStarted: {QuestflagStarted}"),
+                new MetaInfo($"QuestflagFinished: {QuestflagFinished}"),
+                new MetaInfo($"QuestflagProgress: {QuestflagProgress}"),
+                new MetaInfo($"QuestflagTimer: {QuestflagTimer}"),
+                new MetaInfo($"QuestflagRepeatTime: {QuestflagRepeatTime}"),
+                new MetaInfo("LocationNPCStart", items: (LocationNPCStart as IHaveMetaInfo).GetInfoNodes(tag: tag)),
+                new MetaInfo("LocationNPCEnd", items: (LocationNPCEnd as IHaveMetaInfo).GetInfoNodes(tag: tag)),
+                new MetaInfo("LocationQuestArea", items: (LocationQuestArea as IHaveMetaInfo).GetInfoNodes(tag: tag)),
             };
             return nodes;
         }

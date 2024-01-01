@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class BspLeaf : BspNode, IGetMetadataInfo
+    public class BspLeaf : BspNode, IHaveMetaInfo
     {
         public readonly int LeafIndex;
         public readonly int Solid;
@@ -28,17 +28,17 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.BSPLeaf
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Type: {Type}"),
-                new MetadataInfo($"LeafIndex: {LeafIndex}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Type: {Type}"),
+                new MetaInfo($"LeafIndex: {LeafIndex}"),
             };
             if ((BSPType)tag == BSPType.Physics)
                 nodes.AddRange(new[] {
-                    new MetadataInfo($"Solid: {Solid}"),
-                    new MetadataInfo($"Sphere: {Sphere}"),
-                    new MetadataInfo($"InPolys: {string.Join(", ", InPolys)}"),
+                    new MetaInfo($"Solid: {Solid}"),
+                    new MetaInfo($"Sphere: {Sphere}"),
+                    new MetaInfo($"InPolys: {string.Join(", ", InPolys)}"),
                 });
             return nodes;
         }

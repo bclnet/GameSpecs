@@ -16,7 +16,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Thanks to Steven Nygard and his work on the Mac program ACDataTools that were used to help debug & verify some of this data.
     /// </remarks>
     [PakFileType(PakFileType.Clothing)]
-    public class ClothingTable : FileType, IGetMetadataInfo
+    public class ClothingTable : FileType, IHaveMetaInfo
     {
         /// <summary>
         /// Key is the setup model id
@@ -35,12 +35,12 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.ClothingTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(ClothingTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Base Effects", items: ClothingBaseEffects.Select(x => new MetadataInfo($"{x.Key:X8}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(), clickable: true))),
-                    new MetadataInfo("SubPalette Effects", items: ClothingSubPalEffects.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key} - {(PaletteTemplate)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(ClothingTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Base Effects", items: ClothingBaseEffects.Select(x => new MetaInfo($"{x.Key:X8}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(), clickable: true))),
+                    new MetaInfo("SubPalette Effects", items: ClothingSubPalEffects.OrderBy(i => i.Key).Select(x => new MetaInfo($"{x.Key} - {(PaletteTemplate)x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

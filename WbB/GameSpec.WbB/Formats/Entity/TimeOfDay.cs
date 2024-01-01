@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class TimeOfDay : IGetMetadataInfo
+    public class TimeOfDay : IHaveMetaInfo
     {
         public readonly float Start;
         public readonly bool IsNight;
@@ -20,12 +20,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TimeOfDay
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Start: {Start}"),
-                new MetadataInfo($"IsNight: {IsNight}"),
-                new MetadataInfo($"Name: {Name}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Start: {Start}"),
+                new MetaInfo($"IsNight: {IsNight}"),
+                new MetaInfo($"Name: {Name}"),
             };
             return nodes;
         }

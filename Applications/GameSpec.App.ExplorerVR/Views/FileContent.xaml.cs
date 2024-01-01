@@ -26,18 +26,18 @@ namespace GameSpec.App.Explorer.Views
             set { _graphic = value; OnPropertyChanged(); }
         }
 
-        IList<MetadataContent> _contentTabs;
-        public IList<MetadataContent> ContentTabs
+        IList<MetaContent> _contentTabs;
+        public IList<MetaContent> ContentTabs
         {
             get => _contentTabs;
             set { _contentTabs = value; OnPropertyChanged(); }
         }
 
-        public void OnInfo(PakFile pakFile, List<MetadataInfo> infos)
+        public void OnInfo(PakFile pakFile, List<MetaInfo> infos)
         {
             if (ContentTabs != null) foreach (var dispose in ContentTabs.Where(x => x.Dispose != null).Select(x => x.Dispose)) dispose.Dispose();
             Graphic = pakFile.Graphic;
-            ContentTabs = infos?.Select(x => x.Tag as MetadataContent).Where(x => x != null).ToList();
+            ContentTabs = infos?.Select(x => x.Tag as MetaContent).Where(x => x != null).ToList();
             //ContentTab.CurrentItem = ContentTabs != null ? ContentTabs.FirstOrDefault() : null;
         }
     }

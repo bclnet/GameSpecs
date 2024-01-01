@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SpellSet : IGetMetadataInfo
+    public class SpellSet : IHaveMetaInfo
     {
         // uint key is the total combined item level of all the equipped pieces in the set client calls this m_PieceCount
         public readonly SortedDictionary<uint, SpellSetTiers> SpellSetTiers;
@@ -27,11 +27,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SpellSet
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("SpellSetTiers", items: SpellSetTiers.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
-                new MetadataInfo($"HighestTier: {HighestTier}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("SpellSetTiers", items: SpellSetTiers.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
+                new MetaInfo($"HighestTier: {HighestTier}"),
             };
             return nodes;
         }

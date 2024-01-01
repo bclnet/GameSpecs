@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class TransparentPartHook : AnimationHook, IGetMetadataInfo
+    public class TransparentPartHook : AnimationHook, IHaveMetaInfo
     {
         public readonly uint Part;
         public readonly float Start;
@@ -22,13 +22,13 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.TransparentPartHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
+            var nodes = new List<MetaInfo>();
             if (Base is TransparentPartHook s)
             {
-                nodes.Add(new MetadataInfo($"Part: {s.Part}"));
-                nodes.Add(new MetadataInfo($"Start: {s.Start}, End: {s.End}, Time: {s.Time}"));
+                nodes.Add(new MetaInfo($"Part: {s.Part}"));
+                nodes.Add(new MetaInfo($"Start: {s.Start}, End: {s.End}, Time: {s.Time}"));
             }
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats.Danae
 {
-    public unsafe class BinaryFtl : IGetMetadataInfo
+    public unsafe class BinaryFtl : IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryFtl(r));
 
@@ -195,11 +195,11 @@ namespace GameSpec.Arkane.Formats.Danae
 
         #endregion
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("BinaryFTL", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Obj: {Obj}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryFTL", items: new List<MetaInfo> {
+                    new MetaInfo($"Obj: {Obj}"),
                 })
             };
             return nodes;

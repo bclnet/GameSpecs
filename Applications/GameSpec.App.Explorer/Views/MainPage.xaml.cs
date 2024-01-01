@@ -38,7 +38,7 @@ namespace GameSpec.App.Explorer.Views
     /// </summary>
     public partial class MainPage : Window, INotifyPropertyChanged
     {
-        public static MetadataManager Manager = new ResourceManager();
+        public static MetaManager Manager = new ResourceManager();
         public static MainPage Instance;
 
         public MainPage()

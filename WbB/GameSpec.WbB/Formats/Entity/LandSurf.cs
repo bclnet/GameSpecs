@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class LandSurf : IGetMetadataInfo
+    public class LandSurf : IHaveMetaInfo
     {
         public readonly uint Type;
         //public readonly PalShift PalShift; // This is used if Type == 1 (which we haven't seen yet)
@@ -20,6 +20,6 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.LandSurf
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => (TexMerge as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => (TexMerge as IHaveMetaInfo).GetInfoNodes(resource, file, tag);
     }
 }

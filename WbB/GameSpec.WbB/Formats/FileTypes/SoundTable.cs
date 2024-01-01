@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// They are located in the client_portal.dat and are files starting with 0x20
     /// </summary>
     [PakFileType(PakFileType.SoundTable)]
-    public class SoundTable : FileType, IGetMetadataInfo
+    public class SoundTable : FileType, IHaveMetaInfo
     {
         public readonly uint Unknown; // As the name implies, not sure what this is
         // Not quite sure what this is for, but it's the same in every file.
@@ -30,17 +30,17 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.SoundTable
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(SoundTable)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("SoundHash", items: SoundHash.Select(x => {
-                        var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(SoundTable)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("SoundHash", items: SoundHash.Select(x => {
+                        var items = (x as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Sound ID: ", "");
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items);
+                        return new MetaInfo(name, items: items);
                     })),
-                    new MetadataInfo($"Sounds", items: Data.Select(x => new MetadataInfo($"{(Sound)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+                    new MetaInfo($"Sounds", items: Data.Select(x => new MetaInfo($"{(Sound)x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
                 })
             };
             return nodes;

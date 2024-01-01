@@ -49,7 +49,7 @@ namespace GameSpec.Origin.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));

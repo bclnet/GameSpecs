@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// This is called a "String" in the client; It has been renamed to avoid conflicts with the generic "String" class.
     /// </summary>
     [PakFileType(PakFileType.String)]
-    public class LanguageString : FileType, IGetMetadataInfo
+    public class LanguageString : FileType, IHaveMetaInfo
     {
         public string CharBuffer;
 
@@ -22,10 +22,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: New
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(LanguageString)}: {Id:X8}", items: new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(LanguageString)}: {Id:X8}", items: new List<MetaInfo> {
                 })
             };
             return nodes;

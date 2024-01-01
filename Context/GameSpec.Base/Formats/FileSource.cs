@@ -11,7 +11,7 @@ namespace GameSpec.Formats
     {
         internal static readonly Func<BinaryReader, FileSource, PakFile, Task<object>> EmptyObjectFactory = (a, b, c) => null;
         internal Func<BinaryReader, FileSource, PakFile, Task<object>> CachedObjectFactory;
-        internal DataOption CachedDataOption;
+        internal FileOption CachedDataOption;
         public BinaryPakFile Pak;
         public object Tag;
         // common

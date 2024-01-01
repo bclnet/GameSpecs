@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.App.Explorer
 {
-    public class ResourceManager : MetadataManager
+    public class ResourceManager : MetaManager
     {
         readonly Dictionary<string, object> Icons = new();
         readonly ConcurrentDictionary<string, object> ImageCache = new();

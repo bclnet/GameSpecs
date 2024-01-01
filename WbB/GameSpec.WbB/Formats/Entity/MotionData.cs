@@ -8,7 +8,7 @@ using System.Numerics;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class MotionData : IGetMetadataInfo
+    public class MotionData : IHaveMetaInfo
     {
         public readonly byte Bitfield;
         public readonly MotionDataFlags Flags;
@@ -27,15 +27,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.MotionData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                Bitfield != 0 ? new MetadataInfo($"Bitfield: {Bitfield:X8}") : null,
+            var nodes = new List<MetaInfo> {
+                Bitfield != 0 ? new MetaInfo($"Bitfield: {Bitfield:X8}") : null,
                 Anims.Length == 0 ? null : Anims.Length == 1
-                    ? new MetadataInfo("Animation", items: (Anims[0] as IGetMetadataInfo).GetInfoNodes())
-                    : new MetadataInfo("Animations", items: Anims.Select((x, i) => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
-                Flags.HasFlag(MotionDataFlags.HasVelocity) ? new MetadataInfo($"Velocity: {Velocity}") : null,
-                Flags.HasFlag(MotionDataFlags.HasOmega) ? new MetadataInfo($"Omega: {Omega}") : null,
+                    ? new MetaInfo("Animation", items: (Anims[0] as IHaveMetaInfo).GetInfoNodes())
+                    : new MetaInfo("Animations", items: Anims.Select((x, i) => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
+                Flags.HasFlag(MotionDataFlags.HasVelocity) ? new MetaInfo($"Velocity: {Velocity}") : null,
+                Flags.HasFlag(MotionDataFlags.HasOmega) ? new MetaInfo($"Omega: {Omega}") : null,
             };
             return nodes;
         }

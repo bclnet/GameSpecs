@@ -97,7 +97,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override async Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override async Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, FileOption option = default)
         {
             var path = file.Path;
             // http pak
@@ -118,6 +118,6 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
+        public override Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotSupportedException();
     }
 }

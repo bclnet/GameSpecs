@@ -23,13 +23,8 @@ namespace GameSpec.Unknown
         public override int Count => 0;
         public override void Closing() { }
         public override void Opening() { }
-        public override bool Contains(string path) => false;
-        public override bool Contains(int fileId) => false;
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotImplementedException();
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotImplementedException();
-        public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotImplementedException();
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception = null) => throw new NotImplementedException();
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception = null) => throw new NotImplementedException();
-        public override Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception = null) => throw new NotImplementedException();
+        public override bool Contains(object path) => false;
+        public override Task<Stream> LoadFileDataAsync(object path, FileOption option = default) => throw new NotImplementedException();
+        public override Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default) => throw new NotImplementedException();
     }
 }

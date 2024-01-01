@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are used both on their own for some pre-populated structures in the world (trees, buildings, etc) or make up SetupModel (0x02) objects.
     /// </summary>
     [PakFileType(PakFileType.GraphicsObject)]
-    public class GfxObj : FileType, IGetMetadataInfo
+    public class GfxObj : FileType, IHaveMetaInfo
     {
         public readonly GfxObjFlags Flags;
         public readonly uint[] Surfaces; // also referred to as m_rgSurfaces in the client
@@ -49,19 +49,19 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.GfxObj
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo(null, new MetadataContent { Type = "Model", Name = "Model", Value = this }),
-                new MetadataInfo($"{nameof(GfxObj)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Surfaces", items: Surfaces.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
-                    new MetadataInfo($"VertexArray", items: (VertexArray as IGetMetadataInfo).GetInfoNodes(resource, file)),
-                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new MetadataInfo($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))) : null,
-                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new MetadataInfo($"PhysicsBSP", items: (PhysicsBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Physics).First().Items) : null,
-                    new MetadataInfo($"SortCenter: {SortCenter}"),
-                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new MetadataInfo($"Polygons", items: Polygons.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))) : null,
-                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new MetadataInfo($"DrawingBSP", items: (DrawingBSP as IGetMetadataInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
-                    Flags.HasFlag(GfxObjFlags.HasDIDDegrade) ? new MetadataInfo($"DIDDegrade: {DIDDegrade:X8}", clickable: true) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo(null, new MetaContent { Type = "Model", Name = "Model", Value = this }),
+                new MetaInfo($"{nameof(GfxObj)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"Surfaces", items: Surfaces.Select(x => new MetaInfo($"{x:X8}", clickable: true))),
+                    new MetaInfo($"VertexArray", items: (VertexArray as IHaveMetaInfo).GetInfoNodes(resource, file)),
+                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new MetaInfo($"PhysicsPolygons", items: PhysicsPolygons.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))) : null,
+                    Flags.HasFlag(GfxObjFlags.HasPhysics) ? new MetaInfo($"PhysicsBSP", items: (PhysicsBSP as IHaveMetaInfo).GetInfoNodes(tag: BSPType.Physics).First().Items) : null,
+                    new MetaInfo($"SortCenter: {SortCenter}"),
+                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new MetaInfo($"Polygons", items: Polygons.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))) : null,
+                    Flags.HasFlag(GfxObjFlags.HasDrawing) ? new MetaInfo($"DrawingBSP", items: (DrawingBSP as IHaveMetaInfo).GetInfoNodes(tag: BSPType.Drawing).First().Items) : null,
+                    Flags.HasFlag(GfxObjFlags.HasDIDDegrade) ? new MetaInfo($"DIDDegrade: {DIDDegrade:X8}", clickable: true) : null,
                 })
             };
             return nodes;

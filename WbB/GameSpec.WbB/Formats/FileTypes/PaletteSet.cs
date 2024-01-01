@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// They contain, as the name may imply, a set of palettes (0x04 files)
     /// </summary>
     [PakFileType(PakFileType.PaletteSet)]
-    public class PaletteSet : FileType, IGetMetadataInfo
+    public class PaletteSet : FileType, IHaveMetaInfo
     {
         public uint[] PaletteList;
 
@@ -41,11 +41,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Palette
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(PaletteSet)}: {Id:X8}", items: PaletteList.Select(
-                    x => new MetadataInfo($"{x:X8}", clickable: true)
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(PaletteSet)}: {Id:X8}", items: PaletteList.Select(
+                    x => new MetaInfo($"{x:X8}", clickable: true)
                 )),
             };
             return nodes;

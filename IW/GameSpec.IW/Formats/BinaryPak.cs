@@ -6,16 +6,16 @@ using System.IO;
 
 namespace GameSpec.IW.Formats
 {
-    public class BinaryPak : IGetMetadataInfo
+    public class BinaryPak : IHaveMetaInfo
     {
         public BinaryPak() { }
         public BinaryPak(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("BinaryPak", items: new List<MetadataInfo> {
-                    //new MetadataInfo($"Type: {Type}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryPak", items: new List<MetaInfo> {
+                    //new MetaInfo($"Type: {Type}"),
                 })
             };
             return nodes;

@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// They are basically 3D model descriptions.
     /// </summary>
     [PakFileType(PakFileType.Setup)]
-    public class SetupModel : FileType, IGetMetadataInfo
+    public class SetupModel : FileType, IHaveMetaInfo
     {
         public static readonly SetupModel Empty = new SetupModel();
         public readonly SetupFlags Flags;
@@ -81,31 +81,31 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Setup
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(SetupModel)}: {Id:X8}", items: new List<MetadataInfo> {
-                    Flags != 0 ? new MetadataInfo($"Flags: {Flags}") : null,
-                    new MetadataInfo("Parts", items: Parts.Select((x, i) => new MetadataInfo($"{i} - {x:X8}", clickable: true))),
-                    Flags.HasFlag(SetupFlags.HasParent) ? new MetadataInfo("Parents", items: ParentIndex.Select(x => new MetadataInfo($"{x:X8}"))) : null,
-                    Flags.HasFlag(SetupFlags.HasDefaultScale) ? new MetadataInfo("Default Scales", items: DefaultScale.Select(x => new MetadataInfo($"{x}"))) : null,
-                    HoldingLocations.Count > 0 ? new MetadataInfo("Holding Locations", items: HoldingLocations.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key} - {(ParentLocation)x.Key} - {x.Value}"))) : null,
-                    ConnectionPoints.Count > 0 ? new MetadataInfo("Connection Points", items: ConnectionPoints.Select(x => new MetadataInfo($"{x.Key}: {x.Value}"))) : null,
-                    new MetadataInfo("Placement frames", items: PlacementFrames.OrderBy(i => i.Key).Select(x => new MetadataInfo($"{x.Key} - {(Placement)x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
-                    CylSpheres.Length > 0 ? new MetadataInfo("CylSpheres", items: CylSpheres.Select(x => new MetadataInfo($"{x}"))) : null,
-                    Spheres.Length > 0 ? new MetadataInfo("Spheres", items: Spheres.Select(x => new MetadataInfo($"{x}"))) : null,
-                    new MetadataInfo($"Height: {Height}"),
-                    new MetadataInfo($"Radius: {Radius}"),
-                    new MetadataInfo($"Step Up Height: {StepUpHeight}"),
-                    new MetadataInfo($"Step Down Height: {StepDownHeight}"),
-                    new MetadataInfo($"Sorting Sphere: {SortingSphere}"),
-                    new MetadataInfo($"Selection Sphere: {SelectionSphere}"),
-                    Lights.Count > 0 ? new MetadataInfo($"Lights", items: Lights.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes(tag: tag)))) : null,
-                    DefaultAnimation != 0 ? new MetadataInfo($"Default Animation: {DefaultAnimation:X8}", clickable: true) : null,
-                    DefaultScript != 0 ? new MetadataInfo($"Default Script: {DefaultScript:X8}", clickable: true) : null,
-                    DefaultMotionTable != 0 ? new MetadataInfo($"Default Motion Table: {DefaultMotionTable:X8}", clickable: true) : null,
-                    DefaultSoundTable != 0 ? new MetadataInfo($"Default Sound Table: {DefaultSoundTable:X8}", clickable: true) : null,
-                    DefaultScriptTable != 0 ? new MetadataInfo($"Default Script Table: {DefaultScriptTable:X8}", clickable: true) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(SetupModel)}: {Id:X8}", items: new List<MetaInfo> {
+                    Flags != 0 ? new MetaInfo($"Flags: {Flags}") : null,
+                    new MetaInfo("Parts", items: Parts.Select((x, i) => new MetaInfo($"{i} - {x:X8}", clickable: true))),
+                    Flags.HasFlag(SetupFlags.HasParent) ? new MetaInfo("Parents", items: ParentIndex.Select(x => new MetaInfo($"{x:X8}"))) : null,
+                    Flags.HasFlag(SetupFlags.HasDefaultScale) ? new MetaInfo("Default Scales", items: DefaultScale.Select(x => new MetaInfo($"{x}"))) : null,
+                    HoldingLocations.Count > 0 ? new MetaInfo("Holding Locations", items: HoldingLocations.OrderBy(i => i.Key).Select(x => new MetaInfo($"{x.Key} - {(ParentLocation)x.Key} - {x.Value}"))) : null,
+                    ConnectionPoints.Count > 0 ? new MetaInfo("Connection Points", items: ConnectionPoints.Select(x => new MetaInfo($"{x.Key}: {x.Value}"))) : null,
+                    new MetaInfo("Placement frames", items: PlacementFrames.OrderBy(i => i.Key).Select(x => new MetaInfo($"{x.Key} - {(Placement)x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
+                    CylSpheres.Length > 0 ? new MetaInfo("CylSpheres", items: CylSpheres.Select(x => new MetaInfo($"{x}"))) : null,
+                    Spheres.Length > 0 ? new MetaInfo("Spheres", items: Spheres.Select(x => new MetaInfo($"{x}"))) : null,
+                    new MetaInfo($"Height: {Height}"),
+                    new MetaInfo($"Radius: {Radius}"),
+                    new MetaInfo($"Step Up Height: {StepUpHeight}"),
+                    new MetaInfo($"Step Down Height: {StepDownHeight}"),
+                    new MetaInfo($"Sorting Sphere: {SortingSphere}"),
+                    new MetaInfo($"Selection Sphere: {SelectionSphere}"),
+                    Lights.Count > 0 ? new MetaInfo($"Lights", items: Lights.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes(tag: tag)))) : null,
+                    DefaultAnimation != 0 ? new MetaInfo($"Default Animation: {DefaultAnimation:X8}", clickable: true) : null,
+                    DefaultScript != 0 ? new MetaInfo($"Default Script: {DefaultScript:X8}", clickable: true) : null,
+                    DefaultMotionTable != 0 ? new MetaInfo($"Default Motion Table: {DefaultMotionTable:X8}", clickable: true) : null,
+                    DefaultSoundTable != 0 ? new MetaInfo($"Default Sound Table: {DefaultSoundTable:X8}", clickable: true) : null,
+                    DefaultScriptTable != 0 ? new MetaInfo($"Default Script Table: {DefaultScriptTable:X8}", clickable: true) : null,
                 })
             };
             return nodes;

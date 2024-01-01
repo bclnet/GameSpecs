@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class Generator : IGetMetadataInfo
+    public class Generator : IHaveMetaInfo
     {
         public readonly string Name;
         public readonly uint Id;
@@ -20,13 +20,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Generator
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                Id != 0 ? new MetadataInfo($"Id: {Id}") : null,
-                !string.IsNullOrEmpty(Name) ? new MetadataInfo($"Name: {Name}") : null,
+            var nodes = new List<MetaInfo> {
+                Id != 0 ? new MetaInfo($"Id: {Id}") : null,
+                !string.IsNullOrEmpty(Name) ? new MetaInfo($"Name: {Name}") : null,
             };
-            if (Items.Length > 0) nodes.AddRange(Items.Select(x => new MetadataInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : x.Name, items: (x as IGetMetadataInfo).GetInfoNodes())));
+            if (Items.Length > 0) nodes.AddRange(Items.Select(x => new MetaInfo(x.Id != 0 ? $"{x.Id} - {x.Name}" : x.Name, items: (x as IHaveMetaInfo).GetInfoNodes())));
             return nodes;
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bioware.Formats
 {
-    public class BinaryGff : IGetMetadataInfo
+    public class BinaryGff : IHaveMetaInfo
     {
         public BinaryGff() { }
         public BinaryGff(BinaryReader r) => Read(r);
@@ -22,11 +22,11 @@ namespace GameSpec.Bioware.Formats
             QST = 0x20545351,
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo("BinaryGFF", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Type: {Type}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryGFF", items: new List<MetaInfo> {
+                    new MetaInfo($"Type: {Type}"),
                 })
             };
             return nodes;

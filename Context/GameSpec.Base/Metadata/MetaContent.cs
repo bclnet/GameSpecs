@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace GameSpec.Metadata
 {
     [DebuggerDisplay("{Type}: {Name}")]
-    public class MetadataContent
+    public class MetaContent
     {
         public string Type { get; set; }
         public string Name { get; set; }

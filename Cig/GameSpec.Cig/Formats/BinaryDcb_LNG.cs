@@ -13,7 +13,7 @@ using System.Xml;
 
 namespace GameSpec.Cig.Formats
 {
-    public partial class BinaryDcb_LNG : IGetMetadataInfo
+    public partial class BinaryDcb_LNG : IHaveMetaInfo
     {
         #region Base Types
 
@@ -749,12 +749,12 @@ namespace GameSpec.Cig.Formats
                     select data).ToArray();
         }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo(null, new MetadataContent { EngineType = typeof(ICustomFormatter), Type = "DataForge", Name = Path.GetFileName(file.Path), Value = this }),
-                new MetadataInfo("DatabasePak", items: new List<MetadataInfo> {
-                    new MetadataInfo($"FileVersion: {FileVersion}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo(null, new MetaContent { EngineType = typeof(ICustomFormatter), Type = "DataForge", Name = Path.GetFileName(file.Path), Value = this }),
+                new MetaInfo("DatabasePak", items: new List<MetaInfo> {
+                    new MetaInfo($"FileVersion: {FileVersion}"),
                 })
             };
             return nodes;

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class CombatManeuver : IGetMetadataInfo
+    public class CombatManeuver : IHaveMetaInfo
     {
         public readonly MotionStance Style;
         public readonly AttackHeight AttackHeight;
@@ -24,14 +24,14 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.CombatManeuver
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Stance: {Style}"),
-                new MetadataInfo($"Attack Height: {AttackHeight}"),
-                new MetadataInfo($"Attack Type: {AttackType}"),
-                MinSkillLevel != 0 ? new MetadataInfo($"Min Skill: {MinSkillLevel}") : null,
-                new MetadataInfo($"Motion: {Motion}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Stance: {Style}"),
+                new MetaInfo($"Attack Height: {AttackHeight}"),
+                new MetaInfo($"Attack Type: {AttackType}"),
+                MinSkillLevel != 0 ? new MetaInfo($"Min Skill: {MinSkillLevel}") : null,
+                new MetaInfo($"Motion: {Motion}"),
             };
             return nodes;
         }

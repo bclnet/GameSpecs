@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class AmbientSoundDesc : IGetMetadataInfo
+    public class AmbientSoundDesc : IHaveMetaInfo
     {
         public readonly Sound SType;
         public readonly float Volume;
@@ -26,14 +26,14 @@ namespace GameSpec.WbB.Formats.Entity
         public bool IsContinuous => BaseChance == 0;
 
         //: Entity.AmbientSoundDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"SoundType: {SType}"),
-                new MetadataInfo($"Volume: {Volume}"),
-                new MetadataInfo($"BaseChance: {BaseChance}"),
-                new MetadataInfo($"MinRate: {MinRate}"),
-                new MetadataInfo($"MaxRate: {MaxRate}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"SoundType: {SType}"),
+                new MetaInfo($"Volume: {Volume}"),
+                new MetaInfo($"BaseChance: {BaseChance}"),
+                new MetaInfo($"MinRate: {MinRate}"),
+                new MetaInfo($"MaxRate: {MaxRate}"),
             };
             return nodes;
         }

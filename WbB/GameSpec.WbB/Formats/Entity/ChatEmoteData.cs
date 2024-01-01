@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class ChatEmoteData : IGetMetadataInfo
+    public class ChatEmoteData : IHaveMetaInfo
     {
         public readonly string MyEmote; // What the emote string is to the character doing the emote
         public readonly string OtherEmote; // What the emote string is to other characters
@@ -18,11 +18,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ChatEmoteData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"MyEmote: {MyEmote}"),
-                new MetadataInfo($"OtherEmote: {OtherEmote}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"MyEmote: {MyEmote}"),
+                new MetaInfo($"OtherEmote: {OtherEmote}"),
             };
             return nodes;
         }

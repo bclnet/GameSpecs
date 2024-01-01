@@ -122,14 +122,14 @@ namespace GameSpec.Bethesda.Formats
         public static Matrix4x4 Read3x3RotationMatrix(BinaryReader r) => r.ReadRowMajorMatrix3x3();
     }
 
-    public class NiFile : IGetMetadataInfo
+    public class NiFile : IHaveMetaInfo
     {
         public NiFile(string name) => Name = name;
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Engine", Name = Name, Value = this }),
-            new MetadataInfo("Nif", items: new List<MetadataInfo> {
-                new MetadataInfo($"NumBlocks: {Header.NumBlocks}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Engine", Name = Name, Value = this }),
+            new MetaInfo("Nif", items: new List<MetaInfo> {
+                new MetaInfo($"NumBlocks: {Header.NumBlocks}"),
             }),
         };
 

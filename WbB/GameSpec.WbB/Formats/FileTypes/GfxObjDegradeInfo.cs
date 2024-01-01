@@ -12,7 +12,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Contains info on what objects to display at what distance to help with render performance (e.g. low-poly very far away, but high-poly when close)
     /// </summary>
     [PakFileType(PakFileType.DegradeInfo)]
-    public class GfxObjDegradeInfo : FileType, IGetMetadataInfo
+    public class GfxObjDegradeInfo : FileType, IHaveMetaInfo
     {
         public readonly GfxObjInfo[] Degrades;
 
@@ -23,15 +23,15 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.DegradeInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(GfxObjDegradeInfo)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Starter Areas", items: Degrades.Select(x => {
-                        var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(GfxObjDegradeInfo)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Starter Areas", items: Degrades.Select(x => {
+                        var items = (x as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Id: ", "");
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items, clickable: true);
+                        return new MetaInfo(name, items: items, clickable: true);
                     })),
                 })
             };

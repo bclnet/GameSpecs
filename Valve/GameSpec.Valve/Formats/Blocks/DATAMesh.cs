@@ -8,7 +8,7 @@ using System.Numerics;
 namespace GameSpec.Valve.Formats.Blocks
 {
     //was:Resource/ResourceTypes/Mesh
-    public class DATAMesh : DATABinaryKV3OrNTRO, IMesh, IGetMetadataInfo
+    public class DATAMesh : DATABinaryKV3OrNTRO, IMesh, IHaveMetaInfo
     {
         IVBIB _vbib;
         public IVBIB VBIB
@@ -68,6 +68,6 @@ namespace GameSpec.Valve.Formats.Blocks
             await MorphData?.LoadFlexData(fileLoader);
         }
 
-        public List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag) => (Parent as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
+        public List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag) => (Parent as IHaveMetaInfo).GetInfoNodes(resource, file, tag);
     }
 }

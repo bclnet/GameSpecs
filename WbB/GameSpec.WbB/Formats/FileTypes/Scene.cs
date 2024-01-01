@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x12. 
     /// </summary>
     [PakFileType(PakFileType.Scene)]
-    public class Scene : FileType, IGetMetadataInfo
+    public class Scene : FileType, IHaveMetaInfo
     {
         public readonly ObjectDesc[] Objects;
 
@@ -22,15 +22,15 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Scene
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Scene)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Objects", items: Objects.Select(x => {
-                        var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Scene)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Objects", items: Objects.Select(x => {
+                        var items = (x as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Object ID: ", "");
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items, clickable: true);
+                        return new MetaInfo(name, items: items, clickable: true);
                     })),
                 })
             };

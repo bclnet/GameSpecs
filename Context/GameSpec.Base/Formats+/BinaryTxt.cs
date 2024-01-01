@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Formats
 {
-    public class BinaryTxt : IGetMetadataInfo
+    public class BinaryTxt : IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryTxt(r, (int)f.FileSize));
 
@@ -14,8 +14,8 @@ namespace GameSpec.Formats
 
         public string Data;
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = Data }),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = Data }),
         };
     }
 }

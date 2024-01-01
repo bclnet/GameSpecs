@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.Valve.Formats.Extras
 {
-    public class ToolsAssetInfo : IGetMetadataInfo
+    public class ToolsAssetInfo : IHaveMetaInfo
     {
         public const uint MAGIC = 0xC4CCACE8;
         public const uint MAGIC2 = 0xC4CCACE9;
@@ -15,16 +15,16 @@ namespace GameSpec.Valve.Formats.Extras
         public ToolsAssetInfo() { }
         public ToolsAssetInfo(BinaryReader r) => Read(r);
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Text", Name = "Text", Value = ToString() }),
-            new MetadataInfo("ToolsAssetInfo", items: new List<MetadataInfo> {
-                new MetadataInfo($"Mods: {Mods.Count}"),
-                new MetadataInfo($"Directories: {Directories.Count}"),
-                new MetadataInfo($"Filenames: {Filenames.Count}"),
-                new MetadataInfo($"Extensions: {Extensions.Count}"),
-                new MetadataInfo($"EditInfoKeys: {EditInfoKeys.Count}"),
-                new MetadataInfo($"MiscStrings: {MiscStrings.Count}"),
-                new MetadataInfo($"ConstructedFilepaths: {ConstructedFilepaths.Count}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Text", Name = "Text", Value = ToString() }),
+            new MetaInfo("ToolsAssetInfo", items: new List<MetaInfo> {
+                new MetaInfo($"Mods: {Mods.Count}"),
+                new MetaInfo($"Directories: {Directories.Count}"),
+                new MetaInfo($"Filenames: {Filenames.Count}"),
+                new MetaInfo($"Extensions: {Extensions.Count}"),
+                new MetaInfo($"EditInfoKeys: {EditInfoKeys.Count}"),
+                new MetaInfo($"MiscStrings: {MiscStrings.Count}"),
+                new MetaInfo($"ConstructedFilepaths: {ConstructedFilepaths.Count}"),
             }),
         };
 

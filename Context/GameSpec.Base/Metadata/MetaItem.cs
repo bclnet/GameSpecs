@@ -8,7 +8,7 @@ using System.Linq;
 namespace GameSpec.Metadata
 {
     [DebuggerDisplay("{Name}, items: {Items.Count}")]
-    public class MetadataItem
+    public class MetaItem
     {
         [DebuggerDisplay("{Name}")]
         public class Filter
@@ -30,19 +30,19 @@ namespace GameSpec.Metadata
         public object Icon { get; }
         public object Tag { get; }
         public PakFile PakFile { get; }
-        public List<MetadataItem> Items { get; private set; }
+        public List<MetaItem> Items { get; private set; }
 
-        public MetadataItem(object source, string name, object icon, object tag = null, List<MetadataItem> items = null, PakFile pakFile = null)
+        public MetaItem(object source, string name, object icon, object tag = null, List<MetaItem> items = null, PakFile pakFile = null)
         {
             Source = source;
             Name = name;
             Icon = icon;
             Tag = tag;
             PakFile = pakFile;
-            Items = items ?? new List<MetadataItem>();
+            Items = items ?? new List<MetaItem>();
         }
 
-        public MetadataItem Search(Func<MetadataItem, bool> predicate)
+        public MetaItem Search(Func<MetaItem, bool> predicate)
         {
             // if node is a leaf
             if (Items == null || Items.Count == 0) return predicate(this) ? this : null;
@@ -52,7 +52,7 @@ namespace GameSpec.Metadata
                 var results = Items.Select(i => i.Search(predicate)).Where(i => i != null).ToList();
                 if (results.Any())
                 {
-                    var result = (MetadataItem)MemberwiseClone();
+                    var result = (MetaItem)MemberwiseClone();
                     result.Items = results;
                     return result;
                 }
@@ -60,7 +60,7 @@ namespace GameSpec.Metadata
             }
         }
 
-        public MetadataItem FindByPath(string path, MetadataManager manager)
+        public MetaItem FindByPath(string path, MetaManager manager)
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
             var node = Items.FirstOrDefault(x => x.Name == paths[0]);
@@ -68,11 +68,11 @@ namespace GameSpec.Metadata
             return node == null || paths.Length == 1 ? node : node.FindByPath(paths[1], manager);
         }
 
-        public static MetadataItem FindByPath(List<MetadataItem> nodes, string path, MetadataManager manager)
+        public static MetaItem findByPathForNodes(List<MetaItem> nodes, string path, MetaManager manager)
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
             var node = nodes.FirstOrDefault(x => x.Name == paths[0]);
-            return paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
+            return node == null || paths.Length == 1 ? node : node?.FindByPath(paths[1], manager);
         }
     }
 }

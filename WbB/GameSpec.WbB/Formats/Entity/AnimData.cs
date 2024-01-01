@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.WbB.Formats.Entity
 {
     //: Entity+AnimData
-    public class AnimData : IGetMetadataInfo
+    public class AnimData : IHaveMetaInfo
     {
         public readonly uint AnimId;
         public readonly int LowFrame;
@@ -33,13 +33,13 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AnimData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Anim ID: {AnimId:X8}", clickable: true),
-                new MetadataInfo($"Low frame: {LowFrame}"),
-                new MetadataInfo($"High frame: {HighFrame}"),
-                new MetadataInfo($"Framerate: {Framerate}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Anim ID: {AnimId:X8}", clickable: true),
+                new MetaInfo($"Low frame: {LowFrame}"),
+                new MetaInfo($"High frame: {HighFrame}"),
+                new MetaInfo($"Framerate: {Framerate}"),
             };
             return nodes;
         }

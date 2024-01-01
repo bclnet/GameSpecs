@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class BspPortal : BspNode, IGetMetadataInfo
+    public class BspPortal : BspNode, IHaveMetaInfo
     {
         public readonly PortalPoly[] InPortals;
 
@@ -30,18 +30,18 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.BSPPortal
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Type: {Type:X8}"),
-                new MetadataInfo($"Splitting Plane: {SplittingPlane}"),
-                PosNode != null ? new MetadataInfo("PosNode", items: (PosNode as IGetMetadataInfo).GetInfoNodes(tag: tag)) : null,
-                NegNode != null ? new MetadataInfo("NegNode", items: (NegNode as IGetMetadataInfo).GetInfoNodes(tag: tag)) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Type: {Type:X8}"),
+                new MetaInfo($"Splitting Plane: {SplittingPlane}"),
+                PosNode != null ? new MetaInfo("PosNode", items: (PosNode as IHaveMetaInfo).GetInfoNodes(tag: tag)) : null,
+                NegNode != null ? new MetaInfo("NegNode", items: (NegNode as IHaveMetaInfo).GetInfoNodes(tag: tag)) : null,
             };
             if ((BSPType)tag != BSPType.Drawing) return nodes;
-            nodes.Add(new MetadataInfo($"Sphere: {Sphere}"));
-            nodes.Add(new MetadataInfo($"InPolys: {string.Join(", ", InPolys)}"));
-            nodes.Add(new MetadataInfo("InPortals", items: InPortals.Select(x => new MetadataInfo($"{x}"))));
+            nodes.Add(new MetaInfo($"Sphere: {Sphere}"));
+            nodes.Add(new MetaInfo($"InPolys: {string.Join(", ", InPolys)}"));
+            nodes.Add(new MetaInfo("InPortals", items: InPortals.Select(x => new MetaInfo($"{x}"))));
             return nodes;
         }
     }

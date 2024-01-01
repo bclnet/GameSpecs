@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class ObjectDesc : IGetMetadataInfo
+    public class ObjectDesc : IHaveMetaInfo
     {
         public readonly uint ObjId;
         public readonly Frame BaseLoc;
@@ -31,19 +31,19 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.ObjectDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Object ID: {ObjId:X8}", clickable: true),
-                new MetadataInfo($"BaseLoc: {BaseLoc}"),
-                new MetadataInfo($"Frequency: {Freq}"),
-                new MetadataInfo($"DisplaceX: {DisplaceX} DisplaceY: {DisplaceY}"),
-                new MetadataInfo($"MinScale: {MinScale} MaxScale: {MaxScale}"),
-                new MetadataInfo($"MaxRotation: {MaxRotation}"),
-                new MetadataInfo($"MinSlope: {MinSlope} MaxSlope: {MaxSlope}"),
-                Align != 0 ? new MetadataInfo($"Align: {Align}") : null,
-                Orient != 0 ? new MetadataInfo($"Orient: {Orient}") : null,
-                WeenieObj != 0 ? new MetadataInfo($"WeenieObj: {WeenieObj}") : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Object ID: {ObjId:X8}", clickable: true),
+                new MetaInfo($"BaseLoc: {BaseLoc}"),
+                new MetaInfo($"Frequency: {Freq}"),
+                new MetaInfo($"DisplaceX: {DisplaceX} DisplaceY: {DisplaceY}"),
+                new MetaInfo($"MinScale: {MinScale} MaxScale: {MaxScale}"),
+                new MetaInfo($"MaxRotation: {MaxRotation}"),
+                new MetaInfo($"MinSlope: {MinSlope} MaxSlope: {MaxSlope}"),
+                Align != 0 ? new MetaInfo($"Align: {Align}") : null,
+                Orient != 0 ? new MetaInfo($"Orient: {Orient}") : null,
+                WeenieObj != 0 ? new MetaInfo($"WeenieObj: {WeenieObj}") : null,
             };
             return nodes;
         }

@@ -12,7 +12,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x32. 
     /// </summary>
     [PakFileType(PakFileType.ParticleEmitter)]
-    public class ParticleEmitterInfo : FileType, IGetMetadataInfo
+    public class ParticleEmitterInfo : FileType, IHaveMetaInfo
     {
         public readonly uint Unknown;
         public readonly EmitterType EmitterType;
@@ -51,25 +51,25 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.ParticleEmitterInfo
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(ParticleEmitterInfo)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"EmitterType: {EmitterType}"),
-                    new MetadataInfo($"ParticleType: {ParticleType}"),
-                    new MetadataInfo($"GfxObjId: {GfxObjId:X8}", clickable: true),
-                    new MetadataInfo($"HWGfxObjId: {HwGfxObjId:X8}", clickable: true),
-                    new MetadataInfo($"Birthrate: {Birthrate}"),
-                    new MetadataInfo($"MaxParticles: {MaxParticles} InitialParticles: {InitialParticles} TotalParticles: {TotalParticles}"),
-                    new MetadataInfo($"TotalSeconds: {TotalSeconds}"),
-                    new MetadataInfo($"Lifespan: {Lifespan} LifespanRand: {LifespanRand}"),
-                    new MetadataInfo($"OffsetDir: {OffsetDir} MinOffset: {MinOffset} MaxOffset: {MaxOffset}"),
-                    new MetadataInfo($"A: {A} MinA: {MinA}: MaxA: {MaxA}"),
-                    new MetadataInfo($"B: {B} MinB: {MinB}: MaxB: {MaxB}"),
-                    new MetadataInfo($"C: {C} MinC: {MinC}: MaxC: {MaxC}"),
-                    new MetadataInfo($"StartScale: {StartScale} FinalScale: {FinalScale}: ScaleRand: {ScaleRand}"),
-                    new MetadataInfo($"StartTrans: {StartTrans} FinalTrans: {FinalTrans}: TransRand: {TransRand}"),
-                    new MetadataInfo($"IsParentLocal: {IsParentLocal}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(ParticleEmitterInfo)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"EmitterType: {EmitterType}"),
+                    new MetaInfo($"ParticleType: {ParticleType}"),
+                    new MetaInfo($"GfxObjId: {GfxObjId:X8}", clickable: true),
+                    new MetaInfo($"HWGfxObjId: {HwGfxObjId:X8}", clickable: true),
+                    new MetaInfo($"Birthrate: {Birthrate}"),
+                    new MetaInfo($"MaxParticles: {MaxParticles} InitialParticles: {InitialParticles} TotalParticles: {TotalParticles}"),
+                    new MetaInfo($"TotalSeconds: {TotalSeconds}"),
+                    new MetaInfo($"Lifespan: {Lifespan} LifespanRand: {LifespanRand}"),
+                    new MetaInfo($"OffsetDir: {OffsetDir} MinOffset: {MinOffset} MaxOffset: {MaxOffset}"),
+                    new MetaInfo($"A: {A} MinA: {MinA}: MaxA: {MaxA}"),
+                    new MetaInfo($"B: {B} MinB: {MinB}: MaxB: {MaxB}"),
+                    new MetaInfo($"C: {C} MinC: {MinC}: MaxC: {MaxC}"),
+                    new MetaInfo($"StartScale: {StartScale} FinalScale: {FinalScale}: ScaleRand: {ScaleRand}"),
+                    new MetaInfo($"StartTrans: {StartTrans} FinalTrans: {FinalTrans}: TransRand: {TransRand}"),
+                    new MetaInfo($"IsParentLocal: {IsParentLocal}"),
                 })
             };
             return nodes;

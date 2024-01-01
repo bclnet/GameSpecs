@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GameSpec.Formats
 {
     // https://github.com/yuraj11/HL-Texture-Tools
-    public unsafe class BinarySpr : ITexture, IGetMetadataInfo
+    public unsafe class BinarySpr : ITexture, IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinarySpr(r, f));
 
@@ -169,12 +169,12 @@ namespace GameSpec.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("Texture", items: new List<MetadataInfo> {
-                new MetadataInfo($"Width: {Width}"),
-                new MetadataInfo($"Height: {Height}"),
-                new MetadataInfo($"Mipmaps: {MipMaps}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo("Texture", items: new List<MetaInfo> {
+                new MetaInfo($"Width: {Width}"),
+                new MetaInfo($"Height: {Height}"),
+                new MetaInfo($"Mipmaps: {MipMaps}"),
             }),
         };
     }

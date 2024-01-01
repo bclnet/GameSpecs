@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SkyObjectReplace : IGetMetadataInfo
+    public class SkyObjectReplace : IHaveMetaInfo
     {
         public readonly uint ObjectIndex;
         public readonly uint GFXObjId;
@@ -25,15 +25,15 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SkyObjectReplace
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Obj Idx: {ObjectIndex}"),
-                GFXObjId != 0 ? new MetadataInfo($"GfxObj ID: {GFXObjId:X8}", clickable: true) : null,
-                Rotate != 0 ? new MetadataInfo($"Rotate: {Rotate}") : null,
-                Transparent != 0 ? new MetadataInfo($"Transparent: {Transparent}") : null,
-                Luminosity != 0 ? new MetadataInfo($"Luminosity: {Luminosity}") : null,
-                MaxBright != 0 ? new MetadataInfo($"MaxBright: {MaxBright}") : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Obj Idx: {ObjectIndex}"),
+                GFXObjId != 0 ? new MetaInfo($"GfxObj ID: {GFXObjId:X8}", clickable: true) : null,
+                Rotate != 0 ? new MetaInfo($"Rotate: {Rotate}") : null,
+                Transparent != 0 ? new MetaInfo($"Transparent: {Transparent}") : null,
+                Luminosity != 0 ? new MetaInfo($"Luminosity: {Luminosity}") : null,
+                MaxBright != 0 ? new MetaInfo($"MaxBright: {MaxBright}") : null,
             };
             return nodes;
         }

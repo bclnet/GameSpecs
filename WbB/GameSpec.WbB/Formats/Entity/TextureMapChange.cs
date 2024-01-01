@@ -6,7 +6,7 @@ using System.IO;
 namespace GameSpec.WbB.Formats.Entity
 {
     // TODO: refactor to merge with existing TextureMapOverride object
-    public class TextureMapChange : IGetMetadataInfo
+    public class TextureMapChange : IHaveMetaInfo
     {
         public readonly byte PartIndex;
         public readonly uint OldTexture;
@@ -20,12 +20,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.TextureMapChange
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"PartIdx: {PartIndex}"),
-                new MetadataInfo($"Old Texture: {OldTexture:X8}", clickable: true),
-                new MetadataInfo($"New Texture: {NewTexture:X8}", clickable: true),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"PartIdx: {PartIndex}"),
+                new MetaInfo($"Old Texture: {OldTexture:X8}", clickable: true),
+                new MetaInfo($"New Texture: {NewTexture:X8}", clickable: true),
             };
             return nodes;
         }

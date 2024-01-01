@@ -156,9 +156,9 @@ Context provides the interface for interacting with this service
 | Task<T>       | LoadFileObjectAsync<T>(int fileId, PakFile transformTo, Action<FileMetadata, string> exception = null) | Loads the object transformed asynchronous.
 | Task<T>       | LoadFileObjectAsync<T>(FileMetadata fileId, PakFile transformTo, Action<FileMetadata, string> exception = null) | Loads the object transformed asynchronous.
 | IOpenGraphic  | Graphic       | Gets the graphic.
-| Task<List<MetadataItem>>| GetMetadataItemsAsync(MetadataManager manager) | Gets the metadata items.
-| Task<List<MetadataItem.Filter>>| GetMetadataItemFiltersAsync(MetadataManager manager) | Gets the metadata item filters.
-| Task<List<MetadataInfo>>| GetMetadataInfosAsync(MetadataManager manager, MetadataItem item) | Gets the metadata infos.
+| Task<List<MetaItem>>| GetMetaItemsAsync(MetaManager manager) | Gets the metadata items.
+| Task<List<MetaItem.Filter>>| GetMetaItemFiltersAsync(MetaManager manager) | Gets the metadata item filters.
+| Task<List<MetaInfo>>| GetMetaInfosAsync(MetaManager manager, MetaItem item) | Gets the metadata infos.
 
 ### Resource
 

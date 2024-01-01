@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class SetOmegaHook : AnimationHook, IGetMetadataInfo
+    public class SetOmegaHook : AnimationHook, IHaveMetaInfo
     {
         public readonly Vector3 Axis;
 
@@ -15,10 +15,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => Axis = r.ReadVector3();
 
         //: Entity.SetOmegaHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is SetOmegaHook s) nodes.Add(new MetadataInfo($"Axis: {s.Axis}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is SetOmegaHook s) nodes.Add(new MetaInfo($"Axis: {s.Axis}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

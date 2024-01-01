@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class GearCG : IGetMetadataInfo
+    public class GearCG : IHaveMetaInfo
     {
         public readonly string Name;
         public readonly uint ClothingTable;
@@ -19,12 +19,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.GearCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo($"Clothing Table: {ClothingTable:X8}", clickable: true),
-                new MetadataInfo($"Weenie Default: {WeenieDefault}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo($"Clothing Table: {ClothingTable:X8}", clickable: true),
+                new MetaInfo($"Weenie Default: {WeenieDefault}"),
             };
             return nodes;
         }

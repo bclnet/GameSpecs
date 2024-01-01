@@ -27,7 +27,7 @@
                   ItemsSource="{Binding Nodes}"
                   SelectedItemChanged="OnNodeSelected">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type model:MetadataItem}" ItemsSource="{Binding Items}">
+                <HierarchicalDataTemplate DataType="{x:Type model:MetaItem}" ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Icon}"/>
                         <TextBlock Text="{Binding Name}"/>
@@ -46,7 +46,7 @@
             VirtualizingStackPanel.VirtualizationMode="Recycling"
             ItemsSource="{Binding Infos}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type model:MetadataInfo}" ItemsSource="{Binding Items}">
+                <HierarchicalDataTemplate DataType="{x:Type model:MetaInfo}" ItemsSource="{Binding Items}">
                     <TextBlock Text="{Binding Name}"/>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>

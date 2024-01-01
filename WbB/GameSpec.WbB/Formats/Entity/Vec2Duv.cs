@@ -8,7 +8,7 @@ namespace GameSpec.WbB.Formats.Entity
     /// <summary>
     /// Info on texture UV mapping
     /// </summary>
-    public class Vec2Duv : IGetMetadataInfo
+    public class Vec2Duv : IHaveMetaInfo
     {
         public readonly float U;
         public readonly float V;
@@ -20,10 +20,10 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.UV
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"U: {U} V: {V}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"U: {U} V: {V}"),
             };
             return nodes;
         }

@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Contains some very basic language and formatting rules.
     /// </summary>
     [PakFileType(PakFileType.StringState)]
-    public class LanguageInfo : FileType, IGetMetadataInfo
+    public class LanguageInfo : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x41000000;
 
@@ -107,10 +107,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: New
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(LanguageInfo)}: {Id:X8}", items: new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(LanguageInfo)}: {Id:X8}", items: new List<MetaInfo> {
                 })
             };
             return nodes;

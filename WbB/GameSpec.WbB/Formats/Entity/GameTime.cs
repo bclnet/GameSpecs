@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class GameTime : IGetMetadataInfo
+    public class GameTime : IHaveMetaInfo
     {
         public double ZeroTimeOfYear;
         public uint ZeroYear; // Year "0" is really "P.Y. 10" in the calendar.
@@ -31,26 +31,26 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.GameTime
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"ZeroTimeOfYear: {ZeroTimeOfYear}"),
-                new MetadataInfo($"ZeroYear: {ZeroYear}"),
-                new MetadataInfo($"DayLength: {DayLength}"),
-                new MetadataInfo($"DaysPerYear: {DaysPerYear}"),
-                new MetadataInfo($"YearSpec: {YearSpec}"),
-                new MetadataInfo("TimesOfDay", items: TimesOfDay.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"ZeroTimeOfYear: {ZeroTimeOfYear}"),
+                new MetaInfo($"ZeroYear: {ZeroYear}"),
+                new MetaInfo($"DayLength: {DayLength}"),
+                new MetaInfo($"DaysPerYear: {DaysPerYear}"),
+                new MetaInfo($"YearSpec: {YearSpec}"),
+                new MetaInfo("TimesOfDay", items: TimesOfDay.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[2].Name.Replace("Name: ", "");
                     items.RemoveAt(2);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
-                new MetadataInfo("DaysOfWeek", items: DaysOfTheWeek.Select(x => new MetadataInfo($"{x}"))),
-                new MetadataInfo("Seasons", items: Seasons.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+                new MetaInfo("DaysOfWeek", items: DaysOfTheWeek.Select(x => new MetaInfo($"{x}"))),
+                new MetaInfo("Seasons", items: Seasons.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[1].Name.Replace("Name: ", "");
                     items.RemoveAt(1);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
             };
             return nodes;

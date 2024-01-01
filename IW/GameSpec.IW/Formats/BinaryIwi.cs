@@ -15,7 +15,7 @@ namespace GameSpec.IW.Formats
     // https://github.com/XLabsProject/img-format-helper - IWI
     // https://github.com/DentonW/DevIL/blob/master/DevIL/src-IL/src/il_iwi.cpp - IWI
     // https://github.com/XLabsProject/img-format-helper - IWI
-    public class BinaryIwi : ITexture, IGetMetadataInfo
+    public class BinaryIwi : ITexture, IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new BinaryIwi(r));
 
@@ -264,13 +264,13 @@ namespace GameSpec.IW.Formats
         }
         public void End() { }
 
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => new List<MetadataInfo> {
-            new MetadataInfo(null, new MetadataContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
-            new MetadataInfo("Texture", items: new List<MetadataInfo> {
-                new MetadataInfo($"Format: {Format.type}"),
-                new MetadataInfo($"Width: {Header.Width}"),
-                new MetadataInfo($"Height: {Header.Height}"),
-                new MetadataInfo($"Mipmaps: {Mips.Length}"),
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
+            new MetaInfo("Texture", items: new List<MetaInfo> {
+                new MetaInfo($"Format: {Format.type}"),
+                new MetaInfo($"Width: {Header.Width}"),
+                new MetaInfo($"Height: {Header.Height}"),
+                new MetaInfo($"Mipmaps: {Mips.Length}"),
             }),
         };
     }

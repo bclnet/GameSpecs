@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class Season : IGetMetadataInfo
+    public class Season : IHaveMetaInfo
     {
         public readonly uint StartDate;
         public readonly string Name;
@@ -18,11 +18,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Season
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"StartDate: {StartDate}"),
-                new MetadataInfo($"Name: {Name}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"StartDate: {StartDate}"),
+                new MetaInfo($"Name: {Name}"),
             };
             return nodes;
         }

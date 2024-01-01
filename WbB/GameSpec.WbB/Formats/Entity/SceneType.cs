@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SceneType : IGetMetadataInfo
+    public class SceneType : IHaveMetaInfo
     {
         public uint StbIndex;
         public uint[] Scenes;
@@ -18,11 +18,11 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SceneType
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"SceneTableIdx: {StbIndex}"),
-                new MetadataInfo("Scenes", items: Scenes.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"SceneTableIdx: {StbIndex}"),
+                new MetaInfo("Scenes", items: Scenes.Select(x => new MetaInfo($"{x:X8}", clickable: true))),
             };
             return nodes;
         }

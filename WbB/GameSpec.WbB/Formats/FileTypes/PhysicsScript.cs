@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are client_portal.dat files starting with 0x33. 
     /// </summary>
     [PakFileType(PakFileType.PhysicsScript)]
-    public class PhysicsScript : FileType, IGetMetadataInfo
+    public class PhysicsScript : FileType, IHaveMetaInfo
     {
         public readonly PhysicsScriptData[] ScriptData;
 
@@ -22,11 +22,11 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.PhysicsScript
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(PhysicsScript)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Scripts", items: ScriptData.Select(x => new MetadataInfo($"HookType: {x.Hook.HookType}, StartTime: {x.StartTime}", items: (AnimationHook.Factory(x.Hook) as IGetMetadataInfo).GetInfoNodes(tag: tag)))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(PhysicsScript)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Scripts", items: ScriptData.Select(x => new MetaInfo($"HookType: {x.Hook.HookType}, StartTime: {x.StartTime}", items: (AnimationHook.Factory(x.Hook) as IHaveMetaInfo).GetInfoNodes(tag: tag)))),
                 })
             };
             return nodes;

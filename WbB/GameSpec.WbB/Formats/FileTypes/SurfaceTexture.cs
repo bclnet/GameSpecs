@@ -7,7 +7,7 @@ using System.Linq;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.SurfaceTexture)]
-    public class SurfaceTexture : FileType, IGetMetadataInfo
+    public class SurfaceTexture : FileType, IHaveMetaInfo
     {
         public readonly int Unknown;
         public readonly byte UnknownByte;
@@ -22,13 +22,13 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.SurfaceTexture
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(SurfaceTexture)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo($"Unknown: {Unknown}"),
-                    new MetadataInfo($"UnknownByte: {UnknownByte}"),
-                    new MetadataInfo("Textures", items: Textures.Select(x => new MetadataInfo($"{x:X8}", clickable: true))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(SurfaceTexture)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo($"Unknown: {Unknown}"),
+                    new MetaInfo($"UnknownByte: {UnknownByte}"),
+                    new MetaInfo("Textures", items: Textures.Select(x => new MetaInfo($"{x:X8}", clickable: true))),
                 })
             };
             return nodes;

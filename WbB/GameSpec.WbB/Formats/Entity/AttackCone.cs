@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class AttackCone : IGetMetadataInfo
+    public class AttackCone : IHaveMetaInfo
     {
         public readonly uint PartIndex;
         // these Left and Right are technically Vec2D types
@@ -22,16 +22,16 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AttackCone
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"PartIndex: {PartIndex}"),
-                new MetadataInfo($"LeftX: {LeftX}"),
-                new MetadataInfo($"LeftY: {LeftY}"),
-                new MetadataInfo($"RightX: {RightX}"),
-                new MetadataInfo($"RightY: {RightY}"),
-                new MetadataInfo($"Radius: {Radius}"),
-                new MetadataInfo($"Height: {Height}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"PartIndex: {PartIndex}"),
+                new MetaInfo($"LeftX: {LeftX}"),
+                new MetaInfo($"LeftY: {LeftY}"),
+                new MetaInfo($"RightX: {RightX}"),
+                new MetaInfo($"RightY: {RightY}"),
+                new MetaInfo($"Radius: {Radius}"),
+                new MetaInfo($"Height: {Height}"),
             };
             return nodes;
         }

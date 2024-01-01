@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class HeritageGroupCG : IGetMetadataInfo
+    public class HeritageGroupCG : IHaveMetaInfo
     {
         public readonly string Name;
         public readonly uint IconImage;
@@ -38,34 +38,34 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.HeritageGroupCG
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo($"Icon: {IconImage:X8}", clickable: true),
-                new MetadataInfo($"Setup: {SetupID:X8}", clickable: true),
-                new MetadataInfo($"Environment: {EnvironmentSetupID:X8}", clickable: true),
-                new MetadataInfo($"Attribute Credits: {AttributeCredits}"),
-                new MetadataInfo($"Skill Credits: {SkillCredits}"),
-                new MetadataInfo($"Primary Start Areas: {string.Join(",", PrimaryStartAreas)}"),
-                new MetadataInfo($"Secondary Start Areas: {string.Join(",", SecondaryStartAreas)}"),
-                new MetadataInfo("Skills", items: Skills.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo($"Icon: {IconImage:X8}", clickable: true),
+                new MetaInfo($"Setup: {SetupID:X8}", clickable: true),
+                new MetaInfo($"Environment: {EnvironmentSetupID:X8}", clickable: true),
+                new MetaInfo($"Attribute Credits: {AttributeCredits}"),
+                new MetaInfo($"Skill Credits: {SkillCredits}"),
+                new MetaInfo($"Primary Start Areas: {string.Join(",", PrimaryStartAreas)}"),
+                new MetaInfo($"Secondary Start Areas: {string.Join(",", SecondaryStartAreas)}"),
+                new MetaInfo("Skills", items: Skills.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("Skill: ", "");
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
-                new MetadataInfo("Templates", items: Templates.Select(x => {
-                    var items = (x as IGetMetadataInfo).GetInfoNodes();
+                new MetaInfo("Templates", items: Templates.Select(x => {
+                    var items = (x as IHaveMetaInfo).GetInfoNodes();
                     var name = items[0].Name.Replace("Name: ", "");
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
-                new MetadataInfo("Genders", items: Genders.Select(x => {
+                new MetaInfo("Genders", items: Genders.Select(x => {
                     var name = $"{(Gender)x.Key}";
-                    var items = (x.Value as IGetMetadataInfo).GetInfoNodes();
+                    var items = (x.Value as IHaveMetaInfo).GetInfoNodes();
                     items.RemoveAt(0);
-                    return new MetadataInfo(name, items: items);
+                    return new MetaInfo(name, items: items);
                 })),
             };
             return nodes;

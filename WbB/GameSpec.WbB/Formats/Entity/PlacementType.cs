@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class PlacementType : IGetMetadataInfo
+    public class PlacementType : IHaveMetaInfo
     {
         public readonly AnimationFrame AnimFrame;
 
@@ -13,6 +13,6 @@ namespace GameSpec.WbB.Formats.Entity
            =>  AnimFrame = new AnimationFrame(r, numParts);
 
         //: Entity.PlacementType
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag) => (AnimFrame as IGetMetadataInfo).GetInfoNodes(resource, file, tag);
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => (AnimFrame as IHaveMetaInfo).GetInfoNodes(resource, file, tag);
     }
 }

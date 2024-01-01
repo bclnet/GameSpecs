@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class StringTableData : IGetMetadataInfo
+    public class StringTableData : IHaveMetaInfo
     {
         public readonly uint Id;
         public readonly string[] VarNames;
@@ -26,14 +26,14 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.StringTableData
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{Id:X8}"),
-                VarNames.Length > 0 ? new MetadataInfo("Variable Names", items: VarNames.Select(x => new MetadataInfo($"{x}"))) : null,
-                Vars.Length > 0 ? new MetadataInfo("Variables", items: Vars.Select(x => new MetadataInfo($"{x}"))) : null,
-                Strings.Length > 0 ? new MetadataInfo("Strings", items: Strings.Select(x => new MetadataInfo($"{x}"))) : null,
-                Comments.Length > 0 ? new MetadataInfo("Comments", items: Comments.Select(x => new MetadataInfo($"{x:X8}"))) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{Id:X8}"),
+                VarNames.Length > 0 ? new MetaInfo("Variable Names", items: VarNames.Select(x => new MetaInfo($"{x}"))) : null,
+                Vars.Length > 0 ? new MetaInfo("Variables", items: Vars.Select(x => new MetaInfo($"{x}"))) : null,
+                Strings.Length > 0 ? new MetaInfo("Strings", items: Strings.Select(x => new MetaInfo($"{x}"))) : null,
+                Comments.Length > 0 ? new MetaInfo("Comments", items: Comments.Select(x => new MetaInfo($"{x:X8}"))) : null,
             };
             return nodes;
         }

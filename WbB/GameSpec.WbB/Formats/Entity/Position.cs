@@ -9,7 +9,7 @@ namespace GameSpec.WbB.Formats.Entity
     /// <summary>
     /// Position consists of a CellID + a Frame (Origin + Orientation)
     /// </summary>
-    public class Position : IGetMetadataInfo
+    public class Position : IHaveMetaInfo
     {
         public readonly uint ObjCellID;
         public readonly Frame Frame;
@@ -21,12 +21,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.Position
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                ObjCellID != 0 ? new MetadataInfo($"ObjCell ID: {ObjCellID:X8}", clickable: true) : null,
-                !Frame.Origin.IsZeroEpsilon() ? new MetadataInfo($"Origin: {Frame.Origin}") : null,
-                !Frame.Orientation.IsIdentity ? new MetadataInfo($"Orientation: {Frame.Orientation}") : null,
+            var nodes = new List<MetaInfo> {
+                ObjCellID != 0 ? new MetaInfo($"ObjCell ID: {ObjCellID:X8}", clickable: true) : null,
+                !Frame.Origin.IsZeroEpsilon() ? new MetaInfo($"Origin: {Frame.Origin}") : null,
+                !Frame.Orientation.IsIdentity ? new MetaInfo($"Orientation: {Frame.Orientation}") : null,
             };
             return nodes;
         }

@@ -1,6 +1,7 @@
 ﻿using GameSpec.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -49,17 +50,14 @@ namespace GameSpec.Formats
         /// <returns>
         ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Contains(string path) => FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath)
-            .Any(x => x.Valid && x.Contains(nextPath));
-
-        /// <summary>
-        /// Determines whether the specified fileId contains file.
-        /// </summary>
-        /// <param name="fileId">The fileId.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
-        /// </returns>
-        public override bool Contains(int fileId) => PakFiles.Any(x => x.Valid && x.Contains(fileId));
+        public override bool Contains(object path)
+            => path switch
+            {
+                null => throw new ArgumentNullException(nameof(path)),
+                string s => FilterPakFiles(s, out var nextPath).Any(x => x.Valid && x.Contains(nextPath)),
+                int i => PakFiles.Any(x => x.Valid && x.Contains(i)),
+                _ => throw new ArgumentOutOfRangeException(nameof(path)),
+            };
 
         /// <summary>
         /// Gets the count.
@@ -90,61 +88,34 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(string path, DataOption option = 0, Action<FileSource, string> exception = null) =>
-            (FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{path}\"."))
-            .LoadFileDataAsync(nextPath, option, exception);
-        /// <summary>
-        /// Loads the file data asynchronous.
-        /// </summary>
-        /// <param name="fileId">The fileId.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{fileId}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(int fileId, DataOption option = 0, Action<FileSource, string> exception = null) =>
-            (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(fileId)) ?? throw new FileNotFoundException($"Could not find file \"{fileId}\"."))
-            .LoadFileDataAsync(fileId, option, exception);
-        /// <summary>
-        /// Loads the file data asynchronous.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<Stream> LoadFileDataAsync(FileSource file, DataOption option = 0, Action<FileSource, string> exception = null) => throw new NotSupportedException();
+        public override Task<Stream> LoadFileDataAsync(object path, FileOption option = default)
+            => path switch
+            {
+                null => throw new ArgumentNullException(nameof(path)),
+                string s => (FilterPakFiles(s, out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
+                    .LoadFileDataAsync(nextPath, option),
+                int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
+                    .LoadFileDataAsync(i, option),
+                _ => throw new ArgumentOutOfRangeException(nameof(path)),
+            };
 
         /// <summary>
         /// Loads the object asynchronous.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="path">The path.</param>
-        /// <param name="exception">The exception.</param>
+        /// <param name="option">The option.</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(string path, Action<FileSource, string> exception) =>
-            (FilterPakFiles(path ?? throw new ArgumentNullException(nameof(path)), out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{path}\"."))
-            .LoadFileObjectAsync<T>(nextPath, exception);
-        /// <summary>
-        /// Loads the object asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fileId">The fileId.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException">Could not find file \"{fileId}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(int fileId, Action<FileSource, string> exception) =>
-            (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(fileId)) ?? throw new FileNotFoundException($"Could not find file \"{fileId}\"."))
-            .LoadFileObjectAsync<T>(fileId, exception);
-        /// <summary>
-        /// Loads the object asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="exception">The exception.</param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<T> LoadFileObjectAsync<T>(FileSource file, Action<FileSource, string> exception) => throw new NotSupportedException();
+        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
+        public override Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default)
+            => path switch
+            {
+                null => throw new ArgumentNullException(nameof(path)),
+                string s => (FilterPakFiles(s, out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
+                    .LoadFileObjectAsync<T>(nextPath, option),
+                int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
+                    .LoadFileObjectAsync<T>(i, option),
+                _ => throw new ArgumentOutOfRangeException(nameof(path)),
+            };
 
         #region Metadata
 
@@ -154,11 +125,11 @@ namespace GameSpec.Formats
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override async Task<List<MetadataItem>> GetMetadataItemsAsync(MetadataManager manager)
+        public override async Task<List<MetaItem>> GetMetaItemsAsync(MetaManager manager)
         {
-            var root = new List<MetadataItem>();
+            var root = new List<MetaItem>();
             foreach (var pakFile in PakFiles.Where(x => x.Valid))
-                root.Add(new MetadataItem(pakFile, pakFile.Name, manager.PackageIcon, pakFile: pakFile, items: await pakFile.GetMetadataItemsAsync(manager)));
+                root.Add(new MetaItem(pakFile, pakFile.Name, manager.PackageIcon, pakFile: pakFile, items: await pakFile.GetMetaItemsAsync(manager)));
             return root;
         }
 

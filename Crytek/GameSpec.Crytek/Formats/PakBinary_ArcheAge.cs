@@ -83,7 +83,7 @@ namespace GameSpec.Crytek.Formats
             return Task.CompletedTask;
         }
 
-        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public unsafe override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             // position
             r.Seek(file.Position);

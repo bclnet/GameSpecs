@@ -502,7 +502,7 @@ namespace GameSpec.Red.Formats
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
                         source.Files = files = new FileSource[header.NumFiles];
-                        var cryptKey = source.CryptKey as ulong?;
+                        var cryptKey = source.Tag as ulong?;
                         r.Seek((long)header.FilesPosition);
                         var hash = 0x00000000FFFFFFFFUL;
                         for (var i = 0; i < header.NumFiles; i++)
@@ -677,7 +677,7 @@ namespace GameSpec.Red.Formats
             BC5 = 7,        // 3DC, ATI2
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData = null;
             r.Seek(file.Position);

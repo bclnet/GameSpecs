@@ -12,7 +12,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// These are basically pre-fab regions for things like the interior of a dungeon.
     /// </summary>
     [PakFileType(PakFileType.Environment)]
-    public class Environment : FileType, IGetMetadataInfo
+    public class Environment : FileType, IHaveMetaInfo
     {
         public readonly Dictionary<uint, CellStruct> Cells;
 
@@ -23,10 +23,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Environment
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Environment)}: {Id:X8}", items: Cells.Select(x => new MetadataInfo($"{x.Key}", items: (x.Value as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Environment)}: {Id:X8}", items: Cells.Select(x => new MetaInfo($"{x.Key}", items: (x.Value as IHaveMetaInfo).GetInfoNodes()))),
             };
             return nodes;
         }

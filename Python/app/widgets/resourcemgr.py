@@ -1,8 +1,8 @@
 import sys, os, glob
 from PyQt6.QtGui import QIcon
-from gamespecs import MetadataManager
+from gamespecs import MetaManager
 
-class ResourceManager(MetadataManager):
+class ResourceManager(MetaManager):
     def __init__(self):
         self._icons = {
             path.replace('\\', '.').replace('/', '.').rsplit('.', 2)[1]:QIcon(path) \

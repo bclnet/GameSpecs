@@ -8,7 +8,7 @@ using GameSpec.Formats;
 namespace GameSpec.WbB.Formats.FileTypes
 {
     [PakFileType(PakFileType.CharacterGenerator)]
-    public class CharGen : FileType, IGetMetadataInfo
+    public class CharGen : FileType, IHaveMetaInfo
     {
         public const uint FILE_ID = 0x0E000002;
 
@@ -26,21 +26,21 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.CharGen
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(CharGen)}: {Id:X8}", items: new List<MetadataInfo> {
-                    new MetadataInfo("Starter Areas", items: StarterAreas.Select(x => {
-                        var items = (x as IGetMetadataInfo).GetInfoNodes();
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(CharGen)}: {Id:X8}", items: new List<MetaInfo> {
+                    new MetaInfo("Starter Areas", items: StarterAreas.Select(x => {
+                        var items = (x as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Name: ", "");
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items);
+                        return new MetaInfo(name, items: items);
                     })),
-                    new MetadataInfo("Heritage Groups", items: HeritageGroups.Select(x => {
-                        var items = (x.Value as IGetMetadataInfo).GetInfoNodes();
+                    new MetaInfo("Heritage Groups", items: HeritageGroups.Select(x => {
+                        var items = (x.Value as IHaveMetaInfo).GetInfoNodes();
                         var name = items[0].Name.Replace("Name: ", "");
                         items.RemoveAt(0);
-                        return new MetadataInfo(name, items: items);
+                        return new MetaInfo(name, items: items);
                     })),
                 })
             };

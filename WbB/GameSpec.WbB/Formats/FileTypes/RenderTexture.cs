@@ -16,7 +16,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// 0x15000001 = ConsoleInputBackgroundTexture
     /// </summary>
     [PakFileType(PakFileType.RenderTexture)]
-    public class RenderTexture : FileType, IGetMetadataInfo
+    public class RenderTexture : FileType, IHaveMetaInfo
     {
         public readonly int Unknown;
         public readonly byte UnknownByte;
@@ -31,10 +31,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: New
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(RenderTexture)}: {Id:X8}", items: new List<MetadataInfo> {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(RenderTexture)}: {Id:X8}", items: new List<MetaInfo> {
                 })
             };
             return nodes;

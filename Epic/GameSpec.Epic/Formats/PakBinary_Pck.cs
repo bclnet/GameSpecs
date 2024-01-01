@@ -32,14 +32,14 @@ namespace GameSpec.Epic.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             var R = (BinaryReader)file.Tag;
             R.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(R.ReadBytes((int)file.FileSize)));
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = default, Action<FileSource, string> exception = default)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
             => throw new NotImplementedException();
     }
 }

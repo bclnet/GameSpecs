@@ -5,7 +5,7 @@ using IImage = Microsoft.Maui.Graphics.IImage;
 
 namespace GameSpec.App.Explorer
 {
-    public class ResourceManager : MetadataManager
+    public class ResourceManager : MetaManager
     {
         readonly Dictionary<string, IImage> Icons = new();
         readonly ConcurrentDictionary<string, IImage> ImageCache = new();

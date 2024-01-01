@@ -24,12 +24,13 @@ namespace GameSpec.Formats
         {
             if (basis is BinaryPakFile b)
             {
-                GetMetadataItemsMethod = b.GetMetadataItemsMethod;
                 GetObjectFactoryFactory = b.GetObjectFactoryFactory;
             }
             Paths = paths;
             UseReader = false;
         }
+
+        #region PakBinary
 
         /// <summary>
         /// Reads the asynchronous.
@@ -48,7 +49,11 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, DataOption option = default, Action<FileSource, string> exception = default)
-            => Task.FromResult(file.Pak == null ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize)) : default);
+        public override Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, FileOption option = default)
+            => Task.FromResult(file.Pak == null
+                ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize))
+                : default);
+
+        #endregion
     }
 }

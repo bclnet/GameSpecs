@@ -67,7 +67,7 @@ class FileExplorer(QWidget):
         self.initUI()
         # ready
         pakFile = tab.pakFile
-        self.nodes = pakFile.getMetadataItems(self.resource)
+        self.nodes = pakFile.getMetaItems(self.resource)
         print(self.nodes)
         exit(1)
         self.load_dir(tab.pakFile)

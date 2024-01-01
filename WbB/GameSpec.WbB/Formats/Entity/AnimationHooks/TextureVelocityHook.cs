@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class TextureVelocityHook : AnimationHook, IGetMetadataInfo
+    public class TextureVelocityHook : AnimationHook, IHaveMetaInfo
     {
         public readonly float USpeed;
         public readonly float VSpeed;
@@ -18,10 +18,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
         }
 
         //: Entity.TextureVelocityHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is TextureVelocityHook s) nodes.Add(new MetadataInfo($"USpeed: {s.USpeed}, VSpeed: {s.VSpeed}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is TextureVelocityHook s) nodes.Add(new MetaInfo($"USpeed: {s.USpeed}, VSpeed: {s.VSpeed}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

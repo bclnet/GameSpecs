@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class AmbientSTBDesc : IGetMetadataInfo
+    public class AmbientSTBDesc : IHaveMetaInfo
     {
         public readonly uint STBId;
         public readonly AmbientSoundDesc[] AmbientSounds;
@@ -18,12 +18,12 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.AmbientSoundTableDesc
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Ambient Sound Table ID: {STBId:X8}", clickable: true),
-                new MetadataInfo($"Ambient Sounds", items: AmbientSounds.Select((x, i)
-                    => new MetadataInfo($"{i}", items: (x as IGetMetadataInfo).GetInfoNodes()))),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Ambient Sound Table ID: {STBId:X8}", clickable: true),
+                new MetaInfo($"Ambient Sounds", items: AmbientSounds.Select((x, i)
+                    => new MetaInfo($"{i}", items: (x as IHaveMetaInfo).GetInfoNodes()))),
             };
             return nodes;
         }

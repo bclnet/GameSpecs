@@ -61,16 +61,16 @@ namespace GameSpec.Cig.Apps.Subsumption.Views.Missions
                 //    if (pak != null && pak.Status == PakFile.PakStatus.Closed)
                 //    {
                 //        pak.Open();
-                //        value.Items.AddRange(pak.GetMetadataItemsAsync(Resource).Result);
+                //        value.Items.AddRange(pak.GetMetaItemsAsync(Resource).Result);
                 //        OnNodeFilterKeyUp(null, null);
                 //    }
-                //    OnFileInfo(value?.PakFile?.GetMetadataInfosAsync(Resource, value).Result);
+                //    OnFileInfo(value?.PakFile?.GetMetaInfosAsync(Resource, value).Result);
                 //}
                 //catch (Exception ex)
                 //{
                 //    OnFileInfo(new[] {
-                //        new MetadataInfo($"EXCEPTION: {ex.Message}"),
-                //        new MetadataInfo(ex.StackTrace),
+                //        new MetaInfo($"EXCEPTION: {ex.Message}"),
+                //        new MetaInfo(ex.StackTrace),
                 //    });
                 //}
             }

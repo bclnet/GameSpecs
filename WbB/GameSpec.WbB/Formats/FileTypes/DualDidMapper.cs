@@ -20,7 +20,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// 27000004 - TradeNotes
     /// </summary>
     [PakFileType(PakFileType.DualDidMapper)]
-    public class DualDidMapper : FileType, IGetMetadataInfo
+    public class DualDidMapper : FileType, IHaveMetaInfo
     {
         // The client/server designation is guessed based on the content in each list.
         // The keys in these two Dictionaries are common. So ClientEnumToId[key] = ClientEnumToName[key].
@@ -48,18 +48,18 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.DualDidMapper
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(DualDidMapper)}: {Id:X8}", items: new List<MetadataInfo> {
-                    ClientEnumToID.Count > 0 ? new MetadataInfo($"ClientIDNumberingType: {ClientIDNumberingType}") : null,
-                    ClientEnumToID.Count > 0 ? new MetadataInfo("ClientEnumToID", items: ClientEnumToID.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
-                    ClientEnumToName.Count > 0 ? new MetadataInfo($"ClientNameNumberingType: {ClientNameNumberingType}") : null,
-                    ClientEnumToName.Count > 0 ? new MetadataInfo("ClientEnumToName", items: ClientEnumToName.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
-                    ServerEnumToID.Count > 0 ? new MetadataInfo($"ServerIDNumberingType: {ServerIDNumberingType}") : null,
-                    ServerEnumToID.Count > 0 ? new MetadataInfo("ServerEnumToID", items: ServerEnumToID.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
-                    ServerEnumToName.Count > 0 ? new MetadataInfo($"ServerNameNumberingType: {ClientIDNumberingType}") : null,
-                    ServerEnumToName.Count > 0 ? new MetadataInfo("ServerEnumToName", items: ServerEnumToName.OrderBy(x => x.Key).Select(x => new MetadataInfo($"{x.Key}: {x.Value::X8}"))) : null,
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(DualDidMapper)}: {Id:X8}", items: new List<MetaInfo> {
+                    ClientEnumToID.Count > 0 ? new MetaInfo($"ClientIDNumberingType: {ClientIDNumberingType}") : null,
+                    ClientEnumToID.Count > 0 ? new MetaInfo("ClientEnumToID", items: ClientEnumToID.OrderBy(x => x.Key).Select(x => new MetaInfo($"{x.Key}: {x.Value::X8}"))) : null,
+                    ClientEnumToName.Count > 0 ? new MetaInfo($"ClientNameNumberingType: {ClientNameNumberingType}") : null,
+                    ClientEnumToName.Count > 0 ? new MetaInfo("ClientEnumToName", items: ClientEnumToName.OrderBy(x => x.Key).Select(x => new MetaInfo($"{x.Key}: {x.Value::X8}"))) : null,
+                    ServerEnumToID.Count > 0 ? new MetaInfo($"ServerIDNumberingType: {ServerIDNumberingType}") : null,
+                    ServerEnumToID.Count > 0 ? new MetaInfo("ServerEnumToID", items: ServerEnumToID.OrderBy(x => x.Key).Select(x => new MetaInfo($"{x.Key}: {x.Value::X8}"))) : null,
+                    ServerEnumToName.Count > 0 ? new MetaInfo($"ServerNameNumberingType: {ClientIDNumberingType}") : null,
+                    ServerEnumToName.Count > 0 ? new MetaInfo("ServerEnumToName", items: ServerEnumToName.OrderBy(x => x.Key).Select(x => new MetaInfo($"{x.Key}: {x.Value::X8}"))) : null,
                 })
             };
             return nodes;

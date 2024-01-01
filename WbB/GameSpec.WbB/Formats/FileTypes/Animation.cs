@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.FileTypes
     /// Special thanks to Dan Skorupski for his work on Bael'Zharon's Respite, which helped fill in some of the gaps https://github.com/boardwalk/bzr
     /// </summary>
     [PakFileType(PakFileType.Animation)]
-    public class Animation : FileType, IGetMetadataInfo
+    public class Animation : FileType, IHaveMetaInfo
     {
         public readonly AnimationFlags Flags;
         public readonly uint NumParts;
@@ -32,12 +32,12 @@ namespace GameSpec.WbB.Formats.FileTypes
         }
 
         //: FileTypes.Animation
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"{nameof(Animation)}: {Id:X8}", items: new List<MetadataInfo> {
-                    Flags.HasFlag(AnimationFlags.PosFrames) ? new MetadataInfo($"PosFrames", items: PosFrames.Select(x => new MetadataInfo($"{x}"))) : null,
-                    new MetadataInfo($"PartFrames", items: PartFrames.Select(x => new MetadataInfo($"{x}")))
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"{nameof(Animation)}: {Id:X8}", items: new List<MetaInfo> {
+                    Flags.HasFlag(AnimationFlags.PosFrames) ? new MetaInfo($"PosFrames", items: PosFrames.Select(x => new MetaInfo($"{x}"))) : null,
+                    new MetaInfo($"PartFrames", items: PartFrames.Select(x => new MetaInfo($"{x}")))
                 })
             };
             return nodes;

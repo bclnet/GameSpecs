@@ -1,5 +1,6 @@
 ﻿using GameSpec.Formats;
 using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,8 +58,6 @@ namespace GameSpec.Crytek.Formats
 
         public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
         {
-            
-
             source.UseReader = false;
             var files = source.Files;
             var pak = (Cry3File)(source.Tag = new Cry3File(w.BaseStream, Key));
@@ -67,29 +66,29 @@ namespace GameSpec.Crytek.Formats
             {
                 var entry = (ZipEntry)(file.Tag = new ZipEntry(Path.GetFileName(file.Path)));
                 pak.Add(entry);
-                source.PakBinary.WriteDataAsync(source, w, file, null, 0, null);
+                source.PakBinary.WriteDataAsync(source, w, file, null);
             }
             pak.CommitUpdate();
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             var pak = (Cry3File)source.Tag;
             var entry = (ZipEntry)file.Tag;
             try
             {
                 using var input = pak.GetInputStream(entry);
-                if (!input.CanRead) { Log($"Unable to read stream for file: {file.Path}"); exception?.Invoke(file, $"Unable to read stream for file: {file.Path}"); return Task.FromResult(System.IO.Stream.Null); }
+                if (!input.CanRead) { HandleException(file, option, $"Unable to read stream for file: {file.Path}"); return Task.FromResult(System.IO.Stream.Null); }
                 var s = new MemoryStream();
                 input.CopyTo(s);
                 s.Position = 0;
                 return Task.FromResult((Stream)s);
             }
-            catch (Exception e) { Log($"{file.Path} - Exception: {e.Message}"); exception?.Invoke(file, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
+            catch (Exception e) { HandleException(file, option, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, DataOption option = 0, Action<FileSource, string> exception = null)
+        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
         {
             var pak = (Cry3File)source.Tag;
             var entry = (ZipEntry)file.Tag;
@@ -98,7 +97,7 @@ namespace GameSpec.Crytek.Formats
                 using var s = pak.GetInputStream(entry);
                 data.CopyTo(s);
             }
-            catch (Exception e) { exception?.Invoke(file, $"Exception: {e.Message}"); }
+            catch (Exception e) { HandleException(file, option, $"Exception: {e.Message}"); }
             return Task.CompletedTask;
         }
     }

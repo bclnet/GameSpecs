@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity.AnimationHooks
 {
-    public class SetLightHook : AnimationHook, IGetMetadataInfo
+    public class SetLightHook : AnimationHook, IHaveMetaInfo
     {
         public readonly int LightsOn;
 
@@ -14,10 +14,10 @@ namespace GameSpec.WbB.Formats.Entity.AnimationHooks
             => LightsOn = r.ReadInt32();
 
         //: Entity.SetLightHook
-        public override List<MetadataInfo> GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        public override List<MetaInfo> GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo>();
-            if (Base is SetLightHook s) nodes.Add(new MetadataInfo($"LightsOn: {s.LightsOn}"));
+            var nodes = new List<MetaInfo>();
+            if (Base is SetLightHook s) nodes.Add(new MetaInfo($"LightsOn: {s.LightsOn}"));
             nodes.AddRange(base.GetInfoNodes(resource, file, tag));
             return nodes;
         }

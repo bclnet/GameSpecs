@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace GameSpec.Cig
 {
-    public class ResourceManagerProvider : MetadataManager
+    public class ResourceManagerProvider : MetaManager
     {
         readonly Dictionary<string, BitmapImage> Icons = new();
         readonly ConcurrentDictionary<string, BitmapImage> ImageCache = new();

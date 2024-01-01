@@ -7,7 +7,7 @@ using System.IO;
 
 namespace GameSpec.WbB.Formats.Entity
 {
-    public class SpellComponentBase : IGetMetadataInfo
+    public class SpellComponentBase : IHaveMetaInfo
     {
         public readonly string Name;
         public readonly uint Category;
@@ -31,17 +31,17 @@ namespace GameSpec.WbB.Formats.Entity
         }
 
         //: Entity.SpellComponentBase
-        List<MetadataInfo> IGetMetadataInfo.GetInfoNodes(MetadataManager resource, FileSource file, object tag)
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
-            var nodes = new List<MetadataInfo> {
-                new MetadataInfo($"Name: {Name}"),
-                new MetadataInfo($"Category: {Category}"),
-                new MetadataInfo($"Icon: {Icon:X8}", clickable: true),
-                new MetadataInfo($"Type: {(SpellComponentTable.Type)Type}"),
-                Gesture != 0x80000000 ? new MetadataInfo($"Gesture: {(MotionCommand)Gesture}") : null,
-                new MetadataInfo($"Time: {Time}"),
-                !string.IsNullOrEmpty(Text) ? new MetadataInfo($"Text: {Text}") : null,
-                new MetadataInfo($"CDM: {CDM}"),
+            var nodes = new List<MetaInfo> {
+                new MetaInfo($"Name: {Name}"),
+                new MetaInfo($"Category: {Category}"),
+                new MetaInfo($"Icon: {Icon:X8}", clickable: true),
+                new MetaInfo($"Type: {(SpellComponentTable.Type)Type}"),
+                Gesture != 0x80000000 ? new MetaInfo($"Gesture: {(MotionCommand)Gesture}") : null,
+                new MetaInfo($"Time: {Time}"),
+                !string.IsNullOrEmpty(Text) ? new MetaInfo($"Text: {Text}") : null,
+                new MetaInfo($"CDM: {CDM}"),
             };
             return nodes;
         }
