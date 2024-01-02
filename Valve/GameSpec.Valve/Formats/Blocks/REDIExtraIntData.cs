@@ -21,7 +21,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public List<EditIntData> List { get; } = new List<EditIntData>();
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             for (var i = 0; i < Size; i++) List.Add(new EditIntData

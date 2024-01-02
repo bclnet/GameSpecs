@@ -1,8 +1,7 @@
-﻿using GameSpec.Formats;
-using GameSpec.Formats.Unknown;
-using GameSpec.Black.Formats;
+﻿using GameSpec.Black.Formats;
 using GameSpec.Black.Transforms;
-using GameSpec.Metadata;
+using GameSpec.Formats;
+using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
 using System;
 using System.IO;
@@ -25,10 +24,10 @@ namespace GameSpec.Black
         /// <param name="tag">The tag.</param>
         public BlackPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game, string extension)
             => PakBinary_Dat.Instance;
@@ -40,6 +39,15 @@ namespace GameSpec.Black
         //    ".dat" => PakBinary_Dat.Instance,
         //    _ => throw new ArgumentOutOfRangeException(nameof(extension)),
         //};
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                var x when x.StartsWith(".fr") => (0, Binary_Frm.Factory),
+                ".pal" => (0, Binary_Pal.Factory),
+                ".rix" => (0, Binary_Rix.Factory),
+                _ => (0, null),
+            };
 
         #endregion
 

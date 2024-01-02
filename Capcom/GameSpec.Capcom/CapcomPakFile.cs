@@ -25,14 +25,14 @@ namespace GameSpec.Capcom
         /// <param name="tag">The tag.</param>
         public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, filePath != null ? GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()) : null, tag)
         {
-            GetObjectFactoryFactory = game.Engine switch
+            ObjectFactoryFactoryMethod = game.Engine switch
             {
-                "Unity" => Unity.Formats.FormatExtensions.GetObjectFactoryFactory,
-                _ => FormatExtensions.GetObjectFactoryFactory,
+                "Unity" => Unity.UnityPakFile.ObjectFactoryFactory,
+                _ => ObjectFactoryFactory,
             };
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
@@ -52,6 +52,14 @@ namespace GameSpec.Capcom
                     ".mbundle" => PakBinary_Plist.Instance,
                     _ => throw new ArgumentOutOfRangeException(nameof(extension)),
                 },
+            };
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".png" => (0, Binary_Img.Factory),
+                var x when x == ".cfg" || x == ".csv" || x == ".txt" => (0, Binary_Txt.Factory),
+                _ => (0, null),
             };
 
         #endregion

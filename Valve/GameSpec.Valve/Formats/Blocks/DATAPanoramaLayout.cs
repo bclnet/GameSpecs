@@ -11,7 +11,7 @@ namespace GameSpec.Valve.Formats.Blocks
     {
         DATABinaryKV3 _layoutContent;
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             base.Read(parent, r);
             _layoutContent = parent.GetBlockByType<LACO>();

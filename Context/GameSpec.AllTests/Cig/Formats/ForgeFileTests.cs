@@ -17,7 +17,7 @@ namespace GameSpec.Cig.Formats
         public async Task LoadFileObjectAsync(PakFile source, string sampleFile)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            var file = await source.LoadFileObjectAsync<BinaryDcb>(sampleFile);
+            var file = await source.LoadFileObjectAsync<Binary_Dcb>(sampleFile);
         }
     }
 }

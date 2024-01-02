@@ -5,7 +5,7 @@ namespace GameSpec.Valve.Formats.Blocks
 {
     public class REDICustomDependencies : REDIAbstract
     {
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             if (Size > 0) throw new NotImplementedException("CustomDependencies block is not handled.");

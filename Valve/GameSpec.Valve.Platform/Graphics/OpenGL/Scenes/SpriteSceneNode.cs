@@ -20,7 +20,7 @@ namespace GameSpec.Valve.Graphics.OpenGL.Scenes
         readonly Vector3 position;
         readonly float size;
 
-        public SpriteSceneNode(Scene scene, BinaryPak resource, Vector3 position) : base(scene)
+        public SpriteSceneNode(Scene scene, Binary_Pak resource, Vector3 position) : base(scene)
         {
             var graphic = scene.Graphic as IOpenGLGraphic;
             material = graphic.MaterialManager.LoadMaterial(resource, out var _);

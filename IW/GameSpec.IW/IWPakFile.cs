@@ -2,8 +2,9 @@
 using GameSpec.Formats.Unknown;
 using GameSpec.IW.Formats;
 using GameSpec.IW.Transforms;
-using GameSpec.Metadata;
 using GameSpec.Transforms;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.IW
@@ -23,9 +24,24 @@ namespace GameSpec.IW
         /// <param name="tag">The tag.</param>
         public IWPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_IW.Instance, tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             UseReader = false;
         }
+
+        #region Factories
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                var x when x == ".cfg" || x == ".csv" || x == ".txt" => (0, Binary_Txt.Factory),
+                //".roq" => (0, VIDEO.Factory),
+                //".wav" => (0, BinaryWav.Factory),
+                //".d3dbsp" => (0, BinaryD3dbsp.Factory),
+                ".iwi" => (0, Binary_Iwi.Factory),
+                _ => (0, null),
+            };
+
+        #endregion
 
         #region Transforms
 

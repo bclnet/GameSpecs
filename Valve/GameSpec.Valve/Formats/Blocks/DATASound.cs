@@ -106,9 +106,9 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public uint StreamingDataSize { get; private set; }
 
-        protected BinaryPak Parent { get; private set; }
+        protected Binary_Pak Parent { get; private set; }
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             Parent = parent;
             r.Seek(Offset);

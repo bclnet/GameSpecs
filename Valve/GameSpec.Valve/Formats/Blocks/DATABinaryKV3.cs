@@ -73,7 +73,7 @@ namespace GameSpec.Valve.Formats.Blocks
         long currentEightBytesOffset = -1;
         long currentBinaryBytesOffset = -1;
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             var magic = r.ReadUInt32();

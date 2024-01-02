@@ -44,7 +44,7 @@ namespace GameSpec.Valve.Formats.OpenGL
 
                 if (renderableModel != null)
                 {
-                    var newResource = Graphic.LoadFileObjectAsync<BinaryPak>($"{renderableModel}_c").Result;
+                    var newResource = Graphic.LoadFileObjectAsync<Binary_Pak>($"{renderableModel}_c").Result;
                     if (newResource == null) continue;
                     var modelNode = new ModelSceneNode(scene, (IValveModel)newResource.DATA, null, false)
                     {
@@ -59,7 +59,7 @@ namespace GameSpec.Valve.Formats.OpenGL
                 var renderable = sceneObject.Get<string>("m_renderable");
                 if (renderable != null)
                 {
-                    var newResource = Graphic.LoadFileObjectAsync<BinaryPak>($"{renderable}_c").Result;
+                    var newResource = Graphic.LoadFileObjectAsync<Binary_Pak>($"{renderable}_c").Result;
                     if (newResource == null) continue;
                     var meshNode = new MeshSceneNode(scene, new DATAMesh(newResource), 0)
                     {
@@ -80,7 +80,7 @@ namespace GameSpec.Valve.Formats.OpenGL
                 var renderableModel = sceneObject.Get<string>("m_renderableModel");
                 if (renderableModel != null)
                 {
-                    var newResource = Graphic.LoadFileObjectAsync<BinaryPak>($"{renderableModel}_c").Result;
+                    var newResource = Graphic.LoadFileObjectAsync<Binary_Pak>($"{renderableModel}_c").Result;
                     if (newResource == null) continue;
 
                     var layerIndex = sceneObject.Get<int>("m_nLayer");

@@ -4,6 +4,8 @@ using GameSpec.Metadata;
 using GameSpec.Origin.Formats;
 using GameSpec.Origin.Transforms;
 using GameSpec.Transforms;
+using System.IO;
+using System;
 using System.Threading.Tasks;
 
 namespace GameSpec.Origin
@@ -23,15 +25,22 @@ namespace GameSpec.Origin
         /// <param name="tag">The tag.</param>
         public OriginPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game)
             => game.Id == "UO"
             ? PakBinary_UO.Instance
             : PakBinary_U9.Instance;
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                _ => (0, null),
+            };
 
         #endregion
 

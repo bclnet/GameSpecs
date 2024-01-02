@@ -25,7 +25,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public List<ArgumentDependency> List { get; } = new List<ArgumentDependency>();
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             for (var i = 0; i < Size; i++)

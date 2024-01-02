@@ -24,7 +24,7 @@ namespace GameSpec.Formats
         {
             if (basis is BinaryPakFile b)
             {
-                GetObjectFactoryFactory = b.GetObjectFactoryFactory;
+                ObjectFactoryFactoryMethod = b.ObjectFactoryFactoryMethod;
             }
             Paths = paths;
             UseReader = false;

@@ -1,8 +1,7 @@
-﻿using GameSpec.Formats;
-using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
-using GameSpec.Bethesda.Formats;
+﻿using GameSpec.Bethesda.Formats;
 using GameSpec.Bethesda.Transforms;
+using GameSpec.Formats;
+using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
 using OpenStack.Graphics;
 using System;
@@ -27,7 +26,7 @@ namespace GameSpec.Bethesda
         /// <param name="tag">The tag.</param>
         public BethesdaPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             PathFinders.Add(typeof(ITexture), FindTexture);
         }
 
@@ -55,7 +54,7 @@ namespace GameSpec.Bethesda
 
         #endregion
 
-        #region GetPakBinary
+        #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game, string extension)
             => extension switch
@@ -65,6 +64,16 @@ namespace GameSpec.Bethesda
                 ".ba2" => PakBinary_Ba2.Instance,
                 ".esm" => PakBinary_Esm.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(extension)),
+            };
+
+        static Task<object> NiFactory(BinaryReader r, FileSource f, PakFile s) { var file = new NiFile(Path.GetFileNameWithoutExtension(f.Path)); file.Read(r); return Task.FromResult((object)file); }
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                ".nif" => (0, NiFactory),
+                _ => (0, null),
             };
 
         #endregion

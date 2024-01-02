@@ -1,4 +1,5 @@
 ﻿using GameSpec.Metadata;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace GameSpec.Formats
         public uint Version;
         // metadata/factory
         protected Dictionary<string, Func<MetaManager, BinaryPakFile, FileSource, Task<List<MetaInfo>>>> MetaInfos = new Dictionary<string, Func<MetaManager, BinaryPakFile, FileSource, Task<List<MetaInfo>>>>();
-        internal protected Func<FileSource, FamilyGame, (FileOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> GetObjectFactoryFactory;
+        internal protected Func<FileSource, FamilyGame, (FileOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> ObjectFactoryFactoryMethod;
         // binary
         public IList<FileSource> Files;
         public HashSet<string> FilesRawSet;
@@ -174,27 +175,28 @@ namespace GameSpec.Formats
                         var data = await LoadFileDataAsync(f, option);
                         if (data == null) return default;
                         var objectFactory = EnsureCachedObjectFactory(f);
-                        if (objectFactory == FileSource.EmptyObjectFactory)
-                            return type == typeof(Stream) || type == typeof(object)
-                                ? (T)(object)data
-                                : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
-                        var r = new BinaryReader(data);
-                        object value = null;
-                        Task<object> task = null;
-                        try
+                        if (objectFactory != FileSource.EmptyObjectFactory)
                         {
-                            task = objectFactory(r, f, this);
-                            if (task == null)
-                                return type == typeof(Stream) || type == typeof(object)
-                                    ? (T)(object)data
-                                    : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
-                            value = await task;
-                            return value is T z ? z
-                                : value is IRedirected<T> y ? y.Value
-                                : throw new InvalidCastException();
+                            var r = new BinaryReader(data);
+                            object value = null;
+                            Task<object> task = null;
+                            try
+                            {
+                                task = objectFactory(r, f, this);
+                                if (task != null)
+                                {
+                                    value = await task;
+                                    return value is T z ? z
+                                        : value is IRedirected<T> y ? y.Value
+                                        : throw new InvalidCastException();
+                                }
+                            }
+                            catch (Exception e) { Log(e.Message); throw e; }
+                            finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
                         }
-                        catch (Exception e) { Log(e.Message); throw e; }
-                        finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
+                        return type == typeof(Stream) || type == typeof(object)
+                            ? (T)(object)data
+                            : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
                     }
                 case string s:
                     {
@@ -224,8 +226,8 @@ namespace GameSpec.Formats
         public Func<BinaryReader, FileSource, PakFile, Task<object>> EnsureCachedObjectFactory(FileSource file)
         {
             if (file.CachedObjectFactory != null) return file.CachedObjectFactory;
-            var factory = GetObjectFactoryFactory(file, Game);
-            file.CachedDataOption = factory.option;
+            var factory = ObjectFactoryFactoryMethod(file, Game);
+            file.CachedObjectOption = factory.option;
             file.CachedObjectFactory = factory.factory ?? FileSource.EmptyObjectFactory;
             return file.CachedObjectFactory;
         }

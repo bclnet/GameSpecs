@@ -172,7 +172,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public List<ResourceDiskStruct> ReferencedStructs { get; } = new List<ResourceDiskStruct>();
         public List<ResourceDiskEnum> ReferencedEnums { get; } = new List<ResourceDiskEnum>();
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             IntrospectionVersion = r.ReadUInt32();

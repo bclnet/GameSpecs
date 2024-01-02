@@ -20,7 +20,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public byte[] Data { get; private set; }
         public uint Crc32 { get; private set; }
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             Crc32 = r.ReadUInt32();

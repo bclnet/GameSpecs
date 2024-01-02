@@ -134,7 +134,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         #endregion
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             Reader = r;

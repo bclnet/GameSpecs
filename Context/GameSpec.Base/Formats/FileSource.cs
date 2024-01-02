@@ -10,24 +10,26 @@ namespace GameSpec.Formats
     public class FileSource
     {
         internal static readonly Func<BinaryReader, FileSource, PakFile, Task<object>> EmptyObjectFactory = (a, b, c) => null;
-        internal Func<BinaryReader, FileSource, PakFile, Task<object>> CachedObjectFactory;
-        internal FileOption CachedDataOption;
-        public BinaryPakFile Pak;
-        public object Tag;
+        
         // common
         public int Id;
         public string Path;
         public int Compressed;
-        public bool Crypted;
-        public long PackedSize;
-        public long FileSize;
         public long Position;
+        public long FileSize;
+        public long PackedSize;
+        public bool Crypted;
         public ulong Hash;
+        public BinaryPakFile Pak;
+        public object Tag;
         // options
         public IList<FileSource> Parts;
         // extra
         public object FileInfo;
         public byte[] Extra;
         public object ExtraArgs;
+        // cached
+        internal Func<BinaryReader, FileSource, PakFile, Task<object>> CachedObjectFactory;
+        internal FileOption CachedObjectOption;
     }
 }

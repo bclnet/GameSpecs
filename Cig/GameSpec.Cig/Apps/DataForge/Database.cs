@@ -15,7 +15,7 @@ namespace GameSpec.Cig.Apps.DataForge
         public List<Node> Items { get; } = new List<Node>();
         public List<Entity> Entities { get; } = new List<Entity>();
 
-        public static void CreateNode(MetaManager manager, List<Node> nodes, BinaryDcb.Record v)
+        public static void CreateNode(MetaManager manager, List<Node> nodes, Binary_Dcb.Record v)
         {
             var path = v.FileName?[21..] ?? v.Name;
             var icon = manager.FolderIcon;
@@ -45,7 +45,7 @@ namespace GameSpec.Cig.Apps.DataForge
     public class Entity
     {
         public string Name { get; set; }
-        public BinaryDcb.Record Value { get; set; }
+        public Binary_Dcb.Record Value { get; set; }
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace GameSpec.Cig.Apps.DataForge
         {
             family = FamilyManager.GetFamily("Cig");
             pakFile = family.OpenPakFile(new Uri("game:/#StarCitizen"));
-            var obj = await pakFile.LoadFileObjectAsync<BinaryDcb>($"Data/Game.dcb");
+            var obj = await pakFile.LoadFileObjectAsync<Binary_Dcb>($"Data/Game.dcb");
             foreach (var value in obj.RecordTable)
                 Node.CreateNode(manager, Nodes, value);
         }

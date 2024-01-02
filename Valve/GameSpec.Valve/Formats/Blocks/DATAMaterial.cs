@@ -20,7 +20,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public Dictionary<string, Vector4> VectorAttributes { get; } = new Dictionary<string, Vector4>();
         public Dictionary<string, string> StringAttributes { get; } = new Dictionary<string, string>();
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             base.Read(parent, r);
             Name = Data.Get<string>("m_materialName");

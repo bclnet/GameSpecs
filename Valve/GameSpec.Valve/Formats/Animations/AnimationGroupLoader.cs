@@ -8,7 +8,7 @@ namespace GameSpec.Valve.Formats.Animations
     //was:Resource/ResourceTypes/ModelAnimation/AnimationGroupLoader
     public static class AnimationGroupLoader
     {
-        public static IEnumerable<Animation> LoadAnimationGroup(BinaryPak resource, IOpenGraphic graphic, Skeleton skeleton)
+        public static IEnumerable<Animation> LoadAnimationGroup(Binary_Pak resource, IOpenGraphic graphic, Skeleton skeleton)
         {
             var data = resource.DATA.AsKeyValue();
             var decodeKey = data.GetSub("m_decodeKey"); // Get the key to decode the animations
@@ -24,7 +24,7 @@ namespace GameSpec.Valve.Formats.Animations
             var animArray = data.Get<string[]>("m_localHAnimArray").Where(a => a != null); // Get the list of animation files
             foreach (var animationFile in animArray)
             {
-                var animResource = graphic.LoadFileObjectAsync<BinaryPak>($"{animationFile}_c").Result;
+                var animResource = graphic.LoadFileObjectAsync<Binary_Pak>($"{animationFile}_c").Result;
                 if (animResource != null) animationList.AddRange(Animation.FromResource(animResource, decodeKey, skeleton)); // Build animation classes
             }
             return animationList;

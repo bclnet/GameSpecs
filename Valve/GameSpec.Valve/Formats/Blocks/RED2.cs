@@ -15,7 +15,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public IDictionary<string, object> SearchableUserData { get; private set; }
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             var kv3 = new DATABinaryKV3
             {

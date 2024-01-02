@@ -34,7 +34,7 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public string this[ulong id] => RERLInfos.FirstOrDefault(c => c.Id == id)?.Name;
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             var offset = r.ReadUInt32();

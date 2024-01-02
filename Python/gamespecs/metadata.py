@@ -60,7 +60,7 @@ class MetaManager:
     @staticmethod
     def getMetaInfos(manager: MetaManager, pakFile: Any, file: Any) -> list[MetaInfo]:
         nodes = []
-        obj = pakFile.loadFileObject(file)
+        obj = pakFile.loadFileObject(object, file)
         print('a:', obj)
         # nodes.append(MetaInfo(None, MetaContent(type='Hex',name='TEST',value=BytesIO())))
         return nodes

@@ -7,14 +7,14 @@ namespace GameSpec.Valve.Formats.Blocks
     public class DATABinaryKV3OrNTRO : DATA
     {
         readonly string IntrospectionStructName;
-        protected BinaryPak Parent { get; private set; }
+        protected Binary_Pak Parent { get; private set; }
         public IDictionary<string, object> Data { get; private set; }
         DATA BackingData;
 
         public DATABinaryKV3OrNTRO() { }
         public DATABinaryKV3OrNTRO(string introspectionStructName) => IntrospectionStructName = introspectionStructName;
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             Parent = parent;
             if (!parent.ContainsBlockType<NTRO>())

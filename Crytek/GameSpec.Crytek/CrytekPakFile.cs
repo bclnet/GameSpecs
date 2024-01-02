@@ -2,32 +2,33 @@
 using GameSpec.Crytek.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Transforms;
+using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Crytek
 {
     /// <summary>
-    /// CryPakFile
+    /// CrytekPakFile
     /// </summary>
     /// <seealso cref="GameSpec.Formats.BinaryPakFile" />
-    public class CryPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
+    public class CrytekPakFile : BinaryPakFile, ITransformFileObject<IUnknownFileModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CryPakFile" /> class.
+        /// Initializes a new instance of the <see cref="CrytekPakFile" /> class.
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CryPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
+        public CrytekPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
@@ -39,6 +40,15 @@ namespace GameSpec.Crytek
             {
                 "ArcheAge" => new PakBinary_ArcheAge((byte[])game.Key),
                 _ => new PakBinary_Cry3((byte[])game.Key),
+            };
+
+        public static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".xml" => (0, CryXmlFile.Factory),
+                ".dds" => (0, Binary_Dds.Factory),
+                var x when x == ".cgf" || x == ".cga" || x == ".chr" || x == ".skin" || x == ".anim" => (0, CryFile.Factory),
+                _ => (0, null),
             };
 
         #endregion

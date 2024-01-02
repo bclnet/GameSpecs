@@ -3,6 +3,7 @@ using GameSpec.Blizzard.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -23,14 +24,22 @@ namespace GameSpec.Blizzard
         /// <param name="tag">The tag.</param>
         public BlizzardPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             UseReader = false;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game, string extension)
             => PakBinaryBlizzard.Instance;
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                var x when x == ".cfg" || x == ".csv" || x == ".txt" => (0, Binary_Txt.Factory),
+                _ => (0, null),
+            };
 
         #endregion
 

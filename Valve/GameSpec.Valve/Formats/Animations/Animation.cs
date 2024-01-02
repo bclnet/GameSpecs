@@ -112,9 +112,9 @@ namespace GameSpec.Valve.Formats.Animations
             return animArray.Select(anim => new Animation(anim, segmentArray)).ToArray();
         }
 
-        public static IEnumerable<Animation> FromResource(BinaryPak parent, IDictionary<string, object> decodeKey, Skeleton skeleton) => FromData(GetAnimationData(parent), decodeKey, skeleton);
+        public static IEnumerable<Animation> FromResource(Binary_Pak parent, IDictionary<string, object> decodeKey, Skeleton skeleton) => FromData(GetAnimationData(parent), decodeKey, skeleton);
 
-        static IDictionary<string, object> GetAnimationData(BinaryPak parent) => parent.DATA.AsKeyValue();
+        static IDictionary<string, object> GetAnimationData(Binary_Pak parent) => parent.DATA.AsKeyValue();
 
         /// <summary>
         /// Get the animation matrix for each bone.

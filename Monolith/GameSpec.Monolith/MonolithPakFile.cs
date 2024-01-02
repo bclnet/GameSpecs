@@ -25,15 +25,22 @@ namespace GameSpec.Monolith
         /// <param name="tag">The tag.</param>
         public MonolithPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
             => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
                 ? PakBinary_Lith.Instance
                 : PakBinary_Zip.GetPakBinary(game);
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                _ => (0, null),
+            };
 
         #endregion
 

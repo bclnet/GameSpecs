@@ -9,7 +9,7 @@ namespace GameSpec.Valve.Formats.Blocks
     //was:Resource/Blocks/VXVS
     public class VXVS : Block
     {
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             throw new NotImplementedException();

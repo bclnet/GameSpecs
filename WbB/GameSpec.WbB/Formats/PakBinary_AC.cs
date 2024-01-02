@@ -81,7 +81,7 @@ namespace GameSpec.WbB.Formats
                 for (var i = 0; i < Header.EntryCount; i++)
                 {
                     var entry = Header.Entries[i];
-                    var metadata = new FileSource
+                    var file = new FileSource
                     {
                         Id = (int)entry.ObjectId,
                         Position = entry.FileOffset,
@@ -89,9 +89,9 @@ namespace GameSpec.WbB.Formats
                         Hash = (ulong)blockSize,
                         Tag = entry,
                     };
-                    metadata.Path = Path.Combine(path, metadata.GetPath(r, pakType, out var type));
-                    metadata.ExtraArgs = (pakType, type);
-                    files.Add(metadata);
+                    file.Path = Path.Combine(path, WbBPakFile.GetPath(file, r, pakType, out var type));
+                    file.ExtraArgs = (pakType, type);
+                    files.Add(file);
                 }
             }
         }

@@ -1,9 +1,11 @@
-﻿using GameSpec.Formats;
+﻿using GameSpec.Bioware.Formats;
+using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Red.Formats;
 using GameSpec.Red.Transforms;
 using GameSpec.Transforms;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Red
@@ -23,8 +25,21 @@ namespace GameSpec.Red
         /// <param name="tag">The tag.</param>
         public RedPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Red.Instance, tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
+
+        #region Factories
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                // witcher 1
+                var x when x == ".dlg" || x == ".qdb" || x == ".qst" => (0, Binary_Gff.Factory),
+                _ => (0, null),
+            };
+
+        #endregion
 
         #region Transforms
 

@@ -46,20 +46,20 @@ namespace GameSpec.WbB
         {
             var dat = new Database(cell);
             var source = dat.Source;
-            foreach (var (key, metadata) in source.FilesById.Select(x => KeyValuePair.Create(x.Key, x.First())))
+            foreach (var (key, file) in source.FilesById.Select(x => KeyValuePair.Create(x.Key, x.First())))
             {
                 if ((uint)key == Iteration.FILE_ID) continue;
-                if (metadata.FileSize == 0) continue; // DatFileType.LandBlock files can be empty
+                if (file.FileSize == 0) continue; // DatFileType.LandBlock files can be empty
 
-                var fileType = metadata.GetFileType(PakType.Cell).fileType;
-                Assert.IsNotNull(fileType, $"Key: 0x{key:X8}, ObjectID: 0x{metadata.Id:X8}, FileSize: {metadata.FileSize}");
+                var fileType = WbBPakFile.GetFileType(file, PakType.Cell).fileType;
+                Assert.IsNotNull(fileType, $"Key: 0x{key:X8}, ObjectID: 0x{file.Id:X8}, FileSize: {file.FileSize}");
 
-                var factory = source.EnsureCachedObjectFactory(metadata);
+                var factory = source.EnsureCachedObjectFactory(file);
                 if (factory == null) throw new Exception($"Class for fileType: {fileType} does not implement an ObjectFactory.");
 
-                using var r = new BinaryReader(await source.LoadFileDataAsync(metadata));
-                await factory(r, metadata, source);
-                if (r.Tell() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Tell()} of {metadata.FileSize}");
+                using var r = new BinaryReader(await source.LoadFileDataAsync(file));
+                await factory(r, file, source);
+                if (r.Tell() != file.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{file.Id:X8}. Bytes parsed: {r.Tell()} of {file.FileSize}");
             }
         }
 
@@ -68,12 +68,12 @@ namespace GameSpec.WbB
         {
             var dat = new Database(portal);
             var source = dat.Source;
-            foreach (var (key, metadata) in source.FilesById.Select(x => KeyValuePair.Create(x.Key, x.First())))
+            foreach (var (key, file) in source.FilesById.Select(x => KeyValuePair.Create(x.Key, x.First())))
             {
                 if ((uint)key == Iteration.FILE_ID) continue;
 
-                var fileType = metadata.GetFileType(PakType.Portal).fileType;
-                Assert.IsNotNull(fileType, $"Key: 0x{key:X8}, ObjectID: 0x{metadata.Id:X8}, FileSize: {metadata.FileSize}");
+                var fileType = WbBPakFile.GetFileType(file, PakType.Portal).fileType;
+                Assert.IsNotNull(fileType, $"Key: 0x{key:X8}, ObjectID: 0x{file.Id:X8}, FileSize: {file.FileSize}");
 
                 // These file types aren't converted yet
                 if (fileType == PakFileType.KeyMap) continue;
@@ -84,12 +84,12 @@ namespace GameSpec.WbB
                 if (fileType == PakFileType.MasterProperty) continue;
                 if (fileType == PakFileType.DbProperties) continue;
 
-                var factory = source.EnsureCachedObjectFactory(metadata);
+                var factory = source.EnsureCachedObjectFactory(file);
                 if (factory == null) throw new Exception($"Class for fileType: {fileType} does not implement an ObjectFactory.");
 
-                using var r = new BinaryReader(await source.LoadFileDataAsync(metadata));
-                await factory(r, metadata, source);
-                if (r.Tell() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Tell()} of {metadata.FileSize}");
+                using var r = new BinaryReader(await source.LoadFileDataAsync(file));
+                await factory(r, file, source);
+                if (r.Tell() != file.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{file.Id:X8}. Bytes parsed: {r.Tell()} of {file.FileSize}");
             }
         }
 
@@ -98,23 +98,23 @@ namespace GameSpec.WbB
         {
             var dat = new Database(localEnglish);
             var source = dat.Source;
-            foreach (var (key, metadata) in source.FilesById.Select(x => KeyValuePair.Create(x.Key, x.First())))
+            foreach (var (key, file) in source.FilesById.Select(x => KeyValuePair.Create(x.Key, x.First())))
             {
                 if ((uint)key == Iteration.FILE_ID) continue;
 
-                var fileType = metadata.GetFileType(PakType.Language).fileType;
+                var fileType = WbBPakFile.GetFileType(file, PakType.Language).fileType;
 
-                Assert.IsNotNull(fileType, $"Key: 0x{key:X8}, ObjectID: 0x{metadata.Id:X8}, FileSize: {metadata.FileSize}");
+                Assert.IsNotNull(fileType, $"Key: 0x{key:X8}, ObjectID: 0x{file.Id:X8}, FileSize: {file.FileSize}");
 
                 // These file types aren't converted yet
                 if (fileType == PakFileType.UILayout) continue;
 
-                var factory = source.EnsureCachedObjectFactory(metadata);
+                var factory = source.EnsureCachedObjectFactory(file);
                 if (factory == null) throw new Exception($"Class for fileType: {fileType} does not implement an ObjectFactory.");
 
-                using var r = new BinaryReader(await source.LoadFileDataAsync(metadata));
-                await factory(r, metadata, source);
-                if (r.Tell() != metadata.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{metadata.Id:X8}. Bytes parsed: {r.Tell()} of {metadata.FileSize}");
+                using var r = new BinaryReader(await source.LoadFileDataAsync(file));
+                await factory(r, file, source);
+                if (r.Tell() != file.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{file.Id:X8}. Bytes parsed: {r.Tell()} of {file.FileSize}");
             }
         }
 

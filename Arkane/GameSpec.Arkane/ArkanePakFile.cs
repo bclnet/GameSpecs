@@ -1,8 +1,8 @@
 ﻿using GameSpec.Arkane.Formats;
+using GameSpec.Arkane.Formats.Danae;
 using GameSpec.Arkane.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
 using System.Collections.Concurrent;
@@ -26,18 +26,18 @@ namespace GameSpec.Arkane
         /// <param name="tag">The tag.</param>
         public ArkanePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
-            GetObjectFactoryFactory = game.Engine switch
+            ObjectFactoryFactoryMethod = game.Engine switch
             {
-                "CryEngine" => Crytek.Formats.FormatExtensions.GetObjectFactoryFactory,
-                "Unreal" => Epic.Formats.FormatExtensions.GetObjectFactoryFactory,
-                "Valve" => Valve.Formats.FormatExtensions.GetObjectFactoryFactory,
-                "idTech7" => Id.Formats.FormatExtensions.GetObjectFactoryFactory,
-                _ => FormatExtensions.GetObjectFactoryFactory,
+                "CryEngine" => Crytek.CrytekPakFile.ObjectFactoryFactory,
+                "Unreal" => Epic.EpicPakFile.ObjectFactoryFactory,
+                "Valve" => Valve.ValvePakFile.ObjectFactoryFactory,
+                "idTech7" => Id.IdPakFile.ObjectFactoryFactory,
+                _ => ObjectFactoryFactory,
             };
             UseFileId = true;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
@@ -54,6 +54,23 @@ namespace GameSpec.Arkane
                 "Valve" => Valve.Formats.PakBinary_Vpk.Instance,
                 //"idTech7" => Id.Formats.PakBinaryVpk.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
+            };
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                var x when x == ".txt" || x == ".ini" || x == ".asl" => (0, Binary_Txt.Factory),
+                ".wav" => (0, Binary_Snd.Factory),
+                var x when x == ".bmp" || x == ".jpg" || x == ".tga" => (0, Binary_Img.Factory),
+                ".dds" => (0, Binary_Dds.Factory),
+                // Danae (AF)
+                ".ftl" => (0, Binary_Ftl.Factory),
+                ".fts" => (0, Binary_Fts.Factory),
+                ".tea" => (0, Binary_Tea.Factory),
+                //
+                //".llf" => (0, BinaryFlt.Factory),
+                //".dlf" => (0, BinaryFlt.Factory),
+                _ => (0, null),
             };
 
         #endregion

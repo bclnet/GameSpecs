@@ -10,7 +10,7 @@ namespace GameSpec.Valve.Formats.Blocks
     {
         DATABinaryKV3 SourceMap;
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             base.Read(parent, r);
             SourceMap = parent.GetBlockByType<SRMA>();

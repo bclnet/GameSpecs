@@ -1,9 +1,10 @@
 ﻿using GameSpec.Cyanide.Formats;
 using GameSpec.Cyanide.Transforms;
-using GameSpec.Metadata;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Cyanide
@@ -23,8 +24,19 @@ namespace GameSpec.Cyanide
         /// <param name="tag">The tag.</param>
         public CyanidePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Cpk.Instance, tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
+
+        #region Factories
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                _ => (0, null),
+            };
+
+        #endregion
 
         #region Transforms
 

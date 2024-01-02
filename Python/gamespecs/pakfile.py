@@ -1,23 +1,30 @@
 import os, time
-from enum import Enum
+from typing import Any
+from enum import Enum, Flag
 from io import BytesIO
 from .openstk_poly import Reader
 from .metadata import MetaManager, MetaManager, MetaItem, MetaInfo, MetaContent
 
-class FileOption(Enum):
+class FileOption(Flag):
     Default = 0x0
     Supress = 0x10
 
 class FileSource:
-    def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, pak = None, tag = None):
+    EmptyObjectFactory = lambda a, b, c: None
+    def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, crypted = None, hash = None, pak = None, tag = None):
         self.id = id
         self.path = path
         self.compressed = compressed
         self.position = position
         self.fileSize = fileSize
         self.packedSize = packedSize
+        self.crypted = crypted
+        self.hash = hash
         self.pak = pak
         self.tag = tag
+        # cache
+        self.cachedObjectFactory = None
+        self.cachedOption = None
     def __repr__(self): return f'{self.path}:{self.fileSize}'
 
 class PakFile:
@@ -90,7 +97,7 @@ class BinaryPakFile(PakFile):
         self.version = None
         # metadata/factory
         self.metadataInfos = {}
-        self.getObjectFactoryFactory = None
+        self.objectFactoryFactoryMethod = None
         # binary
         self.files = {}
         self.filesById = {}
@@ -131,12 +138,20 @@ class BinaryPakFile(PakFile):
             return self.loadFileData(file) if self.filesById and path in self.filesById and (file := self.filesById[path]) else None
         else: raise Exception(f'Unknown: {path}')
 
-    def loadFileObject(self, path: FileSource | str | int, option: FileOption = FileOption.Default) -> object:
+    def loadFileObject(self, type: type, path: FileSource | str | int, option: FileOption = FileOption.Default) -> object:
         if not path: raise Exception('Null')
         elif isinstance(path, FileSource):
             data = self.loadFileData(path, option)
             if not data: return None
-            print('HERE')
+            objectFactory = self._ensureCachedObjectFactory(path)
+            if objectFactory == FileSource.EmptyObjectFactory:
+                # obj = data if type == typeof(Stream) || type == typeof(object) else None
+                # raise Exception(f'Stream not returned for {path.path} with {type.Name}')
+                # return obj
+                pass
+            r = Reader(data)
+            task = objectFactory(r, path, self)
+            # if not task:
             return 'BLA'
 
         elif isinstance(path, str):
@@ -146,6 +161,13 @@ class BinaryPakFile(PakFile):
         elif isinstance(path, int):
             return self.loadFileData(file) if self.filesById and path in self.filesById and (file := self.filesById[path]) else None
         else: raise Exception(f'Unknown: {path}')
+
+    def _ensureCachedObjectFactory(self, file: FileSource):
+        if file.cachedObjectFactory: return file.cachedObjectFactory
+        option, factory = self.objectFactoryFactoryMethod(file, self.game)
+        file.cachedObjectOption = option
+        file.cachedObjectFactory = factory or FileSource.EmptyObjectFactory
+        return file.cachedObjectFactory
 
     def process(self) -> None:
         if self.files and self.useFileId: self.filesById = { x.id:x for x in self.files if x }

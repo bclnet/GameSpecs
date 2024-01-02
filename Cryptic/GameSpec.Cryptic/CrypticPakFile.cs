@@ -2,7 +2,6 @@
 using GameSpec.Cryptic.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
 using System.IO;
@@ -25,15 +24,22 @@ namespace GameSpec.Cryptic
         /// <param name="tag">The tag.</param>
         public CrypticPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
             => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
                 ? PakBinary_Cryptic.Instance
                 : PakBinary_Zip.GetPakBinary(game);
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                _ => (0, null),
+            };
 
         #endregion
 

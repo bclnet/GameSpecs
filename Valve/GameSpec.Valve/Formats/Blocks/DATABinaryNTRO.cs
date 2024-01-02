@@ -9,11 +9,11 @@ namespace GameSpec.Valve.Formats.Blocks
     //was:Resource/ResourceTypes/NTRO
     public class DATABinaryNTRO : DATA
     {
-        protected BinaryPak Parent { get; private set; }
+        protected Binary_Pak Parent { get; private set; }
         public IDictionary<string, object> Data { get; private set; }
         public string StructName { get; set; }
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             Parent = parent;
             Data = ReadStructure(r, StructName != null

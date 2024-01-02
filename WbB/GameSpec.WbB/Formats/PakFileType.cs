@@ -141,7 +141,7 @@ namespace GameSpec.WbB.Formats
         ///     16: format (see above)
         ///     20: length
         /// </summary>
-        [PakType(PakType.Portal), PakFileExtension(typeof(FormatExtensions), "TextureExtensionLookup"), PakFileIdRange(0x06000000, 0x07FFFFFF)] Texture = 12, // DB_TYPE_RENDERSURFACE
+        [PakType(PakType.Portal), PakFileExtension(typeof(WbBPakFile), "TextureExtensionLookup"), PakFileIdRange(0x06000000, 0x07FFFFFF)] Texture = 12, // DB_TYPE_RENDERSURFACE
 
         /// <summary>
         /// indexed in client as "materials" for some reason
@@ -339,7 +339,7 @@ namespace GameSpec.WbB.Formats
         /// </summary>
         [PakType(PakType.Language), PakFileExtension("sti"), PakFileIdRange(0x41000000, 0x41FFFFFF)] StringState = 48, // DB_TYPE_STRING_STATE
 
-        [PakType(PakType.Portal), PakFileExtension(typeof(FormatExtensions), "DbPropertyExtensionLookup"), PakFileIdRange(0x78000000, 0x7FFFFFFF)] DbProperties = 49, // DB_TYPE_DBPROPERTIES
+        [PakType(PakType.Portal), PakFileExtension(typeof(WbBPakFile), "DbPropertyExtensionLookup"), PakFileIdRange(0x78000000, 0x7FFFFFFF)] DbProperties = 49, // DB_TYPE_DBPROPERTIES
 
         /// <summary>
         /// indexed as "mesh" in the client

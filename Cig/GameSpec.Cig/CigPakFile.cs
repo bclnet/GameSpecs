@@ -1,9 +1,11 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Cig.Formats;
+using GameSpec.Cig.Transforms;
+using GameSpec.Crytek.Formats;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Cig.Formats;
-using GameSpec.Cig.Transforms;
 using GameSpec.Transforms;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Cig
@@ -23,8 +25,25 @@ namespace GameSpec.Cig
         /// <param name="tag">The tag.</param>
         public CigPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_P4k.Instance, tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
+
+        #region Factories
+
+        internal static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                //".cfg" => (0, BinaryDcb.Factory),
+                var x when x == ".cfg" || x == ".txt" => (0, Binary_Txt.Factory),
+                var x when x == ".mtl" || x == ".xml" => (FileOption.Stream, CryXmlFile.Factory),
+                ".dds" => (0, Binary_Dds.Factory),
+                ".a" => (0, Binary_DdsA.Factory),
+                ".dcb" => (0, Binary_Dcb.Factory),
+                var x when x == ".soc" || x == ".cgf" || x == ".cga" || x == ".chr" || x == ".skin" || x == ".anim" => (FileOption.Model, CryFile.Factory),
+                _ => (0, null),
+            };
+
+        #endregion
 
         #region Transforms
 

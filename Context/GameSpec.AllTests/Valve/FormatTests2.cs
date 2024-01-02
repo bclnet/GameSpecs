@@ -14,18 +14,18 @@ namespace GameSpec.Valve
         [DataRow("materials/models/courier/frog/frog_color_psd_15017e0b.vtex_c")]
         [DataRow("materials/models/courier/frog/frog_normal_psd_a5b783cb.vtex_c")]
         [DataRow("materials/models/courier/frog/frog_specmask_tga_a889a311.vtex_c")]
-        public void AGRP(string sampleFile) => LoadObject<BinaryPak>(dota2, sampleFile);
+        public void AGRP(string sampleFile) => LoadObject<Binary_Pak>(dota2, sampleFile);
 
         [DataTestMethod]
         [DataRow("materials/models/courier/frog/frog_color_psd_15017e0b.vtex_c")]
         [DataRow("materials/models/courier/frog/frog_normal_psd_a5b783cb.vtex_c")]
         [DataRow("materials/models/courier/frog/frog_specmask_tga_a889a311.vtex_c")]
-        public void DATATexture(string sampleFile) => LoadObject<BinaryPak>(dota2, sampleFile);
+        public void DATATexture(string sampleFile) => LoadObject<Binary_Pak>(dota2, sampleFile);
 
         [DataTestMethod]
         [DataRow("materials/models/courier/frog/frog.vmat_c")]
         [DataRow("materials/vgui/800corner.vmat_c")]
-        public void DATAMaterial(string sampleFile) => LoadObject<BinaryPak>(dota2, sampleFile);
+        public void DATAMaterial(string sampleFile) => LoadObject<Binary_Pak>(dota2, sampleFile);
 
         static void LoadObject<T>(PakFile source, string sampleFile)
         {

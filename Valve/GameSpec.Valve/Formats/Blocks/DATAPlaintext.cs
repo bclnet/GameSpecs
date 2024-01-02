@@ -8,7 +8,7 @@ namespace GameSpec.Valve.Formats.Blocks
     {
         public string Data { get; private set; }
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             Data = Encoding.UTF8.GetString(r.ReadBytes((int)Size));

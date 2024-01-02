@@ -21,7 +21,7 @@ namespace GameSpec.Valve.Formats.Blocks
         public Vector3 MaxBounds { get; private set; }
         public DATAMorph MorphData { get; set; }
 
-        public DATAMesh(BinaryPak pak) : base("PermRenderMeshData_t") { }
+        public DATAMesh(Binary_Pak pak) : base("PermRenderMeshData_t") { }
 
         public void GetBounds()
         {
@@ -55,7 +55,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 var morphSetPath = Data.Get<string>("m_morphSet");
                 if (!string.IsNullOrEmpty(morphSetPath))
                 {
-                    var morphSetResource = await fileLoader.LoadFileObjectAsync<BinaryPak>(morphSetPath + "_c");
+                    var morphSetResource = await fileLoader.LoadFileObjectAsync<Binary_Pak>(morphSetPath + "_c");
                     if (morphSetResource != null)
                     {
                         //MorphData = morphSetResource.GetBlockByType<MRPH>() as DATAMorph;

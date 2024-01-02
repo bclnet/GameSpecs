@@ -50,7 +50,7 @@ namespace GameSpec.Formats
         static async Task ExportFileAsync(FileSource file, BinaryPakFile source, string newPath, FileOption option = default)
         {
             if (file.FileSize == 0 && file.PackedSize == 0) return;
-            var fileOption = file.CachedDataOption;
+            var fileOption = file.CachedObjectOption;
             if ((option & fileOption) != 0)
             {
                 if ((fileOption & FileOption.Model) != 0)

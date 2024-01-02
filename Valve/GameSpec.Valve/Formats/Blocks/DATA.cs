@@ -63,10 +63,10 @@ namespace GameSpec.Valve.Formats.Blocks
             return default;
         }
 
-        public override void Read(BinaryPak parent, BinaryReader r) { }
+        public override void Read(Binary_Pak parent, BinaryReader r) { }
 
         //: was:Resource.ConstructFromType()
-        public static Block Factory(BinaryPak source, string value)
+        public static Block Factory(Binary_Pak source, string value)
             => value switch
             {
                 "DATA" => Factory(source),
@@ -92,7 +92,7 @@ namespace GameSpec.Valve.Formats.Blocks
             };
 
         //: Resource.ConstructResourceType()
-        internal static DATA Factory(BinaryPak source) => source.DataType switch
+        internal static DATA Factory(Binary_Pak source) => source.DataType switch
         {
             var x when x == ResourceType.Panorama || x == ResourceType.PanoramaScript || x == ResourceType.PanoramaTypescript || x == ResourceType.PanoramaDynamicImages || x == ResourceType.PanoramaVectorGraphic => new DATAPanorama(),
             ResourceType.PanoramaStyle => new DATAPanoramaStyle(),

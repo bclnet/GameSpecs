@@ -9,7 +9,7 @@ namespace GameSpec.Valve.Formats.Blocks
     {
         public List<List<string>> Resources { get; private set; }
 
-        public override void Read(BinaryPak parent, BinaryReader r)
+        public override void Read(Binary_Pak parent, BinaryReader r)
         {
             r.Seek(Offset);
             if (parent.ContainsBlockType<NTRO>())

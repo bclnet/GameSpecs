@@ -2,7 +2,6 @@
 using GameSpec.Bioware.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Transforms;
 using System;
 using System.Collections.Concurrent;
@@ -26,10 +25,10 @@ namespace GameSpec.Bioware
         /// <param name="tag">The tag.</param>
         public BiowarePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
-            GetObjectFactoryFactory = FormatExtensions.GetObjectFactoryFactory;
+            ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
-        #region GetPakBinary
+        #region Factories
 
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
@@ -44,6 +43,14 @@ namespace GameSpec.Bioware
                 "Aurora" => PakBinary_Aurora.Instance,
                 "HeroEngine" => PakBinary_Myp.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine))
+            };
+
+        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            {
+                ".dds" => (0, Binary_Dds.Factory),
+                var x when x == ".dlg" || x == ".qdb" || x == ".qst" => (0, Binary_Gff.Factory),
+                _ => (0, null),
             };
 
         #endregion
