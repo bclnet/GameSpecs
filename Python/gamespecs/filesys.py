@@ -1,6 +1,6 @@
 import os, pathlib
 from typing import Any
-from .openstk_poly import findType
+from openstk.poly import findType
 
 class FileSystem:
     def findPaths(self, path: str, searchPattern: str):

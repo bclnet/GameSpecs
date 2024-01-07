@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 namespace GameSpec
 {
     /// <summary>
-    /// FamilyPlatform
+    /// Platform
     /// </summary>
-    public static class FamilyPlatform
+    public static class Platform
     {
         /// <summary>
         /// The platform stats.
@@ -46,7 +46,7 @@ namespace GameSpec
         /// <summary>
         /// Gets or sets the platform.
         /// </summary>
-        public static Type Platform;
+        public static Type PlatformType;
 
         /// <summary>
         /// Gets or sets the platform tag.

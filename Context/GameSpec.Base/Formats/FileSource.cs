@@ -21,9 +21,8 @@ namespace GameSpec.Formats
         public bool Crypted;
         public ulong Hash;
         public BinaryPakFile Pak;
-        public object Tag;
-        // options
         public IList<FileSource> Parts;
+        public object Tag;
         // extra
         public object FileInfo;
         public byte[] Extra;

@@ -1,9 +1,10 @@
-import os, time
+import sys, os, time
 from typing import Any
 from enum import Enum, Flag
 from io import BytesIO
-from .openstk_poly import Reader
-from .metadata import MetaManager, MetaManager, MetaItem, MetaInfo, MetaContent
+from openstk.poly import Reader
+from .metamgr import MetaManager, MetaManager, MetaItem, MetaInfo, MetaContent
+from .util import _throw
 
 class FileOption(Flag):
     Default = 0x0
@@ -11,7 +12,7 @@ class FileOption(Flag):
 
 class FileSource:
     EmptyObjectFactory = lambda a, b, c: None
-    def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, crypted = None, hash = None, pak = None, tag = None):
+    def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, crypted = None, hash = None, pak = None, parts = None, tag = None):
         self.id = id
         self.path = path
         self.compressed = compressed
@@ -21,6 +22,7 @@ class FileSource:
         self.crypted = crypted
         self.hash = hash
         self.pak = pak
+        self.parts = parts
         self.tag = tag
         # cache
         self.cachedObjectFactory = None
@@ -144,16 +146,16 @@ class BinaryPakFile(PakFile):
             data = self.loadFileData(path, option)
             if not data: return None
             objectFactory = self._ensureCachedObjectFactory(path)
-            if objectFactory == FileSource.EmptyObjectFactory:
-                # obj = data if type == typeof(Stream) || type == typeof(object) else None
-                # raise Exception(f'Stream not returned for {path.path} with {type.Name}')
-                # return obj
-                pass
-            r = Reader(data)
-            task = objectFactory(r, path, self)
-            # if not task:
-            return 'BLA'
-
+            if objectFactory != FileSource.EmptyObjectFactory:
+                r = Reader(data)
+                try:
+                    task = objectFactory(r, path, self)
+                    if task:
+                        value = task
+                        return value
+                except: print(sys.exc_info()[1]); raise
+                return data if type == BytesIO or type == object else \
+                    _throw(f'Stream not returned for {path.path} with {type}')
         elif isinstance(path, str):
             pak, nextPath = self.tryFindSubPak(path)
             return pak.loadFileData(nextPath) if pak else \

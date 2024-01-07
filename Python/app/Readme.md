@@ -1,4 +1,9 @@
 
+pip install PyQt6
+pip install OpenGL
+
+
+
 https://www.pythonguis.com/installation/install-qt-designer-standalone/
 
 Qt Designer is available on PyPi via the pyqt5-tools package.

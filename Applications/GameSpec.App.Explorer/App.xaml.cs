@@ -14,7 +14,7 @@ namespace GameSpec.App.Explorer
     /// </summary>
     public partial class App : Application
     {
-        static App() => FamilyPlatform.Startups.Add(OpenGLPlatform.Startup);
+        static App() => Platform.Startups.Add(OpenGLPlatform.Startup);
 
         static string[] args = new string[0];
         //static string[] args = new string[] { "open", "-e", "AC", "-u", "game:/client_portal.dat#AC", "-p", "01000001.obj" };

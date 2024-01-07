@@ -1,6 +1,6 @@
 import os, pathlib
 from PyQt6.QtWidgets import QWidget, QGridLayout, QFileDialog, QLabel, QComboBox, QLineEdit, QPushButton
-from PyQt6.QtCore import pyqtSlot, pyqtSignal, Qt
+from PyQt6.QtCore import Qt
 from gamespecs import families, getFamily, appDefaultOptions
 
 config = appDefaultOptions

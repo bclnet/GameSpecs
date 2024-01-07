@@ -2,11 +2,11 @@ import os
 from io import BytesIO
 from typing import Any
 from enum import Enum
+from openstk.poly import Reader
 from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
 from ..familymgr import FamilyGame
 from ..filesys import FileSystem
-from ..openstk_poly import Reader
 # from ..compression import decompressLz4, decompressZlib2
 
 class PakBinary_Ba2(PakBinary):

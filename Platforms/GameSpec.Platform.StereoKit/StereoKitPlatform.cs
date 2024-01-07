@@ -8,8 +8,8 @@ namespace GameSpec
         {
             try
             {
-                FamilyPlatform.Platform = FamilyPlatform.Type.StereoKit;
-                FamilyPlatform.GraphicFactory = source => new StereoKitGraphic(source);
+                Platform.PlatformType = Platform.Type.StereoKit;
+                Platform.GraphicFactory = source => new StereoKitGraphic(source);
                 Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
                 Debug.LogFunc = a => System.Diagnostics.Debug.Print(a);
                 Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);

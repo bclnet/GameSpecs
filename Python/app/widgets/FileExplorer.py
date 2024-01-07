@@ -1,7 +1,7 @@
 import sys, os, re, traceback
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QProgressBar, QTreeView, QTableView, QTableWidget, QTableWidgetItem, QGridLayout, QHeaderView, QAbstractItemView, QLabel, QComboBox, QTextEdit, QHBoxLayout, QMenu, QFileDialog, QSplitter, QTabWidget
 from PyQt6.QtGui import QIcon, QFont, QDrag, QPixmap, QPainter, QColor, QBrush, QAction, QStandardItem, QStandardItemModel
-from PyQt6.QtCore import pyqtSlot, Qt, QObject, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal, QItemSelectionModel
+from PyQt6.QtCore import Qt, QObject, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal, QItemSelectionModel
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
@@ -15,6 +15,7 @@ class MetaItemToViewModel:
     def toTreeNodes(model: object, modelMap: dict[object, object], source: list[MetaItem]) -> None:
         if not source: return
         for s in source:
+            if not s: continue
             item = QStandardItem(s.icon, s.name) if isinstance(s.icon, QIcon) else QStandardItem(s.name)
             item.setData(s, Qt.ItemDataRole.UserRole)
             modelMap[s] = item
@@ -26,6 +27,7 @@ class MetaInfoToViewModel:
     def toTreeNodes(model: object, source: list[MetaInfo]) -> None:
         if not source: return
         for s in source:
+            if not s: continue
             item = QStandardItem(s.name)
             item.setData(s, Qt.ItemDataRole.UserRole)
             model.appendRow(item)
@@ -75,7 +77,7 @@ class FileExplorer(QWidget):
         infoView.setHeaderHidden(True)
         infoView.setUniformRowHeights(True)
         infoView.setModel(infoModel)
-
+        
         # layout
         layout = QGridLayout()
         layout.addWidget(filterLabel, 0, 0)
@@ -100,6 +102,7 @@ class FileExplorer(QWidget):
         self._infos = value
         self.infoModel.clear()
         MetaInfoToViewModel.toTreeNodes(self.infoModel, value)
+        self.infoView.expandAll()
 
     def filter_change(self, index):
         pass

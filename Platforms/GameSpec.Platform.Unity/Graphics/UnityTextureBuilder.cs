@@ -14,7 +14,7 @@ namespace GameSpec.Graphics
 
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
-            var bytes = info.Begin((int)FamilyPlatform.Type.Unity, out var format, out _);
+            var bytes = info.Begin((int)Platform.Type.Unity, out var format, out _);
             if (format is TextureUnityFormat unityFormat)
             {
                 if (unityFormat == TextureUnityFormat.DXT3_POLYFILL)

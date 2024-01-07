@@ -2,5 +2,5 @@
 
 public class UnityPlatform : UnityEngine.MonoBehaviour
 {
-    static UnityPlatform() => FamilyPlatform.Startups.Add(GameSpec.UnityPlatform.Startup);
+    static UnityPlatform() => Platform.Startups.Add(GameSpec.UnityPlatform.Startup);
 }

@@ -8,8 +8,8 @@ namespace GameSpec
         {
             try
             {
-                FamilyPlatform.Platform = FamilyPlatform.Type.OpenGL;
-                FamilyPlatform.GraphicFactory = source => new OpenGLGraphic(source);
+                Platform.PlatformType = Platform.Type.OpenGL;
+                Platform.GraphicFactory = source => new OpenGLGraphic(source);
                 Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
                 Debug.LogFunc = a => System.Diagnostics.Debug.Print(a);
                 Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);

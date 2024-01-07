@@ -1,9 +1,12 @@
 import os, re, pathlib
 from typing import Any
+from io import BytesIO
+from .util import _throw
 
+class FileSource: pass
 class MetaManager: pass
 class MetaItem: pass
-        
+
 class MetaContent:
     def __init__(self, type: str, name: str, value: Any=None, tag: Any=None, maxWidth: int=None, maxHeight: int=None, dispose: Any=None, engineType: Any=None):
         self.type = type
@@ -46,6 +49,9 @@ class MetaItem:
         if node and node.source.pak: node.source.pak.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
 
+class IHaveMetaInfo:
+    def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: pass
+
 class MetaManager:
     def __init__(self, folderIcon: Any=None, packageIcon: Any=None):
         self.folderIcon = folderIcon
@@ -54,14 +60,35 @@ class MetaManager:
     def getImage(self, name: str) -> Any: pass
 
     @staticmethod
-    def guessStringOrBytes(pakFile: Any, stream: object) -> Any:
-        return None
+    def _guessStringOrBytes(stream: BytesIO) -> Any:
+        return stream
 
     @staticmethod
     def getMetaInfos(manager: MetaManager, pakFile: Any, file: Any) -> list[MetaInfo]:
-        nodes = []
+        nodes = None
         obj = pakFile.loadFileObject(object, file)
-        print('a:', obj)
+        if not obj: return None
+        elif isinstance(obj, IHaveMetaInfo): nodes = obj.getInfoNodes(manager, file)
+        elif isinstance(obj, BytesIO):
+            value = MetaManager._guessStringOrBytes(obj)
+            nodes = [
+                MetaInfo(None, MetaContent(type = 'Text', name = 'Text', value = obj)),
+                MetaInfo('Text', items = [
+                    MetaInfo(f'Length: {len(obj)}')
+                    ])
+            ] if isinstance(obj, str) else [
+                MetaInfo(None, MetaContent(type = 'Hex', name = 'Hex', value = obj)),
+                MetaInfo('Bytes', items = [
+                    MetaInfo(f'Length: {len(obj)}')
+                    ])
+            ] if isinstance(obj, BytesIO) else \
+                _throw(f'Unknown {obj}')
+        if not nodes: return None
+        nodes.append(MetaInfo('File', items = [
+            MetaInfo(f'Path: {file.path}'),
+            MetaInfo(f'FileSize: {file.fileSize}'),
+            MetaInfo('Parts', items = [MetaInfo(f'{part.fileSize}@{part.path}') for x in file.parts]) if file.parts else None
+            ]))
         # nodes.append(MetaInfo(None, MetaContent(type='Hex',name='TEST',value=BytesIO())))
         return nodes
 

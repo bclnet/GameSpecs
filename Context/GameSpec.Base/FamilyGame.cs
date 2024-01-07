@@ -297,7 +297,7 @@ namespace GameSpec
         /// <returns></returns>
         static PakFile WithPlatformGraphic(PakFile pakFile)
         {
-            if (pakFile != null) pakFile.Graphic = FamilyPlatform.GraphicFactory?.Invoke(pakFile);
+            if (pakFile != null) pakFile.Graphic = Platform.GraphicFactory?.Invoke(pakFile);
             return pakFile;
         }
 

@@ -51,7 +51,7 @@ namespace GameSpec.Graphics
 
             GL.BindTexture(TextureTarget.Texture2D, id);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, end - start);
-            var bytes = info.Begin((int)FamilyPlatform.Type.Vulken, out var fmt, out var ranges);
+            var bytes = info.Begin((int)Platform.Type.Vulken, out var fmt, out var ranges);
 
             bool CompressedTexImage2D(ITexture info, int i, InternalFormat internalFormat)
             {

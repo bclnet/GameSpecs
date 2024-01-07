@@ -1,7 +1,6 @@
 import os
 from PyQt6.QtWidgets import QWidget, QProgressBar, QGridLayout, QFileDialog, QLabel
 from PyQt6.QtCore import pyqtSlot, pyqtSignal, Qt
-# from PyCASC.utils.CASCUtils import beautify_filesize
 from time import time
 
 class SaveFileWidget(QWidget):

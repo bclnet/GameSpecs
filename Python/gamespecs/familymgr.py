@@ -3,11 +3,12 @@ from ._config import familyKeys
 from typing import Any
 from urllib.parse import urlparse
 from importlib import resources
-from .openstk_poly import findType
+from openstk.poly import findType
 from .pakfile import PakFile, ManyPakFile, MultiPakFile
 from .filesys import FileSystem, HostFileSystem, createFileSystem
 from .filemgr import FileManager
-from .util import _value, _list, _method, _related, _relatedTrim
+from .util import _throw, _value, _list, _method, _related, _relatedTrim
+from .platform import Startups, Type, InTestHost, TestPlatform
 
 class FamilyApp: pass
 class FamilyEngine: pass
@@ -105,8 +106,8 @@ fileManager: {self.fileManager if self.fileManager else None}'''
     # get Game
     def getGame(self, id: str, throwOnError: bool = True) -> FamilyGame:
         ids = id.rsplit('.', 1)
-        game = _value(self.games, ids[0])
-        if not game and throwOnError: raise Exception(f'Unknown game: {id}')
+        game = _value(self.games, ids[0]) or (throwOnError and _throw(f'Unknown game: {id}'))
+        # if not game and throwOnError: raise Exception(f'Unknown game: {id}')
         edition = _value(self.games.editions, ids[1]) if len(ids) > 1 else None
         return (game, edition)
 

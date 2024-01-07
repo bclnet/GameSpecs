@@ -1,13 +1,15 @@
 import sys, os
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QSizePolicy, QProgressBar, QScrollArea, QTableView, QTableWidget, QTableWidgetItem, QGridLayout, QHeaderView, QAbstractItemView, QLabel, QTextEdit, QHBoxLayout, QMenu, QFileDialog, QSplitter, QTabWidget
 from PyQt6.QtGui import QIcon, QFont, QDrag, QPixmap, QPainter, QColor, QBrush, QAction
-from PyQt6.QtCore import pyqtSlot, Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
+from PyQt6.QtCore import Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
 from gamespecs import PakFile, MetaInfo, MetaContent
+from .HexView import HexView
+from .TextureView import TextureView
 
-class TextBlock(QWidget):
+class TextView(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
         mainWidget = QScrollArea(self)
@@ -17,11 +19,7 @@ class TextBlock(QWidget):
         label.setWordWrap(True)
         label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
 
-class HexBlock(QWidget):
-    def __init__(self, parent, tab):
-        super().__init__()
-
-class NullBlock(QWidget):
+class NullView(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
 
@@ -45,9 +43,10 @@ class FileContent(QTabWidget):
         self.contentTab.clear()
         if not self.contentTabs: return
         for tab in self.contentTabs:
-            control = TextBlock(self, tab) if tab.type == 'Text' else \
-                HexBlock(self, tab) if tab.type == 'Hex' else \
-                NullBlock(self, tab)
+            control = TextView(self, tab) if tab.type == 'Text' else \
+                HexView(self, tab) if tab.type == 'Hex' else \
+                TextureView(self, tab) if tab.type == 'Texture' else \
+                NullView(self, tab)
             self.contentTab.addTab(control, tab.name)
 
     @property

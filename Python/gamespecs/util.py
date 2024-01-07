@@ -1,6 +1,9 @@
 import os
 from typing import Any
 
+def _throw(message: str) -> None:
+    raise Exception(message)
+
 def _value(elem: dict[str, Any], key: str, default: Any = None) -> Any:
     return elem[key] if key in elem else default
 

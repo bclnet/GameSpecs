@@ -12,9 +12,9 @@ namespace GameSpec
             var task = Task.Run(() => UnityEngine.Application.platform.ToString());
             try
             {
-                FamilyPlatform.Platform = FamilyPlatform.Type.Unity;
-                FamilyPlatform.PlatformTag = task.Result;
-                FamilyPlatform.GraphicFactory = source => new UnityGraphic(source);
+                Platform.PlatformType = Platform.Type.Unity;
+                Platform.PlatformTag = task.Result;
+                Platform.GraphicFactory = source => new UnityGraphic(source);
                 //Debug.Log(Platform);
                 UnsafeX.Memcpy = (dest, src, count) => UnsafeUtility.MemCpy(dest, src, count);
                 Debug.AssertFunc = x => UnityEngine.Debug.Assert(x);

@@ -5,7 +5,7 @@ namespace GameSpecUnreal
 {
     public class Main
     {
-        static Main() => FamilyPlatform.Startups.Add(UnrealPlatform.Startup);
+        static Main() => Platform.Startups.Add(UnrealPlatform.Startup);
 
         static UnrealTest Test;
 

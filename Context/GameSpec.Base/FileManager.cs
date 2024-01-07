@@ -92,12 +92,12 @@ namespace GameSpec
             const string GAMESPATH = "Games";
 
             // get locale games
-            var platformOS = FamilyPlatform.PlatformOS;
+            var platformOS = Platform.PlatformOS;
             var gameRoots = DriveInfo.GetDrives().Select(x => Path.Combine(x.Name, GAMESPATH)).ToList();
-            if (platformOS == FamilyPlatform.OS.Android) gameRoots.Add(Path.Combine("/sdcard", GAMESPATH));
+            if (platformOS == Platform.OS.Android) gameRoots.Add(Path.Combine("/sdcard", GAMESPATH));
             var games = gameRoots.Where(Directory.Exists).SelectMany(Directory.GetDirectories).ToDictionary(Path.GetFileName, x => x);
             //
-            if (platformOS == FamilyPlatform.OS.Windows && prop.Value.TryGetProperty("reg", out var z))
+            if (platformOS == Platform.OS.Windows && prop.Value.TryGetProperty("reg", out var z))
                 foreach (var key in z.GetStringOrArray())
                     if (!Paths.ContainsKey(prop.Name) && TryGetPathByRegistryKey(key, prop.Value.TryGetProperty(key, out z) ? z : (JsonElement?)null, out var path))
                         AddPath(prop, path);

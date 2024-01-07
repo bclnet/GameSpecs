@@ -118,13 +118,13 @@ namespace GameSpec.Valve.Formats.Blocks
                 Bytes = b.ToArray();
             }
 
-            format = (FamilyPlatform.Type)platform switch
+            format = (Platform.Type)platform switch
             {
-                FamilyPlatform.Type.OpenGL => TexFormat.gl,
-                FamilyPlatform.Type.Unity => TexFormat.unity,
-                FamilyPlatform.Type.Unreal => TexFormat.unreal,
-                FamilyPlatform.Type.Vulken => TexFormat.vulken,
-                FamilyPlatform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
+                Platform.Type.OpenGL => TexFormat.gl,
+                Platform.Type.Unity => TexFormat.unity,
+                Platform.Type.Unreal => TexFormat.unreal,
+                Platform.Type.Vulken => TexFormat.vulken,
+                Platform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             mips = Mips;

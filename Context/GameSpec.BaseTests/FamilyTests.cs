@@ -13,12 +13,12 @@ namespace GameSpec
         {
             lock (this)
             {
-                FamilyPlatform.Startups.Clear();
-                Assert.AreEqual(0, FamilyPlatform.Startups.Count, "None registered");
-                FamilyPlatform.Startups.Add(SomePlatform.Startup);
+                Platform.Startups.Clear();
+                Assert.AreEqual(0, Platform.Startups.Count, "None registered");
+                Platform.Startups.Add(SomePlatform.Startup);
                 Family.Bootstrap();
-                Assert.AreEqual(1, FamilyPlatform.Startups.Count, "Single Startup");
-                Assert.AreEqual(SomePlatform.Startup, FamilyPlatform.Startups.First(), $"Default is {nameof(SomePlatform.Startup)}");
+                Assert.AreEqual(1, Platform.Startups.Count, "Single Startup");
+                Assert.AreEqual(SomePlatform.Startup, Platform.Startups.First(), $"Default is {nameof(SomePlatform.Startup)}");
             }
         }
 

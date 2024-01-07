@@ -9,7 +9,7 @@ namespace GameSpec.App.Explorer
 {
     public partial class App : Application
     {
-        static App() => FamilyPlatform.Startups.Add(StereoKitPlatform.Startup);
+        static App() => Platform.Startups.Add(StereoKitPlatform.Startup);
         public static App Instance;
         Page MainPage2;
 

@@ -1,26 +1,27 @@
 import sys, os
 from PyQt6.QtWidgets import QWidget, QTextEdit, QHBoxLayout
 from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
 
-class ContentHexView(QWidget):
-    def __init__(self, app):
+class HexView(QWidget):
+    def __init__(self, parent, tab):
         super().__init__()
-        self.app = app
+        self.parent = parent
         self.initUI()
         self.rowlen = 0x10
         self.max_hexdump_byte_len = 8192
 
-    def showMedia(self, external_viewer=False):
-        c = 0
-        self.tmp_file = f'tmp/{c}.{self.ext}'
-        if not os.path.exists('tmp'): os.mkdir('tmp')
-        while os.path.exists(self.tmp_file):
-            c+=1
-            self.tmp_file=f'tmp/{c}.{self.ext}'
-        with open(self.tmp_file,'wb+') as f:
-            f.write(self.content)
-        webbrowser.open(os.path.join(os.getcwd(), self.tmp_file))
-        self.close()
+    # def showMedia(self, external_viewer=False):
+    #     c = 0
+    #     self.tmp_file = f'tmp/{c}.{self.ext}'
+    #     if not os.path.exists('tmp'): os.mkdir('tmp')
+    #     while os.path.exists(self.tmp_file):
+    #         c+=1
+    #         self.tmp_file=f'tmp/{c}.{self.ext}'
+    #     with open(self.tmp_file,'wb+') as f:
+    #         f.write(self.content)
+    #     webbrowser.open(os.path.join(os.getcwd(), self.tmp_file))
+    #     self.close()
 
     def showText(self):
         self.text_edit.setText(str(self.content, self.encoding))
@@ -88,6 +89,8 @@ class ContentHexView(QWidget):
         #     raise Exception('Unsupported datatype passed to viewFile')
 
     def initUI(self):
+        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        self.setStyleSheet('background-color: darkgreen;')
         self.text_edit = QTextEdit(self)
         self.text_edit.setText('Close this window if you see this text.')
         self.text_edit.setFont(QFont('Courier New', 10))

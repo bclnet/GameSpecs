@@ -45,13 +45,13 @@ namespace GameSpec.Formats
 
         public byte[] Begin(int platform, out object format, out Range[] mips)
         {
-            format = (FamilyPlatform.Type)platform switch
+            format = (Platform.Type)platform switch
             {
-                FamilyPlatform.Type.OpenGL => Format.gl,
-                FamilyPlatform.Type.Unity => Format.unity,
-                FamilyPlatform.Type.Unreal => Format.unreal,
-                FamilyPlatform.Type.Vulken => Format.vulken,
-                FamilyPlatform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
+                Platform.Type.OpenGL => Format.gl,
+                Platform.Type.Unity => Format.unity,
+                Platform.Type.Unreal => Format.unreal,
+                Platform.Type.Vulken => Format.vulken,
+                Platform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             mips = Mips;

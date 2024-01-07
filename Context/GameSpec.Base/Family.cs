@@ -104,10 +104,10 @@ namespace GameSpec
 
         static unsafe Family()
         {
-            if (FamilyPlatform.InTestHost && FamilyPlatform.Startups.Count == 0) FamilyPlatform.Startups.Add(TestPlatform.Startup);
-            foreach (var startup in FamilyPlatform.Startups) if (startup()) return;
-            FamilyPlatform.Platform = FamilyPlatform.Type.Unknown;
-            FamilyPlatform.GraphicFactory = source => null; // throw new Exception("No GraphicFactory");
+            if (Platform.InTestHost && Platform.Startups.Count == 0) Platform.Startups.Add(TestPlatform.Startup);
+            foreach (var startup in Platform.Startups) if (startup()) return;
+            Platform.PlatformType = Platform.Type.Unknown;
+            Platform.GraphicFactory = source => null; // throw new Exception("No GraphicFactory");
             Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
             Debug.LogFunc = a => System.Diagnostics.Debug.Print(a);
             Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);

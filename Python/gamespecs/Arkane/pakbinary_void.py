@@ -1,11 +1,11 @@
 import os
 from io import BytesIO
 from typing import Any
+from openstk.poly import Reader
 from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
 from ..familymgr import FamilyGame
 from ..filesys import FileSystem
-from ..openstk_poly import Reader
 
 class PakBinary_Void(PakBinary):
     class SubPakFile(BinaryPakFile):

@@ -2,7 +2,7 @@ import sys, os
 from typing import Any
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QProgressBar, QScrollArea, QTableView, QTableWidget, QTableWidgetItem, QGridLayout, QHeaderView, QAbstractItemView, QLabel, QTextEdit, QVBoxLayout, QHBoxLayout, QMenu, QFileDialog, QSplitter, QTabWidget
 from PyQt6.QtGui import QIcon, QFont, QDrag, QPixmap, QPainter, QColor, QBrush, QAction
-from PyQt6.QtCore import pyqtSlot, Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
+from PyQt6.QtCore import Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
@@ -78,8 +78,9 @@ class MainPage(QMainWindow):
         
         # main tab
         mainTab = self.mainTab = QTabWidget(self)
-        mainTab.setMinimumWidth(300) # remove
+        # mainTab.setMinimumWidth(300) # remove
         mainTab.setMaximumWidth(500)
+        mainTab.setMaximumWidth(200) # remove
         self.updateTabs()
 
         # contentBlock

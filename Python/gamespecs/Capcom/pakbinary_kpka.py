@@ -3,7 +3,7 @@ from io import BytesIO
 from typing import Any
 from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
-from ..openstk_poly import Reader
+from openstk.poly import Reader
 from ..compression import decompressZlib, decompressZstd
 from ..util import _guessExtension
 from ..Resources.Capcom import RE

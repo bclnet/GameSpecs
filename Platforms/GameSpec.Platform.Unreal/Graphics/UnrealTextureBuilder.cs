@@ -35,7 +35,7 @@ namespace GameSpec.Graphics
         public override Texture2D BuildTexture(ITexture info, Range? range = null)
         {
             Debug.Log(LogLevel.Display, "BuildTexture");
-            var bytes = info.Begin((int)FamilyPlatform.Type.Unreal, out var format, out _);
+            var bytes = info.Begin((int)Platform.Type.Unreal, out var format, out _);
             if (format is TextureUnrealFormat unrealFormat)
             {
                 var pixelFormat = (PixelFormat)unrealFormat;

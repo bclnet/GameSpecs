@@ -8,8 +8,8 @@ namespace GameSpec
         {
             try
             {
-                FamilyPlatform.Platform = FamilyPlatform.Type.Vulken;
-                FamilyPlatform.GraphicFactory = source => new VulkenGraphic(source);
+                Platform.PlatformType = Platform.Type.Vulken;
+                Platform.GraphicFactory = source => new VulkenGraphic(source);
                 Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
                 Debug.LogFunc = a => System.Diagnostics.Debug.Print(a);
                 Debug.LogFormatFunc = (a, b) => System.Diagnostics.Debug.Print(a, b);

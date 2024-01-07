@@ -1,9 +1,9 @@
 import os
 from io import BytesIO
 from typing import Any
+from openstk.poly import Reader
 from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
-from ..openstk_poly import Reader
 
 class PakBinary_Bundle(PakBinary):
     _instance = None

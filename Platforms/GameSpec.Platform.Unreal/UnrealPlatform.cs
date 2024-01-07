@@ -11,8 +11,8 @@ namespace GameSpec
             FDebug.Log(FLogLevel.Display, "Startup");
             try
             {
-                FamilyPlatform.Platform = FamilyPlatform.Type.Unreal;
-                FamilyPlatform.GraphicFactory = source => new UnrealGraphic(source);
+                Platform.PlatformType = Platform.Type.Unreal;
+                Platform.GraphicFactory = source => new UnrealGraphic(source);
                 Debug.AssertFunc = x => System.Diagnostics.Debug.Assert(x);
                 Debug.LogFunc = a => FDebug.Log(FLogLevel.Display, a);
                 Debug.LogFormatFunc = (a, b) => FDebug.Log(FLogLevel.Display, string.Format(a, b));
