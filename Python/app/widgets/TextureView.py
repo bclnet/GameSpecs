@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 from PyQt6.QtOpenGL import QOpenGLBuffer, QOpenGLShader, QOpenGLShaderProgram, QOpenGLTexture
-from openstk.opengl_view import OpenGLView
+from openstk.gl_view import OpenGLView
 
 class TextureView(OpenGLView):
     def __init__(self, parent, tab):

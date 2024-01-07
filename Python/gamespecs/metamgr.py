@@ -67,23 +67,23 @@ class MetaManager:
     def getMetaInfos(manager: MetaManager, pakFile: Any, file: Any) -> list[MetaInfo]:
         nodes = None
         obj = pakFile.loadFileObject(object, file)
-        if not obj: return None
-        elif isinstance(obj, IHaveMetaInfo): nodes = obj.getInfoNodes(manager, file)
-        elif isinstance(obj, BytesIO):
-            value = MetaManager._guessStringOrBytes(obj)
-            nodes = [
-                MetaInfo(None, MetaContent(type = 'Text', name = 'Text', value = obj)),
-                MetaInfo('Text', items = [
-                    MetaInfo(f'Length: {len(obj)}')
-                    ])
-            ] if isinstance(obj, str) else [
-                MetaInfo(None, MetaContent(type = 'Hex', name = 'Hex', value = obj)),
-                MetaInfo('Bytes', items = [
-                    MetaInfo(f'Length: {len(obj)}')
-                    ])
-            ] if isinstance(obj, BytesIO) else \
-                _throw(f'Unknown {obj}')
-        if not nodes: return None
+        match obj:
+            case None: return None
+            case s if isinstance(obj, IHaveMetaInfo): nodes = s.getInfoNodes(manager, file)
+            case s if isinstance(obj, BytesIO):
+                value = MetaManager._guessStringOrBytes(s)
+                nodes = [
+                    MetaInfo(None, MetaContent(type = 'Text', name = 'Text', value = obj)),
+                    MetaInfo('Text', items = [
+                        MetaInfo(f'Length: {len(obj)}')
+                        ])
+                ] if isinstance(obj, str) else [
+                    MetaInfo(None, MetaContent(type = 'Hex', name = 'Hex', value = obj)),
+                    MetaInfo('Bytes', items = [
+                        MetaInfo(f'Length: {len(obj)}')
+                        ])
+                ] if isinstance(obj, BytesIO) else \
+                    _throw(f'Unknown {obj}')
         nodes.append(MetaInfo('File', items = [
             MetaInfo(f'Path: {file.path}'),
             MetaInfo(f'FileSize: {file.fileSize}'),

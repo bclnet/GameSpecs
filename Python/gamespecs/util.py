@@ -24,7 +24,7 @@ def _guessExtension(buf):
     extension = f'.{buf[0:3].decode('ascii', 'ignore')}' if extensionInt != 0x75B22630 else '.asf'
     return extension.lower()
 
-def grammerSize(i):
+def grammerSize(i: int) -> str:
     t, c=['','K','M','G','T'], 0
     while i > 1024: i /= 1024; c += 1
     return f'{round(i, 2)}{t[c]}B'

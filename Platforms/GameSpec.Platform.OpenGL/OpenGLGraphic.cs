@@ -26,7 +26,7 @@ namespace GameSpec
             _materialManager = new MaterialManager<GLRenderMaterial, int>(source, _textureManager, new OpenGLMaterialBuilder(_textureManager));
             _objectManager = new ObjectManager<object, GLRenderMaterial, int>(source, _materialManager, new OpenGLObjectBuilder());
             _shaderManager = new ShaderManager<Shader>(source, new OpenGLShaderBuilder());
-            MeshBufferCache = new GpuMeshBufferCache();
+            MeshBufferCache = new GLMeshBufferCache();
         }
 
         public PakFile Source => _source;
@@ -44,6 +44,6 @@ namespace GameSpec
         // cache
         QuadIndexBuffer _quadIndices;
         public QuadIndexBuffer QuadIndices => _quadIndices != null ? _quadIndices : _quadIndices = new QuadIndexBuffer(65532);
-        public GpuMeshBufferCache MeshBufferCache { get; }
+        public GLMeshBufferCache MeshBufferCache { get; }
     }
 }

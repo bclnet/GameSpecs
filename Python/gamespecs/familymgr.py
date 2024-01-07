@@ -247,21 +247,21 @@ class FamilyGame:
 
     # create createPakFileObj
     def createPakFileObj(self, fileSystem: FileSystem, value: Any, tag: Any = None) -> PakFile:
-        if isinstance(value, str):
-            if self.isPakFile(value): return self.createPakFileType(fileSystem, value, tag)
-            else: raise Exception(f'{self.id} missing {value}')
-        elif isinstance(value, tuple):
-            p, l = value
-            return self.createPakFileObj(fileSystem, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
-                else ManyPakFile(
-                    self.createPakFileType(fileSystem, None, tag), self, \
-                        p if len(p) > 0 else 'Many', fileSystem, l, visualPathSkip = len(p) + 1 if len(p) > 0 else 0
-                    )
-        elif isinstance(value, list):
-            return value[0] if len(value) == 1 else \
-                MultiPakFile(self, 'Multi', fileSystem, value, tag)
-        elif value is None: return None
-        else: raise Exception(f'Unknown: {value}')
+        match value:
+            case s if isinstance(value, str):
+                if self.isPakFile(s): return self.createPakFileType(fileSystem, s, tag)
+                else: raise Exception(f'{self.id} missing {s}')
+            case p, l if isinstance(value, tuple):
+                return self.createPakFileObj(fileSystem, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
+                    else ManyPakFile(
+                        self.createPakFileType(fileSystem, None, tag), self, \
+                            p if len(p) > 0 else 'Many', fileSystem, l, visualPathSkip = len(p) + 1 if len(p) > 0 else 0
+                        )
+            case s if isinstance(value, list):
+                return value[0] if len(s) == 1 else \
+                    MultiPakFile(self, 'Multi', fileSystem, s, tag)
+            case None: return None
+            case _: raise Exception(f'Unknown: {value}')
 
     # create PakFileType
     def createPakFileType(self, fileSystem: FileSystem, path: str, tag: Any = None) -> PakFile:

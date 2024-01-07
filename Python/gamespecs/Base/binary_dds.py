@@ -3,7 +3,7 @@ from io import BytesIO
 from typing import Any
 from openstk.poly import Reader
 from openstk.gfx_dds import DDS_HEADER
-from openstk.gfx_texturemgr import TextureFlags
+from openstk.gfx_texture import TextureFlags
 from ..pakfile import FileSource, PakFile
 from ..metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
 
