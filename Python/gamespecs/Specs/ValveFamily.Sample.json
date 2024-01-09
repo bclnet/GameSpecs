@@ -1,0 +1,246 @@
+﻿{
+  "HL": {
+    "name": "Half-Life",
+    "files": [
+      {
+        "path": "valve/maps/boot_camp.bsp",
+        "type": "Map"
+      },
+      {
+        "path": "valve/cached.wad:LOADING.pic",
+        "type": "Texture"
+      },
+      {
+        "path": "valve/decals.wad:REFLECT1.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "valve/decals.wad:{LARGE#S0.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "valve/fonts.wad:FONT2.fnt",
+        "type": "Texture:Font"
+      },
+      {
+        "path": "valve/sprites:640_logo.spr",
+        "type": "Sprite"
+      }
+    ]
+  },
+  "TF": {
+    "name": "Team Fortress Classic",
+    "files": [
+      {
+        "path": "game.tga",
+        "type": "Image"
+      },
+      {
+        "path": "cached.wad:CONBACK640.pic",
+        "type": "Texture"
+      },
+      {
+        "path": "tfc.WAD:{EASTLINE1.pic",
+        "type": "Texture"
+      }
+    ]
+  },
+  "HL:OF": {
+    "name": "Half-Life: Opposing Force",
+    "files": []
+  },
+  "CS": {
+    "name": "Counter-Strike",
+    "files": []
+  },
+  "Ricochet": {
+    "name": "Ricochet",
+    "files": []
+  },
+  "DM": {
+    "name": "Deathmatch Classic",
+    "files": []
+  },
+  "HL:BS": {
+    "name": "Half-Life: Blue Shift",
+    "files": []
+  },
+  "DOD": {
+    "name": "Day of Defeat",
+    "files": []
+  },
+  "CS:CZ": {
+    "name": "Counter-Strike: Condition Zero",
+    "files": []
+  },
+  "HL:Src": {
+    "name": "Half-Life: Source",
+    "files": []
+  },
+  "CS:Src": {
+    "name": "Counter-Strike: Source",
+    "files": []
+  },
+  "HL2": {
+    "name": "Half-Life 2",
+    "files": [
+      {
+        "path": "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c",
+        "type": "Texture"
+      }
+    ]
+  },
+  "HL2:DM": {
+    "name": "Half-Life 2: Deathmatch",
+    "files": []
+  },
+  "HL:DM:Src": {
+    "name": "Half-Life Deathmatch: Source",
+    "files": []
+  },
+  "HL2:E1": {
+    "name": "Half-Life 2: Episode One",
+    "files": []
+  },
+  "Portal": {
+    "name": "Portal",
+    "files": []
+  },
+  "HL2:E2": {
+    "name": "Half-Life 2: Episode Two",
+    "files": []
+  },
+  "TF2": {
+    "name": "Team Fortress 2",
+    "files": []
+  },
+  "L4D": {
+    "name": "Left 4 Dead",
+    "files": []
+  },
+  "L4D2": {
+    "name": "Left 4 Dead 2",
+    "files": []
+  },
+  "DOD:Src": {
+    "name": "Day of Defeat: Source",
+    "files": []
+  },
+  "Portal2": {
+    "name": "Portal 2",
+    "files": []
+  },
+  "CS:GO": {
+    "name": "Counter-Strike: Global Offensive",
+    "files": [
+      {
+        "path": "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c",
+        "type": "Texture"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c",
+        "type": "Material"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmesh_c",
+        "type": "Mesh"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vphy_c",
+        "type": "Phy"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmdl_c",
+        "type": "Model"
+      }
+    ]
+  },
+  "D2": {
+    "name": "Dota 2",
+    "files": [
+      {
+        "path": "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c",
+        "type": "Texture"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c",
+        "type": "Material"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmesh_c",
+        "type": "Mesh"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vphy_c",
+        "type": "Phy"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmdl_c",
+        "type": "Model"
+      },
+      {
+        "path": ">dota/pak01_dir.vpk:stringtokendatabase.txt",
+        "size": 35624,
+        "type": "Test"
+      }
+    ]
+  },
+  "TheLab:RR": {
+    "name": "The Lab: Robot Repair",
+    "files": []
+  },
+  "TheLab:SS": {
+    "name": "The Lab: Secret Shop",
+    "files": []
+  },
+  "TheLab:TL": {
+    "name": "The Lab: The Lab",
+    "files": [
+      {
+        "path": "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c",
+        "type": "Texture"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c",
+        "type": "Material"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmesh_c",
+        "type": "Mesh"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vphy_c",
+        "type": "Phy"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmdl_c",
+        "type": "Model"
+      }
+    ]
+  },
+  "HL:Alyx": {
+    "name": "Half-Life: Alyx",
+    "files": [
+      {
+        "path": "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c",
+        "type": "Texture"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c",
+        "type": "Material"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmesh_c",
+        "type": "Mesh"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vphy_c",
+        "type": "Phy"
+      },
+      {
+        "path": "pak01_dir.vpk:models/dev/error.vmdl_c",
+        "type": "Model"
+      }
+    ]
+  }
+}

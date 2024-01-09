@@ -4,6 +4,9 @@
   "studio": "Unity",
   "description": "Unity formats",
   "url": "https://steamdb.info/tech/Engine/Unity/",
+  "samples": [
+    "UnityFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "pakFileType": "GameSpec.Unity.UnityPakFile, GameSpec.Unity",

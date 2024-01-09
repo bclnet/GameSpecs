@@ -118,7 +118,7 @@ namespace GameSpec.App.Explorer.Views
 
         void OnReady()
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath)) SelectedItem = MetaItem.findByPathForNodes(PakNodes, Config.ForcePath, Resource);
+            if (!string.IsNullOrEmpty(Config.ForcePath) && !Config.ForcePath.StartsWith("app:")) SelectedItem = MetaItem.FindByPathForNodes(PakNodes, Config.ForcePath, Resource);
         }
     }
 }

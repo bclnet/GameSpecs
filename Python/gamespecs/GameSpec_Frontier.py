@@ -1,5 +1,6 @@
 import os
 from .pakfile import BinaryPakFile
+from .util import _pathExtension
 
 class FrontierPakFile(BinaryPakFile):
     @staticmethod
@@ -7,4 +8,4 @@ class FrontierPakFile(BinaryPakFile):
         pass
 
     def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, os.path.splitext(filePath)[1].lower()), tag)
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)

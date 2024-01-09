@@ -9,13 +9,13 @@ class DefaultOptions:
         self.ForcePath = ForcePath
         self.ForceOpen = ForceOpen
 
-match 'Bethesda':
+match 'Arkane':
     case 'Arkane':
         familyKeys = [ "Arkane", "Unknown" ]
 
         appDefaultOptions = DefaultOptions(
             #AF
-            # ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", #AF:Texture.jpg
+            ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", #AF:Texture.jpg
             # ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp", #AF:Texture.bmp
             # ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", #AF:Model
             # ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", #AF:Model

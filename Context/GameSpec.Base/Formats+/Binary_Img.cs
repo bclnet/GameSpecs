@@ -27,7 +27,7 @@ namespace GameSpec.Formats
                 ".tiff" => Formats.Tiff,
                 _ => throw new ArgumentOutOfRangeException(nameof(f.Path), Path.GetExtension(f.Path)),
             };
-            Format = (formatType, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnityFormat.Unknown);
+            Format = (formatType, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnrealFormat.Unknown);
             Bytes = r.ReadBytes((int)f.FileSize);
             Image = new Bitmap(new MemoryStream(Bytes));
             Width = Image.Width;
@@ -61,9 +61,9 @@ namespace GameSpec.Formats
             format = (Platform.Type)platform switch
             {
                 Platform.Type.OpenGL => Format.gl,
+                Platform.Type.Vulken => Format.vulken,
                 Platform.Type.Unity => Format.unity,
                 Platform.Type.Unreal => Format.unreal,
-                Platform.Type.Vulken => Format.vulken,
                 Platform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
@@ -78,7 +78,6 @@ namespace GameSpec.Formats
                 new MetaInfo($"Format: {Format.type}"),
                 new MetaInfo($"Width: {Width}"),
                 new MetaInfo($"Height: {Height}"),
-                new MetaInfo($"Type: {Format}"),
             })
         };
     }

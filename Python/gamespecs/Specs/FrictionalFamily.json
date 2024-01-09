@@ -4,6 +4,9 @@
   "studio": "Frictional Games",
   "description": "Frictional Games file formats",
   "url": "https://en.wikipedia.org/wiki/Frictional_Games",
+  "samples": [
+    "FrictionalFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "pakFileType": "GameSpec.Frictional.FrictionalPakFile, GameSpec.Frictional",

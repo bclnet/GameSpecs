@@ -4,6 +4,9 @@
   "studio": "Blizzard Activision",
   "description": "Blizzard file formats",
   "url": [ "https://en.wikipedia.org/wiki/Blizzard_Entertainment", "https://en.wikipedia.org/wiki/List_of_Blizzard_Entertainment_games" ],
+  "samples": [
+    "BlizzardFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "fileSystemType": "GameSpec.Blizzard.BlizzardFileSystem, GameSpec.Blizzard"
@@ -156,7 +159,7 @@
       }
     },
     "CB": {
-      "name": "Crash Bandicoot™ 4: It’s About Time",
+      "name": "Crash Bandicoot™ 4: It's About Time",
       "url": "https://us.shop.battle.net/en-us/family/crash-bandicoot-4",
       "date": "2020-10-02",
       "editions": {

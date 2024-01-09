@@ -4,6 +4,9 @@
   "studio": "Valve",
   "description": "Valve formats used by Source/Source 2",
   "url": "https://en.wikipedia.org/wiki/List_of_Valve_games",
+  "samples": [
+    "ValveFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "pakFileType": "GameSpec.Valve.ValvePakFile, GameSpec.Valve",

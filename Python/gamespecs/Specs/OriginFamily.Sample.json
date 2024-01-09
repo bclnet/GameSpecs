@@ -1,0 +1,22 @@
+﻿{
+  "UO": {
+    "name": "Ultima Online",
+    "files": [
+      {
+        "path": ">anim.idx:default_cch.dds",
+        "size": 16520,
+        "type": "Test"
+      }
+    ]
+  },
+  "U9": {
+    "name": "Ultima IX",
+    "files": [
+      {
+        "path": ">activity.flx:Engine/default_cch.dds",
+        "size": 16520,
+        "type": "Test"
+      }
+    ]
+  }
+}

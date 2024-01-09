@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bethesda", "Bethesda", "{7F78A794-57C6-4BC7-9267-1E68E4CEC9DE}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\BethesdaFamily.json = Python\gamespecs\Specs\BethesdaFamily.json
+		Python\gamespecs\Specs\BethesdaFamily.Sample.json = Python\gamespecs\Specs\BethesdaFamily.Sample.json
 		Documents\Families\Bethesda\Readme.md = Documents\Families\Bethesda\Readme.md
 	EndProjectSection
 EndProject
@@ -31,35 +32,41 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WbB", "WbB", "{BDE29250-8EA
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\WbB\Readme.md = Documents\Families\WbB\Readme.md
 		Python\gamespecs\Specs\WbBFamily.json = Python\gamespecs\Specs\WbBFamily.json
+		Python\gamespecs\Specs\WbBFamily.Sample.json = Python\gamespecs\Specs\WbBFamily.Sample.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arkane", "Arkane", "{793BECC6-9830-4CB9-B65C-DBC4C14ADCA4}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\ArkaneFamily.json = Python\gamespecs\Specs\ArkaneFamily.json
+		Python\gamespecs\Specs\ArkaneFamily.Sample.json = Python\gamespecs\Specs\ArkaneFamily.Sample.json
 		Documents\Families\Arkane\Readme.md = Documents\Families\Arkane\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bioware", "Bioware", "{0BE39DA4-4D1C-4FBE-87F5-C6C87F039DF0}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\BiowareFamily.json = Python\gamespecs\Specs\BiowareFamily.json
+		Python\gamespecs\Specs\BiowareFamily.Sample.json = Python\gamespecs\Specs\BiowareFamily.Sample.json
 		Documents\Families\Bioware\Readme.md = Documents\Families\Bioware\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crytek", "Crytek", "{D78C77D6-2696-446A-9D13-7FAE6F3255EE}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\CrytekFamily.json = Python\gamespecs\Specs\CrytekFamily.json
+		Python\gamespecs\Specs\CrytekFamily.Sample.json = Python\gamespecs\Specs\CrytekFamily.Sample.json
 		Documents\Families\Crytek\Readme.md = Documents\Families\Crytek\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cyanide", "Cyanide", "{AFEFEEB6-4CAB-4CA3-8FDF-C2C2BDE8C415}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\CyanideFamily.json = Python\gamespecs\Specs\CyanideFamily.json
+		Python\gamespecs\Specs\CyanideFamily.Sample.json = Python\gamespecs\Specs\CyanideFamily.Sample.json
 		Documents\Families\Cyanide\Readme.md = Documents\Families\Cyanide\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Origin", "Origin", "{8BAFFF0D-E0B5-495F-84D5-7FF2A4314DA4}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\OriginFamily.json = Python\gamespecs\Specs\OriginFamily.json
+		Python\gamespecs\Specs\OriginFamily.Sample.json = Python\gamespecs\Specs\OriginFamily.Sample.json
 		Documents\Families\Origin\Readme.md = Documents\Families\Origin\Readme.md
 	EndProjectSection
 EndProject
@@ -67,11 +74,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Red", "Red", "{6E7BB6E0-050
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Red\Readme.md = Documents\Families\Red\Readme.md
 		Python\gamespecs\Specs\RedFamily.json = Python\gamespecs\Specs\RedFamily.json
+		Python\gamespecs\Specs\RedFamily.Sample.json = Python\gamespecs\Specs\RedFamily.Sample.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cig", "Cig", "{228CD927-3DD3-45AA-9529-B703AC15A1AA}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\CigFamily.json = Python\gamespecs\Specs\CigFamily.json
+		Python\gamespecs\Specs\CigFamily.Sample.json = Python\gamespecs\Specs\CigFamily.Sample.json
 		Documents\Families\Cig\Readme.md = Documents\Families\Cig\Readme.md
 	EndProjectSection
 EndProject
@@ -79,11 +88,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{D13E28F2
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Unity\Readme.md = Documents\Families\Unity\Readme.md
 		Python\gamespecs\Specs\UnityFamily.json = Python\gamespecs\Specs\UnityFamily.json
+		Python\gamespecs\Specs\UnityFamily.Sample.json = Python\gamespecs\Specs\UnityFamily.Sample.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Epic", "Epic", "{9123F171-1DB1-4AB3-95F3-D4BF658998D7}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\EpicFamily.json = Python\gamespecs\Specs\EpicFamily.json
+		Python\gamespecs\Specs\EpicFamily.Sample.json = Python\gamespecs\Specs\EpicFamily.Sample.json
 		Documents\Families\Epic\Readme.md = Documents\Families\Epic\Readme.md
 	EndProjectSection
 EndProject
@@ -91,6 +102,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Valve", "Valve", "{B9CFB3F1
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Valve\Readme.md = Documents\Families\Valve\Readme.md
 		Python\gamespecs\Specs\ValveFamily.json = Python\gamespecs\Specs\ValveFamily.json
+		Python\gamespecs\Specs\ValveFamily.Sample.json = Python\gamespecs\Specs\ValveFamily.Sample.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.WbB", "WbB\GameSpec.WbB\GameSpec.WbB.csproj", "{A5A1B037-867C-4EB9-B4C1-AA87FD81220B}"
@@ -109,12 +121,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monolith", "Monolith", "{126CF77A-F7E7-40D8-B91E-826AFBE7C971}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\MonolithFamily.json = Python\gamespecs\Specs\MonolithFamily.json
+		Python\gamespecs\Specs\MonolithFamily.Sample.json = Python\gamespecs\Specs\MonolithFamily.Sample.json
 		Documents\Families\Monolith\Readme.md = Documents\Families\Monolith\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IW", "IW", "{557FA17D-0D46-42AE-95E1-8B486EA8822A}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\IWFamily.json = Python\gamespecs\Specs\IWFamily.json
+		Python\gamespecs\Specs\IWFamily.Sample.json = Python\gamespecs\Specs\IWFamily.Sample.json
 		Documents\Families\IW\Readme.md = Documents\Families\IW\Readme.md
 	EndProjectSection
 EndProject
@@ -126,24 +140,28 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frictional", "Frictional", "{18D5BB74-F0F3-4BBE-941B-D2C91D085C6D}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\FrictionalFamily.json = Python\gamespecs\Specs\FrictionalFamily.json
+		Python\gamespecs\Specs\FrictionalFamily.Sample.json = Python\gamespecs\Specs\FrictionalFamily.Sample.json
 		Documents\Families\Frictional\Readme.md = Documents\Families\Frictional\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blizzard", "Blizzard", "{389FCD8C-F4E7-4B16-BF62-11B3E075BC4E}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\BlizzardFamily.json = Python\gamespecs\Specs\BlizzardFamily.json
+		Python\gamespecs\Specs\BlizzardFamily.Sample.json = Python\gamespecs\Specs\BlizzardFamily.Sample.json
 		Documents\Families\Blizzard\Readme.md = Documents\Families\Blizzard\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Id", "Id", "{ADDD9C65-49FA-4981-BFA6-545759D762F7}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\IdFamily.json = Python\gamespecs\Specs\IdFamily.json
+		Python\gamespecs\Specs\IdFamily.Sample.json = Python\gamespecs\Specs\IdFamily.Sample.json
 		Documents\Families\Id\Readme.md = Documents\Families\Id\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptic", "Cryptic", "{CB2D9FBD-6D37-4B95-BC2D-65D172F89CEE}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\CrypticFamily.json = Python\gamespecs\Specs\CrypticFamily.json
+		Python\gamespecs\Specs\CrypticFamily.Sample.json = Python\gamespecs\Specs\CrypticFamily.Sample.json
 		Documents\Families\Cryptic\Readme.md = Documents\Families\Cryptic\Readme.md
 	EndProjectSection
 EndProject
@@ -155,6 +173,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontier", "Frontier", "{8A31F24F-EB07-4578-866C-FA2C1E4DFA5A}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\FrontierFamily.json = Python\gamespecs\Specs\FrontierFamily.json
+		Python\gamespecs\Specs\FrontierFamily.Sample.json = Python\gamespecs\Specs\FrontierFamily.Sample.json
 		Documents\Families\Frontier\Readme.md = Documents\Families\Frontier\Readme.md
 	EndProjectSection
 EndProject
@@ -167,12 +186,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Capcom", "Capcom", "{6F41E7
 		Python\gamespecs\Specs\CapcomFamily+S.json = Python\gamespecs\Specs\CapcomFamily+S.json
 		Python\gamespecs\Specs\CapcomFamily+T-Z.json = Python\gamespecs\Specs\CapcomFamily+T-Z.json
 		Python\gamespecs\Specs\CapcomFamily.json = Python\gamespecs\Specs\CapcomFamily.json
+		Python\gamespecs\Specs\CapcomFamily.Sample.json = Python\gamespecs\Specs\CapcomFamily.Sample.json
 		Documents\Families\Capcom\Readme.md = Documents\Families\Capcom\Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Black", "Black", "{231779E5-20EB-435B-BAAF-48A1D0BF6E1C}"
 	ProjectSection(SolutionItems) = preProject
 		Python\gamespecs\Specs\BlackFamily.json = Python\gamespecs\Specs\BlackFamily.json
+		Python\gamespecs\Specs\BlackFamily.Sample.json = Python\gamespecs\Specs\BlackFamily.Sample.json
 		Documents\Families\Black\Readme.md = Documents\Families\Black\Readme.md
 	EndProjectSection
 EndProject
@@ -300,6 +321,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ubisoft", "Ubisoft", "{C263
 	ProjectSection(SolutionItems) = preProject
 		Documents\Families\Ubisoft\Readme.md = Documents\Families\Ubisoft\Readme.md
 		Python\gamespecs\Specs\UbisoftFamily.json = Python\gamespecs\Specs\UbisoftFamily.json
+		Python\gamespecs\Specs\UbisoftFamily.Sample.json = Python\gamespecs\Specs\UbisoftFamily.Sample.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Ubisoft", "Ubisoft\GameSpec.Ubisoft\GameSpec.Ubisoft.csproj", "{FC227CD2-4DE2-4400-8A10-00CDC2B591CF}"
@@ -526,7 +548,6 @@ Global
 		{AF223B61-5BB1-4F9D-B22E-9362AA2A26D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF223B61-5BB1-4F9D-B22E-9362AA2A26D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EC68FDD-F2AF-4A41-A7AE-EB194E3DFC8D}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -536,7 +557,6 @@ Global
 		{4380936C-E21D-4CA9-ACF7-F290A8720673}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4380936C-E21D-4CA9-ACF7-F290A8720673}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2FD23CD-3C62-45B2-B627-C86444061453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2FD23CD-3C62-45B2-B627-C86444061453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FD23CD-3C62-45B2-B627-C86444061453}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{C2FD23CD-3C62-45B2-B627-C86444061453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FD23CD-3C62-45B2-B627-C86444061453}.Release|Any CPU.Build.0 = Release|Any CPU

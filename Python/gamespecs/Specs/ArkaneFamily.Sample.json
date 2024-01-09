@@ -1,0 +1,116 @@
+﻿{
+  "AF": {
+    "name": "Arx Fatalis",
+    "files": [
+      {
+        "path": "data.pak:GRAPH/particles/DEFAULT.jpg",
+        "type": "Texture.jpg"
+      },
+      {
+        "path": "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp",
+        "type": "Texture.bmp"
+      },
+      {
+        "path": "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL",
+        "type": "Model"
+      },
+      {
+        "path": "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL",
+        "type": "Model"
+      },
+      {
+        "path": "data.pak:GAME/GRAPH/Levels/Level10/fast.fts",
+        "type": "Level"
+      },
+      {
+        "path": ">client_highres.dat:Texture/060043BE.tex",
+        "size": 32792,
+        "type": "Test"
+      }
+    ]
+  },
+  "DOM": {
+    "name": "Dark Messiah of Might and Magic",
+    "files": [
+      {
+        "path": ">depot_2101_dir.vpk:platform/config/server.vdf",
+        "size": 13,
+        "type": "Test"
+      }
+    ]
+  },
+  "D": {
+    "name": "Dishonored",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "D2": {
+    "name": "Dishonored 2",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "P": {
+    "name": "Prey",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "D:DOTO": {
+    "name": "Dishonored: Death of the Outsider",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "W:YB": {
+    "name": "Wolfenstein: Youngblood",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "W:CP": {
+    "name": "Wolfenstein: Cyberpilot",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "DL": {
+    "name": "Deathloop",
+    "files": [
+      {
+        "path": ">game1.index:strings/english_m.lang",
+        "size": 765258,
+        "type": "Test"
+      }
+    ]
+  },
+  "RF": {
+    "name": "Redfall (future)",
+    "files": []
+  }
+}

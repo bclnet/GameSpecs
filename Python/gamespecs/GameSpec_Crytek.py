@@ -1,5 +1,6 @@
 import os
 from .pakfile import BinaryPakFile
+from .util import _pathExtension
 
 class CrytekPakFile(BinaryPakFile):
     @staticmethod
@@ -7,4 +8,4 @@ class CrytekPakFile(BinaryPakFile):
         pass
 
     def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, fos.path.splitext(filePath)[1].lower()ilePath), tag)
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()ilePath), tag)

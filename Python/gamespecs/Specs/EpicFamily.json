@@ -4,6 +4,9 @@
   "studio": "Epic Games",
   "description": "Epic formats",
   "url": "https://wiki.beyondunreal.com/List_of_Unreal_Engine_games",
+  "samples": [
+    "EpicFamily.Sample.json"
+  ],
   "engines": {
     "Unreal": {
       "name": "Unreal Engine"
@@ -47,7 +50,7 @@
       "pakExt": ".upk"
     },
     "DeusEx:HR": {
-      "name": "Deus Ex: Human Revolution - Director’s Cut",
+      "name": "Deus Ex: Human Revolution - Director's Cut",
       "url": "https://www.gog.com/en/game/deus_ex_human_revolution_directors_cut",
       "date": "2013-10-25",
       "pakExt": ".upk"

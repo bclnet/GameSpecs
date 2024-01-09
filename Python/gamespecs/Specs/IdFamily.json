@@ -3,6 +3,9 @@
   "name": "Id",
   "studio": "id Software",
   "url": "https://en.wikipedia.org/wiki/List_of_id_Software_games",
+  "samples": [
+    "IdFamily.Sample.json"
+  ],
   "engines": {
     "idTech0": { "name": "id Tech 0" },
     "idTech1": { "name": "id Tech 1" },

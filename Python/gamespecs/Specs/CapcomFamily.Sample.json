@@ -1,0 +1,75 @@
+﻿{
+  "CAS": {
+    "name": "Capcom Arcade Stadium",
+    "files": [
+      {
+        "path": "_unknown/01b0b43beac40c00.pfb",
+        "type": "Unknown"
+      },
+      {
+        "path": "_unknown/fa6e19ba4922338a.pfb",
+        "type": "Unknown"
+      }
+    ]
+  },
+  "Fighting:C": {
+    "name": "Capcom Fighting Collection",
+    "files": []
+  },
+  "GNG:R": {
+    "name": "Ghosts 'n Goblins Resurrection",
+    "files": []
+  },
+  "MM:LC": {
+    "name": "Mega Man Legacy Collection",
+    "files": []
+  },
+  "MM:LC2": {
+    "name": "Mega Man Legacy Collection 2",
+    "files": []
+  },
+  "MM:XD": {
+    "name": "Mega Man X DiVE",
+    "files": []
+  },
+  "MMZX:LC": {
+    "name": "Mega Man Zero/ZX Legacy Collection",
+    "files": []
+  },
+  "MHR": {
+    "name": "Monster Hunter Rise",
+    "files": []
+  },
+  "MH:S2": {
+    "name": "Monster Hunter Stories 2: Wings of Ruin",
+    "files": []
+  },
+  "PWAA:T": {
+    "name": "Phoenix Wright: Ace Attorney Trilogy",
+    "files": []
+  },
+  "RDR2": {
+    "name": "Red Dead Redemption 2",
+    "files": []
+  },
+  "RER": {
+    "name": "Resident Evil Resistance",
+    "files": []
+  },
+  "RE:RV": {
+    "name": "Resident Evil Re:Verse",
+    "files": []
+  },
+  "Disney:AC": {
+    "name": "The Disney Afternoon Collection",
+    "files": []
+  },
+  "TGAA:C": {
+    "name": "The Great Ace Attorney Chronicles",
+    "files": []
+  },
+  "USF4": {
+    "name": "Ultra Street Fighter IV",
+    "files": []
+  }
+}

@@ -1,0 +1,54 @@
+﻿{
+  "SC": {
+    "name": "StarCraft",
+    "files": []
+  },
+  "D2R": {
+    "name": "Diablo II: Resurrected",
+    "files": []
+  },
+  "W3": {
+    "name": "Warcraft III: Reign of Chaos",
+    "files": []
+  },
+  "WOW": {
+    "name": "World of Warcraft",
+    "files": []
+  },
+  "WOWC": {
+    "name": "World of Warcraft: Classic",
+    "files": []
+  },
+  "SC2": {
+    "name": "StarCraft II: Wings of Liberty",
+    "files": []
+  },
+  "D3": {
+    "name": "Diablo III",
+    "files": []
+  },
+  "HOTS": {
+    "name": "Heroes of the Storm",
+    "files": []
+  },
+  "HS": {
+    "name": "Hearthstone",
+    "files": []
+  },
+  "CB": {
+    "name": "Crash Bandicoot™ 4: It's About Time",
+    "files": []
+  },
+  "DI": {
+    "name": "Diablo Immortal",
+    "files": []
+  },
+  "OW2": {
+    "name": "Overwatch 2",
+    "files": []
+  },
+  "D4": {
+    "name": "Diablo IV",
+    "files": []
+  }
+}

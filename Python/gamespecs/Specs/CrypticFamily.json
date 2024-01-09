@@ -4,6 +4,9 @@
   "studio": "Cryptic Studios",
   "description": "Cryptic Studios is an American video game developer specializing in massively multiplayer online role-playing games. It is headquartered in Los Gatos, California and was a wholly owned Perfect World subsidiary,[2] and is now owned by Embracer Group through its subsidiary Gearbox Entertainment.",
   "url": "https://en.wikipedia.org/wiki/Cryptic_Studios",
+  "samples": [
+    "CrypticFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "pakFileType": "GameSpec.Cryptic.CrypticPakFile, GameSpec.Cryptic"

@@ -1,0 +1,80 @@
+﻿{
+  "COD": {
+    "name": "Call of Duty",
+    "files": []
+  },
+  "COD2": {
+    "name": "Call of Duty 2",
+    "files": [
+      {
+        "path": "iw_08.iwd/images/155_cannon.iwi",
+        "type": "Texture"
+      }
+    ]
+  },
+  "COD4": {
+    "name": "Call of Duty 4: Modern Warfare",
+    "files": [
+      {
+        "path": "mp_farm.ff/images/155_cannon.iwi",
+        "type": "Texture"
+      }
+    ]
+  },
+  "WaW": {
+    "name": "Call of Duty: World at War",
+    "files": []
+  },
+  "MW2": {
+    "name": "Call of Duty: Modern Warfare 2",
+    "files": []
+  },
+  "BO": {
+    "name": "Call of Duty: Black Ops",
+    "files": []
+  },
+  "MW3": {
+    "name": "Call of Duty: Modern Warfare 3",
+    "files": []
+  },
+  "BO2": {
+    "name": "Call of Duty: Black Ops II",
+    "files": []
+  },
+  "Ghosts": {
+    "name": "Call of Duty: Ghosts",
+    "files": []
+  },
+  "AW": {
+    "name": "Call of Duty: Advanced Warfare",
+    "files": []
+  },
+  "BO3": {
+    "name": "Call of Duty: Black Ops III",
+    "files": []
+  },
+  "IW": {
+    "name": "Call of Duty: Infinite Warfare",
+    "files": []
+  },
+  "WWII": {
+    "name": "Call of Duty: WWII",
+    "files": []
+  },
+  "BO4": {
+    "name": "Call of Duty: Black Ops 4",
+    "files": []
+  },
+  "MW": {
+    "name": "Call of Duty: Modern Warfare",
+    "files": []
+  },
+  "BOCW": {
+    "name": "Call of Duty: Black Ops Cold War",
+    "files": []
+  },
+  "COD:MW2": {
+    "name": "Call of Duty: Modern Warfare II",
+    "files": []
+  }
+}

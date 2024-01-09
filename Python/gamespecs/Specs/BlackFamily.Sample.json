@@ -1,0 +1,64 @@
+﻿{
+  "Fallout": {
+    "name": "Fallout",
+    "files": [
+      {
+        "path": "CRITTER.DAT:ART/CRITTERS/CRITTERS.LST",
+        "type": "Unknown"
+      },
+      {
+        "path": "MASTER.DAT:ART/BACKGRND/BACK1.FRM",
+        "type": "Unknown"
+      },
+      {
+        "path": "MASTER.DAT:ART/ITEMS/ALIEN1.FRM",
+        "type": "Unknown"
+      },
+      {
+        "path": "MASTER.DAT:COLOR.PAL",
+        "type": "Unknown"
+      }
+    ]
+  },
+  "Fallout2": {
+    "name": "Fallout 2",
+    "files": [
+      {
+        "path": "master.dat:art/backgrnd/BACK1.FRM",
+        "type": "Unknown"
+      },
+      {
+        "path": "master.dat:art/splash/SPLASH0.rix",
+        "type": "Unknown"
+      },
+      {
+        "path": "master.dat:art/intrface/death.frm",
+        "type": "Unknown"
+      },
+      {
+        "path": "master.dat:art/intrface/DP.FRM",
+        "type": "Unknown"
+      }
+    ]
+  },
+  "P:T": {
+    "name": "Planescape: Torment",
+    "files": []
+  },
+  "ID": {
+    "name": "Icewind Dale",
+    "files": []
+  },
+  "ID:HoW": {
+    "name": "Icewind Dale: Heart of Winter",
+    "files": []
+  },
+  "ID2": {
+    "name": "Icewind Dale II",
+    "files": []
+  },
+  "BG:DA2": {
+    "name": "Baldur's Gate: Dark Alliance II",
+    "files": []
+  }
+}

@@ -1,0 +1,87 @@
+﻿{
+  "SS": {
+    "name": "Shattered Steel",
+    "files": []
+  },
+  "BG": {
+    "name": "Baldur's Gate",
+    "files": []
+  },
+  "MDK2": {
+    "name": "MDK2",
+    "files": []
+  },
+  "BG2": {
+    "name": "Baldur's Gate II: Shadows of Amn",
+    "files": []
+  },
+  "NWN": {
+    "name": "Neverwinter Nights",
+    "files": []
+  },
+  "KotOR": {
+    "name": "Star Wars: Knights of the Old Republic",
+    "files": []
+  },
+  "JE": {
+    "name": "Jade Empire",
+    "files": []
+  },
+  "ME": {
+    "name": "Mass Effect",
+    "files": []
+  },
+  "NWN2": {
+    "name": "Neverwinter Nights 2",
+    "files": []
+  },
+  "DA:O": {
+    "name": "Dragon Age: Origins",
+    "files": []
+  },
+  "ME2": {
+    "name": "Mass Effect 2",
+    "files": []
+  },
+  "DA2": {
+    "name": "Dragon Age II",
+    "files": []
+  },
+  "SWTOR": {
+    "name": "Star Wars: The Old Republic",
+    "files": [
+      {
+        "path": "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe",
+        "type": "Unknown"
+      }
+    ]
+  },
+  "ME3": {
+    "name": "Mass Effect 3",
+    "files": []
+  },
+  "DA:I": {
+    "name": "Dragon Age: Inquisition",
+    "files": []
+  },
+  "ME:A": {
+    "name": "Mass Effect: Andromeda",
+    "files": []
+  },
+  "A": {
+    "name": "Anthem",
+    "files": []
+  },
+  "ME:LE": {
+    "name": "Mass Effect: Legendary Edition",
+    "files": []
+  },
+  "DA:D": {
+    "name": "Dragon Age: Dreadwolf (future)",
+    "files": []
+  },
+  "ME5": {
+    "name": "Mass Effect 5 (future)",
+    "files": []
+  }
+}

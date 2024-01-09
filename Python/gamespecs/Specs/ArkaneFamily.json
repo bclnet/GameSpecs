@@ -4,6 +4,9 @@
   "studio": "Arkane Studios",
   "description": "The file formats used in the Void engine",
   "url": "https://en.wikipedia.org/wiki/Arkane_Studios",
+  "samples": [
+    "ArkaneFamily.Sample.json"
+  ],
   "engines": {
     "Danae": {},
     "Void": {}

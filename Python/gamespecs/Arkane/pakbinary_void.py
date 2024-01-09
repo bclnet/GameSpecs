@@ -6,6 +6,7 @@ from ..pakbinary import PakBinary
 from ..pakfile import FileSource, BinaryPakFile
 from ..familymgr import FamilyGame
 from ..filesys import FileSystem
+from ..util import _pathExtension
 
 class PakBinary_Void(PakBinary):
     class SubPakFile(BinaryPakFile):
@@ -31,7 +32,7 @@ class PakBinary_Void(PakBinary):
     # read
     def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
         # must be .index file
-        if os.path.splitext(source.filePath)[1] != '.index':
+        if _pathExtension(source.filePath) != '.index':
             raise Exception('must be a .index file')
         source.files = files = []
 

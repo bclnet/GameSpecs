@@ -1,0 +1,16 @@
+﻿{
+  "TC": {
+    "name": "The Council",
+    "files": [
+      {
+        "path": ">Engine_Main_0.cpk:data/engine_0.prefab",
+        "size": 20704,
+        "type": "Test"
+      }
+    ]
+  },
+  "Werewolf:TA": {
+    "name": "Werewolf: The Apocalypse - Earthblood",
+    "files": []
+  }
+}

@@ -4,6 +4,9 @@
   "studio": "Bethesda Game Studios",
   "description": "TES formats used by Bethesda",
   "url": "https://en.wikipedia.org/wiki/Bethesda_Game_Studios",
+  "samples": [
+    "BethesdaFamily.Sample.json"
+  ],
   "familyType": "GameSpec.Bethesda.BethesdaFamily, GameSpec.Bethesda",
   "engines": {
     "TES3": {}
@@ -68,7 +71,7 @@
       "dat": "game:/Fallout4.esm"
     },
     "SkyrimSE": {
-      "name": "The Elder Scrolls V: Skyrim – Special Edition",
+      "name": "The Elder Scrolls V: Skyrim - Special Edition",
       "url": "https://store.steampowered.com/app/489830",
       "date": "2016-10-27",
       "pakExt": ".bsa",

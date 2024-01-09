@@ -1,0 +1,67 @@
+﻿{
+  "UE1": {
+    "name": "Unreal",
+    "files": [
+      {
+        "path": "Maps/Bluff.unr",
+        "type": "Map"
+      }
+    ]
+  },
+  "TWoT": {
+    "name": "The Wheel of Time",
+    "files": []
+  },
+  "DeusEx": {
+    "name": "Deus Ex™ GOTY Edition",
+    "files": []
+  },
+  "DeusEx:MD": {
+    "name": "Deus Ex: Mankind Divided",
+    "files": []
+  },
+  "DeusEx2:IW": {
+    "name": "Deus Ex 2: Invisible War",
+    "files": []
+  },
+  "DeusEx:HR": {
+    "name": "Deus Ex: Human Revolution - Director's Cut",
+    "files": []
+  },
+  "Rune": {
+    "name": "Rune",
+    "files": []
+  },
+  "Undying": {
+    "name": "Clive Barker's Undying",
+    "files": []
+  },
+  "UT2K": {
+    "name": "Unreal Tournament 2003",
+    "files": []
+  },
+  "UE2": {
+    "name": "Unreal II: The Awakening",
+    "files": []
+  },
+  "BioShock": {
+    "name": "BioShock",
+    "files": []
+  },
+  "BioShockR": {
+    "name": "BioShock Remastered",
+    "files": []
+  },
+  "BioShock2": {
+    "name": "BioShock 2",
+    "files": []
+  },
+  "BioShock2R": {
+    "name": "BioShock 2 Remastered",
+    "files": []
+  },
+  "BioShock:Inf": {
+    "name": "BioShock Infinite",
+    "files": []
+  }
+}

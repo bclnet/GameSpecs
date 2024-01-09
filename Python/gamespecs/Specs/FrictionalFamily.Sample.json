@@ -1,0 +1,30 @@
+﻿{
+  "P:O": {
+    "name": "Penumbra: Overture",
+    "files": []
+  },
+  "P:BP": {
+    "name": "Penumbra: Black Plague",
+    "files": []
+  },
+  "P:R": {
+    "name": "Penumbra: Requiem",
+    "files": []
+  },
+  "A:TDD": {
+    "name": "Amnesia: The Dark Descent",
+    "files": []
+  },
+  "A:AMFP": {
+    "name": "Amnesia: A Machine for Pigs",
+    "files": []
+  },
+  "SOMA": {
+    "name": "SOMA",
+    "files": []
+  },
+  "A:R": {
+    "name": "Amnesia: Rebirth",
+    "files": []
+  }
+}

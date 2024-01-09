@@ -1,7 +1,7 @@
 import os, re, pathlib
 from typing import Any
 from io import BytesIO
-from .util import _throw
+from .util import _throw, _pathExtension
 
 class FileSource: pass
 class MetaManager: pass
@@ -40,13 +40,13 @@ class MetaItem:
     def findByPath(self, path: str, manager: MetaManager) -> MetaItem:
         paths = re.split('\\\\|/|:', path, 1)
         node = next(iter([x for x in self.items if x.name == paths[0]]), None)
-        if node and node.source.pak: node.source.pak.open(node.items, manager)
+        if node and isinstance(node, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
     @staticmethod
     def findByPathForNodes(nodes: list[MetaItem], path: str, manager: MetaManager) -> MetaItem:
         paths = re.split('\\\\|/|:', path, 1)
         node = next(iter([x for x in nodes if x.name == paths[0]]), None)
-        if node and node.source.pak: node.source.pak.open(node.items, manager)
+        if node and isinstance(node, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
 
 class IHaveMetaInfo:
@@ -67,6 +67,7 @@ class MetaManager:
     def getMetaInfos(manager: MetaManager, pakFile: Any, file: Any) -> list[MetaInfo]:
         nodes = None
         obj = pakFile.loadFileObject(object, file)
+        print(obj)
         match obj:
             case None: return None
             case s if isinstance(obj, IHaveMetaInfo): nodes = s.getInfoNodes(manager, file)

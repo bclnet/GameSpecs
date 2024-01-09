@@ -1,0 +1,10 @@
+﻿{
+  "StarCitizen": {
+    "name": "Star Citizen",
+    "files": [{
+      "path": ">Engine/default_cch.dds",
+      "size": 16520,
+      "type": "Test"
+    }]
+  }
+}

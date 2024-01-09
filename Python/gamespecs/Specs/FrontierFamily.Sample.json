@@ -1,0 +1,46 @@
+﻿{
+  "LW": {
+    "name": "LostWinds",
+    "files": []
+  },
+  "LW2": {
+    "name": "LostWinds 2: Winter of the Melodias",
+    "files": []
+  },
+  "ED": {
+    "name": "Elite: Dangerous",
+    "files": []
+  },
+  "PC": {
+    "name": "Planet Coaster",
+    "files": []
+  },
+  "JW": {
+    "name": "Jurassic World Evolution",
+    "files": []
+  },
+  "PZ": {
+    "name": "Planet Zoo",
+    "files": []
+  },
+  "JW2": {
+    "name": "Jurassic World Evolution 2",
+    "files": []
+  },
+  "F1:22": {
+    "name": "F1 Manager 2022",
+    "files": []
+  },
+  "W4K:CG": {
+    "name": "Warhammer 40,000: Chaos Gate - Daemonhunters",
+    "files": []
+  },
+  "F1:23": {
+    "name": "F1 Manager 2023",
+    "files": []
+  },
+  "W4K:AoS:RoR": {
+    "name": "Warhammer Age of Sigmar: Realms of Ruin",
+    "files": []
+  }
+}

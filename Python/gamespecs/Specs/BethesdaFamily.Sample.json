@@ -1,0 +1,97 @@
+﻿{
+  "Morrowind": {
+    "name": "The Elder Scrolls III: Morrowind",
+    "files": [
+      {
+        "path": "bookart/boethiah_256.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "icons/handtohand.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "textures/vfx_poison03.dds",
+        "size": 11040,
+        "type": "Test"
+      }
+    ]
+  },
+  "Oblivion": {
+    "name": "The Elder Scrolls IV: Oblivion",
+    "files": [
+      {
+        "path": ">Oblivion - Meshes.bsa:trees/treecottonwoodsu.spt",
+        "size": 6329,
+        "type": "Test"
+      },
+      {
+        "path": ">Oblivion - Textures - Compressed.bsa:textures/trees/canopyshadow.dds",
+        "size": 174904,
+        "type": "Test"
+      }
+    ]
+  },
+  "Fallout3": {
+    "name": "Fallout 3",
+    "files": []
+  },
+  "FalloutNV": {
+    "name": "Fallout New Vegas",
+    "files": []
+  },
+  "Skyrim": {
+    "name": "The Elder Scrolls V: Skyrim",
+    "files": []
+  },
+  "Fallout4": {
+    "name": "Fallout 4",
+    "files": []
+  },
+  "SkyrimSE": {
+    "name": "The Elder Scrolls V: Skyrim - Special Edition",
+    "files": [
+      {
+        "path": ">Skyrim - Meshes0.bsa:meshes/scalegizmo.nif",
+        "size": 8137,
+        "type": "Test"
+      },
+      {
+        "path": ">Skyrim - Textures0.bsa:textures/actors/dog/dog.dds",
+        "size": 1398240,
+        "type": "Test"
+      }
+    ]
+  },
+  "Fallout:S": {
+    "name": "Fallout Shelter",
+    "files": []
+  },
+  "Fallout4VR": {
+    "name": "Fallout 4 VR",
+    "files": [
+      {
+        "path": ">Fallout4 - Startup.ba2:Textures/Water/WaterRainRipples.dds",
+        "size": 349680,
+        "type": "Test"
+      },
+      {
+        "path": ">Fallout4 - Textures8.ba2:Textures/Terrain/DiamondCity/DiamondCity.16.-2.-2.DDS",
+        "size": 174904,
+        "type": "Test"
+      }
+    ]
+  },
+  "SkyrimVR": {
+    "name": "The Elder Scrolls V: Skyrim VR",
+    "files": []
+  },
+  "Fallout76": {
+    "name": "Fallout 76",
+    "files": []
+  },
+  "Starfield": {
+    "name": "Starfield",
+    "files": []
+  }
+}

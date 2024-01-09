@@ -18,6 +18,9 @@ def _related(elem: dict[str, Any], key: str, method: Any, default: Any = None) -
 def _relatedTrim(elem: dict[str, Any], key: str, method: Any, default: Any = None) -> Any:
     return { k:v for k,v in { k:method(k, v) for k,v in elem[key].items() }.items() if v } if key in elem else {}
 
+def _pathExtension(path: str) -> str:
+    return os.path.splitext(path)[1]
+
 def _guessExtension(buf):
     if len(buf) < 4: return ''
     extensionInt = int.from_bytes(buf, 'little', signed=False)

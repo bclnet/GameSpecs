@@ -1,5 +1,5 @@
-﻿//#define Arkane
-#define Bethesda
+﻿#define Arkane
+//#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
@@ -45,7 +45,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             //AF
-            //ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
+            ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
             //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp", //AF:Texture.bmp
             //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
             //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
@@ -55,7 +55,7 @@ namespace GameSpec
 
             ForceOpen = true,
             Family = "Arkane",
-            //Game = "AF", // Arx Fatalis [open, read, texture:GL]
+            Game = "AF", // Arx Fatalis [open, read, texture:GL]
             //Game = "DOM", // Dark Messiah of Might and Magic [open, read]
             //Game = "D", // Dishonored [unreal]
             //Game = "D2", // Dishonored 2 [open, read]
@@ -219,8 +219,6 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
-            
             ForceOpen = true,
             Family = "Cryptic",
             Game = "CO", // Champions Online [open, read]
@@ -412,7 +410,7 @@ namespace GameSpec
             //ForcePath = "valve/cached.wad:LOADING.pic", //Texture
             //ForcePath = "valve/decals.wad:REFLECT1.tex", //Texture
             //ForcePath = "valve/decals.wad:{LARGE#S0.tex", //Texture
-            //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture
+            //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture:Font
             //ForcePath = "valve/sprites:640_logo.spr", //Sprite
             //TF
             //ForcePath = "game.tga", //Image

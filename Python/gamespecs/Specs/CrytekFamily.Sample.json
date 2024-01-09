@@ -1,0 +1,49 @@
+﻿{
+  "ArcheAge": {
+    "name": "ArcheAge",
+    "files": []
+  },
+  "Hunt": {
+    "name": "Hunt: Showdown",
+    "files": [
+      {
+        "path": "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds",
+        "type": "Texture"
+      }
+    ]
+  },
+  "MWO": {
+    "name": "MechWarrior Online",
+    "files": [
+      {
+        "path": ">GameData.pak:GameModeObjects.xml",
+        "size": 153832,
+        "type": "Test"
+      }
+    ]
+  },
+  "Warface": {
+    "name": "Warface",
+    "files": []
+  },
+  "Wolcen": {
+    "name": "Wolcen: Lords of Mayhem",
+    "files": []
+  },
+  "Crysis": {
+    "name": "Crysis Remastered",
+    "files": []
+  },
+  "Ryse": {
+    "name": "Ryse: Son of Rome",
+    "files": []
+  },
+  "Robinson": {
+    "name": "Robinson: The Journey",
+    "files": []
+  },
+  "Snow": {
+    "name": "SNOW - The Ultimate Edition",
+    "files": []
+  }
+}

@@ -1,6 +1,7 @@
 import os
 from .familymgr import FamilyGame
 from .pakfile import BinaryPakFile
+from .util import _pathExtension
 
 class WbBGame(FamilyGame):
     def __init__(self, family, id, elem, dgame):

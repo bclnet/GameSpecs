@@ -7,6 +7,7 @@ from .Capcom.pakbinary_bundle import PakBinary_Bundle
 from .Capcom.pakbinary_kpka import PakBinary_Kpka
 from .Capcom.pakbinary_plist import PakBinary_Plist
 from .Unity.pakbinary_unity import PakBinary_Unity
+from .util import _pathExtension
 
 class CapcomPakFile(BinaryPakFile):
     @staticmethod
@@ -24,4 +25,4 @@ class CapcomPakFile(BinaryPakFile):
             case _: raise Exception(f'Unknown: {extension}')
 
     def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, os.path.splitext(filePath)[1].lower()), tag)
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)

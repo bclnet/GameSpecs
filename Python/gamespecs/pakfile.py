@@ -203,7 +203,6 @@ class ManyPakFile(BinaryPakFile):
     def __init__(self, basis, game, name: str, fileSystem, paths, tag: object = None, visualPathSkip = 0):
         super().__init__(game, fileSystem, name, None, tag)
         if isinstance(basis, BinaryPakFile):
-            self.getMetaItemsMethod = basis.getMetaItemsMethod
             self.getObjectFactoryFactory = basis.getObjectFactoryFactory
         self.paths = paths
         self.useReader = False

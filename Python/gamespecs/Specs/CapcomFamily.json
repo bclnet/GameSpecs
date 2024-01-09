@@ -4,6 +4,9 @@
   "studio": "Capcom",
   "description": "Capcom file formats",
   "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games",
+  "samples": [
+    "CapcomFamily.Sample.json"
+  ],
   "specs": [
     "CapcomFamily+0-D.json",
     "CapcomFamily+E-L.json",

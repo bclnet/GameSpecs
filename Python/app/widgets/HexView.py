@@ -2,6 +2,7 @@ import sys, os
 from PyQt6.QtWidgets import QWidget, QTextEdit, QHBoxLayout
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
+from .util import _pathExtension
 
 class HexView(QWidget):
     def __init__(self, parent, tab):
@@ -47,7 +48,7 @@ class HexView(QWidget):
 
     def getFileInfo(self, path, type, content):
         encoding = 'utf-8'
-        ext = os.path.splitext(path)[1][1:]
+        ext = _pathExtension(path)[1:]
         if type:
             return (ext, encoding, type)
 

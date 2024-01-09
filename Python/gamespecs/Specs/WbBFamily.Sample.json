@@ -1,0 +1,64 @@
+﻿{
+  "AC": {
+    "name": "Asheron's Call",
+    "files": [
+      {
+        "path": "client_highres.dat:TabooTable/0E00001E.taboo",
+        "type": "Data"
+      },
+      {
+        "path": "client_highres.dat:Texture/06000133.tex",
+        "type": "Texture.R8G8B8"
+      },
+      {
+        "path": "client_highres.dat:Texture/06000FAA.tex",
+        "type": "Texture.A8R8G8B8"
+      },
+      {
+        "path": "client_highres.dat:Texture/06007529.tex",
+        "type": "Texture.INDEX16"
+      },
+      {
+        "path": "client_highres.dat:Texture/06007575.tex",
+        "type": "Texture.DXT1"
+      },
+      {
+        "path": "client_highres.dat:Texture/06007576.tex",
+        "type": "Texture.JPG"
+      },
+      {
+        "path": "client_highres.dat:Texture/0600127D.tex",
+        "type": "Texture.R8G8B8"
+      },
+      {
+        "path": "client_highres.dat:Texture/06001343.tex",
+        "type": "Texture.R8G8B8"
+      },
+      {
+        "path": "client_highres.dat:Texture/06007529.tex",
+        "type": "Texture.PAL"
+      },
+      {
+        "path": ">client_highres.dat:Texture/060043BE.tex",
+        "size": 32792,
+        "type": "Test"
+      }
+    ]
+  },
+  "AC2": {
+    "name": "Asheron's Call 2: Fallen Kings",
+    "files": []
+  },
+  "DDO": {
+    "name": "Dungeons & Dragons Online",
+    "files": []
+  },
+  "LotRO": {
+    "name": "The Lord of the Rings Online",
+    "files": []
+  },
+  "IC": {
+    "name": "Infinite Crisis",
+    "files": []
+  }
+}

@@ -4,6 +4,9 @@
   "studio": "Cloud Imperium Games",
   "description": "CIG formats used in StarCitizen",
   "url": "https://en.wikipedia.org/wiki/Star_Citizen",
+  "samples": [
+    "CigFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "pakFileType": "GameSpec.Cig.CigPakFile, GameSpec.Cig"

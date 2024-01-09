@@ -1,11 +1,27 @@
 import os
-from . import BinaryPakFile
+from . import FamilyGame, FileSource, BinaryPakFile
+from .Base.binary import Binary_Dds, Binary_Img, Binary_Snd, Binary_Txt
+from .Arkane.binary_danae import Binary_Ftl, Binary_Fts, Binary_Tea
 from .Arkane.pakbinary_danae import PakBinary_Danae
 from .Arkane.pakbinary_void import PakBinary_Void
+from .util import _pathExtension
 
 class ArkanePakFile(BinaryPakFile):
+
+    def __init__(self, game, fileSystem, filePath, tag):
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+        match game.engine:
+            # case 'CryEngine': self.objectFactoryFactoryMethod = Crytek.CrytekPakFile.ObjectFactoryFactory
+            # case 'Unreal': self.objectFactoryFactoryMethod = Epic.EpicPakFile.ObjectFactoryFactory
+            # case 'Valve': self.objectFactoryFactoryMethod = Valve.ValvePakFile.ObjectFactoryFactory
+            # case 'idTech7': self.objectFactoryFactoryMethod = Id.IdPakFile.ObjectFactoryFactory
+            case _: self.objectFactoryFactoryMethod = ArkanePakFile.objectFactoryFactory
+        self.useFileId = True
+
+    #region Factories
+        
     @staticmethod
-    def getPakBinary(game, extension):
+    def getPakBinary(game: FamilyGame, extension):
         match game.engine:
             case 'Danae': return PakBinary_Danae()
             case 'Void': return PakBinary_Void()
@@ -15,5 +31,20 @@ class ArkanePakFile(BinaryPakFile):
             # case 'idTech7': return PakBinary_Void()
             case _: raise Exception(f'Unknown: {game.engine}')
 
-    def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, os.path.splitext(filePath)[1].lower()), tag)
+    @staticmethod
+    def objectFactoryFactory(source: FileSource, game: FamilyGame):
+        match _pathExtension(source.path).lower():
+            case x if x == ".txt" or x == ".ini" or x == ".asl": return (0, Binary_Txt.factory)
+            case ".wav": return (0, Binary_Snd.factory)
+            case x if x == ".bmp" or x == ".jpg" or x == ".tga": return (0, Binary_Img.factory)
+            case ".dds": return (0, Binary_Dds.factory)
+            # Danae (AF)
+            case ".ftl": return (0, Binary_Ftl.factory)
+            case ".fts": return (0, Binary_Fts.factory)
+            case ".tea": return (0, Binary_Tea.factory)
+            #
+            #case ".llf": return (0, Binary_Flt.factory)
+            #case ".dlf": return (0, Binary_Flt.factory)
+            case _: return (0, None)
+
+    #endregion

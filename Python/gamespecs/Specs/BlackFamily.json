@@ -4,6 +4,9 @@
   "studio": "Black Isle Studios",
   "description": "",
   "url": "https://en.wikipedia.org/wiki/Black_Isle_Studios",
+  "samples": [
+    "BlackFamily.Sample.json"
+  ],
   "games": {
     "*": {
       "pakFileType": "GameSpec.Black.BlackPakFile, GameSpec.Black"

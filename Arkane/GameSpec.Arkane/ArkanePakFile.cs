@@ -4,6 +4,7 @@ using GameSpec.Arkane.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Transforms;
+using Google.Protobuf;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -42,10 +43,7 @@ namespace GameSpec.Arkane
         static readonly ConcurrentDictionary<string, PakBinary> PakBinarys = new ConcurrentDictionary<string, PakBinary>();
 
         static PakBinary GetPakBinary(FamilyGame game, string extension)
-            => PakBinarys.GetOrAdd(game.Id, _ => PakBinaryFactory(game));
-
-        static PakBinary PakBinaryFactory(FamilyGame game)
-            => game.Engine switch
+            => PakBinarys.GetOrAdd(game.Id, _ => game.Engine switch
             {
                 "Danae" => PakBinary_Danae.Instance,
                 "Void" => PakBinary_Void.Instance,
@@ -54,7 +52,7 @@ namespace GameSpec.Arkane
                 "Valve" => Valve.Formats.PakBinary_Vpk.Instance,
                 //"idTech7" => Id.Formats.PakBinaryVpk.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
-            };
+            });
 
         static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
@@ -68,8 +66,8 @@ namespace GameSpec.Arkane
                 ".fts" => (0, Binary_Fts.Factory),
                 ".tea" => (0, Binary_Tea.Factory),
                 //
-                //".llf" => (0, BinaryFlt.Factory),
-                //".dlf" => (0, BinaryFlt.Factory),
+                //".llf" => (0, Binary_Flt.Factory),
+                //".dlf" => (0, Binary_Flt.Factory),
                 _ => (0, null),
             };
 
