@@ -67,7 +67,6 @@ class MetaManager:
     def getMetaInfos(manager: MetaManager, pakFile: Any, file: Any) -> list[MetaInfo]:
         nodes = None
         obj = pakFile.loadFileObject(object, file)
-        print(obj)
         match obj:
             case None: return None
             case s if isinstance(obj, IHaveMetaInfo): nodes = s.getInfoNodes(manager, file)

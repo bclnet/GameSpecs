@@ -98,7 +98,7 @@ class Binary_Img(IHaveMetaInfo, ITexture):
         return self.bytes, format, None
     def end(self): pass
 
-    def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: print(self.width); return [
+    def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: return [
         MetaInfo(None, MetaContent(type = 'Texture', name = os.path.basename(file.path), value = self)),
         MetaInfo('Texture', items = [
             MetaInfo(f'Format: {self.format[0]}'),

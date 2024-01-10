@@ -1,4 +1,5 @@
 ﻿using GameSpec.Formats;
+using GameSpec.Platforms;
 using System;
 using System.Collections.Generic;
 using System.IO;

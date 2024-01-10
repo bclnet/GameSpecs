@@ -68,8 +68,6 @@ class FileExplorer(QWidget):
         # ready
         pakFile = tab.pakFile
         self.nodes = pakFile.getMetaItems(self.resource)
-        print(self.nodes)
-        exit(1)
         self.load_dir(tab.pakFile)
 
     def load_empty_table(self):

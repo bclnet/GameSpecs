@@ -1,4 +1,5 @@
 ﻿using GameSpec.Formats;
+using GameSpec.Platforms;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

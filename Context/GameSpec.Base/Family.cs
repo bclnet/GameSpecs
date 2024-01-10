@@ -1,4 +1,5 @@
-﻿using GameSpec.Unknown;
+﻿using GameSpec.Platforms;
+using GameSpec.Unknown;
 using OpenStack;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-using GameSpec.Graphics.Scenes;
+using GameSpec.Scenes;
 using GameSpec.Valve.Formats;
 using GameSpec.Valve.Graphics.OpenGL.Scenes;
 using OpenStack.Graphics;

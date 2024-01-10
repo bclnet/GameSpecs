@@ -32,7 +32,8 @@ def init():
 
     # query games
     for s in [s for s in os.listdir(gamePath)]:
-        print(s)
+        pass
+        # print(s)
         
     #     with open(os.path.join(dbPath, s), 'r') as f:
     #         # add appPath if exists

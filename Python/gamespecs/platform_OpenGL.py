@@ -6,6 +6,9 @@ class OpenGLGraphic:
     def __init__(self, source):
         self._source = source
 
+class OpenGLObjectBuilder(ObjectBuilderBase):
+    pass
+
 class OpenGLPlatform:
     def startup() -> bool:
         PlatformType = Type.OpenGL

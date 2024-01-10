@@ -15,5 +15,4 @@ class TextureView(OpenGLView):
         self.onProperty()
 
     def onProperty(self):
-        print(self.source)
         pass
