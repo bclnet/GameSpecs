@@ -37,7 +37,7 @@ namespace GameSpec.Platforms
         public void PreloadObject(string path) => _objectManager.PreloadObject(path);
         public Shader LoadShader(string path, IDictionary<string, bool> args = null) => _shaderManager.LoadShader(path, args);
 
-        public Task<T> LoadFileObjectAsync<T>(string path) => _source.LoadFileObjectAsync<T>(path);
+        public Task<T> LoadFileObjectAsync<T>(string path) => _source.LoadFileObject<T>(path);
 
         // cache
         QuadIndexBuffer _quadIndices;

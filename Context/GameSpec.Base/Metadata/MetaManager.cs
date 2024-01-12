@@ -42,10 +42,10 @@ namespace GameSpec.Metadata
         /// <param name="file">The file.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public static async Task<List<MetaInfo>> GetMetaInfosAsync(MetaManager manager, BinaryPakFile pakFile, FileSource file)
+        public static async Task<List<MetaInfo>> GetMetaInfos(MetaManager manager, BinaryPakFile pakFile, FileSource file)
         {
             List<MetaInfo> nodes = null;
-            var obj = await pakFile.LoadFileObjectAsync<object>(file);
+            var obj = await pakFile.LoadFileObject<object>(file);
             if (obj == null) return null;
             else if (obj is IHaveMetaInfo info) nodes = info.GetInfoNodes(manager, file);
             else if (obj is Stream stream)
@@ -78,12 +78,12 @@ namespace GameSpec.Metadata
         }
 
         /// <summary>
-        /// Gets the meta items asynchronous.
+        /// Gets the meta items.
         /// </summary>
         /// <param name="manager">The manager.</param>
         /// <param name="pakFile">The pak file.</param>
         /// <returns></returns>
-        public static async Task<List<MetaItem>> GetMetaItemsAsync(MetaManager manager, BinaryPakFile pakFile)
+        public static List<MetaItem> GetMetaItems(MetaManager manager, BinaryPakFile pakFile)
         {
             var root = new List<MetaItem>();
             if (pakFile.Files == null || pakFile.Files.Count == 0) return root;
@@ -117,7 +117,7 @@ namespace GameSpec.Metadata
                 // pakfile
                 if (file.Pak != null)
                 {
-                    var items = await GetMetaItemsAsync(manager, file.Pak);
+                    var items = GetMetaItems(manager, file.Pak);
                     currentFolder.Add(new MetaItem(file, Path.GetFileName(file.Path), manager.PackageIcon, pakFile: pakFile, items: items));
                     continue;
                 }

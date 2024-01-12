@@ -32,7 +32,7 @@ namespace GameSpec.Formats
         {
             var source = TestHelper.Paks[pak].Value;
             Assert.IsTrue(source.Contains(sampleFile));
-            var obj0 = await source.LoadFileObjectAsync<object>(sampleFile);
+            var obj0 = await source.LoadFileObject<object>(sampleFile);
             Assert.IsNotNull(obj0);
             //Assert.Equal(sampleFileSize, pakFile.GetLoadFileDataAsync(sampleFile).Result.Length);
         }

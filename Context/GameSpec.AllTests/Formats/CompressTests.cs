@@ -71,7 +71,7 @@ namespace GameSpec.Formats
         static async Task LoadDataAync(PakFile source, string sampleFile, int sampleFileSize)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            Assert.AreEqual(sampleFileSize, (await source.LoadFileDataAsync(sampleFile)).Length);
+            Assert.AreEqual(sampleFileSize, (await source.LoadFileData(sampleFile)).Length);
         }
     }
 }

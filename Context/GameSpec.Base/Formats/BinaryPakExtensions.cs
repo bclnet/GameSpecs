@@ -44,7 +44,7 @@ namespace GameSpec.Formats
             });
 
             // write pak-raw
-            if ((option & FileOption.Marker) != 0) await new StreamPakFile(source, source.Game, null, filePath).WriteAsync(null, null);
+            if ((option & FileOption.Marker) != 0) await new StreamPakFile(source, source.Game, null, filePath).Write(null, null);
         }
 
         static async Task ExportFileAsync(FileSource file, BinaryPakFile source, string newPath, FileOption option = default)
@@ -55,13 +55,13 @@ namespace GameSpec.Formats
             {
                 if ((fileOption & FileOption.Model) != 0)
                 {
-                    var model = await source.LoadFileObjectAsync<IUnknownFileModel>(file, FamilyManager.UnknownPakFile);
+                    var model = await source.LoadFileObject<IUnknownFileModel>(file, FamilyManager.UnknownPakFile);
                     UnknownFileWriter.Factory("default", model).Write(newPath, false);
                     return;
                 }
                 else if ((fileOption & FileOption.Stream) != 0)
                 {
-                    if (!(await source.LoadFileObjectAsync<object>(file) is IHaveStream haveStream))
+                    if (!(await source.LoadFileObject<object>(file) is IHaveStream haveStream))
                     {
                         PakBinary.HandleException(null, option, $"ExportFileAsync: {file.Path} @ {file.FileSize}");
                         throw new InvalidOperationException();
@@ -74,7 +74,7 @@ namespace GameSpec.Formats
                     return;
                 }
             }
-            using var b = await source.LoadFileDataAsync(file, option);
+            using var b = await source.LoadFileData(file, option);
             using var s = newPath != null
                 ? new FileStream(newPath, FileMode.Create, FileAccess.Write)
                 : (Stream)new MemoryStream();
@@ -82,7 +82,7 @@ namespace GameSpec.Formats
             if (file.Parts != null && (option & FileOption.Raw) == 0)
                 foreach (var part in file.Parts)
                 {
-                    using var b2 = await source.LoadFileDataAsync(part, option);
+                    using var b2 = await source.LoadFileData(part, option);
                     b2.CopyTo(s);
                 }
         }
@@ -119,7 +119,7 @@ namespace GameSpec.Formats
                 try
                 {
                     await source.PakBinary.WriteAsync(source, w);
-                    using (var s = File.Open(newPath, FileMode.Open, FileAccess.Read, FileShare.Read)) await source.WriteDataAsync(w, file, s, option);
+                    using (var s = File.Open(newPath, FileMode.Open, FileAccess.Read, FileShare.Read)) await source.WriteData(w, file, s, option);
                     advance?.Invoke(file, index);
                 }
                 catch (Exception e) { PakBinary.HandleException(file, option, $"Exception: {e.Message}"); }

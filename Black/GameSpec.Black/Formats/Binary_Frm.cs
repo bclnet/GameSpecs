@@ -50,10 +50,10 @@ namespace GameSpec.Black.Formats
         {
             var palletPath = $"{path[..^4]}.PAL";
             if (s.Contains(palletPath))
-                return await s.LoadFileObjectAsync<Binary_Pal>(palletPath);
+                return await s.LoadFileObject<Binary_Pal>(palletPath);
             if (DefaultPallet == null && s.Contains("COLOR.PAL"))
             {
-                DefaultPallet ??= await s.LoadFileObjectAsync<Binary_Pal>("COLOR.PAL");
+                DefaultPallet ??= await s.LoadFileObject<Binary_Pal>("COLOR.PAL");
                 DefaultPallet.SetColors();
             }
             return DefaultPallet;

@@ -15,8 +15,9 @@ def _method(elem: dict[str, Any], key: str, method: Any, default: Any = None) ->
 
 def _related(elem: dict[str, Any], key: str, method: Any, default: Any = None) -> Any:
     return { k:method(k, v) for k,v in elem[key].items() } if key in elem else {}
-def _relatedTrim(elem: dict[str, Any], key: str, method: Any, default: Any = None) -> Any:
-    return { k:v for k,v in { k:method(k, v) for k,v in elem[key].items() }.items() if v } if key in elem else {}
+
+def _dictTrim(source: dict[str, Any]) -> Any:
+    return { k:v for k,v in source.items() if v }
 
 def _pathExtension(path: str) -> str:
     return os.path.splitext(path)[1]

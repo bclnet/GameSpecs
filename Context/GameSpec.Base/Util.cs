@@ -29,8 +29,9 @@ namespace GameSpec
         // related
         public static Dictionary<string, T> _related<T>(JsonElement elem, string key, Func<string, JsonElement, T> func)
             => elem.TryGetProperty(key, out var z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => func(x.Name, x.Value)) : new Dictionary<string, T>();
-        public static Dictionary<string, T> _relatedTrim<T>(JsonElement elem, string key, Func<string, JsonElement, T> func)
-            => elem.TryGetProperty(key, out var z) ? z.EnumerateObject().ToDictionary(x => x.Name, x => func(x.Name, x.Value)).Where(x => x.Value != null).ToDictionary(x => x.Key, x => x.Value) : new Dictionary<string, T>();
+
+        public static Dictionary<string, T> _dictTrim<T>(Dictionary<string, T> source)
+            => source.Where(x => x.Value != null).ToDictionary(x => x.Key, x => x.Value);
 
         // _guessExtension
         public static string _guessExtension(byte[] buf, bool fast = true)

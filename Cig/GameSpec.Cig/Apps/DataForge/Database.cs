@@ -62,7 +62,7 @@ namespace GameSpec.Cig.Apps.DataForge
         {
             family = FamilyManager.GetFamily("Cig");
             pakFile = family.OpenPakFile(new Uri("game:/#StarCitizen"));
-            var obj = await pakFile.LoadFileObjectAsync<Binary_Dcb>($"Data/Game.dcb");
+            var obj = await pakFile.LoadFileObject<Binary_Dcb>($"Data/Game.dcb");
             foreach (var value in obj.RecordTable)
                 Node.CreateNode(manager, Nodes, value);
         }

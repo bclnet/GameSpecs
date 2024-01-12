@@ -59,8 +59,8 @@ namespace GameSpec.Formats
         /// </summary>
         public override void Opening()
         {
-            if (UseReader) GetBinaryReader()?.Action(async r => await ReadAsync(r));
-            else ReadAsync(null).GetAwaiter().GetResult();
+            if (UseReader) GetBinaryReader()?.Action(async r => await Read(r));
+            else Read(null).GetAwaiter().GetResult();
             Process();
         }
 
@@ -128,29 +128,29 @@ namespace GameSpec.Formats
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileDataAsync(object path, FileOption option = default)
+        public override Task<Stream> LoadFileData(object path, FileOption option = default)
         {
             switch (path)
             {
                 case null: throw new ArgumentNullException(nameof(path));
                 case FileSource f:
                     {
-                        return UseReader ? GetBinaryReader().Func(r => ReadDataAsync(r, f, option))
-                            : ReadDataAsync(null, f, option);
+                        return UseReader ? GetBinaryReader().Func(r => ReadData(r, f, option))
+                            : ReadData(null, f, option);
                     }
                 case string s:
                     {
-                        if (TryFindSubPak(s, out var pak, out var nextPath)) return pak.LoadFileDataAsync(nextPath, option);
+                        if (TryFindSubPak(s, out var pak, out var nextPath)) return pak.LoadFileData(nextPath, option);
                         var files = FilesByPath[s.Replace('\\', '/')].ToArray();
-                        if (files.Length == 1) return LoadFileDataAsync(files[0], option);
-                        Log($"ERROR.LoadFileDataAsync: {s} @ {files.Length}");
+                        if (files.Length == 1) return LoadFileData(files[0], option);
+                        Log($"ERROR.LoadFileData: {s} @ {files.Length}");
                         throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
                     }
                 case int i:
                     {
                         var files = FilesById[i].ToArray();
-                        if (files.Length == 1) return LoadFileDataAsync(files[0], option);
-                        Log($"ERROR.LoadFileDataAsync: {i} @ {files.Length}");
+                        if (files.Length == 1) return LoadFileData(files[0], option);
+                        Log($"ERROR.LoadFileData: {i} @ {files.Length}");
                         throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
                     }
                 default: throw new ArgumentOutOfRangeException(nameof(path));
@@ -164,7 +164,7 @@ namespace GameSpec.Formats
         /// <param name="path">The file.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public override async Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default)
+        public override async Task<T> LoadFileObject<T>(object path, FileOption option = default)
         {
             switch (path)
             {
@@ -172,7 +172,7 @@ namespace GameSpec.Formats
                 case FileSource f:
                     {
                         var type = typeof(T);
-                        var data = await LoadFileDataAsync(f, option);
+                        var data = await LoadFileData(f, option);
                         if (data == null) return default;
                         var objectFactory = EnsureCachedObjectFactory(f);
                         if (objectFactory != FileSource.EmptyObjectFactory)
@@ -200,18 +200,18 @@ namespace GameSpec.Formats
                     }
                 case string s:
                     {
-                        if (TryFindSubPak(s, out var pak, out var nextPath)) return await pak.LoadFileObjectAsync<T>(nextPath);
+                        if (TryFindSubPak(s, out var pak, out var nextPath)) return await pak.LoadFileObject<T>(nextPath);
                         if (PathFinders.Count > 0) path = FindPath<T>(s);
                         var files = FilesByPath[s.Replace('\\', '/')].ToArray();
-                        if (files.Length == 1) return await LoadFileObjectAsync<T>(files[0], option);
-                        Log($"ERROR.LoadFileObjectAsync: {s} @ {files.Length}");
+                        if (files.Length == 1) return await LoadFileObject<T>(files[0], option);
+                        Log($"ERROR.LoadFileObject: {s} @ {files.Length}");
                         throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
                     }
                 case int i:
                     {
                         var files = FilesById[i].ToArray();
-                        if (files.Length == 1) return await LoadFileObjectAsync<T>(files[0], option);
-                        Log($"LoadFileObjectAsync: {i} @ {files.Length}");
+                        if (files.Length == 1) return await LoadFileObject<T>(files[0], option);
+                        Log($"LoadFileObject: {i} @ {files.Length}");
                         throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
                     }
                 default: throw new ArgumentOutOfRangeException(nameof(path));
@@ -274,7 +274,7 @@ namespace GameSpec.Formats
         /// <param name="r">The r.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public virtual Task ReadAsync(BinaryReader r, object tag = default) => PakBinary.ReadAsync(this, r, tag);
+        public virtual Task Read(BinaryReader r, object tag = default) => PakBinary.ReadAsync(this, r, tag);
 
         /// <summary>
         /// Reads the file data asynchronous.
@@ -283,7 +283,7 @@ namespace GameSpec.Formats
         /// <param name="file">The file.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public virtual Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadDataAsync(this, r, file, option);
+        public virtual Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadDataAsync(this, r, file, option);
 
         /// <summary>
         /// Writes the asynchronous.
@@ -291,7 +291,7 @@ namespace GameSpec.Formats
         /// <param name="w">The w.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public virtual Task WriteAsync(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
+        public virtual Task Write(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
 
         /// <summary>
         /// Writes the file data asynchronous.
@@ -301,7 +301,7 @@ namespace GameSpec.Formats
         /// <param name="data">The data.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public virtual Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteDataAsync(this, w, file, data, option);
+        public virtual Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteDataAsync(this, w, file, data, option);
 
         #endregion
 
@@ -314,8 +314,8 @@ namespace GameSpec.Formats
         /// <param name="item">The item.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override Task<List<MetaInfo>> GetMetaInfosAsync(MetaManager manager, MetaItem item)
-            => Valid ? MetaManager.GetMetaInfosAsync(manager, this, item.Source as FileSource) : default;
+        public override Task<List<MetaInfo>> GetMetaInfos(MetaManager manager, MetaItem item)
+            => Valid ? MetaManager.GetMetaInfos(manager, this, item.Source as FileSource) : default;
 
         /// <summary>
         /// Gets the explorer item nodes.
@@ -323,8 +323,8 @@ namespace GameSpec.Formats
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override Task<List<MetaItem>> GetMetaItemsAsync(MetaManager manager)
-            => Valid ? MetaManager.GetMetaItemsAsync(manager, this) : default;
+        public override List<MetaItem> GetMetaItems(MetaManager manager)
+            => Valid ? MetaManager.GetMetaItems(manager, this) : default;
 
         #endregion
     }

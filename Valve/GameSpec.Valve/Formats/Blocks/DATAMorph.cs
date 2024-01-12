@@ -27,7 +27,7 @@ namespace GameSpec.Valve.Formats.Blocks
             var atlasPath = Data.Get<string>("m_pTextureAtlas");
             if (string.IsNullOrEmpty(atlasPath)) return;
 
-            var textureResource = await fileLoader.LoadFileObjectAsync<DATATexture>(atlasPath + "_c");
+            var textureResource = await fileLoader.LoadFileObject<DATATexture>(atlasPath + "_c");
             if (textureResource == null) return;
 
             LocalFunction();

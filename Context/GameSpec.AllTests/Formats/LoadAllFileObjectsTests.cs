@@ -62,7 +62,7 @@ namespace GameSpec.Formats
                 //if (file.FileSize > 50000000) return;
 
                 // extract file
-                var obj = await pak.LoadFileObjectAsync<object>(file);
+                var obj = await pak.LoadFileObject<object>(file);
                 if (obj is Stream stream)
                 {
                     var value = MetaManager.GuessStringOrBytes(stream);

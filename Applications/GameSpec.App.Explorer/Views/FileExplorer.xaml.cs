@@ -39,8 +39,8 @@ namespace GameSpec.App.Explorer.Views
             new PropertyMetadata((d, e) =>
             {
                 if (d is not FileExplorer fileExplorer || e.NewValue is not PakFile pakFile) return;
-                fileExplorer.Filters = pakFile.GetMetadataFiltersAsync(Resource).Result;
-                fileExplorer.Nodes = new ObservableCollection<MetaItem>(fileExplorer.PakNodes = pakFile.GetMetaItemsAsync(Resource).Result.ToList());
+                fileExplorer.Filters = pakFile.GetMetadataFilters(Resource);
+                fileExplorer.Nodes = new ObservableCollection<MetaItem>(fileExplorer.PakNodes = pakFile.GetMetaItems(Resource));
                 fileExplorer.OnReady();
             }));
         public PakFile PakFile
@@ -112,7 +112,7 @@ namespace GameSpec.App.Explorer.Views
                         //value.Items.AddRange(pak.GetMetaItemsAsync(Resource).Result);
                         OnFilterKeyUp(null, null);
                     }
-                    OnInfo(value.PakFile?.GetMetaInfosAsync(Resource, value).Result);
+                    OnInfo(value.PakFile?.GetMetaInfos(Resource, value).Result);
                 }
                 catch (Exception ex)
                 {

@@ -22,6 +22,6 @@ namespace GameSpec.Transforms
         /// <param name="transformTo">The transform to.</param>
         /// <param name="source">The source.</param>
         /// <returns></returns>
-        Task<T> TransformFileObjectAsync(PakFile transformTo, object source);
+        Task<T> TransformFileObject(PakFile transformTo, object source);
     }
 }

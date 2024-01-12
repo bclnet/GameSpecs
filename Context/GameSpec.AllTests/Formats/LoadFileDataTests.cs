@@ -41,7 +41,7 @@ namespace GameSpec.Formats
         {
             var source = TestHelper.Paks[pak].Value;
             Assert.IsTrue(source.Contains(sampleFile));
-            Assert.AreEqual(sampleFileSize, (await source.LoadFileDataAsync(sampleFile)).Length);
+            Assert.AreEqual(sampleFileSize, (await source.LoadFileData(sampleFile)).Length);
         }
     }
 }

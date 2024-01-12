@@ -13,7 +13,7 @@ namespace GameSpec.Unity.Formats
         public async Task LoadFileObjectAsync(PakFile source, string sampleFile)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            var file = await source.LoadFileObjectAsync<byte[]>(sampleFile);
+            var file = await source.LoadFileObject<byte[]>(sampleFile);
         }
     }
 }

@@ -37,10 +37,10 @@ class Binary_Dds(IHaveMetaInfo):
 
     def begin(self, platform: int) -> (bytes, object, list[Any]):
         match platform:
-            case FamilyPlatform.Type.OpenGL: format = self.format[1]
-            case FamilyPlatform.Type.Vulken: format = self.format[2]
-            case FamilyPlatform.Type.Unity: format = self.format[3]
-            case FamilyPlatform.Type.Unreal: format = self.format[4]
+            case Platform.Type.OpenGL: format = self.format[1]
+            case Platform.Type.Vulken: format = self.format[2]
+            case Platform.Type.Unity: format = self.format[3]
+            case Platform.Type.Unreal: format = self.format[4]
             case _: raise Exception('Unknown {platform}')
         return self.bytes, format, self.mips
     def end(self): pass
@@ -90,10 +90,10 @@ class Binary_Img(IHaveMetaInfo, ITexture):
 
     def begin(self, platform: int) -> (bytes, object, list[Any]):
         match platform:
-            case FamilyPlatform.Type.OpenGL: format = self.format[1]
-            case FamilyPlatform.Type.Vulken: format = self.format[2]
-            case FamilyPlatform.Type.Unity: format = self.format[3]
-            case FamilyPlatform.Type.Unreal: format = self.format[4]
+            case Platform.Type.OpenGL: format = self.format[1]
+            case Platform.Type.Vulken: format = self.format[2]
+            case Platform.Type.Unity: format = self.format[3]
+            case Platform.Type.Unreal: format = self.format[4]
             case _: raise Exception('Unknown {platform}')
         return self.bytes, format, None
     def end(self): pass

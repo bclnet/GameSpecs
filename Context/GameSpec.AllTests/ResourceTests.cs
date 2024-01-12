@@ -52,7 +52,7 @@ namespace GameSpec
             if (pakFile == null) throw new InvalidOperationException("pak not opened");
             Assert.AreEqual(firstPak, pakFile.Name);
             Assert.IsTrue(pakFile.Contains(sampleFile));
-            Assert.AreEqual(sampleFileSize, pakFile.LoadFileDataAsync(sampleFile).Result.Length);
+            Assert.AreEqual(sampleFileSize, pakFile.LoadFileData(sampleFile).Result.Length);
         }
     }
 }

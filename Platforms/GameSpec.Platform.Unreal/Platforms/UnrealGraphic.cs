@@ -29,6 +29,6 @@ namespace GameSpec.Platforms
         public void PreloadObject(string path) => throw new NotImplementedException();
         public object LoadShader(string path, IDictionary<string, bool> args = null) => throw new NotImplementedException();
 
-        public Task<T> LoadFileObjectAsync<T>(string path) => _source.LoadFileObjectAsync<T>(path);
+        public Task<T> LoadFileObjectAsync<T>(string path) => _source.LoadFileObject<T>(path);
     }
 }

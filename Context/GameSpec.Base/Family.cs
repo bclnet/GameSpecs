@@ -138,7 +138,7 @@ namespace GameSpec
             // related
             var dgame = new FamilyGame { SearchBy = SearchBy.Pak, Paks = new[] { new Uri("game:/") } };
             Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
-            Games = _relatedTrim(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths));
+            Games = _dictTrim(_related(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths)));
             Apps = _related(elem, "apps", (k, v) => CreateFamilyApp(this, k, v));
             //}
             //catch (Exception e)

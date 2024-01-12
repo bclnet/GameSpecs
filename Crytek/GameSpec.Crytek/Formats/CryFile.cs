@@ -58,9 +58,9 @@ namespace GameSpec.Crytek.Formats
             if (pak.Contains(mFilePath))
             {
                 Log($"Found geometry file {Path.GetFileName(mFilePath)}");
-                files.Add((mFilePath, pak.LoadFileDataAsync(mFilePath).Result)); // Add to list of files to process
+                files.Add((mFilePath, pak.LoadFileData(mFilePath).Result)); // Add to list of files to process
             }
-            LoadAsync(pak, files, FindMaterialFromPak, path => Task.FromResult<(string, Stream)>((path, pak.LoadFileDataAsync(path).Result))).Wait();
+            LoadAsync(pak, files, FindMaterialFromPak, path => Task.FromResult<(string, Stream)>((path, pak.LoadFileData(path).Result))).Wait();
         }
 
         static string FindMaterialFromFile(PakFile pak, string materialPath, string fileName, string cleanName)

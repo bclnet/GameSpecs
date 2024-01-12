@@ -84,7 +84,7 @@ namespace GameSpec.Cig.Apps.StarWords
             pakFile = family.OpenPakFile(new Uri("game:/Data.p4k#StarCitizen"));
             foreach (var local in locales)
             {
-                var stream = await pakFile.LoadFileDataAsync($"Data/Localization/{local}/global.ini");
+                var stream = await pakFile.LoadFileData($"Data/Localization/{local}/global.ini");
                 using var r = new StreamReader(stream, Encoding.UTF8);
                 var body = r.ReadToEnd();
                 var values = body.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(x => x.Split('=', 2)).ToDictionary(x => x[0].Trim(), x => x.Length > 1 ? x[1] : null);

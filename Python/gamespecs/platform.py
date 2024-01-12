@@ -1,15 +1,12 @@
 import os
 from enum import Enum
+from typing import Any
 from .pakfile import PakFile
 from openstk.gfx_texture import ITextureManager
 from openstk.platform import PlatformStats
 
 class Texture: pass
 class ITexture: pass
-
-class Stats:
-    maxTextureMaxAnisotropy: int
-    pass
 
 # TextureBuilderBase
 class TextureBuilderBase:
@@ -57,7 +54,7 @@ class TextureManager(ITextureManager):
         self._builder.deleteTexture(self._cachedTextures[0])
         self._cachedTextures.remove(key)
 
-    def _loadTexture(self, key: object) -> ITexture:
+    async def _loadTexture(self, key: object) -> ITexture:
         assert(not key in self._cachedTextures)
         match key:
             case s if isinstance(key, str):
@@ -74,7 +71,6 @@ class ShaderBuilderBase:
 
 # ShaderManager
 class ShaderManager(IShaderManager):
-    @staticmethod
     emptyArgs: dict[str, bool] = {}
 
     _pakFile: PakFile
@@ -123,7 +119,7 @@ class ObjectManager(IObjectManager):
         # Start loading the object asynchronously if we haven't already started.
         if not path in self._preloadTasks: self._preloadTasks[path] = self._pakFile.loadFileObject(object, path)
 
-    def loadPrefabDontAddToPrefabCache(path: str) -> object:
+    async def loadPrefabDontAddToPrefabCache(path: str) -> object:
         assert(not path in self._cachedPrefabs)
         self.preloadObject(path)
         source = await self._preloadTasks[path]
@@ -167,7 +163,7 @@ class MaterialManager(IMaterialManager):
         # Start loading the material file asynchronously if we haven't already started.
         if not path in self._preloadTasks: self._preloadTasks[path] = self._pakFile.loadFileObject(path)
 
-    def loadMaterialInfo(self, key: object) -> IMaterial:
+    async def loadMaterialInfo(self, key: object) -> IMaterial:
         assert(not key in self._cachedMaterials)
         match key:
             case path if isinstance(key, str):
@@ -177,28 +173,42 @@ class MaterialManager(IMaterialManager):
                 return info
             case _: raise Exception(f'Unknown {key}')
 
+class Platform:
+    class Stats:
+        maxTextureMaxAnisotropy: int
+        pass
 
-class Type(Enum):
-    Unknown = 0
-    OpenGL = 1
-    Unity = 2
-    Vulken = 3
-    Test = 4
-    Other = 5
+    class Type(Enum):
+        Unknown = 0
+        OpenGL = 1
+        Unity = 2
+        Vulken = 3
+        Test = 4
+        Other = 5
 
-class OS(Enum):
-    Windows = 1
-    OSX = 1
-    Linux = 1
-    Android = 1
+    class OS(Enum):
+        Windows = 1
+        OSX = 1
+        Linux = 1
+        Android = 1
 
-PlatformType:Type = None
-PlatformTag:str = None
-PlatformOS:OS = OS.Windows
-GraphicFactory:object = None
-Startups:list[object] = []
-InTestHost:bool = False
-LogFunc:object = None
+    PlatformType:Type = None
+    PlatformTag:str = None
+    PlatformOS:OS = OS.Windows
+    GraphicFactory:Any = None
+    Startups:list[object] = []
+    InTestHost:bool = False
+    LogFunc:object = None
+
+    # startup
+    @staticmethod
+    def startup():
+        if Platform.InTestHost and len(Platform.Startups) == 0: Platform.Startups.append(TestPlatform.startup)
+        for startup in Platform.Startups:
+            if startup(): return
+        PlatformType = Platform.Type.Unknown
+        GraphicFactory = lambda source: None
+        LogFunc = lambda a: print(a)
 
 class TestGraphic:
     def __init__(self, source):
@@ -206,16 +216,8 @@ class TestGraphic:
 
 class TestPlatform:
     def startup() -> bool:
-        PlatformType = Type.Test
+        PlatformType = Platform.Type.Test
         GraphicFactory = lambda source: TestGraphic(source)
         LogFunc = lambda a: print(a)
         return True
 
-# startup
-def startup():
-    if InTestHost and len(Startups) == 0: Startups.append(TestPlatform.startup)
-    for startup in Startups:
-        if startup(): return
-    PlatformType = Type.Unknown
-    GraphicFactory = lambda source: None
-    LogFunc = lambda a: print(a)

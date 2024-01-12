@@ -32,7 +32,7 @@ namespace GameSpec.Cig.Formats
                 //Open();
             }
 
-            public async override Task ReadAsync(BinaryReader r, object tag)
+            public async override Task Read(BinaryReader r, object tag)
             {
                 using var r2 = new BinaryReader(Stream);
                 await PakBinary.ReadAsync(this, r2, tag);

@@ -19,7 +19,7 @@ namespace GameSpec.Exports
         public async Task ExportFileObjectAsync(PakFile source, string sampleFile)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            var file = await source.LoadFileObjectAsync<IUnknownFileModel>(sampleFile, FamilyManager.UnknownPakFile);
+            var file = await source.LoadFileObject<IUnknownFileModel>(sampleFile, FamilyManager.UnknownPakFile);
             var objFile = new WavefrontFileWriter(file);
             objFile.Write(@"C:\T_\Models", false);
         }

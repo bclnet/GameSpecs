@@ -55,7 +55,7 @@ namespace GameSpec.Valve.Formats.Blocks
                 var morphSetPath = Data.Get<string>("m_morphSet");
                 if (!string.IsNullOrEmpty(morphSetPath))
                 {
-                    var morphSetResource = await fileLoader.LoadFileObjectAsync<Binary_Pak>(morphSetPath + "_c");
+                    var morphSetResource = await fileLoader.LoadFileObject<Binary_Pak>(morphSetPath + "_c");
                     if (morphSetResource != null)
                     {
                         //MorphData = morphSetResource.GetBlockByType<MRPH>() as DATAMorph;

@@ -34,7 +34,7 @@ namespace GameSpec.Platforms
         {
             if (_cachedPrefabs.ContainsKey(path)) return;
             // Start loading the object asynchronously if we haven't already started.
-            if (!_preloadTasks.ContainsKey(path)) _preloadTasks[path] = _pakFile.LoadFileObjectAsync<object>(path);
+            if (!_preloadTasks.ContainsKey(path)) _preloadTasks[path] = _pakFile.LoadFileObject<object>(path);
         }
 
         Object LoadPrefabDontAddToPrefabCache(string path)

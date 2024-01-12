@@ -114,7 +114,7 @@ namespace GameSpec
             Opening();
             watch.Stop();
             Status = PakStatus.Opened;
-            items?.AddRange(GetMetaItemsAsync(manager).Result);
+            items?.AddRange(GetMetaItems(manager));
             Log($"Opened: {Name} @ {watch.ElapsedMilliseconds}ms");
             return this;
         }
@@ -167,7 +167,7 @@ namespace GameSpec
         /// <param name="path">The file path.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public abstract Task<Stream> LoadFileDataAsync(object path, FileOption option = default);
+        public abstract Task<Stream> LoadFileData(object path, FileOption option = default);
 
         /// <summary>
         /// Loads the object asynchronous.
@@ -176,7 +176,7 @@ namespace GameSpec
         /// <param name="path">The file path.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public abstract Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default);
+        public abstract Task<T> LoadFileObject<T>(object path, FileOption option = default);
 
         #region Transform
 
@@ -187,8 +187,8 @@ namespace GameSpec
         /// <param name="path">The file path.</param>
         /// <param name="transformTo">The transformTo.</param>
         /// <returns></returns>
-        public async Task<T> LoadFileObjectAsync<T>(object path, PakFile transformTo)
-            => await TransformFileObjectAsync<T>(transformTo, await LoadFileObjectAsync<object>(path));
+        public async Task<T> LoadFileObject<T>(object path, PakFile transformTo)
+            => await TransformFileObject<T>(transformTo, await LoadFileObject<object>(path));
         
         /// <summary>
         /// Transforms the file object asynchronous.
@@ -197,10 +197,10 @@ namespace GameSpec
         /// <param name="transformTo">The transformTo.</param>
         /// <param name="source">The source.</param>
         /// <returns></returns>
-        Task<T> TransformFileObjectAsync<T>(PakFile transformTo, object source)
+        Task<T> TransformFileObject<T>(PakFile transformTo, object source)
         {
-            if (this is ITransformFileObject<T> left && left.CanTransformFileObject(transformTo, source)) return left.TransformFileObjectAsync(transformTo, source);
-            else if (transformTo is ITransformFileObject<T> right && right.CanTransformFileObject(transformTo, source)) return right.TransformFileObjectAsync(transformTo, source);
+            if (this is ITransformFileObject<T> left && left.CanTransformFileObject(transformTo, source)) return left.TransformFileObject(transformTo, source);
+            else if (transformTo is ITransformFileObject<T> right && right.CanTransformFileObject(transformTo, source)) return right.TransformFileObject(transformTo, source);
             else throw new ArgumentOutOfRangeException(nameof(transformTo));
         }
 
@@ -213,8 +213,8 @@ namespace GameSpec
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<MetaItem.Filter>> GetMetadataFiltersAsync(MetaManager manager)
-            => Task.FromResult(Family.FileManager != null && Family.FileManager.Filters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetaItem.Filter(x.Key, x.Value)).ToList() : null);
+        public virtual List<MetaItem.Filter> GetMetadataFilters(MetaManager manager)
+            => Family.FileManager != null && Family.FileManager.Filters.TryGetValue(Game.Id, out var z) ? z.Select(x => new MetaItem.Filter(x.Key, x.Value)).ToList() : null;
 
         /// <summary>
         /// Gets the metadata infos.
@@ -222,7 +222,7 @@ namespace GameSpec
         /// <param name="manager">The resource.</param>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public virtual Task<List<MetaInfo>> GetMetaInfosAsync(MetaManager manager, MetaItem item)
+        public virtual Task<List<MetaInfo>> GetMetaInfos(MetaManager manager, MetaItem item)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace GameSpec
         /// </summary>
         /// <param name="manager">The resource.</param>
         /// <returns></returns>
-        public virtual Task<List<MetaItem>> GetMetaItemsAsync(MetaManager manager)
+        public virtual List<MetaItem> GetMetaItems(MetaManager manager)
             => throw new NotImplementedException();
 
         #endregion

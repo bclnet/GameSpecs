@@ -38,7 +38,7 @@ namespace GameSpec.Formats
         /// <param name="r">The r.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public override Task ReadAsync(BinaryReader r, object tag = default)
+        public override Task Read(BinaryReader r, object tag = default)
         {
             Files = Paths.Select(s => new FileSource
             {
@@ -49,7 +49,7 @@ namespace GameSpec.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default)
             => Task.FromResult(file.Pak == null
                 ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize))
                 : default);

@@ -44,7 +44,7 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="_">The .</param>
         /// <param name="tag">The tag.</param>
-        public override async Task ReadAsync(BinaryReader _, object tag)
+        public override async Task Read(BinaryReader _, object tag)
         {
             // http pak
             if (Host != null)
@@ -72,7 +72,7 @@ namespace GameSpec.Formats
         /// <param name="_">The .</param>
         /// <param name="tag">The tag.</param>
         /// <exception cref="NotSupportedException"></exception>
-        public override async Task WriteAsync(BinaryWriter _, object tag)
+        public override async Task Write(BinaryWriter _, object tag)
         {
             // http pak
             if (Host != null) throw new NotSupportedException();
@@ -97,7 +97,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public override async Task<Stream> ReadDataAsync(BinaryReader r, FileSource file, FileOption option = default)
+        public override async Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default)
         {
             var path = file.Path;
             // http pak
@@ -118,6 +118,6 @@ namespace GameSpec.Formats
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public override Task WriteDataAsync(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotSupportedException();
+        public override Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotSupportedException();
     }
 }

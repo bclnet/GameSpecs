@@ -18,7 +18,7 @@ namespace GameSpec.Cig.Formats
         public async Task LoadFileObjectAsync(PakFile source, string sampleFile)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            var file = await source.LoadFileObjectAsync<CryFile>(sampleFile);
+            var file = await source.LoadFileObject<CryFile>(sampleFile);
         }
     }
 }

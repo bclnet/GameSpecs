@@ -1,14 +1,12 @@
 import os, json, glob, re
-from ._config import familyKeys
 from typing import Any
 from urllib.parse import urlparse
 from importlib import resources
 from openstk.poly import findType
-from .pakfile import PakFile, ManyPakFile, MultiPakFile
-from .filesys import FileSystem, HostFileSystem, createFileSystem
-from .filemgr import FileManager
-from .util import _throw, _value, _list, _method, _related, _relatedTrim
-from .platform import Startups, Type, InTestHost, TestPlatform
+from gamespecs import PakFile, ManyPakFile, MultiPakFile, FileSystem, FileManager, familyKeys
+# from gamespecs.platform import Platform, TestPlatform
+from .filesys import HostFileSystem, createFileSystem
+from .util import _throw, _value, _list, _method, _related, _dictTrim
 
 class FamilyApp: pass
 class FamilyEngine: pass
@@ -68,6 +66,7 @@ def createFamilyApp(family: Family, id: str, elem: dict[str, Any]) -> FamilyApp:
 def createFileManager(elem: dict[str, Any]) -> FileManager:
     return FileManager(elem)
 
+# Family
 class Family:
     def __init__(self, elem: dict[str, Any]):
         self.id = _value(elem, 'id')
@@ -86,9 +85,9 @@ class Family:
             game = createFamilyGame(self, k, v, dgame, paths)
             if k.startswith('*'): dgame = game; return None
             return game
-        self.engines = _related(elem, 'engines', lambda k,v:createFamilyEngine(self, k, v))
-        self.games = _relatedTrim(elem, 'games', gameMethod)
-        self.apps = _related(elem, 'apps', lambda k,v:createFamilyApp(self, k, v))
+        self.engines = _related(elem, 'engines', lambda k,v: createFamilyEngine(self, k, v))
+        self.games = _dictTrim(_related(elem, 'games', gameMethod))
+        self.apps = _related(elem, 'apps', lambda k,v: createFamilyApp(self, k, v))
     def __repr__(self): return f'''
 {self.id}: {self.name}
 engines: {[x for x in self.engines.values()]}
@@ -144,6 +143,7 @@ fileManager: {self.fileManager if self.fileManager else None}'''
         if not resource.game: raise Exception(f'Undefined Game')
         return (pak := resource.game.createPakFile(resource.fileSystem, resource.edition, resource.searchPattern, throwOnError)) and pak.open()
 
+# FamilyApp
 class FamilyApp:
     def __init__(self, family: Family, id: str, elem: dict[str, Any]):
         self.family = family
@@ -151,6 +151,7 @@ class FamilyApp:
         self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
 
+# FamilyEngine
 class FamilyEngine:
     def __init__(self, family: Family, id: str, elem: dict[str, Any]):
         self.family = family
@@ -158,6 +159,7 @@ class FamilyEngine:
         self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
 
+# FamilyGame
 class FamilyGame:
     class Edition:
         def __init__(self, id: str, elem: dict[str, Any]):
@@ -165,17 +167,20 @@ class FamilyGame:
             self.name = _value(elem, 'name') or id
             self.key = _method(elem, 'key', parseKey)
         def __repr__(self): return f'{self.id}: {self.name}'
+        
     class DownloadableContent:
         def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
             self.name = _value(elem, 'name') or id
             self.path = _value(elem, 'path')
         def __repr__(self): return f'{self.id}: {self.name}'
+
     class Locale:
         def __init__(self, id: str, elem: dict[str, Any]):
             self.id = id
             self.name = _value(elem, 'name') or id
         def __repr__(self): return f'{self.id}: {self.name}'
+
     def __init__(self, family: Family, id: str, elem: dict[str, Any], dgame: FamilyGame):
         self.family = family
         self.id = id

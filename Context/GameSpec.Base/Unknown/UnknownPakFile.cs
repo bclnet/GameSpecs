@@ -24,7 +24,7 @@ namespace GameSpec.Unknown
         public override void Closing() { }
         public override void Opening() { }
         public override bool Contains(object path) => false;
-        public override Task<Stream> LoadFileDataAsync(object path, FileOption option = default) => throw new NotImplementedException();
-        public override Task<T> LoadFileObjectAsync<T>(object path, FileOption option = default) => throw new NotImplementedException();
+        public override Task<Stream> LoadFileData(object path, FileOption option = default) => throw new NotImplementedException();
+        public override Task<T> LoadFileObject<T>(object path, FileOption option = default) => throw new NotImplementedException();
     }
 }

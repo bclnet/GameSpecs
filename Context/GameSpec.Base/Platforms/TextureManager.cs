@@ -40,7 +40,7 @@ namespace GameSpec.Platforms
         {
             if (CachedTextures.ContainsKey(path)) return;
             // Start loading the texture file asynchronously if we haven't already started.
-            if (!PreloadTasks.ContainsKey(path)) PreloadTasks[path] = PakFile.LoadFileObjectAsync<ITexture>(path);
+            if (!PreloadTasks.ContainsKey(path)) PreloadTasks[path] = PakFile.LoadFileObject<ITexture>(path);
         }
 
         public void DeleteTexture(object key)

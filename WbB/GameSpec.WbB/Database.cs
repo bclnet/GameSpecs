@@ -40,7 +40,7 @@ namespace GameSpec.WbB
         public T GetFile<T>(uint fileId) where T : FileType
         {
             if (FileCache.TryGetValue(fileId, out var result)) return (T)result;
-            T obj = Source.LoadFileObjectAsync<T>((int)fileId).Result;
+            T obj = Source.LoadFileObject<T>((int)fileId).Result;
             obj = (T)FileCache.GetOrAdd(fileId, obj);
             return obj;
         }

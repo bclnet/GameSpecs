@@ -28,7 +28,7 @@ namespace GameSpec.IW
         static void LoadObject<T>(PakFile source, string sampleFile)
         {
             Assert.IsTrue(source.Contains(sampleFile));
-            var result = source.LoadFileObjectAsync<T>(sampleFile).Result;
+            var result = source.LoadFileObject<T>(sampleFile).Result;
         }
     }
 }

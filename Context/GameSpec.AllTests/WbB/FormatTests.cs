@@ -57,7 +57,7 @@ namespace GameSpec.WbB
                 var factory = source.EnsureCachedObjectFactory(file);
                 if (factory == null) throw new Exception($"Class for fileType: {fileType} does not implement an ObjectFactory.");
 
-                using var r = new BinaryReader(await source.LoadFileDataAsync(file));
+                using var r = new BinaryReader(await source.LoadFileData(file));
                 await factory(r, file, source);
                 if (r.Tell() != file.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{file.Id:X8}. Bytes parsed: {r.Tell()} of {file.FileSize}");
             }
@@ -87,7 +87,7 @@ namespace GameSpec.WbB
                 var factory = source.EnsureCachedObjectFactory(file);
                 if (factory == null) throw new Exception($"Class for fileType: {fileType} does not implement an ObjectFactory.");
 
-                using var r = new BinaryReader(await source.LoadFileDataAsync(file));
+                using var r = new BinaryReader(await source.LoadFileData(file));
                 await factory(r, file, source);
                 if (r.Tell() != file.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{file.Id:X8}. Bytes parsed: {r.Tell()} of {file.FileSize}");
             }
@@ -112,7 +112,7 @@ namespace GameSpec.WbB
                 var factory = source.EnsureCachedObjectFactory(file);
                 if (factory == null) throw new Exception($"Class for fileType: {fileType} does not implement an ObjectFactory.");
 
-                using var r = new BinaryReader(await source.LoadFileDataAsync(file));
+                using var r = new BinaryReader(await source.LoadFileData(file));
                 await factory(r, file, source);
                 if (r.Tell() != file.FileSize) throw new Exception($"Failed to parse all bytes for fileType: {fileType}, ObjectId: 0x{file.Id:X8}. Bytes parsed: {r.Tell()} of {file.FileSize}");
             }

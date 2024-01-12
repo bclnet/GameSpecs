@@ -59,7 +59,7 @@ namespace GameSpec.Formats
                 if (maxSize != 0 && file.FileSize > maxSize) return;
 
                 // extract file
-                using var s = await pak.LoadFileDataAsync(file);
+                using var s = await pak.LoadFileData(file);
                 s.ReadAllBytes();
             });
 

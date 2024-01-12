@@ -40,7 +40,7 @@ namespace GameSpec.Platforms
         {
             if (CachedMaterials.ContainsKey(path)) return;
             // Start loading the material file asynchronously if we haven't already started.
-            if (!PreloadTasks.ContainsKey(path)) PreloadTasks[path] = PakFile.LoadFileObjectAsync<IMaterial>(path);
+            if (!PreloadTasks.ContainsKey(path)) PreloadTasks[path] = PakFile.LoadFileObject<IMaterial>(path);
         }
 
         IMaterial LoadMaterialInfo(object key)
