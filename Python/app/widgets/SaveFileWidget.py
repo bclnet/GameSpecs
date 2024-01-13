@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QWidget, QProgressBar, QGridLayout, QFileDialog, QLa
 from PyQt6.QtCore import pyqtSlot, pyqtSignal, Qt
 from time import time
 
+# SaveFileWidget
 class SaveFileWidget(QWidget):
     TransferCompletedSignal = pyqtSignal(int)
 
@@ -14,7 +15,7 @@ class SaveFileWidget(QWidget):
         self.is_single_file = len(self.items['folders']) == 0 and len(self.items['files']) == 1 # no folders, one file.
 
         if dest is not None:
-            assert isinstance(dest,str)
+            assert isinstance(dest, str)
             assert dest is None or (self.is_single_file and os.path.basename(dest)=='') or (not self.is_single_file and os.path.basename(dest)!='')
         self.dest = dest
 

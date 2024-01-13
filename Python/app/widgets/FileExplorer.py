@@ -5,11 +5,18 @@ from PyQt6.QtCore import Qt, QObject, QBuffer, QByteArray, QUrl, QMimeData, pyqt
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import Family, PakFile, util, MetaManager, MetaItem, MetaInfo, appDefaultOptions as config
+from gamespecs import config
+from gamespecs.pakfile import PakFile
+# from gamespecs.util import x
+from gamespecs.metamgr import MetaItem, MetaInfo
 
 # https://doc.qt.io/qt-6/qtreeview.html
 # https://gist.github.com/skriticos/5415869
 
+# typedefs
+class MetaManager: pass
+
+# MetaItemToViewModel
 class MetaItemToViewModel:
     @staticmethod
     def toTreeNodes(model: object, modelMap: dict[object, object], source: list[MetaItem]) -> None:
@@ -22,6 +29,7 @@ class MetaItemToViewModel:
             model.appendRow(item)
             if s.items: MetaItemToViewModel.toTreeNodes(item, modelMap, s.items)
 
+# MetaInfoToViewModel
 class MetaInfoToViewModel:
     @staticmethod
     def toTreeNodes(model: object, source: list[MetaInfo]) -> None:
@@ -33,6 +41,7 @@ class MetaInfoToViewModel:
             model.appendRow(item)
             if s.items: MetaInfoToViewModel.toTreeNodes(item, s.items)
 
+# FileExplorer
 class FileExplorer(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
@@ -115,8 +124,7 @@ class FileExplorer(QWidget):
             pak = value.source.pak
             if pak:
                 if pak.status == PakFile.PakStatus.Opened: return
-                pak.open(value.ttems, self.resource)
-                # value.Items.AddRange(pak.GetMetadataItemsAsync(Resource).Result)
+                pak.open(value.items, self.resource)
                 self.onFilterKeyUp(None, None)
             self.onInfo(value.pakFile.getMetaInfos(self.resource, value) if value.pakFile else None)
         except:

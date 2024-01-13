@@ -31,4 +31,4 @@ if root and os.path.exists(dbPath := os.path.join(root, 'Manifests')):
             appPath = json.loads(f.read())['InstallLocation']
             if os.path.isdir(appPath): epicPaths[s[:-5]] = appPath
 
-print(epicPaths)
+# print(epicPaths)

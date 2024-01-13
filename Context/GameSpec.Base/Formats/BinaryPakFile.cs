@@ -260,7 +260,8 @@ namespace GameSpec.Formats
         bool TryFindSubPak(string path, out BinaryPakFile pak, out string nextPath)
         {
             var paths = path.Split(new[] { ':' }, 2);
-            pak = paths.Length == 1 ? null : FilesByPath[paths[0].Replace('\\', '/')].FirstOrDefault()?.Pak;
+            var p = paths[0].Replace('\\', '/');
+            pak = paths.Length == 1 ? null : FilesByPath[p].FirstOrDefault()?.Pak;
             if (pak != null) { nextPath = paths[1]; return true; }
             nextPath = null;
             return false;

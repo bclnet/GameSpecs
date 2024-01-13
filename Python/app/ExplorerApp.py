@@ -1,7 +1,7 @@
 import sys, os
-import gamespecs.platform_OpenGL
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
+from gamespecs.platform_OpenGL import OpenGLPlatform
 from widgets.MainPage import MainPage
 
 if __name__ == '__main__':

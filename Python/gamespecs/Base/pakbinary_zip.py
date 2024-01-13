@@ -1,10 +1,12 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
+from gamespecs.pakfile import FileSource, PakBinary
 
+# typedefs
+class Reader: pass
+class ITexture: pass
+
+# PakBinary_Zip
 class PakBinary_Zip(PakBinary):
     _instance = None
     def __new__(cls):
@@ -12,5 +14,5 @@ class PakBinary_Zip(PakBinary):
         return cls._instance
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         raise NotImplementedError()

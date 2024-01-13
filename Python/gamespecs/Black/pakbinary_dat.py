@@ -1,12 +1,21 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
-from ..compression import decompressLzss, decompressZlib
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.compression import decompressLzss, decompressZlib
 
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+
+# PakBinary_Dat
 class PakBinary_Dat(PakBinary):
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None: cls._instance = super().__new__(cls)
+        return cls._instance
+
+    #region F1/F2
+
     F1_HEADER_FILEID = 0x000000001
     class F1_Header:
         struct = ('>IIII', 16)
@@ -44,13 +53,10 @@ class PakBinary_Dat(PakBinary):
             self.packedSize, \
             self.offset = tuple
 
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+    #endregion
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         gameId = source.game.id
 
         # Fallout

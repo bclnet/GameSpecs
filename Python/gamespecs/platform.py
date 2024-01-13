@@ -1,15 +1,15 @@
 import os
+from typing import Callable
 from enum import Enum
-from typing import Any
 from .pakfile import PakFile
 from openstk.gfx import IObjectManager, IMaterialManager, IShaderManager, ITextureManager, PlatformStats
+from openstk.gfx_render import IMaterial
+from openstk.gfx_texture import ITexture
 
 # typedefs
 class Shader: pass
 class Texture: pass
-class ITexture: pass
 class Material: pass
-class IMaterial: pass
 
 # TextureBuilderBase
 class TextureBuilderBase:
@@ -176,12 +176,12 @@ class MaterialManager(IMaterialManager):
                 return info
             case _: raise Exception(f'Unknown {key}')
 
+# typedefs
+# class Type(Enum): pass
+# class OS(Enum): pass
+
 # Platform
 class Platform:
-    class Stats:
-        maxTextureMaxAnisotropy: int
-        pass
-
     class Type(Enum):
         Unknown = 0
         OpenGL = 1
@@ -196,23 +196,26 @@ class Platform:
         Linux = 1
         Android = 1
 
-    PlatformType:Type = None
-    PlatformTag:str = None
-    PlatformOS:OS = OS.Windows
-    GraphicFactory:Any = None
-    Startups:list[object] = []
-    InTestHost:bool = False
-    LogFunc:object = None
+    platformType: Type = None
+    platformTag: str = None
+    platformOS: OS = OS.Windows
+    graphicFactory: Callable = None
+    startups: list[object] = []
+    inTestHost: bool = False
+    logFunc: Callable = None
+
+    class Stats:
+        maxTextureMaxAnisotropy: int
 
     # startup
     @staticmethod
-    def startup():
-        if Platform.InTestHost and len(Platform.Startups) == 0: Platform.Startups.append(TestPlatform.startup)
-        for startup in Platform.Startups:
+    def startup() -> None:
+        if Platform.inTestHost and len(Platform.startups) == 0: Platform.startups.append(TestPlatform.startup)
+        for startup in Platform.startups:
             if startup(): return
-        PlatformType = Platform.Type.Unknown
-        GraphicFactory = lambda source: None
-        LogFunc = lambda a: print(a)
+        Platform.platformType = Platform.Type.Unknown
+        Platform.graphicFactory = lambda source: None
+        Platform.logFunc = lambda a: print(a)
 
 # TestGraphic
 class TestGraphic:
@@ -222,7 +225,7 @@ class TestGraphic:
 # TestPlatform
 class TestPlatform:
     def startup() -> bool:
-        PlatformType = Platform.Type.Test
-        GraphicFactory = lambda source: TestGraphic(source)
-        LogFunc = lambda a: print(a)
+        Platform.platformType = Platform.Type.Test
+        Platform.graphicFactory = lambda source: TestGraphic(source)
+        Platform.logFunc = lambda a: print(a)
         return True

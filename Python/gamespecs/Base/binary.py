@@ -2,13 +2,19 @@ import os
 import imageio as iio
 from enum import Enum
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
 from openstk.gfx_dds import DDS_HEADER
-from openstk.gfx_texture import ITexture, TextureFlags, TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
-from ..pakfile import FileSource, PakFile
-from ..metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
-from ..util import _pathExtension
+from openstk.gfx_texture import TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
+from gamespecs.util import _pathExtension
+
+# typedefs
+class PakFile: pass
+class Reader: pass
+class ITexture: pass
+class TextureFlags: pass
+class MetaManager: pass
+class MetaManager: pass
 
 # Binary_Dds
 class Binary_Dds(IHaveMetaInfo):
@@ -35,7 +41,7 @@ class Binary_Dds(IHaveMetaInfo):
     def mipMaps(self) -> int: return self.header.dwMipMapCount
     def flags(self) -> TextureFlags: return 0
 
-    def begin(self, platform: int) -> (bytes, object, list[Any]):
+    def begin(self, platform: int) -> (bytes, object, list[object]):
         match platform:
             case Platform.Type.OpenGL: format = self.format[1]
             case Platform.Type.Vulken: format = self.format[2]
@@ -88,7 +94,7 @@ class Binary_Img(IHaveMetaInfo, ITexture):
     def mipMaps(self) -> int: return 1
     def flags(self) -> TextureFlags: return 0
 
-    def begin(self, platform: int) -> (bytes, object, list[Any]):
+    def begin(self, platform: int) -> (bytes, object, list[object]):
         match platform:
             case Platform.Type.OpenGL: format = self.format[1]
             case Platform.Type.Vulken: format = self.format[2]

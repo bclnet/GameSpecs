@@ -38,16 +38,16 @@ namespace GameSpec
             Assert.IsNotNull(family.ParseResource(null, true));
         }
 
-        [TestMethod]
-        public void ShouldOpenPakFile_Paths()
-        {
-            var family = Some.Family;
-            Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile(null, null, null, null));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile(family.GetGame("Missing", out var edition), edition, null, null));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile(family.GetGame("Found", out var edition), edition, null, null));
-            Assert.IsNull(family.OpenPakFile(family.GetGame("Missing", out var edition), edition, null, null, throwOnError: false));
-            Assert.IsNotNull(family.OpenPakFile(family.GetGame("Found", out edition), edition, "path", null));
-        }
+        //[TestMethod]
+        //public void ShouldOpenPakFile_Paths()
+        //{
+        //    var family = Some.Family;
+        //    Assert.ThrowsException<ArgumentNullException>(() => family.OpenPakFile_DEL(null, null, null, null));
+        //    Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile_DEL(family.GetGame("Missing", out var edition), edition, null, null));
+        //    Assert.ThrowsException<ArgumentOutOfRangeException>(() => family.OpenPakFile_DEL(family.GetGame("Found", out var edition), edition, null, null));
+        //    Assert.IsNull(family.OpenPakFile_DEL(family.GetGame("Missing", out var edition), edition, null, null, throwOnError: false));
+        //    Assert.IsNotNull(family.OpenPakFile_DEL(family.GetGame("Found", out edition), edition, "path", null));
+        //}
 
         [TestMethod]
         public void ShouldOpenPakFile_Resource()

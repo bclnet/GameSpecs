@@ -1,14 +1,22 @@
 import os
-from . import FamilyGame, FileSource, BinaryPakFile
+from typing import Callable
+from gamespecs.pakfile import BinaryPakFile
 from .Base.binary import Binary_Dds, Binary_Img, Binary_Snd, Binary_Txt
 from .Arkane.binary_danae import Binary_Ftl, Binary_Fts, Binary_Tea
 from .Arkane.pakbinary_danae import PakBinary_Danae
 from .Arkane.pakbinary_void import PakBinary_Void
 from .util import _pathExtension
 
-class ArkanePakFile(BinaryPakFile):
+# typedefs
+class FamilyGame: pass
+class IFileSystem: pass
+class PakBinary: pass
+class FileSource: pass
+class FileOption: pass
 
-    def __init__(self, game, fileSystem, filePath, tag):
+# ArkanePakFile
+class ArkanePakFile(BinaryPakFile):
+    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
         super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
         match game.engine:
             # case 'CryEngine': self.objectFactoryFactoryMethod = Crytek.CrytekPakFile.ObjectFactoryFactory
@@ -21,7 +29,7 @@ class ArkanePakFile(BinaryPakFile):
     #region Factories
         
     @staticmethod
-    def getPakBinary(game: FamilyGame, extension):
+    def getPakBinary(game: FamilyGame, extension: str) -> PakBinary:
         match game.engine:
             case 'Danae': return PakBinary_Danae()
             case 'Void': return PakBinary_Void()
@@ -32,7 +40,7 @@ class ArkanePakFile(BinaryPakFile):
             case _: raise Exception(f'Unknown: {game.engine}')
 
     @staticmethod
-    def objectFactoryFactory(source: FileSource, game: FamilyGame):
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
         match _pathExtension(source.path).lower():
             case x if x == ".txt" or x == ".ini" or x == ".asl": return (0, Binary_Txt.factory)
             case ".wav": return (0, Binary_Snd.factory)

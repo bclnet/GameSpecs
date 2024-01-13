@@ -1,5 +1,5 @@
 import sys, os, time
-from typing import Any
+from typing import Callable
 from enum import Enum, Flag
 from io import BytesIO
 from openstk.poly import Reader
@@ -70,7 +70,8 @@ class PakFile:
         end = time.time()
         self.status = self.PakStatus.Opened
         elapsed = round(end - start, 4)
-        # if items: items[]
+        if items:
+            for item in getMetaItems(manager): items.append(item)
         print(f'Opened: {self.name} @ {elapsed}ms')
         return self
     def opening(self) -> None: pass
@@ -160,7 +161,7 @@ class BinaryPakFile(PakFile):
                 data = self.loadFileData(f, option)
                 if not data: return None
                 objectFactory = self._ensureCachedObjectFactory(f)
-                if objectFactory != FileSource.EmptyObjectFactory:
+                if objectFactory != FileSource.emptyObjectFactory:
                     r = Reader(data)
                     try:
                         task = objectFactory(r, f, self)
@@ -178,7 +179,7 @@ class BinaryPakFile(PakFile):
                 return self.loadFileData(file) if self.filesById and i in self.filesById and (file := self.filesById[i]) else None
             case _: raise Exception(f'Unknown: {path}')
 
-    def _ensureCachedObjectFactory(self, file: FileSource) -> Any:
+    def _ensureCachedObjectFactory(self, file: FileSource) -> Callable:
         if file.cachedObjectFactory: return file.cachedObjectFactory
         option, factory = self.objectFactoryFactoryMethod(file, self.game)
         file.cachedObjectOption = option
@@ -188,13 +189,13 @@ class BinaryPakFile(PakFile):
     def process(self) -> None:
         if self.files and self.useFileId: self.filesById = { x.id:x for x in self.files if x }
         if self.files: self.filesByPath = { x.path:x for x in self.files if x }
-        if self.pakBinary: self.pakBinary.process()
+        if self.pakBinary: self.pakBinary.process(self)
 
     def tryFindSubPak(self, path: str) -> (object, str):
         paths = path.split(':', 2)
         p = paths[0].replace('\\', '/')
         pak = self.filesByPath[p].pak if len(paths) > 1 and p in self.filesByPath else None
-        return pak, paths[1] if pak else None, None
+        return pak, (paths[1] if pak else None)
 
     #region PakBinary
     def read(self, r: Reader, tag: object = None) -> None: return self.pakBinary.read(self, r, tag)

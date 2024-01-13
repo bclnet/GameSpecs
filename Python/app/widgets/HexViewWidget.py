@@ -4,6 +4,7 @@ from PyQt6.QtGui import QFont
 from .util import _pathExtension
 # import webbrowser
 
+# HexViewWidget
 class HexViewWidget(QWidget):
     def __init__(self, app):
         super().__init__()

@@ -1,4 +1,5 @@
-﻿using GameSpec.Platforms;
+﻿using GameSpec.Formats;
+using GameSpec.Platforms;
 using GameSpec.Unknown;
 using OpenStack;
 using System;
@@ -203,10 +204,11 @@ namespace GameSpec
             var game = GetGame(uri.Fragment[1..], out var edition);
             var searchPattern = uri.IsFile ? null : uri.LocalPath[1..];
             var paths = FileManager.Paths;
+            var fileSystemType = game.FileSystemType;
             var fileSystem =
-                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? paths.TryGetValue(game.Id, out var z) ? game.CreateFileSystem(z.Single()) : default
-                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? game.CreateFileSystem(uri.LocalPath) : default
-                : uri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? !string.IsNullOrEmpty(uri.Host) ? game.CreateFileSystem(null, uri) : default
+                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? paths.TryGetValue(game.Id, out var z) ? CreateFileSystem(fileSystemType, z.Single()) : default
+                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? CreateFileSystem(fileSystemType, uri.LocalPath) : default
+                : uri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? !string.IsNullOrEmpty(uri.Host) ? CreateFileSystem(fileSystemType, null, uri) : default
                 : default;
             if (fileSystem == null)
                 if (throwOnError) throw new ArgumentOutOfRangeException(nameof(uri), $"{game.Id}: unable to resources");
@@ -220,46 +222,23 @@ namespace GameSpec
             };
         }
 
-        #region Pak
-
         /// <summary>
         /// Opens the family pak file.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="path">The file path.</param>
-        /// <param name="edition">The game edition.</param>
-        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="res">The res.</param>
         /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public PakFile OpenPakFile(FamilyGame game, FamilyGame.Edition edition, string path, string searchPattern, bool throwOnError = true) => game != null
-            ? game.CreatePakFile(game.CreateFileSystem(path), edition, searchPattern, throwOnError)?.Open()
-            : throw new ArgumentNullException(nameof(game));
-
-        /// <summary>
-        /// Opens the family pak file.
-        /// </summary>
-        /// <param name="resource">The resource.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        public PakFile OpenPakFile(Resource resource, bool throwOnError = true) => resource.Game != null
-            ? resource.Game.CreatePakFile(resource.FileSystem, resource.Edition, resource.SearchPattern, throwOnError)?.Open()
-            : throw new ArgumentNullException(nameof(resource.Game));
-
-        /// <summary>
-        /// Opens the family pak file.
-        /// </summary>
-        /// <param name="uri">The URI.</param>
-        /// <param name="index">The index.</param>
-        /// <param name="throwOnError">Throws on error.</param>
-        /// <returns></returns>
-        public PakFile OpenPakFile(Uri uri, bool throwOnError = true)
+        public PakFile OpenPakFile(object res, bool throwOnError = true)
         {
-            var resource = ParseResource(uri);
-            return resource.Game != null
-                ? resource.Game.CreatePakFile(resource.FileSystem, resource.Edition, resource.SearchPattern, throwOnError)?.Open()
-                : throw new ArgumentNullException(nameof(resource.Game));
+            var r = res switch
+            {
+                Resource s => s,
+                Uri u => ParseResource(u),
+                _ => throw new ArgumentOutOfRangeException(nameof(res)),
+            };
+            return r.Game != null
+                ? r.Game.CreatePakFile(r.FileSystem, r.Edition, r.SearchPattern, throwOnError)?.Open()
+                : throw new ArgumentNullException(nameof(r.Game));
         }
-
-        #endregion
     }
 }

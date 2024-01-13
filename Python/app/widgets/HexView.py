@@ -4,6 +4,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 from .util import _pathExtension
 
+# TextView
 class HexView(QWidget):
     def __init__(self, parent, tab):
         super().__init__()

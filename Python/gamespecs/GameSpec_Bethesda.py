@@ -1,21 +1,31 @@
 import os
-from .familymgr import Family, FamilyGame
-from .pakfile import FileSource, BinaryPakFile
-from .Base.binary_dds import Binary_Dds
+from typing import Callable
+from gamespecs import Family, FamilyGame
+from gamespecs.pakfile import BinaryPakFile
+from .Base.binary import Binary_Dds
 from .Bethesda.pakbinary_bsa import PakBinary_Bsa
 from .Bethesda.pakbinary_ba2 import PakBinary_Ba2
 from .util import _pathExtension
 
+# typedefs
+class IFileSystem: pass
+class PakBinary: pass
+class FileSource: pass
+class FileOption: pass
+
+# BethesdaFamily
 class BethesdaFamily(Family):
-    def __init__(self, elem):
+    def __init__(self, elem: dict[str, object]):
         super().__init__(elem)
 
+# BethesdaGame
 class BethesdaGame(FamilyGame):
-    def __init__(self, family, id, elem, dgame):
+    def __init__(self, family: Family, id: str, elem: dict[str, object], dgame: FamilyGame):
         super().__init__(family, id, elem, dgame)
 
+# BethesdaPakFile
 class BethesdaPakFile(BinaryPakFile):
-    def __init__(self, game, fileSystem, filePath, tag):
+    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
         super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
         self.objectFactoryFactoryMethod = self.objectFactoryFactory
 
@@ -32,7 +42,7 @@ class BethesdaPakFile(BinaryPakFile):
     # def NiFactory(r: Reader, f: FileSource, s: PakFile): file = NiFile(Path.GetFileNameWithoutExtension(f.Path)); file.Read(r); return file
 
     @staticmethod
-    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (int, object):
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
         match _pathExtension(source.path).lower():
             case '.dds': return (0, Binary_Dds.factory)
             # case '.nif': return (0, NiFactory)

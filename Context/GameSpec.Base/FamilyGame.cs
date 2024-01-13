@@ -282,16 +282,6 @@ namespace GameSpec
         #region Pak
 
         /// <summary>
-        /// Creates the game file system.
-        /// </summary>
-        /// <param name="paths">The paths.</param>
-        /// <param name="host">The host.</param>
-        /// <returns></returns>
-        public IFileSystem CreateFileSystem(string root, Uri host = null) => host != null ? new HostFileSystem(host)
-            : FileSystemType != null ? (IFileSystem)Activator.CreateInstance(FileSystemType, root)
-            : new StandardFileSystem(root);
-
-        /// <summary>
         /// Adds the platform graphic.
         /// </summary>
         /// <param name="pakFile">The pak file.</param>

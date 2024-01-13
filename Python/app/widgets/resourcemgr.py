@@ -1,7 +1,8 @@
 import sys, os, glob
 from PyQt6.QtGui import QIcon
-from gamespecs import MetaManager
+from gamespecs.metamgr import MetaManager
 
+# ResourceManager
 class ResourceManager(MetaManager):
     def __init__(self):
         self._icons = {

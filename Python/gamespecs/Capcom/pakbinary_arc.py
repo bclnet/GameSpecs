@@ -1,13 +1,22 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
-from ..compression import decompressZlib, decompressZstd
-from ..util import _guessExtension
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.compression import decompressZlib, decompressZstd
+from gamespecs.util import _guessExtension
 
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+
+# PakBinary_Arc
 class PakBinary_Arc(PakBinary):
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None: cls._instance = super().__new__(cls)
+        return cls._instance
+
+    #region K
+
     K_MAGIC = 0x00435241
     class K_Header:
         struct = ('<HH', 4)
@@ -23,13 +32,10 @@ class PakBinary_Arc(PakBinary):
             self.size, \
             self.offset = tuple
 
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+    #endregion
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         magic = r.readUInt32()
         if magic != self.K_MAGIC: raise Exception('BAD MAGIC')
 

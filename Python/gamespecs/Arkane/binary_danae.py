@@ -1,9 +1,13 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakfile import FileSource, PakFile
-from ..metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.metamgr import MetaInfo, MetaContent, IHaveMetaInfo
+
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+class PakFile: pass
+class MetaManager: pass
 
 # Binary_Ftl
 class Binary_Ftl(IHaveMetaInfo):

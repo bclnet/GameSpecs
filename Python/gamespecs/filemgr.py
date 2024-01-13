@@ -2,67 +2,77 @@ import os, platform, psutil, winreg
 from . import storemgr
 from .util import _list
 
+# forwards
+class FileManager: pass
+
 GAMESPATH = 'Games'
 
+# FileManager
 class FileManager:
-    ApplicationPath = os.getcwd()
+    applicationPath = os.getcwd()
+    filters: dict[str, object] = {}
+    paths: dict[str, object] = {}
+    ignores: dict[str, object] = {}
+
     # get locale games
     gameRoots = [os.path.join(x.mountpoint, GAMESPATH) for x in psutil.disk_partitions()]
     if platform.system() == 'Android': gameRoots.append(os.path.join('/sdcard', GAMESPATH))
-    games = {x:os.path.join(r,x) for r in gameRoots if os.path.isdir(r) for x in os.listdir(r)}
-    def __init__(self, elem):
-        self.filters = {}
-        self.paths = {}
-        self.ignores = {}
+    localGames = {x:os.path.join(r,x) for r in gameRoots if os.path.isdir(r) for x in os.listdir(r)}
+
+    def __init__(self, elem: dict[str, object]):
         # applications
         if 'application' in elem:
             for k,v in elem['application'].items():
-                if not k in self.paths: self.addApplication(k, v)
+                if not k in self.paths:
+                    self.addApplication(k, v)
         # direct
         if 'direct' in elem:
             for k,v in elem['direct'].items():
                 if 'path' in v:
-                    for key in _list(v, 'path'):
-                        self.addPath(k, elem, key, False)
+                    for path in _list(v, 'path'):
+                        self.addPath(k, elem, path, False)
         # ignores
         if 'ignores' in elem:
             for k,v in elem['ignores'].items():
                 self.addIgnore(k, _list(v, 'path'))
         # filters
         if 'filters' in elem:
-            for (id, val) in elem['filters'].items():
-                self.addFilter(id, val)
+            for k,v in elem['filters'].items():
+                self.addFilter(k, v)
     def __repr__(self): return f'''
 - paths: {list(self.paths.keys()) if self.paths else None}
 - ignores: {list(self.ignores.keys()) if self.ignores else None}
 - filters: {list(self.filters.keys()) if self.filters else None}'''
 
-    def merge(self, source) -> None:
+    def merge(self, source: FileManager) -> None:
         self.paths.update(source.paths)
         self.ignores.update(source.ignores)
         self.filters.update(source.filters)
 
-    def addApplication(self, id, elem):
-        system = platform.system()
-        if system == 'Windows' and 'reg' in elem:
+    def addApplication(self, id: str, elem: dict[str, object]) -> None:
+        if platform.system() == 'Windows' and 'reg' in elem:
             for key in _list(elem, 'reg'):
-                if not id in self.paths and (z := self.getPathByRegistryKey(key, elem)): self.addPath(id, elem, z)
+                if not id in self.paths and (z := self.getPathByRegistryKey(key, elem)):
+                    self.addPath(id, elem, z)
         if 'key' in elem:
             for key in _list(elem, 'key'):
-                if not id in self.paths and (z := storemgr.getPathByKey(key)): self.addPath(id, elem, z)
+                if not id in self.paths and (z := storemgr.getPathByKey(key)):
+                    self.addPath(id, elem, z)
         if 'dir' in elem:
             for key in _list(elem, 'dir'):
-                if not id in self.paths and key in FileManager.games: self.addPath(id, elem, games[key])
+                if not id in self.paths and key in FileManager.localGames:
+                    self.addPath(id, elem, FileManager.localGames[key])
     
-    def addFilter(self, id, elem):
+    def addFilter(self, id, elem: dict[str, object]) -> None:
         if not id in self.filters: self.filters[id] = []
         self.filters[id].append(elem)
 
-    def addIgnore(self, id, paths):
+    def addIgnore(self, id: str, paths: list[str]) -> None:
         if not id in self.ignores: self.ignores[id] = set()
-        for v in paths: self.ignores[id].add(v)
+        z2 = self.ignores[id]
+        for v in paths: z2.add(v)
 
-    def addPath(self, id, elem, path, usePath = True):
+    def addPath(self, id: str, elem: dict[str, object], path: str, usePath: bool = True) -> None:
         if path is None or not os.path.isdir(path := FileManager.getPathWithSpecialFolders(path, '')): return
         paths = _list(elem, 'path') if usePath and 'path' in elem else [path]
         for p in [os.path.join(path, x) for x in paths]:
@@ -71,15 +81,15 @@ class FileManager:
             self.paths[id].append(p)
 
     @staticmethod
-    def getPathWithSpecialFolders(path, rootPath):
+    def getPathWithSpecialFolders(path: str, rootPath: str) -> str:
         return f'{rootPath}{path[6:]}' if path.startswith('%Path%') else \
-        f'{FileManager.ApplicationPath}{path[9:]}' if path.startswith('%AppPath%') else \
+        f'{FileManager.applicationPath}{path[9:]}' if path.startswith('%AppPath%') else \
         f'{os.getenv("APPDATA")}{path[9:]}' if path.startswith('%AppData%') else \
         f'{os.getenv("LOCALAPPDATA")}{path[14:]}' if path.startswith('%LocalAppData%') else \
         path
 
     @staticmethod
-    def findRegistryPath(paths):
+    def findRegistryPath(paths: list[str]) -> str:
         for p in paths:
             keyPath = p.replace('/', '\\')
             try: key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, f'SOFTWARE\\{keyPath}', 0, winreg.KEY_READ)

@@ -1,16 +1,18 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
-from ..familymgr import FamilyGame
-from ..filesys import FileSystem
-from ..util import _pathExtension
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.util import _pathExtension
 
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+class FamilyGame: pass
+class IFileSystem: pass
+
+# PakBinary_Void
 class PakBinary_Void(PakBinary):
     class SubPakFile(BinaryPakFile):
-        def __init__(self, game: FamilyGame, fileSystem: FileSystem, filePath: str, tag: Any = None):
+        def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
             super().__init__(game, fileSystem, filePath, PakBinary_Void(), tag)
             self.open()
 
@@ -30,7 +32,7 @@ class PakBinary_Void(PakBinary):
             self.flags2 = tuple
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         # must be .index file
         if _pathExtension(source.filePath) != '.index':
             raise Exception('must be a .index file')

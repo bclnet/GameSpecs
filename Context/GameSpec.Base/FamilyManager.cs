@@ -182,6 +182,17 @@ namespace GameSpec
         /// <returns></returns>
         internal static FileManager CreateFileManager(JsonElement elem) => new FileManager(elem);
 
+        /// <summary>
+        /// Creates the file system.
+        /// </summary>
+        /// <param name="fileSystemType">The fileSystemType.</param>
+        /// <param name="root">The root.</param>
+        /// <param name="host">The host.</param>
+        /// <returns></returns>
+        internal static IFileSystem CreateFileSystem(Type fileSystemType, string root, Uri host = null) => host != null ? new HostFileSystem(host)
+            : fileSystemType != null ? (IFileSystem)Activator.CreateInstance(fileSystemType, root)
+            : new StandardFileSystem(root);
+
         #endregion
     }
 }

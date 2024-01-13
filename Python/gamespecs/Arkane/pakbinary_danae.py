@@ -1,11 +1,13 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
-from ..compression import decompressBlast
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.compression import decompressBlast
 
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+
+# PakBinary_Danae
 class PakBinary_Danae(PakBinary):
     _instance = None
     def __new__(cls):
@@ -13,7 +15,7 @@ class PakBinary_Danae(PakBinary):
         return cls._instance
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         source.files = files = []
         key = source.game.key.encode('ascii'); keyLength = len(key); keyIndex = 0
 

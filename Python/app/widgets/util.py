@@ -1,5 +1,4 @@
 import os
-from typing import Any
 
 def _throw(message: str) -> None:
     raise Exception(message)

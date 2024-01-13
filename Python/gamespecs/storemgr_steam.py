@@ -37,7 +37,7 @@ class AcfStruct:
                 self.value[first] = second.replace('\\\\', '\\')
             else:
                 secondClose = nextEndOf(region, '{', '}', secondOpen + 1)
-                acfs = AcfStruct(region[secondOpen + 1:secondClose]);
+                acfs = AcfStruct(region[secondOpen + 1:secondClose])
                 index = secondClose + 1
                 self.get[first] = acfs
 

@@ -1,14 +1,23 @@
 import os
 from io import BytesIO
-from typing import Any
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
-from openstk.poly import Reader
-from ..compression import decompressZlib, decompressZstd
-from ..util import _guessExtension
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.compression import decompressZlib, decompressZstd
+from gamespecs.util import _guessExtension
 from ..Resources.Capcom import RE
 
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+
+# PakBinary_Kpka
 class PakBinary_Kpka(PakBinary):
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None: cls._instance = super().__new__(cls)
+        return cls._instance
+
+    #region K
+
     K_MAGIC = 0x414b504b
     class K_Header:
         struct = ('<BBhiI', 12)
@@ -34,13 +43,10 @@ class PakBinary_Kpka(PakBinary):
             self.flag, \
             self.checksum = tuple
 
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+    #endregion
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         magic = r.readUInt32()
         if magic != self.K_MAGIC: raise Exception('BAD MAGIC')
 
@@ -100,9 +106,9 @@ Exponent = int.from_bytes([
     ])
 
 @staticmethod
-def _decompress(r: Reader, compressed: int, length: int, newLength: int=0, full: bool=True) -> bytes:
+def _decompress(r: Reader, compressed: int, length: int, newLength: int = 0, full: bool = True) -> bytes:
     return r.read(length) if compressed == 0 else \
-        decompressZlib(r, length, newLength, noHeader=True, full=full) if compressed == 'Z' else \
+        decompressZlib(r, length, newLength, noHeader = True, full = full) if compressed == 'Z' else \
         decompressZstd(r, length, newLength) if compressed == 'S' else \
         None
 
@@ -113,6 +119,6 @@ def _getCompressed(f: int) -> int:
         0
 
 @staticmethod
-def _getExtension(r: Reader, position: int, compressed, full: bool = True) -> str:
+def _getExtension(r: Reader, position: int, compressed: int, full: bool = True) -> str:
     r.seek(position)
-    return _guessExtension(_decompress(r, compressed, 150, full=False))
+    return _guessExtension(_decompress(r, compressed, 150, full = False))

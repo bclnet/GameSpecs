@@ -1,15 +1,14 @@
 import os
 from io import BytesIO
-from typing import Any
-from openstk.poly import Reader
-from ..pakbinary import PakBinary
-from ..pakfile import FileSource, BinaryPakFile
-from ..familymgr import FamilyGame
-from ..filesys import FileSystem
-from ..compression import decompressLz4, decompressZlib2
+from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.compression import decompressLz4, decompressZlib2
 
+# typedefs
+class Reader: pass
+class BinaryPakFile: pass
+
+# PakBinary_Bsa
 class PakBinary_Bsa(PakBinary):
-
     _instance = None
     def __new__(cls):
         if cls._instance is None: cls._instance = super().__new__(cls)
@@ -89,7 +88,7 @@ class PakBinary_Bsa(PakBinary):
     #endregion
 
     # read
-    def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         source.magic = magic = r.readUInt32()
 
         # Oblivion - Skyrim

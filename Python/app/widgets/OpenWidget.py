@@ -1,12 +1,11 @@
 import os, pathlib
 from PyQt6.QtWidgets import QWidget, QGridLayout, QFileDialog, QLabel, QComboBox, QLineEdit, QPushButton
 from PyQt6.QtCore import Qt
-from gamespecs import families, getFamily, appDefaultOptions
-
-config = appDefaultOptions
+from gamespecs import families, getFamily, config
 
 familyValues = list(families.values())
 
+# OpenWidget
 class OpenWidget(QWidget):
     def __init__(self, app, callback):
         super().__init__()

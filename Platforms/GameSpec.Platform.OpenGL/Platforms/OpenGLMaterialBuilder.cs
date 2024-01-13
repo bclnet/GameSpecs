@@ -37,6 +37,7 @@ namespace GameSpec.Platforms
                                 m.Textures["g_tColor"] = TextureManager.BuildSolidTexture(1, 1, a.X, a.Y, a.Z, a.W);
                             }
                             if (!m.Textures.ContainsKey("g_tColor")) m.Textures["g_tColor"] = TextureManager.DefaultTexture;
+
                             // Since our shaders only use g_tColor, we have to find at least one texture to use here
                             if (m.Textures["g_tColor"] == TextureManager.DefaultTexture)
                                 foreach (var name in new[] { "g_tColor2", "g_tColor1", "g_tColorA", "g_tColorB", "g_tColorC" })

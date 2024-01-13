@@ -32,7 +32,7 @@ namespace GameSpec.Metadata
         public PakFile PakFile { get; }
         public List<MetaItem> Items { get; private set; }
 
-        public MetaItem(object source, string name, object icon, object tag = null, List<MetaItem> items = null, PakFile pakFile = null)
+        public MetaItem(object source, string name, object icon, object tag = null, PakFile pakFile = null, List<MetaItem> items = null)
         {
             Source = source;
             Name = name;

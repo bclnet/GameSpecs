@@ -5,10 +5,15 @@ from PyQt6.QtCore import Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import PakFile, MetaInfo, MetaContent
+from gamespecs.pakfile import PakFile
+from gamespecs.metamgr import MetaContent
 from .HexView import HexView
 from .TextureView import TextureView
 
+# typedefs
+class MetaInfo: pass
+
+# TextView
 class TextView(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
@@ -19,10 +24,12 @@ class TextView(QWidget):
         label.setWordWrap(True)
         label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
 
+# NullView
 class NullView(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
 
+# FileContent
 class FileContent(QTabWidget):
     def __init__(self, parent):
         super().__init__()

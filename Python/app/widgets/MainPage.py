@@ -6,7 +6,7 @@ from PyQt6.QtCore import Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import Family, util, appDefaultOptions as config
+from gamespecs import Family, config
 from .HexViewWidget import HexViewWidget
 from .SaveFileWidget import SaveFileWidget
 from .OpenWidget import OpenWidget
@@ -14,6 +14,7 @@ from .FileContent import FileContent
 from .FileExplorer import FileExplorer
 from .resourcemgr import ResourceManager
 
+# ExplorerMainTab
 class ExplorerMainTab:
     def __init__(self, name: str=None, pakFile: Any=None, appList: list[Any]=None, text: str=None):
         self.name = name
@@ -21,6 +22,7 @@ class ExplorerMainTab:
         self.appList = appList
         self.text = text
 
+# TextBlock
 class TextBlock(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
@@ -31,6 +33,7 @@ class TextBlock(QWidget):
         label.setWordWrap(True)
         label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
 
+# LogBar
 class LogBar(QLabel):
     def __init__(self, parent):
         super().__init__(parent)
@@ -45,10 +48,12 @@ class LogBar(QLabel):
         context.addAction(quitAction)
         context.exec(e.globalPos())
 
+# AppList
 class AppList(QWidget):
     def __init__(self, parent, tab):
         super().__init__()
 
+# MainPage
 class MainPage(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)

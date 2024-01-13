@@ -109,7 +109,6 @@ namespace GameSpec.App.Explorer.Views
                     {
                         if (pak.Status == PakFile.PakStatus.Opened) return;
                         pak.Open(value.Items, Resource);
-                        //value.Items.AddRange(pak.GetMetaItemsAsync(Resource).Result);
                         OnFilterKeyUp(null, null);
                     }
                     OnInfo(value.PakFile?.GetMetaInfos(Resource, value).Result);
