@@ -24,10 +24,10 @@ class StandardFileSystem(FileSystem):
 
 class HostFileSystem(FileSystem):
     def __init__(self, uri: str): self.uri = uri
-    def glob(self, path: str, searchPattern: str): raise Exception('Not Implemented')
-    def fileExists(self, path: str) -> bool: raise Exception('Not Implemented')
-    def fileInfo(self, path: str) -> Any: raise Exception('Not Implemented')
-    def openReader(self, path: str, mode: str = 'rb'): raise Exception('Not Implemented')
+    def glob(self, path: str, searchPattern: str): raise NotImplementedError()
+    def fileExists(self, path: str) -> bool: raise NotImplementedError()
+    def fileInfo(self, path: str) -> Any: raise NotImplementedError()
+    def openReader(self, path: str, mode: str = 'rb'): raise NotImplementedError()
 
 # create FileSystem
 @staticmethod

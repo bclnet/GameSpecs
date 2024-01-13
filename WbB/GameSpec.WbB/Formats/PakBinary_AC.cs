@@ -98,7 +98,7 @@ namespace GameSpec.WbB.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
             r.Seek(DAT_HEADER_OFFSET);
@@ -108,7 +108,7 @@ namespace GameSpec.WbB.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
             => Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Position, (int)file.FileSize, (int)file.Hash)));
 
         static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize)

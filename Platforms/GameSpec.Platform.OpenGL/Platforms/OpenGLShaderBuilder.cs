@@ -8,7 +8,7 @@ namespace GameSpec.Platforms
     {
         static readonly ShaderLoader _loader = new ShaderDebugLoader();
 
-        public override Shader BuildShader(string path, IDictionary<string, bool> arguments) => _loader.LoadShader(path, arguments);
-        public override Shader BuildPlaneShader(string path, IDictionary<string, bool> arguments) => _loader.LoadPlaneShader(path, arguments);
+        public override Shader BuildShader(string path, IDictionary<string, bool> args) => _loader.LoadShader(path, args);
+        public override Shader BuildPlaneShader(string path, IDictionary<string, bool> args) => _loader.LoadPlaneShader(path, args);
     }
 }

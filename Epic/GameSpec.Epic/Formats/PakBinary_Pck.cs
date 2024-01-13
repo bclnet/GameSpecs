@@ -14,7 +14,7 @@ namespace GameSpec.Epic.Formats
     {
         public static readonly PakBinary Instance = new PakBinary_Pck();
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             List<FileSource> files;
             source.Files = files = new List<FileSource>();
@@ -32,14 +32,14 @@ namespace GameSpec.Epic.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             var R = (BinaryReader)file.Tag;
             R.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(R.ReadBytes((int)file.FileSize)));
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
+        public override Task WriteData(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
             => throw new NotImplementedException();
     }
 }

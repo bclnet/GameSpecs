@@ -9,7 +9,7 @@ namespace GameSpec.Formats
 {
     public class PakBinaryCanStream : PakBinary
     {
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             
 
@@ -77,7 +77,7 @@ namespace GameSpec.Formats
             }
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
+        public override Task Write(BinaryPakFile source, BinaryWriter w, object tag)
         {
             
 

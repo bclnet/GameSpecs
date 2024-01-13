@@ -126,7 +126,7 @@ namespace GameSpec.Valve.Formats.Blocks
             // Load animations from referenced animation groups
             foreach (var animGroupPath in animGroupPaths)
             {
-                var animGroup = graphic.LoadFileObjectAsync<Binary_Pak>($"{animGroupPath}_c").Result;
+                var animGroup = graphic.LoadFileObject<Binary_Pak>($"{animGroupPath}_c").Result;
                 if (animGroup != default) animations.AddRange(AnimationGroupLoader.LoadAnimationGroup(animGroup, graphic, Skeleton));
             }
 

@@ -3,15 +3,23 @@ from typing import Any
 from enum import Enum, Flag
 from io import BytesIO
 from openstk.poly import Reader
-from .metamgr import MetaManager, MetaManager, MetaItem, MetaInfo, MetaContent
+from .metamgr import MetaManager, MetaItem
 from .util import _throw
 
+# typedef
+class FamilyGame: pass
+class IFileSystem: pass
+class PakBinary: pass
+class MetaInfo: pass
+
+# FileOption
 class FileOption(Flag):
     Default = 0x0
     Supress = 0x10
 
+# FileSource
 class FileSource:
-    EmptyObjectFactory = lambda a, b, c: None
+    emptyObjectFactory = lambda a, b, c: None
     def __init__(self, id = None, path = None, compressed = None, position = None, fileSize = None, packedSize = None, crypted = None, hash = None, pak = None, parts = None, tag = None):
         self.id = id
         self.path = path
@@ -29,13 +37,15 @@ class FileSource:
         self.cachedOption = None
     def __repr__(self): return f'{self.path}:{self.fileSize}'
 
+# PakFile
 class PakFile:
     class PakStatus(Enum):
         Opening = 1
         Opened = 2
         Closing = 3
         Closed = 4
-    def __init__(self, game, name, tag = None):
+
+    def __init__(self, game: FamilyGame, name: str, tag: object = None):
         self.status = self.PakStatus.Closed
         self.family = game.family
         self.game = game
@@ -52,7 +62,7 @@ class PakFile:
         self.status = self.PakStatus.Closed
         return self
     def closing(self) -> None: pass
-    def open(self, items = None, manager = None) -> None:
+    def open(self, items: list[MetaItem] = None, manager: MetaManager = None) -> None:
         if self.status != self.PakStatus.Closed: return self
         self.status = self.PakStatus.Opening
         start = time.time()
@@ -77,12 +87,13 @@ class PakFile:
             value = x.value
             ) for x in self.family.fileManager.filters[self.game.id].items()] \
             if self.family.fileManager and self.game.id in self.family.fileManager.filters else None
-    def getMetaInfos(self, manager: MetaManager, item: MetaItem) -> list[MetaItem]: raise Exception('Not Implemented')
-    def getMetaItems(self, manager: MetaManager) -> list[MetaInfo]: raise Exception('Not Implemented')
+    def getMetaInfos(self, manager: MetaManager, item: MetaItem) -> list[MetaItem]: raise NotImplementedError()
+    def getMetaItems(self, manager: MetaManager) -> list[MetaInfo]: raise NotImplementedError()
     #endregion
 
+# BinaryPakFile
 class BinaryPakFile(PakFile):
-    def __init__(self, game, fileSystem, filePath: str, pakBinary, tag: object = None):
+    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, pakBinary: PakBinary, tag: object = None):
         name = os.path.basename(filePath) if os.path.basename(filePath) else \
             os.path.basename(os.path.dirname(filePath))
         super().__init__(game, name, tag)
@@ -167,7 +178,7 @@ class BinaryPakFile(PakFile):
                 return self.loadFileData(file) if self.filesById and i in self.filesById and (file := self.filesById[i]) else None
             case _: raise Exception(f'Unknown: {path}')
 
-    def _ensureCachedObjectFactory(self, file: FileSource):
+    def _ensureCachedObjectFactory(self, file: FileSource) -> Any:
         if file.cachedObjectFactory: return file.cachedObjectFactory
         option, factory = self.objectFactoryFactoryMethod(file, self.game)
         file.cachedObjectOption = option
@@ -179,7 +190,7 @@ class BinaryPakFile(PakFile):
         if self.files: self.filesByPath = { x.path:x for x in self.files if x }
         if self.pakBinary: self.pakBinary.process()
 
-    def tryFindSubPak(self, path) -> (object, str):
+    def tryFindSubPak(self, path: str) -> (object, str):
         paths = path.split(':', 2)
         p = paths[0].replace('\\', '/')
         pak = self.filesByPath[p].pak if len(paths) > 1 and p in self.filesByPath else None
@@ -199,8 +210,9 @@ class BinaryPakFile(PakFile):
         return MetaManager.getMetaItems(manager, self) if self.valid() else None
     #endregion
 
+# ManyPakFile
 class ManyPakFile(BinaryPakFile):
-    def __init__(self, basis, game, name: str, fileSystem, paths, tag: object = None, visualPathSkip = 0):
+    def __init__(self, basis: PakFile, game: FamilyGame, name: str, fileSystem: IFileSystem, paths: list[str], tag: object = None, visualPathSkip: int = 0):
         super().__init__(game, fileSystem, name, None, tag)
         if isinstance(basis, BinaryPakFile):
             self.getObjectFactoryFactory = basis.getObjectFactoryFactory
@@ -208,7 +220,7 @@ class ManyPakFile(BinaryPakFile):
         self.useReader = False
 
     #region PakBinary
-    def read(self, r: Reader, tag: object = None):
+    def read(self, r: Reader, tag: object = None) -> None:
         self.files = [FileSource(
             path = s.replace('\\', '/'),
             pak = self.game.createPakFileType(self.fileSystem, s) if self.game.isPakFile(s) else None,
@@ -216,13 +228,14 @@ class ManyPakFile(BinaryPakFile):
             )
             for s in self.paths]
 
-    def readData(self, r: Reader, file: FileSource):
+    def readData(self, r: Reader, file: FileSource) -> BytesIO:
         return None if file.pak else \
             BytesIO(self.fileSystem.openReader(file.path).read(file.fileSize))
     #endregion
 
+# MultiPakFile
 class MultiPakFile(PakFile):
-    def __init__(self, game, name: str, fileSystem, pakFiles, tag: object = None):
+    def __init__(self, game: FamilyGame, name: str, fileSystem: IFileSystem, pakFiles: list[PakFile], tag: object = None):
         super().__init__(game, name, tag)
         self.pakFiles = pakFiles
 
@@ -272,3 +285,9 @@ class MultiPakFile(PakFile):
             root.append(MetaItem(pakFile, pakFile.name, manager.packageIcon, pakFile=pakFile, items=pakFile.getMetaItems(manager)))
         return root
     #endregion
+
+# PakBinary
+class PakBinary:
+    def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None: pass
+    def readData(self, source: BinaryPakFile, r: Reader, file: FileSource, option: FileOption = None): pass
+    def process(self, source: BinaryPakFile): pass

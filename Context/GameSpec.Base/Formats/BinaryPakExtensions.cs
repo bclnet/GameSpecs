@@ -96,14 +96,14 @@ namespace GameSpec.Formats
             // read pak
             if (string.IsNullOrEmpty(filePath) || !Directory.Exists(filePath)) { exception?.Invoke(null, $"Directory Missing: {filePath}"); return; }
             var setPath = Path.Combine(filePath, ".set");
-            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, "Set");
+            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.Read(source, r, "Set");
             var metaPath = Path.Combine(filePath, ".meta");
-            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, "Meta");
+            using (var r = new BinaryReader(File.Open(setPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.Read(source, r, "Meta");
             var rawPath = Path.Combine(filePath, ".raw");
-            if (File.Exists(rawPath)) using (var r = new BinaryReader(File.Open(rawPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.ReadAsync(source, r, "Raw");
+            if (File.Exists(rawPath)) using (var r = new BinaryReader(File.Open(rawPath, FileMode.Open, FileAccess.Read, FileShare.Read))) await PakBinary.Stream.Read(source, r, "Raw");
 
             // write header
-            if (from == 0) await source.PakBinary.WriteAsync(source, w, "Header");
+            if (from == 0) await source.PakBinary.Write(source, w, "Header");
 
             // write files
             Parallel.For(0, source.Files.Count, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, async index =>
@@ -118,7 +118,7 @@ namespace GameSpec.Formats
                 // insert file
                 try
                 {
-                    await source.PakBinary.WriteAsync(source, w);
+                    await source.PakBinary.Write(source, w);
                     using (var s = File.Open(newPath, FileMode.Open, FileAccess.Read, FileShare.Read)) await source.WriteData(w, file, s, option);
                     advance?.Invoke(file, index);
                 }

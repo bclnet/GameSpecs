@@ -28,6 +28,7 @@ namespace GameSpec.Platforms
         public PakFile Source => _source;
         public ITextureManager<Tex> TextureManager => _textureManager;
         public IMaterialManager<Material, Tex> MaterialManager => _materialManager;
+        public IObjectManager<object, Material, Tex> ObjectManager => _objectManager;
         public IShaderManager<Shader> ShaderManager => _shaderManager;
         public Tex LoadTexture(string path, out IDictionary<string, object> data, Range? range = null) => _textureManager.LoadTexture(path, out data, range);
         public void PreloadTexture(string path) => _textureManager.PreloadTexture(path);
@@ -35,6 +36,6 @@ namespace GameSpec.Platforms
         public void PreloadObject(string path) => _objectManager.PreloadObject(path);
         public Shader LoadShader(string path, IDictionary<string, bool> args = null) => _shaderManager.LoadShader(path, args);
 
-        public Task<T> LoadFileObjectAsync<T>(string path) => _source.LoadFileObject<T>(path);
+        public Task<T> LoadFileObject<T>(string path) => _source.LoadFileObject<T>(path);
     }
 }

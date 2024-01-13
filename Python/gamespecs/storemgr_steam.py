@@ -1,5 +1,6 @@
 import os, platform, winreg
 
+# AcfStruct
 class AcfStruct:
     def read(path):
         if not os.path.exists(path): return None
@@ -51,34 +52,32 @@ class AcfStruct:
         return ''.join(b)
     def __repr__(self): return self.repr(0)
 
-@staticmethod
-def init():
-    def getPath():
-        system = platform.system()
-        if system == 'Windows':
-            # windows paths
-            try: key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'SOFTWARE\\Valve\\Steam', 0, winreg.KEY_READ)
-            except FileNotFoundError:
-                try: key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Valve\\Steam', 0, winreg.KEY_READ | winreg.KEY_WOW64_32KEY)
-                except FileNotFoundError: return None
-            return winreg.QueryValueEx(key, 'SteamPath')[0]
-        elif system == 'Linux':
-            # linux paths
-            home = os.path.expanduser('~')
-            search = ['.steam', '.steam/steam', '.steam/root', '.local/share/Steam']
-            paths = [os.path.join(home, path, 'appcache') for path in search]
-        elif system == 'Darwin':
-            # mac paths
-            home = '/Users/Shared'
-            search = ['Library/Application Support/Steam']
-            paths = [os.path.join(home, path, 'appcache') for path in search]
-        else: raise Exception(f'Unknown platform: {system}')
-        return next(iter(x for x in paths if os.path.isdir(x)), None)
+def getPath():
+    system = platform.system()
+    if system == 'Windows':
+        # windows paths
+        try: key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'SOFTWARE\\Valve\\Steam', 0, winreg.KEY_READ)
+        except FileNotFoundError:
+            try: key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SOFTWARE\\Valve\\Steam', 0, winreg.KEY_READ | winreg.KEY_WOW64_32KEY)
+            except FileNotFoundError: return None
+        return winreg.QueryValueEx(key, 'SteamPath')[0]
+    elif system == 'Linux':
+        # linux paths
+        home = os.path.expanduser('~')
+        search = ['.steam', '.steam/steam', '.steam/root', '.local/share/Steam']
+        paths = [os.path.join(home, path, 'appcache') for path in search]
+    elif system == 'Darwin':
+        # mac paths
+        home = '/Users/Shared'
+        search = ['Library/Application Support/Steam']
+        paths = [os.path.join(home, path, 'appcache') for path in search]
+    else: raise Exception(f'Unknown platform: {system}')
+    return next(iter(x for x in paths if os.path.isdir(x)), None)
     
-    # get dbPath
-    root = getPath()
-    if root is None: return
-
+# get steamPaths
+steamPaths = {}
+root = getPath()
+if root:
     # query games
     libraryFolders = AcfStruct.read(os.path.join(root, 'steamapps', 'libraryfolders.vdf'))
     for folder in libraryFolders.get['libraryfolders'].get.values():
@@ -91,6 +90,4 @@ def init():
             appPath = os.path.join(path, 'steamapps', 'common', appManifest.get['AppState'].value['installdir'])
             if os.path.isdir(appPath): steamPaths[appId] = appPath
 
-steamPaths = {}
-init()
 # print(steamPaths)

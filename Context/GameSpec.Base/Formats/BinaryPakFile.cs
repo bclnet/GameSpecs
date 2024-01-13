@@ -274,7 +274,7 @@ namespace GameSpec.Formats
         /// <param name="r">The r.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public virtual Task Read(BinaryReader r, object tag = default) => PakBinary.ReadAsync(this, r, tag);
+        public virtual Task Read(BinaryReader r, object tag = default) => PakBinary.Read(this, r, tag);
 
         /// <summary>
         /// Reads the file data asynchronous.
@@ -283,7 +283,7 @@ namespace GameSpec.Formats
         /// <param name="file">The file.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public virtual Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadDataAsync(this, r, file, option);
+        public virtual Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadData(this, r, file, option);
 
         /// <summary>
         /// Writes the asynchronous.
@@ -291,7 +291,7 @@ namespace GameSpec.Formats
         /// <param name="w">The w.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public virtual Task Write(BinaryWriter w, object tag = default) => PakBinary.WriteAsync(this, w, tag);
+        public virtual Task Write(BinaryWriter w, object tag = default) => PakBinary.Write(this, w, tag);
 
         /// <summary>
         /// Writes the file data asynchronous.
@@ -301,7 +301,7 @@ namespace GameSpec.Formats
         /// <param name="data">The data.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public virtual Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteDataAsync(this, w, file, data, option);
+        public virtual Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteData(this, w, file, data, option);
 
         #endregion
 

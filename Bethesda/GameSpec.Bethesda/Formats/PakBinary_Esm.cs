@@ -56,7 +56,7 @@ namespace GameSpec.Bethesda.Formats
         /// <param name="stage">The stage.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">stage</exception>
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             Format = GetFormat(source.Game.Id);
             var recordLevel = 1;

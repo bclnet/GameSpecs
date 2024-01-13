@@ -21,7 +21,7 @@ namespace GameSpec.Formats
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag = default) => throw new NotSupportedException();
+        public virtual Task Read(BinaryPakFile source, BinaryReader r, object tag = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Reads the asynchronous.
@@ -32,7 +32,7 @@ namespace GameSpec.Formats
         /// <param name="option">The option.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default) => throw new NotSupportedException();
+        public virtual Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Writes the asynchronous.
@@ -42,7 +42,7 @@ namespace GameSpec.Formats
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag = default) => throw new NotSupportedException();
+        public virtual Task Write(BinaryPakFile source, BinaryWriter w, object tag = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Writes the asynchronous.
@@ -54,7 +54,7 @@ namespace GameSpec.Formats
         /// <param name="data">The data.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public virtual Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotSupportedException();
+        public virtual Task WriteData(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotSupportedException();
 
         /// <summary>
         /// Processes this instance.

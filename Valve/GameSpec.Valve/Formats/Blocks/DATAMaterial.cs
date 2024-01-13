@@ -47,18 +47,18 @@ namespace GameSpec.Valve.Formats.Blocks
 
         public IDictionary<string, bool> GetShaderArgs()
         {
-            var arguments = new Dictionary<string, bool>();
-            if (Data == null) return arguments;
-            foreach (var kv in Data.GetArray("m_intParams")) arguments.Add(kv.Get<string>("m_name"), kv.GetInt64("m_nValue") != 0);
+            var args = new Dictionary<string, bool>();
+            if (Data == null) return args;
+            foreach (var kv in Data.GetArray("m_intParams")) args.Add(kv.Get<string>("m_name"), kv.GetInt64("m_nValue") != 0);
 
             var specialDeps = (REDISpecialDependencies)Parent.REDI.Structs[REDI.REDIStruct.SpecialDependencies];
             var hemiOctIsoRoughness_RG_B = specialDeps.List.Any(dependancy => dependancy.CompilerIdentifier == "CompileTexture" && dependancy.String == "Texture Compiler Version Mip HemiOctIsoRoughness_RG_B");
-            if (hemiOctIsoRoughness_RG_B) arguments.Add("HemiOctIsoRoughness_RG_B", true);
+            if (hemiOctIsoRoughness_RG_B) args.Add("HemiOctIsoRoughness_RG_B", true);
 
             var invert = specialDeps.List.Any(dependancy => dependancy.CompilerIdentifier == "CompileTexture" && dependancy.String == "Texture Compiler Version LegacySource1InvertNormals");
-            if (invert) arguments.Add("LegacySource1InvertNormals", true);
+            if (invert) args.Add("LegacySource1InvertNormals", true);
 
-            return arguments;
+            return args;
         }
     }
 }

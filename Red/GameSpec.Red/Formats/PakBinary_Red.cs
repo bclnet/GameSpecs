@@ -426,7 +426,7 @@ namespace GameSpec.Red.Formats
         // https://zenhax.com/viewtopic.php?t=3954
         // https://forums.cdprojektred.com/index.php?threads/modding-the-witcher-3-a-collection-of-tools-you-need.64557/
         // https://github.com/rfuzzo/CP77Tools
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             FileSource[] files; List<FileSource> files2;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(source.FilePath);
@@ -677,7 +677,7 @@ namespace GameSpec.Red.Formats
             BC5 = 7,        // 3DC, ATI2
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData = null;
             r.Seek(file.Position);

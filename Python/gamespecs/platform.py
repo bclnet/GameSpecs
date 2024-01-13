@@ -2,11 +2,14 @@ import os
 from enum import Enum
 from typing import Any
 from .pakfile import PakFile
-from openstk.gfx_texture import ITextureManager
-from openstk.platform import PlatformStats
+from openstk.gfx import IObjectManager, IMaterialManager, IShaderManager, ITextureManager, PlatformStats
 
+# typedefs
+class Shader: pass
 class Texture: pass
 class ITexture: pass
+class Material: pass
+class IMaterial: pass
 
 # TextureBuilderBase
 class TextureBuilderBase:
@@ -173,6 +176,7 @@ class MaterialManager(IMaterialManager):
                 return info
             case _: raise Exception(f'Unknown {key}')
 
+# Platform
 class Platform:
     class Stats:
         maxTextureMaxAnisotropy: int
@@ -210,14 +214,15 @@ class Platform:
         GraphicFactory = lambda source: None
         LogFunc = lambda a: print(a)
 
+# TestGraphic
 class TestGraphic:
     def __init__(self, source):
         self._source = source
 
+# TestPlatform
 class TestPlatform:
     def startup() -> bool:
         PlatformType = Platform.Type.Test
         GraphicFactory = lambda source: TestGraphic(source)
         LogFunc = lambda a: print(a)
         return True
-

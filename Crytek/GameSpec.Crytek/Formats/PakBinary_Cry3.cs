@@ -20,7 +20,7 @@ namespace GameSpec.Crytek.Formats
 
         public PakBinary_Cry3(byte[] key = null) => Key = key;
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
             source.UseReader = false;
@@ -56,7 +56,7 @@ namespace GameSpec.Crytek.Formats
             return Task.CompletedTask;
         }
 
-        public override Task WriteAsync(BinaryPakFile source, BinaryWriter w, object tag)
+        public override Task Write(BinaryPakFile source, BinaryWriter w, object tag)
         {
             source.UseReader = false;
             var files = source.Files;
@@ -66,13 +66,13 @@ namespace GameSpec.Crytek.Formats
             {
                 var entry = (ZipEntry)(file.Tag = new ZipEntry(Path.GetFileName(file.Path)));
                 pak.Add(entry);
-                source.PakBinary.WriteDataAsync(source, w, file, null);
+                source.PakBinary.WriteData(source, w, file, null);
             }
             pak.CommitUpdate();
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             var pak = (Cry3File)source.Tag;
             var entry = (ZipEntry)file.Tag;
@@ -88,7 +88,7 @@ namespace GameSpec.Crytek.Formats
             catch (Exception e) { HandleException(file, option, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
         }
 
-        public override Task WriteDataAsync(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
+        public override Task WriteData(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
         {
             var pak = (Cry3File)source.Tag;
             var entry = (ZipEntry)file.Tag;

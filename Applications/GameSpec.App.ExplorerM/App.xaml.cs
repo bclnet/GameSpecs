@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using GameSpec.Platforms;
 
 namespace GameSpec.App.Explorer
 {

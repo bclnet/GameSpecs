@@ -61,7 +61,7 @@ namespace GameSpec.Cryptic.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             // read file
             var header = r.ReadT<Header>(sizeof(Header));
@@ -95,7 +95,7 @@ namespace GameSpec.Cryptic.Formats
             }
 
             // Read DataList file into memory
-            using var datalist = ReadDataAsync(source, r, files[0]).Result;
+            using var datalist = ReadData(source, r, files[0]).Result;
             var r2 = new BinaryReader(datalist);
             r2.Seek(4);
             var dataList = new List<string>(r2.ReadInt32());
@@ -126,7 +126,7 @@ namespace GameSpec.Cryptic.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             r.Seek(file.Position);
             return Task.FromResult((Stream)new MemoryStream(file.Compressed != 0

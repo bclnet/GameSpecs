@@ -51,7 +51,7 @@ namespace GameSpec.Bioware.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
             var hashLookup = TOR.HashLookup;
@@ -91,7 +91,7 @@ namespace GameSpec.Bioware.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             if (file.FileSize == 0) return Task.FromResult(System.IO.Stream.Null);
             r.Seek(file.Position);

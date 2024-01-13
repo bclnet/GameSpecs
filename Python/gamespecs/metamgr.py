@@ -3,12 +3,19 @@ from typing import Any
 from io import BytesIO
 from .util import _throw, _pathExtension
 
+# typedefs
 class FileSource: pass
-class MetaManager: pass
-class MetaItem: pass
 
+# forwards
+class MetaInfo: pass
+class MetaItem: pass
+class MetaManager: pass
+
+# MetaContent
 class MetaContent:
-    def __init__(self, type: str, name: str, value: Any=None, tag: Any=None, maxWidth: int=None, maxHeight: int=None, dispose: Any=None, engineType: Any=None):
+    def __init__(self, type: str, name: str, value: object = None, 
+        tag: object = None, maxWidth: int = None, maxHeight: int = None,
+        dispose: object = None, engineType: type = None):
         self.type = type
         self.name = name
         self.value = value
@@ -18,18 +25,21 @@ class MetaContent:
         self.dispose = dispose
         self.engineType = engineType
 
+# MetaInfo
 class MetaInfo:
-    def __init__(self, name: str, tag: Any=None, items: list[Any]=None, clickable: bool=False):
+    def __init__(self, name: str, tag: object = None, items: list[MetaInfo] = None, clickable: bool = False):
         self.name = name
         self.tag = tag
-        self.items = items if items else []
+        self.items = items or []
         self.clickable = clickable
 
+# MetaItem
 class MetaItem:
     class Filter:
-        def __init__(self, name: str, description: str=None):
+        def __init__(self, name: str, description: str = None):
             self.name = name
             self.description = description
+
     def __init__(self, source: Any, name: str, icon: Any=None, tag: Any=None, pakFile: Any=None, items: list[Any]=None):
         self.source = source
         self.name = name

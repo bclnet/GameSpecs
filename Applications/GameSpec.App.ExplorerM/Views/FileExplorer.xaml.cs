@@ -19,8 +19,8 @@ namespace GameSpec.App.Explorer.Views
             propertyChanged: (d, e, n) =>
             {
                 if (d is not FileExplorer fileExplorer || n is not PakFile pakFile) return;
-                fileExplorer.Filters = pakFile.GetMetadataFilters(Resource).Result;
-                fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetaItems(Resource).Result;
+                fileExplorer.Filters = pakFile.GetMetadataFilters(Resource);
+                fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetaItems(Resource);
                 fileExplorer.OnReady();
             });
         public PakFile PakFile

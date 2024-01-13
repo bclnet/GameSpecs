@@ -13,4 +13,4 @@ class PakBinary_Big(PakBinary):
 
     # read
     def read(self, source: BinaryPakFile, r: Reader, tag: Any = None) -> None:
-        raise Exception('Not Implemented')
+        raise NotImplementedError()

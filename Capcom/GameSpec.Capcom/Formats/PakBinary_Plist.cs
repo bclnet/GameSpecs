@@ -12,7 +12,7 @@ namespace GameSpec.Capcom.Formats
     {
         public static readonly PakBinary Instance = new PakBinary_Plist();
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             source.Files = ((Dictionary<object, object>)new PlistReader().ReadObject(r.BaseStream)).Select(x => new FileSource
             {
@@ -23,7 +23,7 @@ namespace GameSpec.Capcom.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
             => Task.FromResult<Stream>(new MemoryStream((byte[])file.Tag));
     }
 }

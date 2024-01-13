@@ -1,6 +1,6 @@
 @staticmethod
 def getPathByKey(key):
-    (k,v) = key.split(':', 2)
+    k,v = key.split(':', 2)
     match k:
         case 'Steam':
             from .storemgr_steam import steamPaths

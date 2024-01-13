@@ -24,7 +24,7 @@ namespace GameSpec.Valve.Formats.Animations
             var animArray = data.Get<string[]>("m_localHAnimArray").Where(a => a != null); // Get the list of animation files
             foreach (var animationFile in animArray)
             {
-                var animResource = graphic.LoadFileObjectAsync<Binary_Pak>($"{animationFile}_c").Result;
+                var animResource = graphic.LoadFileObject<Binary_Pak>($"{animationFile}_c").Result;
                 if (animResource != null) animationList.AddRange(Animation.FromResource(animResource, decodeKey, skeleton)); // Build animation classes
             }
             return animationList;

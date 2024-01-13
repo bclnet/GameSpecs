@@ -47,7 +47,7 @@ namespace GameSpec.Id.Formats
 
         #endregion
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             // read file
             var header = r.ReadT<WAD_Header>(sizeof(WAD_Header));
@@ -55,7 +55,7 @@ namespace GameSpec.Id.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData;
             r.Seek(file.Position);

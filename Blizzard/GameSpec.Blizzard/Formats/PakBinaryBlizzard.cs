@@ -13,7 +13,7 @@ namespace GameSpec.Blizzard.Formats
         public static readonly PakBinary Instance = new PakBinaryBlizzard();
         CascContext casc;
 
-        public override Task ReadAsync(BinaryPakFile source, BinaryReader r, object tag)
+        public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
 
@@ -25,7 +25,7 @@ namespace GameSpec.Blizzard.Formats
             return Task.CompletedTask;
         }
 
-        public override Task<Stream> ReadDataAsync(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
             => Task.FromResult(casc.ReadData(file));
     }
 }
