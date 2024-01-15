@@ -1,8 +1,12 @@
 import os
+import numpy as np
+from OpenGL.GL import *
 from openstk.gfx import IFixedMaterial, IParamMaterial
 from openstk.gl import IOpenGLGraphic, QuadIndexBuffer, GLMeshBufferCache
 from openstk.gl_shader import ShaderDebugLoader
 from openstk.gl_render import GLRenderMaterial
+from openstk.gfx_texture import TextureGLFormat, TextureFlags
+from openstk.poly import IDisposable
 from .platform import ObjectBuilderBase, ObjectManager, MaterialBuilderBase, MaterialManager, ShaderBuilderBase, ShaderManager, TextureManager, TextureBuilderBase, Platform
 
 # typedefs
@@ -14,22 +18,25 @@ class ITexture: pass
 
 # OpenGLObjectBuilder
 class OpenGLObjectBuilder(ObjectBuilderBase):
-    def ensurePrefabContainerExists() -> None: pass
-    def createObject(prefab: object) -> object: raise NotImplementedError()
-    def buildObject(source: object, materialManager: IMaterialManager) -> object: raise NotImplementedError()
+    def ensurePrefabContainerExists(self) -> None: pass
+    def createObject(self, prefab: object) -> object: raise NotImplementedError()
+    def buildObject(self, source: object, materialManager: IMaterialManager) -> object: raise NotImplementedError()
 
 # OpenGLShaderBuilder
 class OpenGLShaderBuilder(ShaderBuilderBase):
     _loader: ShaderLoader = ShaderDebugLoader()
-    def buildShader(path: str, args: dict[str, bool]) -> Shader: return self._loader.loadShader(path, args)
-    def buildPlaneShader(path: str, args: dict[str, bool]) -> Shader: return self._loader.loadPlaneShader(path, args)
+    def buildShader(self, path: str, args: dict[str, bool]) -> Shader: return self._loader.loadShader(path, args)
+    def buildPlaneShader(self, path: str, args: dict[str, bool]) -> Shader: return self._loader.loadPlaneShader(path, args)
 
 # OpenGLTextureBuilder
 class OpenGLTextureBuilder(TextureBuilderBase):
-    _defaultTexture: int = 0
+    _defaultTexture: int = -1
 
     @property
-    def defaultTexture(self) -> int: return self._defaultTexture if self._defaultTexture != 0 else (_defaultTexture := self._buildAutoTexture())
+    def defaultTexture(self) -> int:
+        if self._defaultTexture > -1: return self._defaultTexture
+        self._defaultTexture = self._buildAutoTexture()
+        return self._defaultTexture
 
     def _buildAutoTexture(self) -> int: return self.buildSolidTexture(4, 4, [
         0.9, 0.2, 0.8, 1.0,
@@ -50,48 +57,89 @@ class OpenGLTextureBuilder(TextureBuilderBase):
         0.0, 0.9, 0.0, 1.0,
         0.9, 0.2, 0.8, 1.0,
         0.0, 0.9, 0.0, 1.0,
-        0.9, 0.2, 0.8, 1.0,
+        0.9, 0.2, 0.8, 1.0
         ])
 
-    def buildTexture(self, info: ITexture, range: range = None) -> int:
-        id = gl.glGenTexture()
-        numMipMaps = math.max(1, info.mipMaps)
-        start = range.start or 0 if range else 0
+    def buildTexture(self, info: ITexture, rng: range = None) -> int:
+        return self.defaultTexture
+
+        id = glGenTextures(1)
+        numMipMaps = max(1, info.mipMaps)
+        start = rng[0] or 0 if rng else 0
         end = numMipMaps - 1
 
-        gl.glBindTexture(gl.GL_TEXTURE_2D, id)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAX_LEVEL, end - start)
+        glBindTexture(GL_TEXTURE_2D, id)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, end - start)
         bytes, fmt, ranges = info.begin(Platform.Type.OpenGL)
-        # TODO
+        pixels = []
+
+        def compressedTexImage2D(info: ITexture, i: int, internalFormat: int) -> bool:
+            nonlocal pixels
+            rng = ranges[i] if ranges else None
+            if rng and rng[0] == -1: return False
+            width = info.width >> i
+            height = info.height >> i
+            pixels = bytes[rng[0]:rng[1]] if rng else bytes
+            arrayType = GLbyte * len(pixels)
+            glCompressedTexImage2D(GL_TEXTURE_2D, i, internalFormat, width, height, 0, len(pixels), arrayType(*pixels))
+            return True
+
+        def texImage2D(info: ITexture, i: int, internalFormat: int, format: int, type: int) -> bool:
+            nonlocal pixels
+            rng = ranges[i] if ranges else None
+            if rng and rng[0] == -1: return False
+            width = info.width >> i
+            height = info.height >> i
+            pixels = bytes[rng[0]:rng[1]] if rng else bytes
+            arrayType = GLbyte * len(pixels)
+            abc = glTexImage2D(GL_TEXTURE_2D, i, internalFormat, width, height, 0, format, type, arrayType(*pixels))
+            return True
+
+        match fmt:
+            case glFormat if isinstance(fmt, TextureGLFormat):
+                internalFormat = glFormat.value
+                if not internalFormat: print('Unsupported texture, using default'); return self.defaultTexture
+                for i in range(start, end):
+                    if not compressedTexImage2D(info, i, internalFormat): return self.defaultTexture
+            case glPixelFormat if isinstance(fmt, tuple):
+                internalFormat, format, type = glPixelFormat[0].value, glPixelFormat[1].value, glPixelFormat[2].value
+                if not internalFormat: print('Unsupported texture, using default'); return self.defaultTexture
+                for i in range(start, numMipMaps):
+                    if not texImage2D(info, i, internalFormat, format, type): return self.defaultTexture
+            case _: raise Exception(f'Uknown {fmt}')
+
+        if isinstance(info, IDisposable): info.dispose()
         info.end()
 
         if self.maxTextureMaxAnisotropy >= 4:
-            gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAX_ANISOTROPY_EXT, self.maxTextureMaxAnisotropy)
-            gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MIN_FILTER, gl.GL_LINEAR_MIPMAP_LINEAR)
-            gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAG_FILTER, gl.GL_LINEAR)
+            glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, self.maxTextureMaxAnisotropy)
+            glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
+            glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
         else:
-            gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MIN_FILTER, gl.GL_NEAREST)
-            gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAG_FILTER, gl.GL_NEAREST)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_WRAP_S, gl.GL_CLAMP if info.flags & TextureFlags.SUGGEST_CLAMPS else gl.GL_REPEAT)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_WRAP_T, gl.GL_CLAMP if info.flags & TextureFlags.SUGGEST_CLAMPT else gl.GL_REPEAT)
-        gl.glBindTexture(gl.GL_TEXTURE_2D, 0)
+            glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+            glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP if (info.flags & TextureFlags.SUGGEST_CLAMPS.value) != 0 else GL_REPEAT)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP if (info.flags & TextureFlags.SUGGEST_CLAMPT.value) != 0 else GL_REPEAT)
+        glBindTexture(GL_TEXTURE_2D, 0)
         return id
 
     def buildSolidTexture(self, width: int, height: int, pixels: list[float]) -> int:
-        id = gl.glGenTexture()
-        gl.glBindTexture(gl.GL_TEXTURE_2D, id)
-        gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGBA32F, width, height, 0, gl.GL_RGBA, gl.GL_FLOAT, pixels)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAX_LEVEL, 0)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MIN_FILTER, gl.GL_NEAREST)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_MAG_FILTER, gl.GL_NEAREST)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_WRAP_S, gl.GL_REPEAT)
-        gl.glTexParameter(gl.GL_TEXTURE_2D, gl.GL_TEXTURE_WRAP_T, gl.GL_REPEAT)
-        gl.glBindTexture(gl.GL_TEXTURE_2D, 0)
+        pixels = np.array(pixels, dtype = np.float32)
+        id = glGenTextures(1)
+        glBindTexture(GL_TEXTURE_2D, id)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, pixels)
+        # glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, (GLfloat * len(pixels))(*pixels))
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+        glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+        glBindTexture(GL_TEXTURE_2D, 0)
         return id
 
-    def buildNormalMap(source: int, strength: float) -> int: raise NotImplementedError()
+    def buildNormalMap(self, source: int, strength: float) -> int: raise NotImplementedError()
 
-    def deleteTexture(id: int) -> None: gl.glDeleteTexture(id)
+    def deleteTexture(self, id: int) -> None: glDeleteTexture(id)
 
 # OpenGLMaterialBuilder
 class OpenGLMaterialBuilder(MaterialBuilderBase):
@@ -109,7 +157,7 @@ class OpenGLMaterialBuilder(MaterialBuilderBase):
         m.material.shaderName = 'vrf.error'
         return m
 
-    def buildMaterial(key: object) -> GLRenderMaterial:
+    def buildMaterial(self, key: object) -> GLRenderMaterial:
         match key:
             case s if isinstance(key, IMaterial):
                 match s:
@@ -150,14 +198,14 @@ class OpenGLGraphic(IOpenGLGraphic):
         self.materialManager = MaterialManager(source, self.textureManager, OpenGLMaterialBuilder(self.textureManager))
         self.objectManager = ObjectManager(source, self.materialManager, OpenGLObjectBuilder())
         self.shaderManager = ShaderManager(source, OpenGLShaderBuilder())
-        self._meshBufferCache = GLMeshBufferCache()
+        self.meshBufferCache = GLMeshBufferCache()
 
-    def loadTexture(self, path: str, range: range = None) -> (int, dict[str, object]): return self.textureManager.loadTexture(path, range)
+    def loadTexture(self, path: str, rng: range = None) -> (int, dict[str, object]): return self.textureManager.loadTexture(path, rng)
     def preloadTexture(self, path: str) -> None: self.textureManager.preloadTexture(path)
     def createObject(self, path: str) -> (object, dict[str, object]): return self.objectManager.createObject(path)
     def preloadObject(self, path: str) -> None: self.objectManager.preloadObject(path)
     def loadShader(self, path: str, args: dict[str, bool] = None) -> Shader: return self.shaderManager.loadShader(path, args)
-    def loadFileObject(path: str) -> object: return self.source.loadFileObject(path)
+    def loadFileObject(self, path: str) -> object: return self.source.loadFileObject(path)
 
     # cache
     _quadIndices: QuadIndexBuffer

@@ -69,13 +69,13 @@ namespace GameSpec.App.Explorer.Controls1
             Camera.LookAt(new Vector3(0));
 
             graphic.TextureManager.DeleteTexture(source);
-            var texture = graphic.TextureManager.LoadTexture(source, out _, range);
+            var texture = graphic.TextureManager.LoadTexture(source, out _, rng);
             Renderers.Clear();
             Renderers.Add(new TextureRenderer(graphic, texture) { Background = background });
         }
 
         bool background;
-        Range range = 0..;
+        Range rng = 0..;
         readonly HashSet<TextureRenderer> Renderers = new();
 
         void OnPaint(object sender, RenderEventArgs e)
@@ -105,9 +105,9 @@ namespace GameSpec.App.Explorer.Controls1
                 }
         }
 
-        void MoveReset() { range = 0..; OnProperty(); }
-        void MoveNext() { if (range.Start.Value < 10) range = new(range.Start.Value + 1, range.End); OnProperty(); }
-        void MovePrev() { if (range.Start.Value > 0) range = new(range.Start.Value - 1, range.End); OnProperty(); }
+        void MoveReset() { rng = 0..; OnProperty(); }
+        void MoveNext() { if (rng.Start.Value < 10) rng = new(rng.Start.Value + 1, rng.End); OnProperty(); }
+        void MovePrev() { if (rng.Start.Value > 0) rng = new(rng.Start.Value - 1, rng.End); OnProperty(); }
         void ToggleBackground() { background = !background; OnProperty(); }
     }
 }

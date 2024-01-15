@@ -20,4 +20,4 @@ def getPathByKey(key):
         case 'Unknown': return None
         case _: raise Exception(f'Unknown key: {key}')
 
-# print(getPathByKey('Steam:1755910'))
+print(getPathByKey('Steam:1755910'))

@@ -16,8 +16,8 @@ namespace GameSpec.Platforms
             }
         }
 
-        int _defaultTexture;
-        public override int DefaultTexture => _defaultTexture != 0 ? _defaultTexture : _defaultTexture = BuildAutoTexture();
+        int _defaultTexture = -1;
+        public override int DefaultTexture => _defaultTexture > -1 ? _defaultTexture : _defaultTexture = BuildAutoTexture();
 
         int BuildAutoTexture() => BuildSolidTexture(4, 4, new[]
         {
@@ -42,11 +42,11 @@ namespace GameSpec.Platforms
             0.9f, 0.2f, 0.8f, 1f,
         });
 
-        public override int BuildTexture(ITexture info, Range? range = null)
+        public override int BuildTexture(ITexture info, Range? rng = null)
         {
             var id = GL.GenTexture();
             var numMipMaps = Math.Max(1, info.MipMaps);
-            var start = range?.Start.Value ?? 0;
+            var start = rng?.Start.Value ?? 0;
             var end = numMipMaps - 1;
 
             GL.BindTexture(TextureTarget.Texture2D, id);
@@ -55,22 +55,22 @@ namespace GameSpec.Platforms
 
             bool CompressedTexImage2D(ITexture info, int i, InternalFormat internalFormat)
             {
-                var range = ranges != null ? ranges[i] : Range.All;
-                if (range.Start.Value == -1) return false;
+                var rng = ranges != null ? ranges[i] : Range.All;
+                if (rng.Start.Value == -1) return false;
                 var width = info.Width >> i;
                 var height = info.Height >> i;
-                var pixels = bytes.AsSpan(range);
+                var pixels = bytes.AsSpan(rng);
                 fixed (byte* data = pixels) GL.CompressedTexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, pixels.Length, (IntPtr)data);
                 return true;
             }
 
             bool TexImage2D(ITexture info, int i, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
             {
-                var range = ranges != null ? ranges[i] : Range.All;
-                if (range.Start.Value == -1) return false;
+                var rng = ranges != null ? ranges[i] : Range.All;
+                if (rng.Start.Value == -1) return false;
                 var width = info.Width >> i;
                 var height = info.Height >> i;
-                var pixels = bytes.AsSpan(range);
+                var pixels = bytes.AsSpan(rng);
                 fixed (byte* data = pixels) GL.TexImage2D(TextureTarget.Texture2D, i, internalFormat, width, height, 0, format, type, (IntPtr)data);
                 return true;
             }

@@ -1,5 +1,4 @@
 using GameSpec.Metadata;
-using GameSpec.Platforms;
 using OpenStack.Graphics;
 using OpenStack.Graphics.DirectX;
 using System;

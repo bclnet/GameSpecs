@@ -33,7 +33,7 @@ namespace GameSpec.Platforms
         public IMaterialManager<GLRenderMaterial, int> MaterialManager => _materialManager;
         public IObjectManager<object, GLRenderMaterial, int> ObjectManager => _objectManager;
         public IShaderManager<Shader> ShaderManager => _shaderManager;
-        public int LoadTexture(string path, out IDictionary<string, object> data, Range? range = null) => _textureManager.LoadTexture(path, out data, range);
+        public int LoadTexture(string path, out IDictionary<string, object> data, Range? rng = null) => _textureManager.LoadTexture(path, out data, rng);
         public void PreloadTexture(string path) => _textureManager.PreloadTexture(path);
         public object CreateObject(string path, out IDictionary<string, object> data) => _objectManager.CreateObject(path, out data);
         public void PreloadObject(string path) => _objectManager.PreloadObject(path);

@@ -72,7 +72,6 @@ namespace GameSpec.Black.Formats
             public uint Offset;             // Address/Location of the file.
         }
 
-
         #endregion
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)

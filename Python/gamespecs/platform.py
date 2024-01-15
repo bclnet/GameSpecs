@@ -15,7 +15,7 @@ class Material: pass
 class TextureBuilderBase:
     maxTextureMaxAnisotropy: int = PlatformStats.maxTextureMaxAnisotropy
     defaultTexture: Texture
-    def buildTexture(info: ITexture, range: range = None) -> Texture: pass
+    def buildTexture(info: ITexture, rng: range = None) -> Texture: pass
     def buildSolidTexture(width: int, height: int, rgba: list[float]) -> Texture: pass
     def buildNormalMap(source: Texture, strength: float): pass
     def deleteTexture(texture: Texture): pass
@@ -38,11 +38,11 @@ class TextureManager(ITextureManager):
     @property
     def defaultTexture(self) -> Texture: return self._builder.defaultTexture
 
-    def loadTexture(self, key: object, range: range = None) -> (Texture, dict[str, object]):
+    def loadTexture(self, key: object, rng: range = None) -> (Texture, dict[str, object]):
         if key in self._cachedTextures: return self._cachedTextures[key]
         # Load & cache the texture.
         info = key if isinstance(key, ITexture) else self.loadTexture(key)
-        texture = self._builder.buildTexture(info, range) if info else self._builder.defaultTexture
+        texture = self._builder.buildTexture(info, rng) if info else self._builder.defaultTexture
         data = info.data if info else None
         self._cachedTextures[key] = (texture, data)
         return (texture, data)
@@ -69,8 +69,8 @@ class TextureManager(ITextureManager):
 
 # ShaderBuilderBase
 class ShaderBuilderBase:
-    def buildShader(self, path: str, arguments: dict[str, bool]) -> Shader: pass
-    def buildPlaneShader(self, path: str, arguments: dict[str, bool]) -> Shader: pass
+    def buildShader(self, path: str, args: dict[str, bool]) -> Shader: pass
+    def buildPlaneShader(self, path: str, args: dict[str, bool]) -> Shader: pass
 
 # ShaderManager
 class ShaderManager(IShaderManager):

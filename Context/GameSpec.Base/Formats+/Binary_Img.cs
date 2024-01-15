@@ -1,5 +1,4 @@
 using GameSpec.Metadata;
-using GameSpec.Platforms;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
@@ -28,9 +27,12 @@ namespace GameSpec.Formats
                 ".tiff" => Formats.Tiff,
                 _ => throw new ArgumentOutOfRangeException(nameof(f.Path), Path.GetExtension(f.Path)),
             };
-            Format = (formatType, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnrealFormat.Unknown);
-            Bytes = r.ReadBytes((int)f.FileSize);
-            Image = new Bitmap(new MemoryStream(Bytes));
+            Format = (formatType,
+                (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+                (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+                TextureUnityFormat.RGB24,
+                TextureUnrealFormat.Unknown);
+            Image = new Bitmap(new MemoryStream(r.ReadBytes((int)f.FileSize)));
             Width = Image.Width;
             Height = Image.Height;
         }

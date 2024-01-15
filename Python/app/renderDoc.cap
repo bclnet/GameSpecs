@@ -1,0 +1,28 @@
+{
+    "rdocCaptureSettings": 1,
+    "settings": {
+        "autoStart": false,
+        "commandLine": "ExplorerApp.py",
+        "environment": [
+        ],
+        "executable": "C:\\Users\\smorey2\\AppData\\Local\\Programs\\Python\\Launcher\\py.exe",
+        "inject": false,
+        "numQueuedFrames": 0,
+        "options": {
+            "allowFullscreen": false,
+            "allowVSync": false,
+            "apiValidation": false,
+            "captureAllCmdLists": false,
+            "captureCallstacks": false,
+            "captureCallstacksOnlyDraws": false,
+            "debugOutputMute": true,
+            "delayForDebugger": 0,
+            "hookIntoChildren": true,
+            "refAllResources": false,
+            "softMemoryLimit": 0,
+            "verifyBufferAccess": false
+        },
+        "queuedFrameCap": 0,
+        "workingDir": "C:/_GITHUB/bclnet/GameSpecs/Python/app"
+    }
+}

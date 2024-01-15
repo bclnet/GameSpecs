@@ -219,7 +219,7 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForceOpen = true,
+            //ForceOpen = true,
             Family = "Cryptic",
             Game = "CO", // Champions Online [open, read]
             //Game = "STO", // Star Trek Online [open, read]

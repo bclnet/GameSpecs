@@ -33,10 +33,6 @@ class ArkanePakFile(BinaryPakFile):
         match game.engine:
             case 'Danae': return PakBinary_Danae()
             case 'Void': return PakBinary_Void()
-            # case 'CryEngine': return PakBinary_Void()
-            # case 'Unreal': return PakBinary_Void()
-            # case 'Valve': return PakBinary_Void()
-            # case 'idTech7': return PakBinary_Void()
             case _: raise Exception(f'Unknown: {game.engine}')
 
     @staticmethod

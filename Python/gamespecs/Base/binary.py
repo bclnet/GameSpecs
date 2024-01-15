@@ -1,25 +1,31 @@
-import os
-import imageio as iio
-from enum import Enum
+import os, numpy as np, imageio as iio
 from io import BytesIO
+from enum import Enum
 from openstk.gfx_dds import DDS_HEADER
-from openstk.gfx_texture import TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
+from openstk.gfx_texture import ITexture, TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
 from gamespecs.pakfile import FileSource, PakBinary
 from gamespecs.metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
+from gamespecs.platform import Platform
 from gamespecs.util import _pathExtension
 
 # typedefs
 class PakFile: pass
 class Reader: pass
-class ITexture: pass
 class TextureFlags: pass
 class MetaManager: pass
 class MetaManager: pass
 
 # Binary_Dds
-class Binary_Dds(IHaveMetaInfo):
+class Binary_Dds(IHaveMetaInfo, ITexture):
     @staticmethod
     def factory(r: Reader, f: FileSource, s: PakFile): return Binary_Dds(r)
+
+    data: dict[str, object] = None
+    width: int = 0
+    height: int = 0
+    depth: int = 0
+    mipMaps: int = 1
+    flags: TextureFlags = 0
 
     def __init__(self, r: Reader, readMagic: bool = True):
         self.bytes, self.header, self.headerDXT10, self.format = DDS_HEADER.read(r, readMagic)
@@ -33,13 +39,9 @@ class Binary_Dds(IHaveMetaInfo):
             remains = min(size, len(self.bytes) - offset)
             self.mips[i] = range(offset, (offset + remains)) if remains > 0 else range(-1, 0)
             offset += remains
-
-    def data(self) -> dict[str, object]: return None
-    def width(self) -> int: return self.header.dwWidth
-    def height(self) -> int: return self.header.dwHeight
-    def depth(self) -> int: return 0
-    def mipMaps(self) -> int: return self.header.dwMipMapCount
-    def flags(self) -> TextureFlags: return 0
+        self.width = self.header.dwWidth
+        self.height = self.header.dwHeight
+        self.mipMaps = self.header.dwMipMapCount
 
     def begin(self, platform: int) -> (bytes, object, list[object]):
         match platform:
@@ -70,8 +72,16 @@ class Binary_Img(IHaveMetaInfo, ITexture):
         Jpg = 4
         Png = 5
         Tiff = 6
+
     @staticmethod
     def factory(r: Reader, f: FileSource, s: PakFile): return Binary_Img(r, f)
+
+    data: dict[str, object] = None
+    width: int = 0
+    height: int = 0
+    depth: int = 0
+    mipMaps: int = 1
+    flags: TextureFlags = 0
 
     def __init__(self, r: Reader, f: FileSource):
         match _pathExtension(f.path).lower():
@@ -82,17 +92,13 @@ class Binary_Img(IHaveMetaInfo, ITexture):
             case '.png': formatType = self.Formats.Png
             case '.tiff': formatType = self.Formats.Tiff
             case _: raise Exception(f'Unknown {_pathExtension(f.path)}')
-        self.format = (formatType, (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGB24, TextureUnrealFormat.Unknown)
-        self.bytes = r.read(f.fileSize)
-        img = iio.imread(self.bytes)
-        self.dwWidth, self.dwHeight, ukn = img.shape
-
-    def data(self) -> dict[str, object]: return None
-    def width(self) -> int: return self.dwWidth
-    def height(self) -> int: return self.dwHeight
-    def depth(self) -> int: return 0
-    def mipMaps(self) -> int: return 1
-    def flags(self) -> TextureFlags: return 0
+        self.format = (formatType, 
+            (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            (TextureGLFormat.Rgb8, TextureGLPixelFormat.Rgb, TextureGLPixelType.UnsignedByte),
+            TextureUnityFormat.RGB24,
+            TextureUnrealFormat.Unknown)
+        self.image = iio.imread(r.read(f.fileSize))
+        self.width, self.height, _ = self.image.shape
 
     def begin(self, platform: int) -> (bytes, object, list[object]):
         match platform:
@@ -101,16 +107,16 @@ class Binary_Img(IHaveMetaInfo, ITexture):
             case Platform.Type.Unity: format = self.format[3]
             case Platform.Type.Unreal: format = self.format[4]
             case _: raise Exception('Unknown {platform}')
-        return self.bytes, format, None
+        return self.image.tobytes(), format, None
     def end(self): pass
 
     def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: return [
         MetaInfo(None, MetaContent(type = 'Texture', name = os.path.basename(file.path), value = self)),
         MetaInfo('Texture', items = [
             MetaInfo(f'Format: {self.format[0]}'),
-            MetaInfo(f'Width: {self.width()}'),
-            MetaInfo(f'Height: {self.height()}'),
-            MetaInfo(f'Mipmaps: {self.mipMaps()}')
+            MetaInfo(f'Width: {self.width}'),
+            MetaInfo(f'Height: {self.height}'),
+            MetaInfo(f'Mipmaps: {self.mipMaps}')
             ])
         ]
 
