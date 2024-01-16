@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats
 {
-    public unsafe class PakBinary_U9 : PakBinary
+    public unsafe class PakBinary_U9 : PakBinary<PakBinary_U9>
     {
-        public static readonly PakBinary Instance = new PakBinary_U9();
-
         // Headers
         #region Headers
         // http://wiki.ultimacodex.com/wiki/Ultima_IX_Internal_Formats#FLX_Format

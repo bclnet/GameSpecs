@@ -9,10 +9,8 @@ using static GameSpec.Util;
 
 namespace GameSpec.Capcom.Formats
 {
-    public unsafe class PakBinary_Arc : PakBinary
+    public unsafe class PakBinary_Arc : PakBinary<PakBinary_Arc>
     {
-        public static readonly PakBinary Instance = new PakBinary_Arc();
-
         // Header
         #region Header
 

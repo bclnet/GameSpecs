@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Capcom.Formats
 {
-    public unsafe class PakBinary_Plist : PakBinary
+    public unsafe class PakBinary_Plist : PakBinary<PakBinary_Plist>
     {
-        public static readonly PakBinary Instance = new PakBinary_Plist();
-
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             source.Files = ((Dictionary<object, object>)new PlistReader().ReadObject(r.BaseStream)).Select(x => new FileSource

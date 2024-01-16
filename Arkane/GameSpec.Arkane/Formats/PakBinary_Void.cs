@@ -8,15 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats
 {
-    public unsafe class PakBinary_Void : PakBinary
+    public unsafe class PakBinary_Void : PakBinary<PakBinary_Void>
     {
-        public static readonly PakBinary Instance = new PakBinary_Void();
         const uint RES_MAGIC = 0x04534552;
-
-        class SubPakFile : BinaryPakFile
-        {
-            public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
-        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct V_File
@@ -57,7 +51,7 @@ namespace GameSpec.Arkane.Formats
                     files2.Add(new FileSource
                     {
                         Path = path,
-                        Pak = new SubPakFile(source.Game, source.FileSystem, path),
+                        Pak = new SubPakFile(null, source, source.Game, source.FileSystem, path),
                     });
                 }
                 return Task.CompletedTask;
@@ -113,7 +107,7 @@ namespace GameSpec.Arkane.Formats
         {
             if (file.FileSize == 0 || _badPositions.Contains(file.Position)) return Task.FromResult(System.IO.Stream.Null);
             var (path, tag1, tag2) = ((string, string, string))file.Tag;
-            return Task.FromResult((Stream)new MemoryStream(source.GetBinaryReader(path).Func(r2 =>
+            return Task.FromResult((Stream)new MemoryStream(source.GetReader(path).Func(r2 =>
             {
                 r2.Seek(file.Position);
                 return file.Compressed != 0

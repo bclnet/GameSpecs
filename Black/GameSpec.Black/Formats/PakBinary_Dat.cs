@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 namespace GameSpec.Black.Formats
 {
     // Fallout 2
-    public unsafe class PakBinary_Dat : PakBinary
+    public unsafe class PakBinary_Dat : PakBinary<PakBinary_Dat>
     {
-        public static readonly PakBinary Instance = new PakBinary_Dat();
-
         // Header : F1
         #region Header : F1
         // https://falloutmods.fandom.com/wiki/DAT_file_format

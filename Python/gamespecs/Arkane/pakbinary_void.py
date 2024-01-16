@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.pakfile import FileSource, PakBinaryT
 from gamespecs.util import _pathExtension
 
 # typedefs
@@ -10,17 +10,9 @@ class FamilyGame: pass
 class IFileSystem: pass
 
 # PakBinary_Void
-class PakBinary_Void(PakBinary):
-    class SubPakFile(BinaryPakFile):
-        def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-            super().__init__(game, fileSystem, filePath, PakBinary_Void(), tag)
-            self.open()
+class PakBinary_Void(PakBinaryT):
 
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
-
+    # region Headers
     class V_File:
         struct = ('>QIIIIH', 26)
         def __init__(self, tuple):
@@ -30,6 +22,7 @@ class PakBinary_Void(PakBinary):
             self.unknown1, \
             self.flags, \
             self.flags2 = tuple
+    #endregion
 
     # read
     def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
@@ -58,7 +51,7 @@ class PakBinary_Void(PakBinary):
                 if not path.endswith('.index'): continue
                 files.append(FileSource(
                     path = path,
-                    pak = self.SubPakFile(source.game, source.fileSystem, path)
+                    pak = self.SubPakFile(self, source, source.game, source.fileSystem, path)
                     ))
             return
 

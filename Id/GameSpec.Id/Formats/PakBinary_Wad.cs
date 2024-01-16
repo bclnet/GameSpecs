@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Id.Formats
 {
-    public unsafe class PakBinary_Wad : PakBinary
+    public unsafe class PakBinary_Wad : PakBinary<PakBinary_Wad>
     {
-        public static readonly PakBinary Instance = new PakBinary_Wad();
-        PakBinary_Wad() { }
-
         // Headers
         #region WAD
 

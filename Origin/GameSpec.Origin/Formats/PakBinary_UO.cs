@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats
 {
-    public unsafe class PakBinary_UO : PakBinary
+    public unsafe class PakBinary_UO : PakBinary<PakBinary_UO>
     {
-        public static readonly PakBinary Instance = new PakBinary_UO();
-
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             return Task.CompletedTask;

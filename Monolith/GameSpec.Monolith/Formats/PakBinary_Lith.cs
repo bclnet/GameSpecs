@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Monolith.Formats
 {
-    public unsafe class PakBinary_Lith : PakBinary
+    public unsafe class PakBinary_Lith : PakBinary<PakBinary_Lith>
     {
-        public static readonly PakBinary Instance = new PakBinary_Lith();
-
         // Headers
         #region X_Headers
 

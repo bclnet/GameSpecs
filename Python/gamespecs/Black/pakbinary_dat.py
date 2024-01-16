@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.pakfile import FileSource, PakBinaryT
 from gamespecs.compression import decompressLzss, decompressZlib
 
 # typedefs
@@ -8,11 +8,7 @@ class Reader: pass
 class BinaryPakFile: pass
 
 # PakBinary_Dat
-class PakBinary_Dat(PakBinary):
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+class PakBinary_Dat(PakBinaryT):
 
     #region F1/F2
 

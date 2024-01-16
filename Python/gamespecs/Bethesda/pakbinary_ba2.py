@@ -1,7 +1,7 @@
 import os
 from io import BytesIO
 from enum import Enum
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.pakfile import FileSource, PakBinaryT
 # from gamespecs.compression import decompressLz4, decompressZlib2
 
 # typedefs
@@ -9,11 +9,7 @@ class Reader: pass
 class BinaryPakFile: pass
 
 # PakBinary_Ba2
-class PakBinary_Ba2(PakBinary):
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+class PakBinary_Ba2(PakBinaryT):
 
     #region TES5
 

@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 namespace GameSpec.Valve.Formats
 {
     // https://github.com/Rupan/HLLib/blob/master/HLLib/WADFile.h
-    public unsafe class PakBinary_Wad : PakBinary
+    public unsafe class PakBinary_Wad : PakBinary<PakBinary_Wad>
     {
-        public static readonly PakBinary Instance = new PakBinary_Wad();
-        PakBinary_Wad() { }
-
         // Headers
         #region WAD
 

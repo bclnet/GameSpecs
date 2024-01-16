@@ -17,10 +17,8 @@ namespace GameSpec.Red.Formats
     // https://github.com/JLouis-B/RedTools
     // https://github.com/yole/Gibbed.RED
     // https://forums.cdprojektred.com/index.php?threads/tw2-tw3-redkit-tool-3d-models-converter.1043/page-2
-    public unsafe class PakBinary_Red : PakBinary
+    public unsafe class PakBinary_Red : PakBinary<PakBinary_Red>
     {
-        public static readonly PakBinary Instance = new PakBinary_Red();
-
         // Headers : KEY/BIF (Witcher)
         #region Headers : KEY/BIF
 

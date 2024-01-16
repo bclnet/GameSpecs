@@ -61,7 +61,7 @@ namespace GameSpec.Bethesda.Formats
             Format = GetFormat(source.Game.Id);
             var recordLevel = 1;
             var filePath = source.FilePath;
-            var poolAction = (GenericPoolAction<BinaryReader>)source.GetBinaryReader().Action; //: Leak
+            var poolAction = (GenericPoolAction<BinaryReader>)source.GetReader().Action; //: Leak
             var rootHeader = new Header(r, Format, null);
             if ((Format == BethesdaFormat.TES3 && rootHeader.Type != "TES3") || (Format != BethesdaFormat.TES3 && rootHeader.Type != "TES4")) throw new FormatException($"{filePath} record header {rootHeader.Type} is not valid for this {Format}");
             var rootRecord = rootHeader.CreateRecord(rootHeader.Position, recordLevel);

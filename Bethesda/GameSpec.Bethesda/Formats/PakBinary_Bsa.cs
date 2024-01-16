@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bethesda.Formats
 {
-    public unsafe class PakBinary_Bsa : PakBinary
+    public unsafe class PakBinary_Bsa : PakBinary<PakBinary_Bsa>
     {
-        public static readonly PakBinary Instance = new PakBinary_Bsa();
-
         // Header : TES4
         #region Header : TES4
         // http://en.uesp.net/wiki/Bethesda4Mod:BSA_File_Format

@@ -30,7 +30,9 @@ namespace GameSpec.Formats
         public uint Version;
         // metadata/factory
         protected Dictionary<string, Func<MetaManager, BinaryPakFile, FileSource, Task<List<MetaInfo>>>> MetaInfos = new Dictionary<string, Func<MetaManager, BinaryPakFile, FileSource, Task<List<MetaInfo>>>>();
-        internal protected Func<FileSource, FamilyGame, (FileOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> ObjectFactoryFactoryMethod;
+        //internal protected Func<FileSource, FamilyGame, (FileOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory)> ObjectFactoryFactoryMethod;
+        public FuncObjectFactoryFactory ObjectFactoryFactoryMethod;
+        
         // binary
         public IList<FileSource> Files;
         public HashSet<string> FilesRawSet;
@@ -59,7 +61,7 @@ namespace GameSpec.Formats
         /// </summary>
         public override void Opening()
         {
-            if (UseReader) GetBinaryReader()?.Action(async r => await Read(r));
+            if (UseReader) GetReader()?.Action(async r => await Read(r));
             else Read(null).GetAwaiter().GetResult();
             Process();
         }
@@ -69,8 +71,8 @@ namespace GameSpec.Formats
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns></returns>
-        public GenericPool<BinaryReader> GetBinaryReader(string path = default, int retainInPool = 10)
-            => Readers.GetOrAdd(path ?? FilePath, filePath => FileSystem.FileExists(filePath) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(filePath), retainInPool) : default);
+        public GenericPool<BinaryReader> GetReader(string path = default, int retainInPool = 10)
+            => Readers.GetOrAdd(path ?? FilePath, path => FileSystem.FileExists(path) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(path), retainInPool) : default);
 
         /// <summary>
         /// Valid
@@ -135,7 +137,7 @@ namespace GameSpec.Formats
                 case null: throw new ArgumentNullException(nameof(path));
                 case FileSource f:
                     {
-                        return UseReader ? GetBinaryReader().Func(r => ReadData(r, f, option))
+                        return UseReader ? GetReader().Func(r => ReadData(r, f, option))
                             : ReadData(null, f, option);
                     }
                 case string s:

@@ -1,11 +1,28 @@
 import os
-from .pakfile import BinaryPakFile
+from typing import Callable
+from gamespecs import FamilyGame
+from gamespecs.pakfile import BinaryPakFile
+from .Cryptic.pakbinary_hogg import PakBinary_Hogg
 from .util import _pathExtension
 
-class CrypticPakFile(BinaryPakFile):
-    @staticmethod
-    def getPakBinary(game, extension):
-        pass
+# typedefs
+class IFileSystem: pass
+class PakBinary: pass
+class FileSource: pass
+class FileOption: pass
 
-    def __init__(self, game, fileSystem, filePath, tag):
+# CrypticPakFile
+class CrypticPakFile(BinaryPakFile):
+    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
         super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+
+    #region Factories
+    @staticmethod
+    def getPakBinary(game: FamilyGame, extension: str) -> object:
+        return PakBinary_Hogg()
+
+    @staticmethod
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
+        match _pathExtension(source.path).lower():
+            case _: return (0, None)
+    #endregion

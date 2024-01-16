@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Blizzard.Formats
 {
-    public unsafe class PakBinaryBlizzard : PakBinary
+    public unsafe class PakBinary_Blizzard : PakBinary<PakBinary_Blizzard>
     {
-        public static readonly PakBinary Instance = new PakBinaryBlizzard();
         CascContext casc;
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)

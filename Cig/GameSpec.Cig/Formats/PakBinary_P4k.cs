@@ -14,32 +14,12 @@ namespace GameSpec.Cig.Formats
     /// PakBinaryP4k
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public class PakBinary_P4k : PakBinary
+    public class PakBinary_P4k : PakBinaryForCig<PakBinary_P4k>
     {
-        public static readonly PakBinary Instance = new PakBinary_P4k();
         static readonly byte[] DefaultKey = new byte[] { 0x5E, 0x7A, 0x20, 0x02, 0x30, 0x2E, 0xEB, 0x1A, 0x3B, 0xB6, 0x17, 0xC3, 0x0F, 0xDE, 0x1E, 0x47 };
         readonly byte[] Key;
 
-        class SubPakFile : BinaryPakFile
-        {
-            public Stream Stream;
-            public SubPakFile(P4kFile pak, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
-            {
-                UseReader = false;
-                var entry = (ZipEntry)Tag;
-                Stream = pak.GetInputStream(entry.ZipFileIndex);
-                ObjectFactoryFactoryMethod = CigPakFile.ObjectFactoryFactory;
-                //Open();
-            }
-
-            public async override Task Read(BinaryReader r, object tag)
-            {
-                using var r2 = new BinaryReader(Stream);
-                await PakBinary.Read(this, r2, tag);
-            }
-        }
-
-        PakBinary_P4k() => Key = DefaultKey;
+        public PakBinary_P4k() => Key = DefaultKey;
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
@@ -60,7 +40,7 @@ namespace GameSpec.Cig.Formats
                     Tag = entry,
                 };
                 var metadataPath = metadata.Path;
-                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(pak, source.Game, source.FileSystem, metadataPath, metadata.Tag);
+                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(this, pak, source, source.Game, source.FileSystem, metadataPath, metadata.Tag);
                 else if (metadataPath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadataPath, metadata);
                 else if (metadataPath.Length > 8 && metadataPath[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {
@@ -82,7 +62,6 @@ namespace GameSpec.Cig.Formats
 
         public override Task Write(BinaryPakFile source, BinaryWriter w, object tag)
         {
-
             source.UseReader = false;
             var files = source.Files;
 

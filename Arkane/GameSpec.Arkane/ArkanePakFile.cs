@@ -54,7 +54,7 @@ namespace GameSpec.Arkane
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine)),
             });
 
-        static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+        internal static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 var x when x == ".txt" || x == ".ini" || x == ".asl" => (0, Binary_Txt.Factory),

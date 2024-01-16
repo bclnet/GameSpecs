@@ -10,10 +10,8 @@ namespace GameSpec.Epic.Formats
     /// PakBinaryPck
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public unsafe class PakBinary_Pck : PakBinary
+    public unsafe class PakBinary_Pck : PakBinary<PakBinary_Pck>
     {
-        public static readonly PakBinary Instance = new PakBinary_Pck();
-
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             List<FileSource> files;

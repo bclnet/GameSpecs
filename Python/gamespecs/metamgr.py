@@ -135,7 +135,7 @@ class MetaManager:
                             currentFolder = found.items
             # pakfile
             if file.pak:
-                items = MetaManager.getPakFiles(manager, file.pak)
+                items = MetaManager.getMetaItems(manager, file.pak)
                 currentFolder.append(MetaItem(file, os.path.basename(file.path), manager.packageIcon, pakFile = pakFile, items = items))
                 continue
             # file

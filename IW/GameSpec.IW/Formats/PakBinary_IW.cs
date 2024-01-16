@@ -13,9 +13,8 @@ using ZipFile = ICSharpCode.SharpZipLib.Zip.ZipFile;
 
 namespace GameSpec.IW.Formats
 {
-    public unsafe class PakBinary_IW : PakBinary
+    public unsafe class PakBinary_IW : PakBinary<PakBinary_IW>
     {
-        public static readonly PakBinary Instance = new PakBinary_IW();
         CascContext casc;
 
         enum Magic

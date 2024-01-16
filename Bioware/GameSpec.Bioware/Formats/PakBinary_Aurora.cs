@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bioware.Formats
 {
-    public unsafe class PakBinary_Aurora : PakBinary
+    public unsafe class PakBinary_Aurora : PakBinary<PakBinary_Aurora>
     {
-        public static readonly PakBinary Instance = new PakBinary_Aurora();
-
         // https://nwn2.fandom.com/wiki/File_formats
 
         // Headers : KEY/BIF

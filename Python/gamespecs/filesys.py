@@ -1,8 +1,5 @@
 import os, pathlib
-from openstk.poly import findType
-
-# typedefs
-class Reader: pass
+from openstk.poly import Reader, findType
 
 # IFileSystem
 class IFileSystem:
@@ -24,7 +21,7 @@ class StandardFileSystem(IFileSystem):
         return [str(x)[self.skip:] for x in g]
     def fileExists(self, path: str) -> bool: return os.path.exists(os.path.join(self.root, path))
     def fileInfo(self, path: str) -> object: return os.stat(os.path.join(self.root, path))
-    def openReader(self, path: str, mode: str = 'rb') -> Reader: return open(os.path.join(self.root, path), mode) 
+    def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(open(os.path.join(self.root, path), mode))
 
 # HostFileSystem
 class HostFileSystem(IFileSystem):

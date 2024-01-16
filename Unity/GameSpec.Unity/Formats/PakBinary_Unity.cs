@@ -16,9 +16,8 @@ namespace GameSpec.Unity.Formats
     /// PakBinaryUnity
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public unsafe class PakBinary_Unity : PakBinary
+    public unsafe class PakBinary_Unity : PakBinary<PakBinary_Unity>
     {
-        public static readonly PakBinary Instance = new PakBinary_Unity();
         readonly byte[] Key;
 
         //public PakBinaryUnity(byte[] key = null) => Key = key;

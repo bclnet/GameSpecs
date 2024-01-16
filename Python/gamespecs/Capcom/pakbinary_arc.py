@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.pakfile import FileSource, PakBinaryT
 from gamespecs.compression import decompressZlib, decompressZstd
 from gamespecs.util import _guessExtension
 
@@ -9,11 +9,7 @@ class Reader: pass
 class BinaryPakFile: pass
 
 # PakBinary_Arc
-class PakBinary_Arc(PakBinary):
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+class PakBinary_Arc(PakBinaryT):
 
     #region K
 

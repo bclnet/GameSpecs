@@ -39,6 +39,7 @@ class FileSource:
 
 # PakFile
 class PakFile:
+    class FuncObjectFactoryFactory: pass
     class PakStatus(Enum):
         Opening = 1
         Opened = 2
@@ -118,13 +119,16 @@ class BinaryPakFile(PakFile):
         self.filesByPath = {}
         self.pathSkip = 0
 
-    def _getReader(self) -> Reader: return Reader(self.fileSystem.openReader(self.filePath))
+    def getReader(self, path: str = None, retainInPool: int = 10) -> Reader:
+        path = path or self.filePath
+        if not self.fileSystem.fileExists(path): return None
+        return self.fileSystem.openReader(path)
 
     def valid(self) -> bool: return self.files != None
     
     def opening(self) -> None:
-        if self.useReader:
-            with self._getReader() as r: self.read(r)
+        if self.useReader and (ctx := self.getReader()):
+            with ctx as r: self.read(r)
         else: self.read(None)
         self.process()
 
@@ -143,8 +147,8 @@ class BinaryPakFile(PakFile):
         match path:
             case None: raise Exception('Null')
             case f if isinstance(path, FileSource):
-                if self.useReader:
-                    with self._getReader() as r: return self.readData(r, f)
+                if self.useReader and (ctx := self.getReader()):
+                    with ctx as r: return self.readData(r, f)
                 else: return self.readData(None, f)
             case s if isinstance(path, str):
                 pak, nextPath = self.tryFindSubPak(s)
@@ -283,7 +287,7 @@ class MultiPakFile(PakFile):
     def getMetaItems(self, manager: MetaManager) -> list[MetaInfo]:
         root = []
         for pakFile in [x for x in self.pakFiles if x.valid()]:
-            root.append(MetaItem(pakFile, pakFile.name, manager.packageIcon, pakFile=pakFile, items=pakFile.getMetaItems(manager)))
+            root.append(MetaItem(pakFile, pakFile.name, manager.packageIcon, pakFile = pakFile, items = pakFile.getMetaItems(manager)))
         return root
     #endregion
 
@@ -292,3 +296,28 @@ class PakBinary:
     def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None: pass
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource, option: FileOption = None): pass
     def process(self, source: BinaryPakFile): pass
+    def handleException(self, source: object, option: FileOption, message: str):
+        print(message)
+        if (option & FileOption.Supress) != 0: raise Exception(message)
+
+# PakBinaryT
+class PakBinaryT(PakBinary):
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None: cls._instance = super().__new__(cls)
+        return cls._instance
+
+    class SubPakFile(BinaryPakFile):
+        def __init__(self, parent: PakBinary, file: FileSource, source: BinaryPakFile, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
+            super().__init__(game, fileSystem, filePath, parent._instance, tag)
+            self.file = file
+            self.source = source
+            self.objectFactoryFactoryMethod = source.objectFactoryFactoryMethod
+            self.useReader = file == None
+            # self.open()
+
+        def read(self, r: Reader, tag: object = None):
+            if self.useReader: super().read(r, tag); return
+            with Reader(self.readData(self.source.getReader(), self.file)) as r2:
+                self.pakBinary.read(self, r2, tag)
+            

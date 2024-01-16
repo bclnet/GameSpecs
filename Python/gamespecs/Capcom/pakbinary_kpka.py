@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.pakfile import FileSource, PakBinaryT
 from gamespecs.compression import decompressZlib, decompressZstd
 from gamespecs.util import _guessExtension
 from ..Resources.Capcom import RE
@@ -10,11 +10,7 @@ class Reader: pass
 class BinaryPakFile: pass
 
 # PakBinary_Kpka
-class PakBinary_Kpka(PakBinary):
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None: cls._instance = super().__new__(cls)
-        return cls._instance
+class PakBinary_Kpka(PakBinaryT):
 
     #region K
 

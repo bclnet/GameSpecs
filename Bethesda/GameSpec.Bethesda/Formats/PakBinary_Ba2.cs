@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bethesda.Formats
 {
-    public unsafe class PakBinary_Ba2 : PakBinary
+    public unsafe class PakBinary_Ba2 : PakBinary<PakBinary_Ba2>
     {
-        public static readonly PakBinary Instance = new PakBinary_Ba2();
-
         // Header : TES5
         #region Header : TES5
         // http://en.uesp.net/wiki/Bethesda5Mod:Archive_File_Format

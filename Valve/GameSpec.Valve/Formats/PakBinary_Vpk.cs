@@ -11,10 +11,8 @@ using System.Threading.Tasks;
 namespace GameSpec.Valve.Formats
 {
     // https://developer.valvesoftware.com/wiki/VPK_File_Format
-    public unsafe class PakBinary_Vpk : PakBinary
+    public unsafe class PakBinary_Vpk : PakBinary<PakBinary_Vpk>
     {
-        public static readonly PakBinary Instance = new PakBinary_Vpk();
-
         #region Headers
 
         public const int MAGIC = 0x55aa1234;
@@ -187,7 +185,7 @@ namespace GameSpec.Valve.Formats
             if (file.FileSize > 0)
             {
                 if (file.Tag is string path)
-                    source.GetBinaryReader(path).Action(r2 =>
+                    source.GetReader(path).Action(r2 =>
                     {
                         r2.Seek(file.Position);
                         r2.Read(data, file.Extra.Length, (int)file.FileSize);

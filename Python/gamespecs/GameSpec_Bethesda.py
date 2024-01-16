@@ -31,7 +31,7 @@ class BethesdaPakFile(BinaryPakFile):
 
     #region Factories
     @staticmethod
-    def getPakBinary(game: FamilyGame, extension: str) -> object:
+    def getPakBinary(game: FamilyGame, extension: str) -> PakBinary:
         match extension:
             case '': return PakBinary_Bsa()
             case '.bsa': return PakBinary_Bsa()

@@ -19,6 +19,8 @@ namespace GameSpec
     /// <seealso cref="System.IDisposable" />
     public abstract class PakFile : IDisposable
     {
+        public delegate (FileOption option, Func<BinaryReader, FileSource, PakFile, Task<object>> factory) FuncObjectFactoryFactory(FileSource source, FamilyGame game);
+
         /// <summary>
         /// An empty family.
         /// </summary>

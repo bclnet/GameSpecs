@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.WbB.Formats
 {
-    public unsafe class PakBinary_AC : PakBinary
+    public unsafe class PakBinary_AC : PakBinary<PakBinary_AC>
     {
-        public static readonly PakBinary Instance = new PakBinary_AC();
-
         #region Headers
 
         const uint DAT_HEADER_OFFSET = 0x140;

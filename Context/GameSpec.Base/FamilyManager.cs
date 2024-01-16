@@ -44,16 +44,17 @@ namespace GameSpec
         static readonly Func<string, Stream> GetManifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream;
         static string FamilyLoader(string path)
         {
-            using var r = new StreamReader(GetManifestResourceStream($"GameSpec.Base.Families.{path}"));
+            using var r = new StreamReader(GetManifestResourceStream($"GameSpec.Base.Specs.{path}"));
             return r.ReadToEnd();
         }
 
         static FamilyManager()
         {
             Family.Bootstrap();
+            var loadSamples = true;
             foreach (var id in FamilyKeys)
             {
-                var family = CreateFamily($"{id}Family.json", FamilyLoader);
+                var family = CreateFamily($"{id}Family.json", FamilyLoader, loadSamples);
                 Families.Add(family.Id, family);
             }
             Unknown = GetFamily("Unknown");
@@ -106,14 +107,32 @@ namespace GameSpec
         }
 
         /// <summary>
-        /// Create family.
+        /// Create family sample.
         /// </summary>
-        /// <param name="any"></param>
+        /// <param name="path"></param>
         /// <param name="loader"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal static Family CreateFamily(string any, Func<string, string> loader = null)
+        internal static FamilySample CreateFamilySample(string path, Func<string, string> loader)
+        {
+            var json = loader(path);
+            if (string.IsNullOrEmpty(json)) throw new ArgumentNullException(nameof(json));
+            using var doc = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+            var elem = doc.RootElement;
+            return new FamilySample(elem);
+        }
+
+        /// <summary>
+        /// Create family.
+        /// </summary>
+        /// <param name="any"></param>
+        /// <param name="loader"></param>
+        /// <param name="loadSamples"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal static Family CreateFamily(string any, Func<string, string> loader = null, bool loadSamples = false)
         {
             var json = loader != null ? loader(any) : any;
             if (string.IsNullOrEmpty(json)) throw new ArgumentNullException(nameof(json));
@@ -121,9 +140,12 @@ namespace GameSpec
             var elem = doc.RootElement;
             var familyType = _value(elem, "familyType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("familyType", $"Unknown type: {z}"));
             var family = familyType != null ? (Family)Activator.CreateInstance(familyType, elem) : new Family(elem);
+            if (family.SpecSamples != null && loadSamples)
+                foreach (var sample in family.SpecSamples)
+                    family.MergeSample(CreateFamilySample(sample, loader));
             if (family.Specs != null)
                 foreach (var spec in family.Specs)
-                    family.Merge(CreateFamily(spec, loader));
+                    family.Merge(CreateFamily(spec, loader, loadSamples));
             return family;
         }
 

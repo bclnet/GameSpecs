@@ -29,13 +29,14 @@
       "date": "2010-02-02",
       "url": "https://store.steampowered.com/app/9900",
       "pakExt": ".hogg",
-      "status": "open;read" 
+      "status": "open;read"
     },
     "NVW": {
       "name": "Neverwinter",
       "date": "2013-12-05",
       "url": "https://store.steampowered.com/app/109600",
-      "status": "open;read" 
+      "pakExt": ".hogg",
+      "status": "open;read"
     },
     "MTG": {
       "n/a": true,

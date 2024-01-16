@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Frictional.Formats
 {
-    public unsafe class PakBinary_Hpl : PakBinary
+    public unsafe class PakBinary_Hpl : PakBinary<PakBinary_Hpl>
     {
-        public static readonly PakBinary Instance = new PakBinary_Hpl();
-
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();

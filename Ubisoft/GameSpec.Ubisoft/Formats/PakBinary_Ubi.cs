@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Ubisoft.Formats
 {
-    public unsafe class PakBinary_Ubi : PakBinary
+    public unsafe class PakBinary_Ubi : PakBinary<PakBinary_Ubi>
     {
-        public static readonly PakBinary Instance = new PakBinary_Ubi();
-
         // Headers
         #region X_Headers
 

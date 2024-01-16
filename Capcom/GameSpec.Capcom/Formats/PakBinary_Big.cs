@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Capcom.Formats
 {
-    public unsafe class PakBinary_Big : PakBinary
+    public unsafe class PakBinary_Big : PakBinary<PakBinary_Big>
     {
-        public static readonly PakBinary Instance = new PakBinary_Big();
-
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();

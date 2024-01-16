@@ -73,10 +73,22 @@ namespace GameSpec
         public Uri[] Urls { get; set; }
 
         /// <summary>
+        /// Gets the families spec samples.
+        /// </summary>
+        /// <returns></returns>
+        public string[] SpecSamples { get; set; }
+
+        /// <summary>
         /// Gets the families specs.
         /// </summary>
         /// <returns></returns>
         public string[] Specs { get; set; }
+
+        /// <summary>
+        /// Gets the family samples.
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, List<FamilySample.File>> Samples { get; set; }
 
         /// <summary>
         /// Gets the family engines.
@@ -132,12 +144,14 @@ namespace GameSpec
             Studio = _value(elem, "studio");
             Description = _value(elem, "description");
             Urls = _list(elem, "url", x => new Uri(x));
+            SpecSamples = _list(elem, "samples");
             Specs = _list(elem, "specs");
             // file manager
             FileManager = _method(elem, "fileManager", CreateFileManager);
             var paths = FileManager?.Paths;
             // related
             var dgame = new FamilyGame { SearchBy = SearchBy.Pak, Paks = new[] { new Uri("game:/") } };
+            Samples = new Dictionary<string, List<FamilySample.File>>();
             Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
             Games = _dictTrim(_related(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths)));
             Apps = _related(elem, "apps", (k, v) => CreateFamilyApp(this, k, v));
@@ -175,6 +189,16 @@ namespace GameSpec
             foreach (var s in source.Apps) Apps.Add(s.Key, s.Value);
             if (FileManager != null) FileManager.Merge(source.FileManager);
             else FileManager = source.FileManager;
+        }
+
+        /// <summary>
+        /// Merges the family sample.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public void MergeSample(FamilySample source)
+        {
+            if (source == null) return;
+            foreach (var s in source.Samples) Samples.Add(s.Key, s.Value);
         }
 
         /// <summary>

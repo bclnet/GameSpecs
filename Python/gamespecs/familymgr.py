@@ -19,7 +19,9 @@ class Family: pass
 class FamilyApp: pass
 class FamilyEngine: pass
 class FamilyGame: pass
+class FamilySample: pass
 class Edition: pass
+class DownloadableContent: pass
 
 # parse key
 @staticmethod
@@ -30,16 +32,25 @@ def parseKey(key: str) -> object:
     elif key.startswith('txt:'): return key[4:]
     else: raise Exception(f'Unknown key: {key}')
 
+# create FamilySample
+@staticmethod
+def createFamilySample(path: str, loader: Callable) -> FamilySample:
+    elem = loader(path)
+    return FamilySample(elem)
+
 # create Family
 @staticmethod
-def createFamily(path: str, loader: Callable) -> Family:
-    elem = loader(path)
+def createFamily(any: str, loader: Callable = None, loadSamples: bool = False) -> Family:
+    elem = loader(any) if loader else any
     familyType = _value(elem, 'familyType')
     family = findType(familyType)(elem) if familyType else \
         Family(elem)
+    if family.specSamples and loadSamples:
+        for sample in family.specSamples:
+            family.mergeSample(createFamilySample(sample, loader))
     if family.specs:
         for spec in family.specs:
-            family.merge(createFamily(spec, loader))
+            family.merge(createFamily(spec, loader, loadSamples))
     return family
 
 # create FamilyEngine
@@ -97,6 +108,7 @@ class Family:
         self.studio = _value(elem, 'studio')
         self.description = _value(elem, 'description')
         self.urls = _list(elem, 'url')
+        self.specSamples = _list(elem, 'samples')
         self.specs = _list(elem, 'specs')
         # file manager
         self.fileManager = _method(elem, 'fileManager', createFileManager)
@@ -108,6 +120,7 @@ class Family:
             game = createFamilyGame(self, k, v, dgame, paths)
             if k.startswith('*'): dgame = game; return None
             return game
+        self.samples = {}
         self.engines = _related(elem, 'engines', lambda k,v: createFamilyEngine(self, k, v))
         self.games = _dictTrim(_related(elem, 'games', gameMethod))
         self.apps = _related(elem, 'apps', lambda k,v: createFamilyApp(self, k, v))
@@ -125,6 +138,11 @@ fileManager: {self.fileManager if self.fileManager else None}'''
         self.apps.update(source.apps)
         if self.fileManager: self.fileManager.merge(source.fileManager)
         else: self.fileManager = source.fileManager
+
+    # merge Sample
+    def mergeSample(self, source: FamilySample) -> None:
+        if not source: return
+        self.samples.update(source.samples)
 
     # get Game
     def getGame(self, id: str, throwOnError: bool = True) -> FamilyGame:
@@ -231,9 +249,9 @@ class FamilyGame:
         self.pakFileType = _value(elem, 'pakFileType', dgame.pakFileType)
         self.pakExts = _list(elem, 'pakExt', dgame.pakExts) 
         # related
-        self.editions = _related(elem, 'editions', lambda k,v:FamilyGame.Edition(k, v))
-        self.dlcs = _related(elem, 'dlcs', lambda k,v:FamilyGame.DownloadableContent(k, v))
-        self.locales = _related(elem, 'locales', lambda k,v:FamilyGame.Locale(k, v))
+        self.editions = _related(elem, 'editions', lambda k,v: FamilyGame.Edition(k, v))
+        self.dlcs = _related(elem, 'dlcs', lambda k,v: FamilyGame.DownloadableContent(k, v))
+        self.locales = _related(elem, 'locales', lambda k,v: FamilyGame.Locale(k, v))
     def __repr__(self): return f'''
    {self.id}: {self.name} - {self.found}'''
 #     def __repr__(self): return f'''
@@ -314,10 +332,25 @@ class FamilyGame:
     def isPakFile(self, path: str) -> bool:
         return any([x for x in self.pakExts if path.endswith(x)])
 
+# FamilySample
+class FamilySample:
+    samples: dict[str, list[object]] = {}
+    class File:
+        def __init__(self, elem: dict[str, object]):
+            self.path = _value(elem, 'path')
+            self.size = _value(elem, 'size') or 0
+            self.type = _value(elem, 'type')
+        def __repr__(self): return f'{self.path}'
+
+    def __init__(self, elem: dict[str, object]):
+        for k,v in elem.items():
+            files = [FamilySample.File(x) for x in v['files']]
+            self.samples[k] = files
+
 families = {}
 
 @staticmethod
-def init():
+def init(loadSamples: bool = True):
     def commentRemover(text: str) -> str:
         def replacer(match): s = match.group(0); return ' ' if s.startswith('/') else s
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
@@ -326,7 +359,7 @@ def init():
         body = resources.files().joinpath('Specs', path).read_text(encoding='utf-8')
         return json.loads(commentRemover(body).encode().decode('utf-8-sig'))
     for path in [f'{x}Family.json' for x in familyKeys]:
-        family = createFamily(path, loadJson)
+        family = createFamily(path, loadJson, loadSamples)
         families[family.id] = family
     return families
 

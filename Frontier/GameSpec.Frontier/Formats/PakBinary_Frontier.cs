@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Frontier.Formats
 {
-    public unsafe class PakBinary_Frontier : PakBinary
+    public unsafe class PakBinary_Frontier : PakBinary<PakBinary_Frontier>
     {
-        public static readonly PakBinary Instance = new PakBinary_Frontier();
-
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
