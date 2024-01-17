@@ -10,7 +10,6 @@ namespace GameSpec.Arkane.Formats.Danae
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Tea(r));
 
-        public Binary_Tea() { }
         public Binary_Tea(BinaryReader r) => Read(r);
 
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)

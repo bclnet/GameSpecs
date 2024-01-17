@@ -16,7 +16,6 @@ namespace GameSpec.Arkane.Formats.Danae
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Fts(r));
 
-        public Binary_Fts() { }
         public Binary_Fts(BinaryReader r) => Read(r);
 
         public FastLevel Level;

@@ -120,6 +120,7 @@ namespace GameSpec.App.Explorer.Views
         {
             if (string.IsNullOrEmpty(Config.ForcePath) || Config.ForcePath.StartsWith("app:")) return;
             var forcePath = Config.ForcePath.StartsWith("sample:") ? pakFile.Game.GetSample(Config.ForcePath[7..])?.Path : Config.ForcePath;
+            if (forcePath == null) return;
             SelectedItem = MetaItem.FindByPathForNodes(PakNodes, forcePath, Resource);
         }
     }

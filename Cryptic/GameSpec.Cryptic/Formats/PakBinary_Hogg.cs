@@ -1,5 +1,4 @@
 ﻿using GameSpec.Formats;
-using Google.Protobuf.Compiler;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -143,9 +142,3 @@ namespace GameSpec.Cryptic.Formats
         }
     }
 }
-
-//const int HOGG_STRINGTABLE_OFFSET = 0x41C;
-//const int HOGG_DATAENTRIES_OFFSET = 0x10018;
-// Create FileInfo structures from the data entries within the hogg
-// And set the decompressed size of FileInfos which are compressed
-//r.Seek(HOGG_DATAENTRIES_OFFSET);

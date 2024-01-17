@@ -9,7 +9,6 @@ namespace GameSpec.Formats
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Snd(r, (int)f.FileSize));
 
-        public Binary_Snd() { }
         public Binary_Snd(BinaryReader r, int fileSize) => Data = r.ReadBytes(fileSize);
 
         public byte[] Data;

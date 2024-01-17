@@ -14,7 +14,6 @@ namespace GameSpec.Arkane.Formats.Danae
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Ftl(r));
 
-        public Binary_Ftl() { }
         public Binary_Ftl(BinaryReader r) => Read(r);
 
         public E_3DOBJ Obj;

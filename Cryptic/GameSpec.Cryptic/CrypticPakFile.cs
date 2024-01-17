@@ -37,7 +37,7 @@ namespace GameSpec.Cryptic
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 var x when x == ".png" => (0, Binary_Img.Factory),
-                ".bin" => (0, Binary_Bin.Factory),
+                ".binx" => (0, Binary_Bin.Factory),
                 var x when x == ".htex" || x == ".wtex" => (0, Binary_Tex.Factory), // Textures
                 ".mset" => (0, Binary_MSet.Factory), // 3D Models
                 ".fsb" => (0, Binary_Fsb.Factory), // FMod Soundbanks

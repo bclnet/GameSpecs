@@ -1,7 +1,12 @@
 ﻿{
   "CO": {
     "name": "Champions Online",
-    "files": []
+    "files": [
+      {
+        "path": "bins.hogg:bin/activities.bin",
+        "type": "Secure"
+      }
+    ]
   },
   "STO": {
     "name": "Star Trek Online",

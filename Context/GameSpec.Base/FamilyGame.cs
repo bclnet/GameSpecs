@@ -286,7 +286,7 @@ namespace GameSpec
         {
             if (!Family.Samples.TryGetValue(Id, out var samples)) return null;
             var idx = id == "*" ? new Random((int)DateTime.Now.Ticks).Next(samples.Count) : int.Parse(id);
-            return samples[idx];
+            return samples.Count > idx ? samples[idx] : null;
         }
 
         #region Pak
