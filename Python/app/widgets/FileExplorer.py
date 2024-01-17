@@ -58,7 +58,7 @@ class FileExplorer(QWidget):
         self.pakFile = pakFile
         self.filters = pakFile.getMetaFilters(self.resource)
         self.nodes = self.pakNodes = pakFile.getMetaItems(self.resource)
-        self.onReady()
+        self.onReady(pakFile)
 
     def initUI(self):
         filterLabel = QLabel(self); filterLabel.setText('File Filter:')
@@ -100,10 +100,13 @@ class FileExplorer(QWidget):
     @nodes.setter
     def nodes(self, value):
         self._nodes = value
+        self.updateNodes()
+        
+    def updateNodes(self):
         self.nodeModel.clear()
         self.nodeModelMap.clear()
-        MetaItemToViewModel.toTreeNodes(self.nodeModel, self.nodeModelMap, value)
-    
+        MetaItemToViewModel.toTreeNodes(self.nodeModel, self.nodeModelMap, self._nodes)
+
     @property
     def infos(self): return self._infos
     @nodes.setter
@@ -125,6 +128,7 @@ class FileExplorer(QWidget):
             if pak:
                 if pak.status == PakFile.PakStatus.Opened: return
                 pak.open(value.items, self.resource)
+                self.updateNodes()
                 self.onFilterKeyUp(None, None)
             self.onInfo(value.pakFile.getMetaInfos(self.resource, value) if value.pakFile else None)
         except:
@@ -141,8 +145,11 @@ class FileExplorer(QWidget):
         self.parent.contentBlock.onInfo(self.pakFile, [x for x in infos if not x.name] if infos else None)
         self.infos = [x for x in infos if x.name] if infos else None
 
-    def onReady(self):
-        if config.ForcePath and not config.ForcePath.startswith('app:'):
-            node = MetaItem.findByPathForNodes(self.pakNodes, config.ForcePath, self.resource)
-            index = self.nodeModel.indexFromItem(self.nodeModelMap[node])
-            self.nodeView.selectionModel().select(index, QItemSelectionModel.SelectionFlag.Select)
+    def onReady(self, pakFile):
+        if not config.ForcePath or config.ForcePath.startswith('app:'): return
+        forcePath = pakFile.game.getSample(config.ForcePath[7:]).path if config.ForcePath.startswith('sample:') else config.ForcePath
+        node = MetaItem.findByPathForNodes(self.pakNodes, forcePath, self.resource)
+        if not node: return
+        self.updateNodes()
+        index = self.nodeModel.indexFromItem(self.nodeModelMap[node])
+        self.nodeView.selectionModel().select(index, QItemSelectionModel.SelectionFlag.Select)

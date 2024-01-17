@@ -3,7 +3,8 @@ from io import BytesIO
 from enum import Enum
 from openstk.gfx_dds import DDS_HEADER
 from openstk.gfx_texture import ITexture, TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.filesrc import FileSource
+from gamespecs.pakfile import PakBinary
 from gamespecs.metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
 from gamespecs.platform import Platform
 from gamespecs.util import _pathExtension

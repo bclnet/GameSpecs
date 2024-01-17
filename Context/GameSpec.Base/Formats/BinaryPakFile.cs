@@ -103,7 +103,7 @@ namespace GameSpec.Formats
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
-                string s => TryFindSubPak(s, out var pak, out var nextPath)
+                string s => FindSubPak(s, out var pak, out var nextPath)
                     ? pak.Contains(nextPath)
                     : FilesByPath != null && FilesByPath.Contains(s.Replace('\\', '/')),
                 int i => FilesById != null && FilesById.Contains(i),
@@ -142,7 +142,7 @@ namespace GameSpec.Formats
                     }
                 case string s:
                     {
-                        if (TryFindSubPak(s, out var pak, out var nextPath)) return pak.LoadFileData(nextPath, option);
+                        if (FindSubPak(s, out var pak, out var nextPath)) return pak.LoadFileData(nextPath, option);
                         var files = FilesByPath[s.Replace('\\', '/')].ToArray();
                         if (files.Length == 1) return LoadFileData(files[0], option);
                         Log($"ERROR.LoadFileData: {s} @ {files.Length}");
@@ -202,7 +202,7 @@ namespace GameSpec.Formats
                     }
                 case string s:
                     {
-                        if (TryFindSubPak(s, out var pak, out var nextPath)) return await pak.LoadFileObject<T>(nextPath);
+                        if (FindSubPak(s, out var pak, out var nextPath)) return await pak.LoadFileObject<T>(nextPath);
                         if (PathFinders.Count > 0) path = FindPath<T>(s);
                         var files = FilesByPath[s.Replace('\\', '/')].ToArray();
                         if (files.Length == 1) return await LoadFileObject<T>(files[0], option);
@@ -259,7 +259,7 @@ namespace GameSpec.Formats
             }
         }
 
-        bool TryFindSubPak(string path, out BinaryPakFile pak, out string nextPath)
+        bool FindSubPak(string path, out BinaryPakFile pak, out string nextPath)
         {
             var paths = path.Split(new[] { ':' }, 2);
             var p = paths[0].Replace('\\', '/');

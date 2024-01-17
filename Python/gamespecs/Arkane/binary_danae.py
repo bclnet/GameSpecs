@@ -1,6 +1,7 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinary
+from gamespecs.filesrc import FileSource
+from gamespecs.pakfile import PakBinary
 from gamespecs.metamgr import MetaInfo, MetaContent, IHaveMetaInfo
 
 # typedefs

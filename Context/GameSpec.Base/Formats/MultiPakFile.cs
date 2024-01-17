@@ -54,7 +54,7 @@ namespace GameSpec.Formats
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
-                string s => FilterPakFiles(s, out var nextPath).Any(x => x.Valid && x.Contains(nextPath)),
+                string s => FindPakFiles(s, out var nextPath).Any(x => x.Valid && x.Contains(nextPath)),
                 int i => PakFiles.Any(x => x.Valid && x.Contains(i)),
                 _ => throw new ArgumentOutOfRangeException(nameof(path)),
             };
@@ -70,14 +70,14 @@ namespace GameSpec.Formats
             get { var count = 0; foreach (var pakFile in PakFiles) count += pakFile.Count; return count; }
         }
 
-        IList<PakFile> FilterPakFiles(string path, out string nextPath)
+        IList<PakFile> FindPakFiles(string path, out string nextPath)
         {
-            if (!path.StartsWith('>')) { nextPath = path; return PakFiles; }
-            var paths = path[1..].Split(new[] { ':' }, 2);
-            if (paths.Length != 2) throw new ArgumentException("missing :", nameof(path));
-            path = paths[0];
-            nextPath = paths[1];
-            return PakFiles.Where(x => x.Name.StartsWith(path)).ToList();
+            var paths = path.Split(new[] { '\\', '/', ':' }, 2);
+            if (paths.Length == 1) { nextPath = path; return PakFiles; }
+            path = paths[0]; nextPath = paths[1];
+            var pakFiles = PakFiles.Where(x => x.Name.StartsWith(path)).ToList();
+            foreach (var pakFile in pakFiles) pakFile.Open();
+            return pakFiles;
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace GameSpec.Formats
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
-                string s => (FilterPakFiles(s, out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
-                    .LoadFileData(nextPath, option),
+                string s => (FindPakFiles(s, out var s2).FirstOrDefault(x => x.Valid && x.Contains(s2)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
+                    .LoadFileData(s2, option),
                 int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
                     .LoadFileData(i, option),
                 _ => throw new ArgumentOutOfRangeException(nameof(path)),
@@ -110,8 +110,8 @@ namespace GameSpec.Formats
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
-                string s => (FilterPakFiles(s, out var nextPath).FirstOrDefault(x => x.Valid && x.Contains(nextPath)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
-                    .LoadFileObject<T>(nextPath, option),
+                string s => (FindPakFiles(s, out var s2).FirstOrDefault(x => x.Valid && x.Contains(s2)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
+                    .LoadFileObject<T>(s2, option),
                 int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
                     .LoadFileObject<T>(i, option),
                 _ => throw new ArgumentOutOfRangeException(nameof(path)),

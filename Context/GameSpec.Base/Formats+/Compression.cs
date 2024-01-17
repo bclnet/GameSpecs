@@ -185,10 +185,10 @@ namespace GameSpec.Formats
         public static byte[] DecompressBlast(this BinaryReader r, int length, int newLength)
         {
             var decoder = new Blast();
-            var fileData = r.ReadBytes(length);
+            var fs = r.ReadBytes(length);
             //var os = new byte[newLength];
             using var os = new MemoryStream(newLength);
-            decoder.Decompress(fileData, os);
+            decoder.Decompress(fs, os);
             return os.ToArray();
         }
         public static int DecompressBlast(byte[] source, byte[] target) => throw new NotImplementedException();

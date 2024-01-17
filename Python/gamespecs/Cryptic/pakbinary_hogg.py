@@ -1,7 +1,8 @@
 import os
 from io import BytesIO
 from openstk.poly import Reader
-from gamespecs.pakfile import FileSource, PakBinaryT
+from gamespecs.filesrc import FileSource
+from gamespecs.pakfile import PakBinaryT
 from gamespecs.compression import decompressLzss, decompressZlib
 
 # typedefs

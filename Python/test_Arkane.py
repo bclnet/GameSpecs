@@ -4,13 +4,14 @@ from gamespecs import familymgr
 family = familymgr.getFamily('Arkane')
 print(f'studio: {family.studio}')
 
-file = ('game:/data.pak#AF', 'GRAPH/particles/DEFAULT.jpg')
+file = ('game:/#AF', 'sample:1')
 # file = ('game:/master.index#D2', 'strings/english_m.lang')
 
 # get pak with game:/uri
 pakFile = family.openPakFile(file[0])
-print(f'pak: {pakFile}')
+sample = pakFile.game.getSample(file[1][7:]).path if file[1].startswith('sample') else file[1]
+print(f'pak: {pakFile}, {sample}')
 
 # get file
-data = pakFile.loadFileData(file[1])
+data = pakFile.loadFileData(sample)
 print(f'dat: {data}')

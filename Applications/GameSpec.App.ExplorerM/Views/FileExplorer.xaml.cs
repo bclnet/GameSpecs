@@ -21,7 +21,7 @@ namespace GameSpec.App.Explorer.Views
                 if (d is not FileExplorer fileExplorer || n is not PakFile pakFile) return;
                 fileExplorer.Filters = pakFile.GetMetadataFilters(Resource);
                 fileExplorer.Nodes = fileExplorer.PakNodes = pakFile.GetMetaItems(Resource);
-                fileExplorer.OnReady();
+                fileExplorer.OnReady(pakFile);
             });
         public PakFile PakFile
         {
@@ -116,9 +116,11 @@ namespace GameSpec.App.Explorer.Views
             Infos = infos?.Where(x => x.Name != null).ToList();
         }
 
-        void OnReady()
+        void OnReady(PakFile pakFile)
         {
-            if (!string.IsNullOrEmpty(Config.ForcePath) && !Config.ForcePath.StartsWith("app:")) SelectedItem = MetaItem.FindByPathForNodes(PakNodes, Config.ForcePath, Resource);
+            if (string.IsNullOrEmpty(Config.ForcePath) || Config.ForcePath.StartsWith("app:")) return;
+            var forcePath = Config.ForcePath.StartsWith("sample:") ? pakFile.Game.GetSample(Config.ForcePath[7..])?.Path : Config.ForcePath;
+            SelectedItem = MetaItem.FindByPathForNodes(PakNodes, forcePath, Resource);
         }
     }
 }

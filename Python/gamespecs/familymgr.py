@@ -1,4 +1,4 @@
-import os, json, glob, re
+import os, json, glob, re, random
 from typing import Callable
 from urllib.parse import urlparse
 from importlib import resources
@@ -199,6 +199,21 @@ class FamilyEngine:
         self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
 
+# FamilySample
+class FamilySample:
+    samples: dict[str, list[object]] = {}
+    class File:
+        def __init__(self, elem: dict[str, object]):
+            self.path = _value(elem, 'path')
+            self.size = _value(elem, 'size') or 0
+            self.type = _value(elem, 'type')
+        def __repr__(self): return f'{self.path}'
+
+    def __init__(self, elem: dict[str, object]):
+        for k,v in elem.items():
+            files = [FamilySample.File(x) for x in v['files']]
+            self.samples[k] = files
+
 # FamilyGame
 class FamilyGame:
     class Edition:
@@ -261,11 +276,20 @@ class FamilyGame:
 #   - locales: {self.locales if self.locales else None}'''
 
     # create Pak
-    def toPaks(self) -> list[str]:
-        return [f'{x}#{self.id}' for x in self.paks] if self.paks else []
+    def toPaks(self, edition: str) -> list[str]:
+        return [f'{x}#{self.id}' for x in self.paks] # if self.paks else []
 
+    # gets a family sample
+    def getSample(self, id: str) -> FamilySample.File:
+        if not self.id in self.family.samples: return None
+        samples = self.family.samples[self.id]
+        random.seed()
+        idx = random.randrange(len(samples)) if id == '*' else int(id)
+        return samples[idx]
+
+    # with platform graphic
     @staticmethod
-    def _withPlatformGraphic(pakFile: PakFile) -> PakFile:
+    def withPlatformGraphic(pakFile: PakFile) -> PakFile:
         if pakFile and Platform.graphicFactory: pakFile.graphic = Platform.graphicFactory(pakFile)
         return pakFile
 
@@ -293,7 +317,7 @@ class FamilyGame:
                     for path in p[1]:
                         if self.isPakFile(path): pakFiles.append(self.createPakFileObj(fileSystem, path))
                 else: pakFiles.append(self.createPakFileObj(fileSystem, p))
-        return FamilyGame._withPlatformGraphic(self.createPakFileObj(fileSystem, pakFiles))
+        return FamilyGame.withPlatformGraphic(self.createPakFileObj(fileSystem, pakFiles))
 
     # create createPakFileObj
     def createPakFileObj(self, fileSystem: IFileSystem, value: object, tag: object = None) -> PakFile:
@@ -331,21 +355,6 @@ class FamilyGame:
     # is a PakFile
     def isPakFile(self, path: str) -> bool:
         return any([x for x in self.pakExts if path.endswith(x)])
-
-# FamilySample
-class FamilySample:
-    samples: dict[str, list[object]] = {}
-    class File:
-        def __init__(self, elem: dict[str, object]):
-            self.path = _value(elem, 'path')
-            self.size = _value(elem, 'size') or 0
-            self.type = _value(elem, 'type')
-        def __repr__(self): return f'{self.path}'
-
-    def __init__(self, elem: dict[str, object]):
-        for k,v in elem.items():
-            files = [FamilySample.File(x) for x in v['files']]
-            self.samples[k] = files
 
 families = {}
 

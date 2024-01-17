@@ -1,6 +1,7 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinaryT
+from gamespecs.filesrc import FileSource
+from gamespecs.pakfile import PakBinaryT
 from gamespecs.util import _pathExtension
 
 # typedefs
@@ -51,7 +52,7 @@ class PakBinary_Void(PakBinaryT):
                 if not path.endswith('.index'): continue
                 files.append(FileSource(
                     path = path,
-                    pak = self.SubPakFile(self, source, source.game, source.fileSystem, path)
+                    pak = self.SubPakFile(self, None, source, source.game, source.fileSystem, path)
                     ))
             return
 

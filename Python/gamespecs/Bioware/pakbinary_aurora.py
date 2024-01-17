@@ -1,6 +1,7 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import FileSource, PakBinaryT
+from gamespecs.filesrc import FileSource
+from gamespecs.pakfile import PakBinaryT
 
 # typedefs
 class Reader: pass

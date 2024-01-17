@@ -1,5 +1,6 @@
 import os, re, pathlib
 from io import BytesIO
+from gamespecs.filesrc import FileSource
 from gamespecs.util import _throw, _pathExtension
 
 # typedefs
@@ -10,7 +11,6 @@ class BinaryPakFile: pass
 class MetaInfo: pass
 class MetaItem: pass
 class MetaManager: pass
-class FileSource: pass # ?check if isinstance works // from gamespecs.pakfile import FileSource
 
 # MetaContent
 class MetaContent:
@@ -50,16 +50,16 @@ class MetaItem:
         self.items = items or []
 
     def findByPath(self, path: str, manager: MetaManager) -> MetaItem:
-        paths = re.split('\\\\|/|:', path, 1)
+        paths = re.split('\\\\|/|:', path)
         node = next(iter([x for x in self.items if x.name == paths[0]]), None)
-        if node and isinstance(node, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
+        if node and isinstance(node.source, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
 
     @staticmethod
     def findByPathForNodes(nodes: list[MetaItem], path: str, manager: MetaManager) -> MetaItem:
         paths = re.split('\\\\|/|:', path, 1)
         node = next(iter([x for x in nodes if x.name == paths[0]]), None)
-        if node and isinstance(node, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
+        if node and isinstance(node.source, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
 
 # IHaveMetaInfo

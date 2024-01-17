@@ -1,11 +1,11 @@
-﻿//#define Arkane
+﻿#define Arkane
 //#define Bethesda
 //#define Bioware
 //#define Black
 //#define Blizzard
 //#define Capcom
 //#define Cig
-#define Cryptic
+//#define Cryptic
 //#define Crytek
 //#define Cyanide
 //#define Epic
@@ -44,16 +44,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //AF
-            ForcePath = "data.pak:GRAPH/particles/DEFAULT.jpg", //AF:Texture.jpg
-            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp", //AF:Texture.bmp
-            //ForcePath = "data.pak:GAME/GRAPH/INTERFACE/BOOK/RUNES/LACET.FTL", //AF:Model
-            //ForcePath = "data.pak:GAME/GRAPH/OBJ3D/INTERACTIVE/NPC/RATMAN_BASE/RATMAN_BASE.FTL", //AF:Model
-            //ForcePath = "data.pak:GAME/GRAPH/Levels/Level10/fast.fts", //AF:Level
-            //D2
-            //ForcePath = "", //D2:
-
             ForceOpen = true,
+            ForcePath = "sample:1",
             Family = "Arkane",
             Game = "AF", // Arx Fatalis [open, read, texture:GL]
             //Game = "DOM", // Dark Messiah of Might and Magic [open, read]
@@ -71,13 +63,9 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            // Game:Morrowind
-            ForcePath = "bookart/boethiah_256.dds",
-            //ForcePath = "icons/handtohand.dds",
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Bethesda",
-
             Game = "Morrowind", // The Elder Scrolls III: Morrowind
             //Game = "Oblivion", // The Elder Scrolls IV: Oblivion
             //Game = "Fallout3", // Fallout 3
@@ -96,9 +84,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxe", SWTOR:Unknown
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Bioware",
             //Game = "SWTOR", // Star Wars: The Old Republic
             //Game = "NWN", // Neverwinter Nights
@@ -110,18 +97,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            // Game:Fallout
-            //ForcePath = "CRITTER.DAT:ART/CRITTERS/CRITTERS.LST",
-            //ForcePath = "MASTER.DAT:ART/BACKGRND/BACK1.FRM",
-            //ForcePath = "MASTER.DAT:ART/ITEMS/ALIEN1.FRM",
-            //ForcePath = "MASTER.DAT:COLOR.PAL",
-            // Game:Fallout2
-            //ForcePath = "master.dat:art/backgrnd/BACK1.FRM",
-            //ForcePath = "master.dat:art/splash/SPLASH0.rix",
-            //ForcePath = "master.dat:art/intrface/death.frm",
-            //ForcePath = "master.dat:art/intrface/DP.FRM",
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Black",
             //Game = "Fallout", // Fallout
             //Game = "Fallout2", // Fallout 2
@@ -132,6 +109,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Blizzard",
             //Game = "SC", // StarCraft
             //Game = "D2R", // Diablo II: Resurrected
@@ -151,13 +129,9 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //CAS
-            //ForcePath = "_unknown/01b0b43beac40c00.pfb", //CAS:Unknown
-            ForcePath = "_unknown/fa6e19ba4922338a.pfb", //CAS:Unknown
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Capcom",
-
             Game = "CAS", // [Kpka] Capcom Arcade Stadium
             //Game = "Fighting:C", // [] Capcom Fighting Collection
             //Game = "GNG:R", // Ghosts 'n Goblins Resurrection
@@ -201,16 +175,12 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForcePath = "app:DataForge",
+            //ForcePath = "app:DataForge",
             //ForcePath = "app:StarWords",
             //ForcePath = "app:Subsumption",
-            //ForcePath = "Data/dedicated.cfg",
-            //ForcePath = "Data/Game.dcb", //StarCitizen:Dataforge
-            //ForcePath = "Data/Textures/bubble_ddna.dds.a", //StarCitizen:Texture
-            //ForcePath = "Data/Textures/references/color.dds", //StarCitizen:Texture
-            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", //StarCitizen:Texture
 
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Cig",
             Game = "StarCitizen", // Star Citizen
         };
@@ -220,6 +190,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Cryptic",
             Game = "CO", // Champions Online [open, read]
             //Game = "STO", // Star Trek Online [open, read]
@@ -230,9 +201,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds", Hunt:Texture
-            
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Crytek",
             //Game = "ArcheAge", // ArcheAge
             //Game = "Hunt", // Hunt: Showdown
@@ -250,6 +220,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Cyanide",
             //Game = "Council", // Council
             //Game = "Werewolf:TA", // Werewolf: The Apocalypse - Earthblood
@@ -259,13 +230,10 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //UE1
-            ForcePath = "Maps/Bluff.unr", //Map
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Epic",
             Game = "UE1", // Unreal
-
             //Game = "BioShock", // BioShock
             //Game = "BioShockR", // BioShock Remastered
             //Game = "BioShock2", // BioShock 2
@@ -278,6 +246,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Frictional",
             //Game = "P:O", // Penumbra: Overture
             //Game = "P:BP", // Penumbra: Black Plague
@@ -292,7 +261,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            ForceOpen = false,
+            ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Frontier",
             Game = "ED"
         };
@@ -301,7 +271,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForceOpen = true,
+            ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Id",
             Game = "Q", // Quake
             //Game = "Q2", // Quake II
@@ -320,10 +291,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "iw_08.iwd/images/155_cannon.iwi", //COD2:Texture
-            //ForcePath = "mp_farm.ff/images/155_cannon.iwi", //COD4:Texture
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "IW",
             //Game = "COD2", // Call of Duty 2 - IWD 
             //Game = "COD3", // Call of Duty 3 - XBOX only
@@ -348,6 +317,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Monolith",
             //Game = "FEAR", // F.E.A.R.
             //Game = "FEAR:EP", // F.E.A.R.: Extraction Point
@@ -361,6 +331,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Origin",
             //Game = "UO", // Ultima Online
             //Game = "UltimaIX", // Ultima IX
@@ -371,6 +342,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Red",
             //Game = "Witcher", // The Witcher Enhanced Edition
             //Game = "Witcher2", // The Witcher 2
@@ -384,6 +356,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Ubisoft",
             //Game = "XX", // xx
         };
@@ -393,6 +366,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Unity",
             //Game = "AmongUs", // Among Us
             //Game = "Cities", // Cities: Skylines
@@ -405,45 +379,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //HL
-            ForcePath = "valve/maps/boot_camp.bsp", //Map
-            //ForcePath = "valve/cached.wad:LOADING.pic", //Texture
-            //ForcePath = "valve/decals.wad:REFLECT1.tex", //Texture
-            //ForcePath = "valve/decals.wad:{LARGE#S0.tex", //Texture
-            //ForcePath = "valve/fonts.wad:FONT2.fnt", //Texture:Font
-            //ForcePath = "valve/sprites:640_logo.spr", //Sprite
-            //TF
-            //ForcePath = "game.tga", //Image
-            //ForcePath = "cached.wad:CONBACK640.pic", //Texture
-            //ForcePath = "tfc.WAD:{EASTLINE1.pic", //Texture
-            //HL2
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
-            //CS:GO
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
-            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
-            //Dota2
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
-            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
-            //TheLab:RR
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
-            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
-            //HL:Alyx
-            //ForcePath = "pak01_dir.vpk:textures/dev/albedo_chart.vtex_c", //Texture
-            //ForcePath = "pak01_dir.vpk:models/dev/materialforerrormodel.vmat_c", //Material
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmesh_c", //Mesh
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vphy_c", //Phy
-            //ForcePath = "pak01_dir.vpk:models/dev/error.vmdl_c", //Model
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "Valve",
             Game = "HL", // Half-Life [open, read, texture:GL]
             //Game = "TF", // Team Fortress Classic [open, read, texture:GL]
@@ -477,17 +414,8 @@ namespace GameSpec
 
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
-            //ForcePath = "TabooTable/0E00001E.taboo", // Ac:Data
-            //ForcePath = "Texture/06000133.tex", // AC:Texture.R8G8B8
-            //ForcePath = "Texture/06000FAA.tex", // AC:Texture.A8R8G8B8
-            //ForcePath = "Texture/06007529.tex", // AC:Texture.INDEX16
-            //ForcePath = "Texture/06007575.tex", // AC:Texture.DXT1
-            //ForcePath = "Texture/06007576.tex", // AC:Texture.JPG
-            //ForcePath = "Texture/0600127D.tex", // AC:Texture.R8G8B8
-            //ForcePath = "Texture/06001343.tex", // AC:Texture.R8G8B8
-            ForcePath = "Texture/06007529.tex", // AC:Texture.PAL
-
             ForceOpen = true,
+            ForcePath = "sample:*",
             Family = "WbB",
             Game = "AC", // Asheron's Call [open, read, texture:GL]
         };

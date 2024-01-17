@@ -14,9 +14,9 @@ namespace Compression
         static short[] litcnt = new short[MAXBITS + 1], litsym = new short[256];      // litcode memory
         static short[] lencnt = new short[MAXBITS + 1], lensym = new short[16];       // lencode memory
         static short[] distcnt = new short[MAXBITS + 1], distsym = new short[64];     // distcode memory
-        static huffman litcode = new huffman { count = litcnt, symbol = litsym };        // length code
-        static huffman lencode = new huffman { count = lencnt, symbol = lensym };        // length code
-        static huffman distcode = new huffman { count = distcnt, symbol = distsym };     // distance code
+        static Huffman litcode = new Huffman { count = litcnt, symbol = litsym };        // length code
+        static Huffman lencode = new Huffman { count = lencnt, symbol = lensym };        // length code
+        static Huffman distcode = new Huffman { count = distcnt, symbol = distsym };     // distance code
         static readonly byte[] litlen = {
             11, 124, 8, 7, 28, 7, 188, 13, 76, 4, 10, 8, 12, 10, 12, 10, 8, 23, 8,
             9, 7, 6, 7, 8, 7, 6, 55, 8, 23, 24, 12, 11, 7, 9, 11, 12, 6, 7, 22, 5,
@@ -24,7 +24,7 @@ namespace Compression
             8, 12, 5, 38, 5, 38, 5, 11, 7, 5, 6, 21, 6, 10, 53, 8, 7, 24, 10, 27,
             44, 253, 253, 253, 252, 252, 252, 13, 12, 45, 12, 45, 12, 61, 12, 45,
             44, 173 }; // bit lengths of literal codes
-        static readonly byte[] lenlen = { 2, 35, 36, 53, 38, 23 }; // // bit lengths of length codes 0..15
+        static readonly byte[] lenlen = { 2, 35, 36, 53, 38, 23 }; // bit lengths of length codes 0..15
         static readonly byte[] distlen = { 2, 20, 53, 230, 247, 151, 248 }; // bit lengths of distance codes 0..63
         static readonly short[] basex = { 3, 2, 4, 5, 6, 7, 8, 9, 10, 12, 16, 24, 40, 72, 136, 264 }; // base for length codes 
         static readonly byte[] extra = { 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8 }; // extra bits for length codes
@@ -104,7 +104,7 @@ namespace Compression
         /// </summary>
         /// <param name="h"></param>
         /// <returns></returns>
-        int decode(ref huffman h)
+        int decode(ref Huffman h)
         {
             int len;        // current number of bits in code
             int code;       // len bits being decoded
@@ -163,7 +163,7 @@ namespace Compression
         /// symbol[] are the symbol values in canonical order, where the number of entries is the sum of the counts in count[]. The decoding process can be
         /// seen in the function decode() below.
         /// </summary>
-        struct huffman
+        struct Huffman
         {
             public short[] count;       // number of symbols of each length
             public short[] symbol;      // canonically ordered symbols
@@ -424,8 +424,7 @@ namespace Compression
                     //outputLen -= length;
                     return 0;
                 }
-
-                // decompress to stdout
+                // decompress
                 var ret = blast(inf, inputBuffer, outf, outputBuffer);
                 if (ret != 0) throw new Exception($"blast error: {ret}");
                 return 0;

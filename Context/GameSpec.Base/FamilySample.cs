@@ -39,7 +39,7 @@ namespace GameSpec
             /// <summary>
             /// The size
             /// </summary>
-            public string Size { get; set; }
+            public long Size { get; set; }
             /// <summary>
             /// The type
             /// </summary>
@@ -53,7 +53,7 @@ namespace GameSpec
             public File(JsonElement elem)
             {
                 Path = _value(elem, "path");
-                Size = _value(elem, "size");
+                Size = _value(elem, "size", x => x.GetInt64(), 0L);
                 Type = _value(elem, "type");
             }
 

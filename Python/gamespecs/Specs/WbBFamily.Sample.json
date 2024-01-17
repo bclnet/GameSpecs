@@ -39,7 +39,7 @@
         "type": "Texture.PAL"
       },
       {
-        "path": ">client_highres.dat:Texture/060043BE.tex",
+        "path": "client_highres.dat:Texture/060043BE.tex",
         "size": 32792,
         "type": "Test"
       }

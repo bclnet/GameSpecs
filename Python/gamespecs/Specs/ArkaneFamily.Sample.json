@@ -7,7 +7,7 @@
         "type": "Texture.jpg"
       },
       {
-        "path": "data.pak:GAME/GRAPH/Levels/Level10/loading.bmp",
+        "path": "data.pak:GRAPH/particles/Boom.bmp",
         "type": "Texture.bmp"
       },
       {
@@ -21,11 +21,6 @@
       {
         "path": "data.pak:GAME/GRAPH/Levels/Level10/fast.fts",
         "type": "Level"
-      },
-      {
-        "path": ">client_highres.dat:Texture/060043BE.tex",
-        "size": 32792,
-        "type": "Test"
       }
     ]
   },
@@ -33,7 +28,7 @@
     "name": "Dark Messiah of Might and Magic",
     "files": [
       {
-        "path": ">depot_2101_dir.vpk:platform/config/server.vdf",
+        "path": "depot_2101_dir.vpk:platform/config/server.vdf",
         "size": 13,
         "type": "Test"
       }
@@ -43,7 +38,7 @@
     "name": "Dishonored",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }
@@ -53,7 +48,7 @@
     "name": "Dishonored 2",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1_patch.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }
@@ -63,7 +58,7 @@
     "name": "Prey",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }
@@ -73,7 +68,7 @@
     "name": "Dishonored: Death of the Outsider",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }
@@ -83,7 +78,7 @@
     "name": "Wolfenstein: Youngblood",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }
@@ -93,7 +88,7 @@
     "name": "Wolfenstein: Cyberpilot",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }
@@ -103,7 +98,7 @@
     "name": "Deathloop",
     "files": [
       {
-        "path": ">game1.index:strings/english_m.lang",
+        "path": "game1.index:strings/english_m.lang",
         "size": 765258,
         "type": "Test"
       }

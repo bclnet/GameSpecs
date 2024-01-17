@@ -279,6 +279,16 @@ namespace GameSpec
         /// </summary>
         public IList<Uri> ToPaks(string edition) => Paks.Select(x => new Uri($"{x}#{Id}")).ToList();
 
+        /// <summary>
+        /// Gets a family sample
+        /// </summary>
+        public FamilySample.File GetSample(string id)
+        {
+            if (!Family.Samples.TryGetValue(Id, out var samples)) return null;
+            var idx = id == "*" ? new Random((int)DateTime.Now.Ticks).Next(samples.Count) : int.Parse(id);
+            return samples[idx];
+        }
+
         #region Pak
 
         /// <summary>

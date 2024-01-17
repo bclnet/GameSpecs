@@ -1,10 +1,32 @@
 ﻿{
   "StarCitizen": {
     "name": "Star Citizen",
-    "files": [{
-      "path": ">Engine/default_cch.dds",
-      "size": 16520,
-      "type": "Test"
-    }]
+    "files": [
+      {
+        "path": "Data/dedicated.cfg",
+        "type": "Text"
+      },
+      {
+        "path": "Data/Game.dcb",
+        "type": "Dataforge"
+      },
+      {
+        "path": "Data/Textures/bubble_ddna.dds.a",
+        "type": "Texture"
+      },
+      {
+        "path": "Data/Textures/references/color.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Data/Textures/asteroids/asteroid_dmg_brown_organic_01_ddn.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Engine/default_cch.dds",
+        "size": 16520,
+        "type": "Test"
+      }
+    ]
   }
 }

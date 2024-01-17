@@ -97,7 +97,7 @@ class OpenWidget(QWidget):
 
     def game_change(self, index):
         selected = self.gameSelected = self.gameValues[index - 1] if index > 0 else None
-        self.pakUris = selected.toPaks() if selected else None
+        self.pakUris = selected.toPaks(None) if selected else None
         # related
         self.editionInput.clear()
         if not selected or not selected.editions: return
@@ -105,7 +105,9 @@ class OpenWidget(QWidget):
         self.editionInput.addItems([None] + [x.name for x in self.editionValues])
 
     def edition_change(self, index):
+        selectedGame = self.gameSelected
         selected = self.editionSelected = self.editionValues[index - 1] if index > 0 else None
+        self.pakUris = selectedGame.toPaks(selected.id if selected else None) if selectedGame else None
 
     def pak1uri_click(self):
         openDialog = QFileDialog.getExistingDirectory(self, "Directory", os.getcwd())

@@ -15,3 +15,6 @@ from game-specs import FamilyManager
 family = FamilyManager.getFamily('Bethesda')
 print(family)
 ```
+
+
+https://stackoverflow.com/questions/13689628/is-there-a-python-equivalent-to-memcpy
