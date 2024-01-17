@@ -284,7 +284,7 @@ namespace GameSpec
         /// </summary>
         public FamilySample.File GetSample(string id)
         {
-            if (!Family.Samples.TryGetValue(Id, out var samples)) return null;
+            if (!Family.Samples.TryGetValue(Id, out var samples) || samples.Count == 0) return null;
             var idx = id == "*" ? new Random((int)DateTime.Now.Ticks).Next(samples.Count) : int.Parse(id);
             return samples.Count > idx ? samples[idx] : null;
         }
@@ -340,18 +340,18 @@ namespace GameSpec
         /// <returns></returns>
         public PakFile CreatePakFileObj(IFileSystem fileSystem, object value, object tag = null) => value switch
         {
-            string v => IsPakFile(v)
-                ? CreatePakFileType(fileSystem, v, tag)
-                : throw new InvalidOperationException($"{Id} missing {v}"),
-            ValueTuple<string, string[]> v => v.Item2.Length == 1 && IsPakFile(v.Item2[0])
-                ? CreatePakFileObj(fileSystem, v.Item2[0], tag)
-                : new ManyPakFile(CreatePakFileType(fileSystem, null, tag), this, v.Item1.Length > 0 ? v.Item1 : "Many", fileSystem, v.Item2)
+            string s => IsPakFile(s)
+                ? CreatePakFileType(fileSystem, s, tag)
+                : throw new InvalidOperationException($"{Id} missing {s}"),
+            ValueTuple<string, string[]> s => s.Item2.Length == 1 && IsPakFile(s.Item2[0])
+                ? CreatePakFileObj(fileSystem, s.Item2[0], tag)
+                : new ManyPakFile(CreatePakFileType(fileSystem, null, tag), this, s.Item1.Length > 0 ? s.Item1 : "Many", fileSystem, s.Item2)
                 {
-                    PathSkip = v.Item1.Length > 0 ? v.Item1.Length + 1 : 0
+                    PathSkip = s.Item1.Length > 0 ? s.Item1.Length + 1 : 0
                 },
-            IList<PakFile> v => v.Count == 1
-                ? v[0]
-                : new MultiPakFile(this, "Multi", fileSystem, v, tag),
+            IList<PakFile> s => s.Count == 1
+                ? s[0]
+                : new MultiPakFile(this, "Multi", fileSystem, s, tag),
             null => null,
             _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
         };
@@ -384,8 +384,8 @@ namespace GameSpec
             var gameIgnores = Family.FileManager.Ignores.TryGetValue(Id, out var z) ? z : null;
             foreach (var path in Paths ?? new[] { "" })
             {
-                var dlcPath = dlc?.Path != null ? Path.Join(path, dlc.Path) : path;
-                var fileSearch = fileSystem.FindPaths(dlcPath, searchPattern);
+                var searchPath = dlc?.Path != null ? Path.Join(path, dlc.Path) : path;
+                var fileSearch = fileSystem.FindPaths(searchPath, searchPattern);
                 if (gameIgnores != null) fileSearch = fileSearch.Where(x => !gameIgnores.Contains(Path.GetFileName(x)));
                 yield return (path, fileSearch.ToArray());
             }

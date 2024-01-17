@@ -30,29 +30,4 @@ namespace GameSpec.Formats
             }
         }
     }
-
-    public class PakBinaryForCig<Self> : PakBinary where Self : PakBinary, new()
-    {
-        public static readonly PakBinary Instance = new Self();
-
-        protected class SubPakFile : BinaryPakFile
-        {
-            Stream Stream;
-
-            public SubPakFile(PakBinary parent, ZipFile pak, BinaryPakFile source, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
-            {
-                ObjectFactoryFactoryMethod = source.ObjectFactoryFactoryMethod;
-                UseReader = false;
-                var entry = (ZipEntry)Tag;
-                Stream = pak.GetInputStream(entry.ZipFileIndex);
-                //Open();
-            }
-
-            public async override Task Read(BinaryReader r, object tag)
-            {
-                using var r2 = new BinaryReader(Stream);
-                await PakBinary.Read(this, r2, tag);
-            }
-        }
-    }
 }

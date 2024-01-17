@@ -1,5 +1,5 @@
-import os, pathlib, zipfile
-from typing import Any
+import os, pathlib
+from zipfile import ZipFile
 from io import BytesIO
 from importlib import resources
 
@@ -38,15 +38,15 @@ class MurmurHash3:
         return h
 
 file = resources.files().joinpath('RE.zip').open('rb')
-pak:object = zipfile.ZipFile(file, 'r')
-hashEntries:dict[str, object] = { x.filename:x for x in pak.infolist() }
-hashLookup:dict[str, dict[int, str]] = {}
+pak: ZipFile = ZipFile(file, 'r')
+hashEntries: dict[str, object] = { x.filename:x for x in pak.infolist() }
+hashLookup: dict[str, dict[int, str]] = {}
 
 @staticmethod
 def getHashLookup(path: str) -> dict[int, str]:
     if path in hashLookup: return hashLookup[path]
-    line:str
-    value:dict[int, str] = {}
+    line: str
+    value: dict[int, str] = {}
     with pak.open(hashEntries[path]) as r:
         while line := r.readline().decode('ascii').rstrip('\r\n'):
             hashLower = MurmurHash3.hash(line.lower())

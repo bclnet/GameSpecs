@@ -1,5 +1,5 @@
-from .familymgr import Family
-from .pakfile import PakFile
+from gamespecs import Family
+from gamespecs.pakfile import PakFile
 
 # typedefs
 class FamilyGame: pass

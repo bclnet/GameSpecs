@@ -4,12 +4,14 @@ from gamespecs import familymgr
 family = familymgr.getFamily('Bioware')
 print(f'studio: {family.studio}')
 
-file = ('game:/#SWTOR', 'swtor_en-us_alliance_1.tor:resources/en-us/fxe/cnv/alliance/alderaan/lokin/lokin.fxeL')
+file = ('game:/base.zip#MDK2', 'sample:*')
+# file = ('game:/#SWTOR', 'sample:*')
 
 # get pak with game:/uri
 pakFile = family.openPakFile(file[0])
-print(f'pak: {pakFile}')
+sample = pakFile.game.getSample(file[1][7:]).path if file[1].startswith('sample') else file[1]
+print(f'pak: {pakFile}, {sample}')
 
 # get file
-data = pakFile.loadFileData(file[1])
+data = pakFile.loadFileData(sample)
 print(f'dat: {data}')

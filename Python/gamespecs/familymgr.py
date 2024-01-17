@@ -281,8 +281,7 @@ class FamilyGame:
 
     # gets a family sample
     def getSample(self, id: str) -> FamilySample.File:
-        if not self.id in self.family.samples: return None
-        samples = self.family.samples[self.id]
+        if not self.id in self.family.samples or not (samples := self.family.samples[self.id]): return None
         random.seed()
         idx = random.randrange(len(samples)) if id == '*' else int(id)
         return samples[idx]
@@ -329,10 +328,10 @@ class FamilyGame:
                 return self.createPakFileObj(fileSystem, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
                     else ManyPakFile(
                         self.createPakFileType(fileSystem, None, tag), self, \
-                            p if len(p) > 0 else 'Many', fileSystem, l, visualPathSkip = len(p) + 1 if len(p) > 0 else 0
+                            p if len(p) > 0 else 'Many', fileSystem, l, pathSkip = len(p) + 1 if len(p) > 0 else 0
                         )
             case s if isinstance(value, list):
-                return value[0] if len(s) == 1 else \
+                return s[0] if len(s) == 1 else \
                     MultiPakFile(self, 'Multi', fileSystem, s, tag)
             case None: return None
             case _: raise Exception(f'Unknown: {value}')
@@ -347,8 +346,8 @@ class FamilyGame:
         ignores = self.family.fileManager.ignores
         gameIgnores = _value(ignores, self.id)
         for path in self.paths or ['']:
-            dlcPath = os.path.join(path, dlc.path) if dlc and dlc.path else path
-            fileSearch = fileSystem.findPaths(dlcPath, searchPattern)
+            searchPath = os.path.join(path, dlc.path) if dlc and dlc.path else path
+            fileSearch = fileSystem.findPaths(searchPath, searchPattern)
             if gameIgnores: fileSearch = [x for x in fileSearch if not os.path.basename(x) in gameIgnores]
             yield (path, list(fileSearch))
 

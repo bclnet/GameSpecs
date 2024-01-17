@@ -198,8 +198,9 @@ class BinaryPakFile(PakFile):
 
 # ManyPakFile
 class ManyPakFile(BinaryPakFile):
-    def __init__(self, basis: PakFile, game: FamilyGame, name: str, fileSystem: IFileSystem, paths: list[str], tag: object = None, visualPathSkip: int = 0):
+    def __init__(self, basis: PakFile, game: FamilyGame, name: str, fileSystem: IFileSystem, paths: list[str], tag: object = None, pathSkip: int = 0):
         super().__init__(game, fileSystem, name, None, tag)
+        self.pathSkip = pathSkip
         if isinstance(basis, BinaryPakFile):
             self.getObjectFactoryFactory = basis.getObjectFactoryFactory
         self.paths = paths

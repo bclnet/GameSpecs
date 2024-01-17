@@ -9,7 +9,7 @@ class DefaultOptions:
         self.ForcePath = ForcePath
         self.ForceOpen = ForceOpen
 
-match 'Arkane':
+match 'Bioware':
     case 'Arkane':
         familyKeys = [ "Arkane", "Unknown" ]
 
@@ -55,10 +55,24 @@ match 'Arkane':
             ForceOpen = True,
             ForcePath = "sample:*",
             Family = "Bioware",
-            # Game = "SWTOR", # Star Wars: The Old Republic
+            # Game = "SS", # Shattered Steel
+            # Game = "BG", # Baldur's Gate
+            Game = "MDK2", # MDK2
+            # Game = "BG2", # Baldur's Gate II: Shadows of Amn
             # Game = "NWN", # Neverwinter Nights
-            # Game = "NWN2", # Neverwinter Nights 2
             # Game = "KotOR", # Star Wars: Knights of the Old Republic
+            # Game = "JE", # Jade Empire
+            # Game = "ME", # Mass Effect
+            # Game = "NWN2", # Neverwinter Nights 2
+            # Game = "DA:O", # Dragon Age: Origins
+            # Game = "ME2", # Mass Effect 2
+            # Game = "DA2", # Dragon Age II
+            # Game = "SWTOR", # Star Wars: The Old Republic
+            # Game = "ME3", # Mass Effect 3
+            # Game = "DA:I", # Dragon Age: Inquisition
+            # Game = "ME:A", # Mass Effect: Andromeda
+            # Game = "A", # Anthem
+            # Game = "ME:LE", # Mass Effect: Legendary Edition
         )
     case 'Black':
         familyKeys = [ "Black", "Unknown" ]

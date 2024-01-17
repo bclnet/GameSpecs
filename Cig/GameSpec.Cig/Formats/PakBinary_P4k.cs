@@ -14,12 +14,30 @@ namespace GameSpec.Cig.Formats
     /// PakBinaryP4k
     /// </summary>
     /// <seealso cref="GameSpec.Formats.PakBinary" />
-    public class PakBinary_P4k : PakBinaryForCig<PakBinary_P4k>
+    public class PakBinary_P4k : PakBinary<PakBinary_P4k>
     {
-        static readonly byte[] DefaultKey = new byte[] { 0x5E, 0x7A, 0x20, 0x02, 0x30, 0x2E, 0xEB, 0x1A, 0x3B, 0xB6, 0x17, 0xC3, 0x0F, 0xDE, 0x1E, 0x47 };
-        readonly byte[] Key;
+        readonly byte[] Key = new byte[] { 0x5E, 0x7A, 0x20, 0x02, 0x30, 0x2E, 0xEB, 0x1A, 0x3B, 0xB6, 0x17, 0xC3, 0x0F, 0xDE, 0x1E, 0x47 };
 
-        public PakBinary_P4k() => Key = DefaultKey;
+        protected class SubPakFileP4k : BinaryPakFile
+        {
+            P4kFile Pak;
+
+            public SubPakFileP4k(P4kFile pak, BinaryPakFile source, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
+            {
+                Pak = pak;
+                ObjectFactoryFactoryMethod = source.ObjectFactoryFactoryMethod;
+                UseReader = false;
+                //Open();
+            }
+
+            public async override Task Read(BinaryReader r, object tag)
+            {
+                var entry = (P4kEntry)Tag;
+                var stream = Pak.GetInputStream(entry.ZipFileIndex);
+                using var r2 = new BinaryReader(stream);
+                await PakBinary.Read(this, r2, tag);
+            }
+        }
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
@@ -40,7 +58,7 @@ namespace GameSpec.Cig.Formats
                     Tag = entry,
                 };
                 var metadataPath = metadata.Path;
-                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFile(this, pak, source, source.Game, source.FileSystem, metadataPath, metadata.Tag);
+                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFileP4k(pak, source, source.Game, source.FileSystem, metadataPath, metadata.Tag);
                 else if (metadataPath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadataPath, metadata);
                 else if (metadataPath.Length > 8 && metadataPath[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {
@@ -57,23 +75,6 @@ namespace GameSpec.Cig.Formats
             // process links
             if (partsByPath.Count > 0)
                 foreach (var kv in partsByPath) if (parentByPath.TryGetValue(kv.Key, out var parent)) parent.Parts = kv.Value.Values;
-            return Task.CompletedTask;
-        }
-
-        public override Task Write(BinaryPakFile source, BinaryWriter w, object tag)
-        {
-            source.UseReader = false;
-            var files = source.Files;
-
-            var pak = (P4kFile)(source.Tag = new P4kFile(w.BaseStream, Key));
-            pak.BeginUpdate();
-            foreach (var file in files)
-            {
-                var entry = (ZipEntry)(file.Tag = new ZipEntry(Path.GetFileName(file.Path)));
-                pak.Add(entry);
-                source.PakBinary.WriteData(source, w, file, null);
-            }
-            pak.CommitUpdate();
             return Task.CompletedTask;
         }
 
@@ -101,6 +102,25 @@ namespace GameSpec.Cig.Formats
             catch (Exception e) { HandleException(file, option, $"{file.Path} - Exception: {e.Message}"); return Task.FromResult(System.IO.Stream.Null); }
         }
 
+        #region Write
+
+        public override Task Write(BinaryPakFile source, BinaryWriter w, object tag)
+        {
+            source.UseReader = false;
+            var files = source.Files;
+
+            var pak = (P4kFile)(source.Tag = new P4kFile(w.BaseStream, Key));
+            pak.BeginUpdate();
+            foreach (var file in files)
+            {
+                var entry = (ZipEntry)(file.Tag = new ZipEntry(Path.GetFileName(file.Path)));
+                pak.Add(entry);
+                source.PakBinary.WriteData(source, w, file, null);
+            }
+            pak.CommitUpdate();
+            return Task.CompletedTask;
+        }
+
         public override Task WriteData(BinaryPakFile source, BinaryWriter w, FileSource file, Stream data, FileOption option = default)
         {
             var pak = (P4kFile)source.Tag;
@@ -120,5 +140,7 @@ namespace GameSpec.Cig.Formats
             catch (Exception e) { HandleException(file, option, $"Exception: {e.Message}"); }
             return Task.CompletedTask;
         }
+
+        #endregion
     }
 }

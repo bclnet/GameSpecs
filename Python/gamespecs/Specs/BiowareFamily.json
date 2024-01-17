@@ -9,7 +9,8 @@
   ],
   "engines": {
     "HeroEngine": {},
-    "Aurora": {}
+    "Aurora": {},
+    "Omen": {}
   },
   "games": {
     "*": {
@@ -30,6 +31,7 @@
       "name": "MDK2",
       "url": "https://www.gog.com/en/game/mdk_2",
       "date": "2000-05-30",
+      "engine": "Omen",
       "pakExt": ".zip"
     },
     "BG2": {

@@ -1,13 +1,13 @@
 import os
 from typing import Callable
-from gamespecs import FamilyGame
 from gamespecs.pakfile import BinaryPakFile
 from .Cryptic.pakbinary_hogg import PakBinary_Hogg
 from .util import _pathExtension
 
 # typedefs
-class IFileSystem: pass
+class FamilyGame: pass
 class PakBinary: pass
+class IFileSystem: pass
 class FileSource: pass
 class FileOption: pass
 

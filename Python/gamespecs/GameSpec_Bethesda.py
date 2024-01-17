@@ -8,8 +8,8 @@ from .Bethesda.pakbinary_ba2 import PakBinary_Ba2
 from .util import _pathExtension
 
 # typedefs
-class IFileSystem: pass
 class PakBinary: pass
+class IFileSystem: pass
 class FileSource: pass
 class FileOption: pass
 

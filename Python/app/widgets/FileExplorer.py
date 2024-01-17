@@ -147,7 +147,8 @@ class FileExplorer(QWidget):
 
     def onReady(self, pakFile):
         if not config.ForcePath or config.ForcePath.startswith('app:'): return
-        forcePath = pakFile.game.getSample(config.ForcePath[7:]).path if config.ForcePath.startswith('sample:') else config.ForcePath
+        sample = pakFile.game.getSample(config.ForcePath[7:]) if config.ForcePath.startswith('sample:') else None
+        forcePath = sample.path if sample else config.ForcePath
         node = MetaItem.findByPathForNodes(self.pakNodes, forcePath, self.resource)
         if not node: return
         self.updateNodes()

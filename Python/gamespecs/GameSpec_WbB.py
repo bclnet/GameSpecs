@@ -1,16 +1,33 @@
 import os
-from .familymgr import FamilyGame
-from .pakfile import BinaryPakFile
+from typing import Callable
+from gamespecs import FamilyGame
+from gamespecs.pakfile import BinaryPakFile
 from .util import _pathExtension
 
+# typedefs
+class Family: pass
+class PakBinary: pass
+class IFileSystem: pass
+class FileSource: pass
+class FileOption: pass
+
+# WbBGame
 class WbBGame(FamilyGame):
-    def __init__(self, family, id, elem, dgame):
+    def __init__(self, family: Family, id: str, elem: dict[str, object], dgame: FamilyGame):
         super().__init__(family, id, elem, dgame)
 
+# WbBPakFile
 class WbBPakFile(BinaryPakFile):
+    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
+        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+
+    #region Factories
     @staticmethod
-    def getPakBinary(game, extension):
+    def getPakBinary(game: FamilyGame, extension: str) -> object:
         pass
 
-    def __init__(self, game, fileSystem, filePath, tag):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, os.path.splitext(filePath)[1].lower()), tag)
+    @staticmethod
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
+        match _pathExtension(source.path).lower():
+            case _: return (0, None)
+    #endregion

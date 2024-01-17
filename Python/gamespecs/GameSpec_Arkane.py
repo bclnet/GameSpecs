@@ -9,8 +9,8 @@ from .util import _pathExtension
 
 # typedefs
 class FamilyGame: pass
-class IFileSystem: pass
 class PakBinary: pass
+class IFileSystem: pass
 class FileSource: pass
 class FileOption: pass
 

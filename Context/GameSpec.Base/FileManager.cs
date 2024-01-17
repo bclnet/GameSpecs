@@ -102,7 +102,7 @@ namespace GameSpec
             string z;
             if (Platform.PlatformOS == Platform.OS.Windows && elem.TryGetProperty("reg", out var y))
                 foreach (var key in y.GetStringOrArray())
-                    if (!Paths.ContainsKey(id) && TryGetPathByRegistryKey(key, elem.TryGetProperty(key, out y) ? y : (JsonElement?)null, out z))
+                    if (!Paths.ContainsKey(id) && (z = GetPathByRegistryKey(key, elem.TryGetProperty(key, out y) ? y : (JsonElement?)null)) != null)
                         AddPath(id, elem, z);
             if (elem.TryGetProperty("key", out y))
                 foreach (var key in y.GetStringOrArray())
@@ -191,30 +191,26 @@ namespace GameSpec
             return null;
         }
 
-        protected static bool TryGetPathByRegistryKey(string key, JsonElement? keyElem, out string path)
+        protected static string GetPathByRegistryKey(string key, JsonElement? elem)
         {
-            path = FindRegistryPath(new[] { $@"Wow6432Node\{key}", key });
-            if (keyElem == null) return !string.IsNullOrEmpty(path);
-            if (keyElem.Value.TryGetProperty("path", out var path2)) { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
-            else if (keyElem.Value.TryGetProperty("xml", out var xml)
-                && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
-                && TryGetSingleFileValue(GetPathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
-                return !string.IsNullOrEmpty(path);
-            return false;
+            var path = FindRegistryPath(new[] { $@"Wow6432Node\{key}", key });
+            if (elem == null) return path;
+            else if (elem.Value.TryGetProperty("path", out var z)) return Path.GetFullPath(GetPathWithSpecialFolders(z.GetString(), path));
+            else if (elem.Value.TryGetProperty("xml", out z) && elem.Value.TryGetProperty("xmlPath", out var y))
+                return GetSingleFileValue(GetPathWithSpecialFolders(z.GetString(), path), "xml", y.GetString());
+            else return null;
         }
 
-        protected static bool TryGetSingleFileValue(string path, string ext, string select, out string value)
+        protected static string GetSingleFileValue(string path, string ext, string select)
         {
-            value = null;
-            if (!File.Exists(path)) return false;
+            if (!File.Exists(path)) return null;
             var content = File.ReadAllText(path);
-            value = ext switch
+            var value = ext switch
             {
                 "xml" => XDocument.Parse(content).XPathSelectElement(select)?.Value,
                 _ => throw new ArgumentOutOfRangeException(nameof(ext)),
             };
-            if (value != null) value = Path.GetDirectoryName(value);
-            return true;
+            return value != null ? Path.GetDirectoryName(value) : null;
         }
 
         #endregion

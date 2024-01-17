@@ -34,28 +34,30 @@ namespace GameSpec.Formats
             source.UseReader = false;
             if (UseSystem)
             {
-                var pak = (ZipArchive)(source.Tag = new ZipArchive(r.BaseStream, ZipArchiveMode.Read));
-                var files = source.Files = pak.Entries.Select(entry => new FileSource
+                ZipArchive pak;
+                source.Tag = pak = new ZipArchive(r.BaseStream, ZipArchiveMode.Read);
+                source.Files = pak.Entries.Select(s => new FileSource
                 {
-                    Path = entry.Name.Replace('\\', '/'),
-                    PackedSize = entry.CompressedLength,
-                    FileSize = entry.Length,
-                    Tag = entry
+                    Path = s.Name.Replace('\\', '/'),
+                    PackedSize = s.CompressedLength,
+                    FileSize = s.Length,
+                    Tag = s
                 }).ToArray();
             }
             else
             {
-                var pak = (ZipFile)(source.Tag = new ZipFile(r.BaseStream));
+                ZipFile pak;
+                source.Tag = pak = new ZipFile(r.BaseStream);
                 if (Key == null) { }
-                else if (Key is string z1) pak.Password = z1;
-                else if (Key is byte[] z2) ZipFile_KeyProperty.SetValue(pak, z2);
-                var files = source.Files = pak.Cast<ZipEntry>().Where(x => x.IsFile).Select(entry => new FileSource
+                else if (Key is string s) pak.Password = s;
+                else if (Key is byte[] z) ZipFile_KeyProperty.SetValue(pak, z);
+                source.Files = pak.Cast<ZipEntry>().Where(x => x.IsFile).Select(s => new FileSource
                 {
-                    Path = entry.Name.Replace('\\', '/'),
-                    Crypted = entry.IsCrypted,
-                    PackedSize = entry.CompressedSize,
-                    FileSize = entry.Size,
-                    Tag = entry,
+                    Path = s.Name.Replace('\\', '/'),
+                    Crypted = s.IsCrypted,
+                    PackedSize = s.CompressedSize,
+                    FileSize = s.Size,
+                    Tag = s,
                 }).ToArray();
             }
             return Task.CompletedTask;

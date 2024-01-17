@@ -52,7 +52,7 @@ class FileManager:
     def addApplication(self, id: str, elem: dict[str, object]) -> None:
         if platform.system() == 'Windows' and 'reg' in elem:
             for key in _list(elem, 'reg'):
-                if not id in self.paths and (z := self.getPathByRegistryKey(key, elem)):
+                if not id in self.paths and (z := self.getPathByRegistryKey(key, elem[key] if key in elem else None)):
                     self.addPath(id, elem, z)
         if 'key' in elem:
             for key in _list(elem, 'key'):
@@ -81,11 +81,12 @@ class FileManager:
             self.paths[id].append(p)
 
     @staticmethod
-    def getPathWithSpecialFolders(path: str, rootPath: str) -> str:
-        return f'{rootPath}{path[6:]}' if path.startswith('%Path%') else \
-        f'{FileManager.applicationPath}{path[9:]}' if path.startswith('%AppPath%') else \
-        f'{os.getenv("APPDATA")}{path[9:]}' if path.startswith('%AppData%') else \
-        f'{os.getenv("LOCALAPPDATA")}{path[14:]}' if path.startswith('%LocalAppData%') else \
+    def getPathWithSpecialFolders(path: str, rootPath: str = None) -> str:
+        lowerPath = path.lower()
+        return f'{rootPath}{path[6:]}' if lowerPath.startswith('%path%') else \
+        f'{FileManager.applicationPath}{path[9:]}' if lowerPath.startswith('%apppath%') else \
+        f'{os.getenv("APPDATA")}{path[9:]}' if lowerPath.startswith('%appdata%') else \
+        f'{os.getenv("LOCALAPPDATA")}{path[14:]}' if lowerPath.startswith('%localappdata%') else \
         path
 
     @staticmethod
@@ -118,13 +119,19 @@ class FileManager:
         return None
 
     @staticmethod
-    def getPathByRegistryKey(key, elem):
+    def getPathByRegistryKey(key: str, elem: dict[str, object]) -> str:
         path = FileManager.findRegistryPath([f'Wow6432Node\\{key}', key])
-        if elem is None: return path
-        #if 'path' in elem: elem['path'] { path = Path.GetFullPath(GetPathWithSpecialFolders(path2.GetString(), path)); return !string.IsNullOrEmpty(path); }
-        # else if (keyElem.Value.TryGetProperty("xml", out var xml)
-        #     && keyElem.Value.TryGetProperty("xmlPath", out var xmlPath)
-        #     && TryGetSingleFileValue(GetPathWithSpecialFolders(xml.GetString(), path), "xml", xmlPath.GetString(), out path))
-        #     return !string.IsNullOrEmpty(path)
-        return path
+        if not elem: return path
+        elif 'path' in elem: return os.path.abspath(FileManager.getPathWithSpecialFolders(elem['path'], path))
+        elif 'xml' in elem and 'xmlPath' in elem:
+            return FileManager.getSingleFileValue(FileManager.getPathWithSpecialFolders(elem['xml'], path), 'xml', elem['xmlPath'])
+        return None
 
+    @staticmethod
+    def getSingleFileValue(path: str, ext: str, select: str) -> str:
+        if not os.fileExists(path): return None
+        with open(path, 'r') as f: content = f.read()
+        match ext:
+            case 'xml': raise NotImplementedError() #return XDocument.Parse(content).XPathSelectElement(select)?.Value,
+            case _: raise Exception(f'Unknown {ext}')
+        return os.path.basename(value) if value else None
