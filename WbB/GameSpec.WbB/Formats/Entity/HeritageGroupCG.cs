@@ -19,7 +19,7 @@ namespace GameSpec.WbB.Formats.Entity
         public readonly int[] SecondaryStartAreas;
         public readonly SkillCG[] Skills;
         public readonly TemplateCG[] Templates;
-        public readonly Dictionary<int, SexCG> Genders;
+        public readonly IDictionary<int, SexCG> Genders;
 
         public HeritageGroupCG(BinaryReader r)
         {
@@ -29,12 +29,12 @@ namespace GameSpec.WbB.Formats.Entity
             EnvironmentSetupID = r.ReadUInt32();
             AttributeCredits = r.ReadUInt32();
             SkillCredits = r.ReadUInt32();
-            PrimaryStartAreas = r.ReadC32Array<int>(sizeof(int));
-            SecondaryStartAreas = r.ReadC32Array<int>(sizeof(int));
-            Skills = r.ReadC32Array(x => new SkillCG(x));
-            Templates = r.ReadC32Array(x => new TemplateCG(x));
+            PrimaryStartAreas = r.ReadC32TArray<int>(sizeof(int));
+            SecondaryStartAreas = r.ReadC32TArray<int>(sizeof(int));
+            Skills = r.ReadC32FArray(x => new SkillCG(x));
+            Templates = r.ReadC32FArray(x => new TemplateCG(x));
             r.Skip(1); // 0x01 byte here. Not sure what/why, so skip it!
-            Genders = r.ReadC32Many<int, SexCG>(sizeof(int), x => new SexCG(x));
+            Genders = r.ReadC32TMany<int, SexCG>(sizeof(int), x => new SexCG(x));
         }
 
         //: Entity.HeritageGroupCG

@@ -21,7 +21,7 @@ namespace GameSpec.Epic.Formats.Core
             : Ar.Game == Vanguard && Ar.ArVer >= 128 && Ar.ArLicenseeVer >= 25 ? false
             : true;
 
-        public static T[] ReadArray<T>(this BinaryReader r, UPackage ar, Func<BinaryReader, T> factory) => r.ReadTArray(factory, GameUsesCompactIndex(ar) ? r.ReadCompactIndex(ar) : r.ReadInt32());
+        public static T[] ReadArray<T>(this BinaryReader r, UPackage ar, Func<BinaryReader, T> factory) => r.ReadFArray(factory, GameUsesCompactIndex(ar) ? r.ReadCompactIndex(ar) : r.ReadInt32());
         public static Dictionary<TKey, TValue> ReadMap<TKey, TValue>(this BinaryReader r, UPackage ar, Func<BinaryReader, (TKey, TValue)> factory) => r.ReadArray(ar, factory).ToDictionary(x => x.Item1, x => x.Item2);
 
         public static int ReadCompactIndex(this BinaryReader r, UPackage ar)

@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
         public AmbientSTBDesc(BinaryReader r)
         {
             STBId = r.ReadUInt32();
-            AmbientSounds = r.ReadL32Array(x => new AmbientSoundDesc(x));
+            AmbientSounds = r.ReadL32FArray(x => new AmbientSoundDesc(x));
         }
 
         //: Entity.AmbientSoundTableDesc

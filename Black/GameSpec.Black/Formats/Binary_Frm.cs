@@ -20,7 +20,8 @@ namespace GameSpec.Black.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         public unsafe struct FrmHeader
         {
-            internal static string Endian = "B4B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B4B4B4B4B4B4B4";
+            //internal static string Endian = "B4B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B4B4B4B4B4B4B4";
+            public static (string, int) Struct = (">I3H6h6h6II", sizeof(FrmHeader));
             public uint Version;                            // Version
             public ushort Fps;                              // FPS
             public ushort ActionFrame;                      // Action frame
@@ -32,9 +33,10 @@ namespace GameSpec.Black.Formats
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
-        public struct FrmFrame
+        public unsafe struct FrmFrame
         {
-            internal static string Endian = "B2B2B4B2B2";
+            //internal static string Endian = "B2B2B4B2B2";
+            public static (string, int) Struct = (">2HI2h", sizeof(FrmFrame));
             public ushort Width;                            // FRAME-0-WIDTH: Width of frame 0 
             public ushort Height;                           // FRAME-0-HEIGHT: Height of frame 0
             public uint Size;                               // FRAME-0-SIZE: Number of pixels for frame 0
@@ -46,18 +48,9 @@ namespace GameSpec.Black.Formats
 
         static Binary_Pal DefaultPallet;
 
-        async Task<Binary_Pal> GetPalletObjAsync(string path, BinaryPakFile s)
-        {
-            var palletPath = $"{path[..^4]}.PAL";
-            if (s.Contains(palletPath))
-                return await s.LoadFileObject<Binary_Pal>(palletPath);
-            if (DefaultPallet == null && s.Contains("COLOR.PAL"))
-            {
-                DefaultPallet ??= await s.LoadFileObject<Binary_Pal>("COLOR.PAL");
-                DefaultPallet.SetColors();
-            }
-            return DefaultPallet;
-        }
+        public FrmHeader Header;
+        public (FrmFrame f, byte[] b)[] Frames;
+        byte[] Bytes;
 
         public unsafe Binary_Frm(BinaryReader r, FileSource f, PakFile s)
         {
@@ -65,13 +58,13 @@ namespace GameSpec.Black.Formats
             var rgba32 = pallet.Rgba32;
 
             // parse header
-            var header = r.ReadTE<FrmHeader>(sizeof(FrmHeader), FrmHeader.Endian);
+            var header = r.ReadS<FrmHeader>(FrmHeader.Struct);
             var frames = new List<(FrmFrame f, byte[] b)>();
             var stream = r.BaseStream;
             for (var i = 0; i < 6 * header.FramesPerDirection && stream.Position < stream.Length; i++)
             {
                 var frameOffset = Header.FrameOffset[i];
-                var frame = r.ReadTE<FrmFrame>(sizeof(FrmFrame), FrmFrame.Endian);
+                var frame = r.ReadS<FrmFrame>(FrmFrame.Struct);
                 var data = r.ReadBytes((int)frame.Size);
                 var image = new byte[frame.Width * frame.Height * 4];
                 fixed (byte* image_ = image)
@@ -89,9 +82,20 @@ namespace GameSpec.Black.Formats
             FrameSelect(0);
         }
 
-        public FrmHeader Header;
-        public (FrmFrame f, byte[] b)[] Frames;
-        byte[] Bytes;
+        async Task<Binary_Pal> GetPalletObjAsync(string path, BinaryPakFile s)
+        {
+            var palletPath = $"{path[..^4]}.PAL";
+            if (s.Contains(palletPath))
+                return await s.LoadFileObject<Binary_Pal>(palletPath);
+            if (DefaultPallet == null && s.Contains("COLOR.PAL"))
+            {
+                DefaultPallet ??= await s.LoadFileObject<Binary_Pal>("COLOR.PAL");
+                DefaultPallet.SetColors();
+            }
+            return DefaultPallet;
+        }
+
+        // ITexture
         (object gl, object vulken, object unity, object unreal) Format;
         public IDictionary<string, object> Data => null;
         public int Width { get; internal set; }
@@ -116,6 +120,7 @@ namespace GameSpec.Black.Formats
         }
         public void End() { }
 
+        // ITextureMultiple
         public int Fps => Header.Fps;
         public int FrameMaxIndex => Frames.Length == 1 ? 1 : Header.FramesPerDirection;
         public void FrameSelect(int index)
@@ -125,6 +130,7 @@ namespace GameSpec.Black.Formats
             Height = Frames[index].f.Height;
         }
 
+        // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
             new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetaInfo($"{nameof(Binary_Frm)}", items: new List<MetaInfo> {

@@ -66,7 +66,7 @@ namespace GameSpec.Crytek.Formats.Models
         {
             ControllerID = r.ReadUInt32();                 // unique id of bone (generated from bone name)
             limbID = r.ReadInt32();
-            r.Seek(208, SeekOrigin.Current);
+            r.Skip(208);
             boneName = r.ReadFYString(48);
             offsetParent = r.ReadInt32();
             numChildren = r.ReadUInt32();

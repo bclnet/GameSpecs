@@ -16,7 +16,7 @@ namespace GameSpec.WbB.Formats.Entity
         {
             TickSize = r.ReadDouble();
             LightTickSize = r.ReadDouble(); r.Align();
-            DayGroups = r.ReadL32Array(x => new DayGroup(x));
+            DayGroups = r.ReadL32FArray(x => new DayGroup(x));
         }
 
         //: Entity.SkyDesc

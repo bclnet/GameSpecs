@@ -52,14 +52,14 @@ namespace GameSpec.Capcom.Formats
                     Compressed = (int)x.Compressed,
                     PackedSize = x.PackedSize,
                     FileSize = x.FileSize,
-                    Position = x.Position,
+                    Offset = x.Position,
                 }).ToArray();
             return Task.CompletedTask;
         }
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult<Stream>(new MemoryStream(Decompress(r, (int)file.PackedSize, (int)file.FileSize)));
         }
 

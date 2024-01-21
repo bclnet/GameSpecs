@@ -13,7 +13,7 @@ namespace GameSpec.Valve.Formats.Extras
             // Magic is at the end
             r.BaseStream.Seek(-MAGIC.Length, SeekOrigin.End);
             if (Encoding.ASCII.GetString(r.ReadBytes(MAGIC.Length)) != MAGIC) throw new InvalidDataException("Given file is not a vfont, version 1.");
-            r.Seek(-1 - MAGIC.Length, SeekOrigin.End);
+            r.End(-1 - MAGIC.Length);
 
             // How many magic bytes there are
             var bytes = r.ReadByte();
@@ -21,7 +21,7 @@ namespace GameSpec.Valve.Formats.Extras
             var magic = (int)MAGICTRICK;
 
             // Read the magic bytes
-            r.Seek(-bytes, SeekOrigin.Current);
+            r.Skip(-bytes);
             bytes--;
             for (var i = 0; i < bytes; i++) magic ^= (r.ReadByte() + MAGICTRICK) % 256;
 

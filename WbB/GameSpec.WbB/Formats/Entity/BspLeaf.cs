@@ -23,7 +23,7 @@ namespace GameSpec.WbB.Formats.Entity
                 Solid = r.ReadInt32();
                 // Note that if Solid is equal to 0, these values will basically be null. Still read them, but they don't mean anything.
                 Sphere = new Sphere(r);
-                InPolys = r.ReadL32Array<ushort>(sizeof(ushort));
+                InPolys = r.ReadL32TArray<ushort>(sizeof(ushort));
             }
         }
 

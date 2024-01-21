@@ -2,6 +2,7 @@
 using GameSpec.Platforms;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -238,7 +239,7 @@ namespace GameSpec
             Family = family;
             Id = id;
             Ignore = _valueBool(elem, "n/a", dgame.Ignore);
-            Name = _value(elem, "name");
+            Name = _value(elem, "name"); Debugger.Log(0, null, $"Game: {Name}\n");
             Engine = _value(elem, "engine", dgame.Engine);
             Resource = _value(elem, "resource", dgame.Resource);
             Urls = _list(elem, "url", x => new Uri(x));
@@ -316,7 +317,8 @@ namespace GameSpec
             searchPattern = CreateSearchPatterns(searchPattern);
             if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
-            foreach (var key in (new string[] { null }).Concat(Dlcs.Keys))
+            var dlcKeys = Dlcs.Where(x => string.IsNullOrEmpty(x.Value.Path)).Select(x => x.Key).ToArray();
+            foreach (var key in (new string[] { null }).Concat(dlcKeys))
                 foreach (var p in FindPaths(fileSystem, edition, key != null ? Dlcs[key] : null, searchPattern))
                     switch (SearchBy)
                     {

@@ -3,10 +3,11 @@ using System.IO;
 
 namespace GameSpec.Bethesda.Formats.Records
 {
-    public class TES4Record : Record
+    public unsafe class TES4Record : Record
     {
         public struct HEDRField
         {
+            public static (string, int) Struct = ("<fiI", sizeof(HEDRField));
             public float Version;
             public int NumRecords; // Number of records and groups (not including TES4 record itself).
             public uint NextObjectId; // Next available object ID.
@@ -27,7 +28,7 @@ namespace GameSpec.Bethesda.Formats.Records
         {
             switch (type)
             {
-                case "HEDR": HEDR = r.ReadT<HEDRField>(dataSize); return true;
+                case "HEDR": HEDR = r.ReadS2<HEDRField>(HEDRField.Struct, dataSize); return true;
                 case "OFST": r.Skip(dataSize); return true;
                 case "DELE": r.Skip(dataSize); return true;
                 case "CNAM": CNAM = r.ReadSTRV(dataSize); return true;
@@ -35,8 +36,8 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "MAST": if (MASTs == null) MASTs = new List<STRVField>(); MASTs.Add(r.ReadSTRV(dataSize)); return true;
                 case "DATA": if (DATAs == null) DATAs = new List<INTVField>(); DATAs.Add(r.ReadINTV(dataSize)); return true;
                 case "ONAM": ONAM = r.ReadUNKN(dataSize); return true;
-                case "INTV": INTV = r.ReadT<IN32Field>(dataSize); return true;
-                case "INCC": INCC = r.ReadT<IN32Field>(dataSize); return true;
+                case "INTV": INTV = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
+                case "INCC": INCC = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 // TES5
                 case "TNAM": TNAM = r.ReadUNKN(dataSize); return true;
                 default: return false;

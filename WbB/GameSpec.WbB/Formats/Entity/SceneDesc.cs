@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.Entity
         public readonly SceneType[] SceneTypes;
 
         public SceneDesc(BinaryReader r)
-            => SceneTypes = r.ReadL32Array(x => new SceneType(x));
+            => SceneTypes = r.ReadL32FArray(x => new SceneType(x));
 
         //: Entity.SceneDesc
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)

@@ -14,10 +14,6 @@ namespace GameSpec.Arkane.Formats.Danae
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Ftl(r));
 
-        public Binary_Ftl(BinaryReader r) => Read(r);
-
-        public E_3DOBJ Obj;
-
         #region FTL Headers
 
         const int FTL_MAGIC = 0x004c5446;
@@ -26,6 +22,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_HEADER
         {
+            public static (string, int) Struct = ("<6i", sizeof(FTL_HEADER));
             public int Offset3Ddata;                // -1 = no
             public int OffsetCylinder;              // -1 = no
             public int OffsetProgressiveData;       // -1 = no
@@ -37,12 +34,14 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_PROGRESSIVEHEADER
         {
+            public static (string, int) Struct = ("<i", sizeof(FTL_PROGRESSIVEHEADER)); 
             public int NumVertex;
         }
 
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_CLOTHESHEADER
         {
+            public static (string, int) Struct = ("<2i", sizeof(FTL_CLOTHESHEADER));
             public int NumCvert;
             public int NumSprings;
         }
@@ -50,13 +49,14 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_COLLISIONSPHERESHEADER
         {
+            public static (string, int) Struct = ("<i", sizeof(FTL_COLLISIONSPHERESHEADER)); 
             public int NumSpheres;
         }
 
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_3DHEADER
         {
-            public const int SizeOf = 28 + 256;
+            public static (string, int) Struct = ("<7i256s", 28 + 256);
             public int NumVertex;
             public int NumFaces;
             public int NumMaps;
@@ -70,10 +70,10 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_VERTEX
         {
+            public static (string, int) Struct = ($"<{"4f2I3f"}f3f3", sizeof(FTL_VERTEX));
             public TLVERTEX Vert;
             public Vector3 V;
             public Vector3 Norm;
-
             public static implicit operator E_VERTEX(FTL_VERTEX s)
                 => new E_VERTEX
                 {
@@ -87,6 +87,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_TEXTURE
         {
+            public static (string, int) Struct = ("<256s", 256);
             public const int SizeOf = 256;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string Name;
             public static implicit operator E_TEXTURE(FTL_TEXTURE s)
@@ -110,8 +111,9 @@ namespace GameSpec.Arkane.Formats.Danae
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        unsafe struct FTL_FACE
+        struct FTL_FACE
         {
+            public static (string, int) Struct = ("<?", sizeof(FTL_FACE));
             public int FaceType;  // 0 = flat, 1 = text, 2 = Double-Side
             public Vector3<int> Rgb;
             public Vector3<ushort> Vid;
@@ -143,6 +145,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_GROUPLIST
         {
+            public static (string, int) Struct = ("<256s3if", 256 + 16);
             public const int SizeOf = 256 + 16;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string Name;
             public int Origin;
@@ -162,7 +165,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_ACTIONLIST
         {
-            public const int SizeOf = 256 + 12;
+            public static (string, int) Struct = ("<256s3i", 256 + 12);
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string Name;
             public int Idx; //index vertex;
             public int Act; //action
@@ -180,7 +183,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTL_SELECTIONS
         {
-            public const int SizeOf = 64 + 8;
+            public static (string, int) Struct = ("<64s2i", 64 + 8);
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)] string Name;
             public int NumSelected;
             public int Trash; //Selected;
@@ -194,18 +197,10 @@ namespace GameSpec.Arkane.Formats.Danae
 
         #endregion
 
-        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
-        {
-            var nodes = new List<MetaInfo> {
-                new MetaInfo("BinaryFTL", items: new List<MetaInfo> {
-                    new MetaInfo($"Obj: {Obj}"),
-                })
-            };
-            return nodes;
-        }
+        public E_3DOBJ Obj;
 
         // https://github.com/OpenSourcedGames/Arx-Fatalis/blob/master/Sources/DANAE/ARX_FTL.cpp#L575
-        public unsafe void Read(BinaryReader r)
+        public Binary_Ftl(BinaryReader r)
         {
             Obj = new E_3DOBJ();
             var magic = r.ReadUInt32();
@@ -213,13 +208,13 @@ namespace GameSpec.Arkane.Formats.Danae
             var version = r.ReadSingle();
             if (version != FTL_VERSION) throw new FormatException($"Invalid FLT version: \"{version}\".");
             r.Skip(512); // skip checksum
-            var header = r.ReadT<FTL_HEADER>(sizeof(FTL_HEADER));
+            var header = r.ReadS<FTL_HEADER>(FTL_HEADER.Struct);
 
             // Check For & Load 3D Data
             if (header.Offset3Ddata != -1)
             {
                 r.Seek(header.Offset3Ddata);
-                var _3Dh = r.ReadT<FTL_3DHEADER>(FTL_3DHEADER.SizeOf);
+                var _3Dh = r.ReadS<FTL_3DHEADER>(FTL_3DHEADER.Struct);
                 Obj.NumVertex = _3Dh.NumVertex;
                 Obj.NumFaces = _3Dh.NumFaces;
                 Obj.NumMaps = _3Dh.NumMaps;
@@ -254,7 +249,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 // Alloc'n'Copy textures
                 if (_3Dh.NumMaps > 0)
                 {
-                    var textures = r.ReadTArrayEach<FTL_TEXTURE>(FTL_TEXTURE.SizeOf, _3Dh.NumMaps);
+                    var textures = r.ReadTEach<FTL_TEXTURE>(FTL_TEXTURE.SizeOf, _3Dh.NumMaps);
                     Obj.Textures = new E_TEXTURE[_3Dh.NumMaps];
                     for (var i = 0; i < Obj.Textures.Length; i++)
                         Obj.Textures[i] = textures[i];
@@ -263,7 +258,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 // Alloc'n'Copy groups
                 if (_3Dh.NumGroups > 0)
                 {
-                    var groupList = r.ReadTArrayEach<FTL_GROUPLIST>(FTL_GROUPLIST.SizeOf, _3Dh.NumGroups);
+                    var groupList = r.ReadTEach<FTL_GROUPLIST>(FTL_GROUPLIST.SizeOf, _3Dh.NumGroups);
                     Obj.GroupList = new E_GROUPLIST[_3Dh.NumGroups];
                     for (var i = 0; i < Obj.GroupList.Length; i++)
                     {
@@ -275,7 +270,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 // Alloc'n'Copy action points
                 if (_3Dh.NumAction > 0)
                 {
-                    var actionList = r.ReadTArrayEach<FTL_ACTIONLIST>(FTL_ACTIONLIST.SizeOf, _3Dh.NumAction);
+                    var actionList = r.ReadTEach<FTL_ACTIONLIST>(FTL_ACTIONLIST.Struct.Item2, _3Dh.NumAction);
                     Obj.ActionList = new E_ACTIONLIST[_3Dh.NumAction];
                     for (var i = 0; i < Obj.ActionList.Length; i++)
                         Obj.ActionList[i] = actionList[i];
@@ -284,7 +279,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 // Alloc'n'Copy selections
                 if (_3Dh.NumSelections > 0)
                 {
-                    var selections = r.ReadTArray(x => r.ReadT<FTL_SELECTIONS>(FTL_SELECTIONS.SizeOf), _3Dh.NumSelections);
+                    var selections = r.ReadFArray(x => r.ReadS<FTL_SELECTIONS>(FTL_SELECTIONS.Struct), _3Dh.NumSelections);
                     Obj.Selections = new E_SELECTIONS[_3Dh.NumSelections];
                     for (var i = 0; i < Obj.Selections.Length; i++)
                     {
@@ -298,7 +293,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (header.OffsetCollisionSpheres != -1)
             {
                 r.Seek(header.OffsetCollisionSpheres);
-                var csh = r.ReadT<FTL_COLLISIONSPHERESHEADER>(sizeof(FTL_COLLISIONSPHERESHEADER));
+                var csh = r.ReadS<FTL_COLLISIONSPHERESHEADER>(FTL_COLLISIONSPHERESHEADER.Struct);
                 Obj.Sdata = new COLLISION_SPHERES_DATA
                 {
                     NumSpheres = csh.NumSpheres,
@@ -310,7 +305,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (header.OffsetProgressiveData != -1)
             {
                 r.Seek(header.OffsetProgressiveData);
-                var ph = r.ReadT<FTL_PROGRESSIVEHEADER>(sizeof(FTL_PROGRESSIVEHEADER));
+                var ph = r.ReadS<FTL_PROGRESSIVEHEADER>(FTL_PROGRESSIVEHEADER.Struct);
                 r.Skip(sizeof(PROGRESSIVE_DATA) * ph.NumVertex);
             }
 
@@ -318,7 +313,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (header.OffsetClothesData != -1)
             {
                 r.Seek(header.OffsetClothesData);
-                var ch = r.ReadT<FTL_CLOTHESHEADER>(sizeof(FTL_CLOTHESHEADER));
+                var ch = r.ReadS<FTL_CLOTHESHEADER>(FTL_CLOTHESHEADER.Struct);
                 Obj.Cdata = new CLOTHES_DATA
                 {
                     NumCvert = (short)ch.NumCvert,
@@ -327,6 +322,17 @@ namespace GameSpec.Arkane.Formats.Danae
                     Springs = r.ReadTArray<E_SPRINGS>(sizeof(E_SPRINGS), ch.NumSprings),
                 };
             }
+        }
+
+        // IHaveMetaInfo
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
+        {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryFTL", items: new List<MetaInfo> {
+                    new MetaInfo($"Obj: {Obj}"),
+                })
+            };
+            return nodes;
         }
     }
 }

@@ -10,12 +10,13 @@ namespace GameSpec.Arkane.Formats
 {
     public unsafe class PakBinary_Void : PakBinary<PakBinary_Void>
     {
-        const uint RES_MAGIC = 0x04534552;
+        #region Headers
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct V_File
         {
-            public static string Map = "B8B4B4B4B4B2";
+            //public static string Map = "B8B4B4B4B4B2";
+            public static (string, int) Struct = (">QIIIIH", sizeof(V_File));
             public ulong Position;
             public uint FileSize;
             public uint PackedSize;
@@ -23,6 +24,8 @@ namespace GameSpec.Arkane.Formats
             public uint Flags;
             public ushort Flags2;
         }
+
+        #endregion
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
@@ -32,12 +35,13 @@ namespace GameSpec.Arkane.Formats
             // master.index file
             if (source.FilePath == "master.index")
             {
+                const uint MAGIC = 0x04534552;
                 const uint SubMarker = 0x18000000;
                 const uint EndMarker = 0x01000000;
 
                 var files2 = source.Files = new List<FileSource>();
                 var magic = r.ReadUInt32E();
-                if (magic != RES_MAGIC) throw new FormatException("BAD MAGIC");
+                if (magic != MAGIC) throw new FormatException("BAD MAGIC");
                 r.Skip(4);
                 var first = true;
                 while (true)
@@ -79,7 +83,7 @@ namespace GameSpec.Arkane.Formats
                 var tag1 = r.ReadL32Encoding();
                 var tag2 = r.ReadL32Encoding();
                 var path = (r.ReadL32Encoding() ?? "").Replace('\\', '/');
-                var file = r.ReadTE<V_File>(sizeof(V_File), V_File.Map);
+                var file = r.ReadS<V_File>(V_File.Struct);
                 //var position = r.ReadUInt64E();
                 //var fileSize = r.ReadUInt32E();
                 //var packedSize = r.ReadUInt32E();
@@ -96,7 +100,7 @@ namespace GameSpec.Arkane.Formats
                     Compressed = file.FileSize != file.PackedSize ? 1 : 0,
                     FileSize = file.FileSize,
                     PackedSize = file.PackedSize,
-                    Position = (long)file.Position,
+                    Offset = (long)file.Position,
                     Tag = (newPath, tag1, tag2),
                 };
             }
@@ -105,11 +109,11 @@ namespace GameSpec.Arkane.Formats
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            if (file.FileSize == 0 || _badPositions.Contains(file.Position)) return Task.FromResult(System.IO.Stream.Null);
+            if (file.FileSize == 0 || _badPositions.Contains(file.Offset)) return Task.FromResult(System.IO.Stream.Null);
             var (path, tag1, tag2) = ((string, string, string))file.Tag;
             return Task.FromResult((Stream)new MemoryStream(source.GetReader(path).Func(r2 =>
             {
-                r2.Seek(file.Position);
+                r2.Seek(file.Offset);
                 return file.Compressed != 0
                     ? r2.DecompressZlib((int)file.PackedSize, (int)file.FileSize)
                     : r2.ReadBytes((int)file.PackedSize);

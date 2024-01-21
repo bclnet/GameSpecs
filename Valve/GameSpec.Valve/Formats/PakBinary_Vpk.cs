@@ -20,8 +20,8 @@ namespace GameSpec.Valve.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct Header
         {
-            public const int SizeOfV1 = 4;
-            public const int SizeOfV2 = 20;
+            public static (string, int) StructV1 = ("<I", 4);
+            public static (string, int) StructV2 = ("<5I", sizeof(Header));
             public uint TreeSize;
             public uint FileDataSectionSize;
             public uint ArchiveMd5SectionSize;
@@ -106,7 +106,7 @@ namespace GameSpec.Valve.Formats
             if (r.ReadUInt32() != MAGIC) throw new FormatException("BAD MAGIC");
             var version = r.ReadUInt32();
             if (version > 2) throw new FormatException($"Bad VPK version. ({version})");
-            var header = r.ReadT<Header>(version == 1 ? Header.SizeOfV1 : Header.SizeOfV2);
+            var header = r.ReadS<Header>(version == 1 ? Header.StructV1 : Header.StructV2);
             var headerPosition = (uint)r.Tell();
 
             // sourceFilePath
@@ -140,7 +140,7 @@ namespace GameSpec.Valve.Formats
                             Hash = r.ReadUInt32(),
                             Extra = new byte[r.ReadUInt16()],
                             Id = r.ReadUInt16(),
-                            Position = r.ReadUInt32(),
+                            Offset = r.ReadUInt32(),
                             FileSize = r.ReadUInt32(),
                         };
                         if (metadata.Id != 0x7FFF)
@@ -187,12 +187,12 @@ namespace GameSpec.Valve.Formats
                 if (file.Tag is string path)
                     source.GetReader(path).Action(r2 =>
                     {
-                        r2.Seek(file.Position);
+                        r2.Seek(file.Offset);
                         r2.Read(data, file.Extra.Length, (int)file.FileSize);
                     });
                 else
                 {
-                    r.Seek(file.Position + (long)file.Tag);
+                    r.Seek(file.Offset + (long)file.Tag);
                     r.Read(data, file.Extra.Length, (int)file.FileSize);
                 }
             }

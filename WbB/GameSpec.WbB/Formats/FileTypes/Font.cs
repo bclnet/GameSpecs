@@ -28,7 +28,7 @@ namespace GameSpec.WbB.Formats.FileTypes
             Id = r.ReadUInt32();
             MaxCharHeight = r.ReadUInt32();
             MaxCharWidth = r.ReadUInt32();
-            CharDescs = r.ReadL32Array(x => new FontCharDesc(x));
+            CharDescs = r.ReadL32FArray(x => new FontCharDesc(x));
             NumHorizontalBorderPixels = r.ReadUInt32();
             NumVerticalBorderPixels = r.ReadUInt32();
             BaselineOffset = r.ReadUInt32();

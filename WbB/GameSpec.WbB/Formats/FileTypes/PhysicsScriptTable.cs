@@ -13,12 +13,12 @@ namespace GameSpec.WbB.Formats.FileTypes
     [PakFileType(PakFileType.PhysicsScriptTable)]
     public class PhysicsScriptTable : FileType, IHaveMetaInfo
     {
-        public readonly Dictionary<uint, PhysicsScriptTableData> ScriptTable;
+        public readonly IDictionary<uint, PhysicsScriptTableData> ScriptTable;
 
         public PhysicsScriptTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            ScriptTable = r.ReadL32Many<uint, PhysicsScriptTableData>(sizeof(uint), x => new PhysicsScriptTableData(x));
+            ScriptTable = r.ReadL32TMany<uint, PhysicsScriptTableData>(sizeof(uint), x => new PhysicsScriptTableData(x));
         }
 
         //: FileTypes.PhysicsScriptTable

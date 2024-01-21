@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.Entity
 
         public SoundData(BinaryReader r)
         {
-            Data = r.ReadL32Array(x => new SoundTableData(x));
+            Data = r.ReadL32FArray(x => new SoundTableData(x));
             Unknown = r.ReadUInt32();
         }
 

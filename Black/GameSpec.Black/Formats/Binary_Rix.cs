@@ -29,6 +29,9 @@ namespace GameSpec.Black.Formats
 
         #endregion
 
+        byte[] Bytes;
+        (object gl, object vulken, object unity, object unreal) Format;
+
         public Binary_Rix(BinaryReader r, FileSource f)
         {
             var header = r.ReadT<Header>(sizeof(Header));
@@ -55,9 +58,7 @@ namespace GameSpec.Black.Formats
             Height = header.Height;
         }
 
-        byte[] Bytes;
-        (object gl, object vulken, object unity, object unreal) Format;
-
+        // ITexture
         public IDictionary<string, object> Data => null;
         public int Width { get; }
         public int Height { get; }
@@ -81,6 +82,7 @@ namespace GameSpec.Black.Formats
         }
         public void End() { }
 
+        // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
             new MetaInfo(null, new MetaContent { Type = "Texture", Name = Path.GetFileName(file.Path), Value = this }),
             new MetaInfo($"{nameof(Binary_Rix)}", items: new List<MetaInfo> {

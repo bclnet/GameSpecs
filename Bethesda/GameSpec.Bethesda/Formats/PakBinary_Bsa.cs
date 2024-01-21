@@ -47,6 +47,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct OB_Header
         {
+            public static (string, int) Struct = ("<IIIIIIII", sizeof(OB_Header));
             public uint Version;            // 04
             public uint FolderRecordOffset; // Offset of beginning of folder records
             public uint ArchiveFlags;       // Archive flags
@@ -60,6 +61,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct OB_Folder
         {
+            public static (string, int) Struct = ("<QII", sizeof(OB_Folder));
             public ulong Hash;              // Hash of the folder name
             public uint FileCount;          // Number of files in folder
             public uint Offset;             // The offset
@@ -68,6 +70,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct OB_FolderSSE
         {
+            public static (string, int) Struct = ("<QIIQ", sizeof(OB_Folder));
             public ulong Hash;              // Hash of the folder name
             public uint FileCount;          // Number of files in folder
             public uint Unk;                // Unknown
@@ -77,6 +80,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct OB_File
         {
+            public static (string, int) Struct = ("<QII", sizeof(OB_Folder));
             public ulong Hash;              // Hash of the filename
             public uint Size;               // Size of the data, possibly with OB_BSAFILE_SIZECOMPRESS set
             public uint Offset;             // Offset to raw file data
@@ -94,6 +98,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct MW_Header
         {
+            public static (string, int) Struct = ("<II", sizeof(MW_Header));
             public uint HashOffset;         // Offset of hash table minus header size (12)
             public uint FileCount;          // Number of files in the archive
         }
@@ -101,6 +106,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct MW_File
         {
+            public static (string, int) Struct = ("<II", sizeof(MW_File));
             public uint FileSize;           // File size
             public uint FileOffset;         // File offset relative to data position
             public readonly uint Size => FileSize > 0 ? FileSize & 0x3FFFFFFF : 0; // The size of the file inside the BSA
@@ -116,7 +122,7 @@ namespace GameSpec.Bethesda.Formats
             // Oblivion - Skyrim
             if (magic == OB_BSAHEADER_FILEID)
             {
-                var header = r.ReadT<OB_Header>(sizeof(OB_Header));
+                var header = r.ReadS<OB_Header>(OB_Header.Struct);
                 if (header.Version != OB_BSAHEADER_VERSION && header.Version != F3_BSAHEADER_VERSION && header.Version != SSE_BSAHEADER_VERSION)
                     throw new FormatException("BAD MAGIC");
                 if ((header.ArchiveFlags & OB_BSAARCHIVE_PATHNAMES) == 0 || (header.ArchiveFlags & OB_BSAARCHIVE_FILENAMES) == 0)
@@ -148,7 +154,7 @@ namespace GameSpec.Bethesda.Formats
                         files[fileIdx++] = new FileSource
                         {
                             Path = folderName,
-                            Position = headerFile.Offset,
+                            Offset = headerFile.Offset,
                             Compressed = compressed ^ compressedToggle ? 1 : 0,
                             PackedSize = packedSize,
                             FileSize = source.Version == SSE_BSAHEADER_VERSION ? packedSize & OB_BSAFILE_SIZEMASK : packedSize,
@@ -162,7 +168,7 @@ namespace GameSpec.Bethesda.Formats
             // Morrowind
             else if (magic == MW_BSAHEADER_FILEID)
             {
-                var header = r.ReadT<MW_Header>(sizeof(MW_Header));
+                var header = r.ReadS<MW_Header>(MW_Header.Struct);
                 var dataOffset = 12 + header.HashOffset + (8 * header.FileCount);
 
                 // create filesources
@@ -174,7 +180,7 @@ namespace GameSpec.Bethesda.Formats
                     var size = headerFile.Size;
                     files[i] = new FileSource
                     {
-                        Position = dataOffset + headerFile.FileOffset,
+                        Offset = dataOffset + headerFile.FileOffset,
                         FileSize = size,
                         PackedSize = size,
                     };
@@ -199,13 +205,13 @@ namespace GameSpec.Bethesda.Formats
         {
             // position
             var fileSize = (int)file.FileSize;
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             if (source.Tag is char? && ((char?)source.Tag).Value == 'Y')
             {
                 var prefixLength = r.ReadByte() + 1;
                 if (source.Version == SSE_BSAHEADER_VERSION)
                     fileSize -= prefixLength;
-                r.Seek(file.Position + prefixLength);
+                r.Seek(file.Offset + prefixLength);
             }
 
             // not compressed

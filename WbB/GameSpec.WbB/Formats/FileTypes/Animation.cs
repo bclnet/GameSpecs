@@ -27,8 +27,8 @@ namespace GameSpec.WbB.Formats.FileTypes
             Flags = (AnimationFlags)r.ReadUInt32();
             NumParts = r.ReadUInt32();
             NumFrames = r.ReadUInt32();
-            if ((Flags & AnimationFlags.PosFrames) != 0) PosFrames = r.ReadTArray(x => new Frame(x), (int)NumFrames);
-            PartFrames = r.ReadTArray(x => new AnimationFrame(x, NumParts), (int)NumFrames);
+            if ((Flags & AnimationFlags.PosFrames) != 0) PosFrames = r.ReadFArray(x => new Frame(x), (int)NumFrames);
+            PartFrames = r.ReadFArray(x => new AnimationFrame(x, NumParts), (int)NumFrames);
         }
 
         //: FileTypes.Animation

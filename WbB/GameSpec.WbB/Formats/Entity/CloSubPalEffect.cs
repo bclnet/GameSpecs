@@ -17,7 +17,7 @@ namespace GameSpec.WbB.Formats.Entity
         public CloSubPalEffect(BinaryReader r)
         {
             Icon = r.ReadUInt32();
-            CloSubPalettes = r.ReadL32Array(x => new CloSubPalette(x));
+            CloSubPalettes = r.ReadL32FArray(x => new CloSubPalette(x));
         }
 
         //: Entity.ClothingSubPaletteEffect

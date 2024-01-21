@@ -18,8 +18,8 @@ namespace GameSpec.Bethesda.Formats.Records
             switch (type)
             {
                 case "EDID": EDID = r.ReadSTRV(dataSize); return true;
-                case "LVLD": LVLD = r.ReadT<BYTEField>(dataSize); return true;
-                case "LVLF": LVLF = r.ReadT<BYTEField>(dataSize); return true;
+                case "LVLD": LVLD = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
+                case "LVLF": LVLF = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
                 case "SCRI": SCRI = new FMIDField<SCPTRecord>(r, dataSize); return true;
                 case "TNAM": TNAM = new FMIDField<CREARecord>(r, dataSize); return true;
                 case "LVLO": LVLOs.Add(new LVLIRecord.LVLOField(r, dataSize)); return true;

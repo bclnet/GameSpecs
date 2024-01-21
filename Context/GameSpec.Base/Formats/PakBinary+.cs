@@ -1,5 +1,4 @@
-﻿using ICSharpCode.SharpZipLib.Zip;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Formats

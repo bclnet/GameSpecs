@@ -78,7 +78,7 @@ namespace GameSpec.Capcom.Formats
                         Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z)
                             ? z.Replace('\\', '/')
                             : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Position, 0)}",
-                        Position = x.Position,
+                        Offset = x.Position,
                         FileSize = x.FileSize,
                     }).ToArray();
             }
@@ -92,7 +92,7 @@ namespace GameSpec.Capcom.Formats
                         Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z)
                             ? z.Replace('\\', '/')
                             : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Position, compressed)}",
-                        Position = x.Position,
+                        Offset = x.Position,
                         PackedSize = x.PackedSize,
                         FileSize = x.FileSize,
                     }).ToArray();
@@ -102,7 +102,7 @@ namespace GameSpec.Capcom.Formats
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult<Stream>(new MemoryStream(Decompress(r, file.Compressed, (int)file.PackedSize, (int)file.FileSize)));
         }
 

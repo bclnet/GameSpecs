@@ -57,7 +57,7 @@ namespace GameSpec.Arkane.Formats
                         var file = new FileSource
                         {
                             Path = dirPath + readString(ref c).Replace('\\', '/'),
-                            Position = readInt32(ref c),
+                            Offset = readInt32(ref c),
                             Compressed = readInt32(ref c),
                             FileSize = readInt32(ref c),
                             PackedSize = readInt32(ref c),
@@ -73,7 +73,7 @@ namespace GameSpec.Arkane.Formats
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult((Stream)new MemoryStream((file.Compressed & 1) != 0
                 ? r.DecompressBlast((int)file.PackedSize, (int)file.FileSize)
                 : r.ReadBytes((int)file.PackedSize)));

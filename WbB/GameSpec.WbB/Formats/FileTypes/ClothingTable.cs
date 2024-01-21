@@ -21,17 +21,17 @@ namespace GameSpec.WbB.Formats.FileTypes
         /// <summary>
         /// Key is the setup model id
         /// </summary>
-        public readonly Dictionary<uint, ClothingBaseEffect> ClothingBaseEffects;
+        public readonly IDictionary<uint, ClothingBaseEffect> ClothingBaseEffects;
         /// <summary>
         /// Key is PaletteTemplate
         /// </summary>
-        public readonly Dictionary<uint, CloSubPalEffect> ClothingSubPalEffects;
+        public readonly IDictionary<uint, CloSubPalEffect> ClothingSubPalEffects;
 
         public ClothingTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            ClothingBaseEffects = r.ReadL16Many<uint, ClothingBaseEffect>(sizeof(uint), x => new ClothingBaseEffect(x), offset: 2);
-            ClothingSubPalEffects = r.ReadL16Many<uint, CloSubPalEffect>(sizeof(uint), x => new CloSubPalEffect(x), offset: 2);
+            ClothingBaseEffects = r.Skip(2).ReadL16TMany<uint, ClothingBaseEffect>(sizeof(uint), x => new ClothingBaseEffect(x));
+            ClothingSubPalEffects = r.Skip(2).ReadL16TMany<uint, CloSubPalEffect>(sizeof(uint), x => new CloSubPalEffect(x));
         }
 
         //: FileTypes.ClothingTable

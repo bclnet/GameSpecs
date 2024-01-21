@@ -21,6 +21,7 @@ namespace GameSpec.Formats
         [StructLayout(LayoutKind.Sequential)]
         struct BSP_Header
         {
+            public static (string, int) Struct = ("<31i", sizeof(BSP_Header));
             public int Version;
             public BSP_Lump Entities;
             public BSP_Lump Planes;
@@ -42,6 +43,7 @@ namespace GameSpec.Formats
         [StructLayout(LayoutKind.Sequential)]
         struct BSP_Lump
         {
+            public static (string, int) Struct = ("<2i", sizeof(BSP_Lump));
             public int Offset;
             public int Length;
         }
@@ -49,6 +51,7 @@ namespace GameSpec.Formats
         [StructLayout(LayoutKind.Sequential)]
         struct SPR_Frame
         {
+            public static (string, int) Struct = ("<5i", sizeof(SPR_Frame));
             public int Group;
             public int OriginX;
             public int OriginY;
@@ -85,7 +88,7 @@ namespace GameSpec.Formats
         public Binary_Bsp(BinaryReader r, FileSource f)
         {
             // read file
-            var header = r.ReadT<BSP_Header>(sizeof(BSP_Header));
+            var header = r.ReadS<BSP_Header>(BSP_Header.Struct);
             if (header.Version != 30) throw new FormatException("BAD VERSION");
         }
 

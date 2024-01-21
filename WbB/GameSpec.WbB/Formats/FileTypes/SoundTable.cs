@@ -19,14 +19,14 @@ namespace GameSpec.WbB.Formats.FileTypes
         // Not quite sure what this is for, but it's the same in every file.
         public readonly SoundTableData[] SoundHash;
         // The uint key corresponds to an Enum.Sound
-        public readonly Dictionary<uint, SoundData> Data;
+        public readonly IDictionary<uint, SoundData> Data;
 
         public SoundTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
             Unknown = r.ReadUInt32();
-            SoundHash = r.ReadL32Array(x => new SoundTableData(x));
-            Data = r.ReadL16Many<uint, SoundData>(sizeof(uint), x => new SoundData(x), offset: 2);
+            SoundHash = r.ReadL32FArray(x => new SoundTableData(x));
+            Data = r.Skip(2).ReadL16TMany<uint, SoundData>(sizeof(uint), x => new SoundData(x));
         }
 
         //: FileTypes.SoundTable

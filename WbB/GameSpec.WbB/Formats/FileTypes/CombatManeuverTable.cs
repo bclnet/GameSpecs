@@ -21,7 +21,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public CombatManeuverTable(BinaryReader r)
         {
             Id = r.ReadUInt32(); // This should always equal the fileId
-            CMT = r.ReadL32Array(x => new CombatManeuver(x));
+            CMT = r.ReadL32FArray(x => new CombatManeuver(x));
             Stances = new Dictionary<MotionStance, AttackHeights>();
             foreach (var maneuver in CMT)
             {

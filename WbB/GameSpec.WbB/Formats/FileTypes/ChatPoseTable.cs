@@ -14,15 +14,15 @@ namespace GameSpec.WbB.Formats.FileTypes
         public const uint FILE_ID = 0x0E000007;
 
         // Key is a emote command, value is the state you are enter into
-        public readonly Dictionary<string, string> ChatPoseHash;
+        public readonly IDictionary<string, string> ChatPoseHash;
         // Key is the state, value are the strings that players see during the emote
-        public readonly Dictionary<string, ChatEmoteData> ChatEmoteHash;
+        public readonly IDictionary<string, ChatEmoteData> ChatEmoteHash;
 
         public ChatPoseTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            ChatPoseHash = r.ReadL16Many(x => { var v = x.ReadL16Encoding(Encoding.Default); x.Align(); return v; }, x => { var v = x.ReadL16Encoding(Encoding.Default); x.Align(); return v; }, offset: 2);
-            ChatEmoteHash = r.ReadL16Many(x => { var v = x.ReadL16Encoding(Encoding.Default); x.Align(); return v; }, x => new ChatEmoteData(x), offset: 2);
+            ChatPoseHash = r.Skip(2).ReadL16FMany(x => { var v = x.ReadL16Encoding(Encoding.Default); x.Align(); return v; }, x => { var v = x.ReadL16Encoding(Encoding.Default); x.Align(); return v; });
+            ChatEmoteHash = r.Skip(2).ReadL16FMany(x => { var v = x.ReadL16Encoding(Encoding.Default); x.Align(); return v; }, x => new ChatEmoteData(x));
         }
 
         //: FileTypes.ChatPoseTable

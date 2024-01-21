@@ -13,8 +13,8 @@ namespace GameSpec.WbB.Formats.Entity
 
         public AnimationFrame(BinaryReader r, uint numParts)
         {
-            Frames = r.ReadTArray(x => new Frame(r), (int)numParts);
-            Hooks = r.ReadL32Array(AnimationHook.Factory);
+            Frames = r.ReadFArray(x => new Frame(r), (int)numParts);
+            Hooks = r.ReadL32FArray(AnimationHook.Factory);
         }
 
         //: Entity.AnimationFrame

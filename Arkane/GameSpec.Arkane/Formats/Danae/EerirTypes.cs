@@ -6,7 +6,6 @@ using static GameSpec.Arkane.Formats.Danae.Binary_Ftl;
 
 namespace GameSpec.Arkane.Formats.Danae
 {
-
     //struct
     //{
 
@@ -93,20 +92,22 @@ namespace GameSpec.Arkane.Formats.Danae
     //    D3DVALUE _41, _42, _43, _44;
     //}
 
-    public struct E_CYLINDER
+    public unsafe struct E_CYLINDER
     {
+        public static (string, int) Struct = ("<5f", sizeof(E_CYLINDER));
         public Vector3 origin;
         public float radius;
         public float height;
     }
 
-    public struct E_SPHERE
+    public unsafe struct E_SPHERE
     {
+        public static (string, int) Struct = ("<4f", sizeof(E_SPHERE));
         public Vector3 Origin;
         public float Radius;
     }
 
-    public struct E_POLY
+    public unsafe struct E_POLY
     {
         public POLY Type;  // at least 16 bits
         public Vector3 Min;
@@ -130,7 +131,7 @@ namespace GameSpec.Arkane.Formats.Danae
         }
     }
 
-    public struct E_VERTEX
+    public unsafe struct E_VERTEX
     {
         public TLVERTEX Vert;
         public Vector3 V;
@@ -614,8 +615,9 @@ namespace GameSpec.Arkane.Formats.Danae
     //Portal Data;
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SAVE_EERIEPOLY
+    public unsafe struct SAVE_EERIEPOLY
     {
+        public static (string, int) Struct = ("<?", sizeof(SAVE_EERIEPOLY));
         public POLY Type;  // at least 16 bits
         public Vector3 Min;
         public Vector3 Max;
@@ -633,8 +635,9 @@ namespace GameSpec.Arkane.Formats.Danae
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct E_SAVE_PORTALS
+    public unsafe struct E_SAVE_PORTALS
     {
+        public static (string, int) Struct = ("<?", sizeof(E_SAVE_PORTALS));
         public SAVE_EERIEPOLY Poly;
         public int Room1; // facing normal
         public int Room2;
@@ -642,8 +645,9 @@ namespace GameSpec.Arkane.Formats.Danae
         public short Paddy;
     }
 
-    public struct E_PORTALS
+    public unsafe struct E_PORTALS
     {
+        public static (string, int) Struct = ("<?", sizeof(E_PORTALS));
         public E_POLY Poly;
         public int Room1; // facing normal
         public int Room2;
@@ -680,6 +684,7 @@ namespace GameSpec.Arkane.Formats.Danae
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct E_SAVE_ROOM_DATA
     {
+        public static (string, int) Struct = ("<2i6i", sizeof(E_SAVE_ROOM_DATA));
         public int NumPortals;
         public int NumPolys;
         public fixed int Padd[6];

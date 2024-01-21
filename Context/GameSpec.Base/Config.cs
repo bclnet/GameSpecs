@@ -1,6 +1,6 @@
 ﻿//#define Arkane
 //#define Bethesda
-#define Bioware
+//#define Bioware
 //#define Black
 //#define Blizzard
 //#define Capcom
@@ -14,7 +14,7 @@
 //#define Id
 //#define IW
 //#define Monolith
-//#define Origin
+#define Origin
 //#define Red
 //#define Ubisoft
 //#define Unity
@@ -204,7 +204,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:0",
+            ForcePath = "sample:1",
             Family = "Cryptic",
             Game = "CO", // Champions Online [open, read]
             //Game = "STO", // Star Trek Online [open, read]
@@ -345,10 +345,11 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:*",
+            ForcePath = "sample:0",
             Family = "Origin",
+            Game = "U8", // Ultima 8
+            //Game = "U9", // Ultima IX
             //Game = "UO", // Ultima Online
-            //Game = "UltimaIX", // Ultima IX
         };
 #elif Red
         static string[] FamilyKeys = new[] { "Red", "Unknown" };

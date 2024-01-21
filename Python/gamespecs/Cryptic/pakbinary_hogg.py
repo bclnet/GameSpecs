@@ -58,7 +58,7 @@ class PakBinary_Hogg(PakBinaryT):
     # read
     def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None:
         # read header
-        header = r.readT(self.Header)
+        header = r.readS(self.Header)
         if header.magic != self.MAGIC: raise Exception('BAD MAGIC')
         if header.version < 10 or header.version > 11: raise Exception('BAD Version')
         if header.operationJournalSection > 1024: raise Exception('BAD Journal')
@@ -96,7 +96,7 @@ class PakBinary_Hogg(PakBinaryT):
 
         # read file journal
         r.seek(fileJournalPosition)
-        fileJournalHeader = r.readT(self.FileJournalHeader)
+        fileJournalHeader = r.readS(self.FileJournalHeader)
         endPosition = r.tell() + fileJournalHeader.size
         while r.tell() < endPosition:
             action = r.readByte()

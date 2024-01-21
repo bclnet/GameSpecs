@@ -46,17 +46,17 @@ namespace GameSpec.WbB.Formats.Entity
             MotionTable = r.ReadUInt32();
             CombatTable = r.ReadUInt32();
             BaseObjDesc = new ObjDesc(r);
-            HairColorList = r.ReadC32Array<uint>(sizeof(uint));
-            HairStyleList = r.ReadC32Array(x => new HairStyleCG(x));
-            EyeColorList = r.ReadC32Array<uint>(sizeof(uint));
-            EyeStripList = r.ReadC32Array(x => new EyeStripCG(x));
-            NoseStripList = r.ReadC32Array(x => new FaceStripCG(x));
-            MouthStripList = r.ReadC32Array(x => new FaceStripCG(x));
-            HeadgearList = r.ReadC32Array(x => new GearCG(x));
-            ShirtList = r.ReadC32Array(x => new GearCG(x));
-            PantsList = r.ReadC32Array(x => new GearCG(x));
-            FootwearList = r.ReadC32Array(x => new GearCG(x));
-            ClothingColorsList = r.ReadC32Array<uint>(sizeof(uint));
+            HairColorList = r.ReadC32TArray<uint>(sizeof(uint));
+            HairStyleList = r.ReadC32FArray(x => new HairStyleCG(x));
+            EyeColorList = r.ReadC32TArray<uint>(sizeof(uint));
+            EyeStripList = r.ReadC32FArray(x => new EyeStripCG(x));
+            NoseStripList = r.ReadC32FArray(x => new FaceStripCG(x));
+            MouthStripList = r.ReadC32FArray(x => new FaceStripCG(x));
+            HeadgearList = r.ReadC32FArray(x => new GearCG(x));
+            ShirtList = r.ReadC32FArray(x => new GearCG(x));
+            PantsList = r.ReadC32FArray(x => new GearCG(x));
+            FootwearList = r.ReadC32FArray(x => new GearCG(x));
+            ClothingColorsList = r.ReadC32TArray<uint>(sizeof(uint));
         }
 
         // Eyes

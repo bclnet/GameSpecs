@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.Entity
         public readonly CloObjectEffect[] CloObjectEffects;
 
         public ClothingBaseEffect(BinaryReader r)
-            => CloObjectEffects = r.ReadL32Array(x => new CloObjectEffect(x));
+            => CloObjectEffects = r.ReadL32FArray(x => new CloObjectEffect(x));
 
         //: Entity.ClothingBaseEffect
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)

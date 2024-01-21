@@ -72,7 +72,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 MembraneShader_SourceBlendMode = r.ReadUInt32();
                 MembraneShader_BlendOperation = r.ReadUInt32();
                 MembraneShader_ZTestFunction = r.ReadUInt32();
-                FillTextureEffect_Color = r.ReadT<ColorRef4>(dataSize);
+                FillTextureEffect_Color = r.ReadS2<ColorRef4>(ColorRef4.Struct, dataSize);
                 FillTextureEffect_AlphaFadeInTime = r.ReadSingle();
                 FillTextureEffect_FullAlphaTime = r.ReadSingle();
                 FillTextureEffect_AlphaFadeOutTime = r.ReadSingle();
@@ -82,7 +82,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 FillTextureEffect_TextureAnimationSpeed_U = r.ReadSingle();
                 FillTextureEffect_TextureAnimationSpeed_V = r.ReadSingle();
                 EdgeEffect_FallOff = r.ReadSingle();
-                EdgeEffect_Color = r.ReadT<ColorRef4>(dataSize);
+                EdgeEffect_Color = r.ReadS2<ColorRef4>(ColorRef4.Struct, dataSize);
                 EdgeEffect_AlphaFadeInTime = r.ReadSingle();
                 EdgeEffect_FullAlphaTime = r.ReadSingle();
                 EdgeEffect_AlphaFadeOutTime = r.ReadSingle();
@@ -117,9 +117,9 @@ namespace GameSpec.Bethesda.Formats.Records
                 ParticleShader_ScaleKey2 = r.ReadSingle();
                 ParticleShader_ScaleKey1Time = r.ReadSingle();
                 ParticleShader_ScaleKey2Time = r.ReadSingle();
-                ColorKey1_Color = r.ReadT<ColorRef4>(dataSize);
-                ColorKey2_Color = r.ReadT<ColorRef4>(dataSize);
-                ColorKey3_Color = r.ReadT<ColorRef4>(dataSize);
+                ColorKey1_Color = r.ReadS2<ColorRef4>(ColorRef4.Struct, dataSize);
+                ColorKey2_Color = r.ReadS2<ColorRef4>(ColorRef4.Struct, dataSize);
+                ColorKey3_Color = r.ReadS2<ColorRef4>(ColorRef4.Struct, dataSize);
                 ColorKey1_ColorAlpha = r.ReadSingle();
                 ColorKey2_ColorAlpha = r.ReadSingle();
                 ColorKey3_ColorAlpha = r.ReadSingle();

@@ -23,7 +23,7 @@ namespace GameSpec.Epic.Formats
                 files.Add(new FileSource
                 {
                     Path = $"{header.GetClassNameFor(item)}/{item.ObjectName}",
-                    Position = item.SerialOffset,
+                    Offset = item.SerialOffset,
                     FileSize = item.SerialSize,
                     Tag = R,
                 });
@@ -33,7 +33,7 @@ namespace GameSpec.Epic.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             var R = (BinaryReader)file.Tag;
-            R.Seek(file.Position);
+            R.Seek(file.Offset);
             return Task.FromResult((Stream)new MemoryStream(R.ReadBytes((int)file.FileSize)));
         }
 

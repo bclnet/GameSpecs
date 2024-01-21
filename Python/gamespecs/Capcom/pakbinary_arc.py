@@ -36,7 +36,7 @@ class PakBinary_Arc(PakBinaryT):
         magic = r.readUInt32()
         if magic != self.K_MAGIC: raise Exception('BAD MAGIC')
 
-        header = r.readT(self.K_Header)
+        header = r.readS(self.K_Header)
         kfiles = r.readTArray(self.K_File, header.numFiles)
 
         # get files

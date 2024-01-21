@@ -130,7 +130,7 @@ namespace GameSpec.Epic.Formats.Core
             // Generations
             var GenerationCount = r.ReadInt32();
             if (Ar.Game == APB && Ar.ArLicenseeVer >= 32) r.Skip(16);
-            Generations = r.ReadTArray(r => new FGenerationInfo(r, Ar), GenerationCount);
+            Generations = r.ReadFArray(r => new FGenerationInfo(r, Ar), GenerationCount);
             if (Ar.Game == AliensCM) { r.Skip(sizeof(ushort) * 3); goto cooker_version; } // complex EngineVersion?
 
         engine_version:

@@ -28,7 +28,7 @@ namespace GameSpec.WbB.Formats.Entity
             MaxObjHeight = r.ReadSingle();
             SkyHeight = r.ReadSingle();
             RoadWidth = r.ReadSingle();
-            LandHeightTable = r.ReadTArray(x => x.ReadSingle(), 256);
+            LandHeightTable = r.ReadFArray(x => x.ReadSingle(), 256);
         }
 
         //: Entity.LandDefs

@@ -15,7 +15,7 @@ namespace GameSpec.Formats
         public int Id;
         public string Path;
         public int Compressed;
-        public long Position;
+        public long Offset;
         public long FileSize;
         public long PackedSize;
         public bool Crypted;

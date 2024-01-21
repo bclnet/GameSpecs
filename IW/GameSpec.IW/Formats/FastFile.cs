@@ -17,6 +17,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential)]
         struct FF_BO3BlockHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(FF_BO3BlockHeader));
             public int CompressedSize;
             public int DecompressedSize;
             public int Size;
@@ -26,6 +27,7 @@ namespace GameSpec.IW.Formats
         //[StructLayout(LayoutKind.Sequential)]
         //struct FF_Asset32
         //{
+        //    public static (string, int) Struct = ("<?", sizeof(FF_Asset32));
         //    public uint namePtr;
         //    public int size;
         //    public uint dataPtr;
@@ -34,6 +36,7 @@ namespace GameSpec.IW.Formats
         //[StructLayout(LayoutKind.Sequential)]
         //struct FF_Asset64
         //{
+        //    public static (string, int) Struct = ("<?", sizeof(FF_Asset64));
         //    public ulong namePtr;
         //    public long size;
         //    public ulong dataPtr;
@@ -42,6 +45,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Explicit)]
         struct FF_ZoneHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(FF_ZoneHeader));
             [FieldOffset(0)] public uint Size;                  // decompressed fastfile size minus 44 (0x2C)
             [FieldOffset(4)] public uint ReferenceSize;         // about the total size of referenced data, e.g. the required memory for IWI textures if material files are in the ff
             //
@@ -102,7 +106,7 @@ namespace GameSpec.IW.Formats
                     if (argCount > 0)
                     {
                         var argsValues = r.ReadTArray<int>(sizeof(int), argCount);
-                        var argsNames = r.ReadTArray(r => r.ReadZAString(), argCount);
+                        var argsNames = r.ReadFArray(r => r.ReadZAString(), argCount);
                         if (argsNames[argCount - 1] == "\u0005") { argCount--; r.Skip(-2); }
                         for (var i = 0; i < argCount; i++) args[argsNames[i] ?? $"${i}"] = argsValues[i];
                     }
@@ -291,7 +295,7 @@ namespace GameSpec.IW.Formats
                                 while (consumed < size)
                                 {
                                     // Read Block Header & validate the block position, it should match 
-                                    var block = r.ReadT<FF_BO3BlockHeader>(sizeof(FF_BO3BlockHeader));
+                                    var block = r.ReadS<FF_BO3BlockHeader>(FF_BO3BlockHeader.Struct);
                                     if (block.Position != r.BaseStream.Position - 16) throw new Exception("Block Position does not match Stream Position.");
 
                                     // Check for padding blocks
@@ -400,7 +404,7 @@ namespace GameSpec.IW.Formats
 
             // Create new streams for the zone file.
             r = new BinaryReader(new FileStream(zonePath, FileMode.Open, FileAccess.Read, FileShare.Read));
-            var zone = r.ReadT<FF_ZoneHeader>(sizeof(FF_ZoneHeader));
+            var zone = r.ReadS<FF_ZoneHeader>(FF_ZoneHeader.Struct);
             var (args, assetInfos) = zone.GetArgsAndAssetInfos(r, ref header);
 
             // foreach asset

@@ -25,7 +25,7 @@ namespace GameSpec.WbB.Formats.FileTypes
 
         public const uint FILE_ID = 0x0E00000F;
 
-        public readonly Dictionary<uint, SpellComponentBase> SpellComponents;
+        public readonly IDictionary<uint, SpellComponentBase> SpellComponents;
 
         public SpellComponentTable(BinaryReader r)
         {

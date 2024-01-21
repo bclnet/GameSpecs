@@ -214,9 +214,9 @@ namespace GameSpec.Bethesda.Formats.Records
                             case "SPLO": SPLOs.Add(r.ReadSTRV(dataSize)); return true;
                             case "VNAM": VNAM = new FMID2Field<RACERecord>(r, dataSize); return true;
                             case "DNAM": DNAM = new FMID2Field<HAIRRecord>(r, dataSize); return true;
-                            case "CNAM": CNAM = r.ReadT<BYTEField>(dataSize); return true;
-                            case "PNAM": PNAM = r.ReadT<FLTVField>(dataSize); return true;
-                            case "UNAM": UNAM = r.ReadT<FLTVField>(dataSize); return true;
+                            case "CNAM": CNAM = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
+                            case "PNAM": PNAM = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                            case "UNAM": UNAM = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
                             case "XNAM": XNAM = r.ReadUNKN(dataSize); return true;
                             case "ATTR": DATA.ATTRField(r, dataSize); return true;
                             case "NAM0": _nameState++; return true;
@@ -225,7 +225,7 @@ namespace GameSpec.Bethesda.Formats.Records
                     case 1: // Face Data
                         switch (type)
                         {
-                            case "INDX": FaceParts.Add(new FacePartGroup { INDX = r.ReadT<UI32Field>(dataSize) }); return true;
+                            case "INDX": FaceParts.Add(new FacePartGroup { INDX = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize) }); return true;
                             case "MODL": FaceParts.Last().MODL = new MODLGroup(r, dataSize); return true;
                             case "ICON": FaceParts.Last().ICON = r.ReadFILE(dataSize); return true;
                             case "MODB": FaceParts.Last().MODL.MODBField(r, dataSize); return true;
@@ -238,8 +238,8 @@ namespace GameSpec.Bethesda.Formats.Records
                             case "MNAM": _genderState = 0; return true;
                             case "FNAM": _genderState = 1; return true;
                             case "MODL": Bodys[_genderState].MODL = r.ReadFILE(dataSize); return true;
-                            case "MODB": Bodys[_genderState].MODB = r.ReadT<FLTVField>(dataSize); return true;
-                            case "INDX": Bodys[_genderState].BodyParts.Add(new BodyPartGroup { INDX = r.ReadT<UI32Field>(dataSize) }); return true;
+                            case "MODB": Bodys[_genderState].MODB = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                            case "INDX": Bodys[_genderState].BodyParts.Add(new BodyPartGroup { INDX = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize) }); return true;
                             case "ICON": Bodys[_genderState].BodyParts.Last().ICON = r.ReadFILE(dataSize); return true;
                             case "HNAM": _nameState++; break;
                             default: return false;

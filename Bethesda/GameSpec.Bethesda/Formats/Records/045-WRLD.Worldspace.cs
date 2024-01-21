@@ -5,10 +5,11 @@ using static OpenStack.Debug;
 
 namespace GameSpec.Bethesda.Formats.Records
 {
-    public class WRLDRecord : Record
+    public unsafe class WRLDRecord : Record
     {
         public struct MNAMField
         {
+            public static (string, int) Struct = ($"<2i4h", sizeof(MNAMField));
             public Int2 UsableDimensions;
             // Cell Coordinates
             public short NWCell_X;
@@ -19,6 +20,7 @@ namespace GameSpec.Bethesda.Formats.Records
 
         public struct NAM0Field
         {
+            public static (string, int) Struct = ("<2f2f", sizeof(NAM0Field));
             public Vector2 Min;
             public Vector2 Max;
 
@@ -78,11 +80,11 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "CNAM": CNAM = new FMIDField<CLMTRecord>(r, dataSize); return true;
                 case "NAM2": NAM2 = new FMIDField<WATRRecord>(r, dataSize); return true;
                 case "ICON": ICON = r.ReadFILE(dataSize); return true;
-                case "MNAM": MNAM = r.ReadT<MNAMField>(dataSize); return true;
-                case "DATA": DATA = r.ReadT<BYTEField>(dataSize); return true;
+                case "MNAM": MNAM = r.ReadS2<MNAMField>(MNAMField.Struct, dataSize); return true;
+                case "DATA": DATA = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
                 case "NAM0": NAM0 = new NAM0Field(r, dataSize); return true;
                 case "NAM9": NAM0.NAM9Field(r, dataSize); return true;
-                case "SNAM": SNAM = r.ReadT<UI32Field>(dataSize); return true;
+                case "SNAM": SNAM = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
                 case "OFST": r.Skip(dataSize); return true;
                 // TES5
                 case "RNAM": RNAMs.Add(new RNAMField(r, dataSize)); return true;

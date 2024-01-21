@@ -27,7 +27,7 @@ namespace GameSpec.WbB.Formats.Entity
             var numUVs = r.ReadUInt16();
             Origin = r.ReadVector3();
             Normal = r.ReadVector3();
-            UVs = r.ReadTArray(x => new Vec2Duv(x), numUVs);
+            UVs = r.ReadFArray(x => new Vec2Duv(x), numUVs);
         }
 
         //: Entity.Vertex

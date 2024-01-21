@@ -25,9 +25,9 @@ namespace GameSpec.WbB.Formats.Entity
             DayLength = r.ReadSingle();
             DaysPerYear = r.ReadUInt32();
             YearSpec = r.ReadL16Encoding(Encoding.Default); r.Align();
-            TimesOfDay = r.ReadL32Array(x => new TimeOfDay(x));
-            DaysOfTheWeek = r.ReadL32Array(x => { var weekDay = r.ReadL16Encoding(); r.Align(); return weekDay; });
-            Seasons = r.ReadL32Array(x => new Season(x));
+            TimesOfDay = r.ReadL32FArray(x => new TimeOfDay(x));
+            DaysOfTheWeek = r.ReadL32FArray(x => { var weekDay = r.ReadL16Encoding(); r.Align(); return weekDay; });
+            Seasons = r.ReadL32FArray(x => new Season(x));
         }
 
         //: Entity.GameTime

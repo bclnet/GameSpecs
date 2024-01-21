@@ -15,12 +15,12 @@ namespace GameSpec.WbB.Formats.FileTypes
     {
         public const uint FILE_ID = 0x0E00001D;
 
-        public readonly Dictionary<uint, Contract> Contracts;
+        public readonly IDictionary<uint, Contract> Contracts;
 
         public ContractTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            Contracts = r.ReadL16Many<uint, Contract>(sizeof(uint), x => new Contract(x), offset: 2);
+            Contracts = r.Skip(2).ReadL16TMany<uint, Contract>(sizeof(uint), x => new Contract(x));
         }
 
         //: FileTypes.ContractTable

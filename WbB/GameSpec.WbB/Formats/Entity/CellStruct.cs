@@ -10,10 +10,10 @@ namespace GameSpec.WbB.Formats.Entity
     public class CellStruct : IHaveMetaInfo
     {
         public readonly CVertexArray VertexArray;
-        public readonly Dictionary<ushort, Polygon> Polygons;
+        public readonly IDictionary<ushort, Polygon> Polygons;
         public readonly ushort[] Portals;
         public readonly BspTree CellBSP;
-        public readonly Dictionary<ushort, Polygon> PhysicsPolygons;
+        public readonly IDictionary<ushort, Polygon> PhysicsPolygons;
         public readonly BspTree PhysicsBSP;
         public readonly BspTree DrawingBSP;
 

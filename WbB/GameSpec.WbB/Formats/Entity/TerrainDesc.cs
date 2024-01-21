@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.Entity
 
         public TerrainDesc(BinaryReader r)
         {
-            TerrainTypes = r.ReadL32Array(x => new TerrainType(x));
+            TerrainTypes = r.ReadL32FArray(x => new TerrainType(x));
             LandSurfaces = new LandSurf(r);
         }
 

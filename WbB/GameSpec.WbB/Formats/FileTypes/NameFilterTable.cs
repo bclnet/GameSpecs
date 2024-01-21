@@ -13,12 +13,12 @@ namespace GameSpec.WbB.Formats.FileTypes
         public const uint FILE_ID = 0x0E000020;
 
         // Key is a list of a WCIDs that are "bad" and should not exist. The value is always 1 (could be a bool?)
-        public readonly Dictionary<uint, NameFilterLanguageData> LanguageData;
+        public readonly IDictionary<uint, NameFilterLanguageData> LanguageData;
 
         public NameFilterTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            LanguageData = r.ReadL8Many<uint, NameFilterLanguageData>(sizeof(uint), x => new NameFilterLanguageData(x), offset: 1);
+            LanguageData = r.Skip(1).ReadL8TMany<uint, NameFilterLanguageData>(sizeof(uint), x => new NameFilterLanguageData(x));
         }
 
         //: FileTypes.GeneratorTable

@@ -30,7 +30,7 @@ namespace GameSpec.WbB.Formats.Entity
             ModelId = r.ReadUInt32();
             Frame = new Frame(r);
             NumLeaves = r.ReadUInt32();
-            Portals = r.ReadL32Array(x => new CBldPortal(x));
+            Portals = r.ReadL32FArray(x => new CBldPortal(x));
         }
 
         //: Entity.BuildInfo

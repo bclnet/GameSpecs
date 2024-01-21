@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace GameSpec.Bethesda.Formats.Records
 {
-    public class LANDRecord : Record
+    public unsafe class LANDRecord : Record
     {
         // TESX
         public struct VNMLField
@@ -57,6 +57,7 @@ namespace GameSpec.Bethesda.Formats.Records
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct CORDField
         {
+            public static (string, int) Struct = ("<ii", sizeof(CORDField));
             public int CellX;
             public int CellY;
             public override string ToString() => $"{CellX},{CellY}";
@@ -77,6 +78,7 @@ namespace GameSpec.Bethesda.Formats.Records
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct BTXTField
         {
+            public static (string, int) Struct = ("<Icch", sizeof(BTXTField)); 
             public uint Texture;
             public byte Quadrant;
             public byte Pad01;
@@ -121,19 +123,19 @@ namespace GameSpec.Bethesda.Formats.Records
         {
             switch (type)
             {
-                case "DATA": DATA = r.ReadT<IN32Field>(dataSize); return true;
+                case "DATA": DATA = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 case "VNML": VNML = new VNMLField(r, dataSize); return true;
                 case "VHGT": VHGT = new VHGTField(r, dataSize); return true;
                 case "VCLR": VCLR = new VNMLField(r, dataSize); return true;
                 case "VTEX": VTEX = new VTEXField(r, dataSize, format); return true;
                 // TES3
-                case "INTV": INTV = r.ReadT<CORDField>(dataSize); return true;
+                case "INTV": INTV = r.ReadS2<CORDField>(CORDField.Struct, dataSize); return true;
                 case "WNAM": WNAM = new WNAMField(r, dataSize); return true;
                 // TES4
-                case "BTXT": var btxt = r.ReadT<BTXTField>(dataSize); BTXTs[btxt.Quadrant] = btxt; return true;
+                case "BTXT": var btxt = r.ReadS2<BTXTField>(BTXTField.Struct, dataSize); BTXTs[btxt.Quadrant] = btxt; return true;
                 case "ATXT":
                     if (ATXTs == null) ATXTs = new ATXTGroup[4];
-                    var atxt = r.ReadT<BTXTField>(dataSize); _lastATXT = ATXTs[atxt.Quadrant] = new ATXTGroup { ATXT = atxt }; return true;
+                    var atxt = r.ReadS2<BTXTField>(BTXTField.Struct, dataSize); _lastATXT = ATXTs[atxt.Quadrant] = new ATXTGroup { ATXT = atxt }; return true;
                 case "VTXT": _lastATXT.VTXTs = r.ReadTArray<VTXTField>(dataSize, dataSize >> 3); return true;
                 default: return false;
             }

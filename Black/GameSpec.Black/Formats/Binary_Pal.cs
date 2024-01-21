@@ -10,6 +10,8 @@ namespace GameSpec.Black.Formats
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Pal(r, f));
 
+        public uint[] Rgba32 = new uint[256];
+
         public Binary_Pal(BinaryReader r, FileSource f)
         {
             var rgb = r.ReadBytes(256 * 3);
@@ -23,8 +25,6 @@ namespace GameSpec.Black.Formats
             }
         }
 
-        public uint[] Rgba32 = new uint[256];
-
         public void SetColors()
         {
             for (var i = 229; i <= 232; i++) Rgba32[i] = 0x00ff0000; // animated green (for radioactive waste)
@@ -33,6 +33,7 @@ namespace GameSpec.Black.Formats
             for (var i = 248; i <= 254; i++) Rgba32[i] = 0x0000ff00; // bright blue (computer screens)
         }
 
+        // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
             new MetaInfo(null, new MetaContent { Type = "Null", Name = Path.GetFileName(file.Path), Value = this }),
             new MetaInfo($"{nameof(Binary_Pal)}", items: new List<MetaInfo> {

@@ -11,7 +11,7 @@ namespace GameSpec.WbB.Formats.Entity
         public readonly ScriptAndModData[] Scripts;
 
         public PhysicsScriptTableData(BinaryReader r)
-            => Scripts = r.ReadL32Array(x => new ScriptAndModData(r));
+            => Scripts = r.ReadL32FArray(x => new ScriptAndModData(r));
 
         //: Entity.PhysicsScriptTableData
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)

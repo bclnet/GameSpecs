@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
         public readonly uint[] Spells;
 
         public SpellSetTiers(BinaryReader r)
-            => Spells = r.ReadL32Array<uint>(sizeof(uint));
+            => Spells = r.ReadL32TArray<uint>(sizeof(uint));
 
         //: Entity.SpellSetTier
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)

@@ -42,7 +42,7 @@ namespace GameSpec.WbB.Formats.Entity
             WorldFogColor = r.ReadUInt32();
             WorldFog = r.ReadUInt32(); r.Align();
 
-            SkyObjReplace = r.ReadL32Array(x => new SkyObjectReplace(x));
+            SkyObjReplace = r.ReadL32FArray(x => new SkyObjectReplace(x));
         }
 
         //: Entity.SkyTimeOfDay

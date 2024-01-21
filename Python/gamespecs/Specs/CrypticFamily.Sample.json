@@ -5,6 +5,14 @@
       {
         "path": "bins.hogg:bin/activities.bin",
         "type": "Secure"
+      },
+      {
+        "path": "object.hogg:bin/geobin/ol/Z/G/N/C/terain_test_01.mset",
+        "type": "Model"
+      },
+      {
+        "path": "object.hogg:bin/geobin/ol/Z/G/N/C/Rockey_Caves_doors.mset",
+        "type": "Model"
       }
     ]
   },

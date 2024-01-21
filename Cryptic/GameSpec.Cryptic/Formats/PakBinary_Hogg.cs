@@ -87,7 +87,7 @@ namespace GameSpec.Cryptic.Formats
                 files[i] = new FileSource
                 {
                     Id = s.Id,
-                    Position = s.Offset,
+                    Offset = s.Offset,
                     FileSize = s.FileSize,
                     PackedSize = a.UncompressedSize,
                     Compressed = a.UncompressedSize > 0 ? 1 : 0,
@@ -135,7 +135,7 @@ namespace GameSpec.Cryptic.Formats
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult((Stream)new MemoryStream(file.Compressed != 0
                 ? r.DecompressZlib((int)file.PackedSize, (int)file.FileSize)
                 : r.ReadBytes((int)file.FileSize)));

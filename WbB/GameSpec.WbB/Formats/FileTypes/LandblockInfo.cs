@@ -38,17 +38,17 @@ namespace GameSpec.WbB.Formats.FileTypes
         /// <summary>
         /// The specific landblock/cell controlled by a specific guid that controls access (e.g. housing barrier)
         /// </summary>
-        public readonly Dictionary<uint, uint> RestrictionTables;
+        public readonly IDictionary<uint, uint> RestrictionTables;
 
         public LandblockInfo(BinaryReader r)
         {
             Id = r.ReadUInt32();
             NumCells = r.ReadUInt32();
-            Objects = r.ReadL32Array(x => new Stab(x));
+            Objects = r.ReadL32FArray(x => new Stab(x));
             var numBuildings = r.ReadUInt16();
             PackMask = r.ReadUInt16();
-            Buildings = r.ReadTArray(x => new BuildInfo(x), numBuildings);
-            if ((PackMask & 1) == 1) RestrictionTables = r.ReadL16Many<uint, uint>(sizeof(uint), x => x.ReadUInt32(), offset: 2);
+            Buildings = r.ReadFArray(x => new BuildInfo(x), numBuildings);
+            if ((PackMask & 1) == 1) RestrictionTables = r.Skip(2).ReadL16TMany<uint, uint>(sizeof(uint), x => x.ReadUInt32());
         }
 
         //: FileTypes.LandblockInfo

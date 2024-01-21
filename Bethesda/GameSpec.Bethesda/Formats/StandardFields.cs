@@ -47,10 +47,10 @@ namespace GameSpec.Bethesda.Formats
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct ColorRef3 { public byte Red; public byte Green; public byte Blue; public override string ToString() => $"{Red}:{Green}:{Blue}"; }
+    public struct ColorRef3 { public static (string, int) Struct = ("<3c", 3); public byte Red; public byte Green; public byte Blue; public override string ToString() => $"{Red}:{Green}:{Blue}"; }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct ColorRef4 { public byte Red; public byte Green; public byte Blue; public byte Null; public override string ToString() => $"{Red}:{Green}:{Blue}"; public GXColor32 ToColor32() => new GXColor32(Red, Green, Blue, 255); }
+    public struct ColorRef4 { public static (string, int) Struct = ("<4c", 4); public byte Red; public byte Green; public byte Blue; public byte Null; public override string ToString() => $"{Red}:{Green}:{Blue}"; public GXColor32 ToColor32() => new GXColor32(Red, Green, Blue, 255); }
 
     public static class ReaderExtension
     {
@@ -85,14 +85,14 @@ namespace GameSpec.Bethesda.Formats
 
     public struct STRVField { public string Value; public override string ToString() => Value; }
     public struct FILEField { public string Value; public override string ToString() => Value; }
-    public struct INTVField { public long Value; public override string ToString() => $"{Value}"; public UI16Field ToUI16Field() => new UI16Field { Value = (ushort)Value }; }
+    public struct INTVField { public static (string, int) Struct = ("<q", 8); public long Value; public override string ToString() => $"{Value}"; public UI16Field ToUI16Field() => new UI16Field { Value = (ushort)Value }; }
     public struct DATVField { public bool B; public int I; public float F; public string S; public override string ToString() => "DATV"; }
-    public struct FLTVField { public float Value; public override string ToString() => $"{Value}"; }
-    public struct BYTEField { public byte Value; public override string ToString() => $"{Value}"; }
-    public struct IN16Field { public short Value; public override string ToString() => $"{Value}"; }
-    public struct UI16Field { public ushort Value; public override string ToString() => $"{Value}"; }
-    public struct IN32Field { public int Value; public override string ToString() => $"{Value}"; }
-    public struct UI32Field { public uint Value; public override string ToString() => $"{Value}"; }
+    public struct FLTVField { public static (string, int) Struct = ("<f", 4); public float Value; public override string ToString() => $"{Value}"; }
+    public struct BYTEField { public static (string, int) Struct = ("<c", 1); public byte Value; public override string ToString() => $"{Value}"; }
+    public struct IN16Field { public static (string, int) Struct = ("<h", 2); public short Value; public override string ToString() => $"{Value}"; }
+    public struct UI16Field { public static (string, int) Struct = ("<H", 2); public ushort Value; public override string ToString() => $"{Value}"; }
+    public struct IN32Field { public static (string, int) Struct = ("<i", 4); public int Value; public override string ToString() => $"{Value}"; }
+    public struct UI32Field { public static (string, int) Struct = ("<I", 4); public uint Value; public override string ToString() => $"{Value}"; }
     public struct FMIDField<TRecord> where TRecord : Record
     {
         public FormId<TRecord> Value;
@@ -116,7 +116,7 @@ namespace GameSpec.Bethesda.Formats
             Value2 = new FormId<TRecord>(r.ReadUInt32());
         }
     }
-    public struct CREFField { public ColorRef4 Color; }
+    public struct CREFField { public static (string, int) Struct = ("<4c", 4); public ColorRef4 Color; }
     public struct CNTOField
     {
         public uint ItemCount; // Number of the item

@@ -122,31 +122,31 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "DATA": DATA = new DATAField(r, dataSize); return true;
                 case "XLOC": XLOC = new XLOCField(r, dataSize); return true;
                 case "XOWN": if (XOWNs == null) XOWNs = new List<CELLRecord.XOWNGroup>(); XOWNs.Add(new CELLRecord.XOWNGroup { XOWN = new FMIDField<Record>(r, dataSize) }); return true;
-                case "XRNK": XOWNs.Last().XRNK = r.ReadT<IN32Field>(dataSize); return true;
+                case "XRNK": XOWNs.Last().XRNK = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 case "XGLB": XOWNs.Last().XGLB = new FMIDField<Record>(r, dataSize); return true;
                 case "XESP": XESP = new XESPField(r, dataSize); return true;
                 case "XTRG": XTRG = new FMIDField<Record>(r, dataSize); return true;
                 case "XSED": XSED = new XSEDField(r, dataSize); return true;
                 case "XLOD": XLOD = r.ReadBYTV(dataSize); return true;
-                case "XCHG": XCHG = r.ReadT<FLTVField>(dataSize); return true;
-                case "XHLT": XCHG = r.ReadT<FLTVField>(dataSize); return true;
+                case "XCHG": XCHG = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                case "XHLT": XCHG = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
                 case "XPCI": XPCI = new FMIDField<CELLRecord>(r, dataSize); _nextFull = 1; return true;
                 case "FULL":
                     if (_nextFull == 1) XPCI.Value.AddName(r.ReadFString(dataSize));
                     else if (_nextFull == 2) XMRKs.Last().FULL = r.ReadSTRV(dataSize);
                     _nextFull = 0;
                     return true;
-                case "XLCM": XLCM = r.ReadT<IN32Field>(dataSize); return true;
+                case "XLCM": XLCM = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 case "XRTM": XRTM = new FMIDField<REFRRecord>(r, dataSize); return true;
-                case "XACT": XACT = r.ReadT<UI32Field>(dataSize); return true;
-                case "XCNT": XCNT = r.ReadT<IN32Field>(dataSize); return true;
+                case "XACT": XACT = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
+                case "XCNT": XCNT = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 case "XMRK": if (XMRKs == null) XMRKs = new List<XMRKGroup>(); XMRKs.Add(new XMRKGroup()); _nextFull = 2; return true;
-                case "FNAM": XMRKs.Last().FNAM = r.ReadT<BYTEField>(dataSize); return true;
-                case "TNAM": XMRKs.Last().TNAM = r.ReadT<BYTEField>(dataSize); r.ReadByte(); return true;
+                case "FNAM": XMRKs.Last().FNAM = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
+                case "TNAM": XMRKs.Last().TNAM = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); r.ReadByte(); return true;
                 case "ONAM": return true;
                 case "XRGD": XRGD = r.ReadBYTV(dataSize); return true;
-                case "XSCL": XSCL = r.ReadT<FLTVField>(dataSize); return true;
-                case "XSOL": XSOL = r.ReadT<BYTEField>(dataSize); return true;
+                case "XSCL": XSCL = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                case "XSOL": XSOL = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
                 default: return false;
             }
         }

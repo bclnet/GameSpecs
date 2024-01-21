@@ -18,8 +18,8 @@ namespace GameSpec.WbB.Formats.Entity
         {
             ChanceOfOccur = r.ReadSingle();
             DayName = r.ReadL16Encoding(Encoding.Default); r.Align();
-            SkyObjects = r.ReadL32Array(x => new SkyObject(x));
-            SkyTime = r.ReadL32Array(x => new SkyTimeOfDay(x));
+            SkyObjects = r.ReadL32FArray(x => new SkyObject(x));
+            SkyTime = r.ReadL32FArray(x => new SkyTimeOfDay(x));
         }
 
         //: Entity.DayGroup

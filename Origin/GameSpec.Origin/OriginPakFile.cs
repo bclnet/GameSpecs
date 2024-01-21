@@ -1,11 +1,10 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Metadata;
 using GameSpec.Origin.Formats;
 using GameSpec.Origin.Transforms;
 using GameSpec.Transforms;
-using System.IO;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GameSpec.Origin
@@ -31,9 +30,13 @@ namespace GameSpec.Origin
         #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game)
-            => game.Id == "UO"
-            ? PakBinary_UO.Instance
-            : PakBinary_U9.Instance;
+            => game.Id switch
+            {
+                "U8" => PakBinary_U8.Instance,
+                "U9" => PakBinary_U9.Instance,
+                "UO" => PakBinary_UO.Instance,
+                 _ => throw new ArgumentOutOfRangeException(),
+            };
 
         static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch

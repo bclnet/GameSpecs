@@ -40,13 +40,13 @@ namespace GameSpec.WbB.Formats.FileTypes
             var numPortals = r.ReadByte(); // Note that "portal" in this context does not refer to the swirly pink/purple thing, its basically connecting cells
             var numStabs = r.ReadUInt16(); // I believe this is what cells can be seen from this one. So the engine knows what else it needs to load/draw.
             // Read what surfaces are used in this cell
-            Surfaces = r.ReadTArray(x => 0x08000000u | r.ReadUInt16(), numSurfaces); // these are stored in the dat as short values, so we'll make them a full dword
+            Surfaces = r.ReadFArray(x => 0x08000000u | r.ReadUInt16(), numSurfaces); // these are stored in the dat as short values, so we'll make them a full dword
             EnvironmentId = 0x0D000000u | r.ReadUInt16();
             CellStructure = r.ReadUInt16();
             Position = new Frame(r);
-            CellPortals = r.ReadTArray(x => new CellPortal(x), numPortals);
+            CellPortals = r.ReadFArray(x => new CellPortal(x), numPortals);
             VisibleCells = r.ReadTArray<ushort>(sizeof(ushort), numStabs);
-            if ((Flags & EnvCellFlags.HasStaticObjs) != 0) StaticObjects = r.ReadL32Array(x => new Stab(x));
+            if ((Flags & EnvCellFlags.HasStaticObjs) != 0) StaticObjects = r.ReadL32FArray(x => new Stab(x));
             if ((Flags & EnvCellFlags.HasRestrictionObj) != 0) RestrictionObj = r.ReadUInt32();
         }
 

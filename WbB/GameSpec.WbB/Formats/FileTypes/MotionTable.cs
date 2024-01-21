@@ -17,19 +17,19 @@ namespace GameSpec.WbB.Formats.FileTypes
     {
         public static Dictionary<ushort, MotionCommand> RawToInterpreted = Enum.GetValues(typeof(MotionCommand)).Cast<object>().ToDictionary(x => (ushort)(uint)x, x => (MotionCommand)x);
         public readonly uint DefaultStyle;
-        public readonly Dictionary<uint, uint> StyleDefaults;
-        public readonly Dictionary<uint, MotionData> Cycles;
-        public readonly Dictionary<uint, MotionData> Modifiers;
-        public readonly Dictionary<uint, Dictionary<uint, MotionData>> Links;
+        public readonly IDictionary<uint, uint> StyleDefaults;
+        public readonly IDictionary<uint, MotionData> Cycles;
+        public readonly IDictionary<uint, MotionData> Modifiers;
+        public readonly IDictionary<uint, IDictionary<uint, MotionData>> Links;
 
         public MotionTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
             DefaultStyle = r.ReadUInt32();
-            StyleDefaults = r.ReadL32Many<uint, uint>(sizeof(uint), x => x.ReadUInt32());
-            Cycles = r.ReadL32Many<uint, MotionData>(sizeof(uint), x => new MotionData(x));
-            Modifiers = r.ReadL32Many<uint, MotionData>(sizeof(uint), x => new MotionData(x));
-            Links = r.ReadL32Many<uint, Dictionary<uint, MotionData>>(sizeof(uint), x => x.ReadL32Many<uint, MotionData>(sizeof(uint), y => new MotionData(y)));
+            StyleDefaults = r.ReadL32TMany<uint, uint>(sizeof(uint), x => x.ReadUInt32());
+            Cycles = r.ReadL32TMany<uint, MotionData>(sizeof(uint), x => new MotionData(x));
+            Modifiers = r.ReadL32TMany<uint, MotionData>(sizeof(uint), x => new MotionData(x));
+            Links = r.ReadL32TMany<uint, IDictionary<uint, MotionData>>(sizeof(uint), x => x.ReadL32TMany<uint, MotionData>(sizeof(uint), y => new MotionData(y)));
         }
 
         //: FileTypes.MotionTable

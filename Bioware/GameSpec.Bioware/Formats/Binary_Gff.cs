@@ -1,5 +1,5 @@
-using GameSpec.Metadata;
 using GameSpec.Formats;
+using GameSpec.Metadata;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,33 +9,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Bioware.Formats
 {
-    public class Binary_Gff : IHaveMetaInfo
+    public unsafe class Binary_Gff : IHaveMetaInfo
     {
-        public Binary_Gff() { }
-        public Binary_Gff(BinaryReader r) => Read(r);
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Gff(r));
-
-        public enum DataType : uint
-        {
-            DLG = 0x20474c44,
-            QDB = 0x20424451,
-            QST = 0x20545351,
-        }
-
-        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
-        {
-            var nodes = new List<MetaInfo> {
-                new MetaInfo("BinaryGFF", items: new List<MetaInfo> {
-                    new MetaInfo($"Type: {Type}"),
-                })
-            };
-            return nodes;
-        }
-
-        public DataType Type { get; private set; }
-
-        public IDictionary<string, object> Root { get; private set; }
-        public IDictionary<uint, object> Index { get; private set; }
 
         // Headers
         #region Headers
@@ -87,6 +63,17 @@ namespace GameSpec.Bioware.Formats
 
         #endregion
 
+        public enum DataType : uint
+        {
+            DLG = 0x20474c44,
+            QDB = 0x20424451,
+            QST = 0x20545351,
+        }
+
+        public DataType Type { get; private set; }
+        public IDictionary<string, object> Root { get; private set; }
+        public IDictionary<uint, object> Index { get; private set; }
+
         public class ResourceRef
         {
             public string Name;
@@ -98,7 +85,7 @@ namespace GameSpec.Bioware.Formats
             public (uint id, string value)[] Values;
         }
 
-        public unsafe void Read(BinaryReader r)
+        public Binary_Gff(BinaryReader r)
         {
             Type = (DataType)r.ReadUInt32();
             var header = r.ReadT<GFF_Header>(sizeof(GFF_Header));
@@ -180,6 +167,17 @@ namespace GameSpec.Bioware.Formats
             }
             Root = structs[0];
             Index = index;
+        }
+
+        // IHaveMetaInfo
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
+        {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryGFF", items: new List<MetaInfo> {
+                    new MetaInfo($"Type: {Type}"),
+                })
+            };
+            return nodes;
         }
     }
 }

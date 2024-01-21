@@ -19,7 +19,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public GfxObjDegradeInfo(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            Degrades = r.ReadL32Array(x => new GfxObjInfo(x));
+            Degrades = r.ReadL32FArray(x => new GfxObjInfo(x));
         }
 
         //: FileTypes.DegradeInfo

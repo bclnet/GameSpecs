@@ -54,6 +54,7 @@ namespace GameSpec.Formats
         [StructLayout(LayoutKind.Sequential)]
         struct SPR_Header
         {
+            public static (string, int) Struct = ("<I3if3ifi", sizeof(SPR_Header));
             public uint Signature;
             public int Version;
             public SprType Type;
@@ -82,6 +83,7 @@ namespace GameSpec.Formats
         [StructLayout(LayoutKind.Sequential)]
         struct SPR_Frame
         {
+            public static (string, int) Struct = ("<5i", sizeof(SPR_Frame));
             public int Group;
             public int OriginX;
             public int OriginY;
@@ -96,7 +98,7 @@ namespace GameSpec.Formats
             Format = ((TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32);
 
             // read file
-            var header = r.ReadT<SPR_Header>(sizeof(SPR_Header));
+            var header = r.ReadS<SPR_Header>(SPR_Header.Struct);
             if (header.Signature != SPR_MAGIC) throw new FormatException("BAD MAGIC");
 
             // load palette
@@ -107,7 +109,7 @@ namespace GameSpec.Formats
             pixels = new byte[header.NumFrames][];
             for (var i = 0; i < header.NumFrames; i++)
             {
-                frames[i] = r.ReadT<SPR_Frame>(sizeof(SPR_Frame));
+                frames[i] = r.ReadS<SPR_Frame>(SPR_Frame.Struct);
                 ref SPR_Frame frame = ref frames[i];
                 var pixelSize = frame.Width * frame.Height;
                 pixels[i] = r.ReadBytes(pixelSize);

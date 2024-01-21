@@ -153,13 +153,13 @@ namespace GameSpec.Valve.Formats.Blocks
             using var r2 = new BinaryReader(s, System.Text.Encoding.UTF8, true);
 
             currentBinaryBytesOffset = 0;
-            r2.Seek(countOfBinaryBytes, 4);
+            r2.SeekAndAlign(countOfBinaryBytes, 4);
 
             var countOfStrings = r2.ReadInt32();
             var kvDataOffset = r2.BaseStream.Position;
 
             // Subtract one integer since we already read it (countOfStrings)
-            r2.Skip((countOfIntegers - 1) * 4, 8);
+            r2.SkipAndAlign((countOfIntegers - 1) * 4, 8);
 
             currentEightBytesOffset = r2.BaseStream.Position;
             r2.BaseStream.Position += countOfEightByteValues * 8;
@@ -254,13 +254,13 @@ namespace GameSpec.Valve.Formats.Blocks
 
             currentBinaryBytesOffset = 0;
             r2.BaseStream.Position = countOfBinaryBytes;
-            r2.Seek(countOfBinaryBytes, 4); // Align to % 4 after binary blobs
+            r2.SeekAndAlign(countOfBinaryBytes, 4); // Align to % 4 after binary blobs
 
             var countOfStrings = r2.ReadUInt32();
             var kvDataOffset = r2.BaseStream.Position;
 
             // Subtract one integer since we already read it (countOfStrings)
-            r2.Skip((countOfIntegers - 1) * 4, 8); // Align to % 8 for the start of doubles
+            r2.SkipAndAlign((countOfIntegers - 1) * 4, 8); // Align to % 8 for the start of doubles
 
             currentEightBytesOffset = r2.BaseStream.Position;
 

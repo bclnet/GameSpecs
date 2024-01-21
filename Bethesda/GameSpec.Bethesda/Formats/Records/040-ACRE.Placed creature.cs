@@ -23,10 +23,10 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "NAME": NAME = new FMIDField<Record>(r, dataSize); return true;
                 case "DATA": DATA = new REFRRecord.DATAField(r, dataSize); return true;
                 case "XOWN": if (XOWNs == null) XOWNs = new List<CELLRecord.XOWNGroup>(); XOWNs.Add(new CELLRecord.XOWNGroup { XOWN = new FMIDField<Record>(r, dataSize) }); return true;
-                case "XRNK": XOWNs.Last().XRNK = r.ReadT<IN32Field>(dataSize); return true;
+                case "XRNK": XOWNs.Last().XRNK = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 case "XGLB": XOWNs.Last().XGLB = new FMIDField<Record>(r, dataSize); return true;
                 case "XESP": XESP = new REFRRecord.XESPField(r, dataSize); return true;
-                case "XSCL": XSCL = r.ReadT<FLTVField>(dataSize); return true;
+                case "XSCL": XSCL = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
                 case "XRGD": XRGD = r.ReadBYTV(dataSize); return true;
                 default: return false;
             }

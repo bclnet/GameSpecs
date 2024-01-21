@@ -197,7 +197,7 @@ namespace GameSpec.Monolith.Formats
             {
                 Path = $"{a.Path}/{b.Path}",
                 FileSize = b.FileSize,
-                Position = b.Position,
+                Offset = b.Position,
             }).ToArray();
 
             return Task.CompletedTask;
@@ -206,7 +206,7 @@ namespace GameSpec.Monolith.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData;
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             return Task.FromResult(fileData);
         }

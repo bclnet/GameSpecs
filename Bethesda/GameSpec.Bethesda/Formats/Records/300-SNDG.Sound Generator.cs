@@ -28,7 +28,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 switch (type)
                 {
                     case "NAME": EDID = r.ReadSTRV(dataSize); return true;
-                    case "DATA": DATA = r.ReadT<IN32Field>(dataSize); return true;
+                    case "DATA": DATA = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                     case "SNAM": SNAM = r.ReadSTRV(dataSize); return true;
                     case "CNAM": CNAM = r.ReadSTRV(dataSize); return true;
                     default: return false;

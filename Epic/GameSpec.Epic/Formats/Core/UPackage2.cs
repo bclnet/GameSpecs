@@ -70,7 +70,7 @@ namespace GameSpec.Epic.Formats.Core
 
         // current generations code
         generations:
-            Generations = r.ReadL32Array(r => new FGenerationInfo(r, Ar));
+            Generations = r.ReadL32FArray(r => new FGenerationInfo(r, Ar));
         }
     }
 

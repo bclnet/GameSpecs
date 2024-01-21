@@ -13,14 +13,14 @@ namespace GameSpec.WbB.Formats.FileTypes
     {
         public readonly uint BaseEnumMap; // _base_emp_did
         public readonly NumberingType NumberingType;
-        public readonly Dictionary<uint, string> IdToStringMap; // _id_to_string_map
+        public readonly IDictionary<uint, string> IdToStringMap; // _id_to_string_map
 
         public EnumMapper(BinaryReader r)
         {
             Id = r.ReadUInt32();
             BaseEnumMap = r.ReadUInt32();
             NumberingType = (NumberingType)r.ReadByte();
-            IdToStringMap = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
+            IdToStringMap = r.ReadC32TMany<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
         }
 
         //: FileTypes.EnumMapper

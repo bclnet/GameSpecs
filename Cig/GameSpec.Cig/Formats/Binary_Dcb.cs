@@ -19,6 +19,7 @@ namespace GameSpec.Cig.Formats
 
         struct Header
         {
+            public static (string, int) Struct = ("<5I9I8I4I", sizeof(Header));
             public int StructTypes;
             public int PropertyTypes;
             public int EnumTypes;
@@ -52,18 +53,21 @@ namespace GameSpec.Cig.Formats
 
         struct DataMapV1_
         {
+            public static (string, int) Struct = ("<2I", sizeof(DataMapV1_));
             public uint StructCount;
             public uint StructIndex;
         }
 
         struct DataMapV0_
         {
+            public static (string, int) Struct = ("<2H", sizeof(DataMapV0_));
             public ushort StructCount;
             public ushort StructIndex;
         }
 
         struct EnumType_
         {
+            public static (string, int) Struct = ("<I2H", sizeof(EnumType_));
             public uint NameOffset; public string GetName(Dictionary<uint, string> map) => map[NameOffset];
             public ushort ValueCount;
             public ushort FirstValueIndex;
@@ -71,6 +75,7 @@ namespace GameSpec.Cig.Formats
 
         struct PropertyType_
         {
+            public static (string, int) Struct = ("<I4H", sizeof(PropertyType_));
             public uint NameOffset; public string GetName(Dictionary<uint, string> map) => map[NameOffset];
             public ushort StructIndex;
             [MarshalAs(UnmanagedType.U2)] public EDataType DataType;
@@ -80,6 +85,7 @@ namespace GameSpec.Cig.Formats
 
         struct RecordTypeV1_
         {
+            public static (string, int) Struct = ("<3I16x2H", sizeof(RecordTypeV1_));
             public uint NameOffset; public string GetName(Dictionary<uint, string> map) => map[NameOffset];
             public uint FileNameOffset;  // !Legacy
             public uint StructIndex;
@@ -90,6 +96,7 @@ namespace GameSpec.Cig.Formats
 
         struct RecordTypeV0_
         {
+            public static (string, int) Struct = ("<2I16x2H", sizeof(RecordTypeV0_));
             public uint NameOffset; public string GetName(Dictionary<uint, string> map) => map[NameOffset];
             public uint StructIndex;
             public Guid Hash;
@@ -99,6 +106,7 @@ namespace GameSpec.Cig.Formats
 
         internal struct StructType_
         {
+            public static (string, int) Struct = ("<2I2JO", sizeof(StructType_));
             public uint NameOffset; public string GetName(Dictionary<uint, string> map) => map[NameOffset];
             public uint ParentTypeIndex;
             public ushort AttributeCount;
@@ -108,18 +116,21 @@ namespace GameSpec.Cig.Formats
 
         struct Pointer_
         {
+            public static (string, int) Struct = ("<2I", sizeof(Pointer_));
             public uint StructType;
             public uint Index;
         }
 
         struct Reference_
         {
+            public static (string, int) Struct = ("<I16c", sizeof(Reference_));
             public uint Item1;
             public Guid Value;
         }
 
         struct Lookup_
         {
+            public static (string, int) Struct = ("<I", sizeof(Lookup_));
             public uint ValueOffset; public string GetValue(Dictionary<uint, string> map) => map[ValueOffset];
         }
 
@@ -340,7 +351,7 @@ namespace GameSpec.Cig.Formats
                         object value;
                         switch (node.DataType)
                         {
-                            case EDataType.Reference: value = r.ReadT<Reference_>(sizeof(Reference_)); break;
+                            case EDataType.Reference: value = r.ReadS<Reference_>(Reference_.Struct); break;
                             case EDataType.Locale: value = ValueMap[r.ReadUInt32()]; break;
                             case EDataType.StrongPointer: Remap_Strong.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() }); continue;
                             case EDataType.WeakPointer: Remap_Weak2.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() }); continue;

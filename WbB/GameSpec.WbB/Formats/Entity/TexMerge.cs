@@ -17,10 +17,10 @@ namespace GameSpec.WbB.Formats.Entity
         public TexMerge(BinaryReader r)
         {
             BaseTexSize = r.ReadUInt32();
-            CornerTerrainMaps = r.ReadL32Array(x => new TerrainAlphaMap(x));
-            SideTerrainMaps = r.ReadL32Array(x => new TerrainAlphaMap(x));
-            RoadMaps = r.ReadL32Array(x => new RoadAlphaMap(x));
-            TerrainDesc = r.ReadL32Array(x => new TMTerrainDesc(x));
+            CornerTerrainMaps = r.ReadL32FArray(x => new TerrainAlphaMap(x));
+            SideTerrainMaps = r.ReadL32FArray(x => new TerrainAlphaMap(x));
+            RoadMaps = r.ReadL32FArray(x => new RoadAlphaMap(x));
+            TerrainDesc = r.ReadL32FArray(x => new TMTerrainDesc(x));
         }
 
         //: Entity.TexMerge

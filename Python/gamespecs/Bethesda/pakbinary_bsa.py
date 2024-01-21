@@ -90,7 +90,7 @@ class PakBinary_Bsa(PakBinaryT):
 
         # Oblivion - Skyrim
         if magic == self.OB_BSAHEADER_FILEID:
-            header = r.readT(self.OB_Header)
+            header = r.readS(self.OB_Header)
             if header.version != self.OB_BSAHEADER_VERSION \
                 and header.version != self.F3_BSAHEADER_VERSION \
                 and header.version != self.SSE_BSAHEADER_VERSION:
@@ -134,7 +134,7 @@ class PakBinary_Bsa(PakBinaryT):
 
         # Morrowind
         elif magic == self.MW_BSAHEADER_FILEID:
-            header = r.readT(self.MW_Header)
+            header = r.readS(self.MW_Header)
             dataOffset = 12 + header.hashOffset + (8 * header.fileCount)
 
             # create filesources

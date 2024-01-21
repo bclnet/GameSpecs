@@ -14,12 +14,12 @@ namespace GameSpec.WbB.Formats.FileTypes
         public const uint FILE_ID = 0x0E000004;
 
         // Key is the SkillId
-        public Dictionary<uint, SkillBase> SkillBaseHash;
+        public IDictionary<uint, SkillBase> SkillBaseHash;
 
         public SkillTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            SkillBaseHash = r.ReadL16Many<uint, SkillBase>(sizeof(uint), x => new SkillBase(x), offset: 2);
+            SkillBaseHash = r.Skip(2).ReadL16TMany<uint, SkillBase>(sizeof(uint), x => new SkillBase(x));
         }
 
         //: FileTypes.SkillTable

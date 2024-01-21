@@ -64,7 +64,7 @@ namespace GameSpec.Bethesda.Formats
 
         public static NiObject ReadNiObject(BinaryReader r)
         {
-            var nodeType = Encoding.ASCII.GetString(r.ReadL32Bytes());
+            var nodeType = r.ReadL32AString();
             switch (nodeType)
             {
                 case "NiNode": { var node = new NiNode(); node.Deserialize(r); return node; }
@@ -602,7 +602,7 @@ namespace GameSpec.Bethesda.Formats
             Scale = r.ReadSingle();
             Velocity = r.ReadVector3();
             Properties = NiReaderUtils.ReadLengthPrefixedRefs32<NiProperty>(r);
-            HasBoundingBox = r.ReadBoolean32();
+            HasBoundingBox = r.ReadBool32();
             if (HasBoundingBox) { BoundingBox = new BoundingBox(); BoundingBox.Deserialize(r); }
         }
     }
@@ -666,13 +666,13 @@ namespace GameSpec.Bethesda.Formats
         {
             base.Deserialize(r);
             NumVertices = r.ReadUInt16();
-            HasVertices = r.ReadBoolean32();
+            HasVertices = r.ReadBool32();
             if (HasVertices)
             {
                 Vertices = new Vector3[NumVertices];
                 for (var i = 0; i < Vertices.Length; i++) Vertices[i] = r.ReadVector3();
             }
-            HasNormals = r.ReadBoolean32();
+            HasNormals = r.ReadBool32();
             if (HasNormals)
             {
                 Normals = new Vector3[NumVertices];
@@ -680,14 +680,14 @@ namespace GameSpec.Bethesda.Formats
             }
             Center = r.ReadVector3();
             Radius = r.ReadSingle();
-            HasVertexColors = r.ReadBoolean32();
+            HasVertexColors = r.ReadBool32();
             if (HasVertexColors)
             {
                 VertexColors = new Color4[NumVertices];
                 for (var i = 0; i < VertexColors.Length; i++) { VertexColors[i] = new Color4(); VertexColors[i].Deserialize(r); }
             }
             NumUVSets = r.ReadUInt16();
-            HasUV = r.ReadBoolean32();
+            HasUV = r.ReadBool32();
             if (HasUV)
             {
                 UVSets = new TexCoord[NumUVSets, NumVertices];
@@ -778,19 +778,19 @@ namespace GameSpec.Bethesda.Formats
             Flags = NiReaderUtils.ReadFlags(r);
             ApplyMode = (ApplyMode)r.ReadUInt32();
             TextureCount = r.ReadUInt32();
-            var hasBaseTexture = r.ReadBoolean32();
+            var hasBaseTexture = r.ReadBool32();
             if (hasBaseTexture) { BaseTexture = new TexDesc(); BaseTexture.Deserialize(r); }
-            var hasDarkTexture = r.ReadBoolean32();
+            var hasDarkTexture = r.ReadBool32();
             if (hasDarkTexture) { DarkTexture = new TexDesc(); DarkTexture.Deserialize(r); }
-            var hasDetailTexture = r.ReadBoolean32();
+            var hasDetailTexture = r.ReadBool32();
             if (hasDetailTexture) { DetailTexture = new TexDesc(); DetailTexture.Deserialize(r); }
-            var hasGlossTexture = r.ReadBoolean32();
+            var hasGlossTexture = r.ReadBool32();
             if (hasGlossTexture) { GlossTexture = new TexDesc(); GlossTexture.Deserialize(r); }
-            var hasGlowTexture = r.ReadBoolean32();
+            var hasGlowTexture = r.ReadBool32();
             if (hasGlowTexture) { GlowTexture = new TexDesc(); GlowTexture.Deserialize(r); }
-            var hasBumpMapTexture = r.ReadBoolean32();
+            var hasBumpMapTexture = r.ReadBool32();
             if (hasBumpMapTexture) { BumpMapTexture = new TexDesc(); BumpMapTexture.Deserialize(r); }
-            var hasDecal0Texture = r.ReadBoolean32();
+            var hasDecal0Texture = r.ReadBool32();
             if (hasDecal0Texture) { Decal0Texture = new TexDesc(); Decal0Texture.Deserialize(r); }
         }
     }
@@ -1035,7 +1035,7 @@ namespace GameSpec.Bethesda.Formats
             NumParticles = r.ReadUInt16();
             ParticleRadius = r.ReadSingle();
             NumActive = r.ReadUInt16();
-            HasSizes = r.ReadBoolean32();
+            HasSizes = r.ReadBool32();
             if (HasSizes)
             {
                 Sizes = new float[NumVertices];
@@ -1054,7 +1054,7 @@ namespace GameSpec.Bethesda.Formats
         public override void Deserialize(BinaryReader r)
         {
             base.Deserialize(r);
-            HasRotations = r.ReadBoolean32();
+            HasRotations = r.ReadBool32();
             if (HasRotations)
             {
                 Rotations = new Quaternion[NumVertices];

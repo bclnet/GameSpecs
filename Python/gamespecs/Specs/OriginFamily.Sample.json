@@ -1,9 +1,22 @@
 ﻿{
+  "U8": {
+    "name": "Ultima™ 8 Gold Edition",
+    "files": [
+      {
+        "path": "STATIC/GLOB.FLX",
+        "type": "Test"
+      },
+      {
+        "path": "STATIC/U8FONTS.FLX",
+        "type": "Test"
+      }
+    ]
+  },
   "UO": {
     "name": "Ultima Online",
     "files": [
       {
-        "path": ">anim.idx:default_cch.dds",
+        "path": "anim.idx:default_cch.dds",
         "size": 16520,
         "type": "Test"
       }
@@ -13,7 +26,7 @@
     "name": "Ultima IX",
     "files": [
       {
-        "path": ">activity.flx:Engine/default_cch.dds",
+        "path": "activity.flx:Engine/default_cch.dds",
         "size": 16520,
         "type": "Test"
       }

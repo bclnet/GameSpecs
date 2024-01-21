@@ -69,6 +69,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential)]
         internal struct FF_Header
         {
+            public static (string, int) Struct = ("<?", sizeof(FF_Header));
             [MarshalAs(UnmanagedType.U4)] public FF_MAGIC Magic;
             [MarshalAs(UnmanagedType.U4)] public FF_FORMAT Format;
             [MarshalAs(UnmanagedType.U4)] public FF_VERSION Version;
@@ -84,6 +85,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct IPAK_Header
         {
+            public static (string, int) Struct = ("<?", sizeof(IPAK_Header));
             public uint Magic;
             public uint Version;
             public uint Size;
@@ -93,6 +95,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct IPAK_Segment
         {
+            public static (string, int) Struct = ("<?", sizeof(IPAK_Segment));
             public uint Type;
             public uint Offset;
             public uint Size;
@@ -102,6 +105,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct IPAK_DataHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(IPAK_DataHeader));
             public uint OffsetCount; // Count and offset are packed into a single integer
             public fixed uint Commands[31]; // The commands tell what each block of data does
             public uint Offset => OffsetCount << 8;
@@ -111,6 +115,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct IPAK_Entry
         {
+            public static (string, int) Struct = ("<?", sizeof(IPAK_Entry));
             public ulong Key;
             public uint Offset;
             public uint Size;
@@ -126,6 +131,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct XPAK_Header //: BO3XPakHeader, VGXPAKHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(XPAK_Body));
             public uint Magic; // KAPI / IPAK
             public ushort Zero;
             public ushort Version;
@@ -139,6 +145,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct XPAK_Body //: BO3XPakHeader, VGXPAKHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(XPAK_Body));
             public ulong DataOffset;    /*00*/
             public ulong DataSize;      /*08*/
             public ulong HashCount;     /*16*/
@@ -155,6 +162,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct XPAK_HeaderVG //: VGXPAKHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(XPAK_HeaderVG));
             public uint Magic; // KAPI / IPAK
             public ushort Zero;
             public ushort Version;
@@ -180,6 +188,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct XPAK_HashEntry //: BO3XPakHashEntry
         {
+            public static (string, int) Struct = ("<?", sizeof(XPAK_HashEntry));
             public ulong Key;
             public ulong Offset;
             public ulong Size;
@@ -188,6 +197,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct XPAK_HashEntryVG //: VGXPAKHashEntry
         {
+            public static (string, int) Struct = ("<?", sizeof(XPAK_HashEntryVG));
             public ulong Key;
             public ulong PackedInfo;
         }
@@ -195,6 +205,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct XPAK_DataHeader //: BO3XPakDataHeader
         {
+            public static (string, int) Struct = ("<?", sizeof(XPAK_DataHeader));
             public uint Offset;
             public uint Count;
             public fixed uint Commands[31]; // The commands tell what each block of data does
@@ -215,6 +226,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct WWII_Header
         {
+            public static (string, int) Struct = ("<?", sizeof(WWII_Header));
             public ulong Magic;
             public uint Version;
             public uint EntriesCount;
@@ -223,6 +235,7 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct WWII_Segment
         {
+            public static (string, int) Struct = ("<?", sizeof(WWII_Segment));
             public fixed byte Hash[16];
             public ulong Offset;
             public uint Size;
@@ -275,7 +288,7 @@ namespace GameSpec.IW.Formats
                     {
                         source.Magic = (int)Magic.FF;
 
-                        var header = r.ReadT<FF_Header>(sizeof(FF_Header));
+                        var header = r.ReadS<FF_Header>(FF_Header.Struct);
                         if (header.Magic != FF_MAGIC.IWff && header.Magic != FF_MAGIC.S1ff && header.Magic != FF_MAGIC.TAff) throw new FormatException($"Bad magic {header.Magic}");
                         if (header.Format != FF_FORMAT.U100 && header.Format != FF_FORMAT._100 && header.Format != FF_FORMAT.A100 && header.Format != FF_FORMAT._000) throw new FormatException($"Bad format {header.Format}");
 
@@ -309,7 +322,7 @@ namespace GameSpec.IW.Formats
                 case ".xpak":
                     {
                         source.Magic = (int)Magic.XPAK;
-                        var header = r.ReadT<XPAK_Header>(sizeof(XPAK_Header));
+                        var header = r.ReadS<XPAK_Header>(XPAK_Header.Struct);
                         // Verify the magic and offset
                         if (header.Magic != XPAK_MAGIC) throw new FormatException("Bad magic");
                         var type = header.Version == 0x1 ? r.ReadUInt64() : 0;
@@ -317,7 +330,7 @@ namespace GameSpec.IW.Formats
                         var unknownHashes = header.Version == 0x1 ? r.ReadBytes(1896) : null;
                         var fileCount = r.ReadUInt64();
                         if (header.Version == 0xD) r.Skip(288); // If MW4 we need to skip the new bytes
-                        var body = r.ReadT<XPAK_Body>(sizeof(XPAK_Body));
+                        var body = r.ReadS<XPAK_Body>(XPAK_Body.Struct);
                         // Verify the magic and offset
                         if (body.HashOffset >= (ulong)r.BaseStream.Length) throw new FormatException("Bad magic");
 
@@ -337,7 +350,7 @@ namespace GameSpec.IW.Formats
                             {
                                 Id = (int)entry.Key,
                                 Path = entry.Key.ToString(),
-                                Position = (long)(body.DataOffset + entry.Offset), //: Offset
+                                Offset = (long)(body.DataOffset + entry.Offset), //: Offset
                                 PackedSize = (long)(entry.Size & 0xFFFFFFFFFFFFFF), //: CompressedSize, 0x80 in last 8 bits in some entries in new XPAKs
                                 FileSize = 0, //: UncompressedSize
                                 Tag = entry,

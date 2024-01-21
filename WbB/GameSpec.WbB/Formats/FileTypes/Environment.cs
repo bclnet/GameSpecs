@@ -14,12 +14,12 @@ namespace GameSpec.WbB.Formats.FileTypes
     [PakFileType(PakFileType.Environment)]
     public class Environment : FileType, IHaveMetaInfo
     {
-        public readonly Dictionary<uint, CellStruct> Cells;
+        public readonly IDictionary<uint, CellStruct> Cells;
 
         public Environment(BinaryReader r)
         {
             Id = r.ReadUInt32(); // this will match fileId
-            Cells = r.ReadL32Many<uint, CellStruct>(sizeof(uint), x => new CellStruct(x));
+            Cells = r.ReadL32TMany<uint, CellStruct>(sizeof(uint), x => new CellStruct(x));
         }
 
         //: FileTypes.Environment

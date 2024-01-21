@@ -19,6 +19,7 @@ namespace GameSpec.Valve.Formats
         [StructLayout(LayoutKind.Sequential), DebuggerDisplay("Header:{LumpCount}")]
         struct WAD_Header
         {
+            public static (string, int) Struct = ("<3I", sizeof(WAD_Header));
             public uint Signature;
             public uint LumpCount;
             public uint LumpOffset;
@@ -27,7 +28,7 @@ namespace GameSpec.Valve.Formats
         [StructLayout(LayoutKind.Sequential), DebuggerDisplay("Lump:{Name}")]
         struct WAD_Lump
         {
-            public const int SizeOf = 32;
+            public static (string, int) Struct = ("<3I2cH16s", 32);
             public uint Offset;
             public uint DiskSize;
             public uint Size;
@@ -40,6 +41,7 @@ namespace GameSpec.Valve.Formats
         [StructLayout(LayoutKind.Sequential), DebuggerDisplay("LumpInfo:{Width}x{Height}")]
         struct WAD_LumpInfo
         {
+            public static (string, int) Struct = ("<3I", 32);
             public uint Width;
             public uint Height;
             public uint PaletteSize;
@@ -52,10 +54,10 @@ namespace GameSpec.Valve.Formats
             var files = source.Files = new List<FileSource>();
 
             // read file
-            var header = r.ReadT<WAD_Header>(sizeof(WAD_Header));
+            var header = r.ReadS<WAD_Header>(WAD_Header.Struct);
             if (header.Signature != WAD_MAGIC) throw new FormatException("BAD MAGIC");
             r.Seek(header.LumpOffset);
-            var lumps = r.ReadTArrayEach<WAD_Lump>(WAD_Lump.SizeOf, (int)header.LumpCount);
+            var lumps = r.ReadTEach<WAD_Lump>(WAD_Lump.Struct.Item2, (int)header.LumpCount);
             foreach (var lump in lumps)
                 files.Add(new FileSource
                 {
@@ -67,7 +69,7 @@ namespace GameSpec.Valve.Formats
                         0x46 => $"{lump.Name}.fnt",
                         _ => $"{lump.Name}.{lump.Type:x}"
                     },
-                    Position = lump.Offset,
+                    Offset = lump.Offset,
                     Compressed = lump.Compression,
                     FileSize = lump.DiskSize,
                     PackedSize = lump.Size,
@@ -78,7 +80,7 @@ namespace GameSpec.Valve.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData;
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             fileData = new MemoryStream(file.Compressed == 0
                 ? r.ReadBytes((int)file.FileSize)
                 : throw new NotSupportedException());

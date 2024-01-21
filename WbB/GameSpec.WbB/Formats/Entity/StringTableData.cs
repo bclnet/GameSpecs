@@ -18,10 +18,10 @@ namespace GameSpec.WbB.Formats.Entity
         public StringTableData(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            VarNames = r.ReadL16Array(x => x.ReadCU32String());
-            Vars = r.ReadL16Array(x => x.ReadCU32String());
-            Strings = r.ReadL32Array(x => x.ReadCU32String());
-            Comments = r.ReadL32Array<uint>(sizeof(uint));
+            VarNames = r.ReadL16FArray(x => x.ReadCU32String());
+            Vars = r.ReadL16FArray(x => x.ReadCU32String());
+            Strings = r.ReadL32FArray(x => x.ReadCU32String());
+            Comments = r.ReadL32TArray<uint>(sizeof(uint));
             Unknown = r.ReadByte();
         }
 

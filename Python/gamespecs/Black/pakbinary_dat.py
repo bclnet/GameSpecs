@@ -15,21 +15,21 @@ class PakBinary_Dat(PakBinaryT):
 
     F1_HEADER_FILEID = 0x000000001
     class F1_Header:
-        struct = ('>IIII', 16)
+        struct = ('>4I', 16)
         def __init__(self, tuple):
             self.directoryCount, \
             self.unknown1, \
             self.unknown2, \
             self.unknown3 = tuple
     class F1_Directory:
-        struct = ('>IIII', 16)
+        struct = ('>4I', 16)
         def __init__(self, tuple):
             self.fileCount, \
             self.unknown1, \
             self.unknown2, \
             self.unknown3 = tuple
     class F1_File:
-        struct = ('>IIII', 16)
+        struct = ('>4I', 16)
         def __init__(self, tuple):
             self.attributes, \
             self.offset, \
@@ -38,12 +38,12 @@ class PakBinary_Dat(PakBinaryT):
 
     F2_HEADER_FILEID = 0x000000011
     class F2_Header:
-        struct = ('<II', 8)
+        struct = ('<2I', 8)
         def __init__(self, tuple):
             self.treeSize, \
             self.dataSize = tuple
     class F2_File:
-        struct = ('<BIII', 13)
+        struct = ('<B3I', 13)
         def __init__(self, tuple):
             self.type, \
             self.realSize, \
@@ -59,17 +59,17 @@ class PakBinary_Dat(PakBinaryT):
         # Fallout
         if gameId == 'Fallout':
             source.magic = self.F1_HEADER_FILEID
-            header = r.readT(self.F1_Header)
+            header = r.readS(self.F1_Header)
             directoryPaths = [r.readL8Encoding().replace('\\', '/') for x in range(header.directoryCount)]
 
             # create file metadatas
             source.files = files = []
             for i in range(header.directoryCount):
-                directory = r.readT(self.F1_Directory)
+                directory = r.readS(self.F1_Directory)
                 directoryPath = f'{directoryPaths[i]}/' if directoryPaths[i] != '.' else ''
                 for _ in range(directory.fileCount):
                     path = directoryPath + r.readL8Encoding().replace('\\', '/')
-                    file = r.readT(self.F1_File)
+                    file = r.readS(self.F1_File)
                     files.append(FileSource(
                         path = path,
                         compressed = file.attributes & 0x40,
@@ -82,7 +82,7 @@ class PakBinary_Dat(PakBinaryT):
         elif gameId == 'Fallout2':
             source.magic = self.F2_HEADER_FILEID
             r.seek(r.length() - 8)
-            header = r.readT(self.F2_Header)
+            header = r.readS(self.F2_Header)
             r.seek(header.dataSize - header.treeSize - 8)
 
             # create file metadatas
@@ -90,7 +90,7 @@ class PakBinary_Dat(PakBinaryT):
             filenum = r.readInt32()
             for i in range(filenum):
                 path = r.readL32Encoding().replace('\\', '/')
-                file = r.readT(self.F2_File)
+                file = r.readS(self.F2_File)
                 files.append(FileSource(
                     path = path,
                     compressed = file.type,

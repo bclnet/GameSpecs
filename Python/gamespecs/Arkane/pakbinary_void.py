@@ -13,7 +13,8 @@ class IFileSystem: pass
 # PakBinary_Void
 class PakBinary_Void(PakBinaryT):
 
-    # region Headers
+    #region Headers
+
     class V_File:
         struct = ('>QIIIIH', 26)
         def __init__(self, tuple):
@@ -23,6 +24,7 @@ class PakBinary_Void(PakBinaryT):
             self.unknown1, \
             self.flags, \
             self.flags2 = tuple
+
     #endregion
 
     # read
@@ -34,12 +36,12 @@ class PakBinary_Void(PakBinaryT):
 
         # master.index file
         if source.filePath == 'master.index':
-            RES_MAGIC = 0x04534552
+            MAGIC = 0x04534552
             SubMarker = 0x18000000
             EndMarker = 0x01000000
             
             magic = r.readUInt32E()
-            if magic != RES_MAGIC:
+            if magic != MAGIC:
                 raise Exception('BAD MAGIC')
             r.skip(4)
             first = True
@@ -75,7 +77,7 @@ class PakBinary_Void(PakBinaryT):
             tag1 = r.readL32Encoding()
             tag2 = r.readL32Encoding()
             path = (r.readL32Encoding() or '').replace('\\', '/')
-            file = r.readT(self.V_File)
+            file = r.readS(self.V_File)
             useSharedResources = (file.flags & 0x20) != 0 and file.flags2 == 0x8000
             if useSharedResources and not sharedResourcePath:
                 raise Exception('sharedResourcePath not available')

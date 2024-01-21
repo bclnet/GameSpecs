@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.FileTypes
             Id = r.ReadUInt32();
             Unknown = r.ReadInt32();
             UnknownByte = r.ReadByte();
-            Textures = r.ReadL32Array<uint>(sizeof(uint));
+            Textures = r.ReadL32TArray<uint>(sizeof(uint));
         }
 
         //: FileTypes.SurfaceTexture

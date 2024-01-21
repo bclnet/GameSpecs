@@ -96,7 +96,7 @@ class PakBinary_Ba2(PakBinaryT):
 
         # Fallout 4 - Starfield
         if magic == self.F4_BSAHEADER_FILEID:
-            header = r.readT(self.F4_Header)
+            header = r.readS(self.F4_Header)
             if header.version > self.F4_BSAHEADER_VERSION2:
                 raise Exception('BAD MAGIC')
             source.version = header.version
@@ -120,7 +120,7 @@ class PakBinary_Ba2(PakBinaryT):
                 # Texture BA2 Format
                 case self.F4_HeaderType.DX10:
                     for i in range(header.numFiles):
-                        headerTexture = r.readT(self.F4_Texture)
+                        headerTexture = r.readS(self.F4_Texture)
                         headerTextureChunks = r.readTArray(self.F4_TextureChunk, headerTexture.numChunks)
                         firstChunk = headerTextureChunks[0]
                         files[i] = FileSource(
@@ -133,7 +133,7 @@ class PakBinary_Ba2(PakBinaryT):
                 # GNMF BA2 Format
                 case self.F4_HeaderType.GNMF:
                     for i in range(header.numFiles):
-                        headerGNMF = r.readT(self.F4_GNMF)
+                        headerGNMF = r.readS(self.F4_GNMF)
                         headerTextureChunks = r.readTArray(self.F4_TextureChunk, headerGNMF.numChunks)
                         files[i] = FileSource(
                             fileInfo = headerGNMF,

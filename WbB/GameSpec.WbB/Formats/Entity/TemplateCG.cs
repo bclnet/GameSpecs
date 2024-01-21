@@ -34,8 +34,8 @@ namespace GameSpec.WbB.Formats.Entity
             Quickness = r.ReadUInt32();
             Focus = r.ReadUInt32();
             Self = r.ReadUInt32();
-            NormalSkillsList = r.ReadC32Array<Skill>(sizeof(uint));
-            PrimarySkillsList = r.ReadC32Array<Skill>(sizeof(uint));
+            NormalSkillsList = r.ReadC32TArray<Skill>(sizeof(uint));
+            PrimarySkillsList = r.ReadC32TArray<Skill>(sizeof(uint));
         }
 
         //: Entity.TemplateCG

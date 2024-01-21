@@ -9,7 +9,7 @@ class DefaultOptions:
         self.ForcePath = ForcePath
         self.ForceOpen = ForceOpen
 
-match 'Bioware':
+match 'Origin':
     case 'Arkane':
         familyKeys = [ "Arkane", "Unknown" ]
 
@@ -265,8 +265,9 @@ match 'Bioware':
             ForceOpen = True,
             ForcePath = "sample:*",
             Family = "Origin",
+            # Game = "U8", # Ultima 8
+            # Game = "U9", # Ultima IX
             # Game = "UO", # Ultima Online
-            # Game = "UltimaIX", # Ultima IX
         )
     case 'Red':
         familyKeys = [ "Red", "Unknown" ]

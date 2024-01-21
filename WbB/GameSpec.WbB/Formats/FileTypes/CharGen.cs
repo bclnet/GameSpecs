@@ -13,16 +13,16 @@ namespace GameSpec.WbB.Formats.FileTypes
         public const uint FILE_ID = 0x0E000002;
 
         public readonly StarterArea[] StarterAreas;
-        public readonly Dictionary<uint, HeritageGroupCG> HeritageGroups;
+        public readonly IDictionary<uint, HeritageGroupCG> HeritageGroups;
 
         public CharGen(BinaryReader r)
         {
             Id = r.ReadUInt32();
             r.Skip(4);
-            StarterAreas = r.ReadC32Array(x => new StarterArea(x));
+            StarterAreas = r.ReadC32FArray(x => new StarterArea(x));
             // HERITAGE GROUPS -- 11 standard player races and 2 Olthoi.
             r.Skip(1); // Not sure what this byte 0x01 is indicating, but we'll skip it because we can.
-            HeritageGroups = r.ReadC32Many<uint, HeritageGroupCG>(sizeof(uint), x => new HeritageGroupCG(x));
+            HeritageGroups = r.ReadC32TMany<uint, HeritageGroupCG>(sizeof(uint), x => new HeritageGroupCG(x));
         }
 
         //: FileTypes.CharGen

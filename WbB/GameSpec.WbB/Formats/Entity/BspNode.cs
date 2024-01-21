@@ -47,7 +47,7 @@ namespace GameSpec.WbB.Formats.Entity
             if (treeType == BSPType.Cell) return;
             Sphere = new Sphere(r);
             if (treeType == BSPType.Physics) return;
-            InPolys = r.ReadL32Array<ushort>(sizeof(ushort));
+            InPolys = r.ReadL32TArray<ushort>(sizeof(ushort));
         }
 
         //: Entity.BSPNode

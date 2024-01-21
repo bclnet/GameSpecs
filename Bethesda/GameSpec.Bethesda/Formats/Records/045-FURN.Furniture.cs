@@ -21,7 +21,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "MODT": MODL.MODTField(r, dataSize); return true;
                 case "FULL": FULL = r.ReadSTRV(dataSize); return true;
                 case "SCRI": SCRI = new FMIDField<SCPTRecord>(r, dataSize); return true;
-                case "MNAM": MNAM = r.ReadT<IN32Field>(dataSize); return true;
+                case "MNAM": MNAM = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                 default: return false;
             }
         }

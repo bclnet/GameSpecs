@@ -41,7 +41,7 @@ namespace GameSpec.Origin.Formats
                 {
                     Path = $"{prefix}/{i}",
                     FileSize = headerFile.FileSize,
-                    Position = headerFile.Position,
+                    Offset = headerFile.Position,
                 };
             }
             return Task.CompletedTask;
@@ -49,7 +49,7 @@ namespace GameSpec.Origin.Formats
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));
         }
     }

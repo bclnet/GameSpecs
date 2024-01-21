@@ -21,7 +21,7 @@ namespace GameSpec.WbB.Formats.FileTypes
             Id = r.ReadUInt32();
             Language = r.ReadUInt32();
             Unknown = r.ReadByte();
-            StringTableData = r.ReadC32Array(x => new StringTableData(x));
+            StringTableData = r.ReadC32FArray(x => new StringTableData(x));
         }
 
         //: FileTypes.StringTable

@@ -17,7 +17,7 @@ namespace GameSpec.WbB.Formats.Entity
         {
             TerrainName = r.ReadL16Encoding(Encoding.Default); r.Align();
             TerrainColor = r.ReadUInt32();
-            SceneTypes = r.ReadL32Array<uint>(sizeof(uint));
+            SceneTypes = r.ReadL32TArray<uint>(sizeof(uint));
         }
 
         //: Entity.TerrainType

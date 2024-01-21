@@ -220,7 +220,7 @@ namespace GameSpec.Bethesda.Formats.Records
                     case "MODL": MODL = new MODLGroup(r, dataSize); return true;
                     case "FNAM": FNAM = r.ReadSTRV(dataSize); return true;
                     case "NPDT": NPDT = new NPDTField(r, dataSize); return true;
-                    case "FLAG": FLAG = r.ReadT<IN32Field>(dataSize); return true;
+                    case "FLAG": FLAG = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                     case "SCRI": SCRI = new FMIDField<SCPTRecord>(r, dataSize); return true;
                     case "NPCO": NPCO = new CNTOField(r, dataSize, format); return true;
                     case "AIDT": AIDT = new AIDTField(r, dataSize); return true;
@@ -229,7 +229,7 @@ namespace GameSpec.Bethesda.Formats.Records
                     case "AI_F": AI_F = new AI_FField(r, dataSize); return true;
                     case "AI_E": AI_E = new AI_FField(r, dataSize); return true;
                     case "AI_A": AI_A = new AI_AField(r, dataSize); return true;
-                    case "XSCL": XSCL = r.ReadT<FLTVField>(dataSize); return true;
+                    case "XSCL": XSCL = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
                     case "CNAM": CNAM = r.ReadSTRV(dataSize); return true;
                     case "NPCS": NPCSs.Add(r.ReadSTRV_ZPad(dataSize)); return true;
                     default: return false;

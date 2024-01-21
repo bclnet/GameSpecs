@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace GameSpec.Bethesda.Formats.Records
 {
-    public class CELLRecord : Record, ICellRecord
+    public unsafe class CELLRecord : Record, ICellRecord
     {
         [Flags]
         public enum CELLFlags : ushort
@@ -28,6 +28,7 @@ namespace GameSpec.Bethesda.Formats.Records
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct XCLCField
         {
+            public static (string, int) StructN = ("<2iI", -1);
             public int GridX;
             public int GridY;
             public uint Flags;
@@ -37,6 +38,7 @@ namespace GameSpec.Bethesda.Formats.Records
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct XCLLField
         {
+            public static (string, int) StructN = ("<12c2f2i3f", -1);
             public ColorRef4 AmbientColor;
             public ColorRef4 DirectionalColor; //: SunlightColor
             public ColorRef4 FogColor;
@@ -63,6 +65,7 @@ namespace GameSpec.Bethesda.Formats.Records
             [StructLayout(LayoutKind.Sequential, Pack = 1)]
             public struct XYZAField
             {
+                public static (string, int) Struct = ("<3f3f", sizeof(XYZAField)); 
                 public Float3 Position;
                 public Float3 EulerAngles;
             }
@@ -133,24 +136,24 @@ namespace GameSpec.Bethesda.Formats.Records
                     case "FULL":
                     case "RGNN": FULL = r.ReadSTRV(dataSize); return true;
                     case "DATA": DATA = r.ReadINTV(format == BethesdaFormat.TES3 ? 4 : dataSize).ToUI16Field(); if (format == BethesdaFormat.TES3) goto case "XCLC"; return true;
-                    case "XCLC": XCLC = r.ReadT<XCLCField>(format == BethesdaFormat.TES3 ? 8 : dataSize); return true;
+                    case "XCLC": XCLC = r.ReadS2<XCLCField>(XCLCField.StructN, format == BethesdaFormat.TES3 ? 8 : dataSize); return true;
                     case "XCLL":
-                    case "AMBI": XCLL = r.ReadT<XCLLField>(dataSize); return true;
+                    case "AMBI": XCLL = r.ReadS2<XCLLField>(XCLLField.StructN, dataSize); return true;
                     case "XCLW":
-                    case "WHGT": XCLW = r.ReadT<FLTVField>(dataSize); return true;
+                    case "WHGT": XCLW = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
                     // TES3
-                    case "NAM0": NAM0 = r.ReadT<UI32Field>(dataSize); return true;
+                    case "NAM0": NAM0 = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
                     case "INTV": INTV = r.ReadINTV(dataSize); return true;
-                    case "NAM5": NAM5 = r.ReadT<CREFField>(dataSize); return true;
+                    case "NAM5": NAM5 = r.ReadS2<CREFField>(CREFField.Struct, dataSize); return true;
                     // TES4
                     case "XCLR":
                         XCLRs = new FMIDField<REGNRecord>[dataSize >> 2];
                         for (var i = 0; i < XCLRs.Length; i++) XCLRs[i] = new FMIDField<REGNRecord>(r, 4); return true;
-                    case "XCMT": XCMT = r.ReadT<BYTEField>(dataSize); return true;
+                    case "XCMT": XCMT = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
                     case "XCCM": XCCM = new FMIDField<CLMTRecord>(r, dataSize); return true;
                     case "XCWT": XCWT = new FMIDField<WATRRecord>(r, dataSize); return true;
                     case "XOWN": XOWNs.Add(new XOWNGroup { XOWN = new FMIDField<Record>(r, dataSize) }); return true;
-                    case "XRNK": XOWNs.Last().XRNK = r.ReadT<IN32Field>(dataSize); return true;
+                    case "XRNK": XOWNs.Last().XRNK = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                     case "XGLB": XOWNs.Last().XGLB = new FMIDField<Record>(r, dataSize); return true;
                     default: return false;
                 }
@@ -160,26 +163,26 @@ namespace GameSpec.Bethesda.Formats.Records
                     // RefObjDataGroup sub-records
                     case "FRMR":
                         _lastRef = new RefObj(); RefObjs.Add(_lastRef);
-                        _lastRef.FRMR = r.ReadT<UI32Field>(dataSize); return true;
+                        _lastRef.FRMR = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
                     case "NAME": _lastRef.EDID = r.ReadSTRV(dataSize); return true;
-                    case "XSCL": _lastRef.XSCL = r.ReadT<FLTVField>(dataSize); return true;
-                    case "DODT": _lastRef.DODT = r.ReadT<RefObj.XYZAField>(dataSize); return true;
+                    case "XSCL": _lastRef.XSCL = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                    case "DODT": _lastRef.DODT = r.ReadS2<RefObj.XYZAField>(RefObj.XYZAField.Struct, dataSize); return true;
                     case "DNAM": _lastRef.DNAM = r.ReadSTRV(dataSize); return true;
-                    case "FLTV": _lastRef.FLTV = r.ReadT<FLTVField>(dataSize); return true;
+                    case "FLTV": _lastRef.FLTV = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
                     case "KNAM": _lastRef.KNAM = r.ReadSTRV(dataSize); return true;
                     case "TNAM": _lastRef.TNAM = r.ReadSTRV(dataSize); return true;
-                    case "UNAM": _lastRef.UNAM = r.ReadT<BYTEField>(dataSize); return true;
+                    case "UNAM": _lastRef.UNAM = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
                     case "ANAM": _lastRef.ANAM = r.ReadSTRV(dataSize); return true;
                     case "BNAM": _lastRef.BNAM = r.ReadSTRV(dataSize); return true;
-                    case "INTV": _lastRef.INTV = r.ReadT<IN32Field>(dataSize); return true;
-                    case "NAM9": _lastRef.NAM9 = r.ReadT<UI32Field>(dataSize); return true;
+                    case "INTV": _lastRef.INTV = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
+                    case "NAM9": _lastRef.NAM9 = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
                     case "XSOL": _lastRef.XSOL = r.ReadSTRV(dataSize); return true;
-                    case "DATA": _lastRef.DATA = r.ReadT<RefObj.XYZAField>(dataSize); return true;
+                    case "DATA": _lastRef.DATA = r.ReadS2<RefObj.XYZAField>(RefObj.XYZAField.Struct, dataSize); return true;
                     //
                     case "CNAM": _lastRef.CNAM = r.ReadSTRV(dataSize); return true;
-                    case "NAM0": _lastRef.NAM0 = r.ReadT<UI32Field>(dataSize); return true;
-                    case "XCHG": _lastRef.XCHG = r.ReadT<IN32Field>(dataSize); return true;
-                    case "INDX": _lastRef.INDX = r.ReadT<IN32Field>(dataSize); return true;
+                    case "NAM0": _lastRef.NAM0 = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
+                    case "XCHG": _lastRef.XCHG = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
+                    case "INDX": _lastRef.INDX = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
                     default: return false;
                 }
         }

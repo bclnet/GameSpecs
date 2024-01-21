@@ -19,10 +19,10 @@ namespace GameSpec.WbB.Formats.FileTypes
         public readonly GfxObjFlags Flags;
         public readonly uint[] Surfaces; // also referred to as m_rgSurfaces in the client
         public readonly CVertexArray VertexArray;
-        public readonly Dictionary<ushort, Polygon> PhysicsPolygons;
+        public readonly IDictionary<ushort, Polygon> PhysicsPolygons;
         public readonly BspTree PhysicsBSP;
         public readonly Vector3 SortCenter;
-        public readonly Dictionary<ushort, Polygon> Polygons;
+        public readonly IDictionary<ushort, Polygon> Polygons;
         public readonly BspTree DrawingBSP;
         public readonly uint DIDDegrade;
 
@@ -30,19 +30,19 @@ namespace GameSpec.WbB.Formats.FileTypes
         {
             Id = r.ReadUInt32();
             Flags = (GfxObjFlags)r.ReadUInt32();
-            Surfaces = r.ReadC32Array<uint>(sizeof(uint));
+            Surfaces = r.ReadC32TArray<uint>(sizeof(uint));
             VertexArray = new CVertexArray(r);
             // Has Physics 
             if ((Flags & GfxObjFlags.HasPhysics) != 0)
             {
-                PhysicsPolygons = r.ReadC32Many<ushort, Polygon>(sizeof(ushort), x => new Polygon(x));
+                PhysicsPolygons = r.ReadC32TMany<ushort, Polygon>(sizeof(ushort), x => new Polygon(x));
                 PhysicsBSP = new BspTree(r, BSPType.Physics);
             }
             SortCenter = r.ReadVector3();
             // Has Drawing 
             if ((Flags & GfxObjFlags.HasDrawing) != 0)
             {
-                Polygons = r.ReadC32Many<ushort, Polygon>(sizeof(ushort), x => new Polygon(x));
+                Polygons = r.ReadC32TMany<ushort, Polygon>(sizeof(ushort), x => new Polygon(x));
                 DrawingBSP = new BspTree(r, BSPType.Drawing);
             }
             if ((Flags & GfxObjFlags.HasDIDDegrade) != 0) DIDDegrade = r.ReadUInt32();

@@ -17,7 +17,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         /// In the current dats, this isn't used for anything. All tables share the same values for any given flag.<para />
         /// It's possible the intended use for the flags was to separate words based on the type of offense, ie: racist, sexual, harassment, etc...
         /// </summary>
-        public readonly Dictionary<uint, TabooTableEntry> TabooTableEntries;
+        public readonly IDictionary<uint, TabooTableEntry> TabooTableEntries;
 
         public TabooTable(BinaryReader r)
         {

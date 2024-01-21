@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.Entity
         {
             Unknown1 = r.ReadUInt32();
             Unknown2 = r.ReadUInt16();
-            BannedPatterns = r.ReadL32Array(x => x.ReadString());
+            BannedPatterns = r.ReadL32FArray(x => x.ReadString());
         }
 
         /// <summary>

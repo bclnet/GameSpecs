@@ -310,7 +310,8 @@ class FamilyGame:
         searchPattern = self.createSearchPatterns(searchPattern)
         if not searchPattern: return None
         pakFiles = []
-        for key in [None] + list(self.dlcs.keys()):
+        dlcKeys = [x[0] for x in self.dlcs.items() if x[1].path]
+        for key in [None] + dlcKeys:
             for p in self.findPaths(fileSystem, edition, self.dlcs[key] if key else None, searchPattern):
                 if self.searchBy == 'Pak':
                     for path in p[1]:

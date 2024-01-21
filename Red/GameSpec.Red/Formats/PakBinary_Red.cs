@@ -19,6 +19,11 @@ namespace GameSpec.Red.Formats
     // https://forums.cdprojektred.com/index.php?threads/tw2-tw3-redkit-tool-3d-models-converter.1043/page-2
     public unsafe class PakBinary_Red : PakBinary<PakBinary_Red>
     {
+        //class SubPakFile : BinaryPakFile
+        //{
+        //    public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
+        //}
+
         // Headers : KEY/BIF (Witcher)
         #region Headers : KEY/BIF
 
@@ -33,6 +38,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct KEY_Header
         {
+            public static (string, int) Struct = ("<8i32c", sizeof(KEY_Header));
             public uint Version;            // Version ("V1.1")
             public uint NumFiles;           // Number of entries in FILETABLE
             public uint NumKeys;            // Number of entries in KEYTABLE.
@@ -47,6 +53,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct KEY_HeaderFile
         {
+            public static (string, int) Struct = ("<3i", sizeof(KEY_HeaderFile));
             public uint FileSize;           // BIF Filesize
             public uint FileNameOffset;     // Offset To BIF name
             public uint FileNameSize;       // Size of BIF name
@@ -55,6 +62,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct KEY_HeaderKey
         {
+            public static (string, int) Struct = ("<16sH2I", sizeof(KEY_HeaderKey));
             public fixed byte Name[0x10];   // Null-padded string Resource Name (sans extension).
             public ushort ResourceType;     // Resource Type
             public uint ResourceId;         // Resource ID
@@ -62,14 +70,10 @@ namespace GameSpec.Red.Formats
             public uint Id => (Flags & 0xFFF00000) >> 20; // BIF index
         }
 
-        class SubPakFile : BinaryPakFile
-        {
-            public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
-        }
-
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct BIFF_Header
         {
+            public static (string, int) Struct = ("<4I", sizeof(BIFF_Header));
             public uint Version;            // Version ("V1.1")
             public uint NumFiles;           // Resource Count
             public uint NotUsed01;          // Not used
@@ -79,6 +83,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct BIFF_HeaderFile
         {
+            public static (string, int) Struct = ("<4I2H", sizeof(BIFF_HeaderFile));
             public uint FileId;             // File ID
             public uint Flags;              // Flags (BIF index is now in this value, (flags & 0xFFF00000) >> 20). The rest appears to define 'fixed' index.
             public uint FileOffset;         // Offset to File Data.
@@ -229,6 +234,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct DZIP_Header
         {
+            public static (string, int) Struct = ("<3I2Q", sizeof(DZIP_Header));
             public uint Version;            //
             public uint NumFiles;           //
             public uint Unk02;              //
@@ -239,11 +245,12 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct DZIP_HeaderFile
         {
-            public DateTime Time => DateTime.FromFileTime((long)Timestamp);
+            public static (string, int) Struct = ("<4Q", sizeof(DZIP_HeaderFile));
             public ulong Timestamp;         // 
             public ulong FileSize;          // 
             public ulong Position;          // 
             public ulong PackedSize;        // 
+            public DateTime Time => DateTime.FromFileTime((long)Timestamp);
         }
 
         #endregion
@@ -256,6 +263,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct BUNDLE_Header
         {
+            public static (string, int) Struct = ("<3I", sizeof(BUNDLE_Header));
             public uint FileSize;           // 
             public uint NotUsed01;          // 
             public uint DataPosition;       // 
@@ -265,6 +273,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct BUNDLE_HeaderFile
         {
+            public static (string, int) Struct = ("<256s16s4IQ16c2I", sizeof(BUNDLE_Header));
             public fixed byte Name[0x100];  //
             public fixed byte Hash[16];     //
             public uint NotUsed01;          //
@@ -286,6 +295,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct CACHE_TEX_Header
         {
+            public static (string, int) Struct = ("<5I", sizeof(CACHE_TEX_Header));
             public uint NumFiles;           // number of textures
             public uint NamesSize;          // names
             public uint ChunksSize;         // relative offsets of packed chunks (* 4 bytes)
@@ -296,6 +306,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct CACHE_TEX_HeaderFile
         {
+            public static (string, int) Struct = ("<6I4H4I2cH", sizeof(CACHE_TEX_Header));
             public uint Id;                 // 01:crc or id??
             public uint FileNameOffset;     // 02:filename, start offset in block2
             public uint StartOffset;        // 03:* 4096 = start offset, first chunk
@@ -327,6 +338,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct CACHE_CS3W_Header
         {
+            public static (string, int) Struct = ("<5Q", sizeof(CACHE_CS3W_Header));
             public ulong NotUsed01;         // Not used
             public ulong InfoPosition;      // Offset to Info
             public ulong NumFiles;          // Number of entries in FILETABLE
@@ -337,6 +349,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct CACHE_CS3W_HeaderV1
         {
+            public static (string, int) Struct = ("<Q4I", sizeof(CACHE_CS3W_HeaderV1));
             public ulong NotUsed01;         // Not used
             public uint InfoPosition;       // Offset to Info
             public uint NumFiles;           // Number of entries in FILETABLE
@@ -356,6 +369,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct CS3W_HeaderFileV1
         {
+            public static (string, int) Struct = ("<3I", sizeof(CS3W_HeaderFileV1));
             public uint NamePosition;       // 
             public uint Position;           // 
             public uint Size;               // 
@@ -364,6 +378,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct CS3W_HeaderFileV2
         {
+            public static (string, int) Struct = ("<3Q", sizeof(CS3W_HeaderFileV2));
             public ulong NamePosition;      // 
             public ulong Position;          // 
             public ulong Size;              // 
@@ -379,6 +394,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct RDAR_Header
         {
+            public static (string, int) Struct = ("<I4Q", sizeof(RDAR_Header));
             public uint Version;
             public ulong TableOffset;
             public ulong TableSize;
@@ -389,6 +405,7 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct RDAR_HeaderTable
         {
+            public static (string, int) Struct = ("<2IQ3I", sizeof(RDAR_HeaderTable));
             public uint Num;
             public uint Size;
             public ulong Checksum;
@@ -400,20 +417,22 @@ namespace GameSpec.Red.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct RDAR_HeaderFile
         {
+            public static (string, int) Struct = ("<Qq5I20c", sizeof(RDAR_HeaderFile));
             public ulong NameHash64;
             public long DateTime;
-            public DateTime DateTimeConvert => System.DateTime.FromFileTime(DateTime);
             public uint FileFlags;
             public uint FirstDataSector;
             public uint NextDataSector;
             public uint FirstUnkIndex;
             public uint NextUnkIndex;
             public fixed byte SHA1Hash[0x14];
+            public DateTime DateTimeConvert => System.DateTime.FromFileTime(DateTime);
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct RDAR_HeaderOffset
         {
+            public static (string, int) Struct = ("<Q2I", sizeof(RDAR_HeaderOffset));
             public ulong Offset;
             public uint PhysicalSize;
             public uint VirtualSize;
@@ -435,7 +454,7 @@ namespace GameSpec.Red.Formats
             {
                 case KEY_MAGIC: // Signature("KEY ")
                     {
-                        var header = r.ReadT<KEY_Header>(sizeof(KEY_Header));
+                        var header = r.ReadS<KEY_Header>(KEY_Header.Struct);
                         if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
                         source.Files = files = new FileSource[header.NumFiles];
@@ -459,7 +478,7 @@ namespace GameSpec.Red.Formats
                             {
                                 Path = path,
                                 FileSize = file.FileSize,
-                                Pak = new SubPakFile(source.Game, source.FileSystem, subPath, (headerKeys, (uint)i)),
+                                Pak = new SubPakFile(null, source, source.Game, source.FileSystem, subPath, (headerKeys, (uint)i)),
                             };
                         }
                     }
@@ -469,7 +488,7 @@ namespace GameSpec.Red.Formats
                     {
                         if (source.Tag == null) throw new FormatException("BIFF files can only be processed through KEY files");
                         var (keys, bifId) = ((Dictionary<(uint, uint), string> keys, uint bifId))source.Tag;
-                        var header = r.ReadT<BIFF_Header>(sizeof(BIFF_Header));
+                        var header = r.ReadS<BIFF_Header>(BIFF_Header.Struct);
                         if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
                         source.Files = files2 = new List<FileSource>();
@@ -488,7 +507,7 @@ namespace GameSpec.Red.Formats
                             {
                                 Path = path,
                                 FileSize = headerFile.FileSize,
-                                Position = headerFile.FileOffset,
+                                Offset = headerFile.FileOffset,
                             });
                         }
                     }
@@ -496,7 +515,7 @@ namespace GameSpec.Red.Formats
                 // DZIP
                 case DZIP_MAGIC: // Signature("DZIP")
                     {
-                        var header = r.ReadT<DZIP_Header>(sizeof(DZIP_Header));
+                        var header = r.ReadS<DZIP_Header>(DZIP_Header.Struct);
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
                         source.Files = files = new FileSource[header.NumFiles];
@@ -514,14 +533,14 @@ namespace GameSpec.Red.Formats
                                 var nameBytesLength = pathBytes.Length - 1;
                                 path = Encoding.ASCII.GetString(pathBytes, 0, pathBytes[nameBytesLength] == 0 ? nameBytesLength : pathBytes.Length);
                             }
-                            var headerFile = r.ReadT<DZIP_HeaderFile>(sizeof(DZIP_HeaderFile));
+                            var headerFile = r.ReadS<DZIP_HeaderFile>(DZIP_HeaderFile.Struct);
                             files[i] = new FileSource
                             {
                                 Path = path.Replace('\\', '/'),
                                 Compressed = 1,
                                 PackedSize = (long)headerFile.PackedSize,
                                 FileSize = (long)headerFile.FileSize,
-                                Position = (long)headerFile.Position,
+                                Offset = (long)headerFile.Position,
                             };
                             // build digest
                             if (!string.IsNullOrEmpty(path))
@@ -546,13 +565,13 @@ namespace GameSpec.Red.Formats
                 case BUNDLE_MAGIC: // Signature("POTATO70")
                     {
                         if (r.ReadUInt32() != BUNDLE_MAGIC2) throw new FormatException("BAD MAGIC");
-                        var header = r.ReadT<BUNDLE_Header>(sizeof(BUNDLE_Header));
+                        var header = r.ReadS<BUNDLE_Header>(BUNDLE_Header.Struct);
                         source.Version = BUNDLE_MAGIC;
                         source.Files = files = new FileSource[header.NumFiles];
 
                         // files
                         r.Seek(0x20);
-                        var headerFiles = r.ReadTArray<BUNDLE_HeaderFile>(sizeof(BUNDLE_HeaderFile), header.NumFiles);
+                        var headerFiles = r.ReadSArray<BUNDLE_HeaderFile>(BUNDLE_HeaderFile.Struct, header.NumFiles);
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             var headerFile = headerFiles[i];
@@ -562,7 +581,7 @@ namespace GameSpec.Red.Formats
                                 Compressed = (int)headerFile.Compressed,
                                 FileSize = headerFile.FileSize,
                                 PackedSize = headerFile.PackedSize,
-                                Position = headerFile.FilePosition,
+                                Offset = headerFile.FilePosition,
                             };
                         }
                     }
@@ -571,13 +590,13 @@ namespace GameSpec.Red.Formats
                 case RDAR_MAGIC: // Signature("RDAR")
                     {
                         var hashLookup = CP77.HashLookup;
-                        var header = r.ReadT<RDAR_Header>(sizeof(RDAR_Header));
+                        var header = r.ReadS<RDAR_Header>(RDAR_Header.Struct);
                         if (header.Version != 12) throw new FormatException("unsupported version");
                         source.Version = RDAR_MAGIC;
                         r.Seek((long)header.TableOffset);
-                        var headerTable = r.ReadT<RDAR_HeaderTable>(sizeof(RDAR_HeaderTable));
-                        var headerFiles = r.ReadTArray<RDAR_HeaderFile>(sizeof(RDAR_HeaderFile), (int)headerTable.Table1Count);
-                        var headerOffsets = r.ReadTArray<RDAR_HeaderOffset>(sizeof(RDAR_HeaderOffset), (int)headerTable.Table2Count);
+                        var headerTable = r.ReadS<RDAR_HeaderTable>(RDAR_HeaderTable.Struct);
+                        var headerFiles = r.ReadSArray<RDAR_HeaderFile>(RDAR_HeaderFile.Struct, (int)headerTable.Table1Count);
+                        var headerOffsets = r.ReadSArray<RDAR_HeaderOffset>(RDAR_HeaderOffset.Struct, (int)headerTable.Table2Count);
                         //var headerHashs = r.ReadTArray<ulong>(sizeof(ulong), (int)headerTable.Table3Count);
                         source.Files = files2 = new List<FileSource>();
                         var nameHashs = new HashSet<ulong>();
@@ -603,7 +622,7 @@ namespace GameSpec.Red.Formats
                         {
                             source.Version = 'T';
                             r.Seek(r.BaseStream.Length - 20);
-                            var header = r.ReadT<CACHE_TEX_Header>(sizeof(CACHE_TEX_Header));
+                            var header = r.ReadS<CACHE_TEX_Header>(CACHE_TEX_Header.Struct);
                             Assert(header.Unk1 == 1415070536);
                             Assert(header.Unk2 == 6);
                             source.Files = files = new FileSource[header.NumFiles];
@@ -619,12 +638,12 @@ namespace GameSpec.Red.Formats
                             for (var i = 0; i < header.NumFiles; i++) filePaths[i] = r.ReadZAString(1000);
 
                             // file block
-                            var headerFiles = r.ReadTArray<CACHE_TEX_HeaderFile>(sizeof(CACHE_TEX_HeaderFile), (int)header.NumFiles);
+                            var headerFiles = r.ReadSArray<CACHE_TEX_HeaderFile>(CACHE_TEX_HeaderFile.Struct, (int)header.NumFiles);
                             for (var i = 0; i < header.NumFiles; i++)
                                 files[i] = new FileSource
                                 {
                                     Path = filePaths[i].Replace('\\', '/'),
-                                    Position = headerFiles[i].StartOffset,
+                                    Offset = headerFiles[i].StartOffset,
                                     PackedSize = headerFiles[i].PackedSize,
                                     FileSize = headerFiles[i].FileSize,
                                     Tag = headerFiles[i],
@@ -634,8 +653,8 @@ namespace GameSpec.Red.Formats
                         {
                             var version = r.ReadUInt32();
                             var header = version >= 2
-                                ? r.ReadT<CACHE_CS3W_Header>(sizeof(CACHE_CS3W_Header))
-                                : r.ReadT<CACHE_CS3W_HeaderV1>(sizeof(CACHE_CS3W_HeaderV1)).ToHeader();
+                                ? r.ReadS<CACHE_CS3W_Header>(CACHE_CS3W_Header.Struct)
+                                : r.ReadS<CACHE_CS3W_HeaderV1>(CACHE_CS3W_HeaderV1.Struct).ToHeader();
                             r.Seek((long)header.NameOffset);
                             var name = r.ReadFString((int)header.NameSize);
                         }
@@ -678,7 +697,7 @@ namespace GameSpec.Red.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData = null;
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             switch (source.Version)
             {
                 case BIFF_VERSION:
@@ -690,8 +709,8 @@ namespace GameSpec.Red.Formats
                     {
                         var blocks = (int)((file.FileSize + 0xFFFF) >> 16);
                         var positions = new long[blocks + 1];
-                        for (var i = 0; i < positions.Length; i++) positions[i] = file.Position + r.ReadUInt32();
-                        positions[blocks] = file.Position + file.PackedSize;
+                        for (var i = 0; i < positions.Length; i++) positions[i] = file.Offset + r.ReadUInt32();
+                        positions[blocks] = file.Offset + file.PackedSize;
                         var buffer = new byte[0x10000];
                         var bytesLeft = file.PackedSize;
                         var s = new MemoryStream();

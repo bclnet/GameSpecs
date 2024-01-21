@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public Scene(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            Objects = r.ReadL32Array(x => new ObjectDesc(x));
+            Objects = r.ReadL32FArray(x => new ObjectDesc(x));
         }
 
         //: FileTypes.Scene

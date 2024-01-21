@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
         public StarterArea(BinaryReader r)
         {
             Name = r.ReadString();
-            Locations = r.ReadC32Array(x => new Position(x));
+            Locations = r.ReadC32FArray(x => new Position(x));
         }
 
         //: Entity.StarterArea

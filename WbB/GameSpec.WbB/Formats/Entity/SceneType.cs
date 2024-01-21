@@ -14,7 +14,7 @@ namespace GameSpec.WbB.Formats.Entity
         public SceneType(BinaryReader r)
         {
             StbIndex = r.ReadUInt32();
-            Scenes = r.ReadL32Array<uint>(sizeof(uint));
+            Scenes = r.ReadL32TArray<uint>(sizeof(uint));
         }
 
         //: Entity.SceneType

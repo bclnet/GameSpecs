@@ -21,7 +21,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public Palette(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            Colors = r.ReadL32Array<uint>(sizeof(uint));
+            Colors = r.ReadL32TArray<uint>(sizeof(uint));
         }
 
         //: FileTypes.Palette

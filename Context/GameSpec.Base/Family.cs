@@ -137,31 +137,31 @@ namespace GameSpec
         /// <param name="elem"></param>
         public Family(JsonElement elem)
         {
-            //try
-            //{
-            Id = _value(elem, "id") ?? throw new ArgumentNullException("id");
-            Name = _value(elem, "name");
-            Studio = _value(elem, "studio");
-            Description = _value(elem, "description");
-            Urls = _list(elem, "url", x => new Uri(x));
-            SpecSamples = _list(elem, "samples");
-            Specs = _list(elem, "specs");
-            // file manager
-            FileManager = _method(elem, "fileManager", CreateFileManager);
-            var paths = FileManager?.Paths;
-            // related
-            var dgame = new FamilyGame { SearchBy = SearchBy.Pak, Paks = new[] { new Uri("game:/") } };
-            Samples = new Dictionary<string, List<FamilySample.File>>();
-            Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
-            Games = _dictTrim(_related(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths)));
-            Apps = _related(elem, "apps", (k, v) => CreateFamilyApp(this, k, v));
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //    Console.WriteLine(e.StackTrace);
-            //    throw;
-            //}
+            try
+            {
+                Id = _value(elem, "id") ?? throw new ArgumentNullException("id");
+                Name = _value(elem, "name");
+                Studio = _value(elem, "studio");
+                Description = _value(elem, "description");
+                Urls = _list(elem, "url", x => new Uri(x));
+                SpecSamples = _list(elem, "samples");
+                Specs = _list(elem, "specs");
+                // file manager
+                FileManager = _method(elem, "fileManager", CreateFileManager);
+                var paths = FileManager?.Paths;
+                // related
+                var dgame = new FamilyGame { SearchBy = SearchBy.Pak, Paks = new[] { new Uri("game:/") } };
+                Samples = new Dictionary<string, List<FamilySample.File>>();
+                Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
+                Games = _dictTrim(_related(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths)));
+                Apps = _related(elem, "apps", (k, v) => CreateFamilyApp(this, k, v));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }
         }
 
         /// <summary>

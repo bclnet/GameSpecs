@@ -25,7 +25,7 @@ namespace GameSpec.WbB.Formats.Entity
                 var numPolys = r.ReadUInt32();
                 var numPortals = r.ReadUInt32();
                 InPolys = r.ReadTArray<ushort>(sizeof(ushort), (int)numPolys);
-                InPortals = r.ReadTArray(x => new PortalPoly(x), (int)numPortals);
+                InPortals = r.ReadFArray(x => new PortalPoly(x), (int)numPortals);
             }
         }
 

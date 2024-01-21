@@ -51,7 +51,7 @@ class PakBinary_Kpka(PakBinaryT):
         hashLookup = RE.getHashLookup(f'{source.game.resource}.list') if source.game.resource else None
 
         # get header
-        header = r.readT(self.K_Header)
+        header = r.readS(self.K_Header)
         if header.majorVersion != 2 and header.majorVersion != 4 or header.minorVersion != 0: raise Exception('BAD VERSION')
 
         # decrypt table

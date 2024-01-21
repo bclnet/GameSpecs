@@ -7,7 +7,6 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-//using static System.Net.Mime.MediaTypeNames;
 using static OpenStack.Debug;
 
 namespace GameSpec.Arkane.Formats.Danae
@@ -16,15 +15,11 @@ namespace GameSpec.Arkane.Formats.Danae
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Fts(r));
 
-        public Binary_Fts(BinaryReader r) => Read(r);
-
-        public FastLevel Level;
-        E_BACKGROUND Bkg;
-
         #region E Struct
 
         struct ANCHOR_DATA
         {
+            public static (string, int) Struct = ("<?", sizeof(ANCHOR_DATA));
             public Vector3 Pos;
             public short NumLinked;
             public short Flags;
@@ -35,6 +30,7 @@ namespace GameSpec.Arkane.Formats.Danae
 
         public struct E_BKG_INFO
         {
+            public static (string, int) Struct = ("<?", sizeof(E_BKG_INFO));
             public byte Treat;
             public bool Nothing;
             public short NumPoly;
@@ -52,6 +48,7 @@ namespace GameSpec.Arkane.Formats.Danae
 
         struct E_SMINMAX
         {
+            public static (string, int) Struct = ("<2h", sizeof(E_SMINMAX));
             public short Min;
             public short Max;
         }
@@ -64,6 +61,7 @@ namespace GameSpec.Arkane.Formats.Danae
 
         struct FAST_BKG_DATA
         {
+            public static (string, int) Struct = ("<?", sizeof(FAST_BKG_DATA));
             public byte Treat;
             public byte Nothing;
             public short NumPoly;
@@ -130,7 +128,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTS_HEADER
         {
-            public const int SizeOf = 256 + 24;
+            public static (string, int) Struct = ("<256cifi3i", 256 + 24);
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string Path;
             public int Count;
             public float Version;
@@ -141,7 +139,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FTS_HEADER2
         {
-            public const int SizeOf = 256;
+            public static (string, int) Struct = ("<256c", 256);
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string Path;
         }
 
@@ -161,6 +159,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FAST_VERTEX
         {
+            public static (string, int) Struct = ("<5f", sizeof(FAST_VERTEX));
             public float sy;
             public float ssx;
             public float ssz;
@@ -171,6 +170,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FAST_EERIEPOLY
         {
+            public static (string, int) Struct = ("<?", sizeof(FAST_EERIEPOLY));
             public FAST_VERTEX V0; public FAST_VERTEX V1; public FAST_VERTEX V2; public FAST_VERTEX V3;
             public int TexPtr;
             public Vector3 Norm;
@@ -185,6 +185,7 @@ namespace GameSpec.Arkane.Formats.Danae
 
         struct FAST_SCENE_HEADER
         {
+            public static (string, int) Struct = ("<f5i6f2i", sizeof(FAST_SCENE_HEADER));
             public float Version;
             public int SizeX;
             public int SizeZ;
@@ -200,7 +201,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FAST_TEXTURE_CONTAINER
         {
-            public const int SizeOf = 8 + 256;
+            public static (string, int) Struct = ("<2i256c", 8 + 256);
             public int TcPtr;
             public int TempPtr;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string Fic;
@@ -209,6 +210,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FAST_ANCHOR_DATA
         {
+            public static (string, int) Struct = ("<5f2h", sizeof(FAST_ANCHOR_DATA));
             public Vector3 Pos;
             public float Radius;
             public float Height;
@@ -219,6 +221,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct FAST_SCENE_INFO
         {
+            public static (string, int) Struct = ("<2I", sizeof(FAST_SCENE_INFO));
             public int NumPoly;
             public int NumIAnchors;
         }
@@ -226,6 +229,7 @@ namespace GameSpec.Arkane.Formats.Danae
         [StructLayout(LayoutKind.Sequential)]
         struct ROOM_DIST_DATA_SAVE
         {
+            public static (string, int) Struct = ("<7f", sizeof(ROOM_DIST_DATA_SAVE));
             public float Distance; // -1 means use truedist
             public Vector3 StartPos;
             public Vector3 EndPos;
@@ -233,6 +237,7 @@ namespace GameSpec.Arkane.Formats.Danae
 
         public struct ROOM_DIST_DATA
         {
+            public static (string, int) Struct = ("<7f", sizeof(ROOM_DIST_DATA));
             public float Distance; // -1 means use truedist
             public Vector3 StartPos;
             public Vector3 EndPos;
@@ -240,21 +245,14 @@ namespace GameSpec.Arkane.Formats.Danae
 
         #endregion
 
-        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
-        {
-            var nodes = new List<MetaInfo> {
-                new MetaInfo("BinaryFTS", items: new List<MetaInfo> {
-                    //new MetaInfo($"Type: {Type}"),
-                })
-            };
-            return nodes;
-        }
+        public FastLevel Level;
+        E_BACKGROUND Bkg;
 
         // https://github.com/OpenSourcedGames/Arx-Fatalis/blob/master/Sources/EERIE/EERIEPoly.cpp#L3755
-        public unsafe void Read(BinaryReader r)
+        public Binary_Fts(BinaryReader r)
         {
             int i, j, k, kk;
-            var header = r.ReadT<FTS_HEADER>(FTS_HEADER.SizeOf);
+            var header = r.ReadS<FTS_HEADER>(FTS_HEADER.Struct);
             if (header.Version != FTS_VERSION) throw new FormatException("BAD MAGIC");
             //Log($"Header1: {r.Position():x}, {header.Path}");
             if (header.Count > 0)
@@ -262,7 +260,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 var count = 0;
                 while (count < header.Count)
                 {
-                    r.ReadT<FTS_HEADER2>(FTS_HEADER2.SizeOf);
+                    r.ReadS<FTS_HEADER2>(FTS_HEADER2.Struct);
                     r.Skip(512); // skip check
                     //Log($"Unique[{count}]: {r.Position():x}");
                     count++;
@@ -277,7 +275,7 @@ namespace GameSpec.Arkane.Formats.Danae
             using var r2 = new BinaryReader(s);
 
             // read
-            var fsh = r2.ReadT<FAST_SCENE_HEADER>(sizeof(FAST_SCENE_HEADER));
+            var fsh = r2.ReadS<FAST_SCENE_HEADER>(FAST_SCENE_HEADER.Struct);
             if (fsh.Version != FTS_VERSION) throw new FormatException("BAD MAGIC");
             if (fsh.SizeX != Bkg.XSize) throw new FormatException("BAD HEADER");
             if (fsh.SizeZ != Bkg.ZSize) throw new FormatException("BAD HEADER");
@@ -289,7 +287,7 @@ namespace GameSpec.Arkane.Formats.Danae
             var textures = Level.Textures = new E_TEXTURE[fsh.NumTextures];
             for (k = 0; k < textures.Length; k++)
             {
-                var ftc = r2.ReadT<FAST_TEXTURE_CONTAINER>(FAST_TEXTURE_CONTAINER.SizeOf);
+                var ftc = r2.ReadS<FAST_TEXTURE_CONTAINER>(FAST_TEXTURE_CONTAINER.Struct);
                 textures[k] = new E_TEXTURE { Id = ftc.TcPtr, Path = ftc.Fic };
             }
             //Log($"Texture: {r2.Position():x}");
@@ -300,7 +298,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (i = 0; i < fsh.SizeX; i++)
                 {
                     ref E_BKG_INFO bi = ref backg[i + j * fsh.SizeX];
-                    var fsi = r2.ReadT<FAST_SCENE_INFO>(sizeof(FAST_SCENE_INFO));
+                    var fsi = r2.ReadS<FAST_SCENE_INFO>(FAST_SCENE_INFO.Struct);
                     //if (fsi.NumPoly > 0) Log($"F[{j},{i}]: {r2.Position():x}, {fsi.NumPoly}, {fsi.NumIAnchors}");
                     bi.NumIAnchors = (short)fsi.NumIAnchors;
                     bi.NumPoly = (short)fsi.NumPoly;
@@ -311,7 +309,7 @@ namespace GameSpec.Arkane.Formats.Danae
                     bi.FrustrumMinY = 99999999f;
                     for (k = 0; k < fsi.NumPoly; k++)
                     {
-                        var ep = r2.ReadT<FAST_EERIEPOLY>(sizeof(FAST_EERIEPOLY));
+                        var ep = r2.ReadS<FAST_EERIEPOLY>(FAST_EERIEPOLY.Struct);
                         var tex = ep.TexPtr != 0
                             ? textures.FirstOrDefault(x => x.Id == ep.TexPtr)
                             : null;
@@ -392,7 +390,7 @@ namespace GameSpec.Arkane.Formats.Danae
             for (i = 0; i < fsh.NumAnchors; i++)
             {
                 ref ANCHOR_DATA a = ref anchors[i];
-                var fad = r2.ReadT<FAST_ANCHOR_DATA>(sizeof(FAST_ANCHOR_DATA));
+                var fad = r2.ReadS<FAST_ANCHOR_DATA>(FAST_ANCHOR_DATA.Struct);
                 a.Flags = fad.Flags;
                 a.Pos = fad.Pos;
                 a.NumLinked = fad.NumLinked;
@@ -416,7 +414,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (i = 0; i < portals.NumTotal; i++)
                 {
                     ref E_PORTALS p = ref levelPortals[i];
-                    var epo = r2.ReadT<E_SAVE_PORTALS>(sizeof(E_SAVE_PORTALS));
+                    var epo = r2.ReadS<E_SAVE_PORTALS>(E_SAVE_PORTALS.Struct);
                     p.memset();
                     p.Room1 = epo.Room1;
                     p.Room2 = epo.Room2;
@@ -439,7 +437,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (i = 0; i < portals.NumRooms + 1; i++)
                 {
                     var rd = portals.Room[i] = new E_ROOM_DATA();
-                    var erd = r2.ReadT<E_SAVE_ROOM_DATA>(sizeof(E_SAVE_ROOM_DATA));
+                    var erd = r2.ReadS<E_SAVE_ROOM_DATA>(E_SAVE_ROOM_DATA.Struct);
                     rd.NumPortals = erd.NumPortals;
                     rd.NumPolys = erd.NumPolys;
                     rd.Portals = rd.NumPortals > 0
@@ -459,7 +457,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (var n = 0; n < numRoomDistance; n++)
                     for (var m = 0; m < numRoomDistance; m++)
                     {
-                        var rdds = r2.ReadT<ROOM_DIST_DATA_SAVE>(sizeof(ROOM_DIST_DATA_SAVE));
+                        var rdds = r2.ReadS<ROOM_DIST_DATA_SAVE>(ROOM_DIST_DATA_SAVE.Struct);
                         SetRoomDistance(Level, m, n, rdds.Distance, ref rdds.StartPos, ref rdds.EndPos);
                     }
             }
@@ -501,6 +499,17 @@ namespace GameSpec.Arkane.Formats.Danae
 
         static void ComputePolyIn()
         {
+        }
+
+        // IHaveMetaInfo
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
+        {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo("BinaryFTS", items: new List<MetaInfo> {
+                    //new MetaInfo($"Type: {Type}"),
+                })
+            };
+            return nodes;
         }
     }
 }

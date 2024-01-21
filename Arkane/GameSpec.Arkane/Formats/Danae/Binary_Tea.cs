@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Arkane.Formats.Danae
 {
-    public class Binary_Tea : IHaveMetaInfo
+    public unsafe class Binary_Tea : IHaveMetaInfo
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Tea(r));
 
-        public Binary_Tea(BinaryReader r) => Read(r);
+        // https://github.com/OpenSourcedGames/Arx-Fatalis/blob/master/Sources/EERIE/EERIEAnim.cpp#L355
+        public Binary_Tea(BinaryReader r)
+        {
+        }
 
+        // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetaInfo> {
@@ -20,11 +24,6 @@ namespace GameSpec.Arkane.Formats.Danae
                 })
             };
             return nodes;
-        }
-
-        // https://github.com/OpenSourcedGames/Arx-Fatalis/blob/master/Sources/EERIE/EERIEAnim.cpp#L355
-        public unsafe void Read(BinaryReader r)
-        {
         }
     }
 }

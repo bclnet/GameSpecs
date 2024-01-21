@@ -30,6 +30,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct F4_Header
         {
+            public static (string, int) Struct = ("<IIIQ", sizeof(F4_Header));
             public uint Version;            // 04
             public F4_HeaderType Type;      // 08 GNRL=General, DX10=Textures, GNMF=?, ___=?
             public uint NumFiles;           // 0C
@@ -39,6 +40,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct F4_File
         {
+            public static (string, int) Struct = ("<I4sIIQIII", sizeof(F4_File));
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
             public uint DirHash;            // 08
@@ -52,6 +54,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct F4_Texture
         {
+            public static (string, int) Struct = ("<I4sIBBHHHBBBB", sizeof(F4_Texture));
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
             public uint DirHash;            // 08
@@ -69,6 +72,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct F4_GNMF
         {
+            public static (string, int) Struct = ("<I4sIBBH32sQIIII", sizeof(F4_GNMF));
             public uint NameHash;           // 00
             public fixed byte Ext[4];       // 04 - extension
             public uint DirHash;            // 08
@@ -86,6 +90,7 @@ namespace GameSpec.Bethesda.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct F4_TextureChunk
         {
+            public static (string, int) Struct = ("<QIIHHI", sizeof(F4_TextureChunk));
             public ulong Offset;            // 00
             public uint PackedSize;         // 08
             public uint FileSize;           // 0C
@@ -104,7 +109,7 @@ namespace GameSpec.Bethesda.Formats
             var magic = source.Magic = r.ReadUInt32();
             if (magic == F4_BSAHEADER_FILEID)
             {
-                var header = r.ReadT<F4_Header>(sizeof(F4_Header));
+                var header = r.ReadS<F4_Header>(F4_Header.Struct);
                 if (header.Version > F4_BSAHEADER_VERSION2) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
                 source.Files = files = new FileSource[header.NumFiles];
@@ -124,7 +129,7 @@ namespace GameSpec.Bethesda.Formats
                                 Compressed = headerFile.PackedSize != 0 ? 1 : 0,
                                 PackedSize = headerFile.PackedSize,
                                 FileSize = headerFile.FileSize,
-                                Position = (long)headerFile.Offset,
+                                Offset = (long)headerFile.Offset,
                             };
                         }
                         break;
@@ -132,7 +137,7 @@ namespace GameSpec.Bethesda.Formats
                     case F4_HeaderType.DX10:
                         for (var i = 0; i < header.NumFiles; i++)
                         {
-                            var headerTexture = r.ReadT<F4_Texture>(sizeof(F4_Texture));
+                            var headerTexture = r.ReadS<F4_Texture>(F4_Texture.Struct);
                             var headerTextureChunks = r.ReadTArray<F4_TextureChunk>(sizeof(F4_TextureChunk), headerTexture.NumChunks);
                             ref F4_TextureChunk firstChunk = ref headerTextureChunks[0];
                             files[i] = new FileSource
@@ -140,7 +145,7 @@ namespace GameSpec.Bethesda.Formats
                                 FileInfo = headerTexture,
                                 PackedSize = firstChunk.PackedSize,
                                 FileSize = firstChunk.FileSize,
-                                Position = (long)firstChunk.Offset,
+                                Offset = (long)firstChunk.Offset,
                                 Tag = headerTextureChunks,
                             };
                         }
@@ -149,14 +154,14 @@ namespace GameSpec.Bethesda.Formats
                     case F4_HeaderType.GNMF:
                         for (var i = 0; i < header.NumFiles; i++)
                         {
-                            var headerGNMF = r.ReadT<F4_GNMF>(sizeof(F4_GNMF));
+                            var headerGNMF = r.ReadS<F4_GNMF>(F4_GNMF.Struct);
                             var headerTextureChunks = r.ReadTArray<F4_TextureChunk>(sizeof(F4_TextureChunk), headerGNMF.NumChunks);
                             files[i] = new FileSource
                             {
                                 FileInfo = headerGNMF,
                                 PackedSize = headerGNMF.PackedSize,
                                 FileSize = headerGNMF.FileSize,
-                                Position = (long)headerGNMF.Offset,
+                                Offset = (long)headerGNMF.Offset,
                                 Tag = headerTextureChunks,
                             };
                         }
@@ -182,7 +187,7 @@ namespace GameSpec.Bethesda.Formats
             const int GNF_HEADER_CONTENT_SIZE = 248;
 
             // position
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
 
             // General BA2 Format
             if (file.FileInfo == null)

@@ -268,7 +268,7 @@ namespace GameSpec.Epic.Formats.Core
         {
             if (Summary.ImportCount == 0) return;
             r.Seek(Summary.ImportOffset);
-            Imports = r.ReadTArray(r => new FObjectImport(r, this), (int)Summary.ImportCount);
+            Imports = r.ReadFArray(r => new FObjectImport(r, this), (int)Summary.ImportCount);
 #if DEBUG_VERBOSE
             for (var i = 0; i < Summary.ImportCount; i++) Debug.WriteLine($"Import[{i}]: {Imports[i]}");
 #endif
@@ -281,7 +281,7 @@ namespace GameSpec.Epic.Formats.Core
         {
             if (Summary.ExportCount == 0) return;
             r.Seek(Summary.ExportOffset);
-            Exports = r.ReadTArray(r => new FObjectExport(r, this), (int)Summary.ExportCount);
+            Exports = r.ReadFArray(r => new FObjectExport(r, this), (int)Summary.ExportCount);
             if (Game == BladeNSoul && (Summary.PackageFlags & 0x08000000) != 0) PatchBnSExports(Exports, Summary);
             if (Game == DunDef) PatchDunDefExports(Exports, Summary);
 #if DEBUG_VERBOSE

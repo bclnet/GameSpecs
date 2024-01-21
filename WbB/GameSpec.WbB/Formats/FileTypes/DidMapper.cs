@@ -19,26 +19,26 @@ namespace GameSpec.WbB.Formats.FileTypes
         // The client/server designation is guessed based on the content in each list.
         // The keys in these two Dictionaries are common. So ClientEnumToId[key] = ClientEnumToName[key].
         public readonly NumberingType ClientIDNumberingType; // bitfield designating how the numbering is organized. Not really needed for our usage.
-        public readonly Dictionary<uint, uint> ClientEnumToID; // _EnumToID
+        public readonly IDictionary<uint, uint> ClientEnumToID; // _EnumToID
         public readonly NumberingType ClientNameNumberingType; // bitfield designating how the numbering is organized. Not really needed for our usage.
-        public readonly Dictionary<uint, string> ClientEnumToName; // _EnumToName
+        public readonly IDictionary<uint, string> ClientEnumToName; // _EnumToName
         // The keys in these two Dictionaries are common. So ServerEnumToId[key] = ServerEnumToName[key].
         public readonly NumberingType ServerIDNumberingType; // bitfield designating how the numbering is organized. Not really needed for our usage.
-        public readonly Dictionary<uint, uint> ServerEnumToID; // _EnumToID
+        public readonly IDictionary<uint, uint> ServerEnumToID; // _EnumToID
         public readonly NumberingType ServerNameNumberingType; // bitfield designating how the numbering is organized. Not really needed for our usage.
-        public readonly Dictionary<uint, string> ServerEnumToName; // _EnumToName
+        public readonly IDictionary<uint, string> ServerEnumToName; // _EnumToName
 
         public DidMapper(BinaryReader r)
         {
             Id = r.ReadUInt32();
             ClientIDNumberingType = (NumberingType)r.ReadByte();
-            ClientEnumToID = r.ReadC32Many<uint, uint>(sizeof(uint), x => x.ReadUInt32());
+            ClientEnumToID = r.ReadC32TMany<uint, uint>(sizeof(uint), x => x.ReadUInt32());
             ClientNameNumberingType = (NumberingType)r.ReadByte();
-            ClientEnumToName = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
+            ClientEnumToName = r.ReadC32TMany<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
             ServerIDNumberingType = (NumberingType)r.ReadByte();
-            ServerEnumToID = r.ReadC32Many<uint, uint>(sizeof(uint), x => x.ReadUInt32());
+            ServerEnumToID = r.ReadC32TMany<uint, uint>(sizeof(uint), x => x.ReadUInt32());
             ServerNameNumberingType = (NumberingType)r.ReadByte();
-            ServerEnumToName = r.ReadC32Many<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
+            ServerEnumToName = r.ReadC32TMany<uint, string>(sizeof(uint), x => x.ReadL8Encoding(Encoding.Default));
         }
 
         //: FileTypes.DidMapper

@@ -45,7 +45,7 @@ namespace GameSpec.Cyanide.Formats
                 {
                     Path = UnsafeX.ReadZASCII(headerFile.FileName, 512).Replace('\\', '/'),
                     FileSize = headerFile.FileSize,
-                    Position = (long)headerFile.Offset,
+                    Offset = (long)headerFile.Offset,
                 };
             }
             return Task.CompletedTask;
@@ -53,7 +53,7 @@ namespace GameSpec.Cyanide.Formats
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));
         }
     }

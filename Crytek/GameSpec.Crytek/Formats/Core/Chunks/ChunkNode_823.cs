@@ -52,7 +52,7 @@ namespace GameSpec.Crytek.Formats.Core.Chunks
             RotCtrlID = r.ReadInt32();
             SclCtrlID = r.ReadInt32();
 
-            Properties = r.ReadLString(4);
+            Properties = r.ReadL32String();
         }
     }
 }

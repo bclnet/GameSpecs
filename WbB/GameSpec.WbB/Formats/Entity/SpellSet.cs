@@ -9,13 +9,13 @@ namespace GameSpec.WbB.Formats.Entity
     public class SpellSet : IHaveMetaInfo
     {
         // uint key is the total combined item level of all the equipped pieces in the set client calls this m_PieceCount
-        public readonly SortedDictionary<uint, SpellSetTiers> SpellSetTiers;
+        public readonly IDictionary<uint, SpellSetTiers> SpellSetTiers;
         public readonly uint HighestTier;
-        public readonly SortedDictionary<uint, SpellSetTiers> SpellSetTiersNoGaps;
+        public readonly IDictionary<uint, SpellSetTiers> SpellSetTiersNoGaps;
 
         public SpellSet(BinaryReader r)
         {
-            SpellSetTiers = r.ReadL16SortedMany<uint, SpellSetTiers>(sizeof(uint), x => new SpellSetTiers(x), offset: 2);
+            SpellSetTiers = r.Skip(2).ReadL16TMany<uint, SpellSetTiers>(sizeof(uint), x => new SpellSetTiers(x), sorted: true);
             HighestTier = SpellSetTiers.Keys.LastOrDefault();
             SpellSetTiersNoGaps = new SortedDictionary<uint, SpellSetTiers>();
             var lastSpellSetTier = default(SpellSetTiers);

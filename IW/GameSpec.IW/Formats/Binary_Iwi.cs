@@ -152,11 +152,14 @@ namespace GameSpec.IW.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         public unsafe struct HEADER
         {
-            public const int SizeOf = 8;
             /// <summary>
             /// MAGIC (IWi)
             /// </summary>
             public const uint MAGIC = 0x69574900;
+            /// <summary>
+            /// Struct
+            /// </summary>
+            public static (string, int) Struct = ("<2c3H", sizeof(HEADER));
             /// <summary>
             /// Format
             /// </summary>
@@ -195,7 +198,7 @@ namespace GameSpec.IW.Formats
                 magic <<= 8;
                 if (magic != HEADER.MAGIC) throw new FormatException($"Invalid IWI file magic: {magic}.");
                 if (version == VERSION.CODMW2) r.Seek(8);
-                header = r.ReadT<HEADER>(SizeOf);
+                header = r.ReadS<HEADER>(HEADER.Struct);
                 header.Verify();
 
                 // read mips offsets

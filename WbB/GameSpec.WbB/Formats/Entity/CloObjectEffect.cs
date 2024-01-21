@@ -16,7 +16,7 @@ namespace GameSpec.WbB.Formats.Entity
         {
             Index = r.ReadUInt32();
             ModelId = r.ReadUInt32();
-            CloTextureEffects = r.ReadL32Array(x => new CloTextureEffect(x));
+            CloTextureEffects = r.ReadL32FArray(x => new CloTextureEffect(x));
         }
 
         //: Entity.ClothingObjectEffect

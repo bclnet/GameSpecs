@@ -18,7 +18,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public PhysicsScript(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            ScriptData = r.ReadL32Array(x => new PhysicsScriptData(x));
+            ScriptData = r.ReadL32FArray(x => new PhysicsScriptData(x));
         }
 
         //: FileTypes.PhysicsScript

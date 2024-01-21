@@ -19,7 +19,7 @@ namespace GameSpec.WbB.Formats.Entity
 
         public CloSubPalette(BinaryReader r)
         {
-            Ranges = r.ReadL32Array(x => new CloSubPaletteRange(x));
+            Ranges = r.ReadL32FArray(x => new CloSubPaletteRange(x));
             PaletteSet = r.ReadUInt32();
         }
 

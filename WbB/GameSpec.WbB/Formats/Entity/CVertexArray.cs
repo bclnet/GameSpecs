@@ -13,7 +13,7 @@ namespace GameSpec.WbB.Formats.Entity
     public class CVertexArray : IHaveMetaInfo
     {
         public readonly int VertexType;
-        public readonly Dictionary<ushort, SWVertex> Vertices;
+        public readonly IDictionary<ushort, SWVertex> Vertices;
 
         public CVertexArray(BinaryReader r)
         {

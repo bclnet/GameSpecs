@@ -28,7 +28,7 @@ namespace GameSpec.WbB.Formats.Entity
             Flags = (PortalFlags)r.ReadUInt16();
             OtherCellId = r.ReadUInt16();
             OtherPortalId = r.ReadUInt16();
-            StabList = r.ReadL16Array<ushort>(sizeof(ushort)); r.Align();
+            StabList = r.ReadL16TArray<ushort>(sizeof(ushort)); r.Align();
         }
 
         //: Entity.BldPortal

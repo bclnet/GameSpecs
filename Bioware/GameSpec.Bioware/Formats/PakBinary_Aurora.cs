@@ -274,7 +274,7 @@ namespace GameSpec.Bioware.Formats
                         Id = (int)headerFile.Id,
                         Path = path,
                         FileSize = headerFile.FileSize,
-                        Position = headerFile.Offset,
+                        Offset = headerFile.Offset,
                     });
                 }
             }
@@ -285,7 +285,7 @@ namespace GameSpec.Bioware.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             Stream fileData;
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             if (source.Version == BIFF_VERSION) fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             else throw new ArgumentOutOfRangeException(nameof(source.Version), $"{source.Version}");
             return Task.FromResult(fileData);

@@ -73,7 +73,7 @@ namespace GameSpec.Crytek.Formats.Core.Chunks
             RotCtrlID = MathX.SwapEndian(r.ReadInt32());
             SclCtrlID = MathX.SwapEndian(r.ReadInt32());
 
-            Properties = r.ReadLString();
+            Properties = r.ReadL32String();
         }
     }
 }

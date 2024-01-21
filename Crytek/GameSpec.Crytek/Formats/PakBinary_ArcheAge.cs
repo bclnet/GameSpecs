@@ -72,7 +72,7 @@ namespace GameSpec.Crytek.Formats
                     {
                         //.Replace('\\', '/')
                         Path = Encoding.ASCII.GetString(nameAsSpan[..nameAsSpan.IndexOf(byte.MinValue)]), //: name
-                        Position = r.ReadInt64(),   //: offset
+                        Offset = r.ReadInt64(),   //: offset
                         FileSize = r.ReadInt64(),   //: size
                         PackedSize = r.ReadInt64(), //: xsize
                         Compressed = r.ReadInt32(), //: ysize
@@ -86,7 +86,7 @@ namespace GameSpec.Crytek.Formats
         public unsafe override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             // position
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             Stream fileData = new MemoryStream(r.ReadBytes((int)file.FileSize));
             return Task.FromResult(fileData);
         }

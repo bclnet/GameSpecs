@@ -80,7 +80,7 @@ namespace GameSpec.Bioware.Formats
                         Path = path.StartsWith('/') ? path[1..] : path,
                         FileSize = headerFile.FileSize,
                         PackedSize = headerFile.PackedSize,
-                        Position = (long)(headerFile.Offset + headerFile.HeaderSize),
+                        Offset = (long)(headerFile.Offset + headerFile.HeaderSize),
                         Hash = hash,
                         Compressed = headerFile.Compressed
                     });
@@ -92,7 +92,7 @@ namespace GameSpec.Bioware.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             if (file.FileSize == 0) return Task.FromResult(System.IO.Stream.Null);
-            r.Seek(file.Position);
+            r.Seek(file.Offset);
             return Task.FromResult((Stream)new MemoryStream(file.Compressed switch
             {
                 0 => r.ReadBytes((int)file.PackedSize),

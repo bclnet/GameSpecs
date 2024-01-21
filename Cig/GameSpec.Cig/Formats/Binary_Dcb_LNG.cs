@@ -29,6 +29,24 @@ namespace GameSpec.Cig.Formats
             public Binary_Dcb_LNG Root { get; private set; }
             internal BinaryReader r;
             public Serializable_(Binary_Dcb_LNG root) { Root = root; r = root.R; }
+
+            public Guid? ReadGuid(bool nullable = false)
+            {
+                var isNull = nullable && r.ReadInt32() == -1;
+                var c = r.ReadInt16();
+                var b = r.ReadInt16();
+                var a = r.ReadInt32();
+                var k = r.ReadByte();
+                var j = r.ReadByte();
+                var i = r.ReadByte();
+                var h = r.ReadByte();
+                var g = r.ReadByte();
+                var f = r.ReadByte();
+                var e = r.ReadByte();
+                var d = r.ReadByte();
+                if (isNull) return null;
+                return new Guid(a, b, c, d, e, f, g, h, i, j, k);
+            }
         }
 
         public enum EDataType : ushort
@@ -100,7 +118,7 @@ namespace GameSpec.Cig.Formats
         public class Guid_ : Serializable_
         {
             public Guid Value { get; set; }
-            public Guid_(Binary_Dcb_LNG root) : base(root) => Value = r.ReadGuid(false).Value;
+            public Guid_(Binary_Dcb_LNG root) : base(root) => Value = ReadGuid(false).Value;
             public override string ToString() => Value.ToString();
             public XmlElement Read() => Root.CreateElement("Guid", Root.CreateAttribute("value", Value.ToString()));
         }
@@ -160,7 +178,7 @@ namespace GameSpec.Cig.Formats
         {
             public uint Item1 { get; set; }
             public Guid Value { get; set; }
-            public Reference_(Binary_Dcb_LNG root) : base(root) { Item1 = r.ReadUInt32(); Value = r.ReadGuid(false).Value; }
+            public Reference_(Binary_Dcb_LNG root) : base(root) { Item1 = r.ReadUInt32(); Value = ReadGuid().Value; }
             public override string ToString() => string.Format("0x{0:X8} 0x{1}", Item1, Value);
             public XmlElement Read() => Root.CreateElement("Reference", Root.CreateAttribute("item1", string.Format("{0:X4}", Item1)),
                 Root.CreateAttribute("value", Value.ToString()));
@@ -302,7 +320,7 @@ namespace GameSpec.Cig.Formats
                 string value;
                 switch (DataType)
                 {
-                    case EDataType.Reference: value = string.Format("{2}", DataType, r.ReadUInt32(), r.ReadGuid(false)); break;
+                    case EDataType.Reference: value = string.Format("{2}", DataType, r.ReadUInt32(), ReadGuid(false)); break;
                     case EDataType.Locale: value = string.Format("{1}", DataType, Root.ValueMap[r.ReadUInt32()]); break;
                     case EDataType.StrongPointer: value = string.Format("{0}:{1:X8} {2:X8}", DataType, r.ReadUInt32(), r.ReadUInt32()); break;
                     case EDataType.WeakPointer:
@@ -316,7 +334,7 @@ namespace GameSpec.Cig.Formats
                     case EDataType.Boolean: value = string.Format("{1}", DataType, r.ReadByte()); break;
                     case EDataType.Single: value = string.Format("{1}", DataType, r.ReadSingle()); break;
                     case EDataType.Double: value = string.Format("{1}", DataType, r.ReadDouble()); break;
-                    case EDataType.Guid: value = string.Format("{1}", DataType, r.ReadGuid(false)); break;
+                    case EDataType.Guid: value = string.Format("{1}", DataType, ReadGuid()); break;
                     case EDataType.SByte: value = string.Format("{1}", DataType, r.ReadSByte()); break;
                     case EDataType.Int16: value = string.Format("{1}", DataType, r.ReadInt16()); break;
                     case EDataType.Int32: value = string.Format("{1}", DataType, r.ReadInt32()); break;
@@ -363,7 +381,7 @@ namespace GameSpec.Cig.Formats
                 NameOffset = r.ReadUInt32();
                 if (!Root.IsLegacy) FileNameOffset = r.ReadUInt32();
                 StructIndex = r.ReadUInt32();
-                Hash = r.ReadGuid(false);
+                Hash = ReadGuid();
                 VariantIndex = r.ReadUInt16();
                 OtherIndex = r.ReadUInt16();
             }

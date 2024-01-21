@@ -16,7 +16,7 @@ namespace GameSpec.WbB.Formats.Entity
         {
             Name = r.ReadL16StringObfuscated(); r.Align();
             Id = r.ReadUInt32();
-            Items = r.ReadL32Array(x => new Generator(x));
+            Items = r.ReadL32FArray(x => new Generator(x));
         }
 
         //: Entity.Generator

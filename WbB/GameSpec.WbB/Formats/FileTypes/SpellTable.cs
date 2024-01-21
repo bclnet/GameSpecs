@@ -14,17 +14,17 @@ namespace GameSpec.WbB.Formats.FileTypes
     {
         public const uint FILE_ID = 0x0E00000E;
 
-        public readonly Dictionary<uint, SpellBase> Spells;
+        public readonly IDictionary<uint, SpellBase> Spells;
         /// <summary>
         /// the key uint refers to the SpellSetID, set in PropInt.EquipmentSetId
         /// </summary>
-        public readonly Dictionary<uint, SpellSet> SpellSet;
+        public readonly IDictionary<uint, SpellSet> SpellSet;
 
         public SpellTable(BinaryReader r)
         {
             Id = r.ReadUInt32();
-            Spells = r.ReadL16Many<uint, SpellBase>(sizeof(uint), x => new SpellBase(x), offset: 2);
-            SpellSet = r.ReadL16Many<uint, SpellSet>(sizeof(uint), x => new SpellSet(x), offset: 2);
+            Spells = r.Skip(2).ReadL16TMany<uint, SpellBase>(sizeof(uint), x => new SpellBase(x));
+            SpellSet = r.Skip(2).ReadL16TMany<uint, SpellSet>(sizeof(uint), x => new SpellSet(x));
         }
 
         //: FileTypes.SpellTable
