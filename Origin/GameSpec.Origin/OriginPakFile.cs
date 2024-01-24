@@ -1,6 +1,7 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Origin.Formats;
+using GameSpec.Origin.Formats.UO;
 using GameSpec.Origin.Transforms;
 using GameSpec.Transforms;
 using System;
@@ -35,14 +36,22 @@ namespace GameSpec.Origin
                 "U8" => PakBinary_U8.Instance,
                 "U9" => PakBinary_U9.Instance,
                 "UO" => PakBinary_UO.Instance,
-                 _ => throw new ArgumentOutOfRangeException(),
+                _ => throw new ArgumentOutOfRangeException(),
             };
 
         static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
-            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            => game.Id switch
             {
-                ".dds" => (0, Binary_Dds.Factory),
-                _ => (0, null),
+                "UO" => source.Path switch
+                {
+                    var x when x.StartsWith("cli") => (0, Binary_Cliloc.Factory),
+                    _ => (0, null),
+                },
+                _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
+                {
+                    ".dds" => (0, Binary_Dds.Factory),
+                    _ => (0, null),
+                }
             };
 
         #endregion

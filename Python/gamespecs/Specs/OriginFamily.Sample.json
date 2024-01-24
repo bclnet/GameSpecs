@@ -16,6 +16,10 @@
     "name": "Ultima Online",
     "files": [
       {
+        "path": "Cliloc.enu",
+        "type": "Cliloc"
+      },
+      {
         "path": "anim.idx:default_cch.dds",
         "size": 16520,
         "type": "Test"

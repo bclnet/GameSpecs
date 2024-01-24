@@ -347,9 +347,9 @@ namespace GameSpec
             ForceOpen = true,
             ForcePath = "sample:0",
             Family = "Origin",
-            Game = "U8", // Ultima 8
+            //Game = "U8", // Ultima 8
+            Game = "UO", // Ultima Online
             //Game = "U9", // Ultima IX
-            //Game = "UO", // Ultima Online
         };
 #elif Red
         static string[] FamilyKeys = new[] { "Red", "Unknown" };
