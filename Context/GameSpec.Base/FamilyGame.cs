@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using static GameSpec.FamilyGame;
 using static GameSpec.FamilyManager;
 using static GameSpec.Util;
 
@@ -317,43 +318,44 @@ namespace GameSpec
             searchPattern = CreateSearchPatterns(searchPattern);
             if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
-            var dlcKeys = Dlcs.Where(x => string.IsNullOrEmpty(x.Value.Path)).Select(x => x.Key).ToArray();
+            var dlcKeys = Dlcs.Where(x => !string.IsNullOrEmpty(x.Value.Path)).Select(x => x.Key).ToArray();
             foreach (var key in (new string[] { null }).Concat(dlcKeys))
                 foreach (var p in FindPaths(fileSystem, edition, key != null ? Dlcs[key] : null, searchPattern))
                     switch (SearchBy)
                     {
                         case SearchBy.Pak:
                             foreach (var path in p.paths)
-                                if (IsPakFile(path)) pakFiles.Add(CreatePakFileObj(fileSystem, path));
+                                if (IsPakFile(path)) pakFiles.Add(CreatePakFileObj(fileSystem, edition, path));
                             break;
                         default:
-                            pakFiles.Add(CreatePakFileObj(fileSystem, p));
+                            pakFiles.Add(CreatePakFileObj(fileSystem, edition, p));
                             break;
                     }
-            return WithPlatformGraphic(CreatePakFileObj(fileSystem, pakFiles));
+            return WithPlatformGraphic(CreatePakFileObj(fileSystem, edition, pakFiles));
         }
 
         /// <summary>
         /// Create pak file.
         /// </summary>
         /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="value">The value.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public PakFile CreatePakFileObj(IFileSystem fileSystem, object value, object tag = null) => value switch
+        public PakFile CreatePakFileObj(IFileSystem fileSystem, Edition edition, object value, object tag = null) => value switch
         {
             string s => IsPakFile(s)
-                ? CreatePakFileType(fileSystem, s, tag)
+                ? CreatePakFileType(fileSystem, edition, s, tag)
                 : throw new InvalidOperationException($"{Id} missing {s}"),
             ValueTuple<string, string[]> s => s.Item2.Length == 1 && IsPakFile(s.Item2[0])
-                ? CreatePakFileObj(fileSystem, s.Item2[0], tag)
-                : new ManyPakFile(CreatePakFileType(fileSystem, null, tag), this, s.Item1.Length > 0 ? s.Item1 : "Many", fileSystem, s.Item2)
+                ? CreatePakFileObj(fileSystem, edition, s.Item2[0], tag)
+                : new ManyPakFile(CreatePakFileType(fileSystem, edition, null, tag), fileSystem, this, edition, s.Item1.Length > 0 ? s.Item1 : "Many", s.Item2)
                 {
                     PathSkip = s.Item1.Length > 0 ? s.Item1.Length + 1 : 0
                 },
             IList<PakFile> s => s.Count == 1
                 ? s[0]
-                : new MultiPakFile(this, "Multi", fileSystem, s, tag),
+                : new MultiPakFile(fileSystem, this, edition, "Multi", s, tag),
             null => null,
             _ => throw new ArgumentOutOfRangeException(nameof(value), $"{value}"),
         };
@@ -362,10 +364,11 @@ namespace GameSpec
         /// Create pak file.
         /// </summary>
         /// <param name="fileSystem">The fileSystem.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="path">The path.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public PakFile CreatePakFileType(IFileSystem fileSystem, string path, object tag = null) => (PakFile)Activator.CreateInstance(PakFileType ?? throw new InvalidOperationException($"{Id} missing PakFileType"), this, fileSystem, path, tag);
+        public PakFile CreatePakFileType(IFileSystem fileSystem, Edition edition, string path, object tag = null) => (PakFile)Activator.CreateInstance(PakFileType ?? throw new InvalidOperationException($"{Id} missing PakFileType"), this, fileSystem, path, tag);
 
         /// <summary>
         /// Is pak file.

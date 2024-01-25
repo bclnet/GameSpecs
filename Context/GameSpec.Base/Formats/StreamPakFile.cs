@@ -17,11 +17,12 @@ namespace GameSpec.Formats
         /// Initializes a new instance of the <see cref="StreamPakFile" /> class.
         /// </summary>
         /// <param name="factory">The factory.</param>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="game">The game.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="address">The host.</param>
-        public StreamPakFile(Func<Uri, string, AbstractHost> factory, FamilyGame game, IFileSystem fileSystem, string filePath, Uri address = null) : base(game, fileSystem, filePath, new PakBinaryCanStream())
+        public StreamPakFile(Func<Uri, string, AbstractHost> factory, IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, Uri address = null)
+            : base(fileSystem, game, edition, filePath, new PakBinaryCanStream())
         {
             UseReader = false;
             if (address != null) Host = factory(address, filePath);
@@ -30,10 +31,12 @@ namespace GameSpec.Formats
         /// Initializes a new instance of the <see cref="StreamPakFile" /> class.
         /// </summary>
         /// <param name="parent">The parent.</param>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="filePath">The file path.</param>
-        public StreamPakFile(BinaryPakFile parent, FamilyGame game, IFileSystem fileSystem, string filePath) : base(game, fileSystem, filePath, new PakBinaryCanStream())
+        public StreamPakFile(BinaryPakFile parent, IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath)
+            : base(fileSystem, game, edition, filePath, new PakBinaryCanStream())
         {
             UseReader = false;
             Files = parent.Files;

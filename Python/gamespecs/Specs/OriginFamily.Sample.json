@@ -16,13 +16,20 @@
     "name": "Ultima Online",
     "files": [
       {
-        "path": "Cliloc.enu",
-        "type": "Cliloc"
+        "path": "anim.idx",
+        "type": "Pak"
       },
       {
-        "path": "anim.idx:default_cch.dds",
-        "size": 16520,
+        "path": "anim.idx:file0.dat",
+        "type": "File"
+      },
+      {
+        "path": "artLegacyMUL.uop",
         "type": "Test"
+      },
+      {
+        "path": "Cliloc.enu",
+        "type": "Cliloc"
       }
     ]
   },

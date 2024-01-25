@@ -1,7 +1,6 @@
 ﻿using GameSpec.Metadata;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -20,12 +19,13 @@ namespace GameSpec.Formats
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPakFile" /> class.
         /// </summary>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
-        /// <param name="fileSystem">The file system.</param>
         /// <param name="pakFiles">The packs.</param>
         /// <param name="tag">The tag.</param>
-        public MultiPakFile(FamilyGame game, string name, IFileSystem fileSystem, IList<PakFile> pakFiles, object tag = null) : base(game, name, tag) => PakFiles = pakFiles ?? throw new ArgumentNullException(nameof(pakFiles));
+        public MultiPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string name, IList<PakFile> pakFiles, object tag = null)
+            : base(fileSystem, game, edition, name, tag) => PakFiles = pakFiles ?? throw new ArgumentNullException(nameof(pakFiles));
 
         /// <summary>
         /// Closes this instance.

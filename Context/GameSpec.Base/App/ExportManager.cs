@@ -25,7 +25,7 @@ namespace GameSpec.App
                 if (!string.IsNullOrEmpty(filePath) && !Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
                 var setPath = Path.Combine(filePath, ".set");
                 using var w = new BinaryWriter(new FileStream(setPath, FileMode.Create, FileAccess.Write));
-                await PakBinary.Stream.Write(new StreamPakFile(HttpHost.Factory, null, null, "Root")
+                await PakBinary.Stream.Write(new StreamPakFile(HttpHost.Factory, null, null, null, "Root")
                 {
                     Files = multiPak.PakFiles.Select(x => new FileSource { Path = x.Name }).ToList()
                 }, w, "Set");

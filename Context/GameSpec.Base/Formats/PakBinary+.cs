@@ -12,7 +12,8 @@ namespace GameSpec.Formats
             FileSource File;
             BinaryPakFile Source;
 
-            public SubPakFile(FileSource file, BinaryPakFile source, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
+            public SubPakFile(FileSource file, BinaryPakFile source, IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = null)
+                : base(fileSystem, game, edition, filePath, Instance, tag)
             {
                 File = file;
                 Source = source;

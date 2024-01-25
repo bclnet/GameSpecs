@@ -3,7 +3,6 @@ using GameSpec.Metadata;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats.UO
@@ -12,23 +11,7 @@ namespace GameSpec.Origin.Formats.UO
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Cliloc(r));
 
-        #region Headers
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct Header
-        {
-            public static (string, int) Struct = ("<6i", sizeof(Header));
-            public int Offset3Ddata;                // -1 = no
-            public int OffsetCylinder;              // -1 = no
-            public int OffsetProgressiveData;       // -1 = no
-            public int OffsetClothesData;           // -1 = no
-            public int OffsetCollisionSpheres;      // -1 = no
-            public int OffsetPhysicsBox;            // -1 = no
-        }
-
-        #endregion
-
-        Hashtable Table;
+        public Hashtable Table = new Hashtable();
 
         public Binary_Cliloc(BinaryReader r)
         {
@@ -37,7 +20,7 @@ namespace GameSpec.Origin.Formats.UO
             while (r.BaseStream.Position < length)
             {
                 var id = r.ReadUInt32();
-                var text = r.ReadL16AString();
+                var text = r.Skip(1).ReadL16AString();
                 Table[id] = text;
             }
         }
@@ -46,8 +29,9 @@ namespace GameSpec.Origin.Formats.UO
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetaInfo> {
-                new MetaInfo("Binary_Cliloc", items: new List<MetaInfo> {
-                    //new MetaInfo($"Obj: {Obj}"),
+                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Language File" }),
+                new MetaInfo("Cliloc", items: new List<MetaInfo> {
+                    new MetaInfo($"Count: {Table.Count}"),
                 })
             };
             return nodes;

@@ -1,4 +1,6 @@
+using GameSpec.Origin.Formats.UO;
 using System;
+using System.Collections;
 using static OpenStack.Debug;
 
 namespace GameSpec.Origin.Games.UO
@@ -6,6 +8,7 @@ namespace GameSpec.Origin.Games.UO
     public static class Database
     {
         static PakFile PakFile;
+        static Hashtable Cliloc;
 
         internal static FamilyGame Ensure(FamilyGame game)
         {
@@ -13,6 +16,7 @@ namespace GameSpec.Origin.Games.UO
             try
             {
                 PakFile = game.Family.OpenPakFile(new Uri("game:/#UO"));
+                Cliloc = PakFile.LoadFileObject<Binary_Cliloc>("Cliloc.enu").Result?.Table;
                 Log($"Successfully opened {PakFile} file");
             }
             catch (Exception e)
@@ -23,7 +27,6 @@ namespace GameSpec.Origin.Games.UO
             return game;
         }
 
-        public static string GetString(int id)
-            => "string";
+        public static string GetString(int id) => (string)Cliloc[id];
     }
 }

@@ -34,6 +34,11 @@ namespace GameSpec
         public volatile PakStatus Status = PakStatus.Closed;
 
         /// <summary>
+        /// Gets the filesystem.
+        /// </summary>
+        public readonly IFileSystem FileSystem;
+
+        /// <summary>
         /// Gets the pak family.
         /// </summary>
         public readonly Family Family;
@@ -42,6 +47,11 @@ namespace GameSpec
         /// Gets the pak family game.
         /// </summary>
         public readonly FamilyGame Game;
+
+        /// <summary>
+        /// Gets the filesystem.
+        /// </summary>
+        public readonly FamilyGame.Edition Edition;
 
         /// <summary>
         /// Gets the pak name.
@@ -61,13 +71,17 @@ namespace GameSpec
         /// <summary>
         /// Initializes a new instance of the <see cref="PakFile" /> class.
         /// </summary>
+        /// <param name="fileSystem">The fileSystem.</param>
         /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="name">The name.</param>
         /// <param name="tag">The tag.</param>
-        public PakFile(FamilyGame game, string name, object tag = null)
+        public PakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string name, object tag = null)
         {
+            FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
             Family = game.Family ?? throw new ArgumentNullException(nameof(game.Family));
             Game = game ?? throw new ArgumentNullException(nameof(game));
+            Edition = edition;
             Name = name;
             Tag = tag;
         }
@@ -180,6 +194,18 @@ namespace GameSpec
         /// <returns></returns>
         public abstract Task<T> LoadFileObject<T>(object path, FileOption option = default);
 
+        /// Opens the family pak file.
+        /// </summary>
+        /// <param name="res">The res.</param>
+        /// <param name="throwOnError">Throws on error.</param>
+        /// <returns></returns>
+        public PakFile OpenPakFile(object res, bool throwOnError = true)
+            => res switch
+            {
+                string s => Game.CreatePakFile(FileSystem, Edition, s, throwOnError)?.Open(),
+                _ => throw new ArgumentOutOfRangeException(nameof(res)),
+            };
+
         #region Transform
 
         /// <summary>
@@ -191,7 +217,7 @@ namespace GameSpec
         /// <returns></returns>
         public async Task<T> LoadFileObject<T>(object path, PakFile transformTo)
             => await TransformFileObject<T>(transformTo, await LoadFileObject<object>(path));
-        
+
         /// <summary>
         /// Transforms the file object asynchronous.
         /// </summary>

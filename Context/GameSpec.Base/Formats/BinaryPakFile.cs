@@ -17,7 +17,6 @@ namespace GameSpec.Formats
     public abstract class BinaryPakFile : PakFile
     {
         readonly ConcurrentDictionary<string, GenericPool<BinaryReader>> Readers = new ConcurrentDictionary<string, GenericPool<BinaryReader>>();
-        public readonly IFileSystem FileSystem;
         public readonly string FilePath;
         public readonly PakBinary PakBinary;
         // options
@@ -43,15 +42,16 @@ namespace GameSpec.Formats
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryPakFile" /> class.
         /// </summary>
+        /// <param name="fileSystem">The fileSystem.</param>
         /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="pakBinary">The pak binary.</param>
         /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">pakBinary</exception>
-        public BinaryPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, PakBinary pakBinary, object tag = default)
-            : base(game, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)), tag)
+        public BinaryPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, PakBinary pakBinary, object tag = default)
+            : base(fileSystem, game, edition, !string.IsNullOrEmpty(Path.GetFileName(filePath)) ? Path.GetFileName(filePath) : Path.GetFileName(Path.GetDirectoryName(filePath)), tag)
         {
-            FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
             FilePath = filePath;
             PakBinary = pakBinary;
         }

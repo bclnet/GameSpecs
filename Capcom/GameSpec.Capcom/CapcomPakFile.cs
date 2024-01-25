@@ -19,11 +19,13 @@ namespace GameSpec.Capcom
         /// <summary>
         /// Initializes a new instance of the <see cref="CapcomPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public CapcomPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, filePath != null ? GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()) : null, tag)
+        public CapcomPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = null)
+            : base(fileSystem, game, edition, filePath, filePath != null ? GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()) : null, tag)
         {
             ObjectFactoryFactoryMethod = game.Engine switch
             {

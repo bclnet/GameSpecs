@@ -18,11 +18,13 @@ namespace GameSpec.Black
         /// <summary>
         /// Initializes a new instance of the <see cref="BlackPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BlackPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public BlackPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = default)
+            : base(fileSystem, game, edition, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

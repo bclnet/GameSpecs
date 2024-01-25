@@ -42,10 +42,15 @@ namespace GameSpec.Origin
         static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
             => game.Id switch
             {
-                "UO" => source.Path switch
+                "UO" => source.Path.ToLowerInvariant() switch
                 {
-                    var x when x.StartsWith("cli") => (0, Binary_Cliloc.Factory),
-                    _ => (0, null),
+                    var x when x.StartsWith("cliloc") => (0, Binary_Cliloc.Factory),
+                    "verdata.mul" => (0, Binary_Verdata.Factory),
+                    _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
+                    {
+                        //".mul" => (0, Binary_Ignore.Factory($"refer to {source.Path[..^4]}.idx")),
+                        _ => (0, null),
+                    }
                 },
                 _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
                 {

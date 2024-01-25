@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,12 +14,15 @@ namespace GameSpec.Formats
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="name">The name.</param>
+        /// <param name="basis">The basis.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
+        /// <param name="name">The name.</param>
         /// <param name="paths">The paths.</param>
         /// <param name="tag">The tag.</param>
-        public ManyPakFile(PakFile basis, FamilyGame game, string name, IFileSystem fileSystem, string[] paths, object tag = default) : base(game, fileSystem, name, null, tag)
+        public ManyPakFile(PakFile basis, IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string name, string[] paths, object tag = default)
+            : base(fileSystem, game, edition, name, null, tag)
         {
             if (basis is BinaryPakFile b)
             {
@@ -43,7 +45,7 @@ namespace GameSpec.Formats
             Files = Paths.Select(s => new FileSource
             {
                 Path = s.Replace('/', '\\'),
-                Pak = Game.IsPakFile(s) ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, s) : default,
+                Pak = Game.IsPakFile(s) ? (BinaryPakFile)Game.CreatePakFileType(FileSystem, Edition, s) : default,
                 FileSize = FileSystem.FileInfo(s).Length,
             }).ToArray();
             return Task.CompletedTask;

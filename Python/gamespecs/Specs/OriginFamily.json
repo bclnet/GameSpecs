@@ -324,7 +324,7 @@
       "url": [ "https://en.wikipedia.org/wiki/Ultima_Online", "https://uo.com/client-download/" ],
       "date": "September 24, 1997",
       "searchBy": "AllDir",
-      "pakExt": ".idx",
+      "pakExt": [".idx", "idx.mul", ".uop"],
       "dlcs": {
         "tsA": {
           "name": "Ultima Online: The Second Age",

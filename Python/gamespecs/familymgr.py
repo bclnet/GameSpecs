@@ -315,30 +315,30 @@ class FamilyGame:
             for p in self.findPaths(fileSystem, edition, self.dlcs[key] if key else None, searchPattern):
                 if self.searchBy == 'Pak':
                     for path in p[1]:
-                        if self.isPakFile(path): pakFiles.append(self.createPakFileObj(fileSystem, path))
-                else: pakFiles.append(self.createPakFileObj(fileSystem, p))
-        return FamilyGame.withPlatformGraphic(self.createPakFileObj(fileSystem, pakFiles))
+                        if self.isPakFile(path): pakFiles.append(self.createPakFileObj(fileSystem, edition, path))
+                else: pakFiles.append(self.createPakFileObj(fileSystem, edition, p))
+        return FamilyGame.withPlatformGraphic(self.createPakFileObj(fileSystem, edition, pakFiles))
 
     # create createPakFileObj
-    def createPakFileObj(self, fileSystem: IFileSystem, value: object, tag: object = None) -> PakFile:
+    def createPakFileObj(self, fileSystem: IFileSystem, edition: Edition, value: object, tag: object = None) -> PakFile:
         match value:
             case s if isinstance(value, str):
-                if self.isPakFile(s): return self.createPakFileType(fileSystem, s, tag)
+                if self.isPakFile(s): return self.createPakFileType(fileSystem, edition, s, tag)
                 else: raise Exception(f'{self.id} missing {s}')
             case p, l if isinstance(value, tuple):
-                return self.createPakFileObj(fileSystem, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
+                return self.createPakFileObj(fileSystem, edition, l[0], tag) if len(l) == 1 and self.isPakFile(l[0]) \
                     else ManyPakFile(
-                        self.createPakFileType(fileSystem, None, tag), self, \
-                            p if len(p) > 0 else 'Many', fileSystem, l, pathSkip = len(p) + 1 if len(p) > 0 else 0
+                        self.createPakFileType(fileSystem, edition, None, tag), fileSystem, \
+                            self, edition, p if len(p) > 0 else 'Many', l, pathSkip = len(p) + 1 if len(p) > 0 else 0
                         )
             case s if isinstance(value, list):
                 return s[0] if len(s) == 1 else \
-                    MultiPakFile(self, 'Multi', fileSystem, s, tag)
+                    MultiPakFile(fileSystem, self, edition, 'Multi', s, tag)
             case None: return None
             case _: raise Exception(f'Unknown: {value}')
 
     # create PakFileType
-    def createPakFileType(self, fileSystem: IFileSystem, path: str, tag: object = None) -> PakFile:
+    def createPakFileType(self, fileSystem: IFileSystem, edition: Edition, path: str, tag: object = None) -> PakFile:
         if not self.pakFileType: raise Exception(f'{self.id} missing PakFileType')
         return findType(self.pakFileType)(self, fileSystem, path, tag)
 

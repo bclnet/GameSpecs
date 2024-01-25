@@ -19,11 +19,13 @@ namespace GameSpec.Bioware
         /// <summary>
         /// Initializes a new instance of the <see cref="BiowarePakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="game">The game.</param>
+        /// <param name="edition">The edition.</param>
         /// <param name="filePath">The file path.</param>
         /// <param name="tag">The tag.</param>
-        public BiowarePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        public BiowarePakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = null)
+            : base(fileSystem, game, edition, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

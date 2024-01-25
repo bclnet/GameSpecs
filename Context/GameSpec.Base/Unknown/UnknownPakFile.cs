@@ -16,8 +16,8 @@ namespace GameSpec.Unknown
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="name">The name.</param>
-        public UnknownPakFile(FamilyGame game, string name) : base(game, name) { }
-        public UnknownPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, "Unknown") { }
+        public UnknownPakFile(FamilyGame game, string name) : base(null, game, null, name, null) { }
+        public UnknownPakFile(FamilyGame game, IFileSystem fileSystem, FamilyGame.Edition edition, string filePath, object tag = default) : base(fileSystem, game, edition, "Unknown") { }
         //public override void Dispose() { }
 
         public override int Count => 0;

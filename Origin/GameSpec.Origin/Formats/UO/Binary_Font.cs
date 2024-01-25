@@ -13,7 +13,7 @@ namespace GameSpec.Origin.Formats.UO
 
         #region Headers
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct Header
         {
             public static (string, int) Struct = ("<6i", sizeof(Header));

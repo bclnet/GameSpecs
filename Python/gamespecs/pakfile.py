@@ -27,10 +27,12 @@ class PakFile:
         Closing = 3
         Closed = 4
 
-    def __init__(self, game: FamilyGame, name: str, tag: object = None):
+    def __init__(self, fileSystem: IFileSystem, game: FamilyGame, edition: Edition, name: str, tag: object = None):
         self.status = self.PakStatus.Closed
+        self.fileSystem = fileSystem
         self.family = game.family
         self.game = game
+        self.edition = edition
         self.name = name
         self.tag = tag
         self.graphic = None
@@ -76,11 +78,10 @@ class PakFile:
 
 # BinaryPakFile
 class BinaryPakFile(PakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, pakBinary: PakBinary, tag: object = None):
+    def __init__(self, fileSystem: IFileSystem, game: FamilyGame, edition: Edition, filePath: str, pakBinary: PakBinary, tag: object = None):
         name = os.path.basename(filePath) if os.path.basename(filePath) else \
             os.path.basename(os.path.dirname(filePath))
-        super().__init__(game, name, tag)
-        self.fileSystem = fileSystem
+        super().__init__(fileSystem, game, edition, name, tag)
         self.filePath = filePath
         self.pakBinary = pakBinary
         # options
@@ -198,8 +199,8 @@ class BinaryPakFile(PakFile):
 
 # ManyPakFile
 class ManyPakFile(BinaryPakFile):
-    def __init__(self, basis: PakFile, game: FamilyGame, name: str, fileSystem: IFileSystem, paths: list[str], tag: object = None, pathSkip: int = 0):
-        super().__init__(game, fileSystem, name, None, tag)
+    def __init__(self, basis: PakFile, fileSystem: IFileSystem, game: FamilyGame, edition: Edition, name: str, paths: list[str], tag: object = None, pathSkip: int = 0):
+        super().__init__(fileSystem, game, edition, name, None, tag)
         self.pathSkip = pathSkip
         if isinstance(basis, BinaryPakFile):
             self.getObjectFactoryFactory = basis.getObjectFactoryFactory
@@ -210,7 +211,7 @@ class ManyPakFile(BinaryPakFile):
     def read(self, r: Reader, tag: object = None) -> None:
         self.files = [FileSource(
             path = s.replace('\\', '/'),
-            pak = self.game.createPakFileType(self.fileSystem, s) if self.game.isPakFile(s) else None,
+            pak = self.game.createPakFileType(self.fileSystem, self.edition, s) if self.game.isPakFile(s) else None,
             fileSize = self.fileSystem.fileInfo(s).st_size
             )
             for s in self.paths]
@@ -222,8 +223,8 @@ class ManyPakFile(BinaryPakFile):
 
 # MultiPakFile
 class MultiPakFile(PakFile):
-    def __init__(self, game: FamilyGame, name: str, fileSystem: IFileSystem, pakFiles: list[PakFile], tag: object = None):
-        super().__init__(game, name, tag)
+    def __init__(self, fileSystem: IFileSystem, game: FamilyGame, edition: Edition, name: str, pakFiles: list[PakFile], tag: object = None):
+        super().__init__(fileSystem, game, edition, name, tag)
         self.pakFiles = pakFiles
 
     def closing(self):
@@ -302,8 +303,8 @@ class PakBinaryT(PakBinary):
         return cls._instance
 
     class SubPakFile(BinaryPakFile):
-        def __init__(self, parent: PakBinary, file: FileSource, source: BinaryPakFile, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-            super().__init__(game, fileSystem, filePath, parent._instance, tag)
+        def __init__(self, parent: PakBinary, file: FileSource, source: BinaryPakFile, fileSystem: IFileSystem, game: FamilyGame, edition: Edition, filePath: str, tag: object = None):
+            super().__init__(fileSystem, game, edition, filePath, parent._instance, tag)
             self.file = file
             self.source = source
             self.objectFactoryFactoryMethod = source.objectFactoryFactoryMethod
