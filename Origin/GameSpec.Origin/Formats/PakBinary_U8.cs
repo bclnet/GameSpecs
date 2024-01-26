@@ -63,7 +63,7 @@ namespace GameSpec.Origin.Formats
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
-            var fn = Path.GetFileName(source.FilePath).ToLowerInvariant();
+            var fn = Path.GetFileName(source.PakPath).ToLowerInvariant();
             var nameToExt = NameToExts.FirstOrDefault(x => fn.Contains(x.name));
             var ext = nameToExt.ext;
             //

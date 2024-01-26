@@ -1,5 +1,6 @@
 using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
+using GameSpec.Platforms;
 using OpenStack.Graphics;
 using OpenStack.Graphics.DirectX;
 using System;

@@ -2,7 +2,6 @@
 using GameSpec.Bethesda.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using OpenStack.Graphics;
 using System;
 using System.IO;
@@ -20,13 +19,8 @@ namespace GameSpec.Bethesda
         /// <summary>
         /// Initializes a new instance of the <see cref="BethesdaPakFile" /> class.
         /// </summary>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="game">The game.</param>
-        /// <param name="edition">The edition.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public BethesdaPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = default)
-            : base(fileSystem, game, edition, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        /// <param name="state">The state.</param>
+        public BethesdaPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             PathFinders.Add(typeof(ITexture), FindTexture);

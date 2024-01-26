@@ -1,6 +1,6 @@
 import os
 from typing import Callable
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from .Base.binary import Binary_Dds, Binary_Img, Binary_Snd, Binary_Txt
 from .Arkane.binary_danae import Binary_Ftl, Binary_Fts, Binary_Tea
 from .Arkane.pakbinary_danae import PakBinary_Danae
@@ -10,15 +10,15 @@ from .util import _pathExtension
 # typedefs
 class FamilyGame: pass
 class PakBinary: pass
-class IFileSystem: pass
+class PakState: pass
 class FileSource: pass
 class FileOption: pass
 
 # ArkanePakFile
 class ArkanePakFile(BinaryPakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
-        match game.engine:
+    def __init__(self, state: PakState):
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
+        match state.game.engine:
             # case 'CryEngine': self.objectFactoryFactoryMethod = Crytek.CrytekPakFile.ObjectFactoryFactory
             # case 'Unreal': self.objectFactoryFactoryMethod = Epic.EpicPakFile.ObjectFactoryFactory
             # case 'Valve': self.objectFactoryFactoryMethod = Valve.ValvePakFile.ObjectFactoryFactory

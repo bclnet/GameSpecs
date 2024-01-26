@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenStack.Graphics;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 
 // https://stackoverflow.com/questions/2783378/wpf-byte-array-to-hex-view-similar-to-notepad-hex-editor-plugin
 namespace GameSpec.App.Explorer.Views

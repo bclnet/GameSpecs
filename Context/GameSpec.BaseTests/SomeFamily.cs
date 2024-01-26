@@ -36,7 +36,7 @@ namespace GameSpec
 
         public class SomePakFile : PakFile
         {
-            public SomePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, "Some Name") { }
+            public SomePakFile(PakState state) : base(state) { Name = "Some Name"; }
             public override int Count => 0;
             public override void Closing() { }
             public override void Opening() { }

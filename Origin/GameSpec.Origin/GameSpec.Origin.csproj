@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Formats\UO\Body.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Context\GameSpec.Base\GameSpec.Base.csproj" />
   </ItemGroup>
 

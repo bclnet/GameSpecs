@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Bethesda')
+family = family.getFamily('Bethesda')
 print(f'studio: {family.studio}')
 
 file = ('game:/Morrowind.bsa#Morrowind', 'bookart/boethiah_256.dds')

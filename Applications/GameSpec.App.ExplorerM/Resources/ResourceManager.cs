@@ -1,4 +1,4 @@
-using GameSpec.Metadata;
+using GameSpec.Meta;
 //using Microsoft.Maui.Graphics.Platform;
 using System.Collections.Concurrent;
 using IImage = Microsoft.Maui.Graphics.IImage;

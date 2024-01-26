@@ -2,7 +2,6 @@
 using GameSpec.Blizzard.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,13 +17,8 @@ namespace GameSpec.Blizzard
         /// <summary>
         /// Initializes a new instance of the <see cref="BlizzardPakFile" /> class.
         /// </summary>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="game">The game.</param>
-        /// <param name="edition">The edition.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public BlizzardPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = null)
-            : base(fileSystem, game, edition, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        /// <param name="state">The state.</param>
+        public BlizzardPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             UseReader = false;

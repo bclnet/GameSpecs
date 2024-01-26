@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using Microsoft.Maui.Controls;
 using OpenStack.Graphics;
 using System.Collections.Generic;

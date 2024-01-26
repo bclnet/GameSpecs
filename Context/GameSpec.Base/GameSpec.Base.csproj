@@ -70,7 +70,6 @@
     <None Include="..\..\Platforms\Native\x64\oo2ext_7_win64.dll" Link="oo2ext_7_win64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="FileManager+Last.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 using GameSpec.WbB.Formats.Props;
 using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using static GameSpec.WbB.Formats.Props.SurfacePixelFormat;
+using GameSpec.Platforms;
 
 namespace GameSpec.WbB.Formats.FileTypes
 {

@@ -2,7 +2,6 @@
 using GameSpec.Cyanide.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,11 +17,8 @@ namespace GameSpec.Cyanide
         /// <summary>
         /// Initializes a new instance of the <see cref="CyanidePakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public CyanidePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Cpk.Instance, tag)
+        /// <param name="state">The state.</param>
+        public CyanidePakFile(PakState state) : base(state, PakBinary_Cpk.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

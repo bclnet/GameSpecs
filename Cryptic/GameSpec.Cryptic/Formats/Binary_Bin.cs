@@ -1,5 +1,5 @@
 using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using OpenStack.Graphics.DirectX;
 using System;
 using System.Collections.Generic;

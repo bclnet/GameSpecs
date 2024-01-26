@@ -110,7 +110,7 @@ namespace GameSpec.Valve.Formats
             var headerPosition = (uint)r.Tell();
 
             // sourceFilePath
-            var sourceFilePath = source.FilePath;
+            var sourceFilePath = source.PakPath;
             var sourceFileDirVpk = sourceFilePath.EndsWith("_dir.vpk", StringComparison.OrdinalIgnoreCase);
             if (sourceFileDirVpk) sourceFilePath = sourceFilePath[..^8];
             source.FileMask = path =>

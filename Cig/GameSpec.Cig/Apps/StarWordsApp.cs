@@ -1,5 +1,5 @@
 ﻿using GameSpec.Cig.Apps.StarWords;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;

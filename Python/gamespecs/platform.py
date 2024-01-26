@@ -1,7 +1,7 @@
 import os
 from typing import Callable
 from enum import Enum
-from .pakfile import PakFile
+from .pak import PakFile
 from openstk.gfx import IObjectManager, IMaterialManager, IShaderManager, ITextureManager, PlatformStats
 from openstk.gfx_render import IMaterial
 from openstk.gfx_texture import ITexture
@@ -116,7 +116,7 @@ class ObjectManager(IObjectManager):
         else: prefab = self._cachedPrefabs[path]
         # Instantiate the prefab.
         return self._builder.createObject(prefab)
-
+ 
     def preloadObject(self, path: str) -> None:
         if path in self._cachedPrefabs: return
         # Start loading the object asynchronously if we haven't already started.

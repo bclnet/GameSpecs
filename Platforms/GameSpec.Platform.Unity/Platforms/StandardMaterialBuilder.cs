@@ -14,8 +14,7 @@ namespace GameSpec.Platforms
         Material _standardMaterial;
         Material _standardCutoutMaterial;
 
-        public StandardMaterialBuilder(TextureManager<Texture2D> textureManager)
-            : base(textureManager)
+        public StandardMaterialBuilder(TextureManager<Texture2D> textureManager) : base(textureManager)
         {
             _standardMaterial = new Material(Shader.Find("Standard"));
             _standardCutoutMaterial = UnityEngine.Resources.Load<Material>("Materials/StandardCutout");

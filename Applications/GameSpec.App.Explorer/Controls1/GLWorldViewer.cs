@@ -19,14 +19,12 @@
 //        ComboBox _cameraComboBox;
 //        SavedCameraPositionsControl _savedCameraPositionsControl;
 
-//        public GLWorldViewer(GuiContext guiContext, World world)
-//            : base(guiContext)
+//        public GLWorldViewer(GuiContext guiContext, World world) : base(guiContext)
 //        {
 //            _world = world;
 //        }
 
-//        public GLWorldViewer(GuiContext guiContext, WorldNode worldNode)
-//            : base(guiContext)
+//        public GLWorldViewer(GuiContext guiContext, WorldNode worldNode) : base(guiContext)
 //        {
 //            _worldNode = worldNode;
 //        }

@@ -1,5 +1,5 @@
 using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace GameSpec.Origin.Formats.UO
     {
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Verdata(r));
 
-        #region Headers
+        #region Records
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Patch
@@ -20,9 +20,9 @@ namespace GameSpec.Origin.Formats.UO
             public static (string, int) Struct = ("<5i", sizeof(Patch));
             public int File;
             public int Index;
-            public int Lookup;
-            public int Length;
-            public int Extra;
+            public int Offset;
+            public int FileSize;
+            public int Tag;
         }
 
         #endregion

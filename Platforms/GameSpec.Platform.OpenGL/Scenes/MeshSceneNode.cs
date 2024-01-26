@@ -10,8 +10,7 @@ namespace GameSpec.Scenes
     {
         GLRenderableMesh Mesh;
 
-        public MeshSceneNode(Scene scene, IMesh mesh, int meshIndex, IDictionary<string, string> skinMaterials = null)
-            : base(scene)
+        public MeshSceneNode(Scene scene, IMesh mesh, int meshIndex, IDictionary<string, string> skinMaterials = null) : base(scene)
         {
             Mesh = new GLRenderableMesh(Scene.Graphic as IOpenGLGraphic, mesh, meshIndex, skinMaterials);
             LocalBoundingBox = Mesh.BoundingBox;

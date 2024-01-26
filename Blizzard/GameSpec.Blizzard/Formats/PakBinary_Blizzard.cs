@@ -20,7 +20,7 @@ namespace GameSpec.Blizzard.Formats
             var editions = source.Game.Editions;
             var product = editions.First().Key;
             casc = new CascContext();
-            casc.Read(source.FilePath, product, files);
+            casc.Read(source.PakPath, product, files);
             return Task.CompletedTask;
         }
 

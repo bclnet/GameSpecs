@@ -1,6 +1,5 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using GameSpec.Valve.Formats;
 using GameSpec.Valve.Formats.Blocks;
 using GameSpec.Valve.Formats.Extras;
@@ -22,10 +21,8 @@ namespace GameSpec.Valve
         /// <summary>
         /// Initializes a new instance of the <see cref="ValvePakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public ValvePakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        /// <param name="state">The state.</param>
+        public ValvePakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             PathFinders.Add(typeof(object), FindBinary);

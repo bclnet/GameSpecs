@@ -2,7 +2,6 @@
 using GameSpec.Formats.Unknown;
 using GameSpec.IW.Formats;
 using GameSpec.IW.Transforms;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,11 +17,8 @@ namespace GameSpec.IW
         /// <summary>
         /// Initializes a new instance of the <see cref="IWPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public IWPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_IW.Instance, tag)
+        /// <param name="state">The state.</param>
+        public IWPakFile(PakState state) : base(state, PakBinary_IW.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             UseReader = false;

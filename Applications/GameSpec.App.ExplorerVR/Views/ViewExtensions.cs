@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;

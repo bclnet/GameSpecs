@@ -1,5 +1,5 @@
 ﻿using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 
 namespace GameSpec.App.Explorer.Views
 {

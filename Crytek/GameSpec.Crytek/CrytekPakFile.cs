@@ -2,7 +2,6 @@
 using GameSpec.Crytek.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -19,11 +18,8 @@ namespace GameSpec.Crytek
         /// <summary>
         /// Initializes a new instance of the <see cref="CrytekPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public CrytekPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, GetPakBinary(game), tag)
+        /// <param name="state">The state.</param>
+        public CrytekPakFile(PakState state) : base(state, GetPakBinary(state.Game))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

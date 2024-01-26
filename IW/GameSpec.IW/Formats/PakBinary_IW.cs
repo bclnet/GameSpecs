@@ -17,6 +17,11 @@ namespace GameSpec.IW.Formats
     {
         CascContext casc;
 
+        //class XSUB_PakFile : BinaryPakFile
+        //{
+        //    public XSUB_PakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) { Open(); }
+        //}
+
         enum Magic
         {
             CASC,
@@ -211,11 +216,6 @@ namespace GameSpec.IW.Formats
             public fixed uint Commands[31]; // The commands tell what each block of data does
         }
 
-        class XSUB_PakFile : BinaryPakFile
-        {
-            public XSUB_PakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) { Open(); }
-        }
-
         #endregion
 
         // Headers : WWII (WWII)
@@ -247,7 +247,7 @@ namespace GameSpec.IW.Formats
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var files = source.Files = new List<FileSource>();
-            var extension = Path.GetExtension(source.FilePath);
+            var extension = Path.GetExtension(source.PakPath);
 
             switch (source.Game.Id)
             {
@@ -258,7 +258,7 @@ namespace GameSpec.IW.Formats
                     var editions = source.Game.Editions;
                     var product = editions.First().Key;
                     casc = new CascContext();
-                    casc.Read(source.FilePath, product, files);
+                    casc.Read(source.PakPath, product, files);
                     return Task.CompletedTask;
             }
 

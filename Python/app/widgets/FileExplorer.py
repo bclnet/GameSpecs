@@ -6,9 +6,9 @@ from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
 from gamespecs import config
-from gamespecs.pakfile import PakFile
+from gamespecs.pak import PakFile
 # from gamespecs.util import x
-from gamespecs.metamgr import MetaItem, MetaInfo
+from gamespecs.meta import MetaItem, MetaInfo
 
 # https://doc.qt.io/qt-6/qtreeview.html
 # https://gist.github.com/skriticos/5415869

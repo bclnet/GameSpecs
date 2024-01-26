@@ -1,23 +1,23 @@
 import os
 from typing import Callable
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from .util import _pathExtension
 
 # typedefs
 class FamilyGame: pass
 class PakBinary: pass
-class IFileSystem: pass
+class PakState: pass
 class FileSource: pass
 class FileOption: pass
 
 # OriginPakFile
 class OriginPakFile(BinaryPakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+    def __init__(self, state: PakState):
+        super().__init__(state, self.getPakBinary(state.game))
 
     #region Factories
     @staticmethod
-    def getPakBinary(game: FamilyGame, extension: str) -> object:
+    def getPakBinary(game: FamilyGame) -> object:
         pass
 
     @staticmethod

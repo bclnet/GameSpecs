@@ -1,6 +1,5 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using GameSpec.Ubisoft.Formats;
 using GameSpec.Ubisoft.Transforms;
 using System;
@@ -18,11 +17,8 @@ namespace GameSpec.Ubisoft
         /// <summary>
         /// Initializes a new instance of the <see cref="UbisoftPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public UbisoftPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        /// <param name="state">The state.</param>
+        public UbisoftPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

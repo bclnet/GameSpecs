@@ -398,7 +398,7 @@ namespace GameSpec.IW.Formats
         // https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_FastFile_Format - COD4 FF
         internal static List<FileHeader> GetAssets(BinaryPakFile source, BinaryReader r, byte[] cryptKey, ref FF_Header header)
         {
-            var zonePath = GetZoneFile(source.FilePath, cryptKey, r, ref header);
+            var zonePath = GetZoneFile(source.PakPath, cryptKey, r, ref header);
             if (zonePath == null) return null;
             var headers = new List<FileHeader>();
 

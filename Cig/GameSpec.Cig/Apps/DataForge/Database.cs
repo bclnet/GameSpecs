@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using GameSpec.Cig.Formats;
 using System;
 using System.Collections.Generic;

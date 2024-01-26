@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Arkane')
+family = family.getFamily('Arkane')
 print(f'studio: {family.studio}')
 
 file = ('game:/#AF', 'sample:1')

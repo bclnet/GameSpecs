@@ -1,7 +1,7 @@
 import os
 from typing import Callable
 from gamespecs import Family, FamilyGame
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from .Base.binary import Binary_Dds
 from .Bethesda.pakbinary_bsa import PakBinary_Bsa
 from .Bethesda.pakbinary_ba2 import PakBinary_Ba2
@@ -9,7 +9,7 @@ from .util import _pathExtension
 
 # typedefs
 class PakBinary: pass
-class IFileSystem: pass
+class PakState: pass
 class FileSource: pass
 class FileOption: pass
 
@@ -25,8 +25,8 @@ class BethesdaGame(FamilyGame):
 
 # BethesdaPakFile
 class BethesdaPakFile(BinaryPakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+    def __init__(self, state: PakState):
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
         self.objectFactoryFactoryMethod = self.objectFactoryFactory
 
     #region Factories

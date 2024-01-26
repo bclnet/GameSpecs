@@ -16,8 +16,32 @@
     "name": "Ultima Online",
     "files": [
       {
-        "path": "anim.idx",
-        "type": "Pak"
+        "path": "Body.def",
+        "type": "Body"
+      },
+      {
+        "path": "Bodyconv.def",
+        "type": "BodyConv"
+      },
+      {
+        "path": "Data/bodyTable.cfg",
+        "type": "BodyTable"
+      },
+      {
+        "path": "Cliloc.enu",
+        "type": "Cliloc"
+      },
+      {
+        "path": "Data/containers.cfg",
+        "type": "Container"
+      },
+      {
+        "path": "animdata.mul",
+        "type": "Effect"
+      },
+      {
+        "path": "fonts.mul",
+        "type": "Font"
       },
       {
         "path": "anim.idx:file0.dat",

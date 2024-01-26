@@ -1,5 +1,5 @@
 using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;

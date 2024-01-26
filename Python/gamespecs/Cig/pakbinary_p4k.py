@@ -1,8 +1,8 @@
 import os
 from io import BytesIO
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from gamespecs.filesrc import FileSource
-from gamespecs.pakfile import PakBinaryT
+from gamespecs.pak import PakBinaryT
 
 # typedefs
 class FamilyGame: pass

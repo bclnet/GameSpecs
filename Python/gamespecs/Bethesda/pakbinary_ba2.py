@@ -2,7 +2,7 @@ import os
 from io import BytesIO
 from enum import Enum
 from gamespecs.filesrc import FileSource
-from gamespecs.pakfile import PakBinaryT
+from gamespecs.pak import PakBinaryT
 # from gamespecs.compression import decompressLz4, decompressZlib2
 
 # typedefs

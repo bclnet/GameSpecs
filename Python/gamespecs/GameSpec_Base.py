@@ -1,9 +1,9 @@
 from gamespecs import Family
-from gamespecs.pakfile import PakFile
+from gamespecs.pak import PakFile
 
 # typedefs
 class FamilyGame: pass
-class IFileSystem: pass
+class PakState: pass
 
 # UnknownFamily
 class UnknownFamily(Family):
@@ -12,5 +12,6 @@ class UnknownFamily(Family):
 
 # UnknownPakFile
 class UnknownPakFile(PakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, 'Unknown')
+    def __init__(self, state: PakState):
+        super().__init__(state)
+        self.name = 'Unknown'

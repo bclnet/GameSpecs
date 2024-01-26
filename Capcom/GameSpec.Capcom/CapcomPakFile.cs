@@ -2,7 +2,6 @@
 using GameSpec.Capcom.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -19,15 +18,10 @@ namespace GameSpec.Capcom
         /// <summary>
         /// Initializes a new instance of the <see cref="CapcomPakFile" /> class.
         /// </summary>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="game">The game.</param>
-        /// <param name="edition">The edition.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public CapcomPakFile(IFileSystem fileSystem, FamilyGame game, FamilyGame.Edition edition, string filePath, object tag = null)
-            : base(fileSystem, game, edition, filePath, filePath != null ? GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()) : null, tag)
+        /// <param name="state">The state.</param>
+        public CapcomPakFile(PakState state) : base(state, state.PakPath != null ? GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()) : null)
         {
-            ObjectFactoryFactoryMethod = game.Engine switch
+            ObjectFactoryFactoryMethod = state.Game.Engine switch
             {
                 "Unity" => Unity.UnityPakFile.ObjectFactoryFactory,
                 _ => ObjectFactoryFactory,

@@ -1,6 +1,5 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using GameSpec.WbB.Formats;
 using GameSpec.WbB.Formats.FileTypes;
 using GameSpec.WbB.Transforms;
@@ -23,11 +22,8 @@ namespace GameSpec.WbB
         /// <summary>
         /// Initializes a new instance of the <see cref="WbBPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public WbBPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, PakBinary_AC.Instance, tag)
+        /// <param name="state">The state.</param>
+        public WbBPakFile(PakState state) : base(state, PakBinary_AC.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             UseFileId = true;

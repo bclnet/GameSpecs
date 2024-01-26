@@ -44,7 +44,7 @@ namespace GameSpec.Formats
             });
 
             // write pak-raw
-            if ((option & FileOption.Marker) != 0) await new StreamPakFile(source, source.FileSystem, source.Game, source.Edition, filePath).Write(null, null);
+            if ((option & FileOption.Marker) != 0) await new StreamPakFile(source, new PakState(source.FileSystem, source.Game, source.Edition, filePath)).Write(null, null);
         }
 
         static async Task ExportFileAsync(FileSource file, BinaryPakFile source, string newPath, FileOption option = default)

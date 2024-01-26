@@ -1,20 +1,20 @@
 import os
 from typing import Callable
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from .Cryptic.pakbinary_hogg import PakBinary_Hogg
 from .util import _pathExtension
 
 # typedefs
 class FamilyGame: pass
 class PakBinary: pass
-class IFileSystem: pass
+class PakState: pass
 class FileSource: pass
 class FileOption: pass
 
 # CrypticPakFile
 class CrypticPakFile(BinaryPakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+    def __init__(self, state: PakState):
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
 
     #region Factories
     @staticmethod

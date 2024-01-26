@@ -18,7 +18,7 @@ namespace GameSpec.App.Cli
     {
         static async Task<int> RunTestAsync(TestOptions args)
         {
-            await new FamilyTest().TestAsync();
+            //await new FamilyTest().TestAsync();
             return 0;
         }
     }

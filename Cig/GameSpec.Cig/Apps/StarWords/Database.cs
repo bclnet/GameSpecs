@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 
 namespace GameSpec.Cig.Apps.StarWords
 {

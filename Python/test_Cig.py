@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Cig')
+family = family.getFamily('Cig')
 print(f'studio: {family.studio}')
 
 file = ('game:/#StarCitizen', 'sample:0')

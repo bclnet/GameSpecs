@@ -23,7 +23,7 @@ namespace GameSpec.Origin.Formats
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
-            var fileName = Path.GetFileNameWithoutExtension(source.FilePath).ToLowerInvariant();
+            var fileName = Path.GetFileNameWithoutExtension(source.PakPath).ToLowerInvariant();
             var prefix
                 = fileName.Contains("bitmap") ? "bitmap"
                 : fileName.Contains("texture") ? "texture"

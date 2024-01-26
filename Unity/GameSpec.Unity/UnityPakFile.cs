@@ -1,6 +1,5 @@
 ﻿using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using GameSpec.Unity.Formats;
 using GameSpec.Unity.Transforms;
 using System;
@@ -18,11 +17,8 @@ namespace GameSpec.Unity
         /// <summary>
         /// Initializes a new instance of the <see cref="UnityPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public UnityPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Unity.Instance, tag)
+        /// <param name="state">The state.</param>
+        public UnityPakFile(PakState state) : base(state, PakBinary_Unity.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

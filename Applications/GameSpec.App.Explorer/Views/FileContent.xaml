@@ -6,7 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:views="clr-namespace:GameSpec.App.Explorer.Views"
              xmlns:control1="clr-namespace:GameSpec.App.Explorer.Controls1"
-             xmlns:model="clr-namespace:GameSpec.Metadata;assembly=GameSpec.Base"
+             xmlns:model="clr-namespace:GameSpec.Meta;assembly=GameSpec.Base"
              xmlns:control="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">

@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Capcom')
+family = family.getFamily('Capcom')
 print(f'studio: {family.studio}')
 
 # file = ('game:/re_chunk_000.pak#Arcade', 'File0001.tex')

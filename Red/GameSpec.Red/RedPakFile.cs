@@ -3,7 +3,6 @@ using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
 using GameSpec.Red.Formats;
 using GameSpec.Red.Transforms;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,11 +18,8 @@ namespace GameSpec.Red
         /// <summary>
         /// Initializes a new instance of the <see cref="RedPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public RedPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Red.Instance, tag)
+        /// <param name="state">The state.</param>
+        public RedPakFile(PakState state) : base(state, PakBinary_Red.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

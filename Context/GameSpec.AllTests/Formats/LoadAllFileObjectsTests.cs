@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;

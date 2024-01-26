@@ -1,6 +1,6 @@
 using GameSpec.WbB.Formats.Entity.AnimationHooks;
 using GameSpec.WbB.Formats.Props;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using GameSpec.Formats;
 using System;
 using System.Collections.Generic;

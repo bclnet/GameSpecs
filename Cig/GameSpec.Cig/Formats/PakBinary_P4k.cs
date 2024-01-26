@@ -1,5 +1,5 @@
 ﻿using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace GameSpec.Cig.Formats
         {
             P4kFile Pak;
 
-            public SubPakFileP4k(P4kFile pak, BinaryPakFile source, FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag)
+            public SubPakFileP4k(BinaryPakFile source, P4kFile pak, string path, object tag) : base(new PakState(source.FileSystem, source.Game, source.Edition, path, tag), Instance)
             {
                 Pak = pak;
                 ObjectFactoryFactoryMethod = source.ObjectFactoryFactoryMethod;
@@ -58,7 +58,7 @@ namespace GameSpec.Cig.Formats
                     Tag = entry,
                 };
                 var metadataPath = metadata.Path;
-                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFileP4k(pak, source, source.Game, source.FileSystem, metadataPath, metadata.Tag);
+                if (metadataPath.EndsWith(".pak", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".socpak", StringComparison.OrdinalIgnoreCase)) metadata.Pak = new SubPakFileP4k(source, pak, metadataPath, metadata.Tag);
                 else if (metadataPath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase) || metadataPath.EndsWith(".dds.a", StringComparison.OrdinalIgnoreCase)) parentByPath.Add(metadataPath, metadata);
                 else if (metadataPath.Length > 8 && metadataPath[^8..].Contains(".dds.", StringComparison.OrdinalIgnoreCase))
                 {

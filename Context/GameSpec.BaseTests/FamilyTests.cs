@@ -1,7 +1,7 @@
+using GameSpec.Platforms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
-using static GameSpec.FamilyGame;
 
 namespace GameSpec
 {

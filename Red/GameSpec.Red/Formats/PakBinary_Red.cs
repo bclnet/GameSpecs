@@ -446,8 +446,8 @@ namespace GameSpec.Red.Formats
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             FileSource[] files; List<FileSource> files2;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(source.FilePath);
-            var extension = Path.GetExtension(source.FilePath);
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(source.PakPath);
+            var extension = Path.GetExtension(source.PakPath);
             var magic = source.Magic = r.ReadUInt32();
             // KEY
             switch (magic)
@@ -468,7 +468,7 @@ namespace GameSpec.Red.Formats
                         // combine
                         var sourceName = source.Name;
                         var voiceKey = sourceName[0] == 'M' && char.IsNumber(sourceName[1]);
-                        var subPathFormat = Path.Combine(Path.GetDirectoryName(source.FilePath), !voiceKey ? "{0}" : "voices\\{0}");
+                        var subPathFormat = Path.Combine(Path.GetDirectoryName(source.PakPath), !voiceKey ? "{0}" : "voices\\{0}");
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             var (file, path) = headerFiles[i];
@@ -478,7 +478,7 @@ namespace GameSpec.Red.Formats
                             {
                                 Path = path,
                                 FileSize = file.FileSize,
-                                Pak = new SubPakFile(null, source, source.Game, source.FileSystem, subPath, (headerKeys, (uint)i)),
+                                Pak = new SubPakFile(source, null, subPath, (headerKeys, (uint)i)),
                             };
                         }
                     }
@@ -604,7 +604,7 @@ namespace GameSpec.Red.Formats
                         {
                             var headerFile = headerFiles[i];
                             var hash = headerFile.NameHash64;
-                            if (nameHashs.Contains(hash)) { Console.WriteLine($"File already added in Archive {source.FilePath}: hash {hash}, idx {i}"); continue; }
+                            if (nameHashs.Contains(hash)) { Console.WriteLine($"File already added in Archive {source.PakPath}: hash {hash}, idx {i}"); continue; }
                             nameHashs.Add(hash);
                             files2.Add(new FileSource
                             {

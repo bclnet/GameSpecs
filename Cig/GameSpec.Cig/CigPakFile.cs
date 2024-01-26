@@ -3,7 +3,6 @@ using GameSpec.Cig.Transforms;
 using GameSpec.Crytek.Formats;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,11 +18,8 @@ namespace GameSpec.Cig
         /// <summary>
         /// Initializes a new instance of the <see cref="CigPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public CigPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_P4k.Instance, tag)
+        /// <param name="state">The state.</param>
+        public CigPakFile(PakState state) : base(state, PakBinary_P4k.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

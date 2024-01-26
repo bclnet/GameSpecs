@@ -1,4 +1,4 @@
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using GameSpec.WbB.Formats.Entity;
 using GameSpec.WbB.Formats.Props;
 using System.Collections.Generic;

@@ -2,8 +2,6 @@
 using GameSpec.Formats.Unknown;
 using GameSpec.Monolith.Formats;
 using GameSpec.Monolith.Transforms;
-using GameSpec.Metadata;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,11 +17,8 @@ namespace GameSpec.Monolith
         /// <summary>
         /// Initializes a new instance of the <see cref="MonolithPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public MonolithPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, filePath), tag)
+        /// <param name="state">The state.</param>
+        public MonolithPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

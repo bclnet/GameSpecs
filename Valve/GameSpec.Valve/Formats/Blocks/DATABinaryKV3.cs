@@ -1,4 +1,4 @@
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using GameSpec.Formats;
 using K4os.Compression.LZ4;
 using System;

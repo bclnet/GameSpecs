@@ -4,8 +4,8 @@ from enum import Enum
 from openstk.gfx_dds import DDS_HEADER
 from openstk.gfx_texture import ITexture, TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
 from gamespecs.filesrc import FileSource
-from gamespecs.pakfile import PakBinary
-from gamespecs.metamgr import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
+from gamespecs.pak import PakBinary
+from gamespecs.meta import MetaManager, MetaInfo, MetaContent, IHaveMetaInfo
 from gamespecs.platform import Platform
 from gamespecs.util import _pathExtension
 
@@ -15,6 +15,18 @@ class Reader: pass
 class TextureFlags: pass
 class MetaManager: pass
 class MetaManager: pass
+
+# Binary_Bik
+class Binary_Bik(IHaveMetaInfo):
+    @staticmethod
+    def factory(r: Reader, f: FileSource, s: PakFile): return Binary_Bik(r, f.fileSize)
+
+    def __init__(self, r: Reader, fileSize: int):
+        self.data = r.read(fileSize)
+
+    def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: return [
+        MetaInfo(None, MetaContent(type = 'Text', name = os.path.basename(file.path), value = 'BIK Video'))
+        ]
 
 # Binary_Dds
 class Binary_Dds(IHaveMetaInfo, ITexture):
@@ -62,6 +74,18 @@ class Binary_Dds(IHaveMetaInfo, ITexture):
             MetaInfo(f'Height: {self.height()}'),
             MetaInfo(f'Mipmaps: {self.mipMaps()}')
             ])
+        ]
+
+# Binary_Fsb
+class Binary_Fsb(IHaveMetaInfo):
+    @staticmethod
+    def factory(r: Reader, f: FileSource, s: PakFile): return Binary_Fsb(r, f.fileSize)
+
+    def __init__(self, r: Reader, fileSize: int):
+        self.data = r.read(fileSize)
+
+    def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: return [
+        MetaInfo(None, MetaContent(type = 'Text', name = os.path.basename(file.path), value = 'FSB Audio'))
         ]
 
 # Binary_Img
@@ -121,6 +145,18 @@ class Binary_Img(IHaveMetaInfo, ITexture):
             ])
         ]
 
+# Binary_Msg
+class Binary_Msg(IHaveMetaInfo):
+    @staticmethod
+    def factory(message: str): return Binary_Msg(message)
+
+    def __init__(self, message: str):
+        self.message = message
+
+    def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: return [
+        MetaInfo(None, MetaContent(type = 'Text', name = os.path.basename(file.path), value = self.message))
+        ]
+    
 # Binary_Snd
 class Binary_Snd(IHaveMetaInfo):
     @staticmethod

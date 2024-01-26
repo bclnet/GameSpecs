@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Bioware')
+family = family.getFamily('Bioware')
 print(f'studio: {family.studio}')
 
 file = ('game:/base.zip#MDK2', 'sample:*')

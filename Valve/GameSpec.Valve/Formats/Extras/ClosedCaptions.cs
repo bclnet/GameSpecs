@@ -1,5 +1,5 @@
 using GameSpec.Algorithms;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using GameSpec.Formats;
 using System.Collections;
 using System.Collections.Generic;

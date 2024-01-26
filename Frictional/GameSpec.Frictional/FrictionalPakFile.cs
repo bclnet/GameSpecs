@@ -2,7 +2,6 @@
 using GameSpec.Formats.Unknown;
 using GameSpec.Frictional.Formats;
 using GameSpec.Frictional.Transforms;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,11 +17,8 @@ namespace GameSpec.Frictional
         /// <summary>
         /// Initializes a new instance of the <see cref="FrictionalPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public FrictionalPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, PakBinary_Hpl.Instance, tag)
+        /// <param name="state">The state.</param>
+        public FrictionalPakFile(PakState state) : base(state, PakBinary_Hpl.Instance)
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

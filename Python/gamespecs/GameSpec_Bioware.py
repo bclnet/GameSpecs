@@ -1,6 +1,6 @@
 import os
 from typing import Callable
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from .Base.pakbinary_zip import PakBinary_Zip
 from .Bioware.pakbinary_aurora import PakBinary_Aurora
 from .Bioware.pakbinary_myp import PakBinary_Myp
@@ -9,14 +9,14 @@ from .util import _pathExtension
 # typedefs
 class FamilyGame: pass
 class PakBinary: pass
-class IFileSystem: pass
+class PakState: pass
 class FileSource: pass
 class FileOption: pass
 
 # BiowarePakFile
 class BiowarePakFile(BinaryPakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, fileSystem, filePath, self.getPakBinary(game, _pathExtension(filePath).lower()), tag)
+    def __init__(self, state: PakState):
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
 
     #region Factories
     @staticmethod

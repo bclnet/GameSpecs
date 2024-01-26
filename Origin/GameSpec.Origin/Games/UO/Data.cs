@@ -129,6 +129,119 @@ namespace GameSpec.Origin.Games.UO
 
     #endregion
 
+    #region Body
+
+    public enum BodyType : byte
+    {
+        Empty,
+        Monster,
+        Sea,
+        Animal,
+        Human,
+        Equipment
+    }
+
+    public struct Body
+    {
+        internal static BodyType[] Types = new BodyType[0];
+        public int BodyID;
+
+        public Body(int bodyID) => BodyID = bodyID;
+
+        public BodyType Type
+            => BodyID >= 0 && BodyID < Types.Length
+            ? Types[BodyID]
+            : BodyType.Empty;
+
+        public bool IsHumanoid
+            => BodyID >= 0
+            && BodyID < Types.Length
+            && Types[BodyID] == BodyType.Human
+            && BodyID != 402
+            && BodyID != 403
+            && BodyID != 607
+            && BodyID != 608
+            && BodyID != 694
+            && BodyID != 695
+            && BodyID != 970;
+
+        public bool IsGargoyle
+            => BodyID == 666
+            || BodyID == 667
+            || BodyID == 694
+            || BodyID == 695;
+
+        public bool IsMale
+            => BodyID == 183
+            || BodyID == 185
+            || BodyID == 400
+            || BodyID == 402
+            || BodyID == 605
+            || BodyID == 607
+            || BodyID == 666
+            || BodyID == 694
+            || BodyID == 750;
+
+        public bool IsFemale
+            => BodyID == 184
+            || BodyID == 186
+            || BodyID == 401
+            || BodyID == 403
+            || BodyID == 606
+            || BodyID == 608
+            || BodyID == 667
+            || BodyID == 695
+            || BodyID == 751;
+
+        public bool IsGhost
+            => BodyID == 402
+            || BodyID == 403
+            || BodyID == 607
+            || BodyID == 608
+            || BodyID == 694
+            || BodyID == 695
+            || BodyID == 970;
+
+        public bool IsMonster
+            => BodyID >= 0
+            && BodyID < Types.Length
+            && Types[BodyID] == BodyType.Monster;
+
+        public bool IsAnimal
+            => BodyID >= 0
+            && BodyID < Types.Length
+            && Types[BodyID] == BodyType.Animal;
+
+        public bool IsEmpty
+            => BodyID >= 0
+            && BodyID < Types.Length
+            && Types[BodyID] == BodyType.Empty;
+
+        public bool IsSea
+            => BodyID >= 0
+            && BodyID < Types.Length
+            && Types[BodyID] == BodyType.Sea;
+
+        public bool IsEquipment
+            => BodyID >= 0
+            && BodyID < Types.Length
+            && Types[BodyID] == BodyType.Equipment;
+
+        public static implicit operator int(Body a) => a.BodyID;
+        public static implicit operator Body(int a) => new Body(a);
+        public override string ToString() => $"0x{BodyID:X}";
+        public override int GetHashCode() => BodyID;
+        public override bool Equals(object o) => o == null || !(o is Body) ? false : ((Body)o).BodyID == BodyID;
+        public static bool operator ==(Body l, Body r) => l.BodyID == r.BodyID;
+        public static bool operator !=(Body l, Body r) => l.BodyID != r.BodyID;
+        public static bool operator >(Body l, Body r) => l.BodyID > r.BodyID;
+        public static bool operator >=(Body l, Body r) => l.BodyID >= r.BodyID;
+        public static bool operator <(Body l, Body r) => l.BodyID < r.BodyID;
+        public static bool operator <=(Body l, Body r) => l.BodyID <= r.BodyID;
+    }
+
+    #endregion
+
     #region Books
 
     public class Books
@@ -964,136 +1077,4 @@ namespace GameSpec.Origin.Games.UO
     }
 
     #endregion
-
-
-
-
-
-
-
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
-    #region XXX
-
-    #endregion
-
 }

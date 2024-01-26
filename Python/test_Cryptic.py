@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Cryptic')
+family = family.getFamily('Cryptic')
 print(f'studio: {family.studio}')
 
 file = ('game:/#CO', '')

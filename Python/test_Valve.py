@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Valve')
+family = family.getFamily('Valve')
 print(f'studio: {family.studio}')
 
 file = ('game:/#HL', 'COLOR.PAL')

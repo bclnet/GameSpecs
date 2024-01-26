@@ -21,8 +21,6 @@
 //#define Valve
 //#define WbB
 
-using System.Collections.Generic;
-
 namespace GameSpec
 {
     /// <summary>
@@ -345,7 +343,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:0",
+            ForcePath = "sample:6",
             Family = "Origin",
             //Game = "U8", // Ultima 8
             Game = "UO", // Ultima Online

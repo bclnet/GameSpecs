@@ -16,7 +16,7 @@ namespace GameSpec.Epic.Formats
         {
             List<FileSource> files;
             source.Files = files = new List<FileSource>();
-            var header = new Core.UPackage(r, source.FilePath);
+            var header = new Core.UPackage(r, source.PakPath);
             if (header.Exports == null) return Task.CompletedTask;
             var R = header.R;
             foreach (var item in header.Exports)

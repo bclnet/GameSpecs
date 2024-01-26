@@ -1,20 +1,20 @@
 import os
 from typing import Callable
-from gamespecs.pakfile import BinaryPakFile
+from gamespecs.pak import BinaryPakFile
 from .Cig.pakbinary_p4k import PakBinary_P4k
 from .util import _pathExtension
 
 # typedefs
 class FamilyGame: pass
 class PakBinary: pass
-class IFileSystem: pass
+class PakState: pass
 class FileSource: pass
 class FileOption: pass
 
 # CigPakFile
 class CigPakFile(BinaryPakFile):
-    def __init__(self, game: FamilyGame, fileSystem: IFileSystem, filePath: str, tag: object = None):
-        super().__init__(game, fileSystem, filePath, PakBinary_P4k(), tag)
+    def __init__(self, state: PakState):
+        super().__init__(state, PakBinary_P4k())
 
     #region Factories
     @staticmethod

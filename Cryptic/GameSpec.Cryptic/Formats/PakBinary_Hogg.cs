@@ -125,7 +125,7 @@ namespace GameSpec.Cryptic.Formats
             {
                 var file = files[i];
                 file.Path = Encoding.ASCII.GetString(fileAttribs[attributeEntries[i].PathId][..^1]);
-                if (file.Path.EndsWith(".hogg", StringComparison.OrdinalIgnoreCase)) file.Pak = new SubPakFile(file, source, source.Game, source.FileSystem, file.Path, file.Tag);
+                if (file.Path.EndsWith(".hogg", StringComparison.OrdinalIgnoreCase)) file.Pak = new SubPakFile(source, file, file.Path);
             }
 
             // remove filesize of -1 and file 0

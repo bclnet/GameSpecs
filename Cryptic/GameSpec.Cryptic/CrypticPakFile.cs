@@ -2,7 +2,6 @@
 using GameSpec.Cryptic.Transforms;
 using GameSpec.Formats;
 using GameSpec.Formats.Unknown;
-using GameSpec.Transforms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,11 +17,8 @@ namespace GameSpec.Cryptic
         /// <summary>
         /// Initializes a new instance of the <see cref="CrypticPakFile" /> class.
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="tag">The tag.</param>
-        public CrypticPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = default) : base(game, fileSystem, filePath, GetPakBinary(game, Path.GetExtension(filePath).ToLowerInvariant()), tag)
+        /// <param name="state">The state.</param>
+        public CrypticPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

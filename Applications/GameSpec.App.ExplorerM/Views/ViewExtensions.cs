@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using System.Globalization;
 using TreeView.Maui.Core;
 

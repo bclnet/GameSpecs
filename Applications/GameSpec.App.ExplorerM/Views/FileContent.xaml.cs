@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using OpenStack.Graphics;
 
 namespace GameSpec.App.Explorer.Views

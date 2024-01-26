@@ -1,8 +1,8 @@
 import os
 from io import BytesIO
 from gamespecs.filesrc import FileSource
-from gamespecs.pakfile import PakBinary
-from gamespecs.metamgr import MetaInfo, MetaContent, IHaveMetaInfo
+from gamespecs.pak import PakBinary
+from gamespecs.meta import MetaInfo, MetaContent, IHaveMetaInfo
 
 # typedefs
 class Reader: pass

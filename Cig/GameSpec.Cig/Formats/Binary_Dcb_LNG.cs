@@ -1,7 +1,7 @@
 #define NONULL
 
 using GameSpec.Formats;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -266,8 +266,8 @@ match 'Origin':
             ForcePath = "sample:*",
             Family = "Origin",
             # Game = "U8", # Ultima 8
-            # Game = "U9", # Ultima IX
             # Game = "UO", # Ultima Online
+            # Game = "U9", # Ultima IX
         )
     case 'Red':
         familyKeys = [ "Red", "Unknown" ]

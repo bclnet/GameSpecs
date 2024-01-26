@@ -57,11 +57,6 @@ namespace GameSpec.Bioware.Formats
             public uint Id;                 // Resource ID
         }
 
-        class SubPakFile : BinaryPakFile
-        {
-            public SubPakFile(FamilyGame game, IFileSystem fileSystem, string filePath, object tag = null) : base(game, fileSystem, filePath, Instance, tag) => Open();
-        }
-
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct BIFF_Header
         {
@@ -237,7 +232,7 @@ namespace GameSpec.Bioware.Formats
                 var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => x.Id, x => UnsafeX.ReadZASCII(x.Name, 0x10));
 
                 // combine
-                var subPathFormat = Path.Combine(Path.GetDirectoryName(source.FilePath), "{0}");
+                var subPathFormat = Path.Combine(Path.GetDirectoryName(source.PakPath), "{0}");
                 for (var i = 0; i < header.NumFiles; i++)
                 {
                     var (file, path) = headerFiles[i];
@@ -247,7 +242,7 @@ namespace GameSpec.Bioware.Formats
                     {
                         Path = path,
                         FileSize = file.FileSize,
-                        Pak = new SubPakFile(source.Game, source.FileSystem, subPath, (headerKeys, (uint)i)),
+                        Pak = new SubPakFile(source, null, subPath, (headerKeys, (uint)i)),
                     };
                 }
             }

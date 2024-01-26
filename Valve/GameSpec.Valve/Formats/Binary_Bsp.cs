@@ -1,4 +1,4 @@
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using OpenStack.Graphics;
 using System;
 using System.Collections.Generic;

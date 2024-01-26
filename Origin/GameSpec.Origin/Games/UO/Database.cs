@@ -9,6 +9,7 @@ namespace GameSpec.Origin.Games.UO
     {
         static PakFile PakFile;
         static Hashtable Cliloc;
+        public static int ItemIDMask => ClientVersion.InstallationIsUopFormat ? 0xffff : 0x3fff;
 
         internal static FamilyGame Ensure(FamilyGame game)
         {
@@ -16,7 +17,8 @@ namespace GameSpec.Origin.Games.UO
             try
             {
                 PakFile = game.Family.OpenPakFile(new Uri("game:/#UO"));
-                Cliloc = PakFile.LoadFileObject<Binary_Cliloc>("Cliloc.enu").Result?.Table;
+                PakFile.LoadFileObject<object>("Cliloc.enu").Wait();
+                Cliloc = Binary_Cliloc.Table;
                 Log($"Successfully opened {PakFile} file");
             }
             catch (Exception e)

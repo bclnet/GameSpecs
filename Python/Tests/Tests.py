@@ -1,8 +1,8 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 def test_haversine():
     # get Black family
-    family = familymgr.getFamily('Black')
+    family = family.getFamily('Black')
     print(f'studio: {family.studio}')
 
     # get pak with resource

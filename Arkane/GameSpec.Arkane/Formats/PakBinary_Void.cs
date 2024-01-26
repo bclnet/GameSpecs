@@ -30,10 +30,10 @@ namespace GameSpec.Arkane.Formats
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             // must be .index file
-            if (!source.FilePath.EndsWith(".index")) throw new FormatException("must be a .index file");
+            if (!source.PakPath.EndsWith(".index")) throw new FormatException("must be a .index file");
 
             // master.index file
-            if (source.FilePath == "master.index")
+            if (source.PakPath == "master.index")
             {
                 const uint MAGIC = 0x04534552;
                 const uint SubMarker = 0x18000000;
@@ -55,7 +55,7 @@ namespace GameSpec.Arkane.Formats
                     files2.Add(new FileSource
                     {
                         Path = path,
-                        Pak = new SubPakFile(null, source, source.Game, source.FileSystem, path),
+                        Pak = new SubPakFile(source, null, path),
                     });
                 }
                 return Task.CompletedTask;
@@ -63,7 +63,7 @@ namespace GameSpec.Arkane.Formats
 
             // find files
             var fileSystem = source.FileSystem;
-            var resourcePath = $"{source.FilePath[0..^6]}.resources";
+            var resourcePath = $"{source.PakPath[0..^6]}.resources";
             if (!fileSystem.FileExists(resourcePath)) throw new FormatException("Unable to find resources extension");
             var sharedResourcePath = new[] {
                 "shared_2_3.sharedrsc",

@@ -1,5 +1,5 @@
 using GameSpec.WbB.Formats.Props;
-using GameSpec.Metadata;
+using GameSpec.Meta;
 using GameSpec.Formats;
 using System.Collections.Generic;
 using System.Drawing;

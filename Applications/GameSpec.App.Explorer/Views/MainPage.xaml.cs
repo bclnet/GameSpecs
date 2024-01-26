@@ -1,4 +1,4 @@
-﻿using GameSpec.Metadata;
+﻿using GameSpec.Meta;
 using GameSpec.Unknown;
 using MimeKit;
 using Org.BouncyCastle.Cms;

@@ -1,7 +1,7 @@
-from gamespecs import familymgr
+from gamespecs import family
 
 # get family
-family = familymgr.getFamily('Black')
+family = family.getFamily('Black')
 print(f'studio: {family.studio}')
 
 file = ('game:/MASTER.DAT#Fallout', 'COLOR.PAL')
