@@ -145,33 +145,32 @@ namespace GameSpec.Formats
         Bitmap Image;
         (Formats type, object gl, object vulken, object unity, object unreal) Format;
 
-        public IDictionary<string, object> Data => null;
+        public IDictionary<string, object> Data { get; } = null;
         public int Width { get; }
         public int Height { get; }
-        public int Depth => 0;
-        public int MipMaps => 1;
-        public TextureFlags Flags => 0;
+        public int Depth { get; } = 0;
+        public int MipMaps { get; } = 1;
+        public TextureFlags Flags { get; } = 0;
 
         public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
         {
-            void ConvertToBmp()
+            byte[] BmpToBytes()
             {
                 var d = new byte[Width * Height * 3];
                 var data = Image.LockBits(new Rectangle(0, 0, Image.Width, Image.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
                 var s = (byte*)data.Scan0.ToPointer();
                 for (var i = 0; i < d.Length; i += 3) { d[i + 0] = s[i + 0]; d[i + 1] = s[i + 1]; d[i + 2] = s[i + 2]; }
                 Image.UnlockBits(data);
-                Bytes = d;
+                return d;
             }
 
-            ConvertToBmp();
+            Bytes = BmpToBytes();
             format = (Platform.Type)platform switch
             {
                 Platform.Type.OpenGL => Format.gl,
                 Platform.Type.Vulken => Format.vulken,
                 Platform.Type.Unity => Format.unity,
                 Platform.Type.Unreal => Format.unreal,
-                Platform.Type.StereoKit => throw new NotImplementedException("StereoKit"),
                 _ => throw new ArgumentOutOfRangeException(nameof(platform), $"{platform}"),
             };
             ranges = null;

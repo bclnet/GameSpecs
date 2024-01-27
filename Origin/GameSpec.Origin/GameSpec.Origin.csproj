@@ -7,6 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Data\UO\Body.cs" />
+    <Compile Remove="Formats\UO\_\Binary_Cliloc_DEL.cs" />
+    <Compile Remove="Formats\UO\_\Binary_Hue_DEL.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Formats\UO\_\Binary_Cliloc_DEL.cs" />
+    <Content Include="Formats\UO\_\Binary_Hue_DEL.cs" />
   </ItemGroup>
 
   <ItemGroup>

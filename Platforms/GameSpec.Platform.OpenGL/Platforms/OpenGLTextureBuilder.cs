@@ -52,6 +52,7 @@ namespace GameSpec.Platforms
             GL.BindTexture(TextureTarget.Texture2D, id);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, end - start);
             var bytes = info.Begin((int)Platform.Type.OpenGL, out var fmt, out var ranges);
+            if (bytes == null) return DefaultTexture;
 
             bool CompressedTexImage2D(ITexture info, int i, InternalFormat internalFormat)
             {

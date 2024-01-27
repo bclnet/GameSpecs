@@ -33,6 +33,13 @@ namespace GameSpec
         public static Dictionary<string, T> _dictTrim<T>(Dictionary<string, T> source)
             => source.Where(x => x.Value != null).ToDictionary(x => x.Key, x => x.Value);
 
+        static Random _random;
+        public static int _randomValue(int low, int high)
+        {
+            _random ??= new Random();
+            return _random.Next(low, high + 1);
+        }
+
         // _guessExtension
         public static string _guessExtension(byte[] buf, bool fast = true)
             => buf.Length < 4 ? string.Empty

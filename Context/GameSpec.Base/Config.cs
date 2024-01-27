@@ -343,7 +343,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:6",
+            ForcePath = "sample:9",
             Family = "Origin",
             //Game = "U8", // Ultima 8
             Game = "UO", // Ultima Online

@@ -720,7 +720,7 @@ namespace GameSpec
         {
             Files = Paths.Select(s => new FileSource
             {
-                Path = s.Replace('/', '\\'),
+                Path = s.Replace('\\', '/'),
                 Pak = Game.IsPakFile(s) ? (BinaryPakFile)Game.CreatePakFileType(new PakState(FileSystem, Game, Edition, s)) : default,
                 FileSize = FileSystem.FileInfo(s).Length,
             }).ToArray();

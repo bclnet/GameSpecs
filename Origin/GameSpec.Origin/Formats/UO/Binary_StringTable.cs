@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats.UO
 {
-    public unsafe class Binary_Cliloc : IHaveMetaInfo
+    public unsafe class Binary_StringTable : IHaveMetaInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Cliloc(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_StringTable(r));
 
         #region Records
 
-        public static Hashtable Table = new Hashtable();
+        public static Hashtable Records = new Hashtable();
 
         #endregion
 
         // file: Cliloc.enu
-        public Binary_Cliloc(BinaryReader r)
+        public Binary_StringTable(BinaryReader r)
         {
             var length = r.BaseStream.Length;
             r.Skip(6);
@@ -26,7 +26,7 @@ namespace GameSpec.Origin.Formats.UO
             {
                 var id = r.ReadUInt32();
                 var text = r.Skip(1).ReadL16AString();
-                Table[id] = text;
+                Records[id] = text;
             }
         }
 
@@ -36,7 +36,7 @@ namespace GameSpec.Origin.Formats.UO
             var nodes = new List<MetaInfo> {
                 new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Cliloc Language File" }),
                 new MetaInfo("Cliloc", items: new List<MetaInfo> {
-                    new MetaInfo($"Count: {Table.Count}"),
+                    new MetaInfo($"Count: {Records.Count}"),
                 })
             };
             return nodes;

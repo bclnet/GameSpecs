@@ -16,44 +16,96 @@
     "name": "Ultima Online",
     "files": [
       {
-        "path": "Body.def",
-        "type": "Body"
+        "path": "anim.idx:file00000.anim",
+        "type": "Anim"
+      },
+      {
+        "path": "animdata.mul",
+        "type": "Animdata"
+      },
+      {
+        "path": "artLegacyMUL.uop:land/file00000.land",
+        "type": "ArtLand"
+      },
+      {
+        "path": "artLegacyMUL.uop:static/file04000.art",
+        "type": "ArtStatic"
       },
       {
         "path": "Bodyconv.def",
-        "type": "BodyConv"
+        "type": "BodyConverter"
       },
       {
-        "path": "Data/bodyTable.cfg",
+        "path": "Body.def",
         "type": "BodyTable"
+      },
+      {
+        "path": "calibration.cfg",
+        "type": "CalibrationInfo"
       },
       {
         "path": "Cliloc.enu",
         "type": "Cliloc"
-      },
-      {
-        "path": "Data/containers.cfg",
-        "type": "Container"
-      },
-      {
-        "path": "animdata.mul",
-        "type": "Effect"
       },
       {
         "path": "fonts.mul",
         "type": "Font"
       },
       {
+        "path": "gumpartLegacyMUL.uop:file00000.tex",
+        "type": "Gump"
+      },
+      {
+        "path": "gump.def",
+        "type": "GumpDef"
+      },
+      {
+        "path": "hues.mul",
+        "type": "Hues"
+      },
+      {
+        "path": "mobtypes.txt",
+        "type": "MobTypes"
+      },
+      {
+        "path": "Multimap.rle",
+        "type": "Multimap"
+      },
+      {
+        "path": "facet00.mul",
+        "type": "Multimap"
+      },
+      {
+        "path": "Music/Digital/Config.txt",
+        "type": "MusicDef"
+      },
+      {
+        "path": "radarcol.mul",
+        "type": "RadarColor"
+      },
+      {
+        "path": "Data/bodyTable.cfg",
+        "type": "ServerBodyTable"
+      },
+      {
+        "path": "Data/containers.cfg",
+        "type": "ServerContainer"
+      },
+      {
+        "path": "speech.mul",
+        "type": "Speech"
+      },
+      {
+        "path": "tiledata.mul",
+        "type": "TileData"
+      },
+      {
+        "path": "gumpartLegacyMUL.uop",
+        "type": "Gump"
+      },
+      {
         "path": "anim.idx:file0.dat",
         "type": "File"
-      },
-      {
-        "path": "artLegacyMUL.uop",
-        "type": "Test"
-      },
-      {
-        "path": "Cliloc.enu",
-        "type": "Cliloc"
       }
     ]
   },

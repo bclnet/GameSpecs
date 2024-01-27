@@ -20,7 +20,7 @@ namespace GameSpec.Origin.Formats
             public static (string, int) Struct = ("<3I", sizeof(IdxFile));
             public int Offset;
             public int FileSize;
-            public int Tag;
+            public int Extra;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
@@ -28,7 +28,7 @@ namespace GameSpec.Origin.Formats
         {
             public static (string, int) Struct = ("<3I", sizeof(UopHeader));
             public int Magic;
-            public long VersionAndSignature;
+            public long VersionSignature;
             public long NextBlock;
             public int BlockCapacity;
             public int Count;
@@ -43,66 +43,78 @@ namespace GameSpec.Origin.Formats
             public int CompressedLength;
             public int DecompressedLength;
             public ulong Hash;
-            public uint Reserved;
+            public uint Adler32;
             public short Flag;
             public readonly int FileSize => Flag == 1 ? CompressedLength : DecompressedLength;
         }
 
         #endregion
 
-        static Binary_Verdata VerData;
-        bool Idx;
-        PakFile Data;
+        int Count;
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
-            var verData = VerData ??= source.Contains("verdata.mul") ? source.LoadFileObject<Binary_Verdata>("verdata.mul").Result : Binary_Verdata.Empty;
-            Idx = !source.PakPath.EndsWith(".uop");
-            if (Idx) ReadIdx(verData, source, r, tag);
-            else ReadUop(source, r, tag);
+            Binary_Verdata.Touch(source);
+            if (source.PakPath.EndsWith(".uop")) ReadUop(source, r);
+            else ReadIdx(source, r); ;
             return Task.CompletedTask;
         }
 
-        #region Idx/Mul
+        #region Idx
 
-        Task ReadIdx(Binary_Verdata verData, BinaryPakFile source, BinaryReader r, object tag)
+        Task ReadIdx(BinaryPakFile source, BinaryReader r)
         {
-            var pair = source.PakPath.ToLowerInvariant() switch
+            (string mulPath, int length, int fileId, Func<int, string> pathFunc) pair = source.PakPath switch
             {
-                "anim.idx" => ("anim.mul", 0x40000, 6),
-                "anim2.idx" => ("anim2.mul", 0x10000, -1),
-                "anim3.idx" => ("anim3.mul", 0x20000, -1),
-                "anim4.idx" => ("anim4.mul", 0x20000, -1),
-                "anim5.idx" => ("anim5.mul", 0x20000, -1),
-                "artidx.mul" => ("art.mul", 0x10000, -1),
-                "gumpidx.mul" => ("Gumpart.mul", 0x10000, 12),
-                "multi.mul" => ("Multi.mul", 0x4000, 14),
-                "skills.mul" => ("Skills.mul", 55, -1),
-                "soundidx.mul" => ("sound.mul", 0x1000, -1),
-                "texidx.mul" => ("texmaps.mul", 0x4000, -1),
-                _ => (null, 0, -1),
+                "anim.idx" => ("anim.mul", 0x40000, 6, i => $"file{i:x5}.anim"),
+                "anim2.idx" => ("anim2.mul", 0x10000, -1, i => $"file{i:x5}.anim"),
+                "anim3.idx" => ("anim3.mul", 0x20000, -1, i => $"file{i:x5}.anim"),
+                "anim4.idx" => ("anim4.mul", 0x20000, -1, i => $"file{i:x5}.anim"),
+                "anim5.idx" => ("anim5.mul", 0x20000, -1, i => $"file{i:x5}.anim"),
+                "artidx.mul" => ("art.mul", 0x14000, 4, i => i < 0x4000 ? $"land/file{i:x5}.land" : $"static/file{i:x5}.art"),
+                "gumpidx.mul" => ("Gumpart.mul", 0xFFFF, 12, i => $"file{i:x5}.tex"),
+                "multi.mul" => ("Multi.mul", 0x4000, 14, i => $"file{i:x5}.multi"),
+                "lightidx.mul" => ("light.mul", 0x4000, 14, i => $"file{i:x5}.light"),
+                "skills.mul" => ("Skills.mul", 55, -1, i => $"file{i:x5}.skill"),
+                "soundidx.mul" => ("sound.mul", 0x1000, -1, i => $"file{i:x5}.wav"),
+                "texidx.mul" => ("texmaps.mul", 0x4000, -1, i => $"file{i:x5}.dat"),
+                _ => (null, 0, -1, i => $"file{i:x5}.dat"),
             };
-            source.PakPath = pair.Item1;
-            var count = (int)(r.BaseStream.Length / 12);
+            var mulPath = source.PakPath = pair.mulPath;
+            var length = pair.length;
+            var fileId = pair.fileId;
+            var pathFunc = pair.pathFunc;
+
+            var count = Count = (int)(r.BaseStream.Length / 12);
+
             var id = 0;
             List<FileSource> files;
             source.Files = files = r.ReadSArray<IdxFile>(IdxFile.Struct, count).Select(s => new FileSource
             {
                 Id = id,
-                Path = $"file{id++:x5}.dat",
+                Path = pathFunc(id++),
                 Offset = s.Offset,
                 FileSize = s.FileSize,
-                Tag = s.Tag,
+                Compressed = s.Extra,
             }).ToList();
+            for (var i = count; i < length; ++i)
+                files.Add(new FileSource
+                {
+                    Id = i,
+                    Path = pathFunc(i),
+                    Offset = -1,
+                    FileSize = -1,
+                    Compressed = -1,
+                });
 
             // apply patch
-            if (verData.Patches.TryGetValue(pair.Item3, out var patches))
-                foreach (var patch in patches.Where(s => s.Index > 0 && s.Index < files.Count))
+            if (Binary_Verdata.Patches.TryGetValue(fileId, out var patches))
+                foreach (var patch in patches.Where(patch => patch.Index > 0 && patch.Index < files.Count))
                 {
-                    var entry = files[patch.Index];
-                    entry.Offset = patch.Offset;
-                    entry.FileSize = patch.FileSize; // | (1 << 31);
-                    entry.Tag = patch.Tag;
+                    var file = files[patch.Index];
+                    file.Offset = patch.Offset;
+                    file.FileSize = patch.FileSize | (1 << 31);
+                    file.Compressed = patch.Extra;
                 }
             return Task.CompletedTask;
         }
@@ -113,45 +125,50 @@ namespace GameSpec.Origin.Formats
 
         const int UOP_MAGIC = 0x50594D;
 
-        Task ReadUop(BinaryPakFile source, BinaryReader r, object tag)
+        Task ReadUop(BinaryPakFile source, BinaryReader r)
         {
+            FileSource[] files;
+            (string extension, int length, int idxLength, bool extra, Func<int, string> pathFunc) pair = source.PakPath switch
+            {
+                "artLegacyMUL.uop" => (".tga", 0x14000, 0x13FDC, false, i => i < 0x4000 ? $"land/file{i:x5}.land" : $"static/file{i:x5}.art"),
+                "gumpartLegacyMUL.uop" => (".tga", 0xFFFF, 0, true, i => $"file{i:x5}.tex"),
+                "soundLegacyMUL.uop" => (".dat", 0xFFF, 0, false, i => $"file{i:x5}.wav"),
+                _ => (null, 0, 0, false, i => $"file{i:x5}.dat"),
+            };
+            var uopEntryExtension = pair.extension;
+            var length = pair.length;
+            var idxLength = pair.idxLength;
+            var extra = pair.extra;
+            var pathFunc = pair.pathFunc;
+            var uopPattern = Path.GetFileNameWithoutExtension(source.PakPath).ToLowerInvariant();
+
             var header = r.ReadS<UopHeader>(UopHeader.Struct);
             if (header.Magic != UOP_MAGIC) throw new FormatException("BAD MAGIC");
-            var uopPattern = Path.GetFileNameWithoutExtension(source.PakPath).ToLowerInvariant();
-            var pair = source.PakPath switch
-            {
-                "artLegacyMUL.uop" => (".tga", 0x10000, false),
-                "gumpartLegacyMUL.uop" => (".tga", 0xFFFF, true),
-                "soundLegacyMUL.uop" => (".dat", 0xFFF, false),
-                _ => (null, 0, false),
-            };
-            var extension = pair.Item1;
-            var length = pair.Item2;
-            var hasExtra = pair.Item3;
 
-            // add files
-            FileSource[] files;
+            Count = idxLength > 0 ? idxLength : 0;
+
+            // find hashes
+            var hashes = new Dictionary<ulong, int>();
+            for (var i = 0; i < length; i++)
+                hashes.TryAdd(CreateUopHash($"build/{uopPattern}/{i:D8}{uopEntryExtension}"), i);
+
+            // walk blocks
+            var nextBlock = header.NextBlock;
+            r.Seek(nextBlock);
+
+            // There are no invalid entries in .uop so we have to initialize all entries
+            // as invalid and then fill the valid ones
             source.Files = files = new FileSource[length];
             for (var i = 0; i < files.Length; i++)
                 files[i] = new FileSource
                 {
                     Id = i,
-                    Path = $"file{i:x5}.dat",
+                    Path = pathFunc(i),
                     Offset = -1,
+                    FileSize = -1,
+                    Compressed = -1,
                 };
 
-            // find hashes
-            var hashes = new Dictionary<ulong, int>();
-            for (var i = 0; i < length; i++)
-            {
-                var entryName = $"build/{uopPattern}/{i:D8}{extension}";
-                var hash = CreateHash(entryName);
-                if (!hashes.ContainsKey(hash)) hashes.Add(hash, i);
-            }
-
-            // walk blocks
-            var nextBlock = header.NextBlock;
-            r.Seek(nextBlock);
             do
             {
                 var filesCount = r.ReadInt32();
@@ -159,38 +176,32 @@ namespace GameSpec.Origin.Formats
                 for (var i = 0; i < filesCount; i++)
                 {
                     var record = r.ReadS<UopRecord>(UopRecord.Struct);
-                    if (record.Offset == 0) continue;
-                    if (hashes.TryGetValue(record.Hash, out var idx))
+                    if (record.Offset == 0 || !hashes.TryGetValue(record.Hash, out var idx)) continue;
+
+                    if (idx < 0 || idx > files.Length)
+                        throw new IndexOutOfRangeException("hashes dictionary and files collection have different count of entries!");
+
+                    var file = files[idx];
+                    file.Offset = (int)(record.Offset + record.HeaderLength);
+                    file.FileSize = record.FileSize;
+
+                    if (!extra) continue;
+
+                    r.Peek(x =>
                     {
-                        if (idx < 0 || idx > files.Length) throw new IndexOutOfRangeException("hashes dictionary and files collection have different count of entries!");
-                        var file = files[idx];
-                        file.Offset = (int)(record.Offset + record.HeaderLength);
-                        file.FileSize = record.FileSize;
-                        if (!hasExtra) continue;
-                        r.Peek(x =>
-                        {
-                            r.Seek(file.Offset);
-                            var extra = r.ReadBytes(8);
-                            var extra1 = (ushort)((extra[3] << 24) | (extra[2] << 16) | (extra[1] << 8) | extra[0]);
-                            var extra2 = (ushort)((extra[7] << 24) | (extra[6] << 16) | (extra[5] << 8) | extra[4]);
-                            file.Offset += 8;
-                            file.Tag = extra1 << 16 | extra2;
-                        });
-                    }
+                        r.Seek(file.Offset);
+                        var extra = r.ReadBytes(8);
+                        var extra1 = (ushort)((extra[3] << 24) | (extra[2] << 16) | (extra[1] << 8) | extra[0]);
+                        var extra2 = (ushort)((extra[7] << 24) | (extra[6] << 16) | (extra[5] << 8) | extra[4]);
+                        file.Offset += 8;
+                        file.Compressed = extra1 << 16 | extra2;
+                    });
                 }
             } while (r.BaseStream.Seek(nextBlock, SeekOrigin.Begin) != 0);
             return Task.CompletedTask;
         }
 
-        #endregion
-
-        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
-        {
-            r.Seek(file.Offset);
-            return Task.FromResult((Stream)new MemoryStream(r.ReadBytes((int)file.FileSize)));
-        }
-
-        static ulong CreateHash(string s)
+        static ulong CreateUopHash(string s)
         {
             uint eax = 0, ecx, edx, ebx, esi, edi;
             //eax = ecx = edx = ebx = esi = edi = 0;
@@ -235,6 +246,23 @@ namespace GameSpec.Origin.Formats
                 return ((ulong)edi << 32) | eax;
             }
             return ((ulong)esi << 32) | eax;
+        }
+
+        #endregion
+
+        public int MaxItemId_Art
+            => Count >= 0x13FDC ? 0xFFDC // High Seas
+            : Count == 0xC000 ? 0x7FFF // Stygian Abyss
+            : 0x3FFF; // ML and older
+
+        public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
+        {
+            if (file.Offset < 0) return Task.FromResult<Stream>(null);
+            var fileSize = (int)(file.FileSize & 0x7FFFFFFF);
+            if ((file.FileSize & (1 << 31)) != 0)
+                return Task.FromResult<Stream>(Binary_Verdata.ReadData(file.Offset, fileSize));
+            r.Seek(file.Offset);
+            return Task.FromResult<Stream>(new MemoryStream(r.ReadBytes(fileSize)));
         }
     }
 }

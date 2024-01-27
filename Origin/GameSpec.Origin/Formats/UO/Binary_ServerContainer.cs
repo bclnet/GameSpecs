@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats.UO
 {
-    public unsafe class Binary_Container : IHaveMetaInfo
+    public unsafe class Binary_ServerContainer : IHaveMetaInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Container(r.ToStream()));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_ServerContainer(r.ToStream()));
 
         #region Records
 
@@ -22,11 +22,11 @@ namespace GameSpec.Origin.Formats.UO
         }
 
         static ContainerData Default = new ContainerData { GumpID = 0x3C, Bounds = new Vector4<int>(44, 65, 142, 94), DropSound = 0x48 };
-        static readonly Dictionary<int, ContainerData> Table = new Dictionary<int, ContainerData>();
+        static readonly Dictionary<int, ContainerData> Records = new Dictionary<int, ContainerData>();
 
         public static ContainerData Get(int itemID)
         {
-            Table.TryGetValue(itemID, out var data);
+            Records.TryGetValue(itemID, out var data);
             if (data != null) return data;
             else return Default;
         }
@@ -34,7 +34,7 @@ namespace GameSpec.Origin.Formats.UO
         #endregion
 
         // file: Data/containers.cfg
-        public Binary_Container(StreamReader r)
+        public Binary_ServerContainer(StreamReader r)
         {
             Default = null;
             string line;
@@ -61,8 +61,8 @@ namespace GameSpec.Origin.Formats.UO
                             for (var i = 0; i < ids.Length; i++)
                             {
                                 var id = ConvertX.ToInt32(ids[i]);
-                                if (Table.ContainsKey(id)) Console.WriteLine(@"Warning: double ItemID entry in Data\containers.cfg");
-                                else Table[id] = data;
+                                if (Records.ContainsKey(id)) Console.WriteLine(@"Warning: double ItemID entry in Data\containers.cfg");
+                                else Records[id] = data;
                             }
                         }
                     }
@@ -78,7 +78,7 @@ namespace GameSpec.Origin.Formats.UO
                 new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Container File" }),
                 new MetaInfo("Container", items: new List<MetaInfo> {
                     new MetaInfo($"Default: {Default.GumpID}"),
-                    new MetaInfo($"Table: {Table.Count}"),
+                    new MetaInfo($"Table: {Records.Count}"),
                 })
             };
             return nodes;

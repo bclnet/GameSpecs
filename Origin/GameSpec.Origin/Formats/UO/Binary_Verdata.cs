@@ -10,7 +10,13 @@ namespace GameSpec.Origin.Formats.UO
 {
     public unsafe class Binary_Verdata : IHaveMetaInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Verdata(r));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Verdata(r, (BinaryPakFile)s));
+
+        public static void Touch(PakFile source)
+        {
+            if (PakFile != null) return;
+            if (source.Contains("verdata.mul")) source.LoadFileObject<Binary_Verdata>("verdata.mul").Wait();
+        }
 
         #region Records
 
@@ -22,24 +28,20 @@ namespace GameSpec.Origin.Formats.UO
             public int Index;
             public int Offset;
             public int FileSize;
-            public int Tag;
+            public int Extra;
         }
+
+        public static Stream ReadData(long offset, int fileSize)
+            => PakFile.GetReader().Func(r => new MemoryStream(r.Seek(offset).ReadBytes(fileSize)));
 
         #endregion
 
-        public Stream Stream;
-        public IDictionary<int, Patch[]> Patches;
+        public static BinaryPakFile PakFile;
+        public static IDictionary<int, Patch[]> Patches = new Dictionary<int, Patch[]>();
 
-        public static Binary_Verdata Empty = new Binary_Verdata
+        public Binary_Verdata(BinaryReader r, BinaryPakFile s)
         {
-            Stream = Stream.Null,
-            Patches = new Dictionary<int, Patch[]>(),
-        };
-
-        Binary_Verdata() { }
-        public Binary_Verdata(BinaryReader r)
-        {
-            Stream = r.BaseStream;
+            PakFile = s;
             Patches = r.ReadL32SArray<Patch>(Patch.Struct).GroupBy(x => x.File).ToDictionary(x => x.Key, x => x.ToArray());
         }
 
@@ -49,7 +51,6 @@ namespace GameSpec.Origin.Formats.UO
             var nodes = new List<MetaInfo> {
                 new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Version Data" }),
                 new MetaInfo("Verdata", items: new List<MetaInfo> {
-                    new MetaInfo($"Stream: {Stream}"),
                     new MetaInfo($"Patches: {Patches.Count}"),
                 })
             };

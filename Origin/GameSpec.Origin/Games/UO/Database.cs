@@ -18,7 +18,7 @@ namespace GameSpec.Origin.Games.UO
             {
                 PakFile = game.Family.OpenPakFile(new Uri("game:/#UO"));
                 PakFile.LoadFileObject<object>("Cliloc.enu").Wait();
-                Cliloc = Binary_Cliloc.Table;
+                Cliloc = Binary_StringTable.Records;
                 Log($"Successfully opened {PakFile} file");
             }
             catch (Exception e)
