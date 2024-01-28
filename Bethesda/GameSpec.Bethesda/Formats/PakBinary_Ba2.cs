@@ -326,7 +326,7 @@ namespace GameSpec.Bethesda.Formats
                     w.Write((byte)0x8); // Alignment
                     w.Write((byte)0x0); // Unused
                     w.Write(BitConverter.GetBytes(gnmf.FileSize + 256).Reverse().ToArray()); // File size + header size
-                    w.Write(UnsafeX.ReadBytes(gnmf.Header, 32));
+                    w.Write(UnsafeX.FixedTArray(gnmf.Header, 32));
                     for (var i = 0; i < 208; i++) w.Write((byte)0x0); // Padding
 
                     // write chunks

@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static OpenStack.Debug;
-using IOPath = System.IO.Path;
 
 namespace GameSpec
 {
@@ -181,7 +180,7 @@ namespace GameSpec
             Game = state.Game ?? throw new ArgumentNullException(nameof(state.Game));
             Edition = state.Edition;
             PakPath = state.PakPath;
-            Name = state.PakPath == null || !string.IsNullOrEmpty(z = Path.GetFileName(state.PakPath)) ? z : IOPath.GetFileName(Path.GetDirectoryName(state.PakPath));
+            Name = state.PakPath == null || !string.IsNullOrEmpty(z = Path.GetFileName(state.PakPath)) ? z : Path.GetFileName(Path.GetDirectoryName(state.PakPath));
             Tag = state.Tag;
             Graphic = null;
         }
@@ -278,12 +277,23 @@ namespace GameSpec
         public IOpenGraphic Graphic { get; internal set; }
 
         /// <summary>
+        /// Gets the file source.
+        /// </summary>
+        /// <param name="path">The file path.</param>
+        /// <param name="throwOnError">Throws on error.</param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        public abstract FileSource GetFileSource(object path, bool throwOnError = true);
+
+        /// <summary>
         /// Loads the file data asynchronous.
         /// </summary>
         /// <param name="path">The file path.</param>
         /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public abstract Task<Stream> LoadFileData(object path, FileOption option = default);
+        public abstract Task<Stream> LoadFileData(object path, FileOption option = default, bool throwOnError = true);
 
         /// <summary>
         /// Loads the object asynchronous.
@@ -291,8 +301,9 @@ namespace GameSpec
         /// <typeparam name="T"></typeparam>
         /// <param name="path">The file path.</param>
         /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public abstract Task<T> LoadFileObject<T>(object path, FileOption option = default);
+        public abstract Task<T> LoadFileObject<T>(object path, FileOption option = default, bool throwOnError = true);
 
         /// Opens the family pak file.
         /// </summary>
@@ -450,7 +461,7 @@ namespace GameSpec
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
-                string s => FindSubPak(s, out var pak, out var nextPath)
+                string s => FindPath(s, out var pak, out var nextPath)
                     ? pak.Contains(nextPath)
                     : FilesByPath != null && FilesByPath.Contains(s.Replace('\\', '/')),
                 int i => FilesById != null && FilesById.Contains(i),
@@ -470,35 +481,31 @@ namespace GameSpec
         //public override string FindTexture(string path) => Contains(path) ? path : null;
 
         /// <summary>
-        /// Loads the file data asynchronous.
+        /// Gets the file source.
         /// </summary>
         /// <param name="path">The file path.</param>
-        /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public override Task<Stream> LoadFileData(object path, FileOption option = default)
+        public override FileSource GetFileSource(object path, bool throwOnError = true)
         {
             switch (path)
             {
                 case null: throw new ArgumentNullException(nameof(path));
-                case FileSource f:
-                    {
-                        return UseReader ? GetReader().Func(r => ReadData(r, f, option))
-                            : ReadData(null, f, option);
-                    }
+                case FileSource f: return f;
                 case string s:
                     {
-                        if (FindSubPak(s, out var pak, out var nextPath)) return pak.LoadFileData(nextPath, option);
+                        if (FindPath(s, out var pak, out var next)) return pak.GetFileSource(next);
                         var files = FilesByPath[s.Replace('\\', '/')].ToArray();
-                        if (files.Length == 1) return LoadFileData(files[0], option);
+                        if (files.Length == 1) return files[0];
                         Log($"ERROR.LoadFileData: {s} @ {files.Length}");
                         throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
                     }
                 case int i:
                     {
                         var files = FilesById[i].ToArray();
-                        if (files.Length == 1) return LoadFileData(files[0], option);
+                        if (files.Length == 1) return files[0];
                         Log($"ERROR.LoadFileData: {i} @ {files.Length}");
                         throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
                     }
@@ -507,64 +514,61 @@ namespace GameSpec
         }
 
         /// <summary>
+        /// Loads the file data asynchronous.
+        /// </summary>
+        /// <param name="path">The file path.</param>
+        /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        public override Task<Stream> LoadFileData(object path, FileOption option = default, bool throwOnError = true)
+        {
+            var f = GetFileSource(path, throwOnError);
+            if (f == null) return default;
+            return UseReader
+                ? GetReader().Func(r => ReadData(r, f, option))
+                : ReadData(null, f, option);
+        }
+
+        /// <summary>
         /// Loads the file object asynchronous.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="path">The file.</param>
         /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
-        public override async Task<T> LoadFileObject<T>(object path, FileOption option = default)
+        public override async Task<T> LoadFileObject<T>(object path, FileOption option = default, bool throwOnError = true)
         {
-            switch (path)
+            var f = GetFileSource(path, throwOnError);
+            if (f == null) return default;
+            var type = typeof(T);
+            var data = await LoadFileData(f, option);
+            if (data == null) return default;
+            var objectFactory = EnsureCachedObjectFactory(f);
+            if (objectFactory != FileSource.EmptyObjectFactory)
             {
-                case null: throw new ArgumentNullException(nameof(path));
-                case FileSource f:
+                var r = new BinaryReader(data);
+                object value = null;
+                Task<object> task = null;
+                try
+                {
+                    task = objectFactory(r, f, this);
+                    if (task != null)
                     {
-                        var type = typeof(T);
-                        var data = await LoadFileData(f, option);
-                        if (data == null) return default;
-                        var objectFactory = EnsureCachedObjectFactory(f);
-                        if (objectFactory != FileSource.EmptyObjectFactory)
-                        {
-                            var r = new BinaryReader(data);
-                            object value = null;
-                            Task<object> task = null;
-                            try
-                            {
-                                task = objectFactory(r, f, this);
-                                if (task != null)
-                                {
-                                    value = await task;
-                                    return value is T z ? z
-                                        : value is IRedirected<T> y ? y.Value
-                                        : throw new InvalidCastException();
-                                }
-                            }
-                            catch (Exception e) { Log(e.Message); throw e; }
-                            finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
-                        }
-                        return type == typeof(Stream) || type == typeof(object)
-                            ? (T)(object)data
-                            : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
+                        value = await task;
+                        return value is T z ? z
+                            : value is IRedirected<T> y ? y.Value
+                            : throw new InvalidCastException();
                     }
-                case string s:
-                    {
-                        if (FindSubPak(s, out var pak, out var nextPath)) return await pak.LoadFileObject<T>(nextPath);
-                        if (PathFinders.Count > 0) path = FindPath<T>(s);
-                        var files = FilesByPath[s.Replace('\\', '/')].ToArray();
-                        if (files.Length == 1) return await LoadFileObject<T>(files[0], option);
-                        Log($"ERROR.LoadFileObject: {s} @ {files.Length}");
-                        throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
-                    }
-                case int i:
-                    {
-                        var files = FilesById[i].ToArray();
-                        if (files.Length == 1) return await LoadFileObject<T>(files[0], option);
-                        Log($"LoadFileObject: {i} @ {files.Length}");
-                        throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
-                    }
-                default: throw new ArgumentOutOfRangeException(nameof(path));
+                }
+                catch (Exception e) { Log(e.Message); throw e; }
+                finally { if (task != null && !(value != null && value is IDisposable)) r.Dispose(); }
             }
+            return type == typeof(Stream) || type == typeof(object)
+                ? (T)(object)data
+                : throw new ArgumentOutOfRangeException(nameof(T), $"Stream not returned for {f.Path} with {type.Name}");
         }
 
         /// <summary>
@@ -606,13 +610,13 @@ namespace GameSpec
             }
         }
 
-        bool FindSubPak(string path, out BinaryPakFile pak, out string nextPath)
+        bool FindPath(string path, out PakFile pak, out string next)
         {
             var paths = path.Split(new[] { ':' }, 2);
             var p = paths[0].Replace('\\', '/');
-            pak = paths.Length == 1 ? null : FilesByPath[p].FirstOrDefault()?.Pak;
-            if (pak != null) { nextPath = paths[1]; return true; }
-            nextPath = null;
+            pak = FilesByPath[p]?.FirstOrDefault()?.Pak?.Open();
+            if (pak != null && paths.Length > 1) { next = paths[1]; return true; }
+            next = null;
             return false;
         }
 
@@ -787,7 +791,7 @@ namespace GameSpec
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
-                string s => FindPakFiles(s, out var nextPath).Any(x => x.Valid && x.Contains(nextPath)),
+                string s => FindPakFiles(s, out var next).Any(x => x.Valid && x.Contains(next)),
                 int i => PakFiles.Any(x => x.Valid && x.Contains(i)),
                 _ => throw new ArgumentOutOfRangeException(nameof(path)),
             };
@@ -803,32 +807,50 @@ namespace GameSpec
             get { var count = 0; foreach (var pakFile in PakFiles) count += pakFile.Count; return count; }
         }
 
-        IList<PakFile> FindPakFiles(string path, out string nextPath)
+        IList<PakFile> FindPakFiles(string path, out string next)
         {
             var paths = path.Split(new[] { '\\', '/', ':' }, 2);
-            if (paths.Length == 1) { nextPath = path; return PakFiles; }
-            path = paths[0]; nextPath = paths[1];
+            if (paths.Length == 1) { next = path; return PakFiles; }
+            path = paths[0]; next = paths[1];
             var pakFiles = PakFiles.Where(x => x.Name.StartsWith(path)).ToList();
             foreach (var pakFile in pakFiles) pakFile.Open();
             return pakFiles;
         }
 
         /// <summary>
-        /// Loads the file data asynchronous.
+        /// Gets the file source.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <param name="option">The option.</param>
-        /// <param name="exception">The exception.</param>
+        /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<Stream> LoadFileData(object path, FileOption option = default)
+        public override FileSource GetFileSource(object path, bool throwOnError = true)
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
                 string s => (FindPakFiles(s, out var s2).FirstOrDefault(x => x.Valid && x.Contains(s2)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
-                    .LoadFileData(s2, option),
+                    .GetFileSource(s2, throwOnError),
                 int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
-                    .LoadFileData(i, option),
+                    .GetFileSource(i, throwOnError),
+                _ => throw new ArgumentOutOfRangeException(nameof(path)),
+            };
+
+        /// <summary>
+        /// Loads the file data asynchronous.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
+        /// <returns></returns>
+        /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
+        public override Task<Stream> LoadFileData(object path, FileOption option = default, bool throwOnError = true)
+            => path switch
+            {
+                null => throw new ArgumentNullException(nameof(path)),
+                string s => (FindPakFiles(s, out var s2).FirstOrDefault(x => x.Valid && x.Contains(s2)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
+                    .LoadFileData(s2, option, throwOnError),
+                int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
+                    .LoadFileData(i, option, throwOnError),
                 _ => throw new ArgumentOutOfRangeException(nameof(path)),
             };
 
@@ -837,16 +859,17 @@ namespace GameSpec
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="option">The option.</param>
+        /// <param name="throwOnError">Throws on error.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Could not find file \"{path}\".</exception>
-        public override Task<T> LoadFileObject<T>(object path, FileOption option = default)
+        public override Task<T> LoadFileObject<T>(object path, FileOption option = default, bool throwOnError = true)
             => path switch
             {
                 null => throw new ArgumentNullException(nameof(path)),
                 string s => (FindPakFiles(s, out var s2).FirstOrDefault(x => x.Valid && x.Contains(s2)) ?? throw new FileNotFoundException($"Could not find file \"{s}\"."))
-                    .LoadFileObject<T>(s2, option),
+                    .LoadFileObject<T>(s2, option, throwOnError),
                 int i => (PakFiles.FirstOrDefault(x => x.Valid && x.Contains(i)) ?? throw new FileNotFoundException($"Could not find file \"{i}\"."))
-                    .LoadFileObject<T>(i, option),
+                    .LoadFileObject<T>(i, option, throwOnError),
                 _ => throw new ArgumentOutOfRangeException(nameof(path)),
             };
 

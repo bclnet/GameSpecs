@@ -80,8 +80,9 @@ class PakFile:
         return self
     def opening(self) -> None: pass
     def contains(self, path: FileSource | str | int) -> bool: pass
-    def loadFileData(self, path: FileSource | str | int, option: FileOption = FileOption.Default) -> bytes: pass
-    def loadFileObject(self, path: FileSource | str | int) -> object: pass
+    def getFileSource(self, path: FileSource | str | int, throwOnError: bool = True) -> FileSource: pass
+    def loadFileData(self, path: FileSource | str | int, option: FileOption = FileOption.Default, throwOnError: bool = True) -> bytes: pass
+    def loadFileObject(self, path: FileSource | str | int, option: FileOption = FileOption.Default, throwOnError: bool = True) -> object: pass
     #region Transform
     def loadFileObject2(self, transformTo: object, source: object): pass
     def transformFileObject(self, transformTo: object, source: object): pass
@@ -139,52 +140,47 @@ class BinaryPakFile(PakFile):
         match path:
             case None: raise Exception('Null')
             case s if isinstance(path, str):
-                pak, s2 = self._findSubPak(s)
+                pak, s2 = self._findPath(s)
                 return pak.contains(s2) if pak else \
                     s.replace('\\', '/') in self.filesByPath if self.filesByPath else None
             case i if isinstance(path, int):
                 return i in self.filesById if self.filesById else None
             case _: raise Exception(f'Unknown: {path}')
 
-    def loadFileData(self, path: FileSource | str | int, option: FileOption = FileOption.Default) -> bytes:
+    def getFileSource(self, path: FileSource | str | int, throwOnError: bool = True) -> FileSource:
         match path:
             case None: raise Exception('Null')
             case f if isinstance(path, FileSource):
-                if self.useReader and (ctx := self.getReader()):
-                    with ctx as r: return self.readData(r, f)
-                else: return self.readData(None, f)
+                return f
             case s if isinstance(path, str):
-                pak, s2 = self._findSubPak(s)
-                return pak.loadFileData(s2) if pak else \
-                    self.loadFileData(file) if self.filesByPath and (s := s.replace('\\', '/')) in self.filesByPath and (file := self.filesByPath[s]) else None
+                pak, s2 = self._findPath(s)
+                return pak.getFileSource(s2) if pak else \
+                    f if self.filesByPath and (s := s.replace('\\', '/')) in self.filesByPath and (f := self.filesByPath[s]) else None
             case i if isinstance(path, int):
-                return self.loadFileData(file) if self.filesById and i in self.filesById and (file := self.filesById[i]) else None
+                return f if self.filesById and i in self.filesById and (f := self.filesById[i]) else None
             case _: raise Exception(f'Unknown: {path}')
 
-    def loadFileObject(self, type: type, path: FileSource | str | int, option: FileOption = FileOption.Default) -> object:
-        match path:
-            case None: raise Exception('Null')
-            case f if isinstance(path, FileSource):
-                data = self.loadFileData(f, option)
-                if not data: return None
-                objectFactory = self._ensureCachedObjectFactory(f)
-                if objectFactory != FileSource.emptyObjectFactory:
-                    r = Reader(data)
-                    try:
-                        task = objectFactory(r, f, self)
-                        if task:
-                            value = task
-                            return value
-                    except: print(sys.exc_info()[1]); raise
-                    return data if type == BytesIO or type == object else \
-                        _throw(f'Stream not returned for {f.path} with {type}')
-            case s if isinstance(path, str):
-                pak, s2 = self._findSubPak(s)
-                return pak.loadFileData(s2) if pak else \
-                    self.loadFileData(file) if self.filesByPath and (s := s.replace('\\', '/')) in self.filesByPath and (file := self.filesByPath[s]) else None
-            case i if isinstance(path, int):
-                return self.loadFileData(file) if self.filesById and i in self.filesById and (file := self.filesById[i]) else None
-            case _: raise Exception(f'Unknown: {path}')
+    def loadFileData(self, path: FileSource | str | int, option: FileOption = FileOption.Default, throwOnError: bool = True) -> bytes:
+        f = self.getFileSource(path, throwOnError)
+        if self.useReader and (ctx := self.getReader()):
+            with ctx as r: return self.readData(r, f)
+        else: return self.readData(None, f)
+
+    def loadFileObject(self, type: type, path: FileSource | str | int, option: FileOption = FileOption.Default, throwOnError: bool = True) -> object:
+        f = self.getFileSource(path, throwOnError)
+        data = self.loadFileData(f, option)
+        if not data: return None
+        objectFactory = self._ensureCachedObjectFactory(f)
+        if objectFactory != FileSource.emptyObjectFactory:
+            r = Reader(data)
+            try:
+                task = objectFactory(r, f, self)
+                if task:
+                    value = task
+                    return value
+            except: print(sys.exc_info()[1]); raise
+            return data if type == BytesIO or type == object else \
+                _throw(f'Stream not returned for {f.path} with {type}')
 
     def _ensureCachedObjectFactory(self, file: FileSource) -> Callable:
         if file.cachedObjectFactory: return file.cachedObjectFactory
@@ -198,10 +194,11 @@ class BinaryPakFile(PakFile):
         if self.files: self.filesByPath = { x.path:x for x in self.files if x }
         if self.pakBinary: self.pakBinary.process(self)
 
-    def _findSubPak(self, path: str) -> (object, str):
+    def _findPath(self, path: str) -> (object, str):
         paths = path.split(':', 2)
         p = paths[0].replace('\\', '/')
         pak = self.filesByPath[p].pak if len(paths) > 1 and p in self.filesByPath else None
+        # if pak: pak.open()
         return pak, (paths[1] if pak else None)
 
     #region PakBinary
@@ -272,6 +269,20 @@ class MultiPakFile(PakFile):
         pakFiles = [x for x in self.pakFiles if x.name.startswith(path)]
         for pakFile in pakFiles: pakFile.open()
         return pakFiles, nextPath
+
+    def getFileSource(self, path: FileSource | str | int) -> FileSource:
+        match path:
+            case None: raise Exception('Null')
+            case s if isinstance(path, str):
+                pakFiles, s2 = self._findPakFiles(s)
+                value = next(iter([x for x in pakFiles if x.valid() and x.contains(s2)]), None)
+                if not value: raise Exception(f'Could not find file {path}')
+                return value.getFileSource(s2)
+            case i if isinstance(path, int):
+                value = next(iter([x for x in self.pakFiles if x.valid() and x.contains(i)]), None)
+                if not value: raise Exception(f'Could not find file {path}')
+                return value.getFileSource(i)
+            case _: raise Exception(f'Unknown: {path}')
 
     def loadFileData(self, path: FileSource | str | int, option: FileOption = FileOption.Default) -> bytes:
         match path:

@@ -11,6 +11,8 @@ namespace GameSpec.Origin.Formats
 {
     public unsafe class PakBinary_UO : PakBinary<PakBinary_UO>
     {
+        public static PakFile Art_Instance = Games.UO.Database.PakFile?.GetFileSource("artLegacyMUL.uop").Pak;
+
         // Headers
         #region Headers
 
@@ -54,7 +56,7 @@ namespace GameSpec.Origin.Formats
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
-            Binary_Verdata.Touch(source);
+            //Binary_Verdata.Touch(source);
             if (source.PakPath.EndsWith(".uop")) ReadUop(source, r);
             else ReadIdx(source, r); ;
             return Task.CompletedTask;
@@ -73,23 +75,25 @@ namespace GameSpec.Origin.Formats
                 "anim5.idx" => ("anim5.mul", 0x20000, -1, i => $"file{i:x5}.anim"),
                 "artidx.mul" => ("art.mul", 0x14000, 4, i => i < 0x4000 ? $"land/file{i:x5}.land" : $"static/file{i:x5}.art"),
                 "gumpidx.mul" => ("Gumpart.mul", 0xFFFF, 12, i => $"file{i:x5}.tex"),
-                "multi.mul" => ("Multi.mul", 0x4000, 14, i => $"file{i:x5}.multi"),
+                "multi.idx" => ("multi.mul", 0x2200, 14, i => $"file{i:x5}.multi"),
                 "lightidx.mul" => ("light.mul", 0x4000, 14, i => $"file{i:x5}.light"),
                 "skills.mul" => ("Skills.mul", 55, -1, i => $"file{i:x5}.skill"),
                 "soundidx.mul" => ("sound.mul", 0x1000, -1, i => $"file{i:x5}.wav"),
                 "texidx.mul" => ("texmaps.mul", 0x4000, -1, i => $"file{i:x5}.dat"),
-                _ => (null, 0, -1, i => $"file{i:x5}.dat"),
+                _ => throw new ArgumentOutOfRangeException() // (null, 0, -1, i => $"file{i:x5}.dat"),
             };
             var mulPath = source.PakPath = pair.mulPath;
             var length = pair.length;
             var fileId = pair.fileId;
             var pathFunc = pair.pathFunc;
 
-            var count = Count = (int)(r.BaseStream.Length / 12);
+            // record count
+            Count = (int)(r.BaseStream.Length / 12);
 
+            // load files
             var id = 0;
             List<FileSource> files;
-            source.Files = files = r.ReadSArray<IdxFile>(IdxFile.Struct, count).Select(s => new FileSource
+            source.Files = files = r.ReadSArray<IdxFile>(IdxFile.Struct, Count).Select(s => new FileSource
             {
                 Id = id,
                 Path = pathFunc(id++),
@@ -97,7 +101,9 @@ namespace GameSpec.Origin.Formats
                 FileSize = s.FileSize,
                 Compressed = s.Extra,
             }).ToList();
-            for (var i = count; i < length; ++i)
+
+            // fill with empty
+            for (var i = Count; i < length; ++i)
                 files.Add(new FileSource
                 {
                     Id = i,
@@ -108,7 +114,8 @@ namespace GameSpec.Origin.Formats
                 });
 
             // apply patch
-            if (Binary_Verdata.Patches.TryGetValue(fileId, out var patches))
+            var verdata = Binary_Verdata.Instance;
+            if (verdata != null && verdata.Patches.TryGetValue(fileId, out var patches))
                 foreach (var patch in patches.Where(patch => patch.Index > 0 && patch.Index < files.Count))
                 {
                     var file = files[patch.Index];
@@ -142,9 +149,11 @@ namespace GameSpec.Origin.Formats
             var pathFunc = pair.pathFunc;
             var uopPattern = Path.GetFileNameWithoutExtension(source.PakPath).ToLowerInvariant();
 
+            // read header
             var header = r.ReadS<UopHeader>(UopHeader.Struct);
             if (header.Magic != UOP_MAGIC) throw new FormatException("BAD MAGIC");
 
+            // record count
             Count = idxLength > 0 ? idxLength : 0;
 
             // find hashes
@@ -152,12 +161,7 @@ namespace GameSpec.Origin.Formats
             for (var i = 0; i < length; i++)
                 hashes.TryAdd(CreateUopHash($"build/{uopPattern}/{i:D8}{uopEntryExtension}"), i);
 
-            // walk blocks
-            var nextBlock = header.NextBlock;
-            r.Seek(nextBlock);
-
-            // There are no invalid entries in .uop so we have to initialize all entries
-            // as invalid and then fill the valid ones
+            // load empties
             source.Files = files = new FileSource[length];
             for (var i = 0; i < files.Length; i++)
                 files[i] = new FileSource
@@ -169,6 +173,9 @@ namespace GameSpec.Origin.Formats
                     Compressed = -1,
                 };
 
+            // load files
+            var nextBlock = header.NextBlock;
+            r.Seek(nextBlock);
             do
             {
                 var filesCount = r.ReadInt32();
@@ -250,17 +257,23 @@ namespace GameSpec.Origin.Formats
 
         #endregion
 
-        public int MaxItemId_Art
-            => Count >= 0x13FDC ? 0xFFDC // High Seas
-            : Count == 0xC000 ? 0x7FFF // Stygian Abyss
+        public static int Art_MaxItemId
+            => Art_Instance.Count >= 0x13FDC ? 0xFFDC // High Seas
+            : Art_Instance.Count == 0xC000 ? 0x7FFF // Stygian Abyss
             : 0x3FFF; // ML and older
+
+        public static bool Art_IsUOAHS
+            => Art_MaxItemId >= 0x13FDC;
+
+        public static ushort Art_ClampItemId(int itemId, bool checkMaxId = true)
+            => itemId < 0 || (checkMaxId && itemId > Art_MaxItemId) ? (ushort)0U : (ushort)itemId;
 
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
         {
             if (file.Offset < 0) return Task.FromResult<Stream>(null);
             var fileSize = (int)(file.FileSize & 0x7FFFFFFF);
             if ((file.FileSize & (1 << 31)) != 0)
-                return Task.FromResult<Stream>(Binary_Verdata.ReadData(file.Offset, fileSize));
+                return Task.FromResult<Stream>(Binary_Verdata.Instance.ReadData(file.Offset, fileSize));
             r.Seek(file.Offset);
             return Task.FromResult<Stream>(new MemoryStream(r.ReadBytes(fileSize)));
         }

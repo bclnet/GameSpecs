@@ -145,7 +145,7 @@ namespace GameSpec.Bioware.Formats
                 throw new ArgumentOutOfRangeException(nameof(x.Type), x.Type.ToString());
             }).ToArray();
             r.Seek(header.LabelOffset);
-            var headerLabels = r.ReadTArray<GFF_Label>(sizeof(GFF_Label), (int)header.LabelCount).Select(x => UnsafeX.ReadZASCII(x.Name, 0x10)).ToArray();
+            var headerLabels = r.ReadTArray<GFF_Label>(sizeof(GFF_Label), (int)header.LabelCount).Select(x => UnsafeX.FixedAString(x.Name, 0x10)).ToArray();
             // combine
             for (var i = 0; i < structs.Length; i++)
             {

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GameSpec.Formats
+namespace GameSpec
 {
     [DebuggerDisplay("{Path}")]
     public class FileSource

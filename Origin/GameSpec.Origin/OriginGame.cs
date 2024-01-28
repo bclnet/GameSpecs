@@ -18,7 +18,7 @@ namespace GameSpec.Origin
         {
             switch (Id)
             {
-                case "U8": Games.UO.Database.Ensure(this); return this;
+                //case "U8": Structs.UO.Database.Ensure(this); return this;
                 default: return this;
             }
         }

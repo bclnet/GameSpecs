@@ -6,11 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using static GameSpec.Origin.Games.UO.Database;
-using static OpenStack.Debug;
+using static GameSpec.Origin.Formats.UO.Binary_StringTable;
 using static GameSpec.Util;
+using static OpenStack.Debug;
 
-namespace GameSpec.Origin.Games.UO
+namespace GameSpec.Origin.Structs.UO
 {
     #region Direction
 

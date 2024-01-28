@@ -1,5 +1,6 @@
 using GameSpec.Formats;
 using GameSpec.Meta;
+using GameSpec.Origin.Structs.UO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +9,50 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats.UO
 {
-    public unsafe class Binary_ServerContainer : IHaveMetaInfo
+    #region ServerBinary_BodyTable
+
+    public unsafe class ServerBinary_BodyTable : IHaveMetaInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_ServerContainer(r.ToStream()));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new ServerBinary_BodyTable(r.ToStream()));
+
+        // file: Data/bodyTable.cfg
+        public ServerBinary_BodyTable(StreamReader r)
+        {
+            Body.Types = new BodyType[0x1000];
+            string line;
+            while ((line = r.ReadLine()) != null)
+            {
+                if (line.Length == 0 || line.StartsWith("#")) continue;
+                var split = line.Split('\t');
+                if (int.TryParse(split[0], out var bodyID) && Enum.TryParse(split[1], true, out BodyType type) && bodyID >= 0 && bodyID < Body.Types.Length) Body.Types[bodyID] = type;
+                else
+                {
+                    Console.WriteLine("Warning: Invalid bodyTable entry:");
+                    Console.WriteLine(line);
+                }
+            }
+        }
+
+        // IHaveMetaInfo
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
+        {
+            var nodes = new List<MetaInfo> {
+                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Bodytable config" }),
+                new MetaInfo("Bodytable", items: new List<MetaInfo> {
+                    new MetaInfo($"Count: {Body.Types.Length}"),
+                })
+            };
+            return nodes;
+        }
+    }
+
+    #endregion
+
+    #region ServerBinary_Container
+
+    public unsafe class ServerBinary_Container : IHaveMetaInfo
+    {
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new ServerBinary_Container(r.ToStream()));
 
         #region Records
 
@@ -34,7 +76,7 @@ namespace GameSpec.Origin.Formats.UO
         #endregion
 
         // file: Data/containers.cfg
-        public Binary_ServerContainer(StreamReader r)
+        public ServerBinary_Container(StreamReader r)
         {
             Default = null;
             string line;
@@ -84,4 +126,6 @@ namespace GameSpec.Origin.Formats.UO
             return nodes;
         }
     }
+
+    #endregion
 }
