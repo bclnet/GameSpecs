@@ -73,7 +73,7 @@ class PakBinary_Dat(PakBinaryT):
                     files.append(FileSource(
                         path = path,
                         compressed = file.attributes & 0x40,
-                        position = file.offset,
+                        offset = file.offset,
                         fileSize = file.size,
                         packedSize = file.packedSize
                         ))
@@ -96,7 +96,7 @@ class PakBinary_Dat(PakBinaryT):
                     compressed = file.type,
                     fileSize = file.realSize,
                     packedSize = file.packedSize,
-                    position = file.offset
+                    offset = file.offset
                     ))
 
     # readData
@@ -104,14 +104,14 @@ class PakBinary_Dat(PakBinaryT):
         magic = source.magic
         # F1
         if magic == self.F1_HEADER_FILEID:
-            r.seek(file.position)
+            r.seek(file.offset)
             return BytesIO(
                 r.read(file.packedSize) if file.compressed == 0 else \
                 decompressLzss(r, file.packedSize, file.fileSize)
                 )
         # F2
         elif magic == self.F2_HEADER_FILEID:
-            r.seek(file.position)
+            r.seek(file.offset)
             return BytesIO(
                 decompressZlib(r, file.packedSize, -1) if r.peek(lambda z : z.readUInt16()) == 0xda78 else \
                 r.read(file.packedSize)

@@ -52,16 +52,16 @@ class MetaItem:
     def findByPath(self, path: str, manager: MetaManager) -> MetaItem:
         paths = re.split('\\\\|/|:', path)
         node = next(iter([x for x in self.items if x.name == paths[0]]), None)
-        # if node and isinstance(node.source, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
-        if node and node.pakFile: node.pakFile.open(node.items, manager)
+        if node and isinstance(node.source, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
+        # if node and node.pakFile: node.pakFile.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
 
     @staticmethod
     def findByPathForNodes(nodes: list[MetaItem], path: str, manager: MetaManager) -> MetaItem:
         paths = re.split('\\\\|/|:', path, 1)
         node = next(iter([x for x in nodes if x.name == paths[0]]), None)
-        # if node and isinstance(node.source, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
-        if node and node.pakFile: node.pakFile.open(node.items, manager)
+        if node and isinstance(node.source, FileSource) and node.source.pak: node.source.pak.open(node.items, manager)
+        # if node and node.pakFile: node.pakFile.open(node.items, manager)
         return node if not node or len(paths) == 1 else node.findByPath(paths[1], manager)
 
 # IHaveMetaInfo

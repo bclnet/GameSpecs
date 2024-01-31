@@ -75,7 +75,7 @@ namespace GameSpec.Origin.Formats
                 "soundLegacyMUL.uop" => (".dat", 0xFFF, 0, false, i => $"file{i:x5}.wav"),
                 _ => (null, 0, 0, false, i => $"file{i:x5}.dat"),
             };
-            var uopEntryExtension = pair.extension;
+            var extension = pair.extension;
             var length = pair.length;
             var idxLength = pair.idxLength;
             var extra = pair.extra;
@@ -92,7 +92,7 @@ namespace GameSpec.Origin.Formats
             // find hashes
             var hashes = new Dictionary<ulong, int>();
             for (var i = 0; i < length; i++)
-                hashes.TryAdd(CreateUopHash($"build/{uopPattern}/{i:D8}{uopEntryExtension}"), i);
+                hashes.TryAdd(CreateUopHash($"build/{uopPattern}/{i:D8}{extension}"), i);
 
             // load empties
             source.Files = files = new FileSource[length];

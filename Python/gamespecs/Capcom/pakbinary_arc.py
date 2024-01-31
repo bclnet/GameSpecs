@@ -45,18 +45,18 @@ class PakBinary_Arc(PakBinaryT):
             path = x.path.decode('utf8').strip('\x00').replace('\\', '/'),
             packedSize = x.zsize,
             fileSize = x.size,
-            position = x.offset
+            offset = x.offset
         ) for x in kfiles]
 
         # add extension
         for file in files:
-            r.seek(file.position)
+            r.seek(file.offset)
             buf = _decompress(r, 150, full=False)
             file.path += _guessExtension(buf)
 
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
-        r.seek(file.position)
+        r.seek(file.offset)
         return BytesIO(_decompress(r, file.compressed, file.packedSize, file.fileSize))
 
 @staticmethod

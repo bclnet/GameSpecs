@@ -121,7 +121,7 @@ class BinaryPakFile(PakFile):
     def valid(self) -> bool: return self.files != None
 
     def getReader(self, path: str = None, retainInPool: int = 10) -> Reader:
-        path = path or self.filePath
+        path = path or self.pakPath
         if not self.fileSystem.fileExists(path): return None
         return self.fileSystem.openReader(path)
     

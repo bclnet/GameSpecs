@@ -122,7 +122,7 @@ class PakBinary_Bsa(PakBinaryT):
                     packedSize = headerFile.size ^ self.OB_BSAFILE_SIZECOMPRESS if compressed else headerFile.size
                     files[fileIdx] = FileSource(
                         path = folderName,
-                        position = headerFile.offset,
+                        offset = headerFile.offset,
                         compressed = 1 if compressed ^ compressedToggle else 0,
                         packedSize = packedSize,
                         fileSize = packedSize & self.OB_BSAFILE_SIZEMASK if source.version == self.SSE_BSAHEADER_VERSION else packedSize
@@ -144,7 +144,7 @@ class PakBinary_Bsa(PakBinaryT):
                 headerFile = headerFiles[i]
                 size = headerFile.getSize()
                 files[i] = FileSource(
-                    position = dataOffset + headerFile.fileOffset,
+                    offset = dataOffset + headerFile.fileOffset,
                     compressed = 0,
                     fileSize = size,
                     packedSize = size
@@ -163,11 +163,11 @@ class PakBinary_Bsa(PakBinaryT):
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
         fileSize = file.packedSize & self.OB_BSAFILE_SIZEMASK if source.version == self.SSE_BSAHEADER_VERSION else file.packedSize
-        r.seek(file.position)
+        r.seek(file.offset)
         if source.tag:
             prefixLength = r.readByte() + 1
             if source.version == self.SSE_BSAHEADER_VERSION: fileSize -= prefixLength
-            r.seek(file.position + prefixLength)
+            r.seek(file.offset + prefixLength)
 
         # not compressed
         if fileSize <= 0 or file.compressed == 0:

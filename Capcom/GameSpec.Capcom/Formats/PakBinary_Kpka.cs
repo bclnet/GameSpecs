@@ -29,7 +29,7 @@ namespace GameSpec.Capcom.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct K_FileV2
         {
-            public long Position;
+            public long Offset;
             public long FileSize;
             public ulong HashName;
         }
@@ -38,7 +38,7 @@ namespace GameSpec.Capcom.Formats
         struct K_FileV4
         {
             public ulong HashName;
-            public long Position;
+            public long Offset;
             public long PackedSize;
             public long FileSize;
             public long Flag;
@@ -77,8 +77,8 @@ namespace GameSpec.Capcom.Formats
                     {
                         Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z)
                             ? z.Replace('\\', '/')
-                            : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Position, 0)}",
-                        Offset = x.Position,
+                            : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Offset, 0)}",
+                        Offset = x.Offset,
                         FileSize = x.FileSize,
                     }).ToArray();
             }
@@ -91,8 +91,8 @@ namespace GameSpec.Capcom.Formats
                         Compressed = compressed = GetCompressed(x.Flag),
                         Path = hashLookup != null && hashLookup.TryGetValue(x.HashName, out var z)
                             ? z.Replace('\\', '/')
-                            : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Position, compressed)}",
-                        Offset = x.Position,
+                            : $"_unknown/{x.HashName:x16}{GetExtension(r, x.Offset, compressed)}",
+                        Offset = x.Offset,
                         PackedSize = x.PackedSize,
                         FileSize = x.FileSize,
                     }).ToArray();
@@ -117,9 +117,9 @@ namespace GameSpec.Capcom.Formats
             : (f & 0xF) == 2 ? f >> 16 > 0 ? 0 : 'S'
             : 0;
 
-        static string GetExtension(BinaryReader r, long position, int compressed)
+        static string GetExtension(BinaryReader r, long offset, int compressed)
         {
-            r.Seek(position);
+            r.Seek(offset);
             return _guessExtension(Decompress(r, compressed, 150));
         }
 

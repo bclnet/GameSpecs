@@ -471,13 +471,14 @@ namespace GameSpec.Origin.Formats.UO
             {
                 line = line.Trim();
                 if (line.Length == 0 || line.StartsWith("#")) continue;
+
                 try
                 {
                     var index1 = line.IndexOf("{", StringComparison.Ordinal);
                     var index2 = line.IndexOf("}", StringComparison.Ordinal);
 
                     var param1 = line[..index1];
-                    var param2 = line.Substring(index1 + 1, index2 - index1 - 1);
+                    var param2 = line[(index1 + 1)..index2];
                     var param3 = line[(index2 + 1)..];
 
                     var indexOf = param2.IndexOf(',');
@@ -498,7 +499,7 @@ namespace GameSpec.Origin.Formats.UO
             var nodes = new List<MetaInfo> {
                 new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "BodyTable config" }),
                 new MetaInfo("BodyTable", items: new List<MetaInfo> {
-                    new MetaInfo($"Count: {Records.Count}"),
+                    new MetaInfo($"Records: {Records.Count}"),
                 })
             };
             return nodes;
@@ -537,9 +538,9 @@ namespace GameSpec.Origin.Formats.UO
 
         readonly List<Record> Records = new List<Record>();
 
-        static Record[] DefaultRecords { get; set; } = {
+        static Record[] DefaultRecords = {
             new Record(
-                //Post 7.0.4.0 (Andreew)
+                // Post 7.0.4.0 (Andreew)
                 new byte[]
                 {
                     0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF,
@@ -550,12 +551,12 @@ namespace GameSpec.Origin.Formats.UO
                     0xFF, 0xD0, 0xE8, 0x00, 0x00, 0x00, 0x00, 0x8B, 0x0D, 0x00, 0x00, 0x00, 0x00, 0x8B, 0x11, 0x8B,
                     0x82, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xD0, 0x5B, 0x83, 0x00, 0x00, 0x00, 0x00, 0x00, 0xEC
                 },
-                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x0C }, //x
-                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x08 }, //y
-                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x04 }, //z
-                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x10 }),//f
+                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x0C }, // x
+                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x08 }, // y
+                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x04 }, // z
+                new byte[]{ 0x22, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x10 }),// f
             new Record(
-                /* (arul) 6.0.9.x+ : Calibrates both  */
+                // (arul) 6.0.9.x+ : Calibrates both 
                 new byte[]
                 {
                     0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF,
@@ -571,7 +572,7 @@ namespace GameSpec.Origin.Formats.UO
                 new byte[]{ 0x1F, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x04 },
                 new byte[]{ 0x1F, 0x04, 0xFF, 0xFF, 0xFF, 0x04, 0x10 }),
             new Record(
-                /* Facet */
+                // Facet
                 new byte[]
                 {
                     0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
@@ -583,10 +584,9 @@ namespace GameSpec.Origin.Formats.UO
                 Array.Empty<byte>(),
                 Array.Empty<byte>(),
                 Array.Empty<byte>(),
-                new byte[]{ 0x01, 0x04, 0xFF, 0xFF, 0xFF, 0x01 }
-            ),
+                new byte[]{ 0x01, 0x04, 0xFF, 0xFF, 0xFF, 0x01 }),
             new Record(
-                /* Location */
+                // Location
                 new byte[]
                 {
                     0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00,
@@ -600,10 +600,9 @@ namespace GameSpec.Origin.Formats.UO
                 new byte[]{ 0x02, 0x04, 0x04, 0x0C, 0x01, 0x02 },
                 new byte[]{ 0x0E, 0x04, 0x04, 0x15, 0x01, 0x02 },
                 new byte[]{ 0x18, 0x04, 0x04, 0x1F, 0x01, 0x02 },
-                Array.Empty<byte>()
-            ),
+                Array.Empty<byte>()),
             new Record(
-                /* UO3D Only, calibrates both */
+                // UO3D Only, calibrates both
                 new byte[]
                 {
                     0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF,
@@ -619,8 +618,7 @@ namespace GameSpec.Origin.Formats.UO
                 new byte[] { 0x01, 0x04, 0x04, 0x17, 0x01, 0x02 },
                 new byte[] { 0x01, 0x04, 0x04, 0x11, 0x01, 0x02 },
                 new byte[] { 0x01, 0x04, 0x04, 0x0D, 0x01, 0x02 },
-                new byte[] { 0x2C, 0x04, 0xFF, 0xFF, 0xFF, 0x01 }
-            )
+                new byte[] { 0x2C, 0x04, 0xFF, 0xFF, 0xFF, 0x01 })
         };
 
         #endregion
@@ -676,9 +674,9 @@ namespace GameSpec.Origin.Formats.UO
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetaInfo> {
-                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Body config" }),
-                new MetaInfo("Body", items: new List<MetaInfo> {
-                    new MetaInfo($"Count: {Records.Count}"),
+                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "CalibrationInfo File" }),
+                new MetaInfo("CalibrationInfo", items: new List<MetaInfo> {
+                    new MetaInfo($"Records: {Records.Count}"),
                 })
             };
             return nodes;

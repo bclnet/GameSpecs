@@ -115,7 +115,7 @@ class PakBinary_Ba2(PakBinaryT):
                             compressed = 1 if headerFile.packedSize != 0 else 0,
                             packedSize = headerFile.packedSize,
                             fileSize = headerFile.fileSize,
-                            position = headerFile.offset
+                            offset = headerFile.offset
                             )
                 # Texture BA2 Format
                 case self.F4_HeaderType.DX10:
@@ -127,7 +127,7 @@ class PakBinary_Ba2(PakBinaryT):
                             fileInfo = headerTexture,
                             packedSize = firstChunk.packedSize,
                             fileSize = firstChunk.fileSize,
-                            position = firstChunk.offset,
+                            offset = firstChunk.offset,
                             tag = headerTextureChunks
                             )
                 # GNMF BA2 Format
@@ -139,7 +139,7 @@ class PakBinary_Ba2(PakBinaryT):
                             fileInfo = headerGNMF,
                             packedSize = headerGNMF.packedSize,
                             fileSize = headerGNMF.fileSize,
-                            position = headerGNMF.offset,
+                            offset = headerGNMF.offset,
                             tag = headerTextureChunks
                             )
                 case _: raise Exception(f'Unknown: {header.type}')
@@ -152,7 +152,7 @@ class PakBinary_Ba2(PakBinaryT):
 
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
-        r.seek(file.position)
+        r.seek(file.offset)
 
         # General BA2 Format
         if file.fileInfo == None:

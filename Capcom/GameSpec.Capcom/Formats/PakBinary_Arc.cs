@@ -30,7 +30,7 @@ namespace GameSpec.Capcom.Formats
             public uint Compressed;
             public uint PackedSize;
             public uint FileSize;
-            public uint Position;
+            public uint Offset;
         }
 
         #endregion
@@ -48,11 +48,11 @@ namespace GameSpec.Capcom.Formats
             source.Files = r.ReadTArray<K_File>(sizeof(K_File), header.NumFiles)
                 .Select(x => new FileSource
                 {
-                    Path = $"{Encoding.UTF8.GetString(new Span<byte>(x.Path, 0x40)).TrimEnd('\0')}{GetExtension(r, x.Position)}".Replace('\\', '/'),
+                    Path = $"{Encoding.UTF8.GetString(new Span<byte>(x.Path, 0x40)).TrimEnd('\0')}{GetExtension(r, x.Offset)}".Replace('\\', '/'),
                     Compressed = (int)x.Compressed,
                     PackedSize = x.PackedSize,
                     FileSize = x.FileSize,
-                    Offset = x.Position,
+                    Offset = x.Offset,
                 }).ToArray();
             return Task.CompletedTask;
         }

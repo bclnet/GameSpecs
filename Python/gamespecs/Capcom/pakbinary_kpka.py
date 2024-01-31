@@ -27,14 +27,14 @@ class PakBinary_Kpka(PakBinaryT):
     class K_FileV2:
         struct = ('<qqQ', 24)
         def __init__(self, tuple):
-            self.position, \
+            self.offset, \
             self.fileSize, \
             self.hashName = tuple
     class K_FileV4:
         struct = ('<QqqqqQ', 48)
         def __init__(self, tuple):
             self.hashName, \
-            self.position, \
+            self.offset, \
             self.packedSize, \
             self.fileSize, \
             self.flag, \
@@ -66,8 +66,8 @@ class PakBinary_Kpka(PakBinaryT):
         if header.majorVersion == 2:
             source.files = [FileSource(
                 path = hashLookup[x.hashName].replace('\\', '/') if hashLookup and x.hashName in hashLookup else \
-                    f'_unknown/{x.hashName:0>16x}{_getExtension(r, x.position, 0)}',
-                position = x.position,
+                    f'_unknown/{x.hashName:0>16x}{_getExtension(r, x.offset, 0)}',
+                offset = x.offset,
                 fileSize = x.fileSize,
             ) for x in tr.readTArray(self.K_FileV2, header.numFiles)]
         elif header.majorVersion == 4:
@@ -75,15 +75,15 @@ class PakBinary_Kpka(PakBinaryT):
             source.files = [FileSource(
                 compressed = (compressed := _getCompressed(x.flag)),
                 path = hashLookup[x.hashName].replace('\\', '/') if hashLookup and x.hashName in hashLookup else \
-                    f'_unknown/{x.hashName:0>16x}{_getExtension(r, x.position, compressed)}',
-                position = x.position,
+                    f'_unknown/{x.hashName:0>16x}{_getExtension(r, x.offset, compressed)}',
+                offset = x.offset,
                 packedSize = x.packedSize,
                 fileSize = x.fileSize,
             ) for x in tr.readTArray(self.K_FileV4, header.numFiles)]
 
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
-        r.seek(file.position)
+        r.seek(file.offset)
         return BytesIO(_decompress(r, file.compressed, file.packedSize, file.fileSize))
 
 Modulus = int.from_bytes([
@@ -116,6 +116,6 @@ def _getCompressed(f: int) -> int:
         0
 
 @staticmethod
-def _getExtension(r: Reader, position: int, compressed: int, full: bool = True) -> str:
-    r.seek(position)
+def _getExtension(r: Reader, offset: int, compressed: int, full: bool = True) -> str:
+    r.seek(offset)
     return _guessExtension(_decompress(r, compressed, 150, full = False))
