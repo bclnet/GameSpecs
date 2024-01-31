@@ -1,20 +1,15 @@
-using GameSpec.Formats;
 using GameSpec.Meta;
 using GameSpec.Origin.Structs.UO;
 using GameSpec.Platforms;
 using OpenStack.Graphics;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 using static GameSpec.Origin.Formats.PakBinary_UO;
 
 namespace GameSpec.Origin.Formats.UO
@@ -32,15 +27,12 @@ namespace GameSpec.Origin.Formats.UO
 
         // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
-        {
-            var nodes = new List<MetaInfo> {
+            => new List<MetaInfo> {
                 new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Anim File" }),
                 new MetaInfo("Anim", items: new List<MetaInfo> {
                     //new MetaInfo($"Default: {Default.GumpID}"),
                 })
             };
-            return nodes;
-        }
     }
 
     #endregion
@@ -53,6 +45,17 @@ namespace GameSpec.Origin.Formats.UO
 
         #region Records
 
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct AnimRecord
+        {
+            public static (string, int) Struct = ("<64b4B", sizeof(AnimRecord));
+            public fixed sbyte Frames[64];
+            public byte Unknown;
+            public byte FrameCount;
+            public byte FrameInterval;
+            public byte StartInterval;
+        }
+
         public class Record
         {
             public sbyte[] Frames = new sbyte[64];
@@ -64,20 +67,9 @@ namespace GameSpec.Origin.Formats.UO
             {
                 fixed (sbyte* frames_ = record.Frames) Frames = UnsafeX.FixedTArray(frames_, 64);
                 FrameCount = record.FrameCount;
-                FrameCount = record.FrameInterval;
-                FrameCount = record.StartInterval;
+                FrameInterval = record.FrameInterval;
+                StartInterval = record.StartInterval;
             }
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct AnimRecord
-        {
-            public static (string, int) Struct = ("<64b4B", sizeof(AnimRecord));
-            public fixed sbyte Frames[64];
-            public byte Unknown;
-            public byte FrameCount;
-            public byte FrameInterval;
-            public byte StartInterval;
         }
 
         readonly Dictionary<int, Record> Records = new Dictionary<int, Record>();
@@ -104,15 +96,12 @@ namespace GameSpec.Origin.Formats.UO
 
         // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
-        {
-            var nodes = new List<MetaInfo> {
+            => new List<MetaInfo> {
                 new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Animdata File" }),
                 new MetaInfo("Animdata", items: new List<MetaInfo> {
                     new MetaInfo($"Records: {Records.Count}"),
                 })
             };
-            return nodes;
-        }
     }
 
     #endregion
@@ -426,7 +415,7 @@ namespace GameSpec.Origin.Formats.UO
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetaInfo> {
-                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "BodyConverter config" }),
+                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "BodyConverter Config" }),
                 new MetaInfo("BodyConverter", items: new List<MetaInfo> {
                     new MetaInfo($"Table1: {Table1.Length}"),
                     new MetaInfo($"Table2: {Table2.Length}"),
@@ -462,7 +451,7 @@ namespace GameSpec.Origin.Formats.UO
             }
         }
 
-        static readonly Dictionary<int, Record> Records = new Dictionary<int, Record>();
+        readonly Dictionary<int, Record> Records = new Dictionary<int, Record>();
 
         //public static void TranslateBodyAndHue(ref int id, ref int hue)
         //{
@@ -1858,8 +1847,8 @@ namespace GameSpec.Origin.Formats.UO
 
     public unsafe class Binary_StringTable : IHaveMetaInfo
     {
-        public static Binary_StringTable Instance = Games.UO.Database.PakFile?.LoadFileObject<Binary_StringTable>("Cliloc.enu").Result;
-        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_StringTable(r));
+        public static Dictionary<string, Binary_StringTable> Instances = new Dictionary<string, Binary_StringTable>();
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_StringTable(r, f));
 
         #region Records
 
@@ -1885,12 +1874,12 @@ namespace GameSpec.Origin.Formats.UO
         public Dictionary<int, string> Strings = new Dictionary<int, string>();
         public Dictionary<int, Record> Records = new Dictionary<int, Record>();
 
-        public static string GetString(int id) => Instance.Strings.TryGetValue(id, out var z) ? z : string.Empty;
+        public static string GetString(int id) => Instances.TryGetValue(".enu", out var y) && y.Strings.TryGetValue(id, out var z) ? z : string.Empty;
 
         #endregion
 
         // file: Cliloc.enu
-        public Binary_StringTable(BinaryReader r)
+        public Binary_StringTable(BinaryReader r, FileSource f)
         {
             r.Skip(6);
             while (r.BaseStream.Position < r.BaseStream.Length)
@@ -1901,14 +1890,15 @@ namespace GameSpec.Origin.Formats.UO
                 Records[id] = new Record(text, flag);
                 Strings[id] = text;
             }
+            Instances[Path.GetExtension(f.Path)] = this;
         }
 
         // IHaveMetaInfo
         List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
         {
             var nodes = new List<MetaInfo> {
-                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "Cliloc Language File" }),
-                new MetaInfo("Cliloc", items: new List<MetaInfo> {
+                new MetaInfo(null, new MetaContent { Type = "Text", Name = Path.GetFileName(file.Path), Value = "StringTable File" }),
+                new MetaInfo("StringTable", items: new List<MetaInfo> {
                     new MetaInfo($"Count: {Records.Count}"),
                 })
             };
@@ -1925,6 +1915,58 @@ namespace GameSpec.Origin.Formats.UO
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_TileData(r));
 
         #region Records
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public unsafe struct LandV1
+        {
+            public readonly uint flags;
+            public readonly ushort texID;
+            public fixed byte name[20];
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public unsafe struct LandV2
+        {
+            public readonly ulong flags;
+            public readonly ushort texID;
+            public fixed byte name[20];
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public unsafe struct ItemV1
+        {
+            public readonly uint flags;
+            public readonly byte weight;
+            public readonly byte quality;
+            public readonly short miscData;
+            public readonly byte unk2;
+            public readonly byte quantity;
+            public readonly short anim;
+            public readonly byte unk3;
+            public readonly byte hue;
+            public readonly byte stackingOffset;
+            public readonly byte value;
+            public readonly byte height;
+            public fixed byte name[20];
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public unsafe struct ItemV2
+        {
+            public readonly ulong flags;
+            public readonly byte weight;
+            public readonly byte quality;
+            public readonly short miscData;
+            public readonly byte unk2;
+            public readonly byte quantity;
+            public readonly short anim;
+            public readonly byte unk3;
+            public readonly byte hue;
+            public readonly byte stackingOffset;
+            public readonly byte value;
+            public readonly byte height;
+            public fixed byte name[20];
+        }
 
         public struct ItemData
         {
@@ -2002,10 +2044,11 @@ namespace GameSpec.Origin.Formats.UO
         // file: tiledata.mul
         public Binary_TileData(BinaryReader r)
         {
+            //var useNeW = r.BaseStream.Length == 0x30A800;
             LandData landData;
             ItemData itemData;
             var length = r.BaseStream.Length;
-            if (length == 3188736) // 7.0.9.0
+            if (length == 0x30A800) // 7.0.9.0
             {
                 LandDatas = new LandData[0x4000];
                 for (var i = 0; i < 0x4000; ++i)
@@ -2014,8 +2057,7 @@ namespace GameSpec.Origin.Formats.UO
                     if (i == 1 || (i > 0 && (i & 0x1F) == 0)) r.ReadInt32();
                     var flags = (TileFlag)r.ReadInt64();
                     var textureID = r.ReadInt16();
-                    landData.Name = Encoding.ASCII.GetString(r.ReadBytes(20));
-                    landData.Name = landData.Name.Trim('\0');
+                    landData.Name = Encoding.ASCII.GetString(r.ReadBytes(20)).Trim('\0');
                     landData.Flags = flags;
                     landData.TextureID = textureID;
                     LandDatas[i] = landData;
@@ -2053,14 +2095,13 @@ namespace GameSpec.Origin.Formats.UO
                     if ((i & 0x1F) == 0) r.ReadInt32();
                     var flags = (TileFlag)r.ReadInt32();
                     var textureID = r.ReadInt16();
-                    landData.Name = Encoding.ASCII.GetString(r.ReadBytes(20));
-                    landData.Name = landData.Name.Trim('\0');
+                    landData.Name = Encoding.ASCII.GetString(r.ReadBytes(20)).Trim('\0');
                     //r.BaseStream.Seek(20, SeekOrigin.Current);
                     landData.Flags = flags;
                     landData.TextureID = textureID;
                     LandDatas[i] = landData;
                 }
-                if (length == 1644544) // 7.0.0.0
+                if (length == 0x191800) // 7.0.0.0
                 {
                     ItemDatas = new ItemData[0x8000];
                     for (var i = 0; i < 0x8000; ++i)
@@ -2080,8 +2121,7 @@ namespace GameSpec.Origin.Formats.UO
                         itemData.Unknown4 = r.ReadByte();
                         itemData.Value = r.ReadByte();
                         itemData.Height = r.ReadByte();
-                        itemData.Name = Encoding.ASCII.GetString(r.ReadBytes(20));
-                        itemData.Name = itemData.Name.Trim('\0');
+                        itemData.Name = Encoding.ASCII.GetString(r.ReadBytes(20)).Trim('\0');
                         if (i > 1005 && i < 7640) itemData.IsStairs = !(Array.BinarySearch(StairsID, i) < 0);
                         ItemDatas[i] = itemData;
                     }
@@ -2107,8 +2147,7 @@ namespace GameSpec.Origin.Formats.UO
                         itemData.Unknown4 = r.ReadByte();
                         itemData.Value = r.ReadByte();
                         itemData.Height = r.ReadByte();
-                        itemData.Name = Encoding.ASCII.GetString(r.ReadBytes(20));
-                        itemData.Name = itemData.Name.Trim('\0');
+                        itemData.Name = Encoding.ASCII.GetString(r.ReadBytes(20)).Trim('\0');
                         if (i > 1005 && i < 7640) itemData.IsStairs = !(Array.BinarySearch(StairsID, i) < 0);
                         ItemDatas[i] = itemData;
                     }
@@ -2204,19 +2243,12 @@ namespace GameSpec.Origin.Formats.UO
 
     #endregion
 
-    #region Binary_Verdata - VERIFY
+    #region Binary_Verdata
 
     public unsafe class Binary_Verdata : IHaveMetaInfo
     {
-        public static Binary_Verdata Instance = Games.UO.Database.PakFile?.LoadFileObject<Binary_Verdata>("verdata.mul", throwOnError: false).Result;
-
+        public static Binary_Verdata Instance;
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Verdata(r, (BinaryPakFile)s));
-
-        //public static void Touch(PakFile source)
-        //{
-        //    if (PakFile != null) return;
-        //    if (source.Contains("verdata.mul")) source.LoadFileObject<Binary_Verdata>("verdata.mul").Wait();
-        //}
 
         #region Records
 
@@ -2244,6 +2276,7 @@ namespace GameSpec.Origin.Formats.UO
         {
             PakFile = s;
             Patches = r.ReadL32SArray<Patch>(Patch.Struct).GroupBy(x => x.File).ToDictionary(x => x.Key, x => x.ToArray());
+            Instance = this;
         }
 
         // IHaveMetaInfo

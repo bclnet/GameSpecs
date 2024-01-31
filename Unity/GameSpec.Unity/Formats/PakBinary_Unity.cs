@@ -44,13 +44,13 @@ namespace GameSpec.Unity.Formats
                 public FileInfo(BinaryReader r, uint version, bool endian)
                 {
                     if (version >= 0x0E) r.Align();
-                    Index = version >= 0x0E ? r.ReadUInt64E(endian) : r.ReadUInt32E(endian);
-                    OffsCurFile = version >= 0x16 ? (long)r.ReadUInt64E(endian) : r.ReadUInt32E(endian);
-                    CurFileSize = r.ReadUInt32E(endian);
-                    CurFileTypeOrIndex = r.ReadUInt32E(endian);
-                    InheritedUnityClass = version < 0x10 ? r.ReadUInt16E(endian) : (ushort)0;
+                    Index = version >= 0x0E ? r.ReadUInt64X(endian) : r.ReadUInt32X(endian);
+                    OffsCurFile = version >= 0x16 ? (long)r.ReadUInt64X(endian) : r.ReadUInt32X(endian);
+                    CurFileSize = r.ReadUInt32X(endian);
+                    CurFileTypeOrIndex = r.ReadUInt32X(endian);
+                    InheritedUnityClass = version < 0x10 ? r.ReadUInt16X(endian) : (ushort)0;
                     if (version < 0x0B) r.Skip(2);
-                    ScriptIndex = version >= 0x0B && version <= 0x10 ? r.ReadUInt16E(endian) : (ushort)0xffff;
+                    ScriptIndex = version >= 0x0B && version <= 0x10 ? r.ReadUInt16X(endian) : (ushort)0xffff;
                     Unknown1 = version >= 0x0F && version <= 0x10 ? r.ReadByte() : (byte)0;
                 }
 
@@ -127,7 +127,7 @@ namespace GameSpec.Unity.Formats
                 {
                     BufferedPath = format >= 6 ? r.ReadZAString(1000) : null;
                     Guid = format >= 5 ? r.ReadGuid() : Guid.Empty;
-                    Type = format >= 5 ? r.ReadUInt32E(endian) : 0U;
+                    Type = format >= 5 ? r.ReadUInt32X(endian) : 0U;
                     AssetPath = r.ReadZAString(1000);
                 }
             }
@@ -160,15 +160,15 @@ namespace GameSpec.Unity.Formats
 
                 public TypeField_0D(BinaryReader r, uint format, bool endian)
                 {
-                    Version = r.ReadUInt16E(endian);
+                    Version = r.ReadUInt16X(endian);
                     Depth = r.ReadByte();
                     var isArrayTemp = r.ReadByte();
                     IsArray = format >= 0x13 ? isArrayTemp : isArrayTemp != 0 ? (byte)1 : (byte)0;
-                    TypeStringOffset = r.ReadUInt32E(endian);
-                    NameStringOffset = r.ReadUInt32E(endian);
-                    Size = r.ReadUInt32E(endian);
-                    Index = r.ReadUInt32E(endian);
-                    Flags = r.ReadUInt32E(endian);
+                    TypeStringOffset = r.ReadUInt32X(endian);
+                    NameStringOffset = r.ReadUInt32X(endian);
+                    Size = r.ReadUInt32X(endian);
+                    Index = r.ReadUInt32X(endian);
+                    Flags = r.ReadUInt32X(endian);
                     if (format >= 0x12) Unknown1 = r.ReadBytes(8);
                 }
 
@@ -317,16 +317,16 @@ namespace GameSpec.Unity.Formats
 
                 public Type_0D(bool hasTypeTree, BinaryReader r, uint version, bool endian, bool secondaryTypeTree = false)
                 {
-                    ClassId = r.ReadInt32E(endian);
+                    ClassId = r.ReadInt32X(endian);
                     Unknown16_1 = version >= 16 ? r.ReadByte() : (byte)0;
-                    ScriptIndex = version >= 17 ? r.ReadUInt16E(endian) : (ushort)0xffff;
+                    ScriptIndex = version >= 17 ? r.ReadUInt16X(endian) : (ushort)0xffff;
                     if (ClassId < 0 || ClassId == 0x72 || ClassId == 0x7C90B5B3 || ((short)ScriptIndex) >= 0) ScriptIDHash = r.ReadGuid(); // MonoBehaviour
                     TypeHash = r.ReadGuid();
                     if (!hasTypeTree) return;
 
                     // has tree type
-                    var dwVariableCount = (int)r.ReadUInt32E(endian);
-                    var dwStringTableLen = (int)r.ReadUInt32E(endian);
+                    var dwVariableCount = (int)r.ReadUInt32X(endian);
+                    var dwStringTableLen = (int)r.ReadUInt32X(endian);
                     var variableFieldsLen = dwVariableCount * (version >= 0x12 ? 32 : 24);
                     var typeTreeLen = variableFieldsLen + dwStringTableLen;
 
@@ -367,13 +367,13 @@ namespace GameSpec.Unity.Formats
                 {
                     Type = r.ReadZAString(256);
                     Name = r.ReadZAString(256);
-                    Size = r.ReadUInt32E(endian);
+                    Size = r.ReadUInt32X(endian);
                     if (version == 2) r.Skip(4);
                     else if (version == 3) Index = unchecked((uint)-1);
-                    else Index = r.ReadUInt32E(endian);
-                    ArrayFlag = r.ReadUInt32E(endian);
-                    Flags1 = r.ReadUInt32E(endian);
-                    Flags2 = version == 3 ? unchecked((uint)-1) : r.ReadUInt32E(endian);
+                    else Index = r.ReadUInt32X(endian);
+                    ArrayFlag = r.ReadUInt32X(endian);
+                    Flags1 = r.ReadUInt32X(endian);
+                    Flags2 = version == 3 ? unchecked((uint)-1) : r.ReadUInt32X(endian);
                     if (hasTypeTree) Children = r.ReadL32FArray(_ => new TypeField_07(true, r, version, endian), endian: endian);
                 }
             }
@@ -385,7 +385,7 @@ namespace GameSpec.Unity.Formats
 
                 public Type_07(bool hasTypeTree, BinaryReader r, uint version, bool endian)
                 {
-                    ClassId = r.ReadInt32E(endian);
+                    ClassId = r.ReadInt32X(endian);
                     Base = new TypeField_07(hasTypeTree, r, version, endian);
                 }
             }
@@ -397,9 +397,9 @@ namespace GameSpec.Unity.Formats
 
                 public Preload(BinaryReader r, uint format, bool endian)
                 {
-                    FileId = r.ReadUInt32E(endian);
+                    FileId = r.ReadUInt32X(endian);
                     if (format >= 0x0E) r.Align();
-                    PathId = format >= 0x0E ? r.ReadUInt64E(endian) : r.ReadUInt32E(endian);
+                    PathId = format >= 0x0E ? r.ReadUInt64X(endian) : r.ReadUInt32X(endian);
                 }
             }
 
@@ -423,7 +423,7 @@ namespace GameSpec.Unity.Formats
                     {
                         UnityVersion = r.ReadZAString(64);
                         if (UnityVersion[0] < '0' || UnityVersion[0] > '9') { FieldCount = 0; return; }
-                        Platform = r.ReadUInt32E(endian);
+                        Platform = r.ReadUInt32X(endian);
                     }
                     else
                     {
@@ -436,14 +436,14 @@ namespace GameSpec.Unity.Formats
                     }
 
                     if (version >= 0x0D) HasTypeTree = r.ReadBoolean(); // Unity 5
-                    FieldCount = (int)r.ReadUInt32E(endian);
+                    FieldCount = (int)r.ReadUInt32X(endian);
                     if (FieldCount > 0)
                     {
                         if (version < 0x0D) Types_Unity4 = r.ReadFArray(_ => new Type_07(HasTypeTree, r, version, endian), FieldCount);
                         else Types_Unity5 = r.ReadFArray(_ => new Type_0D(HasTypeTree, r, version, endian), FieldCount);
                     }
                     // actually belongs to the asset file info tree
-                    dwUnknown = version < 0x0E ? r.ReadUInt32E(endian) : 0;
+                    dwUnknown = version < 0x0E ? r.ReadUInt32X(endian) : 0;
                 }
             }
 
@@ -467,7 +467,7 @@ namespace GameSpec.Unity.Formats
                 if (Tree.UnityVersion[0] < '0' || Tree.UnityVersion[0] > '9') throw new FormatException("Bad Version");
                 AssetTablePos = r.Tell();
                 //
-                AssetCount = (int)r.ReadUInt32E(endian);
+                AssetCount = (int)r.ReadUInt32X(endian);
                 if (format >= 0x0E && AssetCount > 0) r.Align();
                 r.Skip(FileInfo.GetSize(AssetCount, format));
                 //
@@ -541,7 +541,7 @@ namespace GameSpec.Unity.Formats
                     if (!HasName(CurFileType)) return false;
                     var endian = file.Header.BigEndian;
                     r.Seek(AbsolutePos);
-                    var nameSize = (int)r.ReadUInt32E(endian);
+                    var nameSize = (int)r.ReadUInt32X(endian);
                     if (nameSize + 4 >= CurFileSize || nameSize >= 4092) return false;
                     var buf = r.ReadBytes(nameSize);
                     if (buf.Length != nameSize) return false;
@@ -913,7 +913,7 @@ namespace GameSpec.Unity.Formats
                     {
                         if (template.Children.Length != 2) Debug.Assert(false);
                         if (template.Children[0].ValueType == ValueType.Int32 || template.Children[0].ValueType == ValueType.UInt32) Debug.Assert(false);
-                        var arrayLen = (int)r.ReadUInt32E(endian);
+                        var arrayLen = (int)r.ReadUInt32X(endian);
                         if (string.Equals(template.Type, "TypelessData", StringComparison.OrdinalIgnoreCase))
                         {
                             var curRawData = r.ReadBytes(arrayLen);
@@ -939,7 +939,7 @@ namespace GameSpec.Unity.Formats
                     }
                     else if (template.ValueType == ValueType.String)
                     {
-                        var stringLen = (int)r.ReadUInt32E(endian);
+                        var stringLen = (int)r.ReadUInt32X(endian);
                         if ((r.Tell() + stringLen) > maxFilePos) stringLen = (int)(maxFilePos - r.Tell());
                         var bytes = r.ReadBytes(stringLen);
                         curValue = new TypeValue(ValueType.String, Encoding.ASCII.GetString(bytes));
@@ -951,17 +951,12 @@ namespace GameSpec.Unity.Formats
                         object valueContainer = null;
                         switch (template.ValueType)
                         {
-                            case ValueType.Bool:
-                            case ValueType.Int8:
-                            case ValueType.UInt8: valueContainer = r.ReadByte(); break;
-                            case ValueType.Int16:
-                            case ValueType.UInt16: valueContainer = r.ReadUInt16E(endian); break;
-                            case ValueType.Int32:
-                            case ValueType.UInt32: valueContainer = r.ReadUInt32E(endian); break;
-                            case ValueType.Float: valueContainer = r.ReadSingleE(endian); break;
-                            case ValueType.Int64:
-                            case ValueType.UInt64: valueContainer = r.ReadUInt64E(endian); break;
-                            case ValueType.Double: valueContainer = r.ReadDoubleE(endian); break;
+                            case ValueType.Bool: case ValueType.Int8: case ValueType.UInt8: valueContainer = r.ReadByte(); break;
+                            case ValueType.Int16: case ValueType.UInt16: valueContainer = r.ReadUInt16X(endian); break;
+                            case ValueType.Int32: case ValueType.UInt32: valueContainer = r.ReadUInt32X(endian); break;
+                            case ValueType.Float: valueContainer = r.ReadSingleX(endian); break;
+                            case ValueType.Int64: case ValueType.UInt64: valueContainer = r.ReadUInt64X(endian); break;
+                            case ValueType.Double: valueContainer = r.ReadDoubleX(endian); break;
                             case ValueType.String: break;
                         }
                         if (template.Align) r.Align();

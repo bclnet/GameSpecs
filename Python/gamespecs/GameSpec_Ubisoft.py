@@ -17,7 +17,7 @@ class UbisoftPakFile(BinaryPakFile):
 
     #region Factories
     @staticmethod
-    def getPakBinary(game: FamilyGame, extension: str) -> object:
+    def getPakBinary(game: FamilyGame, extension: str) -> PakBinary:
         pass
 
     @staticmethod

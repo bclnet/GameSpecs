@@ -23,7 +23,7 @@ class ArkanePakFile(BinaryPakFile):
             # case 'Unreal': self.objectFactoryFactoryMethod = Epic.EpicPakFile.ObjectFactoryFactory
             # case 'Valve': self.objectFactoryFactoryMethod = Valve.ValvePakFile.ObjectFactoryFactory
             # case 'idTech7': self.objectFactoryFactoryMethod = Id.IdPakFile.ObjectFactoryFactory
-            case _: self.objectFactoryFactoryMethod = ArkanePakFile.objectFactoryFactory
+            case _: self.objectFactoryFactoryMethod = self.objectFactoryFactory
         self.useFileId = True
 
     #region Factories
@@ -38,14 +38,14 @@ class ArkanePakFile(BinaryPakFile):
     @staticmethod
     def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
         match _pathExtension(source.path).lower():
-            case x if x == ".txt" or x == ".ini" or x == ".asl": return (0, Binary_Txt.factory)
-            case ".wav": return (0, Binary_Snd.factory)
-            case x if x == ".bmp" or x == ".jpg" or x == ".tga": return (0, Binary_Img.factory)
-            case ".dds": return (0, Binary_Dds.factory)
+            case x if x == '.txt' or x == '.ini' or x == '.asl': return (0, Binary_Txt.factory)
+            case '.wav': return (0, Binary_Snd.factory)
+            case x if x == '.bmp' or x == '.jpg' or x == '.tga': return (0, Binary_Img.factory)
+            case '.dds': return (0, Binary_Dds.factory)
             # Danae (AF)
-            case ".ftl": return (0, Binary_Ftl.factory)
-            case ".fts": return (0, Binary_Fts.factory)
-            case ".tea": return (0, Binary_Tea.factory)
+            case '.ftl': return (0, Binary_Ftl.factory)
+            case '.fts': return (0, Binary_Fts.factory)
+            case '.tea': return (0, Binary_Tea.factory)
             #
             #case ".llf": return (0, Binary_Flt.factory)
             #case ".dlf": return (0, Binary_Flt.factory)

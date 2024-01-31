@@ -52,21 +52,23 @@ class FileManager:
 
     def addApplication(self, id: str, elem: dict[str, object]) -> None:
         if platform.system() == 'Windows' and 'reg' in elem:
-            for key in _list(elem, 'reg'):
-                if not id in self.paths and (z := self.getPathByRegistryKey(key, elem[key] if key in elem else None)):
+            for k in _list(elem, 'reg'):
+                if not id in self.paths and (z := self.getPathByRegistryKey(k, elem[k] if k in elem else None)):
                     self.addPath(id, elem, z)
         if 'key' in elem:
-            for key in _list(elem, 'key'):
-                if not id in self.paths and (z := store.getPathByKey(key)):
+            for k in _list(elem, 'key'):
+                if not id in self.paths and (z := store.getPathByKey(k)):
                     self.addPath(id, elem, z)
         if 'dir' in elem:
-            for key in _list(elem, 'dir'):
-                if not id in self.paths and key in FileManager.localGames:
-                    self.addPath(id, elem, FileManager.localGames[key])
+            for k in _list(elem, 'dir'):
+                if not id in self.paths and k in FileManager.localGames:
+                    self.addPath(id, elem, FileManager.localGames[k])
     
     def addFilter(self, id, elem: dict[str, object]) -> None:
-        if not id in self.filters: self.filters[id] = []
-        self.filters[id].append(elem)
+        if not id in self.filters: self.filters[id] = {}
+        z2 = self.filters[id]
+        for k, v in elem.items():
+            z2[k] = v
 
     def addIgnore(self, id: str, paths: list[str]) -> None:
         if not id in self.ignores: self.ignores[id] = set()

@@ -30,8 +30,8 @@ namespace GameSpec.Origin
             => game.Id switch
             {
                 "U8" => PakBinary_U8.Instance,
-                "U9" => PakBinary_U9.Instance,
                 "UO" => PakBinary_UO.Instance,
+                "U9" => PakBinary_U9.Instance,
                 _ => throw new ArgumentOutOfRangeException(),
             };
 

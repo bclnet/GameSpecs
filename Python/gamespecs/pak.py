@@ -89,11 +89,9 @@ class PakFile:
     #endregion
     #region Metadata
     def getMetaFilters(self, manager: MetaManager) -> list[MetaItem.Filter]:
-        return [MetaItem.Filter(
-            key = x.key,
-            value = x.value
-            ) for x in self.family.fileManager.filters[self.game.id].items()] \
-            if self.family.fileManager and self.game.id in self.family.fileManager.filters else None
+        fileManager = self.family.fileManager
+        return [MetaItem.Filter(name = k, description = v) for k,v in fileManager.filters[self.game.id].items()] \
+            if fileManager and self.game.id in fileManager.filters else None
     def getMetaInfos(self, manager: MetaManager, item: MetaItem) -> list[MetaItem]: raise NotImplementedError()
     def getMetaItems(self, manager: MetaManager) -> list[MetaInfo]: raise NotImplementedError()
     #endregion
@@ -220,7 +218,7 @@ class ManyPakFile(BinaryPakFile):
     def __init__(self, basis: PakFile, state: PakState, name: str, paths: list[str], pathSkip: int = 0):
         super().__init__(state, None)
         if isinstance(basis, BinaryPakFile):
-            self.getObjectFactoryFactory = basis.objectFactoryFactoryMethod
+            self.objectFactoryFactoryMethod = basis.objectFactoryFactoryMethod
         self.name = name
         self.paths = paths
         self.pathSkip = pathSkip

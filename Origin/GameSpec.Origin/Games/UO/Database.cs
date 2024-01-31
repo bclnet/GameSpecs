@@ -6,6 +6,8 @@ namespace GameSpec.Origin.Games.UO
     public static class Database
     {
         public static PakFile PakFile = FamilyManager.GetFamily("Origin").OpenPakFile(new Uri("game:/#UO"));
+
+        //Games.UO.Database.PakFile?.LoadFileObject<Binary_StringTable>("Cliloc.enu").Result;
         //public static int ItemIDMask => ClientVersion.InstallationIsUopFormat ? 0xffff : 0x3fff;
 
         //internal static FamilyGame Ensure(FamilyGame game)
