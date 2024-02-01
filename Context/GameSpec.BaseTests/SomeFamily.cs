@@ -41,8 +41,9 @@ namespace GameSpec
             public override void Closing() { }
             public override void Opening() { }
             public override bool Contains(object path) => false;
-            public override Task<Stream> LoadFileData(object path, FileOption option = default) => throw new NotImplementedException();
-            public override Task<T> LoadFileObject<T>(object path, FileOption option = default) => throw new NotImplementedException();
+            public override FileSource GetFileSource(object path, bool throwOnError = true) => throw new NotImplementedException();
+            public override Task<Stream> LoadFileData(object path, FileOption option = default, bool throwOnError = true) => throw new NotImplementedException();
+            public override Task<T> LoadFileObject<T>(object path, FileOption option = default, bool throwOnError = true) => throw new NotImplementedException();
         }
 
         public const string FileManagerJson =

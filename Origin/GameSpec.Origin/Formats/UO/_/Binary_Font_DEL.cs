@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Origin.Formats.UO
 {
-    public unsafe class Binary_Font : IHaveMetaInfo
+    public unsafe class Binary_Font_DEL : IHaveMetaInfo
     {
-        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Font(r, s));
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Font_DEL(r, s));
 
         #region Records
 
@@ -223,7 +223,7 @@ namespace GameSpec.Origin.Formats.UO
         #endregion
 
         // file: fonts.mul, unifont?.mul
-        public Binary_Font(BinaryReader r, PakFile s)
+        public Binary_Font_DEL(BinaryReader r, PakFile s)
         {
             for (var i = 0; i < AsciiFonts.Length; i++)
                 AsciiFonts[i] = new AsciiFont(r);

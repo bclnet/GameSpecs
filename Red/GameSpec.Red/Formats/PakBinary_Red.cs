@@ -463,7 +463,7 @@ namespace GameSpec.Red.Formats
                         r.Seek(header.FilesOffset);
                         var headerFiles = r.ReadTArray<KEY_HeaderFile>(sizeof(KEY_HeaderFile), (int)header.NumFiles).Select(x => { r.Seek(x.FileNameOffset); return (file: x, path: r.ReadFString((int)x.FileNameSize)); }).ToArray();
                         r.Seek(header.KeysOffset);
-                        var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => (x.Id, x.ResourceId), x => UnsafeX.ReadZASCII(x.Name, 0x10));
+                        var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => (x.Id, x.ResourceId), x => UnsafeX.FixedAString(x.Name, 0x10));
 
                         // combine
                         var sourceName = source.Name;
@@ -577,7 +577,7 @@ namespace GameSpec.Red.Formats
                             var headerFile = headerFiles[i];
                             files[i] = new FileSource
                             {
-                                Path = UnsafeX.ReadZASCII(headerFile.Name, 0x100).Replace('\\', '/'),
+                                Path = UnsafeX.FixedAString(headerFile.Name, 0x100).Replace('\\', '/'),
                                 Compressed = (int)headerFile.Compressed,
                                 FileSize = headerFile.FileSize,
                                 PackedSize = headerFile.PackedSize,

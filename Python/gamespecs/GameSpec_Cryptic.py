@@ -18,7 +18,7 @@ class CrypticPakFile(BinaryPakFile):
 
     #region Factories
     @staticmethod
-    def getPakBinary(game: FamilyGame, extension: str) -> object:
+    def getPakBinary(game: FamilyGame, extension: str) -> PakBinary:
         return PakBinary_Hogg()
 
     @staticmethod

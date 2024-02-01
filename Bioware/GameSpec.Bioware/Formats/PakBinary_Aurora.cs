@@ -229,7 +229,7 @@ namespace GameSpec.Bioware.Formats
                     return (file: x, path: r.ReadFString(x.FileNameSize - 1));
                 }).ToArray();
                 r.Seek(header.KeysOffset);
-                var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => x.Id, x => UnsafeX.ReadZASCII(x.Name, 0x10));
+                var headerKeys = r.ReadTArray<KEY_HeaderKey>(sizeof(KEY_HeaderKey), (int)header.NumKeys).ToDictionary(x => x.Id, x => UnsafeX.FixedAString(x.Name, 0x10));
 
                 // combine
                 var subPathFormat = Path.Combine(Path.GetDirectoryName(source.PakPath), "{0}");

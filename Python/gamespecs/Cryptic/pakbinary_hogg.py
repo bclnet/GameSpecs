@@ -79,7 +79,7 @@ class PakBinary_Hogg(PakBinaryT):
             a = attributeEntries[i]
             files[i] = FileSource(
                         id = s.id,
-                        position = s.offset,
+                        offset = s.offset,
                         fileSize = s.fileSize,
                         packedSize = a.uncompressedSize,
                         compressed = 1 if a.uncompressedSize > 0 else 0
@@ -116,7 +116,7 @@ class PakBinary_Hogg(PakBinaryT):
 
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
-        r.seek(file.position)
+        r.seek(file.offset)
         return BytesIO(
             decompressZlib(r, file.packedSize, file.fileSize) if file.compressed != 0 else \
             r.read(file.fileSize)

@@ -263,10 +263,10 @@ match 'Origin':
 
         appDefaultOptions = DefaultOptions(
             ForceOpen = True,
-            ForcePath = "sample:*",
+            ForcePath = "sample:6",
             Family = "Origin",
             # Game = "U8", # Ultima 8
-            # Game = "UO", # Ultima Online
+            Game = "UO", # Ultima Online
             # Game = "U9", # Ultima IX
         )
     case 'Red':

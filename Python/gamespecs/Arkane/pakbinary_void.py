@@ -18,7 +18,7 @@ class PakBinary_Void(PakBinaryT):
     class V_File:
         struct = ('>QIIIIH', 26)
         def __init__(self, tuple):
-            self.position, \
+            self.offset, \
             self.fileSize, \
             self.packedSize, \
             self.unknown1, \
@@ -88,7 +88,7 @@ class PakBinary_Void(PakBinaryT):
                 compressed = 1 if file.fileSize != file.packedSize else 0,
                 fileSize = file.fileSize,
                 packedSize = file.packedSize,
-                position = file.position,
+                offset = file.offset,
                 tag = (newPath, tag1, tag2)
                 ))
 

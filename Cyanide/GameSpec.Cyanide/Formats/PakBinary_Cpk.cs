@@ -37,13 +37,13 @@ namespace GameSpec.Cyanide.Formats
             var header = r.ReadT<CPK_Header>(sizeof(CPK_Header));
             var headerFiles = r.ReadTArray<CPK_HeaderFile>(sizeof(CPK_HeaderFile), (int)header.NumFiles);
             var files = source.Files = new FileSource[header.NumFiles];
-            UnsafeX.ReadZASCII(header.Root, 512);
+            UnsafeX.FixedAString(header.Root, 512);
             for (var i = 0; i < files.Count; i++)
             {
                 var headerFile = headerFiles[i];
                 files[i] = new FileSource
                 {
-                    Path = UnsafeX.ReadZASCII(headerFile.FileName, 512).Replace('\\', '/'),
+                    Path = UnsafeX.FixedAString(headerFile.FileName, 512).Replace('\\', '/'),
                     FileSize = headerFile.FileSize,
                     Offset = (long)headerFile.Offset,
                 };

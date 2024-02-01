@@ -20,7 +20,7 @@ class TextView(QWidget):
         mainWidget = QScrollArea(self)
         mainWidget.setStyleSheet('border:0px;')
         label = QLabel(mainWidget)
-        label.setText(tab.value.decode('utf8', 'ignore'))
+        label.setText(tab.value) #.decode('utf8', 'ignore')
         label.setWordWrap(True)
         label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
 

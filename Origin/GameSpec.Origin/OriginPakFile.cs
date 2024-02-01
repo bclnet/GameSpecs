@@ -30,8 +30,8 @@ namespace GameSpec.Origin
             => game.Id switch
             {
                 "U8" => PakBinary_U8.Instance,
-                "U9" => PakBinary_U9.Instance,
                 "UO" => PakBinary_UO.Instance,
+                "U9" => PakBinary_U9.Instance,
                 _ => throw new ArgumentOutOfRangeException(),
             };
 
@@ -41,30 +41,32 @@ namespace GameSpec.Origin
                 "UO" => source.Path.ToLowerInvariant() switch
                 {
                     "animdata.mul" => (0, Binary_Animdata.Factory),
+                    "fonts.mul" => (0, Binary_AsciiFont.Factory),
                     "bodyconv.def" => (0, Binary_BodyConverter.Factory),
                     "body.def" => (0, Binary_BodyTable.Factory),
                     "calibration.cfg" => (0, Binary_CalibrationInfo.Factory),
-                    var x when x.StartsWith("cliloc") => (0, Binary_StringTable.Factory),
-                    "fonts.mul" => (0, Binary_Font.Factory),
                     "gump.def" => (0, Binary_GumpDef.Factory),
                     "hues.mul" => (0, Binary_Hues.Factory),
                     "mobtypes.txt" => (0, Binary_MobType.Factory),
                     var x when x == "multimap.rle" || x.StartsWith("facet") => (0, Binary_MultiMap.Factory),
                     "music/digital/config.txt" => (0, Binary_MusicDef.Factory),
                     "radarcol.mul" => (0, Binary_RadarColor.Factory),
-                    "data/containers.cfg" => (0, Binary_ServerContainer.Factory),
-                    "data/bodytable.cfg" => (0, Binary_ServerBodyTable.Factory),
-                    "speech.mul" => (0, Binary_Speech.Factory),
+                    "skillgrp.mul" => (0, Binary_SkillGroups.Factory),
+                    "speech.mul" => (0, Binary_SpeechList.Factory),
                     "tiledata.mul" => (0, Binary_TileData.Factory),
-                    //
+                    var x when x.StartsWith("cliloc") => (0, Binary_StringTable.Factory),
                     "verdata.mul" => (0, Binary_Verdata.Factory),
+                    // server
+                    "data/containers.cfg" => (0, ServerBinary_Container.Factory),
+                    "data/bodytable.cfg" => (0, ServerBinary_BodyTable.Factory),
                     _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
                     {
                         ".anim" => (0, Binary_Anim.Factory),
-                        ".art" => (0, Binary_Static.Factory),
+                        ".tex" => (0, Binary_Gump.Factory),
                         ".land" => (0, Binary_Land.Factory),
                         ".light" => (0, Binary_Light.Factory),
-                        ".tex" => (0, Binary_Gump.Factory),
+                        ".art" => (0, Binary_Static.Factory),
+                        ".multi" => (0, Binary_Multi.Factory),
                         //".mul" => (0, Binary_Ignore.Factory($"refer to {source.Path[..^4]}.idx")),
                         _ => (0, null),
                     }

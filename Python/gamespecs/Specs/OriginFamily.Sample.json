@@ -24,12 +24,8 @@
         "type": "Animdata"
       },
       {
-        "path": "artLegacyMUL.uop:land/file00000.land",
-        "type": "ArtLand"
-      },
-      {
-        "path": "artLegacyMUL.uop:static/file04000.art",
-        "type": "ArtStatic"
+        "path": "fonts.mul",
+        "type": "AsciiFont"
       },
       {
         "path": "Bodyconv.def",
@@ -44,14 +40,6 @@
         "type": "CalibrationInfo"
       },
       {
-        "path": "Cliloc.enu",
-        "type": "Cliloc"
-      },
-      {
-        "path": "fonts.mul",
-        "type": "Font"
-      },
-      {
         "path": "gumpartLegacyMUL.uop:file00000.tex",
         "type": "Gump"
       },
@@ -62,6 +50,14 @@
       {
         "path": "hues.mul",
         "type": "Hues"
+      },
+      {
+        "path": "artLegacyMUL.uop:land/file00000.land",
+        "type": "Land"
+      },
+      {
+        "path": "lightidx.mul:file00000.light",
+        "type": "Light"
       },
       {
         "path": "mobtypes.txt",
@@ -80,8 +76,48 @@
         "type": "MusicDef"
       },
       {
+        "path": "multi.idx:file00000.multi",
+        "type": "Multi"
+      },
+      {
         "path": "radarcol.mul",
         "type": "RadarColor"
+      },
+      {
+        "path": "skillgrp.mul",
+        "type": "SkillGroups"
+      },
+      {
+        "path": "xxxx.mul",
+        "type": "Skills"
+      },
+      {
+        "path": "xxxx.mul",
+        "type": "Sound"
+      },
+      {
+        "path": "speech.mul",
+        "type": "SpeechList"
+      },
+      {
+        "path": "artLegacyMUL.uop:static/file04000.art",
+        "type": "Static"
+      },
+      {
+        "path": "Cliloc.enu",
+        "type": "StringTable"
+      },
+      {
+        "path": "tiledata.mul",
+        "type": "TileData"
+      },
+      {
+        "path": "unifont.mul",
+        "type": "Unifont"
+      },
+      {
+        "path": "verdata.mul",
+        "type": "Verdata"
       },
       {
         "path": "Data/bodyTable.cfg",
@@ -90,22 +126,6 @@
       {
         "path": "Data/containers.cfg",
         "type": "ServerContainer"
-      },
-      {
-        "path": "speech.mul",
-        "type": "Speech"
-      },
-      {
-        "path": "tiledata.mul",
-        "type": "TileData"
-      },
-      {
-        "path": "gumpartLegacyMUL.uop",
-        "type": "Gump"
-      },
-      {
-        "path": "anim.idx:file0.dat",
-        "type": "File"
       }
     ]
   },

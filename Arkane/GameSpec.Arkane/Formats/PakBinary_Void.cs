@@ -17,7 +17,7 @@ namespace GameSpec.Arkane.Formats
         {
             //public static string Map = "B8B4B4B4B4B2";
             public static (string, int) Struct = (">QIIIIH", sizeof(V_File));
-            public ulong Position;
+            public ulong Offset;
             public uint FileSize;
             public uint PackedSize;
             public uint Unknown1;
@@ -100,7 +100,7 @@ namespace GameSpec.Arkane.Formats
                     Compressed = file.FileSize != file.PackedSize ? 1 : 0,
                     FileSize = file.FileSize,
                     PackedSize = file.PackedSize,
-                    Offset = (long)file.Position,
+                    Offset = (long)file.Offset,
                     Tag = (newPath, tag1, tag2),
                 };
             }

@@ -105,30 +105,30 @@ namespace GameSpec
         {
             string z;
             if (Platform.PlatformOS == Platform.OS.Windows && elem.TryGetProperty("reg", out var y))
-                foreach (var key in y.GetStringOrArray())
-                    if (!Paths.ContainsKey(id) && (z = GetPathByRegistryKey(key, elem.TryGetProperty(key, out y) ? y : (JsonElement?)null)) != null)
+                foreach (var k in y.GetStringOrArray())
+                    if (!Paths.ContainsKey(id) && (z = GetPathByRegistryKey(k, elem.TryGetProperty(k, out y) ? y : (JsonElement?)null)) != null)
                         AddPath(id, elem, z);
             if (elem.TryGetProperty("key", out y))
-                foreach (var key in y.GetStringOrArray())
-                    if (!Paths.ContainsKey(id) && (z = StoreManager.GetPathByKey(key)) != null)
+                foreach (var k in y.GetStringOrArray())
+                    if (!Paths.ContainsKey(id) && (z = StoreManager.GetPathByKey(k)) != null)
                         AddPath(id, elem, z);
             if (elem.TryGetProperty("dir", out y))
-                foreach (var key in y.GetStringOrArray())
-                    if (!Paths.ContainsKey(id) && LocalGames.TryGetValue(key, out var path))
+                foreach (var k in y.GetStringOrArray())
+                    if (!Paths.ContainsKey(id) && LocalGames.TryGetValue(k, out var path))
                         AddPath(id, elem, path);
         }
 
         protected void AddFilter(string id, JsonElement elem)
         {
             if (!Filters.TryGetValue(id, out var z2)) Filters.Add(id, z2 = new Dictionary<string, string>());
-            foreach (var filter in elem.EnumerateObject())
+            foreach (var z in elem.EnumerateObject())
             {
-                var value = filter.Value.ValueKind switch
+                var value = z.Value.ValueKind switch
                 {
-                    JsonValueKind.String => filter.Value.GetString(),
+                    JsonValueKind.String => z.Value.GetString(),
                     _ => throw new ArgumentOutOfRangeException(),
                 };
-                z2.Add(filter.Name, value);
+                z2.Add(z.Name, value);
             }
         }
 
