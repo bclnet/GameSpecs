@@ -2,6 +2,7 @@
 using GameSpec.Origin.Formats.UO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -39,7 +40,7 @@ namespace GameSpec.Origin.Formats
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
         struct UopRecord
         {
-            public static (string, int) Struct = ("<h3iHIu", sizeof(UopRecord));
+            public static (string, int) Struct = ("<q3iQIh", sizeof(UopRecord));
             public long Offset;
             public int HeaderLength;
             public int CompressedLength;
@@ -116,8 +117,9 @@ namespace GameSpec.Origin.Formats
                 for (var i = 0; i < filesCount; i++)
                 {
                     var record = r.ReadS<UopRecord>(UopRecord.Struct);
-                    if (record.Offset == 0 || !hashes.TryGetValue(record.Hash, out var idx)) continue;
+                    //if (record.Offset == 0 || !hashes.TryGetValue(record.Hash, out var idx)) continue;
 
+                    var idx = hashes[record.Hash];
                     if (idx < 0 || idx > files.Length)
                         throw new IndexOutOfRangeException("hashes dictionary and files collection have different count of entries!");
 
@@ -144,7 +146,7 @@ namespace GameSpec.Origin.Formats
         static ulong CreateUopHash(string s)
         {
             uint eax = 0, ecx, edx, ebx, esi, edi;
-            //eax = ecx = edx = ebx = esi = edi = 0;
+            eax = ecx = edx = ebx = esi = edi = 0;
             ebx = edi = esi = (uint)s.Length + 0xDEADBEEF;
             int i;
             for (i = 0; i + 12 < s.Length; i += 12)
@@ -159,9 +161,10 @@ namespace GameSpec.Origin.Formats
                 edi = (edi - ebx) ^ (ebx >> 13) ^ (ebx << 19); ebx += esi;
                 esi = (esi - edi) ^ (edi >> 28) ^ (edi << 4); edi += ebx;
             }
-            if (s.Length - i > 0)
+            var length2 = s.Length - i;
+            if (length2 > 0)
             {
-                switch (s.Length - i)
+                switch (length2)
                 {
                     case 12: esi += (uint)s[i + 11] << 24; goto case 11;
                     case 11: esi += (uint)s[i + 10] << 16; goto case 10;
@@ -176,6 +179,7 @@ namespace GameSpec.Origin.Formats
                     case 2: ebx += (uint)s[i + 1] << 8; goto case 1;
                     case 1: ebx += s[i]; break;
                 }
+                Debugger.Log(0, null, $"0. {esi:x}, {edi:x}, {ebx:x}\n");
                 esi = (esi ^ edi) - ((edi >> 18) ^ (edi << 14));
                 ecx = (esi ^ ebx) - ((esi >> 21) ^ (esi << 11));
                 edi = (edi ^ ecx) - ((ecx >> 7) ^ (ecx << 25));
