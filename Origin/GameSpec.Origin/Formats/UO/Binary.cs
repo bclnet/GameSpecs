@@ -3,10 +3,12 @@ using GameSpec.Origin.Structs.UO;
 using GameSpec.Platforms;
 using OpenStack.Graphics;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -130,6 +132,10 @@ namespace GameSpec.Origin.Formats.UO
                     if (width <= 0 || height <= 0) continue;
 
                     if (height > Height && i < 96) Height = height;
+
+                    //var bd = MemoryMarshal.Cast<byte, ushort>(data.AsSpan(0, length << 1));
+                    //for (var i = 0; i < length; i++) if (bd[i] != 0) bd[i] ^= 0x8000;
+                    //Pixels = MemoryMarshal.Cast<ushort, byte>(bd.ToArray()).ToArray();
 
                     var bd = new byte[width * height << 1];
                     var bd_Stride = width << 1;
@@ -711,27 +717,24 @@ namespace GameSpec.Origin.Formats.UO
             int width = Width = (extra >> 16) & 0xFFFF;
             int height = Height = extra & 0xFFFF;
             if (width <= 0 || height <= 0) return;
-            Load(r.ReadBytes(length));
+            Load(r.ReadBytes(length), width, height);
         }
 
-        void Load(byte[] data)
+        void Load(byte[] data, int width, int height)
         {
-            int width = Width, height = Height;
             fixed (byte* _ = data)
             {
                 var bd = Pixels = new byte[width * height << 1];
-                var bd_Stride = width << 1;
+                var delta = width;
                 fixed (byte* bd_Scan0 = bd)
                 {
                     var lookup = (int*)_;
                     var dat = (ushort*)_;
                     var line = (ushort*)bd_Scan0;
-                    var delta = bd_Stride >> 1;
 
                     for (var y = 0; y < height; ++y, line += delta)
                     {
-                        var count = *lookup++ * 2;
-
+                        var count = *lookup++ << 1;
                         ushort* cur = line, end = line + width;
                         while (cur < end)
                         {

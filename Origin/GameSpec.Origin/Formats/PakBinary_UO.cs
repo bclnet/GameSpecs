@@ -117,9 +117,7 @@ namespace GameSpec.Origin.Formats
                 for (var i = 0; i < filesCount; i++)
                 {
                     var record = r.ReadS<UopRecord>(UopRecord.Struct);
-                    //if (record.Offset == 0 || !hashes.TryGetValue(record.Hash, out var idx)) continue;
-
-                    var idx = hashes[record.Hash];
+                    if (record.Offset == 0 || !hashes.TryGetValue(record.Hash, out var idx)) continue;
                     if (idx < 0 || idx > files.Length)
                         throw new IndexOutOfRangeException("hashes dictionary and files collection have different count of entries!");
 
@@ -127,8 +125,8 @@ namespace GameSpec.Origin.Formats
                     file.Offset = (int)(record.Offset + record.HeaderLength);
                     file.FileSize = record.FileSize;
 
+                    // load extra
                     if (!extra) continue;
-
                     r.Peek(x =>
                     {
                         r.Seek(file.Offset);
@@ -145,9 +143,9 @@ namespace GameSpec.Origin.Formats
 
         static ulong CreateUopHash(string s)
         {
-            uint eax = 0, ecx, edx, ebx, esi, edi;
-            eax = ecx = edx = ebx = esi = edi = 0;
-            ebx = edi = esi = (uint)s.Length + 0xDEADBEEF;
+            uint eax, ebx, ecx, edx, esi, edi;
+            //eax = ebx = ecx = edx = esi = edi = 0;
+            eax = 0; ebx = edi = esi = (uint)s.Length + 0xDEADBEEF;
             int i;
             for (i = 0; i + 12 < s.Length; i += 12)
             {
@@ -179,7 +177,6 @@ namespace GameSpec.Origin.Formats
                     case 2: ebx += (uint)s[i + 1] << 8; goto case 1;
                     case 1: ebx += s[i]; break;
                 }
-                Debugger.Log(0, null, $"0. {esi:x}, {edi:x}, {ebx:x}\n");
                 esi = (esi ^ edi) - ((edi >> 18) ^ (edi << 14));
                 ecx = (esi ^ ebx) - ((esi >> 21) ^ (esi << 11));
                 edi = (edi ^ ecx) - ((ecx >> 7) ^ (ecx << 25));
@@ -231,8 +228,8 @@ namespace GameSpec.Origin.Formats
                 "artidx.mul" => ("art.mul", 0x14000, 4, i => i < 0x4000 ? $"land/file{i:x5}.land" : $"static/file{i:x5}.art"),
                 "gumpidx.mul" => ("Gumpart.mul", 0xFFFF, 12, i => $"file{i:x5}.tex"),
                 "multi.idx" => ("multi.mul", 0x2200, 14, i => $"file{i:x5}.multi"),
-                "lightidx.mul" => ("light.mul", 0x4000, 14, i => $"file{i:x5}.light"),
-                "skills.mul" => ("Skills.mul", 55, 16, i => $"file{i:x5}.skill"),
+                "lightidx.mul" => ("light.mul", 0x4000, -1, i => $"file{i:x5}.light"),
+                "skills.idx" => ("Skills.mul", 55, 16, i => $"file{i:x5}.skill"),
                 "soundidx.mul" => ("sound.mul", 0x1000, 8, i => $"file{i:x5}.wav"),
                 "texidx.mul" => ("texmaps.mul", 0x4000, 10, i => $"file{i:x5}.dat"),
                 _ => throw new ArgumentOutOfRangeException() // (null, 0, -1, i => $"file{i:x5}.dat"),

@@ -1,4 +1,5 @@
-import os
+import os, numpy as np
+from ctypes import c_ulong, c_ulonglong
 from io import BytesIO
 from pathlib import Path
 from gamespecs.filesrc import FileSource
@@ -43,7 +44,7 @@ class PakBinary_UO(PakBinaryT):
             self.adler32, \
             self.flag = tuple
         @property
-        def fileSize(self) -> int: self.compressedLength if self.flag == 1 else self.decompressedLength
+        def fileSize(self) -> int: return self.compressedLength if self.flag == 1 else self.decompressedLength
 
     #endregion
 
@@ -88,7 +89,7 @@ class PakBinary_UO(PakBinaryT):
                 fileSize = -1,
                 compressed = -1
                 )
-            
+        
         # load files
         nextBlock = header.nextBlock
         r.seek(nextBlock)
@@ -99,7 +100,6 @@ class PakBinary_UO(PakBinaryT):
                 record = r.readS(self.UopRecord)
                 if record.offset == 0 or record.hash not in hashes: continue
                 idx = hashes[record.hash]
-
                 if idx < 0 or idx > length:
                     raise Exception('hashes dictionary and files collection have different count of entries!')
 
@@ -107,8 +107,8 @@ class PakBinary_UO(PakBinaryT):
                 file.offset = record.offset + record.headerLength
                 file.fileSize = record.fileSize
 
+                # load extra
                 if not extra: continue
-
                 def peekLambda(x):
                     r.seek(file.offset)
                     extra = r.read(8)
@@ -117,7 +117,49 @@ class PakBinary_UO(PakBinaryT):
                     file.offset += 8
                     file.compressed = extra1 << 16 | extra2
                 r.peek(peekLambda)
-            if r.f.seek(nextBlock, os.SEEK_SET): break
+            if r.f.seek(nextBlock, os.SEEK_SET) == 0: break
+
+    @staticmethod
+    def createUopHash2(s: str) -> int:
+        eax = c_ulong(); ebx = c_ulong(); ecx = c_ulong(); edx = c_ulong()
+        esi = c_ulong(); edi = c_ulong()
+        length = len(s)
+        ebx.value = edi.value = esi.value = length + 0xDEADBEEF
+        for i in range(0, length, 12):
+            if not (i + 12 < length): break
+            edi.value = c_ulong((s[i + 7] << 24) | (s[i + 6] << 16) | (s[i + 5] << 8) | s[i + 4]).value + edi.value
+            esi.value = c_ulong((s[i + 11] << 24) | (s[i + 10] << 16) | (s[i + 9] << 8) | s[i + 8]).value + esi.value
+            edx.value = c_ulong((s[i + 3] << 24) | (s[i + 2] << 16) | (s[i + 1] << 8) | s[i]).value - esi.value
+            edx.value = (edx.value + ebx.value) ^ (esi.value >> 28) ^ (esi.value << 4); esi.value += edi.value
+            edi.value = (edi.value - edx.value) ^ (edx.value >> 26) ^ (edx.value << 6); edx.value += esi.value
+            esi.value = (esi.value - edi.value) ^ (edi.value >> 24) ^ (edi.value << 8); edi.value += edx.value
+            ebx.value = (edx.value - esi.value) ^ (esi.value >> 16) ^ (esi.value << 16); esi.value += edi.value
+            edi.value = (edi.value - ebx.value) ^ (ebx.value >> 13) ^ (ebx.value << 19); ebx.value += esi.value
+            esi.value = (esi.value - edi.value) ^ (edi.value >> 28) ^ (edi.value << 4); edi.value += ebx.value
+
+        length2 = length - i
+        if length2 > 0:
+            if length2 >= 12: esi.value += s[i + 11] << 24
+            if length2 >= 11: esi.value += s[i + 10] << 16
+            if length2 >= 10: esi.value += s[i + 9] << 8
+            if length2 >= 9: esi.value += s[i + 8]
+            if length2 >= 8: edi.value += s[i + 7] << 24
+            if length2 >= 7: edi.value += s[i + 6] << 16
+            if length2 >= 6: edi.value += s[i + 5] << 8
+            if length2 >= 5: edi.value += s[i + 4]
+            if length2 >= 4: ebx.value += s[i + 3] << 24
+            if length2 >= 3: ebx.value += s[i + 2] << 16
+            if length2 >= 2: ebx.value += s[i + 1] << 8
+            if length2 >= 1: ebx.value += s[i]
+            esi.value = (esi.value ^ edi.value) - ((edi.value >> 18) ^ (edi.value << 14))
+            ecx.value = (esi.value ^ ebx.value) - ((esi.value >> 21) ^ (esi.value << 11))
+            edi.value = (edi.value ^ ecx.value) - ((ecx.value >> 7) ^ (ecx.value << 25))
+            esi.value = (esi.value ^ edi.value) - ((edi.value >> 16) ^ (edi.value << 16))
+            edx.value = (esi.value ^ ecx.value) - ((esi.value >> 28) ^ (esi.value << 4))
+            edi.value = (edi.value ^ edx.value) - ((edx.value >> 18) ^ (edx.value << 14))
+            eax.value = (esi.value ^ edi.value) - ((edi.value >> 8) ^ (edi.value << 24))
+            return c_ulonglong(edi.value << 32).value | eax.value
+        return c_ulonglong(esi << 32).value | eax.value
 
     @staticmethod
     def createUopHash(s: str) -> int:
@@ -164,10 +206,77 @@ class PakBinary_UO(PakBinaryT):
     #region IDX
 
     def readIdx(self, source: BinaryPakFile, r: Reader):
-        pass
+        def parse():
+            match source.pakPath:
+                case 'anim.idx': return ('anim.mul', 0x40000, 6, lambda i: f'file{i:05x}.anim')
+                case 'anim2.idx': return ('anim2.mul', 0x10000, -1, lambda i: f'file{i:05x}.anim')
+                case 'anim3.idx': return ('anim3.mul', 0x20000, -1, lambda i: f'file{i:05x}.anim')
+                case 'anim4.idx': return ('anim4.mul', 0x20000, -1, lambda i: f'file{i:05x}.anim')
+                case 'anim5.idx': return ('anim5.mul', 0x20000, -1, lambda i: f'file{i:05x}.anim')
+                case 'artidx.mul': return ('art.mul', 0x14000, 4, lambda i: f'land/file{i:05x}.land' if i < 0x4000 else f'static/file{i:05x}.art')
+                case 'gumpidx.mul': return ('Gumpart.mul', 0xFFFF, 12, lambda i: f'file{i:05x}.tex')
+                case 'multi.idx': return ('multi.mul', 0x2200, 14, lambda i: f'file{i:05x}.multi')
+                case 'lightidx.mul': return ('light.mul', 0x4000, -1, lambda i: f'file{i:05x}.light')
+                case 'skills.idx': return ('Skills.mul', 55, 16, lambda i: f'file{i:05x}.skill')
+                case 'soundidx.mul': return ('sound.mul', 0x1000, 8, lambda i: f'file{i:05x}.wav')
+                case 'texidx.mul': return ('texmaps.mul', 0x4000, 10, lambda i: f'file{i:05x}.dat')
+                case _: raise Exception()
+        mulPath, length, fileId, pathFunc = parse()
+        source.pakPath = mulPath
+
+        # record count
+        self.count = r.length / 12
+
+        # load files
+        id = 0
+        files: list[FileSource] = []
+        source.files = files = [FileSource(
+            id = id,
+            path = pathFunc(id),
+            offset = s.offset,
+            fileSize = s.fileSize,
+            compressed = s.extra,
+            tag = (id := id + 1),
+            ) for s in r.readSArray(self.IdxFile, self.count)]
+
+        # fill with empty
+        for i in range(self.count, length):
+            files.append(FileSource(
+                id = i,
+                path = pathFunc(i),
+                offset = -1,
+                fileSize = -1,
+                compressed = -1,
+                ))
+
+        # apply patch
+        verdata = Binary_Verdata.instance
+        if verdata and fileId in verdata.patches:
+            patches = [patch for patch in verdata.patches[fileId] if patch.index > 0 and patch.index < len(files)]
+            for patch in patches:
+                file = files[patch.index]
+                file.offset = patch.offset
+                file.fileSize = patch.fileSize | (1 << 31)
+                file.compressed = patch.extra
+
+        # public static int Art_MaxItemId
+        #     => Art_Instance.Count >= 0x13FDC ? 0xFFDC // High Seas
+        #     : Art_Instance.Count == 0xC000 ? 0x7FFF // Stygian Abyss
+        #     : 0x3FFF; // ML and older
+
+        # public static bool Art_IsUOAHS
+        #     => Art_MaxItemId >= 0x13FDC;
+
+        # public static ushort Art_ClampItemId(int itemId, bool checkMaxId = true)
+        #     => itemId < 0 || (checkMaxId && itemId > Art_MaxItemId) ? (ushort)0U : (ushort)itemId;
 
     #endregion
 
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
-        pass
+        if file.offset < 0: return None
+        fileSize = file.fileSize & 0x7FFFFFFF
+        if (file.fileSize & (1 << 31)) != 0:
+            return Binary_Verdata.instance.readData(file.offset, fileSize)
+        r.seek(file.offset)
+        return BytesIO(r.read(fileSize))

@@ -1,5 +1,6 @@
 import os, re, struct, numpy as np
 from io import BytesIO
+from openstk.gfx_texture import ITexture, TextureGLFormat, TextureGLPixelFormat, TextureGLPixelType, TextureUnityFormat, TextureUnrealFormat
 from gamespecs.filesrc import FileSource
 from gamespecs.pak import PakBinary
 from gamespecs.meta import MetaInfo, MetaContent, IHaveMetaInfo
@@ -9,6 +10,7 @@ class Reader: pass
 class BinaryPakFile: pass
 class PakFile: pass
 class MetaManager: pass
+class TextureFlags: pass
 
 # Binary_Anim
 class Binary_Anim(IHaveMetaInfo):
@@ -423,24 +425,68 @@ class Binary_CalibrationInfo(IHaveMetaInfo):
         ]
 
 # Binary_Gump
-class Binary_Gump(IHaveMetaInfo):
+class Binary_Gump(IHaveMetaInfo, ITexture):
     @staticmethod
     def factory(r: Reader, f: FileSource, s: PakFile): return Binary_Gump(r, f.fileSize, f.compressed)
 
     #region Records
+    
+    format: list[object] = [
+            (TextureGLFormat.Rgba, TextureGLPixelFormat.Bgra, TextureGLPixelType.UnsignedShort1555Reversed),
+            (TextureGLFormat.Rgba, TextureGLPixelFormat.Bgra, TextureGLPixelType.UnsignedShort1555Reversed),
+            TextureUnityFormat.Unknown,
+            TextureUnrealFormat.Unknown
+            ]
 
     #endregion
 
     def __init__(self, r: Reader, length: int, extra: int):
-        width = self.Width = (extra >> 16) & 0xFFFF
-        height = self.Height = extra & 0xFFFF
+        width = self.width = (extra >> 16) & 0xFFFF
+        height = self.height = extra & 0xFFFF
+        self.pixels = []
         if width <= 0 | height <= 0: return
-        self.load(r.readBytes(length))
+        self.load(r.read(length), width, height)
+
+    def load(self, data: bytes, width: int, height: int) -> None:
+        bd = self.pixels = bytearray(width * height << 1)
+        lookup = np.frombuffer(data, dtype = np.int32); lookup_ = 0; 
+        dat = np.frombuffer(data, dtype = np.uint16)
+        line = 0
+        for y in range(0, height):
+            count = lookup[lookup_] << 1; lookup_ += 1
+            cur = line; end = line + width
+            while cur < end:
+                color = dat[count]; count += 1
+                next = cur + dat[count]; count += 1
+
+                if color == 0: cur = next
+                else:
+                    color ^= 0x8000
+                    cur2 = cur << 1
+                    while cur < next: bd[cur2:cur2+1] = color.tobytes(); cur += 1
+
+    data: dict[str, object] = None
+    width: int = 0
+    height: int = 0
+    depth: int = 0
+    mipMaps: int = 1
+    flags: TextureFlags = 0
+
+    def begin(self, platform: int) -> (bytes, object, list[object]):
+        match platform:
+            case Platform.Type.OpenGL: format = Binary_Gump.format[1]
+            case Platform.Type.Vulken: format = Binary_Gump.format[2]
+            case Platform.Type.Unity: format = Binary_Gump.format[3]
+            case Platform.Type.Unreal: format = Binary_Gump.format[4]
+            case _: raise Exception('Unknown {platform}')
+        return self.pixels, format, None
+    def end(self): pass
 
     def getInfoNodes(self, resource: MetaManager = None, file: FileSource = None, tag: object = None) -> list[MetaInfo]: return [
-        MetaInfo(None, MetaContent(type = 'Text', name = os.path.basename(file.path), value = 'XX File')),
-        MetaInfo('XX', items = [
-            # MetaInfo(f'Fonts: {len(self.fonts)}')
+        MetaInfo(None, MetaContent(type = 'Texture', name = os.path.basename(file.path), value = self)),
+        MetaInfo('Gump', items = [
+            MetaInfo(f'Width: {self.width}'),
+            MetaInfo(f'Height: {self.height}')
             ])
         ]
 
