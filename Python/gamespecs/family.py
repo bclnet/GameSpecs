@@ -300,6 +300,7 @@ class FamilyGame:
             f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'(*{":*".join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
         elif self.searchBy == 'TwoDir': return '*/*'
+        elif self.searchBy == 'DirDown': return '**/*'
         elif self.searchBy == 'AllDir': return '**/*'
         else: raise Exception(f'Unknown searchBy: {self.searchBy}')
 
@@ -310,12 +311,17 @@ class FamilyGame:
         if not searchPattern: return None
         pakFiles = []
         dlcKeys = [x[0] for x in self.dlcs.items() if x[1].path]
+        slash = '\\'
         for key in [None] + dlcKeys:
             for p in self.findPaths(fileSystem, edition, self.dlcs[key] if key else None, searchPattern):
                 if self.searchBy == 'Pak':
                     for path in p[1]:
-                        if self.isPakFile(path): pakFiles.append(self.createPakFileObj(fileSystem, edition, path))
-                else: pakFiles.append(self.createPakFileObj(fileSystem, edition, p))
+                        if self.isPakFile(path):
+                            pakFiles.append(self.createPakFileObj(fileSystem, edition, path))
+                else:
+                    pakFiles.append(self.createPakFileObj(fileSystem, edition,
+                        (p[0], [x for x in p[1] if x.find(slash) >= 0]) if self.searchBy == 'DirDown' else
+                        p))
         return FamilyGame.withPlatformGraphic(self.createPakFileObj(fileSystem, edition, pakFiles))
 
     # create createPakFileObj
@@ -347,6 +353,7 @@ class FamilyGame:
     def findPaths(self, fileSystem: IFileSystem, edition: Edition, dlc: DownloadableContent, searchPattern: str):
         ignores = self.family.fileManager.ignores
         gameIgnores = _value(ignores, self.id)
+        paths = [''] if dlc else self.paths or ['']
         for path in self.paths or ['']:
             searchPath = os.path.join(path, dlc.path) if dlc and dlc.path else path
             fileSearch = fileSystem.findPaths(searchPath, searchPattern)

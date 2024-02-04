@@ -1,5 +1,4 @@
-﻿using GameSpec.Formats;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,6 +8,15 @@ namespace GameSpec.Origin.Formats
 {
     public unsafe class PakBinary_U8 : PakBinary<PakBinary_U8>
     {
+        public static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => source.Path.ToLowerInvariant() switch
+            {
+                _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
+                {
+                    _ => (0, null),
+                }
+            };
+
         // Headers
         #region Headers
         // https://wiki.ultimacodex.com/wiki/Ultima_VIII_internal_formats
@@ -63,16 +71,19 @@ namespace GameSpec.Origin.Formats
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
-            var fn = Path.GetFileName(source.PakPath).ToLowerInvariant();
-            var nameToExt = NameToExts.FirstOrDefault(x => fn.Contains(x.name));
-            var ext = nameToExt.ext;
-            //
-            var header = r.ReadS<FLX_Header>(FLX_Header.Struct);
+            var fileName = Path.GetFileName(source.PakPath).ToLowerInvariant();
+            var nameToExt = NameToExts.FirstOrDefault(x => fileName.Contains(x.name));
+            var ext = nameToExt.ext ?? ".dat";
+
+            // read header
+            var header = r.ReadS<FLX_Header>();
             //var title = UnsafeX.ReadZASCII(header.Title, 80);
             r.Skip(9 * sizeof(int));
             if (header.Magic != MAGIC) throw new FormatException("BAD MAGIC");
+
+            // read files
             var id = 0;
-            source.Files = r.ReadSArray<FLX_Record>(FLX_Record.Struct, (int)header.Count)
+            source.Files = r.ReadSArray<FLX_Record>((int)header.Count)
                 .Where(s => s.Offset > 0 && s.Size > 0)
                 .Select(s => new FileSource
                 {

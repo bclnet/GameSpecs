@@ -29,7 +29,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "XESP": XESP = new REFRRecord.XESPField(r, dataSize); return true;
                 case "XMRC": XMRC = new FMIDField<REFRRecord>(r, dataSize); return true;
                 case "XHRS": XHRS = new FMIDField<ACRERecord>(r, dataSize); return true;
-                case "XSCL": XSCL = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                case "XSCL": XSCL = r.ReadS2<FLTVField>(dataSize); return true;
                 case "XRGD": XRGD = r.ReadBYTV(dataSize); return true;
                 default: return false;
             }

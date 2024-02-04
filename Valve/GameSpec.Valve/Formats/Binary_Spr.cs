@@ -99,7 +99,7 @@ namespace GameSpec.Formats
             Format = ((TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnityFormat.RGBA32);
 
             // read file
-            var header = r.ReadS<SPR_Header>(SPR_Header.Struct);
+            var header = r.ReadS<SPR_Header>();
             if (header.Signature != SPR_MAGIC) throw new FormatException("BAD MAGIC");
 
             // load palette
@@ -110,7 +110,7 @@ namespace GameSpec.Formats
             pixels = new byte[header.NumFrames][];
             for (var i = 0; i < header.NumFrames; i++)
             {
-                frames[i] = r.ReadS<SPR_Frame>(SPR_Frame.Struct);
+                frames[i] = r.ReadS<SPR_Frame>();
                 ref SPR_Frame frame = ref frames[i];
                 var pixelSize = frame.Width * frame.Height;
                 pixels[i] = r.ReadBytes(pixelSize);

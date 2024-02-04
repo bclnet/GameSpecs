@@ -13,6 +13,15 @@ class IFileSystem: pass
 # PakBinary_U8
 class PakBinary_U8(PakBinaryT):
 
+    #region Factories
+
+    @staticmethod
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
+        match source.path.lower():
+            pass
+
+    #endregion
+
     #region Headers
 
     #endregion

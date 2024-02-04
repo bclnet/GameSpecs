@@ -351,7 +351,7 @@ namespace GameSpec.Cig.Formats
                         object value;
                         switch (node.DataType)
                         {
-                            case EDataType.Reference: value = r.ReadS<Reference_>(Reference_.Struct); break;
+                            case EDataType.Reference: value = r.ReadS<Reference_>(); break;
                             case EDataType.Locale: value = ValueMap[r.ReadUInt32()]; break;
                             case EDataType.StrongPointer: Remap_Strong.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() }); continue;
                             case EDataType.WeakPointer: Remap_Weak2.Add(new Remap { Map = (v, i) => obj.Add(nodeName, v), StructIndex = (ushort)r.ReadUInt32(), Index = (int)r.ReadUInt32() }); continue;

@@ -76,7 +76,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 SizeVariance = r.ReadSingle();
                 AngleVariance = new Int3(r.ReadUInt16(), r.ReadUInt16(), r.ReadUInt16());
                 r.Skip(2); // Unused
-                VertexShading = r.ReadS2<ColorRef4>(ColorRef4.Struct, dataSize);
+                VertexShading = r.ReadS2<ColorRef4>(dataSize);
             }
         }
 
@@ -195,7 +195,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "ICON":
                 case "BNAM": ICON = r.ReadSTRV(dataSize); return true;
                 case "RCLR":
-                case "CNAM": RCLR = r.ReadS2<CREFField>(CREFField.Struct, dataSize); return true;
+                case "CNAM": RCLR = r.ReadS2<CREFField>(dataSize); return true;
                 case "SNAM": RDATs.Add(new RDATField { RDSDs = new[] { new RDSDField(r, dataSize, format) } }); return true;
                 case "RPLI": RPLIs.Add(new RPLIField(r, dataSize)); return true;
                 case "RPLD": RPLIs.Last().RPLDField(r, dataSize); return true;
@@ -207,7 +207,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "RDGS":
                     var rdgs = RDATs.Last().RDGSs = new RDGSField[dataSize / 8];
                     for (var i = 0; i < rdgs.Length; i++) rdgs[i] = new RDGSField(r, dataSize); return true;
-                case "RDMD": RDATs.Last().RDMD = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
+                case "RDMD": RDATs.Last().RDMD = r.ReadS2<UI32Field>(dataSize); return true;
                 case "RDSD":
                     var rdsd = RDATs.Last().RDSDs = new RDSDField[dataSize / 12];
                     for (var i = 0; i < rdsd.Length; i++) rdsd[i] = new RDSDField(r, dataSize, format); return true;

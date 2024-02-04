@@ -13,6 +13,21 @@ class IFileSystem: pass
 # PakBinary_U9
 class PakBinary_U9(PakBinaryT):
 
+    #region Factories
+
+    @staticmethod
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
+        match source.path.lower():
+            pass
+            # case 'animdata.mul': return (0, Binary_Animdata.factory)
+            # case _:
+            #     match _pathExtension(source.path).lower():
+            #         case '.anim': return (0, Binary_Anim.factory)
+            #         case '.tex': return (0, Binary_Gump.factory)
+            #         case _: (0, None)
+
+    #endregion
+
     #region Headers
 
     #endregion

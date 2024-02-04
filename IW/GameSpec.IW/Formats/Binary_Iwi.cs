@@ -199,7 +199,7 @@ namespace GameSpec.IW.Formats
                 magic <<= 8;
                 if (magic != HEADER.MAGIC) throw new FormatException($"Invalid IWI file magic: {magic}.");
                 if (version == VERSION.CODMW2) r.Seek(8);
-                header = r.ReadS<HEADER>(HEADER.Struct);
+                header = r.ReadS<HEADER>();
                 header.Verify();
 
                 // read mips offsets

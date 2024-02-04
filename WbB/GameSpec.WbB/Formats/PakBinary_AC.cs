@@ -109,7 +109,7 @@ namespace GameSpec.WbB.Formats
         public override Task<Stream> ReadData(BinaryPakFile source, BinaryReader r, FileSource file, FileOption option = default)
             => Task.FromResult((Stream)new MemoryStream(ReadBytes(r, file.Offset, (int)file.FileSize, (int)file.Hash)));
 
-        static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize)
+        static T ReadT<T>(BinaryReader r, long offset, int size, int blockSize) where T : struct
             => UnsafeX.MarshalT<T>(ReadBytes(r, offset, size, blockSize));
 
         static byte[] ReadBytes(BinaryReader r, long offset, int size, int blockSize)

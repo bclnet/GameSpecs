@@ -54,7 +54,7 @@ namespace GameSpec.Valve.Formats
             var files = source.Files = new List<FileSource>();
 
             // read file
-            var header = r.ReadS<WAD_Header>(WAD_Header.Struct);
+            var header = r.ReadS<WAD_Header>();
             if (header.Signature != WAD_MAGIC) throw new FormatException("BAD MAGIC");
             r.Seek(header.LumpOffset);
             var lumps = r.ReadTEach<WAD_Lump>(WAD_Lump.Struct.Item2, (int)header.LumpCount);

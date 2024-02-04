@@ -11,10 +11,10 @@
 //#define Epic
 //#define Frictional
 //#define Frontier
-//#define Id
+#define Id
 //#define IW
 //#define Monolith
-#define Origin
+//#define Origin
 //#define Red
 //#define Ubisoft
 //#define Unity
@@ -284,7 +284,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:*",
+            ForcePath = "sample:3",
             Family = "Id",
             Game = "Q", // Quake
             //Game = "Q2", // Quake II
@@ -344,6 +344,7 @@ namespace GameSpec
         {
             ForceOpen = true,
             ForcePath = "sample:6",
+            //ForcePath = "sample:13",
             Family = "Origin",
             //Game = "U8", // Ultima 8
             Game = "UO", // Ultima Online

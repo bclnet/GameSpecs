@@ -83,7 +83,7 @@ namespace GameSpec.Arkane.Formats
                 var tag1 = r.ReadL32Encoding();
                 var tag2 = r.ReadL32Encoding();
                 var path = (r.ReadL32Encoding() ?? "").Replace('\\', '/');
-                var file = r.ReadS<V_File>(V_File.Struct);
+                var file = r.ReadS<V_File>();
                 //var position = r.ReadUInt64E();
                 //var fileSize = r.ReadUInt32E();
                 //var packedSize = r.ReadUInt32E();

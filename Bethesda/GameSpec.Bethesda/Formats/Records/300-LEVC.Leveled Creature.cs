@@ -20,11 +20,11 @@ namespace GameSpec.Bethesda.Formats.Records
                 switch (type)
                 {
                     case "NAME": EDID = r.ReadSTRV(dataSize); return true;
-                    case "DATA": DATA = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
-                    case "NNAM": NNAM = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
-                    case "INDX": INDX = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
+                    case "DATA": DATA = r.ReadS2<IN32Field>(dataSize); return true;
+                    case "NNAM": NNAM = r.ReadS2<BYTEField>(dataSize); return true;
+                    case "INDX": INDX = r.ReadS2<IN32Field>(dataSize); return true;
                     case "CNAM": CNAMs.Add(r.ReadSTRV(dataSize)); return true;
-                    case "INTV": INTVs.Add(r.ReadS2<IN16Field>(IN16Field.Struct, dataSize)); return true;
+                    case "INTV": INTVs.Add(r.ReadS2<IN16Field>(dataSize)); return true;
                     default: return false;
                 }
             return false;

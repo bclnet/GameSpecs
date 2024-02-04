@@ -59,13 +59,13 @@ namespace GameSpec.Black.Formats
             var rgba32 = pallet.Rgba32;
 
             // parse header
-            var header = r.ReadS<FrmHeader>(FrmHeader.Struct);
+            var header = r.ReadS<FrmHeader>();
             var frames = new List<(FrmFrame f, byte[] b)>();
             var stream = r.BaseStream;
             for (var i = 0; i < 6 * header.FramesPerDirection && stream.Position < stream.Length; i++)
             {
                 var frameOffset = Header.FrameOffset[i];
-                var frame = r.ReadS<FrmFrame>(FrmFrame.Struct);
+                var frame = r.ReadS<FrmFrame>();
                 var data = r.ReadBytes((int)frame.Size);
                 var image = new byte[frame.Width * frame.Height * 4];
                 fixed (byte* image_ = image)

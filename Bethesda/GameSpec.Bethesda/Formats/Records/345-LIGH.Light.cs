@@ -38,7 +38,7 @@ namespace GameSpec.Bethesda.Formats.Records
                     Value = r.ReadInt32();
                     Time = r.ReadInt32();
                     Radius = r.ReadInt32();
-                    LightColor = r.ReadS2<ColorRef4>(ColorRef4.Struct, 4);
+                    LightColor = r.ReadS2<ColorRef4>(4);
                     Flags = r.ReadInt32();
                     FalloffExponent = 1;
                     FOV = 90;
@@ -46,7 +46,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 }
                 Time = r.ReadInt32();
                 Radius = r.ReadInt32();
-                LightColor = r.ReadS2<ColorRef4>(ColorRef4.Struct, 4);
+                LightColor = r.ReadS2<ColorRef4>(4);
                 Flags = r.ReadInt32();
                 if (dataSize == 32) { FalloffExponent = r.ReadSingle(); FOV = r.ReadSingle(); }
                 else { FalloffExponent = 1; FOV = 90; }
@@ -73,7 +73,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "EDID":
                 case "NAME": EDID = r.ReadSTRV(dataSize); return true;
                 case "FULL": FULL = r.ReadSTRV(dataSize); return true;
-                case "FNAM": if (format != BethesdaFormat.TES3) FNAM = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); else FULL = r.ReadSTRV(dataSize); return true;
+                case "FNAM": if (format != BethesdaFormat.TES3) FNAM = r.ReadS2<FLTVField>(dataSize); else FULL = r.ReadSTRV(dataSize); return true;
                 case "DATA":
                 case "LHDT": DATA = new DATAField(r, dataSize, format); return true;
                 case "SCPT": SCPT = r.ReadSTRV(dataSize); return true;

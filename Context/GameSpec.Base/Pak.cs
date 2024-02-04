@@ -980,7 +980,7 @@ namespace GameSpec
             FileSource File;
             BinaryPakFile Source;
 
-            public SubPakFile(BinaryPakFile source, FileSource file, string path, object tag = null) : base(new PakState(source.FileSystem, source.Game, source.Edition, path, tag), Instance)
+            public SubPakFile(BinaryPakFile source, FileSource file, string path, object tag = null, PakBinary instance = null) : base(new PakState(source.FileSystem, source.Game, source.Edition, path, tag), instance ?? Instance)
             {
                 File = file;
                 Source = source;

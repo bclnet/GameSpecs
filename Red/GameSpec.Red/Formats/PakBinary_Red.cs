@@ -454,7 +454,7 @@ namespace GameSpec.Red.Formats
             {
                 case KEY_MAGIC: // Signature("KEY ")
                     {
-                        var header = r.ReadS<KEY_Header>(KEY_Header.Struct);
+                        var header = r.ReadS<KEY_Header>();
                         if (header.Version != KEY_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
                         source.Files = files = new FileSource[header.NumFiles];
@@ -488,7 +488,7 @@ namespace GameSpec.Red.Formats
                     {
                         if (source.Tag == null) throw new FormatException("BIFF files can only be processed through KEY files");
                         var (keys, bifId) = ((Dictionary<(uint, uint), string> keys, uint bifId))source.Tag;
-                        var header = r.ReadS<BIFF_Header>(BIFF_Header.Struct);
+                        var header = r.ReadS<BIFF_Header>();
                         if (header.Version != BIFF_VERSION) throw new FormatException("BAD MAGIC");
                         source.Version = header.Version;
                         source.Files = files2 = new List<FileSource>();
@@ -515,7 +515,7 @@ namespace GameSpec.Red.Formats
                 // DZIP
                 case DZIP_MAGIC: // Signature("DZIP")
                     {
-                        var header = r.ReadS<DZIP_Header>(DZIP_Header.Struct);
+                        var header = r.ReadS<DZIP_Header>();
                         if (header.Version < 2) throw new FormatException("unsupported version");
                         source.Version = DZIP_VERSION;
                         source.Files = files = new FileSource[header.NumFiles];
@@ -533,7 +533,7 @@ namespace GameSpec.Red.Formats
                                 var nameBytesLength = pathBytes.Length - 1;
                                 path = Encoding.ASCII.GetString(pathBytes, 0, pathBytes[nameBytesLength] == 0 ? nameBytesLength : pathBytes.Length);
                             }
-                            var headerFile = r.ReadS<DZIP_HeaderFile>(DZIP_HeaderFile.Struct);
+                            var headerFile = r.ReadS<DZIP_HeaderFile>();
                             files[i] = new FileSource
                             {
                                 Path = path.Replace('\\', '/'),
@@ -565,13 +565,13 @@ namespace GameSpec.Red.Formats
                 case BUNDLE_MAGIC: // Signature("POTATO70")
                     {
                         if (r.ReadUInt32() != BUNDLE_MAGIC2) throw new FormatException("BAD MAGIC");
-                        var header = r.ReadS<BUNDLE_Header>(BUNDLE_Header.Struct);
+                        var header = r.ReadS<BUNDLE_Header>();
                         source.Version = BUNDLE_MAGIC;
                         source.Files = files = new FileSource[header.NumFiles];
 
                         // files
                         r.Seek(0x20);
-                        var headerFiles = r.ReadSArray<BUNDLE_HeaderFile>(BUNDLE_HeaderFile.Struct, header.NumFiles);
+                        var headerFiles = r.ReadSArray<BUNDLE_HeaderFile>(header.NumFiles);
                         for (var i = 0; i < header.NumFiles; i++)
                         {
                             var headerFile = headerFiles[i];
@@ -590,13 +590,13 @@ namespace GameSpec.Red.Formats
                 case RDAR_MAGIC: // Signature("RDAR")
                     {
                         var hashLookup = CP77.HashLookup;
-                        var header = r.ReadS<RDAR_Header>(RDAR_Header.Struct);
+                        var header = r.ReadS<RDAR_Header>();
                         if (header.Version != 12) throw new FormatException("unsupported version");
                         source.Version = RDAR_MAGIC;
                         r.Seek((long)header.TableOffset);
-                        var headerTable = r.ReadS<RDAR_HeaderTable>(RDAR_HeaderTable.Struct);
-                        var headerFiles = r.ReadSArray<RDAR_HeaderFile>(RDAR_HeaderFile.Struct, (int)headerTable.Table1Count);
-                        var headerOffsets = r.ReadSArray<RDAR_HeaderOffset>(RDAR_HeaderOffset.Struct, (int)headerTable.Table2Count);
+                        var headerTable = r.ReadS<RDAR_HeaderTable>();
+                        var headerFiles = r.ReadSArray<RDAR_HeaderFile>((int)headerTable.Table1Count);
+                        var headerOffsets = r.ReadSArray<RDAR_HeaderOffset>((int)headerTable.Table2Count);
                         //var headerHashs = r.ReadTArray<ulong>(sizeof(ulong), (int)headerTable.Table3Count);
                         source.Files = files2 = new List<FileSource>();
                         var nameHashs = new HashSet<ulong>();
@@ -622,7 +622,7 @@ namespace GameSpec.Red.Formats
                         {
                             source.Version = 'T';
                             r.Seek(r.BaseStream.Length - 20);
-                            var header = r.ReadS<CACHE_TEX_Header>(CACHE_TEX_Header.Struct);
+                            var header = r.ReadS<CACHE_TEX_Header>();
                             Assert(header.Unk1 == 1415070536);
                             Assert(header.Unk2 == 6);
                             source.Files = files = new FileSource[header.NumFiles];
@@ -638,7 +638,7 @@ namespace GameSpec.Red.Formats
                             for (var i = 0; i < header.NumFiles; i++) filePaths[i] = r.ReadZAString(1000);
 
                             // file block
-                            var headerFiles = r.ReadSArray<CACHE_TEX_HeaderFile>(CACHE_TEX_HeaderFile.Struct, (int)header.NumFiles);
+                            var headerFiles = r.ReadSArray<CACHE_TEX_HeaderFile>((int)header.NumFiles);
                             for (var i = 0; i < header.NumFiles; i++)
                                 files[i] = new FileSource
                                 {
@@ -653,8 +653,8 @@ namespace GameSpec.Red.Formats
                         {
                             var version = r.ReadUInt32();
                             var header = version >= 2
-                                ? r.ReadS<CACHE_CS3W_Header>(CACHE_CS3W_Header.Struct)
-                                : r.ReadS<CACHE_CS3W_HeaderV1>(CACHE_CS3W_HeaderV1.Struct).ToHeader();
+                                ? r.ReadS<CACHE_CS3W_Header>()
+                                : r.ReadS<CACHE_CS3W_HeaderV1>().ToHeader();
                             r.Seek((long)header.NameOffset);
                             var name = r.ReadFString((int)header.NameSize);
                         }

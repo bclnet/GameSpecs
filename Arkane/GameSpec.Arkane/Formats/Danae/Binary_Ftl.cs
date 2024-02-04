@@ -208,13 +208,13 @@ namespace GameSpec.Arkane.Formats.Danae
             var version = r.ReadSingle();
             if (version != FTL_VERSION) throw new FormatException($"Invalid FLT version: \"{version}\".");
             r.Skip(512); // skip checksum
-            var header = r.ReadS<FTL_HEADER>(FTL_HEADER.Struct);
+            var header = r.ReadS<FTL_HEADER>();
 
             // Check For & Load 3D Data
             if (header.Offset3Ddata != -1)
             {
                 r.Seek(header.Offset3Ddata);
-                var _3Dh = r.ReadS<FTL_3DHEADER>(FTL_3DHEADER.Struct);
+                var _3Dh = r.ReadS<FTL_3DHEADER>();
                 Obj.NumVertex = _3Dh.NumVertex;
                 Obj.NumFaces = _3Dh.NumFaces;
                 Obj.NumMaps = _3Dh.NumMaps;
@@ -279,7 +279,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 // Alloc'n'Copy selections
                 if (_3Dh.NumSelections > 0)
                 {
-                    var selections = r.ReadFArray(x => r.ReadS<FTL_SELECTIONS>(FTL_SELECTIONS.Struct), _3Dh.NumSelections);
+                    var selections = r.ReadFArray(x => r.ReadS<FTL_SELECTIONS>(), _3Dh.NumSelections);
                     Obj.Selections = new E_SELECTIONS[_3Dh.NumSelections];
                     for (var i = 0; i < Obj.Selections.Length; i++)
                     {
@@ -293,7 +293,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (header.OffsetCollisionSpheres != -1)
             {
                 r.Seek(header.OffsetCollisionSpheres);
-                var csh = r.ReadS<FTL_COLLISIONSPHERESHEADER>(FTL_COLLISIONSPHERESHEADER.Struct);
+                var csh = r.ReadS<FTL_COLLISIONSPHERESHEADER>();
                 Obj.Sdata = new COLLISION_SPHERES_DATA
                 {
                     NumSpheres = csh.NumSpheres,
@@ -305,7 +305,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (header.OffsetProgressiveData != -1)
             {
                 r.Seek(header.OffsetProgressiveData);
-                var ph = r.ReadS<FTL_PROGRESSIVEHEADER>(FTL_PROGRESSIVEHEADER.Struct);
+                var ph = r.ReadS<FTL_PROGRESSIVEHEADER>();
                 r.Skip(sizeof(PROGRESSIVE_DATA) * ph.NumVertex);
             }
 
@@ -313,7 +313,7 @@ namespace GameSpec.Arkane.Formats.Danae
             if (header.OffsetClothesData != -1)
             {
                 r.Seek(header.OffsetClothesData);
-                var ch = r.ReadS<FTL_CLOTHESHEADER>(FTL_CLOTHESHEADER.Struct);
+                var ch = r.ReadS<FTL_CLOTHESHEADER>();
                 Obj.Cdata = new CLOTHES_DATA
                 {
                     NumCvert = (short)ch.NumCvert,

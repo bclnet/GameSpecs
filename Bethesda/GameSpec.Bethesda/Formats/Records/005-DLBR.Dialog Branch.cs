@@ -13,7 +13,7 @@ namespace GameSpec.Bethesda.Formats.Records
             switch (type)
             {
                 case "EDID": EDID = r.ReadSTRV(dataSize); return true;
-                case "CNAME": CNAME = r.ReadS2<CREFField>(CREFField.Struct, dataSize); return true;
+                case "CNAME": CNAME = r.ReadS2<CREFField>(dataSize); return true;
                 default: return false;
             }
         }

@@ -15,6 +15,42 @@ class IFileSystem: pass
 # PakBinary_UO
 class PakBinary_UO(PakBinaryT):
 
+    #region Factories
+
+    @staticmethod
+    def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
+        match source.path.lower():
+            case 'animdata.mul': return (0, Binary_Animdata.factory)
+            case 'fonts.mul': return (0, Binary_AsciiFont.factory)
+            case 'bodyconv.def': return (0, Binary_BodyConverter.factory)
+            case 'body.def': return (0, Binary_BodyTable.factory)
+            case 'calibration.cfg': return (0, Binary_CalibrationInfo.factory)
+            case 'gump.def': return (0, Binary_GumpDef.factory)
+            case 'hues.mul': return (0, Binary_Hues.factory)
+            case 'mobtypes.txt': return (0, Binary_MobType.factory)
+            case x if x == 'multimap.rle' or x.startswith('facet') == 'facet': return (0, Binary_MultiMap.factory)
+            case 'music/digital/config.txt': return (0, Binary_MusicDef.factory)
+            case 'radarcol.mul': return (0, Binary_RadarColor.factory)
+            case 'skillgrp.mul': return (0, Binary_SkillGroups.factory)
+            case 'speech.mul': return (0, Binary_SpeechList.factory)
+            case 'tiledata.mul': return (0, Binary_TileData.factory)
+            case x if x.startswith('cliloc'): return (0, Binary_StringTable.factory)
+            case 'verdata.mul': return (0, Binary_Verdata.factory)
+            # server
+            case 'data/containers.cfg': return (0, ServerBinary_Container.factory)
+            case 'data/bodytable.cfg': return (0, ServerBinary_BodyTable.factory)
+            case _:
+                match _pathExtension(source.path).lower():
+                    case '.anim': return (0, Binary_Anim.factory)
+                    case '.tex': return (0, Binary_Gump.factory)
+                    case '.land': return (0, Binary_Land.factory)
+                    case '.light': return (0, Binary_Light.factory)
+                    case '.art': return (0, Binary_Static.factory)
+                    case '.multi': return (0, Binary_Multi.factory)
+                    case _: (0, None)
+
+    #endregion
+
     #region Headers
 
     class IdxFile:

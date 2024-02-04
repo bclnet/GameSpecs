@@ -35,6 +35,7 @@ namespace GameSpec
             Pak,
             TopDir,
             TwoDir,
+            DirDown,
             AllDir,
         }
 
@@ -998,16 +999,20 @@ namespace GameSpec
             if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
             var dlcKeys = Dlcs.Where(x => !string.IsNullOrEmpty(x.Value.Path)).Select(x => x.Key).ToArray();
+            var slash = '\\';
             foreach (var key in (new string[] { null }).Concat(dlcKeys))
                 foreach (var p in FindPaths(fileSystem, edition, key != null ? Dlcs[key] : null, searchPattern))
                     switch (SearchBy)
                     {
                         case SearchBy.Pak:
                             foreach (var path in p.paths)
-                                if (IsPakFile(path)) pakFiles.Add(CreatePakFileObj(fileSystem, edition, path));
+                                if (IsPakFile(path))
+                                    pakFiles.Add(CreatePakFileObj(fileSystem, edition, path));
                             break;
                         default:
-                            pakFiles.Add(CreatePakFileObj(fileSystem, edition, p));
+                            pakFiles.Add(CreatePakFileObj(fileSystem, edition,
+                                SearchBy == SearchBy.DirDown ? (p.root, p.paths.Where(x => x.Contains(slash)).ToArray())
+                                : p));
                             break;
                     }
             return WithPlatformGraphic(CreatePakFileObj(fileSystem, edition, pakFiles));
@@ -1065,7 +1070,8 @@ namespace GameSpec
         public IEnumerable<(string root, string[] paths)> FindPaths(IFileSystem fileSystem, Edition edition, DownloadableContent dlc, string searchPattern)
         {
             var gameIgnores = Family.FileManager.Ignores.TryGetValue(Id, out var z) ? z : null;
-            foreach (var path in Paths ?? new[] { "" })
+            var paths = dlc != null ? new[] { "" } : Paths ?? new[] { "" };
+            foreach (var path in paths)
             {
                 var searchPath = dlc?.Path != null ? Path.Join(path, dlc.Path) : path;
                 var fileSearch = fileSystem.FindPaths(searchPath, searchPattern);
@@ -1089,15 +1095,10 @@ namespace GameSpec
                     : PakExts.Length == 1 ? $"*{PakExts[0]}" : $"(*{string.Join(":*", PakExts)})",
                 SearchBy.TopDir => "*",
                 SearchBy.TwoDir => "*/*",
+                SearchBy.DirDown => "**/*",
                 SearchBy.AllDir => "**/*",
                 _ => throw new ArgumentOutOfRangeException(nameof(SearchBy), $"{SearchBy}"),
             };
-            //string ext;
-            //if (string.IsNullOrEmpty(searchPattern)) {
-            //    string.Join(PakEtxs).Select(x => x)
-            //        }
-            //    : !string.IsNullOrEmpty(ext = Path.GetExtension(searchPattern)) ? PakEtxs?.Select(x => x + ext).ToArray()
-            //    : new string[] { searchPattern };
         }
 
         #endregion

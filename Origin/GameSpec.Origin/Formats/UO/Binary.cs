@@ -86,7 +86,7 @@ namespace GameSpec.Origin.Formats.UO
             for (var i = 0; i < length; i++)
             {
                 r.Skip(4);
-                var records = r.ReadSArray<AnimRecord>(AnimRecord.Struct, 8);
+                var records = r.ReadSArray<AnimRecord>(8);
                 for (var j = 0; j < 8; j++, id++)
                 {
                     ref AnimRecord record = ref records[j];
@@ -985,7 +985,7 @@ namespace GameSpec.Origin.Formats.UO
             for (var i = 0; i < blockCount; ++i)
             {
                 r.Skip(4);
-                var records = r.ReadSArray<HueRecord>(HueRecord.Struct, 8);
+                var records = r.ReadSArray<HueRecord>(8);
                 for (var j = 0; j < 8; j++, id++)
                     Records[id] = new Record(id, ref records[j]);
             }
@@ -1121,12 +1121,10 @@ namespace GameSpec.Origin.Formats.UO
                 if (width <= 0 || height <= 0) return;
 
                 var bd = Pixels = new byte[width * height << 1];
-                var bd_Stride = width << 1;
+                var delta = width;
                 fixed (byte* bd_Scan0 = bd)
                 {
                     var line = (ushort*)bd_Scan0;
-                    var delta = bd_Stride >> 1;
-
                     for (var y = 0; y < height; ++y, line += delta)
                     {
                         ushort* cur = line, end = cur + width;
@@ -1516,8 +1514,8 @@ namespace GameSpec.Origin.Formats.UO
         {
             length &= 0x7FFFFFFF;
             SortedTiles = newFormat
-                ? r.ReadSArray<MultiRecordV1>(MultiRecordV1.Struct, length / 16).Select(x => new Record(ref x)).ToArray()
-                : r.ReadSArray<MultiRecordV2>(MultiRecordV1.Struct, length / 12).Select(x => new Record(ref x)).ToArray();
+                ? r.ReadSArray<MultiRecordV1>(length / 16).Select(x => new Record(ref x)).ToArray()
+                : r.ReadSArray<MultiRecordV2>(length / 12).Select(x => new Record(ref x)).ToArray();
             foreach (var e in SortedTiles)
             {
                 if (e.OffsetX < Min.X) Min.X = e.OffsetX;
@@ -2248,8 +2246,8 @@ namespace GameSpec.Origin.Formats.UO
 
     public unsafe class Binary_Verdata : IHaveMetaInfo
     {
-        public static Binary_Verdata Instance;
         public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Verdata(r, (BinaryPakFile)s));
+        public static Binary_Verdata Instance;
 
         #region Records
 
@@ -2276,7 +2274,7 @@ namespace GameSpec.Origin.Formats.UO
         public Binary_Verdata(BinaryReader r, BinaryPakFile s)
         {
             PakFile = s;
-            Patches = r.ReadL32SArray<Patch>(Patch.Struct).GroupBy(x => x.File).ToDictionary(x => x.Key, x => x.ToArray());
+            Patches = r.ReadL32SArray<Patch>().GroupBy(x => x.File).ToDictionary(x => x.Key, x => x.ToArray());
             Instance = this;
         }
 

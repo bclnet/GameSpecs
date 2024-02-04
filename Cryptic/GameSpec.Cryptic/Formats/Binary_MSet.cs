@@ -134,7 +134,7 @@ namespace GameSpec.Cryptic.Formats
         public Binary_MSet(BinaryReader r)
         {
             string p;
-            var header = r.ReadS<Header>(Header.Struct);
+            var header = r.ReadS<Header>();
             var mh = new MSetFileHeader
             {
                 HeaderSize = header.HeaderSize,
@@ -143,7 +143,7 @@ namespace GameSpec.Cryptic.Formats
                 ModelDefinitions = r.ReadL16FArray(r1 => new MSetModelDefinition
                 {
                     ModelName = r1.ReadL16AString(endian: true),
-                    ModelOffsets = r1.ReadL16SArray<MSetModelOffset>(MSetModelOffset.Struct, endian: true),
+                    ModelOffsets = r1.ReadL16SArray<MSetModelOffset>(endian: true),
                 }, endian: true)
             };
             r.Skip(3 * sizeof(int));
@@ -162,7 +162,7 @@ namespace GameSpec.Cryptic.Formats
             {
                 if (offset.Offset <= 0) return null;
                 r.Seek(offset.Offset);
-                var m = r.ReadS<ModelOffset>(ModelOffset.Struct);
+                var m = r.ReadS<ModelOffset>();
                 return new MSetModel
                 {
                     DataSize = m.DataSize,
@@ -173,7 +173,7 @@ namespace GameSpec.Cryptic.Formats
                     StdDevTexelDensity = m.StdDevTexelDensity,
                     ProcessTimeFlags = m.ProcessTimeFlags,
                     Unknown1C = m.Unknown1C,
-                    ModelDataOffsets = r.ReadSArray<ModelDataOffset>(ModelDataOffset.Struct, 12).Select(x => new MSetModelDataOffset
+                    ModelDataOffsets = r.ReadSArray<ModelDataOffset>(12).Select(x => new MSetModelDataOffset
                     {
                         CompressedSize = x.CompressedSize,
                         DecompressedSize = Math.Abs(x.DecompressedSize),

@@ -37,9 +37,9 @@ namespace GameSpec.Bethesda.Formats.Records
             switch (type)
             {
                 case "EDID": EDID = r.ReadSTRV(dataSize); return true;
-                case "LVLD": LVLD = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
-                case "LVLF": LVLF = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
-                case "DATA": DATA = r.ReadS2<BYTEField>(BYTEField.Struct, dataSize); return true;
+                case "LVLD": LVLD = r.ReadS2<BYTEField>(dataSize); return true;
+                case "LVLF": LVLF = r.ReadS2<BYTEField>(dataSize); return true;
+                case "DATA": DATA = r.ReadS2<BYTEField>(dataSize); return true;
                 case "LVLO": LVLOs.Add(new LVLOField(r, dataSize)); return true;
                 default: return false;
             }

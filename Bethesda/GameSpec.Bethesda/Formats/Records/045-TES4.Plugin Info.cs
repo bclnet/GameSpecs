@@ -28,7 +28,7 @@ namespace GameSpec.Bethesda.Formats.Records
         {
             switch (type)
             {
-                case "HEDR": HEDR = r.ReadS2<HEDRField>(HEDRField.Struct, dataSize); return true;
+                case "HEDR": HEDR = r.ReadS2<HEDRField>(dataSize); return true;
                 case "OFST": r.Skip(dataSize); return true;
                 case "DELE": r.Skip(dataSize); return true;
                 case "CNAM": CNAM = r.ReadSTRV(dataSize); return true;
@@ -36,8 +36,8 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "MAST": if (MASTs == null) MASTs = new List<STRVField>(); MASTs.Add(r.ReadSTRV(dataSize)); return true;
                 case "DATA": if (DATAs == null) DATAs = new List<INTVField>(); DATAs.Add(r.ReadINTV(dataSize)); return true;
                 case "ONAM": ONAM = r.ReadUNKN(dataSize); return true;
-                case "INTV": INTV = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
-                case "INCC": INCC = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
+                case "INTV": INTV = r.ReadS2<IN32Field>(dataSize); return true;
+                case "INCC": INCC = r.ReadS2<IN32Field>(dataSize); return true;
                 // TES5
                 case "TNAM": TNAM = r.ReadUNKN(dataSize); return true;
                 default: return false;

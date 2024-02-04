@@ -252,7 +252,7 @@ namespace GameSpec.Arkane.Formats.Danae
         public Binary_Fts(BinaryReader r)
         {
             int i, j, k, kk;
-            var header = r.ReadS<FTS_HEADER>(FTS_HEADER.Struct);
+            var header = r.ReadS<FTS_HEADER>();
             if (header.Version != FTS_VERSION) throw new FormatException("BAD MAGIC");
             //Log($"Header1: {r.Position():x}, {header.Path}");
             if (header.Count > 0)
@@ -260,7 +260,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 var count = 0;
                 while (count < header.Count)
                 {
-                    r.ReadS<FTS_HEADER2>(FTS_HEADER2.Struct);
+                    r.ReadS<FTS_HEADER2>();
                     r.Skip(512); // skip check
                     //Log($"Unique[{count}]: {r.Position():x}");
                     count++;
@@ -275,7 +275,7 @@ namespace GameSpec.Arkane.Formats.Danae
             using var r2 = new BinaryReader(s);
 
             // read
-            var fsh = r2.ReadS<FAST_SCENE_HEADER>(FAST_SCENE_HEADER.Struct);
+            var fsh = r2.ReadS<FAST_SCENE_HEADER>();
             if (fsh.Version != FTS_VERSION) throw new FormatException("BAD MAGIC");
             if (fsh.SizeX != Bkg.XSize) throw new FormatException("BAD HEADER");
             if (fsh.SizeZ != Bkg.ZSize) throw new FormatException("BAD HEADER");
@@ -287,7 +287,7 @@ namespace GameSpec.Arkane.Formats.Danae
             var textures = Level.Textures = new E_TEXTURE[fsh.NumTextures];
             for (k = 0; k < textures.Length; k++)
             {
-                var ftc = r2.ReadS<FAST_TEXTURE_CONTAINER>(FAST_TEXTURE_CONTAINER.Struct);
+                var ftc = r2.ReadS<FAST_TEXTURE_CONTAINER>();
                 textures[k] = new E_TEXTURE { Id = ftc.TcPtr, Path = ftc.Fic };
             }
             //Log($"Texture: {r2.Position():x}");
@@ -298,7 +298,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (i = 0; i < fsh.SizeX; i++)
                 {
                     ref E_BKG_INFO bi = ref backg[i + j * fsh.SizeX];
-                    var fsi = r2.ReadS<FAST_SCENE_INFO>(FAST_SCENE_INFO.Struct);
+                    var fsi = r2.ReadS<FAST_SCENE_INFO>();
                     //if (fsi.NumPoly > 0) Log($"F[{j},{i}]: {r2.Position():x}, {fsi.NumPoly}, {fsi.NumIAnchors}");
                     bi.NumIAnchors = (short)fsi.NumIAnchors;
                     bi.NumPoly = (short)fsi.NumPoly;
@@ -309,7 +309,7 @@ namespace GameSpec.Arkane.Formats.Danae
                     bi.FrustrumMinY = 99999999f;
                     for (k = 0; k < fsi.NumPoly; k++)
                     {
-                        var ep = r2.ReadS<FAST_EERIEPOLY>(FAST_EERIEPOLY.Struct);
+                        var ep = r2.ReadS<FAST_EERIEPOLY>();
                         var tex = ep.TexPtr != 0
                             ? textures.FirstOrDefault(x => x.Id == ep.TexPtr)
                             : null;
@@ -390,7 +390,7 @@ namespace GameSpec.Arkane.Formats.Danae
             for (i = 0; i < fsh.NumAnchors; i++)
             {
                 ref ANCHOR_DATA a = ref anchors[i];
-                var fad = r2.ReadS<FAST_ANCHOR_DATA>(FAST_ANCHOR_DATA.Struct);
+                var fad = r2.ReadS<FAST_ANCHOR_DATA>();
                 a.Flags = fad.Flags;
                 a.Pos = fad.Pos;
                 a.NumLinked = fad.NumLinked;
@@ -414,7 +414,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (i = 0; i < portals.NumTotal; i++)
                 {
                     ref E_PORTALS p = ref levelPortals[i];
-                    var epo = r2.ReadS<E_SAVE_PORTALS>(E_SAVE_PORTALS.Struct);
+                    var epo = r2.ReadS<E_SAVE_PORTALS>();
                     p.memset();
                     p.Room1 = epo.Room1;
                     p.Room2 = epo.Room2;
@@ -437,7 +437,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (i = 0; i < portals.NumRooms + 1; i++)
                 {
                     var rd = portals.Room[i] = new E_ROOM_DATA();
-                    var erd = r2.ReadS<E_SAVE_ROOM_DATA>(E_SAVE_ROOM_DATA.Struct);
+                    var erd = r2.ReadS<E_SAVE_ROOM_DATA>();
                     rd.NumPortals = erd.NumPortals;
                     rd.NumPolys = erd.NumPolys;
                     rd.Portals = rd.NumPortals > 0
@@ -457,7 +457,7 @@ namespace GameSpec.Arkane.Formats.Danae
                 for (var n = 0; n < numRoomDistance; n++)
                     for (var m = 0; m < numRoomDistance; m++)
                     {
-                        var rdds = r2.ReadS<ROOM_DIST_DATA_SAVE>(ROOM_DIST_DATA_SAVE.Struct);
+                        var rdds = r2.ReadS<ROOM_DIST_DATA_SAVE>();
                         SetRoomDistance(Level, m, n, rdds.Distance, ref rdds.StartPos, ref rdds.EndPos);
                     }
             }

@@ -288,7 +288,7 @@ namespace GameSpec.IW.Formats
                     {
                         source.Magic = (int)Magic.FF;
 
-                        var header = r.ReadS<FF_Header>(FF_Header.Struct);
+                        var header = r.ReadS<FF_Header>();
                         if (header.Magic != FF_MAGIC.IWff && header.Magic != FF_MAGIC.S1ff && header.Magic != FF_MAGIC.TAff) throw new FormatException($"Bad magic {header.Magic}");
                         if (header.Format != FF_FORMAT.U100 && header.Format != FF_FORMAT._100 && header.Format != FF_FORMAT.A100 && header.Format != FF_FORMAT._000) throw new FormatException($"Bad format {header.Format}");
 
@@ -322,7 +322,7 @@ namespace GameSpec.IW.Formats
                 case ".xpak":
                     {
                         source.Magic = (int)Magic.XPAK;
-                        var header = r.ReadS<XPAK_Header>(XPAK_Header.Struct);
+                        var header = r.ReadS<XPAK_Header>();
                         // Verify the magic and offset
                         if (header.Magic != XPAK_MAGIC) throw new FormatException("Bad magic");
                         var type = header.Version == 0x1 ? r.ReadUInt64() : 0;
@@ -330,7 +330,7 @@ namespace GameSpec.IW.Formats
                         var unknownHashes = header.Version == 0x1 ? r.ReadBytes(1896) : null;
                         var fileCount = r.ReadUInt64();
                         if (header.Version == 0xD) r.Skip(288); // If MW4 we need to skip the new bytes
-                        var body = r.ReadS<XPAK_Body>(XPAK_Body.Struct);
+                        var body = r.ReadS<XPAK_Body>();
                         // Verify the magic and offset
                         if (body.HashOffset >= (ulong)r.BaseStream.Length) throw new FormatException("Bad magic");
 

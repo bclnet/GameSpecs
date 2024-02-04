@@ -26,16 +26,26 @@ namespace GameSpec.Id
         #region Factories
 
         static PakBinary GetPakBinary(FamilyGame game, string filePath)
-            => filePath == null || Path.GetExtension(filePath).ToLowerInvariant() != ".zip"
-                ? PakBinary_Wad.Instance
-                : PakBinary_Zip.GetPakBinary(game);
+             => Path.GetExtension(filePath).ToLowerInvariant() switch
+             {
+                 ".zip" => PakBinary_Zip.GetPakBinary(game),
+                 ".pak" => PakBinary_Pak.Instance,
+                 ".wad" => PakBinary_Wad.Instance,
+                 _ => throw new ArgumentOutOfRangeException(),
+             };
 
         public static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
-            => Path.GetExtension(source.Path).ToLowerInvariant() switch
+            => game.Id switch
             {
-                ".dds" => (0, Binary_Dds.Factory),
-                _ => (0, null),
+                "Q" => PakBinary_Pak.ObjectFactoryFactory(source, game),
+                _ => throw new ArgumentOutOfRangeException(),
             };
+            //=> Path.GetExtension(source.Path).ToLowerInvariant() switch
+            //{
+            //    ".wav" => (0, Binary_Snd.Factory),
+            //    ".dds" => (0, Binary_Dds.Factory),
+            //    _ => (0, null),
+            //};
 
         #endregion
 

@@ -162,7 +162,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "AI_A": AI_A = new CREARecord.AI_AField(r, dataSize); return true;
                 case "DODT": DODT = new DODTField(r, dataSize); return true;
                 case "DNAM": DNAM = r.ReadSTRV(dataSize); return true;
-                case "XSCL": XSCL = r.ReadS2<FLTVField>(FLTVField.Struct, dataSize); return true;
+                case "XSCL": XSCL = r.ReadS2<FLTVField>(dataSize); return true;
                 case "SCRI": SCRI = new FMIDField<SCPTRecord>(r, dataSize); return true;
                 default: return false;
             }

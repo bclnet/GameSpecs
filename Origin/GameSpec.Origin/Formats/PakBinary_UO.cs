@@ -1,8 +1,6 @@
-﻿using GameSpec.Formats;
-using GameSpec.Origin.Formats.UO;
+﻿using GameSpec.Origin.Formats.UO;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,7 +12,45 @@ namespace GameSpec.Origin.Formats
     {
         public static PakFile Art_Instance = Games.UO.Database.PakFile?.GetFileSource("artLegacyMUL.uop").Pak;
 
-        // Headers
+        #region Factories
+
+        public static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
+            => source.Path.ToLowerInvariant() switch
+            {
+                "animdata.mul" => (0, Binary_Animdata.Factory),
+                "fonts.mul" => (0, Binary_AsciiFont.Factory),
+                "bodyconv.def" => (0, Binary_BodyConverter.Factory),
+                "body.def" => (0, Binary_BodyTable.Factory),
+                "calibration.cfg" => (0, Binary_CalibrationInfo.Factory),
+                "gump.def" => (0, Binary_GumpDef.Factory),
+                "hues.mul" => (0, Binary_Hues.Factory),
+                "mobtypes.txt" => (0, Binary_MobType.Factory),
+                var x when x == "multimap.rle" || x.StartsWith("facet") => (0, Binary_MultiMap.Factory),
+                "music/digital/config.txt" => (0, Binary_MusicDef.Factory),
+                "radarcol.mul" => (0, Binary_RadarColor.Factory),
+                "skillgrp.mul" => (0, Binary_SkillGroups.Factory),
+                "speech.mul" => (0, Binary_SpeechList.Factory),
+                "tiledata.mul" => (0, Binary_TileData.Factory),
+                var x when x.StartsWith("cliloc") => (0, Binary_StringTable.Factory),
+                "verdata.mul" => (0, Binary_Verdata.Factory),
+                // server
+                "data/containers.cfg" => (0, ServerBinary_Container.Factory),
+                "data/bodytable.cfg" => (0, ServerBinary_BodyTable.Factory),
+                _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
+                {
+                    ".anim" => (0, Binary_Anim.Factory),
+                    ".tex" => (0, Binary_Gump.Factory),
+                    ".land" => (0, Binary_Land.Factory),
+                    ".light" => (0, Binary_Light.Factory),
+                    ".art" => (0, Binary_Static.Factory),
+                    ".multi" => (0, Binary_Multi.Factory),
+                    //".mul" => (0, Binary_Ignore.Factory($"refer to {source.Path[..^4]}.idx")),
+                    _ => (0, null),
+                }
+            };
+
+        #endregion
+
         #region Headers
 
         [StructLayout(LayoutKind.Sequential, Pack = 0x1)]
@@ -84,7 +120,7 @@ namespace GameSpec.Origin.Formats
             var uopPattern = Path.GetFileNameWithoutExtension(source.PakPath).ToLowerInvariant();
 
             // read header
-            var header = r.ReadS<UopHeader>(UopHeader.Struct);
+            var header = r.ReadS<UopHeader>();
             if (header.Magic != UOP_MAGIC) throw new FormatException("BAD MAGIC");
 
             // record count
@@ -116,7 +152,7 @@ namespace GameSpec.Origin.Formats
                 nextBlock = r.ReadInt64();
                 for (var i = 0; i < filesCount; i++)
                 {
-                    var record = r.ReadS<UopRecord>(UopRecord.Struct);
+                    var record = r.ReadS<UopRecord>();
                     if (record.Offset == 0 || !hashes.TryGetValue(record.Hash, out var idx)) continue;
                     if (idx < 0 || idx > files.Length)
                         throw new IndexOutOfRangeException("hashes dictionary and files collection have different count of entries!");
@@ -245,7 +281,7 @@ namespace GameSpec.Origin.Formats
             // load files
             var id = 0;
             List<FileSource> files;
-            source.Files = files = r.ReadSArray<IdxFile>(IdxFile.Struct, Count).Select(s => new FileSource
+            source.Files = files = r.ReadSArray<IdxFile>(Count).Select(s => new FileSource
             {
                 Id = id,
                 Path = pathFunc(id++),

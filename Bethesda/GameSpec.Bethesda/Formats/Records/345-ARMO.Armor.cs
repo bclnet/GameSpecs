@@ -81,7 +81,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "CNAM": INDXs.Last().CNAM = r.ReadSTRV(dataSize); return true;
                 case "SCRI": SCRI = new FMIDField<SCPTRecord>(r, dataSize); return true;
                 case "ENAM": ENAM = new FMIDField<ENCHRecord>(r, dataSize); return true;
-                case "BMDT": BMDT = r.ReadS2<UI32Field>(UI32Field.Struct, dataSize); return true;
+                case "BMDT": BMDT = r.ReadS2<UI32Field>(dataSize); return true;
                 case "MOD2": MOD2 = new MODLGroup(r, dataSize); return true;
                 case "MO2B": MOD2.MODBField(r, dataSize); return true;
                 case "MO2T": MOD2.MODTField(r, dataSize); return true;
@@ -92,7 +92,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 case "MO4B": MOD4.MODBField(r, dataSize); return true;
                 case "MO4T": MOD4.MODTField(r, dataSize); return true;
                 case "ICO2": ICO2 = r.ReadFILE(dataSize); return true;
-                case "ANAM": ANAM = r.ReadS2<IN16Field>(IN16Field.Struct, dataSize); return true;
+                case "ANAM": ANAM = r.ReadS2<IN16Field>(dataSize); return true;
                 default: return false;
             }
         }

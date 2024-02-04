@@ -54,7 +54,11 @@ namespace GameSpec.Black.Formats
             }
 
             Bytes = image;
-            Format = ((TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte), TextureUnityFormat.RGBA32, TextureUnrealFormat.R8G8B8A8);
+            Format = (
+                (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
+                (TextureGLFormat.Rgba8, TextureGLPixelFormat.Rgba, TextureGLPixelType.UnsignedByte),
+                TextureUnityFormat.RGBA32,
+                TextureUnrealFormat.R8G8B8A8);
             Width = header.Width;
             Height = header.Height;
         }

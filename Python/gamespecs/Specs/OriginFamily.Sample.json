@@ -133,9 +133,72 @@
     "name": "Ultima IX",
     "files": [
       {
-        "path": "activity.flx:Engine/default_cch.dds",
-        "size": 16520,
-        "type": "Test"
+        "path": "static/ankh.pal",
+        "type": "Palette"
+      },
+      {
+        "path": "sound/music.flx:file0000.sfm",
+        "type": "Music"
+      },
+      {
+        "path": "sound/sfx.flx:file0000.sfx",
+        "type": "Sfx"
+      },
+      {
+        "path": "sound/Speech.flx:file0000.spk",
+        "type": "Speech"
+      },
+      {
+        "path": "static/anim.flx:file00ac.anim",
+        "type": "Anim"
+      },
+      {
+        "path": "static/bitmap16.flx:file0001.bmp",
+        "type": "Bitmap"
+      },
+      {
+        "path": "static/BOOKS-EN.FLX:file0000.book",
+        "type": "Book"
+      },
+      {
+        "path": "static/misctext.flx:file0000.str",
+        "type": "Text"
+      },
+      {
+        "path": "static/text.flx:file0000.str",
+        "type": "Text"
+      },
+      {
+        "path": "static/sappear.flx:file0000.mesh",
+        "type": "Mesh"
+      },
+      {
+        "path": "static/Texture8.9:file043f.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "static/Texture8.9:file04bb.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "static/Texture8.9:file0550.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "static/texture16.9:file043f.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "static/Texture16.9:file04bb.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "static/Texture16.9:file0550.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "static/TYPENAME.FLX:file0001.type",
+        "type": "Typename"
       }
     ]
   }

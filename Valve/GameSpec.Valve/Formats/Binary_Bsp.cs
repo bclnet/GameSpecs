@@ -88,7 +88,7 @@ namespace GameSpec.Formats
         public Binary_Bsp(BinaryReader r, FileSource f)
         {
             // read file
-            var header = r.ReadS<BSP_Header>(BSP_Header.Struct);
+            var header = r.ReadS<BSP_Header>();
             if (header.Version != 30) throw new FormatException("BAD VERSION");
         }
 

@@ -86,7 +86,7 @@ namespace GameSpec.Black.Formats
             if (gameId == "Fallout")
             {
                 source.Magic = F1_HEADER_FILEID;
-                var header = r.ReadS<F1_Header>(F1_Header.Struct);
+                var header = r.ReadS<F1_Header>();
                 var directoryPaths = new string[header.DirectoryCount];
                 for (var i = 0; i < header.DirectoryCount; i++)
                     directoryPaths[i] = r.ReadL8Encoding().Replace('\\', '/');
@@ -94,12 +94,12 @@ namespace GameSpec.Black.Formats
                 var files = new List<FileSource>(); source.Files = files;
                 for (var i = 0; i < header.DirectoryCount; i++)
                 {
-                    var directory = r.ReadS<F1_Directory>(F1_Directory.Struct);
+                    var directory = r.ReadS<F1_Directory>();
                     var directoryPath = directoryPaths[i] != "." ? directoryPaths[i] + "/" : string.Empty;
                     for (var j = 0; j < directory.FileCount; j++)
                     {
                         var path = directoryPath + r.ReadL8Encoding().Replace('\\', '/');
-                        var file = r.ReadS<F1_File>(F1_File.Struct);
+                        var file = r.ReadS<F1_File>();
                         files.Add(new FileSource
                         {
                             Path = path,
@@ -117,7 +117,7 @@ namespace GameSpec.Black.Formats
             {
                 source.Magic = F2_HEADER_FILEID;
                 r.Seek(r.BaseStream.Length - sizeof(F2_Header));
-                var header = r.ReadS<F2_Header>(F2_Header.Struct);
+                var header = r.ReadS<F2_Header>();
                 if (header.DataSize != r.BaseStream.Length) throw new InvalidOperationException("File is not a valid bsa archive.");
                 r.Seek(header.DataSize - header.TreeSize - sizeof(F2_Header));
 
@@ -126,7 +126,7 @@ namespace GameSpec.Black.Formats
                 for (var i = 0; i < files.Length; i++)
                 {
                     var path = r.ReadL32Encoding().Replace('\\', '/');
-                    var file = r.ReadS<F2_File>(F2_File.Struct);
+                    var file = r.ReadS<F2_File>();
                     files[i] = new FileSource
                     {
                         Path = path,

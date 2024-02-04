@@ -27,7 +27,7 @@ namespace GameSpec.Origin.Formats.U8
 
         public Binary_Pal(BinaryReader r)
         {
-            Pal = r.ReadSArray<COLOR>(COLOR.Struct, 256);
+            Pal = r.ReadSArray<COLOR>(256);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace GameSpec.Bethesda.Formats
             var magic = source.Magic = r.ReadUInt32();
             if (magic == F4_BSAHEADER_FILEID)
             {
-                var header = r.ReadS<F4_Header>(F4_Header.Struct);
+                var header = r.ReadS<F4_Header>();
                 if (header.Version > F4_BSAHEADER_VERSION2) throw new FormatException("BAD MAGIC");
                 source.Version = header.Version;
                 source.Files = files = new FileSource[header.NumFiles];
@@ -137,7 +137,7 @@ namespace GameSpec.Bethesda.Formats
                     case F4_HeaderType.DX10:
                         for (var i = 0; i < header.NumFiles; i++)
                         {
-                            var headerTexture = r.ReadS<F4_Texture>(F4_Texture.Struct);
+                            var headerTexture = r.ReadS<F4_Texture>();
                             var headerTextureChunks = r.ReadTArray<F4_TextureChunk>(sizeof(F4_TextureChunk), headerTexture.NumChunks);
                             ref F4_TextureChunk firstChunk = ref headerTextureChunks[0];
                             files[i] = new FileSource
@@ -154,7 +154,7 @@ namespace GameSpec.Bethesda.Formats
                     case F4_HeaderType.GNMF:
                         for (var i = 0; i < header.NumFiles; i++)
                         {
-                            var headerGNMF = r.ReadS<F4_GNMF>(F4_GNMF.Struct);
+                            var headerGNMF = r.ReadS<F4_GNMF>();
                             var headerTextureChunks = r.ReadTArray<F4_TextureChunk>(sizeof(F4_TextureChunk), headerGNMF.NumChunks);
                             files[i] = new FileSource
                             {

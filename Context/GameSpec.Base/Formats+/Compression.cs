@@ -42,7 +42,7 @@ namespace GameSpec.Formats
         #region Lzo
         public static byte[] DecompressLzo(this BinaryReader r, int length, int newLength)
         {
-            using var fs = new LzoStream(r.BaseStream, CompressionMode.Decompress);
+            var fs = new LzoStream(r.BaseStream, CompressionMode.Decompress);
             return fs.ReadBytes(newLength);
         }
         public static int DecompressLzo(byte[] source, byte[] target)

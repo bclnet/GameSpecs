@@ -123,19 +123,19 @@ namespace GameSpec.Bethesda.Formats.Records
         {
             switch (type)
             {
-                case "DATA": DATA = r.ReadS2<IN32Field>(IN32Field.Struct, dataSize); return true;
+                case "DATA": DATA = r.ReadS2<IN32Field>(dataSize); return true;
                 case "VNML": VNML = new VNMLField(r, dataSize); return true;
                 case "VHGT": VHGT = new VHGTField(r, dataSize); return true;
                 case "VCLR": VCLR = new VNMLField(r, dataSize); return true;
                 case "VTEX": VTEX = new VTEXField(r, dataSize, format); return true;
                 // TES3
-                case "INTV": INTV = r.ReadS2<CORDField>(CORDField.Struct, dataSize); return true;
+                case "INTV": INTV = r.ReadS2<CORDField>(dataSize); return true;
                 case "WNAM": WNAM = new WNAMField(r, dataSize); return true;
                 // TES4
-                case "BTXT": var btxt = r.ReadS2<BTXTField>(BTXTField.Struct, dataSize); BTXTs[btxt.Quadrant] = btxt; return true;
+                case "BTXT": var btxt = r.ReadS2<BTXTField>(dataSize); BTXTs[btxt.Quadrant] = btxt; return true;
                 case "ATXT":
                     if (ATXTs == null) ATXTs = new ATXTGroup[4];
-                    var atxt = r.ReadS2<BTXTField>(BTXTField.Struct, dataSize); _lastATXT = ATXTs[atxt.Quadrant] = new ATXTGroup { ATXT = atxt }; return true;
+                    var atxt = r.ReadS2<BTXTField>(dataSize); _lastATXT = ATXTs[atxt.Quadrant] = new ATXTGroup { ATXT = atxt }; return true;
                 case "VTXT": _lastATXT.VTXTs = r.ReadTArray<VTXTField>(dataSize, dataSize >> 3); return true;
                 default: return false;
             }

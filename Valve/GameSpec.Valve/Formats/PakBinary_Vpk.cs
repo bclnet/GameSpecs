@@ -18,10 +18,16 @@ namespace GameSpec.Valve.Formats
         public const int MAGIC = 0x55aa1234;
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct Header
+        struct HeaderV1
         {
-            public static (string, int) StructV1 = ("<I", 4);
-            public static (string, int) StructV2 = ("<5I", sizeof(Header));
+            public static (string, int) Struct = ("<I", sizeof(HeaderV1));
+            public uint TreeSize;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        struct HeaderV2
+        {
+            public static (string, int) Struct = ("<5I", sizeof(HeaderV2));
             public uint TreeSize;
             public uint FileDataSectionSize;
             public uint ArchiveMd5SectionSize;
@@ -59,7 +65,7 @@ namespace GameSpec.Valve.Formats
             /// <summary>
             /// Verify checksums and signatures provided in the VPK
             /// </summary>
-            void VerifyHashes(BinaryReader r, int version, ref Header header, long headerPosition)
+            void VerifyHashesV2(BinaryReader r, int version, ref HeaderV2 header, long headerPosition)
             {
                 if (version != 2) throw new InvalidDataException("Only version 2 is supported.");
                 using (var md5 = MD5.Create())
@@ -77,14 +83,14 @@ namespace GameSpec.Valve.Formats
                     if (!hash.SequenceEqual(ArchiveMd5EntriesChecksum)) throw new InvalidDataException($"Archive MD5 entries checksum mismatch ({BitConverter.ToString(hash)} != expected {BitConverter.ToString(ArchiveMd5EntriesChecksum)})");
                 }
                 if (PublicKey == null || Signature == null) return;
-                if (!IsSignatureValid(r, ref header, headerPosition)) throw new InvalidDataException("VPK signature is not valid.");
+                if (!IsSignatureValidV2(r, ref header, headerPosition)) throw new InvalidDataException("VPK signature is not valid.");
             }
 
             /// <summary>
             /// Verifies the RSA signature.
             /// </summary>
             /// <returns>True if signature is valid, false otherwise.</returns>
-            bool IsSignatureValid(BinaryReader r, ref Header header, long headerPosition)
+            bool IsSignatureValidV2(BinaryReader r, ref HeaderV2 header, long headerPosition)
             {
                 r.Seek(0);
                 var keyParser = new AsnKeyParser(PublicKey);
@@ -106,8 +112,10 @@ namespace GameSpec.Valve.Formats
             if (r.ReadUInt32() != MAGIC) throw new FormatException("BAD MAGIC");
             var version = r.ReadUInt32();
             if (version > 2) throw new FormatException($"Bad VPK version. ({version})");
-            var header = r.ReadS<Header>(version == 1 ? Header.StructV1 : Header.StructV2);
+            var headerV1 = version == 1 ? r.ReadS<HeaderV1>() : default;
+            var headerV2 = version != 1 ? r.ReadS<HeaderV2>() : default;
             var headerPosition = (uint)r.Tell();
+            var headerTreeSize = version == 1 ? headerV1.TreeSize : headerV2.TreeSize;
 
             // sourceFilePath
             var sourceFilePath = source.PakPath;
@@ -148,7 +156,7 @@ namespace GameSpec.Valve.Formats
                             if (!sourceFileDirVpk) throw new FormatException("Given VPK is not a _dir, but entry is referencing an external archive.");
                             metadata.Tag = $"{sourceFilePath}_{metadata.Id:D3}.vpk";
                         }
-                        else metadata.Tag = (long)(headerPosition + header.TreeSize);
+                        else metadata.Tag = (long)(headerPosition + headerTreeSize);
                         files.Add(metadata);
                         if (r.ReadUInt16() != 0xFFFF) throw new FormatException("Invalid terminator.");
                         if (metadata.Extra.Length > 0) r.Read(metadata.Extra, 0, metadata.Extra.Length);
@@ -159,20 +167,20 @@ namespace GameSpec.Valve.Formats
             // verification
             if (version == 2)
             {
-                if (header.OtherMd5SectionSize != 48) throw new FormatException($"Encountered OtherMD5Section with size of {header.OtherMd5SectionSize} (should be 48)");
+                if (headerV2.OtherMd5SectionSize != 48) throw new FormatException($"Encountered OtherMD5Section with size of {headerV2.OtherMd5SectionSize} (should be 48)");
                 // Skip over file data, if any
-                r.Skip(header.FileDataSectionSize);
+                r.Skip(headerV2.FileDataSectionSize);
                 source.Tag = new Verification
                 {
                     // archive md5
-                    ArchiveMd5Entries = header.ArchiveMd5SectionSize != 0 ? r.ReadTArray<ArchiveMd5Entry>(sizeof(ArchiveMd5Entry), (int)header.ArchiveMd5Entries) : null,
+                    ArchiveMd5Entries = headerV2.ArchiveMd5SectionSize != 0 ? r.ReadTArray<ArchiveMd5Entry>(sizeof(ArchiveMd5Entry), (int)headerV2.ArchiveMd5Entries) : null,
                     // other md5
                     TreeChecksum = r.ReadBytes(16),
                     ArchiveMd5EntriesChecksum = r.ReadBytes(16),
                     WholeFileChecksum = r.ReadBytes(16),
                     // signature
-                    PublicKey = header.SignatureSectionSize != 0 ? r.ReadBytes(r.ReadInt32()) : null,
-                    Signature = header.SignatureSectionSize != 0 ? r.ReadBytes(r.ReadInt32()) : null
+                    PublicKey = headerV2.SignatureSectionSize != 0 ? r.ReadBytes(r.ReadInt32()) : null,
+                    Signature = headerV2.SignatureSectionSize != 0 ? r.ReadBytes(r.ReadInt32()) : null
                 };
             }
             return Task.CompletedTask;

@@ -295,7 +295,7 @@ namespace GameSpec.IW.Formats
                                 while (consumed < size)
                                 {
                                     // Read Block Header & validate the block position, it should match 
-                                    var block = r.ReadS<FF_BO3BlockHeader>(FF_BO3BlockHeader.Struct);
+                                    var block = r.ReadS<FF_BO3BlockHeader>();
                                     if (block.Position != r.BaseStream.Position - 16) throw new Exception("Block Position does not match Stream Position.");
 
                                     // Check for padding blocks
@@ -404,7 +404,7 @@ namespace GameSpec.IW.Formats
 
             // Create new streams for the zone file.
             r = new BinaryReader(new FileStream(zonePath, FileMode.Open, FileAccess.Read, FileShare.Read));
-            var zone = r.ReadS<FF_ZoneHeader>(FF_ZoneHeader.Struct);
+            var zone = r.ReadS<FF_ZoneHeader>();
             var (args, assetInfos) = zone.GetArgsAndAssetInfos(r, ref header);
 
             // foreach asset

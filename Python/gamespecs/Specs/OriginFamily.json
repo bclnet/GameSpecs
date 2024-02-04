@@ -9,6 +9,7 @@
   ],
   "games": {
     "*": {
+      "gameType": "GameSpec.Origin.OriginGame, GameSpec.Origin",
       "pakFileType": "GameSpec.Origin.OriginPakFile, GameSpec.Origin"
     },
     "CoC": {
@@ -395,7 +396,8 @@
       "name": "Ultima IX: Ascension",
       "url": [ "https://en.wikipedia.org/wiki/Ultima_IX:_Ascension", "https://www.gog.com/en/game/ultima_9_ascension" ],
       "date": "November 23, 1999",
-      "pakExt": ".flx"
+      "searchBy": "DirDown",
+      "pakExt": [".flx", "Texture8.9", "Texture8.14", "texture16.9", "texture16.14"]
     }
   },
   "fileManager": {
@@ -433,8 +435,7 @@
       "U9": {
         "key": "GOG:1207659093",
         "reg": [ "GOG.com/GOGULTIMA9", "GOG.com/Games/1207659093" ],
-        "dir": "Ultima 9",
-        "path": "static"
+        "dir": "Ultima 9"
       }
     },
     "filters": {

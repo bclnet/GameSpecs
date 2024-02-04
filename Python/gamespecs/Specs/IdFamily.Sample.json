@@ -1,7 +1,32 @@
 ﻿{
   "Q": {
     "name": "Quake",
-    "files": []
+    "files": [
+      {
+        "path": "PAK0.PAK:gfx.wad:BACKTILE.tex",
+        "type": "Wad"
+      },
+      {
+        "path": "PAK0.PAK:gfx/palette.lmp",
+        "type": "Lump:Palette"
+      },
+      {
+        "path": "PAK0.PAK:gfx/colormap.lmp",
+        "type": "Lump:Colormap"
+      },
+      {
+        "path": "PAK0.PAK:gfx/conback.lmp",
+        "type": "Lump"
+      },
+      {
+        "path": "maps/b_batt0.bsp",
+        "type": "Bsp"
+      },
+      {
+        "path": "gfx.wad:xxx",
+        "type": "Palette"
+      }
+    ]
   },
   "Q2": {
     "name": "Quake II",

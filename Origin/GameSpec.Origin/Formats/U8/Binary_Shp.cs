@@ -49,9 +49,9 @@ namespace GameSpec.Origin.Formats.U8
 
         public Binary_Shp(BinaryReader r)
         {
-            var header = r.ReadS<Header>(Header.Struct);
-            var shapes = r.ReadSArray<ShapeHeader>(Header.Struct, header.Count)
-                .Select(s => r.Seek(s.FrameOffset).ReadS<Shape>(ShapeHeader.Struct))
+            var header = r.ReadS<Header>();
+            var shapes = r.ReadSArray<ShapeHeader>(header.Count)
+                .Select(s => r.Seek(s.FrameOffset).ReadS<Shape>())
                 .ToArray();
         }
     }

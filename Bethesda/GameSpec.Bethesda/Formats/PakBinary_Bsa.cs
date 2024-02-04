@@ -122,7 +122,7 @@ namespace GameSpec.Bethesda.Formats
             // Oblivion - Skyrim
             if (magic == OB_BSAHEADER_FILEID)
             {
-                var header = r.ReadS<OB_Header>(OB_Header.Struct);
+                var header = r.ReadS<OB_Header>();
                 if (header.Version != OB_BSAHEADER_VERSION && header.Version != F3_BSAHEADER_VERSION && header.Version != SSE_BSAHEADER_VERSION)
                     throw new FormatException("BAD MAGIC");
                 if ((header.ArchiveFlags & OB_BSAARCHIVE_PATHNAMES) == 0 || (header.ArchiveFlags & OB_BSAARCHIVE_FILENAMES) == 0)
@@ -168,7 +168,7 @@ namespace GameSpec.Bethesda.Formats
             // Morrowind
             else if (magic == MW_BSAHEADER_FILEID)
             {
-                var header = r.ReadS<MW_Header>(MW_Header.Struct);
+                var header = r.ReadS<MW_Header>();
                 var dataOffset = 12 + header.HashOffset + (8 * header.FileCount);
 
                 // create filesources
