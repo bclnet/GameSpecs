@@ -284,7 +284,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:3",
+            ForcePath = "sample:0",
             Family = "Id",
             Game = "Q", // Quake
             //Game = "Q2", // Quake II

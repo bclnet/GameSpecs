@@ -427,11 +427,18 @@ namespace GameSpec
         public GenericPool<BinaryReader> GetReader(string path = default, int retainInPool = 10)
             => Readers.GetOrAdd(path ?? PakPath, path => FileSystem.FileExists(path) ? new GenericPool<BinaryReader>(() => FileSystem.OpenReader(path), retainInPool) : default);
 
+        //protected void DoRead(Func<BinaryReader, object, Task> func)
+        //{
+        //    if (UseReader) GetReader()?.Action(async r => await func(r, null));
+        //    else func(null, null).GetAwaiter().GetResult();
+        //}
+
         /// <summary>
         /// Opens this instance.
         /// </summary>
         public override void Opening()
         {
+            //DoRead(Read);
             if (UseReader) GetReader()?.Action(async r => await Read(r));
             else Read(null).GetAwaiter().GetResult();
             Process();
@@ -993,6 +1000,7 @@ namespace GameSpec
             {
                 if (UseReader) { await base.Read(r, tag); return; }
                 using var r2 = await Source.GetReader().Func(async r => new BinaryReader(await ReadData(r, File)));
+                if (r2 == null) throw new NotImplementedException();
                 await PakBinary.Read(this, r2, tag);
             }
         }

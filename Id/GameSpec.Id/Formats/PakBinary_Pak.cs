@@ -1,6 +1,5 @@
 ﻿using GameSpec.Id.Formats.Q;
 using System;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Id.Formats
 {
-    // https://www.gamers.org/dEngine/quake/spec/quake-spec34/qkspec_3.htm#CPAKF
     public unsafe class PakBinary_Pak : PakBinary<PakBinary_Pak>
     {
         #region Factories
@@ -20,7 +18,9 @@ namespace GameSpec.Id.Formats
                 _ => Path.GetExtension(source.Path).ToLowerInvariant() switch
                 {
                     ".lmp" => (0, Binary_Lump.Factory),
-                    //".pal" => (0, Binary_Palette.Factory),
+                    ".bsp" => (0, Binary_Level.Factory),
+                    ".mdl" => (0, Binary_Model.Factory),
+                    ".spr" => (0, Binary_Sprite.Factory),
                     _ => (0, null),
                 }
             };
