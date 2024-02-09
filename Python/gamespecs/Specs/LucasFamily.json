@@ -1,0 +1,1650 @@
+﻿{
+  "id": "Lucas",
+  "name": "Lucas Arts",
+  "studio": "Lucas Arts",
+  "url": "https://en.wikipedia.org/wiki/List_of_LucasArts_games",
+  "samples": [
+    "LucasFamily.Sample.json"
+  ],
+  "engines": {},
+  "games": {
+    "*": {
+      "pakFileType": "GameSpec.Id.LucasPakFile, GameSpec.Lucas"
+    },
+    "B": {
+      "n/a": true,
+      "name": "Ballblazer",
+      "url": "https://en.wikipedia.org/wiki/Ballblazer",
+      "date": "1985-01-01"
+    },
+    "RoF": {
+      "name": "Rescue on Fractalus!",
+      "url": [
+        "https://www.myabandonware.com/game/rescue-on-fractalus-528",
+        "https://en.wikipedia.org/wiki/Rescue_on_Fractalus!"
+      ],
+      "date": "1985-01-01",
+      "tag": "Abdandon"
+    },
+    "TE": {
+      "name": "The Eidolon",
+      "url": [
+        "https://www.myabandonware.com/game/the-eidolon-5ia",
+        "https://en.wikipedia.org/wiki/The_Eidolon"
+      ],
+      "date": "1985-01-01",
+      "tag": "Abdandon"
+    },
+    "H": {
+      "n/a": true,
+      "name": "Habitat",
+      "url": "https://en.wikipedia.org/wiki/Habitat_(video_game)",
+      "date": "1985-01-01"
+    },
+    "KR": {
+      "name": "Koronis Rift",
+      "url": [
+        "https://www.myabandonware.com/game/koronis-rift-5y0",
+        "https://en.wikipedia.org/wiki/Koronis_Rift"
+      ],
+      "date": "1985-12-01",
+      "tag": "Abdandon"
+    },
+    "L:TCG": {
+      "name": "Labyrinth: The Computer Game",
+      "url": [
+        "https://www.myabandonware.com/game/labyrinth-601",
+        "https://en.wikipedia.org/wiki/Labyrinth:_The_Computer_Game"
+      ],
+      "date": "1986-01-01",
+      "tag": "Abdandon"
+    },
+    "PP": {
+      "name": "PHM Pegasus",
+      "url": [
+        "https://www.myabandonware.com/game/phm-pegasus-hr",
+        "https://en.wikipedia.org/wiki/PHM_Pegasus"
+      ],
+      "date": "1986-01-01",
+      "tag": "Abdandon"
+    },
+    "MM": {
+      "name": "Maniac Mansion",
+      "url": [
+        "https://store.steampowered.com/app/529890",
+        "https://en.wikipedia.org/wiki/Maniac_Mansion"
+      ],
+      "date": "October 5, 1987"
+    },
+    "SF": {
+      "name": "Strike Fleet",
+      "url": [
+        "https://www.myabandonware.com/game/strike-fleet-j2",
+        "https://en.wikipedia.org/wiki/Strike_Fleet"
+      ],
+      "date": "1988-01-01",
+      "tag": "Abdandon"
+    },
+    "B1942": {
+      "name": "Battlehawks 1942",
+      "url": [
+        "https://www.myabandonware.com/game/battlehawks-1942-eu",
+        "https://en.wikipedia.org/wiki/Battlehawks_1942"
+      ],
+      "date": "October 1, 1988",
+      "tag": "Abdandon"
+    },
+    "ZMatAM": {
+      "name": "Zak McKracken and the Alien Mindbenders",
+      "url": [
+        "https://store.steampowered.com/app/559070",
+        "https://en.wikipedia.org/wiki/Zak_McKracken_and_the_Alien_Mindbenders"
+      ],
+      "date": "October 1, 1988"
+    },
+    "IJatLC:TAG": {
+      "name": "Indiana Jones and the Last Crusade: The Action Game",
+      "url": [
+        "https://www.myabandonware.com/game/indiana-jones-and-the-last-crusade-the-action-game-2fd",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Action_Game"
+      ],
+      "date": "1989-01-01",
+      "tag": "Abdandon"
+    },
+    "PD": {
+      "n/a": true,
+      "name": "Pipe Dream",
+      "url": "https://en.wikipedia.org/wiki/Pipe_Mania",
+      "date": "June 1, 1989",
+      "tag": "TODO"
+    },
+    "IJatLC:TGA": {
+      "n/a": true,
+      "name": "Indiana Jones and the Last Crusade: The Graphic Adventure",
+      "url": [
+        "https://store.steampowered.com/app/32310",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Graphic_Adventure"
+      ],
+      "date": "July 1, 1989"
+    },
+    "TFH": {
+      "name": "Their Finest Hour",
+      "url": [
+        "https://www.myabandonware.com/game/their-finest-hour-the-battle-of-britain-sb",
+        "https://en.wikipedia.org/wiki/Their_Finest_Hour_(video_game)"
+      ],
+      "date": "October 1, 1989",
+      "tag": "Abdandon"
+    },
+    "TFM:V1": {
+      "name": "Their Finest Missions: Volume One",
+      "url": [
+        "https://www.myabandonware.com/game/their-finest-missions-volume-one-7i9",
+        "https://en.wikipedia.org/wiki/Their_Finest_Hour_(video_game)"
+      ],
+      "date": "October 1, 1989",
+      "tag": "Abdandon"
+    },
+    "L": {
+      "name": "Loom",
+      "url": [
+        "https://store.steampowered.com/app/32340",
+        "https://en.wikipedia.org/wiki/Loom_(video_game)"
+      ],
+      "date": "January 1, 1990"
+    },
+    "M": {
+      "n/a": true,
+      "name": "Masterblazer",
+      "url": "https://en.wikipedia.org/wiki/Masterblazer",
+      "date": "1990-01-01"
+    },
+    "NS": {
+      "name": "Night Shift",
+      "url": [
+        "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Night+Shift&gid=1553",
+        "https://en.wikipedia.org/wiki/Night_Shift_(video_game)"
+      ],
+      "date": "October 1, 1990",
+      "tag": "Abdandon"
+    },
+    "TSoMI": {
+      "n/a": true,
+      "name": "The Secret of Monkey Island",
+      "url": "https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island",
+      "date": "October 1, 1990"
+    },
+    "SWotL": {
+      "name": "Secret Weapons of the Luftwaffe",
+      "url": [
+        "https://www.myabandonware.com/game/secret-weapons-of-the-luftwaffe-1xo",
+        "https://en.wikipedia.org/wiki/Secret_Weapons_of_the_Luftwaffe"
+      ],
+      "date": "August 1, 1991",
+      "tag": "Abdandon",
+      "dlcs": {
+        "P38": {
+          "name": "P-38: Lightning",
+          "date": "1991-01-01"
+        },
+        "P80": {
+          "name": "P-80: Shooting Star",
+          "date": "1991-01-01"
+        },
+        "H162V": {
+          "name": "He162 Volksjager",
+          "date": "1992-01-01"
+        },
+        "D335P": {
+          "name": "Do335 Pfeil",
+          "date": "1992-01-01"
+        }
+      }
+    },
+    "SW": {
+      "n/a": true,
+      "name": "Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_(1991_video_game)",
+      "date": "November 15, 1991",
+      "tag": "Console"
+    },
+    "MI2:LR": {
+      "name": "Monkey Island 2: LeChuck's Revenge",
+      "url": [
+        "https://store.steampowered.com/app/32460",
+        "https://en.wikipedia.org/wiki/Monkey_Island_2:_LeChuck%27s_Revenge"
+      ],
+      "date": "December 1, 1991"
+    },
+    "IJatFoA": {
+      "name": "Indiana Jones and the Fate of Atlantis",
+      "url": [
+        "https://store.steampowered.com/app/6010",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Fate_of_Atlantis"
+      ],
+      "date": "June 1, 1992"
+    },
+    "IJatFoA:TAG": {
+      "n/a": true,
+      "name": "Indiana Jones and the Fate of Atlantis: The Action Game",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Fate_of_Atlantis#Development",
+      "date": "2016-05-13"
+    },
+    "LCA": {
+      "n/a": true,
+      "name": "LucasArts Classic Adventures (bundle)",
+      "url": [
+        "https://www.myabandonware.com/game/lucasarts-classic-adventures-2x4",
+        "https://en.wikipedia.org/wiki/LucasArts#Adventure_games"
+      ],
+      "date": "1992-01-01",
+      "tag": "Abdandon"
+    },
+    "SW:TESB": {
+      "n/a": true,
+      "name": "Star Wars: The Empire Strikes Back",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Empire_Strikes_Back_(1992_video_game)",
+      "date": "March 12, 1992",
+      "tag": "Console"
+    },
+    "DoDC": {
+      "n/a": true,
+      "name": "Defenders of Dynatron City",
+      "url": "https://en.wikipedia.org/wiki/Defenders_of_Dynatron_City",
+      "date": "July 1, 1992",
+      "tag": "Console"
+    },
+    "SSW": {
+      "n/a": true,
+      "name": "Super Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Super_Star_Wars",
+      "date": "November 1, 1992",
+      "tag": "Console"
+    },
+    "TYIJC": {
+      "n/a": true,
+      "name": "The Young Indiana Jones Chronicles",
+      "url": "https://en.wikipedia.org/wiki/The_Young_Indiana_Jones_Chronicles_(video_game)",
+      "date": "January 1, 1993",
+      "tag": "Console"
+    },
+    "SW:XW": {
+      "name": "Star Wars: X-Wing",
+      "url": [
+        "https://store.steampowered.com/app/354430",
+        "https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_(video_game)"
+      ],
+      "date": "February 1, 1993",
+      "dlcs": {
+        "IP": {
+          "name": "Imperial Pursuit",
+          "date": "1993-01-01"
+        },
+        "BW": {
+          "name": "B-Wing",
+          "date": "1993-01-01"
+        }
+      }
+    },
+    "SSW:TESB": {
+      "n/a": true,
+      "name": "Super Star Wars: The Empire Strikes Back",
+      "url": "https://en.wikipedia.org/wiki/Super_Star_Wars:_The_Empire_Strikes_Back",
+      "date": "June 1, 1993",
+      "tag": "Console"
+    },
+    "DotT": {
+      "name": "Day of the Tentacle",
+      "url": [
+        "https://store.steampowered.com/app/388210",
+        "https://en.wikipedia.org/wiki/Day_of_the_Tentacle"
+      ],
+      "date": "June 25, 1993"
+    },
+    "SWA": {
+      "n/a": true,
+      "name": "Star Wars Arcade",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Arcade",
+      "date": "August 1, 1993",
+      "tag": "Arcade Console"
+    },
+    "ZAMN": {
+      "name": "Zombies Ate My Neighbors",
+      "url": [
+        "https://store.steampowered.com/app/1137970",
+        "https://en.wikipedia.org/wiki/Zombies_Ate_My_Neighbors"
+      ],
+      "date": "September 1, 1993"
+    },
+    "SMHtR": {
+      "name": "Sam & Max Hit the Road",
+      "url": [
+        "https://store.steampowered.com/app/355170",
+        "https://en.wikipedia.org/wiki/Sam_%26_Max_Hit_the_Road"
+      ],
+      "date": "November 1, 1993"
+    },
+    "SWC": {
+      "name": "Star Wars Chess",
+      "url": [
+        "https://www.myabandonware.com/game/the-software-toolworks-star-wars-chess-2dk",
+        "https://en.wikipedia.org/wiki/Star_Wars_Chess"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "ACC": {
+      "name": "Air Combat Classics (bundle)",
+      "url": [
+        "https://archive.org/details/air_combat_classics_kfx",
+        "https://en.wikipedia.org/wiki/LucasArts#Simulation_games"
+      ],
+      "date": "1994-01-01",
+      "tag": "Abandon"
+    },
+    "IoCsYIJ": {
+      "n/a": true,
+      "name": "Instruments of Chaos starring Young Indiana Jones",
+      "url": "https://en.wikipedia.org/wiki/Instruments_of_Chaos_starring_Young_Indiana_Jones",
+      "date": "June 1, 1994",
+      "tag": "Console"
+    },
+    "SSW:RotJ": {
+      "n/a": true,
+      "name": "Super Star Wars: Return of the Jedi",
+      "url": "https://en.wikipedia.org/wiki/Super_Star_Wars:_Return_of_the_Jedi",
+      "date": "June 22, 1994",
+      "tag": "Console"
+    },
+    "SW:TF": {
+      "name": "Star Wars: TIE Fighter",
+      "url": [
+        "https://store.steampowered.com/app/355250",
+        "https://en.wikipedia.org/wiki/Star_Wars:_TIE_Fighter"
+      ],
+      "date": "July 1, 1994",
+      "dlcs": {
+        "DotE": {
+          "name": "Defender of the Empire",
+          "date": "1994-01-01"
+        },
+        "EotE": {
+          "name": "Enemies of the Empire",
+          "date": "1995-01-01"
+        }
+      }
+    },
+    "IJGA": {
+      "n/a": true,
+      "name": "Indiana Jones' Greatest Adventures",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones%27_Greatest_Adventures",
+      "date": "October 11, 1994",
+      "tag": "Console"
+    },
+    "GP": {
+      "name": "Ghoul Patrol",
+      "url": [
+        "https://store.steampowered.com/app/1137970",
+        "https://en.wikipedia.org/wiki/Ghoul_Patrol"
+      ],
+      "date": "November 1, 1994"
+    },
+    "SW:DF": {
+      "name": "Star Wars: Dark Forces",
+      "url": [
+        "https://store.steampowered.com/app/32400",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Dark_Forces"
+      ],
+      "date": "February 28, 1995"
+    },
+    "MW": {
+      "n/a": true,
+      "name": "Metal Warriors",
+      "url": "https://en.wikipedia.org/wiki/Metal_Warriors",
+      "date": "April 1, 1995",
+      "tag": "Console"
+    },
+    "FT": {
+      "name": "Full Throttle",
+      "url": [
+        "https://store.steampowered.com/app/228360",
+        "https://en.wikipedia.org/wiki/Full_Throttle_(1995_video_game)"
+      ],
+      "date": "April 30, 1995"
+    },
+    "BST": {
+      "n/a": true,
+      "name": "Big Sky Trooper",
+      "url": "https://en.wikipedia.org/wiki/Big_Sky_Trooper",
+      "date": "October 1, 1995",
+      "tag": "Console"
+    },
+    "TD": {
+      "name": "The Dig",
+      "url": [
+        "https://store.steampowered.com/app/6040",
+        "https://en.wikipedia.org/wiki/The_Dig_(video_game)"
+      ],
+      "date": "November 30, 1995"
+    },
+    "SW:RA2": {
+      "name": "Star Wars: Rebel Assault II: The Hidden Empire",
+      "url": [
+        "https://store.steampowered.com/app/456540",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Rebel_Assault_II:_The_Hidden_Empire"
+      ],
+      "date": "November 1, 1995"
+    },
+    "IJaHDA": {
+      "name": "Indiana Jones and His Desktop Adventures",
+      "url": [
+        "https://www.myabandonware.com/game/indiana-jones-and-his-desktop-adventures-3lf",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_His_Desktop_Adventures"
+      ],
+      "date": "April 1, 1996",
+      "tag": "Abandon"
+    },
+    "A": {
+      "name": "Afterlife",
+      "url": [
+        "https://www.gog.com/en/game/afterlife",
+        "https://en.wikipedia.org/wiki/Afterlife_(video_game)"
+      ],
+      "date": "July 1, 1996"
+    },
+    "MatRotM": {
+      "name": "Mortimer and the Riddles of the Medallion",
+      "url": [
+        "https://www.myabandonware.com/game/mortimer-and-the-riddles-of-the-medallion-3na",
+        "https://en.wikipedia.org/wiki/Mortimer_and_the_Riddles_of_the_Medallion"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "SW:SotE": {
+      "name": "Star Wars: Shadows of the Empire",
+      "url": [
+        "https://store.steampowered.com/app/560170",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Shadows_of_the_Empire_(video_game)"
+      ],
+      "date": "December 3, 1996"
+    },
+    "SW:YS": {
+      "name": "Star Wars: Yoda Stories",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-yoda-stories-bcn",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Yoda_Stories"
+      ],
+      "date": "March 12, 1997",
+      "tag": "Abandon"
+    },
+    "O": {
+      "name": "Outlaws",
+      "url": [
+        "https://store.steampowered.com/app/559620",
+        "https://en.wikipedia.org/wiki/Outlaws_(1997_video_game)"
+      ],
+      "date": "April 7, 1997"
+    },
+    "B:C": {
+      "n/a": true,
+      "name": "Ballblazer Champions",
+      "url": "https://en.wikipedia.org/wiki/Ballblazer_Champions",
+      "date": "April 1, 1997",
+      "tag": "Console"
+    },
+    "SW:XvT": {
+      "name": "Star Wars: X-Wing vs. TIE Fighter",
+      "url": [
+        "https://store.steampowered.com/app/361690",
+        "https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_vs._TIE_Fighter"
+      ],
+      "date": "April 30, 1997",
+      "dlcs": {
+        "BoPC": {
+          "name": "Balance of Power Campaigns",
+          "date": "1993-01-01"
+        }
+      }
+    },
+    "H:A": {
+      "n/a": true,
+      "name": "Herc's Adventures",
+      "url": "https://en.wikipedia.org/wiki/Herc%27s_Adventures",
+      "date": "July 31, 1997",
+      "tag": "Console"
+    },
+    "SWJK:DF2": {
+      "name": "Star Wars Jedi Knight: Dark Forces II",
+      "url": [
+        "https://store.steampowered.com/app/32380",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Dark_Forces_II"
+      ],
+      "date": "October 10, 1997"
+    },
+    "MSW": {
+      "name": "Monopoly Star Wars",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-monopoly-jal",
+        "https://en.wikipedia.org/wiki/Monopoly_Star_Wars"
+      ],
+      "date": "October 31, 1997",
+      "tag": "Abandon"
+    },
+    "SW:MoTK": {
+      "n/a": true,
+      "name": "Star Wars: Masters of Teras Kasi",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Masters_of_Ter%C3%A4s_K%C3%A4si",
+      "date": "October 31, 1997",
+      "tag": "Console"
+    },
+    "TCoMI": {
+      "name": "The Curse of Monkey Island",
+      "url": [
+        "https://store.steampowered.com/app/730820",
+        "https://en.wikipedia.org/wiki/The_Curse_of_Monkey_Island"
+      ],
+      "date": "November 11, 1997"
+    },
+    "SWJK:MotS": {
+      "name": "Star Wars Jedi Knight: Mysteries of the Sith",
+      "url": [
+        "https://store.steampowered.com/app/32390",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Mysteries_of_the_Sith"
+      ],
+      "date": "February 17, 1998"
+    },
+    "SW:R": {
+      "name": "Star Wars: Rebellion",
+      "url": [
+        "https://store.steampowered.com/app/441550",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Rebellion_(video_game)"
+      ],
+      "date": "March 25, 1998"
+    },
+    "SW:BtM": {
+      "name": "Star Wars: Behind the Magic",
+      "url": [
+        "https://archive.org/details/btm-cd-1",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Behind_the_Magic"
+      ],
+      "date": "September 1998",
+      "tag": "Abandon"
+    },
+    "SW:DW": {
+      "name": "Star Wars: DroidWorks",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-droidworks-3qo",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Droid_Works"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "GF": {
+      "name": "Grim Fandango",
+      "url": [
+        "https://store.steampowered.com/app/316790",
+        "https://en.wikipedia.org/wiki/Grim_Fandango"
+      ],
+      "date": "October 30, 1998"
+    },
+    "SWTA": {
+      "n/a": true,
+      "name": "Star Wars Trilogy Arcade",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Trilogy_Arcade",
+      "date": "November 1, 1998",
+      "tag": "Arcade"
+    },
+    "SW:RS": {
+      "name": "Star Wars: Rogue Squadron",
+      "url": [
+        "https://store.steampowered.com/app/455910",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Rogue_Squadron"
+      ],
+      "date": "December 3, 1998"
+    },
+    "SW:XA": {
+      "name": "Star Wars: X-Wing Alliance",
+      "url": [
+        "https://store.steampowered.com/app/361670",
+        "https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_Alliance"
+      ],
+      "date": "March 15, 1999"
+    },
+    "SW1:TPM": {
+      "name": "Star Wars Episode I: The Phantom Menace",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-episode-i-the-phantom-menace-lv8",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Episode_I_%E2%80%93_The_Phantom_Menace_(video_game)"
+      ],
+      "date": "May 18, 1999",
+      "tag": "Abandon"
+    },
+    "SW1:R": {
+      "name": "Star Wars Episode I: Racer",
+      "url": [
+        "https://store.steampowered.com/app/808910",
+        "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Racer"
+      ],
+      "date": "May 18, 1999"
+    },
+    "SW1:TGF": {
+      "name": "Star Wars Episode I: The Gungan Frontier",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-episode-i-the-gungan-frontier-3qq",
+        "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_The_Gungan_Frontier"
+      ],
+      "date": "May 24, 1999",
+      "tag": "Abandon"
+    },
+    "SW1:IG": {
+      "n/a": true,
+      "name": "Star Wars: Episode I Insider's Guide",
+      "date": "June 23, 1999"
+    },
+    "SW:YCAC": {
+      "name": "Star Wars: Yoda's Challenge Activity Center",
+      "url": "https://www.myabandonware.com/game/star-wars-yoda-s-challenge-activity-center-3qt",
+      "date": "August 17, 1999",
+      "tag": "Abandon"
+    },
+    "SW:PD": {
+      "name": "Star Wars: Pit Droids",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-pit-droids-403",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Pit_Droids"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "IJatIM": {
+      "name": "Indiana Jones and the Infernal Machine",
+      "url": [
+        "https://store.steampowered.com/app/904540",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Infernal_Machine"
+      ],
+      "date": "September 13, 1999"
+    },
+    "SW:FC": {
+      "name": "Star Wars: Force Commander",
+      "url": [
+        "https://www.old-games.com/download/6617/star-wars-force-commander",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Force_Commander"
+      ],
+      "date": "March 17, 2000",
+      "tag": "Abandon"
+    },
+    "SW:AS": {
+      "n/a": true,
+      "name": "Star Wars: Anakin's Speedway",
+      "date": "March 20, 2000"
+    },
+    "SW1:JPB": {
+      "n/a": true,
+      "name": "Star Wars Episode I: Jedi Power Battles",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Jedi_Power_Battles",
+      "date": "April 4, 2000",
+      "tag": "Console"
+    },
+    "SW:RA": {
+      "n/a": true,
+      "name": "Star Wars: Racer Arcade",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Racer_Arcade",
+      "date": "May 1, 2000"
+    },
+    "SW:ELAC": {
+      "n/a": true,
+      "name": "Star Wars: Early Learning Activity Center",
+      "date": "August 15, 2000"
+    },
+    "SW:MJGG": {
+      "n/a": true,
+      "name": "Star Wars: Math - Jabba's Game Galaxy",
+      "date": "September 1, 2000"
+    },
+    "EfMI": {
+      "name": "Escape from Monkey Island",
+      "url": [
+        "https://store.steampowered.com/app/730830",
+        "https://en.wikipedia.org/wiki/Escape_from_Monkey_Island"
+      ],
+      "date": "November 8, 2000"
+    },
+    "SW:D": {
+      "n/a": true,
+      "name": "Star Wars: Demolition",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Demolition",
+      "date": "November 12, 2000",
+      "tag": "Console"
+    },
+    "SW:JJJ": {
+      "n/a": true,
+      "name": "Star Wars: Jar Jar's Journey",
+      "date": "November 15, 2000"
+    },
+    "SW1:OA": {
+      "n/a": true,
+      "name": "Star Wars Episode I: Obi-Wan's Adventures",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Obi-Wan%27s_Adventures",
+      "date": "November 27, 2000",
+      "tag": "Console"
+    },
+    "SW1:BfN": {
+      "n/a": true,
+      "name": "Star Wars: Episode I: Battle for Naboo",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_I:_Battle_for_Naboo",
+      "date": "December 18, 2000",
+      "tag": "TODO"
+    },
+    "SW:S": {
+      "name": "Star Wars: Starfighter",
+      "url": [
+        "https://store.steampowered.com/app/32350",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Starfighter"
+      ],
+      "date": "February 19, 2001"
+    },
+    "SW:SBR": {
+      "n/a": true,
+      "name": "Star Wars: Super Bombad Racing",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Super_Bombad_Racing",
+      "date": "April 23, 2001",
+      "tag": "Console"
+    },
+    "SWGB": {
+      "name": "Star Wars: Galactic Battlegrounds",
+      "url": [
+        "https://store.steampowered.com/app/356500",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Galactic_Battlegrounds"
+      ],
+      "date": "November 9, 2001",
+      "dlcs": {
+        "CC": {
+          "name": "Clone Campaigns",
+          "date": "May 14, 2002"
+        }
+      }
+    },
+    "SW:RS2:RL": {
+      "n/a": true,
+      "name": "Star Wars Rogue Squadron II: Rogue Leader",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Rogue_Squadron_II:_Rogue_Leader",
+      "date": "November 18, 2001",
+      "tag": "Console"
+    },
+    "SW:O": {
+      "n/a": true,
+      "name": "Star Wars: Obi-Wan",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Obi-Wan",
+      "date": "December 19, 2001",
+      "tag": "Console"
+    },
+    "SW:RR": {
+      "n/a": true,
+      "name": "Star Wars Racer Revenge",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Racer_Revenge",
+      "date": "February 11, 2002",
+      "tag": "Console"
+    },
+    "SW:JS": {
+      "n/a": true,
+      "name": "Star Wars: Jedi Starfighter",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Jedi_Starfighter",
+      "date": "March 10, 2002",
+      "tag": "Console"
+    },
+    "SWJK2:JO": {
+      "name": "Star Wars Jedi Knight II: Jedi Outcast",
+      "url": [
+        "https://store.steampowered.com/app/6030",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight_II:_Jedi_Outcast"
+      ],
+      "date": "March 26, 2002"
+    },
+    "SW2:AotC": {
+      "n/a": true,
+      "name": "Star Wars: Episode II - Attack of the Clones",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_II_%E2%80%93_Attack_of_the_Clones_(video_game)",
+      "date": "May 30, 2002",
+      "tag": "Console"
+    },
+    "SW:TCW": {
+      "n/a": true,
+      "name": "Star Wars: The Clone Wars",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_(2002_video_game)",
+      "date": "October 28, 2002",
+      "tag": "Console"
+    },
+    "SW:TNDA": {
+      "n/a": true,
+      "name": "Star Wars: The New Droid Army",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_New_Droid_Army",
+      "date": "November 14, 2002",
+      "tag": "Console"
+    },
+    "SW:BH": {
+      "n/a": true,
+      "name": "Star Wars: Bounty Hunter",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Bounty_Hunter",
+      "date": "November 19, 2002",
+      "tag": "Console"
+    },
+    "IJatET": {
+      "name": "Indiana Jones and the Emperor's Tomb",
+      "url": [
+        "https://store.steampowered.com/app/560430",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Emperor%27s_Tomb"
+      ],
+      "date": "February 24, 2003"
+    },
+    "RRR": {
+      "n/a": true,
+      "name": "RTX Red Rock",
+      "url": "https://en.wikipedia.org/wiki/RTX_Red_Rock",
+      "date": "June 17, 2003",
+      "tag": "Console"
+    },
+    "SWG": {
+      "n/a": true,
+      "name": "Star Wars Galaxies (closed)",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies",
+      "date": "June 26, 2003",
+      "tag": "MMO Closed",
+      "dlcs": {
+        "JtL": {
+          "name": "Jump to Lightspeed",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies:_Jump_to_Lightspeed",
+          "date": "October 27, 2004"
+        },
+        "RotW": {
+          "name": "Rage of the Wookiees",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies#Rage_of_the_Wookiees",
+          "date": "May 5, 2005"
+        },
+        "ToO": {
+          "name": "Trials of Obi-Wan",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies#Trials_of_Obi-Wan",
+          "date": "November 1, 2005"
+        },
+        "TCG": {
+          "name": "Trading Card Game",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies#Trading_Card_Game",
+          "date": "August 27, 2008"
+        }
+      }
+    },
+    "SW:KotOR": {
+      "name": "Star Wars: Knights of the Old Republic",
+      "url": [
+        "https://store.steampowered.com/app/32370",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Knights_of_the_Old_Republic_(video_game)"
+      ],
+      "date": "July 15, 2003"
+    },
+    "SWJK:JA": {
+      "name": "Star Wars Jedi Knight: Jedi Academy",
+      "url": [
+        "https://store.steampowered.com/app/6020",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Jedi_Academy"
+      ],
+      "date": "September 17, 2003"
+    },
+    "SW:RS3:RS": {
+      "n/a": true,
+      "name": "Star Wars Rogue Squadron III: Rebel Strike",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Rogue_Squadron_III:_Rebel_Strike",
+      "date": "October 15, 2003",
+      "tag": "Console"
+    },
+    "G": {
+      "n/a": true,
+      "name": "Gladius",
+      "url": "https://en.wikipedia.org/wiki/Gladius_(video_game)",
+      "date": "October 28, 2003",
+      "tag": "Console"
+    },
+    "SWON": {
+      "n/a": true,
+      "name": "Secret Weapons Over Normandy",
+      "url": "https://en.wikipedia.org/wiki/Secret_Weapons_Over_Normandy",
+      "date": "November 18, 2003",
+      "tag": "TODO"
+    },
+    "SW:FotF": {
+      "n/a": true,
+      "name": "Star Wars: Flight of the Falcon",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Flight_of_the_Falcon",
+      "date": "November 18, 2003",
+      "tag": "Console"
+    },
+    "AaD": {
+      "name": "Armed and Dangerous",
+      "url": [
+        "https://store.steampowered.com/app/6090",
+        "https://en.wikipedia.org/wiki/Armed_and_Dangerous_(video_game)"
+      ],
+      "date": "December 2, 2003"
+    },
+    "WU": {
+      "n/a": true,
+      "name": "Wrath Unleashed",
+      "url": "https://en.wikipedia.org/wiki/Wrath_Unleashed",
+      "date": "February 10, 2004",
+      "tag": "Console"
+    },
+    "SW:B": {
+      "name": "Star Wars: Battlefront",
+      "url": [
+        "https://store.steampowered.com/app/1237980",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Battlefront_(2004_video_game)"
+      ],
+      "date": "September 21, 2004"
+    },
+    "SWT:AotF": {
+      "n/a": true,
+      "name": "Star Wars Trilogy: Apprentice of the Force",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Trilogy:_Apprentice_of_the_Force",
+      "date": "September 21, 2004",
+      "tag": "Console"
+    },
+    "SW:KotOR2:TSL": {
+      "name": "Star Wars Knights of the Old Republic II: The Sith Lords",
+      "url": [
+        "https://store.steampowered.com/app/208580",
+        "https://en.wikipedia.org/wiki/Star_Wars_Knights_of_the_Old_Republic_II:_The_Sith_Lords"
+      ],
+      "date": "December 6, 2004"
+    },
+    "M:PoD": {
+      "n/a": true,
+      "name": "Mercenaries: Playground of Destruction",
+      "url": "https://en.wikipedia.org/wiki/Mercenaries:_Playground_of_Destruction",
+      "date": "January 11, 2005",
+      "tag": "Console"
+    },
+    "SW:RC": {
+      "name": "Star Wars: Republic Commando",
+      "url": [
+        "https://store.steampowered.com/app/6000",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Republic_Commando"
+      ],
+      "date": "February 17, 2005"
+    },
+    "LSW:TVG": {
+      "n/a": true,
+      "name": "Lego Star Wars: The Video Game",
+      "url": "https://en.wikipedia.org/wiki/Lego_Star_Wars:_The_Video_Game",
+      "date": "April 2, 2005",
+      "tag": "TODO"
+    },
+    "SW3:RotS": {
+      "n/a": true,
+      "name": "Star Wars: Episode III: Revenge of the Sith",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_III_%E2%80%93_Revenge_of_the_Sith_(video_game)",
+      "date": "May 4, 2005",
+      "tag": "Console"
+    },
+    "SW:B2": {
+      "name": "Star Wars: Battlefront II",
+      "url": [
+        "https://store.steampowered.com/app/6060",
+        "https://store.steampowered.com/app/1237950",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Battlefront_II_(2005_video_game)"
+      ],
+      "date": "November 1, 2005"
+    },
+    "SW:EaW": {
+      "name": "Star Wars: Empire at War",
+      "url": [
+        "https://store.steampowered.com/app/32470",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Empire_at_War"
+      ],
+      "date": "February 16, 2006",
+      "dlcs": {
+        "FoC": {
+          "name": "Forces of Corruption",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars:_Empire_at_War:_Forces_of_Corruption",
+          "date": "October 24, 2006"
+        }
+      }
+    },
+    "LSW2:TOT": {
+      "n/a": true,
+      "name": "Lego Star Wars II: The Original Trilogy",
+      "url": "https://en.wikipedia.org/wiki/Lego_Star_Wars_II:_The_Original_Trilogy",
+      "date": "September 12, 2006",
+      "tag": "Console"
+    },
+    "SW:TBoP": {
+      "n/a": true,
+      "name": "Star Wars: The Best of PC (bundle)",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Best_of_PC",
+      "date": "November 21, 2006",
+      "tag": "Bundle"
+    },
+    "T": {
+      "n/a": true,
+      "name": "Thrillville",
+      "url": "https://en.wikipedia.org/wiki/Thrillville",
+      "date": "November 21, 2006",
+      "tag": "Console"
+    },
+    "SW:LA": {
+      "n/a": true,
+      "name": "Star Wars: Lethal Alliance",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Lethal_Alliance",
+      "date": "December 7, 2006",
+      "tag": "Console"
+    },
+    "SW:IA": {
+      "n/a": true,
+      "name": "Star Wars: Imperial Ace",
+      "date": "2006-01-01",
+      "tag": "Mobile"
+    },
+    "SWB:RS": {
+      "n/a": true,
+      "name": "Star Wars Battlefront: Renegade Squadron",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Battlefront:_Renegade_Squadron",
+      "date": "October 9, 2007",
+      "tag": "Console"
+    },
+    "T:OtR": {
+      "name": "Thrillville: Off the Rails",
+      "url": [
+        "https://store.steampowered.com/app/6080",
+        "https://en.wikipedia.org/wiki/Thrillville:_Off_the_Rails"
+      ],
+      "date": "October 9, 2007"
+    },
+    "LSW:TCS": {
+      "name": "Lego Star Wars: The Complete Saga",
+      "url": [
+        "https://store.steampowered.com/app/32440",
+        "https://en.wikipedia.org/wiki/Lego_Star_Wars:_The_Complete_Saga"
+      ],
+      "date": "November 6, 2007"
+    },
+    "LIJ:TOA": {
+      "name": "Lego Indiana Jones: The Original Adventures",
+      "url": [
+        "https://store.steampowered.com/app/32330",
+        "https://en.wikipedia.org/wiki/Lego_Indiana_Jones:_The_Original_Adventures"
+      ],
+      "date": "June 3, 2008"
+    },
+    "SW:TFU": {
+      "name": "Star Wars: The Force Unleashed",
+      "url": [
+        "https://store.steampowered.com/app/32430",
+        "https://www.gog.com/en/game/star_wars_the_force_unleashed_ultimate_sith_edition",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Unleashed"
+      ],
+      "date": "September 16, 2008"
+    },
+    "F": {
+      "n/a": true,
+      "name": "Fracture",
+      "url": "https://en.wikipedia.org/wiki/Fracture_(video_game)",
+      "date": "October 7, 2008",
+      "tag": "Console"
+    },
+    "SWTCW:JA": {
+      "n/a": true,
+      "name": "Star Wars: The Clone Wars - Jedi Alliance",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_%E2%80%93_Jedi_Alliance",
+      "date": "November 11, 2008",
+      "tag": "Console"
+    },
+    "SWTCW:LD": {
+      "n/a": true,
+      "name": "Star Wars: The Clone Wars - Lightsaber Duels",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_%E2%80%93_Lightsaber_Duels",
+      "date": "November 11, 2008",
+      "tag": "Console"
+    },
+    "SWB:MS": {
+      "n/a": true,
+      "name": "Star Wars Battlefront: Mobile Squadrons",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Battlefront_(series)#Star_Wars_Battlefront:_Mobile_Squadrons",
+      "date": "April 2, 2009",
+      "tag": "Mobile"
+    },
+    "IJatSK": {
+      "n/a": true,
+      "name": "Indiana Jones and the Staff of Kings",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Staff_of_Kings",
+      "date": "June 9, 2009",
+      "tag": "Console"
+    },
+    "ToMI": {
+      "name": "Tales of Monkey Island",
+      "url": [
+        "https://store.steampowered.com/app/31170",
+        "https://www.gog.com/en/game/tales_of_monkey_island",
+        "https://en.wikipedia.org/wiki/Tales_of_Monkey_Island"
+      ],
+      "date": "July 7, 2009"
+    },
+    "TSoMI:SE": {
+      "name": "The Secret of Monkey Island: Special Edition",
+      "url": [
+        "https://store.steampowered.com/app/32360",
+        "https://www.gog.com/en/game/the_secret_of_monkey_island_special_edition",
+        "https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island:_Special_Edition"
+      ],
+      "date": "July 15, 2009"
+    },
+    "SWTCW:RH": {
+      "name": "Star Wars: The Clone Wars - Republic Heroes",
+      "url": [
+        "https://store.steampowered.com/app/32420",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_%E2%80%93_Republic_Heroes"
+      ],
+      "date": "October 6, 2009"
+    },
+    "L2": {
+      "name": "Lucidity",
+      "url": [
+        "https://store.steampowered.com/app/32410",
+        "https://en.wikipedia.org/wiki/Lucidity_(video_game)"
+      ],
+      "date": "October 7, 2009"
+    },
+    "SWB:ES": {
+      "n/a": true,
+      "name": "Star Wars Battlefront: Elite Squadron",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Battlefront:_Elite_Squadron",
+      "date": "November 3, 2009",
+      "tag": "Console"
+    },
+    "LIJ2:TAC": {
+      "name": "Lego Indiana Jones 2: The Adventure Continues",
+      "url": [
+        "https://store.steampowered.com/app/32450",
+        "https://en.wikipedia.org/wiki/Lego_Indiana_Jones_2:_The_Adventure_Continues"
+      ],
+      "date": "November 17, 2009"
+    },
+    "MI2SE:LCR": {
+      "name": "Monkey Island 2 Special Edition: LeChuck's Revenge",
+      "url": [
+        "https://store.steampowered.com/app/32460",
+        "https://en.wikipedia.org/wiki/Monkey_Island_2:_LeChuck%27s_Revenge#Special_Edition"
+      ],
+      "date": "July 7, 2010"
+    },
+    "CWA": {
+      "n/a": true,
+      "name": "Clone Wars Adventures (closed)",
+      "url": "https://en.wikipedia.org/wiki/Clone_Wars_Adventures",
+      "date": "September 15, 2010",
+      "tag": "MMO Closed"
+    },
+    "SW:TFU2": {
+      "name": "Star Wars: The Force Unleashed II",
+      "url": [
+        "https://store.steampowered.com/app/32500",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Unleashed_II"
+      ],
+      "date": "October 26, 2010"
+    },
+    "LS3:TCW": {
+      "name": "Lego Star Wars III: The Clone Wars",
+      "url": [
+        "https://store.steampowered.com/app/32510",
+        "https://en.wikipedia.org/wiki/Lego_Star_Wars_III:_The_Clone_Wars"
+      ],
+      "date": "March 22, 2011"
+    },
+    "SW:TOR": {
+      "name": "Star Wars: The Old Republic",
+      "url": [
+        "https://store.steampowered.com/app/1286830",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Old_Republic"
+      ],
+      "date": "December 20, 2011"
+    },
+    "KSW": {
+      "n/a": true,
+      "name": "Kinect Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Kinect_Star_Wars",
+      "date": "April 3, 2012",
+      "tag": "Console"
+    },
+    "AB:SW": {
+      "n/a": true,
+      "name": "Angry Birds Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Angry_Birds_Star_Wars",
+      "date": "November 8, 2012",
+      "tag": "Mobile"
+    },
+    "AB:SW2": {
+      "n/a": true,
+      "name": "Angry Birds Star Wars II",
+      "url": "https://en.wikipedia.org/wiki/Angry_Birds_Star_Wars_II",
+      "date": "September 18, 2013",
+      "tag": "Mobile"
+    },
+    "SW:TDS": {
+      "n/a": true,
+      "name": "Star Wars: Tiny Death Star",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Tiny_Death_Star",
+      "date": "October 11, 2013",
+      "tag": "Mobile"
+    },
+    "SW:1313": {
+      "n/a": true,
+      "name": "Star Wars 1313 (canceled)",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_1313",
+      "date": "2013-01-01",
+      "tag": "Canceled"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "RoF": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "TE": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "KR": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "L:TCG": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "PP": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "MM": {
+        "key": "Steam:529890",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 529890",
+        "dir": "."
+      },
+      "SF": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "B1942": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "ZMatAM": {
+        "key": "Steam:559070",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559070",
+        "dir": "."
+      },
+      "IJatLC:TAG": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "IJatLC:TGA": {
+        "key": "Steam:32310",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32310",
+        "dir": "."
+      },
+      "TFH": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "SWotL": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "TFM:V1": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "NS": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "MI2:LR": {
+        "key": "Steam:32460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32460",
+        "dir": "."
+      },
+      "IJatFoA": {
+        "key": "Steam:6010",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6010",
+        "dir": "."
+      },
+      "LCA": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "DotT": {
+        "key": "Steam:388210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 388210",
+        "dir": "."
+      },
+      "ZAMN": {
+        "key": "Steam:1137970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
+        "dir": "."
+      },
+      "SMHtR": {
+        "key": "Steam:355170",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355170",
+        "dir": "."
+      },
+      "SWC": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "ACC": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "GP": {
+        "key": "Steam:1137970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
+        "dir": "."
+      },
+      "FT": {
+        "key": "Steam:228360",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 228360",
+        "dir": "."
+      },
+      "SW:RA2": {
+        "key": "Steam:456540",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 456540",
+        "dir": "."
+      },
+      "IJaHDA": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "A": {
+        // https://www.gog.com/en/game/afterlife
+        "key": "Gog:XX",
+        "reg": "Gog XX",
+        "dir": "."
+      },
+      "MatRotM": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "SW:SotE": {
+        "key": "Steam:560170",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560170",
+        "dir": "."
+      },
+      "SW:YS": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "O": {
+        "key": "Steam:559620",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559620",
+        "dir": "."
+      },
+      "MSW": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "TCoMI": {
+        "key": "Steam:730820",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730820",
+        "dir": "."
+      },
+      "SW:BtM": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "SW:DW": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "GF": {
+        "key": "Steam:316790",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 316790",
+        "dir": "."
+      },
+      "SW:PD": {
+        "key": "Abdandon:XX",
+        "dir": "."
+      },
+      "SW:FC": {
+        "key": "Steam:XX",
+        "dir": "."
+      },
+      "SW:YCAC": {
+        "key": "Steam:XX",
+        "dir": "."
+      },
+      "SW1:TGF": {
+        "key": "Steam:XX",
+        "dir": "."
+      },
+      "SW1:TPM": {
+        "key": "Steam:XX",
+        "dir": "."
+      },
+      "IJatIM": {
+        "key": "Steam:904540",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 904540",
+        "dir": "."
+      },
+      "L": {
+        "key": "Steam:32340",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32340",
+        "dir": "."
+      },
+      "EfMI": {
+        "key": "Steam:730830",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730830",
+        "dir": "."
+      },
+      "IJatET": {
+        "key": "Steam:560430",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560430",
+        "dir": "."
+      },
+      "AaD": {
+        "key": "Steam:6090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6090",
+        "dir": "."
+      },
+      "SW:B": {
+        "key": "Steam:1237980",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237980",
+        "dir": "."
+      },
+      "SW1:R": {
+        "key": "Steam:808910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 808910",
+        "dir": "."
+      },
+      "SW:RS": {
+        "key": "Steam:455910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 455910",
+        "dir": "."
+      },
+      "SW:R": {
+        "key": "Steam:441550",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 441550",
+        "dir": "."
+      },
+      "SW:XvT": {
+        "key": "Steam:361690",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361690",
+        "dir": "."
+      },
+      "SW:XA": {
+        "key": "Steam:361670",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361670",
+        "dir": "."
+      },
+      "SWGB": {
+        "key": "Steam:356500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 356500",
+        "dir": "."
+      },
+      "SW:TF": {
+        "key": "Steam:355250",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355250",
+        "dir": "."
+      },
+      "SW:XW": {
+        "key": "Steam:354430",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 354430",
+        "dir": "."
+      },
+      "SW:KotOR2:TSL": {
+        "key": "Steam:208580",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 208580",
+        "dir": "."
+      },
+      "SW:B2": {
+        "key": [
+          "Steam:6060",
+          "Steam:1237950"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6060",
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237950"
+        ],
+        "dir": "."
+      },
+      "SW:EaW": {
+        "key": "Steam:32470",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32470",
+        "dir": "."
+      },
+      "T:OtR": {
+        "key": "Steam:6080",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6080",
+        "dir": "."
+      },
+      "LSW:TCS": {
+        "key": "Steam:32440",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32440",
+        "dir": "."
+      },
+      "LIJ:TOA": {
+        "key": "Steam:32330",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32330",
+        "dir": "."
+      },
+      "SWJK:JA": {
+        "key": "Steam:6020",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6020",
+        "dir": "."
+      },
+      "SWJK2:JO": {
+        "key": "Steam:6030",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6030",
+        "dir": "."
+      },
+      "SWJK:MotS": {
+        "key": "Steam:32390",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32390",
+        "dir": "."
+      },
+      "SW:DF": {
+        "key": "Steam:32400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32400",
+        "dir": "."
+      },
+      "SWJK:DF2": {
+        "key": "Steam:32380",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32380",
+        "dir": "."
+      },
+      "SW:KotOR": {
+        "key": "Steam:32370",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
+        "dir": "."
+      },
+      "SW:S": {
+        "key": "Steam:32350",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32350",
+        "dir": "."
+      },
+      "SW:RC": {
+        "key": "Steam:6000",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6000",
+        "dir": "."
+      },
+      "SW:TFU": {
+        // https://www.gog.com/en/game/star_wars_the_force_unleashed_ultimate_sith_edition
+        "key": [
+          "Steam:32430",
+          "Gog:0"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32430",
+          "GOG"
+        ],
+        "dir": "."
+      },
+      "ToMI": {
+        // https://www.gog.com/en/game/tales_of_monkey_island
+        "key": [
+          "Steam:31170",
+          "Gog:0"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 31170",
+          "GOG"
+        ],
+        "dir": "."
+      },
+      "TSoMI:SE": {
+        // https://www.gog.com/en/game/the_secret_of_monkey_island_special_edition
+        "key": [
+          "Steam:32360",
+          "Gog:0"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32360",
+          "GOG"
+        ],
+        "dir": "."
+      },
+      "SWTCW:RH": {
+        "key": "Steam:32420",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32420",
+        "dir": "."
+      },
+      "L2": {
+        "key": "Steam:32410",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32410",
+        "dir": "."
+      },
+      "LIJ2:TAC": {
+        "key": "Steam:32450",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 324500",
+        "dir": "."
+      },
+      "MI2SE:LCR": {
+        "key": "Steam:32460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32460",
+        "dir": "."
+      },
+      "SW:TFU2": {
+        "key": "Steam:32500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32500",
+        "dir": "."
+      },
+      "LS3:TCW": {
+        "key": "Steam:32510",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32510",
+        "dir": "."
+      },
+      "SW:TOR": {
+        "key": "Steam:1286830",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1286830",
+        "dir": "."
+      }
+    }
+  }
+}
