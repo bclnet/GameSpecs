@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static GameSpec.FamilyManager;
+using static GameSpec.FileManager;
 using static GameSpec.Util;
 
 namespace GameSpec
@@ -181,7 +182,7 @@ namespace GameSpec
         /// <param name="paths"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal static FamilyGame CreateFamilyGame(Family family, string id, JsonElement elem, ref FamilyGame dgame, IDictionary<string, HashSet<string>> paths)
+        internal static FamilyGame CreateFamilyGame(Family family, string id, JsonElement elem, ref FamilyGame dgame, IDictionary<string, PathItem> paths)
         {
             var gameType = _value(elem, "gameType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("gameType", $"Unknown type: {z}"), dgame.GameType);
             var game = gameType != null ? (FamilyGame)Activator.CreateInstance(gameType, family, id, elem, dgame) : new FamilyGame(family, id, elem, dgame);
@@ -220,9 +221,9 @@ namespace GameSpec
         /// <param name="root">The root.</param>
         /// <param name="host">The host.</param>
         /// <returns></returns>
-        internal static IFileSystem CreateFileSystem(Type fileSystemType, string root, Uri host = null) => host != null ? new HostFileSystem(host)
-            : fileSystemType != null ? (IFileSystem)Activator.CreateInstance(fileSystemType, root)
-            : new StandardFileSystem(root);
+        internal static IFileSystem CreateFileSystem(Type fileSystemType, PathItem path, Uri host = null) => host != null ? new HostFileSystem(host)
+            : fileSystemType != null ? (IFileSystem)Activator.CreateInstance(fileSystemType, path)
+            : new StandardFileSystem(path);
 
         #endregion
     }
@@ -477,8 +478,8 @@ namespace GameSpec
             var paths = FileManager.Paths;
             var fileSystemType = game.FileSystemType;
             var fileSystem =
-                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? paths.TryGetValue(game.Id, out var z) ? CreateFileSystem(fileSystemType, z.Single()) : default
-                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? CreateFileSystem(fileSystemType, uri.LocalPath) : default
+                string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? paths.TryGetValue(game.Id, out var z) ? CreateFileSystem(fileSystemType, z) : default
+                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? CreateFileSystem(fileSystemType, new PathItem().Add(uri.LocalPath, null)) : default
                 : uri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? !string.IsNullOrEmpty(uri.Host) ? CreateFileSystem(fileSystemType, null, uri) : default
                 : default;
             if (fileSystem == null)

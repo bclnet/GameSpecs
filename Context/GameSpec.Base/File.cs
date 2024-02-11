@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using static GameSpec.FileManager;
 using static GameSpec.Util;
 using static Microsoft.Win32.Registry;
 
@@ -22,6 +23,18 @@ namespace GameSpec
     public class FileManager
     {
         const string GAMESPATH = "Games";
+
+        public class PathItem
+        {
+            public string Root;
+            public string[] Paths;
+            public PathItem Add(string root, string[] paths)
+            {
+                Root = root;
+                Paths = paths;
+                return this;
+            }
+        }
 
         /// <summary>
         /// Gets the host factory.
@@ -42,7 +55,7 @@ namespace GameSpec
         /// <summary>
         /// The locations
         /// </summary>
-        public readonly IDictionary<string, HashSet<string>> Paths = new Dictionary<string, HashSet<string>>();
+        public readonly IDictionary<string, PathItem> Paths = new Dictionary<string, PathItem>();
 
         /// <summary>
         /// The ignores
@@ -143,13 +156,9 @@ namespace GameSpec
             if (path == null) throw new ArgumentOutOfRangeException(nameof(path));
             path = Path.GetFullPath(GetPathWithSpecialFolders(path));
             if (!Directory.Exists(path) && !File.Exists(path)) return;
-            var paths = usePath && elem.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => Path.Combine(path, x)) : new[] { path };
-            foreach (var p in paths)
-            {
-                if (!Directory.Exists(p) && !File.Exists(path)) continue;
-                if (!Paths.TryGetValue(id, out var z2)) Paths.Add(id, z2 = new HashSet<string>());
-                z2.Add(p);
-            }
+            var paths = usePath && elem.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => x) : null;
+            if (!Paths.TryGetValue(id, out var z2)) Paths.Add(id, z2 = new PathItem());
+            z2.Add(path, paths);
         }
 
         protected static string GetPathWithSpecialFolders(string path, string rootPath = null) =>
@@ -251,7 +260,7 @@ namespace GameSpec
     {
         readonly string Root;
         readonly int Skip;
-        public StandardFileSystem(string root) { Root = root; Skip = root.Length + 1; }
+        public StandardFileSystem(PathItem path) { Root = path.Root; Skip = path.Root.Length + 1; }
         public IEnumerable<string> Glob(string path, string searchPattern)
         {
             var matcher = new Matcher();

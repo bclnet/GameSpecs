@@ -12,8 +12,12 @@ class FileManager: pass
 class FileManager:
     applicationPath = os.getcwd()
     filters: dict[str, object] = {}
-    paths: dict[str, object] = {}
+    paths: dict[str, PathItem] = {}
     ignores: dict[str, object] = {}
+
+    class PathItem:
+        def add(path: str, paths: list[str]):
+            pass
 
     # get locale games
     gameRoots = [os.path.join(x.mountpoint, GAMESPATH) for x in psutil.disk_partitions()]
@@ -80,10 +84,12 @@ class FileManager:
         path = FileManager.getPathWithSpecialFolders(path, '')
         if not os.path.isdir(path) and not os.path.isfile(path): return
         paths = _list(elem, 'path') if usePath and 'path' in elem else [path]
-        for p in [os.path.join(path, x) for x in paths]:
-            if not os.path.isdir(p) and not os.path.isfile(p): continue
-            if not id in self.paths: self.paths[id] = []
-            self.paths[id].append(p)
+        if not id in self.paths: self.paths[id] = PathItem()
+        self.paths[id].append(path, paths)
+        # for p in [os.path.join(path, x) for x in paths]:
+        #     if not os.path.isdir(p) and not os.path.isfile(p): continue
+        #     if not id in self.paths: self.paths[id] = []
+        #     self.paths[id].append(p)
 
     @staticmethod
     def getPathWithSpecialFolders(path: str, rootPath: str = None) -> str:

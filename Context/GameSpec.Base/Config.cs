@@ -332,7 +332,7 @@ namespace GameSpec
             ForceOpen = true,
             ForcePath = "sample:*",
             Family = "Lucas",
-            //Game = "PP", // PHM Pegasus
+            Game = "PP", // PHM Pegasus
             //Game = "MM", // Maniac Mansion
             //Game = "SF", // Strike Fleet
             //Game = "B1942", // Battlehawks 1942
