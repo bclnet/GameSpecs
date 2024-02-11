@@ -109,13 +109,19 @@
     },
     "LW": {
       "name": "LostWinds",
-      "url": [ "https://store.steampowered.com/app/447780", "https://en.wikipedia.org/wiki/LostWinds" ],
+      "url": [
+        "https://store.steampowered.com/app/447780",
+        "https://en.wikipedia.org/wiki/LostWinds"
+      ],
       "date": "2008-05-12",
       "pak": "game:/**/*.ovl"
     },
     "LW2": {
       "name": "LostWinds 2: Winter of the Melodias",
-      "url": [ "https://store.steampowered.com/app/447800", "https://en.wikipedia.org/wiki/LostWinds_2:_Winter_of_the_Melodias" ],
+      "url": [
+        "https://store.steampowered.com/app/447800",
+        "https://en.wikipedia.org/wiki/LostWinds_2:_Winter_of_the_Melodias"
+      ],
       "date": "2009-10-09",
       "pak": "game:/**/*.ovl"
     },
@@ -131,7 +137,6 @@
       "url": "https://en.wikipedia.org/wiki/Kinectimals",
       "date": "2011-10-11"
     },
-
     "KT:DA": {
       "n/a": true,
       "name": "Kinect: Disneyland Adventures",
@@ -161,13 +166,19 @@
     },
     "ED": {
       "name": "Elite: Dangerous",
-      "url": [ "https://store.steampowered.com/app/359320", "https://en.wikipedia.org/wiki/Elite_Dangerous" ],
+      "url": [
+        "https://store.steampowered.com/app/359320",
+        "https://en.wikipedia.org/wiki/Elite_Dangerous"
+      ],
       "date": "2014-12-16",
       "pak": "game:/**/*.ovl",
       "dlcs": {
         "Odyssey": {
           "name": "Elite Dangerous: Odyssey",
-          "url": [ "https://store.steampowered.com/app/1336350", "https://en.wikipedia.org/wiki/Elite_Dangerous#Odyssey_expansion" ],
+          "url": [
+            "https://store.steampowered.com/app/1336350",
+            "https://en.wikipedia.org/wiki/Elite_Dangerous#Odyssey_expansion"
+          ],
           "date": "2021-05-19",
           "path": "elite-dangerous-odyssey-64"
         }
@@ -193,38 +204,59 @@
     },
     "PC": {
       "name": "Planet Coaster",
-      "url": [ "https://store.steampowered.com/app/493340", "https://en.wikipedia.org/wiki/Planet_Coaster" ],
+      "url": [
+        "https://store.steampowered.com/app/493340",
+        "https://en.wikipedia.org/wiki/Planet_Coaster"
+      ],
       "date": "2016-11-17"
     },
     "JW": {
       "name": "Jurassic World Evolution",
-      "url": [ "https://store.steampowered.com/app/648350", "https://en.wikipedia.org/wiki/Jurassic_World_Evolution" ],
+      "url": [
+        "https://store.steampowered.com/app/648350",
+        "https://en.wikipedia.org/wiki/Jurassic_World_Evolution"
+      ],
       "date": "2018-06-12"
     },
     "PZ": {
       "name": "Planet Zoo",
-      "url": [ "https://store.steampowered.com/app/703080", "https://en.wikipedia.org/wiki/Planet_Zoo" ],
+      "url": [
+        "https://store.steampowered.com/app/703080",
+        "https://en.wikipedia.org/wiki/Planet_Zoo"
+      ],
       "date": "2019-11-05"
     },
     "JW2": {
       "name": "Jurassic World Evolution 2",
-      "url": [ "https://store.steampowered.com/app/1244460", "https://en.wikipedia.org/wiki/Jurassic_World_Evolution_2" ],
+      "url": [
+        "https://store.steampowered.com/app/1244460",
+        "https://en.wikipedia.org/wiki/Jurassic_World_Evolution_2"
+      ],
       "date": "2021-11-09"
     },
     "F1:22": {
       "name": "F1 Manager 2022",
-      "url": [ "https://store.steampowered.com/app/1708520", "https://en.wikipedia.org/wiki/F1_Manager_2022" ],
+      "url": [
+        "https://store.steampowered.com/app/1708520",
+        "https://en.wikipedia.org/wiki/F1_Manager_2022"
+      ],
       "date": "2022-08-30"
     },
     "W4K:CG": {
       "name": "Warhammer 40,000: Chaos Gate - Daemonhunters",
-      "url": [ "https://store.steampowered.com/app/1611910", "https://en.wikipedia.org/wiki/Warhammer_40,000:_Chaos_Gate_-_Daemonhunters" ],
+      "url": [
+        "https://store.steampowered.com/app/1611910",
+        "https://en.wikipedia.org/wiki/Warhammer_40,000:_Chaos_Gate_-_Daemonhunters"
+      ],
       "date": "2022-11-23",
       "tag": "dev:complex games"
     },
     "F1:23": {
       "name": "F1 Manager 2023",
-      "url": [ "https://store.steampowered.com/app/2287220", "https://en.wikipedia.org/wiki/F1_Manager_2023" ],
+      "url": [
+        "https://store.steampowered.com/app/2287220",
+        "https://en.wikipedia.org/wiki/F1_Manager_2023"
+      ],
       "date": "2023-07-31"
     },
     "W4K:AoS:RoR": {
@@ -257,25 +289,39 @@
         "key": "Steam:493340",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 493340",
         "dir": "Planet Coaster",
-        "path": [ "Blueprints", "Parks", "Win64" ]
+        "path": [
+          "Blueprints",
+          "Parks",
+          "Win64"
+        ]
       },
       "JW": {
         "key": "Steam:648350",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 648350",
         "dir": "Jurassic World Evolution",
-        "path": [ "Islands", "Win64" ]
+        "path": [
+          "Islands",
+          "Win64"
+        ]
       },
       "PZ": {
         "key": "Steam:703080",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 703080",
         "dir": "Planet Zoo",
-        "path": [ "Blueprints", "win64", "Zoos" ]
+        "path": [
+          "Blueprints",
+          "win64",
+          "Zoos"
+        ]
       },
       "JW2": {
         "key": "Steam:1244460",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1244460",
         "dir": "Jurassic World Evolution 2",
-        "path": [ "Islands", "Win64" ]
+        "path": [
+          "Islands",
+          "Win64"
+        ]
       },
       "F1:22": {
         "key": "Steam:1708520",

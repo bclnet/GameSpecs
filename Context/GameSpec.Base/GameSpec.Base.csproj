@@ -45,6 +45,8 @@
     <EmbeddedResource Include="..\..\Python\gamespecs\Specs\IdFamily.Sample.json" Link="Specs\IdFamily.Sample.json" />
     <EmbeddedResource Include="..\..\Python\gamespecs\Specs\IWFamily.json" Link="Specs\IWFamily.json" />
     <EmbeddedResource Include="..\..\Python\gamespecs\Specs\IWFamily.Sample.json" Link="Specs\IWFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\Python\gamespecs\Specs\LucasFamily.json" Link="Specs\LucasFamily.json" />
+    <EmbeddedResource Include="..\..\Python\gamespecs\Specs\LucasFamily.Sample.json" Link="Specs\LucasFamily.Sample.json" />
     <EmbeddedResource Include="..\..\Python\gamespecs\Specs\MonolithFamily.json" Link="Specs\MonolithFamily.json" />
     <EmbeddedResource Include="..\..\Python\gamespecs\Specs\MonolithFamily.Sample.json" Link="Specs\MonolithFamily.Sample.json" />
     <EmbeddedResource Include="..\..\Python\gamespecs\Specs\OriginFamily.json" Link="Specs\OriginFamily.json" />

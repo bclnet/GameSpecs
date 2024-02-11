@@ -201,16 +201,40 @@
         "dir": "Baldur's Gate II - Enhanced Edition\"\""
       },
       "NWN": {
-        "key": [ "Steam:704450", "GOG:1097893768", "GOG:1207658890" ],
-        "reg": [ "BioWare/NWN/Neverwinter", "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 704450", "GOG.com/Games/1097893768", "GOG.com/Games/1207658890" ],
+        "key": [
+          "Steam:704450",
+          "GOG:1097893768",
+          "GOG:1207658890"
+        ],
+        "reg": [
+          "BioWare/NWN/Neverwinter",
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 704450",
+          "GOG.com/Games/1097893768",
+          "GOG.com/Games/1207658890"
+        ],
         "dir": "Neverwinter Nights",
         "path": "data"
       },
       "KotOR": {
-        "key": [ "Steam:32370", "GOG:1207666283", "GOG:111" ],
-        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370", "GOG.com/Games/1207666283", "GOG.com/Games/111" ],
-        "dir": [ "swkotor", "Star Wars - KotOR" ],
-        "path": [ ".", "TexturePacks" ]
+        "key": [
+          "Steam:32370",
+          "GOG:1207666283",
+          "GOG:111"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
+          "GOG.com/Games/1207666283",
+          "GOG.com/Games/111"
+        ],
+        "dir": [
+          "swkotor",
+          "Star Wars - KotOR"
+        ],
+        "path": [
+          ".",
+          "TexturePacks"
+        ],
+        "see": "Lucas"
       },
       "JE": {
         "key": "GOG:1207659237",
@@ -224,7 +248,10 @@
       },
       "NWN2": {
         "key": "GOG:1207659162",
-        "reg": [ "Obsidian/NWN 2/Neverwinter", "GOG.com/Games/1207659162" ],
+        "reg": [
+          "Obsidian/NWN 2/Neverwinter",
+          "GOG.com/Games/1207659162"
+        ],
         "dir": "NWN2 Complete",
         "path": "Data"
       },
@@ -275,7 +302,11 @@
         "key": "Steam:1328670",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1328670",
         "dir": "Mass Effect Legendary Edition",
-        "path": [ "Game/ME1/BioGame/CookedPCConsole", "Game/ME2/BioGame/CookedPCConsole", "Game/ME3/BioGame/CookedPCConsole" ]
+        "path": [
+          "Game/ME1/BioGame/CookedPCConsole",
+          "Game/ME2/BioGame/CookedPCConsole",
+          "Game/ME3/BioGame/CookedPCConsole"
+        ]
       }
     }
   }

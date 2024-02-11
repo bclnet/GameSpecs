@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace GameSpec.Store
 {
     /// <summary>
-    /// StoreManager_Blizzard
+    /// Store_Blizzard
     /// </summary>
     internal static class Store_Blizzard
     {

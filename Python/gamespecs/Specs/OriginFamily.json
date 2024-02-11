@@ -118,8 +118,14 @@
       "url": "https://en.wikipedia.org/wiki/Wing_Commander_(video_game)",
       "date": "September 26, 1990",
       "dlcs": {
-        "dlc1": { "name": "Wing Commander: The Secret Missions", "date": "1990-01-01" },
-        "dlc2": { "name": "Wing Commander: The Secret Missions 2 - Crusade", "date": "1991-01-01" }
+        "dlc1": {
+          "name": "Wing Commander: The Secret Missions",
+          "date": "1990-01-01"
+        },
+        "dlc2": {
+          "name": "Wing Commander: The Secret Missions 2 - Crusade",
+          "date": "1991-01-01"
+        }
       }
     },
     "U:TSE": {
@@ -140,9 +146,18 @@
       "url": "https://en.wikipedia.org/wiki/Wing_Commander_II:_Vengeance_of_the_Kilrathi",
       "date": "September 7, 1991",
       "dlcs": {
-        "dlc1": { "name": "Wing Commander II: Vengeance of the Kilrathi - Speech Accessory Pack", "date": "1991-01-01" },
-        "dlc2": { "name": "Wing Commander II: Vengeance of the Kilrathi - Special Operations 1", "date": "1991-01-01" },
-        "dlc3": { "name": "Wing Commander II: Vengeance of the Kilrathi - Special Operations 2", "date": "1992-01-01" }
+        "dlc1": {
+          "name": "Wing Commander II: Vengeance of the Kilrathi - Speech Accessory Pack",
+          "date": "1991-01-01"
+        },
+        "dlc2": {
+          "name": "Wing Commander II: Vengeance of the Kilrathi - Special Operations 1",
+          "date": "1991-01-01"
+        },
+        "dlc3": {
+          "name": "Wing Commander II: Vengeance of the Kilrathi - Special Operations 2",
+          "date": "1992-01-01"
+        }
       }
     },
     "U:RoV": {
@@ -186,7 +201,9 @@
       "url": "https://en.wikipedia.org/wiki/Ultima_VII_Part_Two:_Serpent_Isle",
       "date": "March 25, 1993",
       "dlcs": {
-        "dlc1": { "name": "Ultima VII: Part Two - The Silver Seed" }
+        "dlc1": {
+          "name": "Ultima VII: Part Two - The Silver Seed"
+        }
       }
     },
     "UU:LoW": {
@@ -207,8 +224,14 @@
       "url": "https://en.wikipedia.org/wiki/Wing_Commander:_Privateer",
       "date": "September 1, 1993",
       "dlcs": {
-        "dlc1": { "name": "Wing Commander: Privateer - Speech Pack", "date": "1993-01-01" },
-        "dlc2": { "name": "Privateer: Righteous Fire", "date": "1994-01-01" }
+        "dlc1": {
+          "name": "Wing Commander: Privateer - Speech Pack",
+          "date": "1993-01-01"
+        },
+        "dlc2": {
+          "name": "Privateer: Righteous Fire",
+          "date": "1994-01-01"
+        }
       }
     },
     "U:RoV2": {
@@ -231,13 +254,22 @@
     },
     "U8": {
       "name": "Pagan: Ultima VIII",
-      "url": [ "https://en.wikipedia.org/wiki/Ultima_VIII:_Pagan", "https://www.gog.com/en/game/ultima_8_gold_edition" ],
+      "url": [
+        "https://en.wikipedia.org/wiki/Ultima_VIII:_Pagan",
+        "https://www.gog.com/en/game/ultima_8_gold_edition"
+      ],
       "date": "September 1, 1993",
       "dlcs": {
-        "dlc1": { "name": "Pagan: Ultima VIII - Speech Pack" }
+        "dlc1": {
+          "name": "Pagan: Ultima VIII - Speech Pack"
+        }
       },
       "searchBy": "AllDir",
-      "pakExt": [".flx", ".dat", ".skf"]
+      "pakExt": [
+        ".flx",
+        ".dat",
+        ".skf"
+      ]
     },
     "WC:S": {
       "n/a": true,
@@ -322,10 +354,17 @@
     },
     "UO": {
       "name": "Ultima Online",
-      "url": [ "https://en.wikipedia.org/wiki/Ultima_Online", "https://uo.com/client-download/" ],
+      "url": [
+        "https://en.wikipedia.org/wiki/Ultima_Online",
+        "https://uo.com/client-download/"
+      ],
       "date": "September 24, 1997",
       "searchBy": "AllDir",
-      "pakExt": [".idx", "idx.mul", ".uop"],
+      "pakExt": [
+        ".idx",
+        "idx.mul",
+        ".uop"
+      ],
       "dlcs": {
         "tsA": {
           "name": "Ultima Online: The Second Age",
@@ -394,10 +433,19 @@
     },
     "U9": {
       "name": "Ultima IX: Ascension",
-      "url": [ "https://en.wikipedia.org/wiki/Ultima_IX:_Ascension", "https://www.gog.com/en/game/ultima_9_ascension" ],
+      "url": [
+        "https://en.wikipedia.org/wiki/Ultima_IX:_Ascension",
+        "https://www.gog.com/en/game/ultima_9_ascension"
+      ],
       "date": "November 23, 1999",
       "searchBy": "DirDown",
-      "pakExt": [".flx", "Texture8.9", "Texture8.14", "texture16.9", "texture16.14"]
+      "pakExt": [
+        ".flx",
+        "Texture8.9",
+        "Texture8.14",
+        "texture16.9",
+        "texture16.14"
+      ]
     }
   },
   "fileManager": {
@@ -430,11 +478,17 @@
           "Electronic Arts/EA Games/Ultima Online Stygian Abyss Classic",
           "Electronic Arts/EA Games/Ultima Online Classic"
         ],
-        "dir": [ "Ultima Online Classic", "Ultima Online Enhanced" ]
+        "dir": [
+          "Ultima Online Classic",
+          "Ultima Online Enhanced"
+        ]
       },
       "U9": {
         "key": "GOG:1207659093",
-        "reg": [ "GOG.com/GOGULTIMA9", "GOG.com/Games/1207659093" ],
+        "reg": [
+          "GOG.com/GOGULTIMA9",
+          "GOG.com/Games/1207659093"
+        ],
         "dir": "Ultima 9"
       }
     },

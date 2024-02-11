@@ -10,14 +10,14 @@
   "MDK2": {
     "name": "MDK2",
     "files": [
-        {
-            "path": "base.zip:aabattery.tex",
-            "type": "Texture"
-        },
-        {
-            "path": "scripts.zip:debug.lua",
-            "type": "Text"
-        }
+      {
+        "path": "base.zip:aabattery.tex",
+        "type": "Texture"
+      },
+      {
+        "path": "scripts.zip:debug.lua",
+        "type": "Text"
+      }
     ]
   },
   "BG2": {

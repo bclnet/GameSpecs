@@ -21,12 +21,12 @@
     "name": "The Elder Scrolls IV: Oblivion",
     "files": [
       {
-        "path": ">Oblivion - Meshes.bsa:trees/treecottonwoodsu.spt",
+        "path": "Oblivion - Meshes.bsa:trees/treecottonwoodsu.spt",
         "size": 6329,
         "type": "Test"
       },
       {
-        "path": ">Oblivion - Textures - Compressed.bsa:textures/trees/canopyshadow.dds",
+        "path": "Oblivion - Textures - Compressed.bsa:textures/trees/canopyshadow.dds",
         "size": 174904,
         "type": "Test"
       }
@@ -52,12 +52,12 @@
     "name": "The Elder Scrolls V: Skyrim - Special Edition",
     "files": [
       {
-        "path": ">Skyrim - Meshes0.bsa:meshes/scalegizmo.nif",
+        "path": "Skyrim - Meshes0.bsa:meshes/scalegizmo.nif",
         "size": 8137,
         "type": "Test"
       },
       {
-        "path": ">Skyrim - Textures0.bsa:textures/actors/dog/dog.dds",
+        "path": "Skyrim - Textures0.bsa:textures/actors/dog/dog.dds",
         "size": 1398240,
         "type": "Test"
       }
@@ -71,12 +71,12 @@
     "name": "Fallout 4 VR",
     "files": [
       {
-        "path": ">Fallout4 - Startup.ba2:Textures/Water/WaterRainRipples.dds",
+        "path": "Fallout4 - Startup.ba2:Textures/Water/WaterRainRipples.dds",
         "size": 349680,
         "type": "Test"
       },
       {
-        "path": ">Fallout4 - Textures8.ba2:Textures/Terrain/DiamondCity/DiamondCity.16.-2.-2.DDS",
+        "path": "Fallout4 - Textures8.ba2:Textures/Terrain/DiamondCity/DiamondCity.16.-2.-2.DDS",
         "size": 174904,
         "type": "Test"
       }

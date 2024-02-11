@@ -11,8 +11,9 @@
 //#define Epic
 //#define Frictional
 //#define Frontier
-#define Id
+//#define Id
 //#define IW
+#define Lucas
 //#define Monolith
 //#define Origin
 //#define Red
@@ -322,6 +323,91 @@ namespace GameSpec
             Game = "BO4", // Call of Duty Black Ops 4
             //Game = "BOCW", // Call of Duty Black Ops Cold War
             //Game = "Vanguard", // Call of Duty Vanguard
+        };
+#elif Lucas
+        static string[] FamilyKeys = new[] { "Lucas", "Unknown" };
+
+        public static DefaultOptions AppDefaultOptions = new DefaultOptions
+        {
+            ForceOpen = true,
+            ForcePath = "sample:*",
+            Family = "Lucas",
+            //Game = "PP", // PHM Pegasus
+            //Game = "MM", // Maniac Mansion
+            //Game = "SF", // Strike Fleet
+            //Game = "B1942", // Battlehawks 1942
+            //Game = "ZMatAM", // Zak McKracken and the Alien Mindbenders
+            //Game = "IJatLC:TAG", // Indiana Jones and the Last Crusade: The Action Game
+            //Game = "TFH", // Their Finest Hour
+            //Game = "TFM:V1", // Their Finest Missions: Volume One
+            //Game = "L", // Loom
+            //Game = "M", // Masterblazer
+            //Game = "NS", // Night Shift
+            //Game = "SWotL", // Secret Weapons of the Luftwaffe
+            //Game = "MI2:LR", // Monkey Island 2: LeChuck's Revenge
+            //Game = "IJatFoA", // Indiana Jones and the Fate of Atlantis
+            //Game = "SW:XW", // Star Wars: X-Wing
+            //Game = "DotT", // Day of the Tentacle - Missing
+            //Game = "ZAMN", // Zombies Ate My Neighbors
+            //Game = "SaMHtR", // Sam & Max Hit the Road
+            //Game = "SWC", // Star Wars Chess
+            //Game = "SW:TF", // Star Wars: TIE Fighter
+            //Game = "GP", // Ghoul Patrol
+            //Game = "SW:DF", // Star Wars: Dark Forces
+            //Game = "FT", // Full Throttle
+            //Game = "TD", // The Dig
+            //Game = "SW:RA2", // Star Wars: Rebel Assault II: The Hidden Empire
+            //Game = "IJaHDA", // Indiana Jones and His Desktop Adventures
+            //Game = "A", // Afterlife
+            //Game = "MatRotM", // Mortimer and the Riddles of the Medallion
+            //Game = "SW:SotE", // Star Wars: Shadows of the Empire
+            //Game = "SW:YS", // Star Wars: Yoda Stories
+            //Game = "O", // Outlaws
+            //Game = "SW:XvT", // Star Wars: X-Wing vs. TIE Fighter
+            //Game = "SWJK:DF2", // Star Wars Jedi Knight: Dark Forces II
+            //Game = "MSW", // Monopoly Star Wars
+            //Game = "TCoMI", // The Curse of Monkey Island
+            //Game = "SWJK:MotS", // Star Wars Jedi Knight: Mysteries of the Sith
+            //Game = "SW:R", // Star Wars: Rebellion
+            //Game = "SW:BtM", // Star Wars: Behind the Magic
+            //Game = "SW:DW", // Star Wars: DroidWorks
+            //Game = "GF", // Grim Fandango
+            //Game = "SW:RS", // Star Wars: Rogue Squadron
+            //Game = "SW:XA", // Star Wars: X-Wing Alliance
+            //Game = "SW1:TPM", // Star Wars Episode I: The Phantom Menace
+            //Game = "SW1:R", // Star Wars Episode I: Racer
+            //Game = "SW1:TGF", // Star Wars Episode I: The Gungan Frontier
+            //Game = "SW:YCAC", // Star Wars: Yoda's Challenge Activity Center
+            //Game = "SW:PD", // Star Wars: Pit Droids
+            //Game = "IJatIM", // Indiana Jones and the Infernal Machine
+            //Game = "SW:FC", // Star Wars: Force Commander
+            //Game = "EfMI", // Escape from Monkey Island
+            //Game = "SW:S", // Star Wars: Starfighter
+            //Game = "SWGB", // Star Wars: Galactic Battlegrounds
+            //Game = "SWJK2:JO", // Star Wars Jedi Knight II: Jedi Outcast
+            //Game = "IJatET", // Indiana Jones and the Emperor's Tomb
+            //Game = "SWG", // Star Wars Galaxies (closed)
+            //Game = "SW:KotOR", // Star Wars: Knights of the Old Republic
+            //Game = "SWJK:JA", // Star Wars Jedi Knight: Jedi Academy
+            //Game = "AaD", // Armed and Dangerous
+            //Game = "SW:B", // Star Wars: Battlefront
+            //Game = "SW:KotOR2", // Star Wars Knights of the Old Republic II: The Sith Lord
+            //Game = "SW:RC", // Star Wars: Republic Commando
+            //Game = "SW:B2", // Star Wars: Battlefront II
+            //Game = "SW:EaW", // Star Wars: Empire at War
+            //Game = "T:OtR", // Thrillville: Off the Rails
+            //Game = "LSW:TCS", // Lego Star Wars: The Complete Saga
+            //Game = "LIJ:TOA", // Lego Indiana Jones: The Original Adventures
+            //Game = "SW:TFU", // Star Wars: The Force Unleashed
+            //Game = "ToMI", // Tales of Monkey Island
+            //Game = "TSoMI:SE", // The Secret of Monkey Island: Special Edition
+            //Game = "SWTCW:RH", // Star Wars: The Clone Wars - Republic Heroes
+            //Game = "LU", // Lucidity
+            //Game = "LIJ2:TAC", // Lego Indiana Jones 2: The Adventure Continues
+            //Game = "MI2SE:LCR", // Monkey Island 2 Special Edition: LeChuck's Revenge
+            //Game = "SW:TFU2", // Star Wars: The Force Unleashed II
+            //Game = "LS3:TCW", // Lego Star Wars III: The Clone Wars
+            //Game = "SW:TOR", // Star Wars: The Old Republic
         };
 #elif Monolith
         static string[] FamilyKeys = new[] { "Monolith", "Unknown" };

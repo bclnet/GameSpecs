@@ -19,6 +19,7 @@ namespace GameSpec
                 "Blizzard" => Store_Blizzard.BlizzardPaths.TryGetValue(v, out var z) ? z : null,
                 "Epic" => Store_Epic.EpicPaths.TryGetValue(v, out var z) ? z : null,
                 "Ubisoft" => Store_Ubisoft.UbisoftPaths.TryGetValue(v, out var z) ? z : null,
+                "Abandon" => Store_Abandon.AbandonPaths.TryGetValue(v, out var z) ? z : null,
                 "Unknown" => null,
                 _ => throw new ArgumentOutOfRangeException(nameof(key), key),
             };

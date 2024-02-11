@@ -27,13 +27,19 @@
     },
     "P:T": {
       "name": "Planescape: Torment",
-      "url": [ "https://en.wikipedia.org/wiki/Planescape:_Torment", "https://store.steampowered.com/app/466300" ],
+      "url": [
+        "https://en.wikipedia.org/wiki/Planescape:_Torment",
+        "https://store.steampowered.com/app/466300"
+      ],
       "date": "1999-12-10",
       "pakExt": ".x"
     },
     "ID": {
       "name": "Icewind Dale",
-      "url": [ "https://en.wikipedia.org/wiki/Icewind_Dale", "https://store.steampowered.com/app/321800" ],
+      "url": [
+        "https://en.wikipedia.org/wiki/Icewind_Dale",
+        "https://store.steampowered.com/app/321800"
+      ],
       "date": "2000-06-29",
       "pakExt": ".x"
     },
@@ -64,8 +70,14 @@
         "dir": "Fallout"
       },
       "Fallout2": {
-        "key": [ "Steam:38410", "GOG:1440151285" ],
-        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410", "GOG.com/Games/1440151285" ],
+        "key": [
+          "Steam:38410",
+          "GOG:1440151285"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410",
+          "GOG.com/Games/1440151285"
+        ],
         "dir": "Fallout 2"
       }
     },

@@ -76,10 +76,12 @@ class FileManager:
         for v in paths: z2.add(v)
 
     def addPath(self, id: str, elem: dict[str, object], path: str, usePath: bool = True) -> None:
-        if path is None or not os.path.isdir(path := FileManager.getPathWithSpecialFolders(path, '')): return
+        if not path: raise Exception('Require Path');
+        path = FileManager.getPathWithSpecialFolders(path, '')
+        if not os.path.isdir(path) and not os.path.isfile(path): return
         paths = _list(elem, 'path') if usePath and 'path' in elem else [path]
         for p in [os.path.join(path, x) for x in paths]:
-            if not os.path.isdir(p): continue
+            if not os.path.isdir(p) and not os.path.isfile(p): continue
             if not id in self.paths: self.paths[id] = []
             self.paths[id].append(p)
 

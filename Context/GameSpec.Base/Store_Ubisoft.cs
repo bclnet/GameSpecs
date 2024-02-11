@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace GameSpec.Store
 {
     /// <summary>
-    /// StoreManager_Ubisoft
+    /// Store_Ubisoft
     /// </summary>
     internal static class Store_Ubisoft
     {

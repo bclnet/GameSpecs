@@ -16,7 +16,7 @@
     "name": "MechWarrior Online",
     "files": [
       {
-        "path": ">GameData.pak:GameModeObjects.xml",
+        "path": "GameData.pak:GameModeObjects.xml",
         "size": 153832,
         "type": "Test"
       }

@@ -8,7 +8,7 @@ using System.Text.Json;
 namespace GameSpec.Store
 {
     /// <summary>
-    /// StoreManager_Epic
+    /// Store_Epic
     /// </summary>
     internal static class Store_Epic
     {

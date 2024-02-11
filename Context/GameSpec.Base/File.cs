@@ -140,12 +140,13 @@ namespace GameSpec
 
         protected void AddPath(string id, JsonElement elem, string path, bool usePath = true)
         {
-            if (path == null || !Directory.Exists(path = GetPathWithSpecialFolders(path))) return;
-            path = Path.GetFullPath(path);
+            if (path == null) throw new ArgumentOutOfRangeException(nameof(path));
+            path = Path.GetFullPath(GetPathWithSpecialFolders(path));
+            if (!Directory.Exists(path) && !File.Exists(path)) return;
             var paths = usePath && elem.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => Path.Combine(path, x)) : new[] { path };
             foreach (var p in paths)
             {
-                if (!Directory.Exists(p)) continue;
+                if (!Directory.Exists(p) && !File.Exists(path)) continue;
                 if (!Paths.TryGetValue(id, out var z2)) Paths.Add(id, z2 = new HashSet<string>());
                 z2.Add(p);
             }

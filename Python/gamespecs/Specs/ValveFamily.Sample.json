@@ -179,7 +179,7 @@
         "type": "Model"
       },
       {
-        "path": ">dota/pak01_dir.vpk:stringtokendatabase.txt",
+        "path": "dota/pak01_dir.vpk:stringtokendatabase.txt",
         "size": 35624,
         "type": "Test"
       }

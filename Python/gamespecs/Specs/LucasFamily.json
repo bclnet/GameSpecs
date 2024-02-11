@@ -6,10 +6,17 @@
   "samples": [
     "LucasFamily.Sample.json"
   ],
-  "engines": {},
+  "engines": {
+    "SPUTM": {
+      "url": "https://wiki.scummvm.org/index.php?title=SCUMM"
+    },
+    "GrimE": {
+      "url": "https://wiki.scummvm.org/index.php?title=GrimE"
+    }
+  },
   "games": {
     "*": {
-      "pakFileType": "GameSpec.Id.LucasPakFile, GameSpec.Lucas"
+      "pakFileType": "GameSpec.Lucas.LucasPakFile, GameSpec.Lucas"
     },
     "B": {
       "n/a": true,
@@ -18,22 +25,24 @@
       "date": "1985-01-01"
     },
     "RoF": {
+      "n/a": true,
       "name": "Rescue on Fractalus!",
       "url": [
         "https://www.myabandonware.com/game/rescue-on-fractalus-528",
         "https://en.wikipedia.org/wiki/Rescue_on_Fractalus!"
       ],
       "date": "1985-01-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "TE": {
+      "n/a": true,
       "name": "The Eidolon",
       "url": [
         "https://www.myabandonware.com/game/the-eidolon-5ia",
         "https://en.wikipedia.org/wiki/The_Eidolon"
       ],
       "date": "1985-01-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "H": {
       "n/a": true,
@@ -42,22 +51,24 @@
       "date": "1985-01-01"
     },
     "KR": {
+      "n/a": true,
       "name": "Koronis Rift",
       "url": [
         "https://www.myabandonware.com/game/koronis-rift-5y0",
         "https://en.wikipedia.org/wiki/Koronis_Rift"
       ],
       "date": "1985-12-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "L:TCG": {
+      "n/a": true,
       "name": "Labyrinth: The Computer Game",
       "url": [
         "https://www.myabandonware.com/game/labyrinth-601",
         "https://en.wikipedia.org/wiki/Labyrinth:_The_Computer_Game"
       ],
       "date": "1986-01-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "PP": {
       "name": "PHM Pegasus",
@@ -66,10 +77,11 @@
         "https://en.wikipedia.org/wiki/PHM_Pegasus"
       ],
       "date": "1986-01-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "MM": {
       "name": "Maniac Mansion",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/529890",
         "https://en.wikipedia.org/wiki/Maniac_Mansion"
@@ -83,7 +95,7 @@
         "https://en.wikipedia.org/wiki/Strike_Fleet"
       ],
       "date": "1988-01-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "B1942": {
       "name": "Battlehawks 1942",
@@ -92,10 +104,11 @@
         "https://en.wikipedia.org/wiki/Battlehawks_1942"
       ],
       "date": "October 1, 1988",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "ZMatAM": {
       "name": "Zak McKracken and the Alien Mindbenders",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/559070",
         "https://en.wikipedia.org/wiki/Zak_McKracken_and_the_Alien_Mindbenders"
@@ -109,7 +122,7 @@
         "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Action_Game"
       ],
       "date": "1989-01-01",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "PD": {
       "n/a": true,
@@ -121,6 +134,7 @@
     "IJatLC:TGA": {
       "n/a": true,
       "name": "Indiana Jones and the Last Crusade: The Graphic Adventure",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/32310",
         "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Graphic_Adventure"
@@ -134,7 +148,7 @@
         "https://en.wikipedia.org/wiki/Their_Finest_Hour_(video_game)"
       ],
       "date": "October 1, 1989",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "TFM:V1": {
       "name": "Their Finest Missions: Volume One",
@@ -143,10 +157,11 @@
         "https://en.wikipedia.org/wiki/Their_Finest_Hour_(video_game)"
       ],
       "date": "October 1, 1989",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "L": {
       "name": "Loom",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/32340",
         "https://en.wikipedia.org/wiki/Loom_(video_game)"
@@ -154,10 +169,13 @@
       "date": "January 1, 1990"
     },
     "M": {
-      "n/a": true,
       "name": "Masterblazer",
-      "url": "https://en.wikipedia.org/wiki/Masterblazer",
-      "date": "1990-01-01"
+      "url": [
+        "https://www.myabandonware.com/game/masterblazer-17d",
+        "https://en.wikipedia.org/wiki/Masterblazer"
+      ],
+      "date": "1990-01-01",
+      "tag": "Abandon"
     },
     "NS": {
       "name": "Night Shift",
@@ -166,13 +184,15 @@
         "https://en.wikipedia.org/wiki/Night_Shift_(video_game)"
       ],
       "date": "October 1, 1990",
-      "tag": "Abdandon"
+      "tag": "Abandon"
     },
     "TSoMI": {
       "n/a": true,
       "name": "The Secret of Monkey Island",
+      "engine": "SPUTM",
       "url": "https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island",
-      "date": "October 1, 1990"
+      "date": "October 1, 1990",
+      "tag": "Replaced"
     },
     "SWotL": {
       "name": "Secret Weapons of the Luftwaffe",
@@ -181,7 +201,7 @@
         "https://en.wikipedia.org/wiki/Secret_Weapons_of_the_Luftwaffe"
       ],
       "date": "August 1, 1991",
-      "tag": "Abdandon",
+      "tag": "Abandon",
       "dlcs": {
         "P38": {
           "name": "P-38: Lightning",
@@ -218,6 +238,7 @@
     },
     "IJatFoA": {
       "name": "Indiana Jones and the Fate of Atlantis",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/6010",
         "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Fate_of_Atlantis"
@@ -238,7 +259,7 @@
         "https://en.wikipedia.org/wiki/LucasArts#Adventure_games"
       ],
       "date": "1992-01-01",
-      "tag": "Abdandon"
+      "tag": "Bundle, Abandon"
     },
     "SW:TESB": {
       "n/a": true,
@@ -295,6 +316,7 @@
     },
     "DotT": {
       "name": "Day of the Tentacle",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/388210",
         "https://en.wikipedia.org/wiki/Day_of_the_Tentacle"
@@ -316,8 +338,9 @@
       ],
       "date": "September 1, 1993"
     },
-    "SMHtR": {
+    "SaMHtR": {
       "name": "Sam & Max Hit the Road",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/355170",
         "https://en.wikipedia.org/wiki/Sam_%26_Max_Hit_the_Road"
@@ -334,13 +357,14 @@
       "tag": "Abandon"
     },
     "ACC": {
+      "n/a": true,
       "name": "Air Combat Classics (bundle)",
       "url": [
         "https://archive.org/details/air_combat_classics_kfx",
         "https://en.wikipedia.org/wiki/LucasArts#Simulation_games"
       ],
       "date": "1994-01-01",
-      "tag": "Abandon"
+      "tag": "Bundle Abandon"
     },
     "IoCsYIJ": {
       "n/a": true,
@@ -406,6 +430,7 @@
     },
     "FT": {
       "name": "Full Throttle",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/228360",
         "https://en.wikipedia.org/wiki/Full_Throttle_(1995_video_game)"
@@ -421,6 +446,7 @@
     },
     "TD": {
       "name": "The Dig",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/6040",
         "https://en.wikipedia.org/wiki/The_Dig_(video_game)"
@@ -503,7 +529,8 @@
       "dlcs": {
         "BoPC": {
           "name": "Balance of Power Campaigns",
-          "date": "1993-01-01"
+          "date": "1993-01-01",
+          "path": "BalanceOfPower"
         }
       }
     },
@@ -540,6 +567,7 @@
     },
     "TCoMI": {
       "name": "The Curse of Monkey Island",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/730820",
         "https://en.wikipedia.org/wiki/The_Curse_of_Monkey_Island"
@@ -582,6 +610,7 @@
     },
     "GF": {
       "name": "Grim Fandango",
+      "engine": "GrimE",
       "url": [
         "https://store.steampowered.com/app/316790",
         "https://en.wikipedia.org/wiki/Grim_Fandango"
@@ -668,7 +697,7 @@
     "SW:FC": {
       "name": "Star Wars: Force Commander",
       "url": [
-        "https://www.old-games.com/download/6617/star-wars-force-commander",
+        "https://archive.org/details/star-wars-force-commander-windows-10-compatible",
         "https://en.wikipedia.org/wiki/Star_Wars:_Force_Commander"
       ],
       "date": "March 17, 2000",
@@ -704,6 +733,7 @@
     },
     "EfMI": {
       "name": "Escape from Monkey Island",
+      "engine": "GrimE",
       "url": [
         "https://store.steampowered.com/app/730830",
         "https://en.wikipedia.org/wiki/Escape_from_Monkey_Island"
@@ -845,11 +875,10 @@
       "tag": "Console"
     },
     "SWG": {
-      "n/a": true,
       "name": "Star Wars Galaxies (closed)",
       "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies",
       "date": "June 26, 2003",
-      "tag": "MMO Closed",
+      "tag": "Abandon MMO Closed",
       "dlcs": {
         "JtL": {
           "name": "Jump to Lightspeed",
@@ -947,7 +976,7 @@
       "date": "September 21, 2004",
       "tag": "Console"
     },
-    "SW:KotOR2:TSL": {
+    "SW:KotOR2": {
       "name": "Star Wars Knights of the Old Republic II: The Sith Lords",
       "url": [
         "https://store.steampowered.com/app/208580",
@@ -1143,7 +1172,7 @@
       ],
       "date": "October 6, 2009"
     },
-    "L2": {
+    "LU": {
       "name": "Lucidity",
       "url": [
         "https://store.steampowered.com/app/32410",
@@ -1168,6 +1197,7 @@
     },
     "MI2SE:LCR": {
       "name": "Monkey Island 2 Special Edition: LeChuck's Revenge",
+      "engine": "SPUTM",
       "url": [
         "https://store.steampowered.com/app/32460",
         "https://en.wikipedia.org/wiki/Monkey_Island_2:_LeChuck%27s_Revenge#Special_Edition"
@@ -1243,265 +1273,371 @@
   },
   "fileManager": {
     "application": {
-      "RoF": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "TE": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "KR": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "L:TCG": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
       "PP": {
-        "key": "Abdandon:XX",
-        "dir": "."
+        "download": "https://www.myabandonware.com/download/hq-phm-pegasus",
+        "key": "Abandon:PHM-Pegasus_DOS_EN.zip",
+        "dir": "Abandon:PHM-Pegasus_DOS_EN.zip",
+        "path": "p-h-m-pegasus"
       },
       "MM": {
         "key": "Steam:529890",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 529890",
-        "dir": "."
+        "dir": "Maniac Mansion",
+        "path": "ScummVM"
       },
       "SF": {
-        "key": "Abdandon:XX",
-        "dir": "."
+        "download": "https://www.myabandonware.com/download/j1-strike-fleet",
+        "key": "Abandon:Strike-Fleet_DOS_EN.zip",
+        "dir": "Strike-Fleet_DOS_EN.zip",
+        "path": "strike-fleet"
       },
       "B1942": {
-        "key": "Abdandon:XX",
-        "dir": "."
+        "download": "https://www.myabandonware.com/download/et-battlehawks-1942",
+        "key": "Abandon:Battlehawks-1942_DOS_EN.zip",
+        "dir": "Battlehawks-1942_DOS_EN.zip",
+        "path": "battlehawks-1942"
       },
       "ZMatAM": {
         "key": "Steam:559070",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559070",
-        "dir": "."
+        "dir": "Zak Mckracken",
+        "path": "ScummVM"
       },
       "IJatLC:TAG": {
-        "key": "Abdandon:XX",
-        "dir": "."
+        "download": "https://www.myabandonware.com/download/2fa-indiana-jones-and-the-last-crusade-the-action-game",
+        "key": "Abandon:Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
+        "dir": "Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
+        "path": "indy3act"
       },
       "IJatLC:TGA": {
         "key": "Steam:32310",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32310",
-        "dir": "."
+        "dir": "Indiana Jones and the Last Crusade",
+        "path": "ScummVM"
       },
       "TFH": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "SWotL": {
-        "key": "Abdandon:XX",
-        "dir": "."
+        "download": [
+          "https://www.myabandonware.com/download/s9-their-finest-hour-the-battle-of-britain",
+          "https://www.myabandonware.com/download/k18-their-finest-hour-the-battle-of-britain"
+        ],
+        "key": "Abandon:Their-Finest-Hour-The-Battle-of-Britain_DOS_EN.zip",
+        "dir": "Their-Finest-Hour-The-Battle-of-Britain_DOS_EN.zip",
+        "path": "their-finest-hour-the-battle-of-britain/Battle Of Britain"
       },
       "TFM:V1": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "NS": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "MI2:LR": {
-        "key": "Steam:32460",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32460",
-        "dir": "."
-      },
-      "IJatFoA": {
-        "key": "Steam:6010",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6010",
-        "dir": "."
-      },
-      "LCA": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "DotT": {
-        "key": "Steam:388210",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 388210",
-        "dir": "."
-      },
-      "ZAMN": {
-        "key": "Steam:1137970",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
-        "dir": "."
-      },
-      "SMHtR": {
-        "key": "Steam:355170",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355170",
-        "dir": "."
-      },
-      "SWC": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "ACC": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "GP": {
-        "key": "Steam:1137970",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
-        "dir": "."
-      },
-      "FT": {
-        "key": "Steam:228360",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 228360",
-        "dir": "."
-      },
-      "SW:RA2": {
-        "key": "Steam:456540",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 456540",
-        "dir": "."
-      },
-      "IJaHDA": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "A": {
-        // https://www.gog.com/en/game/afterlife
-        "key": "Gog:XX",
-        "reg": "Gog XX",
-        "dir": "."
-      },
-      "MatRotM": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "SW:SotE": {
-        "key": "Steam:560170",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560170",
-        "dir": "."
-      },
-      "SW:YS": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "O": {
-        "key": "Steam:559620",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559620",
-        "dir": "."
-      },
-      "MSW": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "TCoMI": {
-        "key": "Steam:730820",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730820",
-        "dir": "."
-      },
-      "SW:BtM": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "SW:DW": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "GF": {
-        "key": "Steam:316790",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 316790",
-        "dir": "."
-      },
-      "SW:PD": {
-        "key": "Abdandon:XX",
-        "dir": "."
-      },
-      "SW:FC": {
-        "key": "Steam:XX",
-        "dir": "."
-      },
-      "SW:YCAC": {
-        "key": "Steam:XX",
-        "dir": "."
-      },
-      "SW1:TGF": {
-        "key": "Steam:XX",
-        "dir": "."
-      },
-      "SW1:TPM": {
-        "key": "Steam:XX",
-        "dir": "."
-      },
-      "IJatIM": {
-        "key": "Steam:904540",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 904540",
-        "dir": "."
+        "download": "https://www.myabandonware.com/download/k1d-their-finest-missions-volume-one",
+        "key": "Abandon:Their-Finest-Missions-Volume-One_DOS_EN_35-Disk-Image.zip",
+        "dir": "Their-Finest-Missions-Volume-One_DOS_EN_35-Disk-Image.zip",
+        "path": "Their Finest Missions - Volume One (USA, Europe) (3.5'') (Add-on)"
       },
       "L": {
         "key": "Steam:32340",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32340",
+        "dir": "LOOM"
+      },
+      "M": {
+        "download": "https://www.myabandonware.com/download/17b-masterblazer",
+        "key": "Abandon:Masterblazer_DOS_EN.zip",
+        "dir": "Masterblazer_DOS_EN.zip",
+        "path": "masterblazer/Masterblazer"
+      },
+      "NS": {
+        "download": "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Night+Shift&gid=1553#",
+        "key": "Abandon:Night_Shift.zip",
+        "dir": "Night_Shift.zip",
+        "path": "Night_Shift"
+      },
+      "SWotL": {
+        "download": "https://www.myabandonware.com/download/1xl-secret-weapons-of-the-luftwaffe",
+        "key": "Abandon:Secret-Weapons-of-the-Luftwaffe_DOS_EN.zip",
+        "dir": "Secret-Weapons-of-the-Luftwaffe_DOS_EN.zip"
+      },
+      "MI2:LR": {
+        "key": "Steam:32460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32460",
+        "dir": "Monkey2"
+      },
+      "IJatFoA": {
+        "key": "Steam:6010",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6010",
+        "dir": "Indiana Jones and the Fate of Atlantis"
+      },
+      "SW:XW": {
+        "key": "Steam:354430",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 354430",
+        "dir": "STAR WARS X-Wing"
+      },
+      "DotT": {
+        "key": "Steam:388210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 388210",
+        "dir": "xxx"
+      },
+      "ZAMN": {
+        "key": "Steam:1137970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
+        "dir": "Zombies Ate My Neighbors and Ghoul Patrol"
+      },
+      "SaMHtR": {
+        "key": "Steam:355170",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355170",
+        "dir": "Sam and Max Hit the Road"
+      },
+      "SWC": {
+        "download": "https://www.myabandonware.com/download/2dh-the-software-toolworks-star-wars-chess",
+        "key": "Abandon:The-Software-Toolworks-Star-Wars-Chess_DOS_EN.zip",
+        "dir": "The-Software-Toolworks-Star-Wars-Chess_DOS_EN.zip",
+        "path": "SWCHESS"
+      },
+      "SW:TF": {
+        "key": "Steam:355250",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355250",
+        "dir": "STAR WARS Tie Fighter"
+      },
+      "GP": {
+        "key": "Steam:1137970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
+        "dir": "Zombies Ate My Neighbors and Ghoul Patrol"
+      },
+      "SW:DF": {
+        "key": "Steam:32400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32400",
+        "dir": "Dark Forces",
+        "path": "Game"
+      },
+      "FT": {
+        "key": "Steam:228360",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 228360",
+        "dir": "xxx"
+      },
+      "TD": {
+        "key": "Steam:6040",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6040",
+        "dir": "The Dig"
+      },
+      "SW:RA2": {
+        "key": "Steam:456540",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 456540",
+        "dir": "Star Wars - Rebel Assault 1 and 2",
+        "path": "REBEL2"
+      },
+      "IJaHDA": {
+        "download": "https://www.myabandonware.com/download/ilz-indiana-jones-and-his-desktop-adventures",
+        "key": "Abandon:Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
+        "dir": "Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
+        "path": ":deflate:ida"
+      },
+      "A": {
+        "key": "GOG:1425308948",
+        "reg": "GOG.com/Games/1425308948",
+        "dir": "Afterlife"
+      },
+      "MatRotM": {
+        "download": "https://www.myabandonware.com/download/g2k-mortimer-and-the-riddles-of-the-medallion",
+        "key": "Abandon:Mortimer-and-the-Riddles-of-the-Medallion_Win_EN_ISO-Version.zip",
+        "dir": "Mortimer-and-the-Riddles-of-the-Medallion_Win_EN_ISO-Version.zip",
+        "path": "Mortimer and the Riddles of the Medallion (1996)(LucasArts).iso"
+      },
+      "SW:SotE": {
+        "key": "Steam:560170",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560170",
+        "dir": "Star Wars Shadows of the Empire"
+      },
+      "SW:YS": {
+        "download": "https://www.myabandonware.com/download/k7i-star-wars-yoda-stories",
+        "key": "Abandon:Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
+        "keyx": "Abandon:Star-Wars-Yoda-Stories_Win_EN_RIP-Version.zip",
+        "dir": "Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
+        "path": ":iso:Star_Wars_Yoda_Stories_ISO/YODA.img"
+      },
+      "O": {
+        "key": "Steam:559620",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559620",
+        "dir": "Outlaws"
+      },
+      "SW:XvT": {
+        "key": "Steam:361690",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361690",
+        "dir": "STAR WARS X-Wing vs TIE Fighter"
+      },
+      "SWJK:DF2": {
+        "key": "Steam:32380",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32380",
+        "dir": "Star Wars Jedi Knight"
+      },
+      "MSW": {
+        "download": "https://www.myabandonware.com/download/zs7-star-wars-monopoly",
+        "key": "Abandon:Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
+        "path": ":iso:MONOPOLY SW.ISO"
+      },
+      "TCoMI": {
+        "key": "Steam:730820",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730820",
+        "dir": "The Curse of Monkey Island/ScummVM"
+      },
+      "SWJK:MotS": {
+        "key": "Steam:32390",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32390",
+        "dir": "Jedi Knight Mysteries of the Sith"
+      },
+      "SW:R": {
+        "key": "Steam:441550",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 441550",
+        "dir": "Star Wars - Rebellion"
+      },
+      "SW:BtM": {
+        "download": [
+          "https://archive.org/download/btm-cd-1/BTM_CD1.iso",
+          "https://archive.org/download/btm-cd-1/BTM_CD2.iso"
+        ],
+        "key": "Abandon:BTM_CD1.iso",
+        "dir": "BTM_CD1.iso",
+        "path": [
+          ":iso:BTM_CD1.iso",
+          ":iso:BTM_CD2.iso"
+        ]
+      },
+      "SW:DW": {
+        "download": "https://www.myabandonware.com/download/p9i-star-wars-droidworks",
+        "key": "Abandon:Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
+        "path": ":iso:Star Wars - DroidWorks/DroidWorks.bin"
+      },
+      "GF": {
+        "key": "Steam:316790",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 316790",
+        "dir": "xxx"
+      },
+      "SW:RS": {
+        "key": "Steam:455910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 455910",
+        "dir": "RogueSquadron",
+        "path": "ROGUE"
+      },
+      "SW:XA": {
+        "key": "Steam:361670",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361670",
+        "dir": "Star Wars X-Wing Alliance"
+      },
+      "SW1:TPM": {
+        "download": "https://www.myabandonware.com/download/17a6-star-wars-episode-i-the-phantom-menace",
+        "key": "Abandon:Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
+        "dir": "Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
+        "path": ":iso:LucasArts-StarWarsThePhantomMenace-Win95-Eng.iso"
+      },
+      "SW1:R": {
+        "key": "Steam:808910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 808910",
+        "dir": "Star Wars Episode I Racer"
+      },
+      "SW1:TGF": {
+        "download": "https://www.myabandonware.com/download/nx8-star-wars-episode-i-the-gungan-frontier",
+        "key": "Abandon:Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
+        "path": ":iso:Star Wars The Gungan Frontier ISO/Star Wars The Gungan Frontier ISO.bin"
+      },
+      "SW:YCAC": {
+        "download": "https://www.myabandonware.com/download/gmx-star-wars-yoda-s-challenge-activity-center",
+        "key": "Abandon:Star-Wars-Yodas-Challenge---Activity-Center_Win_EN.zip",
+        "dir": "Star-Wars-Yodas-Challenge---Activity-Center_Win_EN.zip",
+        "path": "Yoda's Challenge"
+      },
+      "SW:PD": {
+        "download": "https://www.myabandonware.com/download/4jz-star-wars-pit-droids",
+        "key": "Abandon:Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
+        "path": ":iso:Star Wars Pit Droids [Hybrid].ISO"
+      },
+      "IJatIM": {
+        "key": "Steam:904540",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 904540",
+        "dir": "Indiana Jones and the Infernal Machine"
+      },
+      "SW:FC": {
+        "download": "",
+        "download2": "https://www.old-games.com/getfree/10472",
+        "key": "Abandon:XX",
         "dir": "."
       },
       "EfMI": {
         "key": "Steam:730830",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730830",
-        "dir": "."
+        "dir": "Escape from Monkey Island"
       },
-      "IJatET": {
-        "key": "Steam:560430",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560430",
-        "dir": "."
-      },
-      "AaD": {
-        "key": "Steam:6090",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6090",
-        "dir": "."
-      },
-      "SW:B": {
-        "key": "Steam:1237980",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237980",
-        "dir": "."
-      },
-      "SW1:R": {
-        "key": "Steam:808910",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 808910",
-        "dir": "."
-      },
-      "SW:RS": {
-        "key": "Steam:455910",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 455910",
-        "dir": "."
-      },
-      "SW:R": {
-        "key": "Steam:441550",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 441550",
-        "dir": "."
-      },
-      "SW:XvT": {
-        "key": "Steam:361690",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361690",
-        "dir": "."
-      },
-      "SW:XA": {
-        "key": "Steam:361670",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361670",
-        "dir": "."
+      "SW:S": {
+        "key": "Steam:32350",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32350",
+        "dir": "Star Wars Starfighter",
+        "path": "Game"
       },
       "SWGB": {
         "key": "Steam:356500",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 356500",
-        "dir": "."
+        "dir": "STAR WARS - Galactic Battlegrounds Saga",
+        "path": "Game"
       },
-      "SW:TF": {
-        "key": "Steam:355250",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355250",
-        "dir": "."
+      "SWJK2:JO": {
+        "key": "Steam:6030",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6030",
+        "dir": "Jedi Outcast",
+        "path": "GameData"
       },
-      "SW:XW": {
-        "key": "Steam:354430",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 354430",
-        "dir": "."
+      "IJatET": {
+        "key": "Steam:560430",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560430",
+        "dir": "Indiana Jones and the Emperors Tomb",
+        "path": "GameData"
       },
-      "SW:KotOR2:TSL": {
+      "SWG": {
+        "download": "https://www.myabandonware.com/download/kc7-star-wars-galaxies-an-empire-divided",
+        "key": "Abandon:Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
+        "path": [
+          ":iso:star-wars-galaxies-an-empire-divided/SWG_Disc_1.iso",
+          ":iso:star-wars-galaxies-an-empire-divided/SWG_Disc_2.iso",
+          ":iso:star-wars-galaxies-an-empire-divided/SWG_Disc_3.iso"
+        ]
+      },
+      "SW:KotOR": {
+        "key": [
+          "Steam:32370",
+          "GOG:1207666283",
+          "GOG:111"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
+          "GOG.com/Games/1207666283",
+          "GOG.com/Games/111"
+        ],
+        "dir": [
+          "swkotor",
+          "Star Wars - KotOR"
+        ]
+      },
+      "SWJK:JA": {
+        "key": "Steam:6020",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6020",
+        "dir": "Jedi Academy"
+      },
+      "AaD": {
+        "key": "Steam:6090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6090",
+        "dir": "Armed and Dangerous"
+      },
+      "SW:B": {
+        "key": "Steam:1237980",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237980",
+        "dir": "STAR WARS Battlefront"
+      },
+      "SW:KotOR2": {
         "key": "Steam:208580",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 208580",
-        "dir": "."
+        "dir": "Knights of the Old Republic II"
+      },
+      "SW:RC": {
+        "key": "Steam:6000",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6000",
+        "dir": "Star Wars Republic Commando"
       },
       "SW:B2": {
         "key": [
@@ -1512,85 +1648,45 @@
           "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6060",
           "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237950"
         ],
-        "dir": "."
+        "dir": "STAR WARS Battlefront II"
       },
       "SW:EaW": {
         "key": "Steam:32470",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32470",
-        "dir": "."
+        "dir": "Star Wars Empire at War"
       },
       "T:OtR": {
         "key": "Steam:6080",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6080",
-        "dir": "."
+        "dir": "Thrillville Off the Rails"
       },
       "LSW:TCS": {
         "key": "Steam:32440",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32440",
-        "dir": "."
+        "dir": "Lego Star Wars Saga"
       },
       "LIJ:TOA": {
         "key": "Steam:32330",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32330",
-        "dir": "."
-      },
-      "SWJK:JA": {
-        "key": "Steam:6020",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6020",
-        "dir": "."
-      },
-      "SWJK2:JO": {
-        "key": "Steam:6030",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6030",
-        "dir": "."
-      },
-      "SWJK:MotS": {
-        "key": "Steam:32390",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32390",
-        "dir": "."
-      },
-      "SW:DF": {
-        "key": "Steam:32400",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32400",
-        "dir": "."
-      },
-      "SWJK:DF2": {
-        "key": "Steam:32380",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32380",
-        "dir": "."
-      },
-      "SW:KotOR": {
-        "key": "Steam:32370",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
-        "dir": "."
-      },
-      "SW:S": {
-        "key": "Steam:32350",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32350",
-        "dir": "."
-      },
-      "SW:RC": {
-        "key": "Steam:6000",
-        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6000",
-        "dir": "."
+        "dir": "LEGO Indiana Jones The Original Adventures"
       },
       "SW:TFU": {
         // https://www.gog.com/en/game/star_wars_the_force_unleashed_ultimate_sith_edition
         "key": [
           "Steam:32430",
-          "Gog:0"
+          "GOG:0"
         ],
         "reg": [
           "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32430",
           "GOG"
         ],
-        "dir": "."
+        "dir": "Star Wars The Force Unleashed"
       },
       "ToMI": {
         // https://www.gog.com/en/game/tales_of_monkey_island
         "key": [
           "Steam:31170",
-          "Gog:0"
+          "GOG:0"
         ],
         "reg": [
           "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 31170",
@@ -1602,7 +1698,7 @@
         // https://www.gog.com/en/game/the_secret_of_monkey_island_special_edition
         "key": [
           "Steam:32360",
-          "Gog:0"
+          "GOG:0"
         ],
         "reg": [
           "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32360",
@@ -1615,10 +1711,10 @@
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32420",
         "dir": "."
       },
-      "L2": {
+      "LU": {
         "key": "Steam:32410",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32410",
-        "dir": "."
+        "dir": "Lucidity"
       },
       "LIJ2:TAC": {
         "key": "Steam:32450",

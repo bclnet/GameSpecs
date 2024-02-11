@@ -3,7 +3,7 @@
     "name": "The Council",
     "files": [
       {
-        "path": ">Engine_Main_0.cpk:data/engine_0.prefab",
+        "path": "Engine_Main_0.cpk:data/engine_0.prefab",
         "size": 20704,
         "type": "Test"
       }

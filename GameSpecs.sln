@@ -330,6 +330,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Ubisoft.Platform",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Resource", "Context\GameSpec.Resource\GameSpec.Resource.csproj", "{9F942D13-67C4-447F-BF8C-8B245AE5F1D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lucas", "Lucas", "{233F86E3-D4A5-4F18-B422-6D81F342A46C}"
+	ProjectSection(SolutionItems) = preProject
+		Python\gamespecs\Specs\LucasFamily.json = Python\gamespecs\Specs\LucasFamily.json
+		Python\gamespecs\Specs\LucasFamily.Sample.json = Python\gamespecs\Specs\LucasFamily.Sample.json
+		Documents\Families\Lucas\Readme.md = Documents\Families\Lucas\Readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lucas", "Lucas\GameSpec.Lucas\GameSpec.Lucas.csproj", "{D36AB841-A08A-403A-8930-F143BA7D86B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameSpec.Lucas.Platform", "Lucas\GameSpec.Lucas.Platform\GameSpec.Lucas.Platform.csproj", "{CC0E6F8A-201B-42BA-9EE2-E9481AA323D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -607,6 +618,14 @@ Global
 		{9F942D13-67C4-447F-BF8C-8B245AE5F1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F942D13-67C4-447F-BF8C-8B245AE5F1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F942D13-67C4-447F-BF8C-8B245AE5F1D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D36AB841-A08A-403A-8930-F143BA7D86B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36AB841-A08A-403A-8930-F143BA7D86B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36AB841-A08A-403A-8930-F143BA7D86B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36AB841-A08A-403A-8930-F143BA7D86B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC0E6F8A-201B-42BA-9EE2-E9481AA323D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC0E6F8A-201B-42BA-9EE2-E9481AA323D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC0E6F8A-201B-42BA-9EE2-E9481AA323D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0E6F8A-201B-42BA-9EE2-E9481AA323D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -683,6 +702,8 @@ Global
 		{FC227CD2-4DE2-4400-8A10-00CDC2B591CF} = {C26368F1-6CE3-4692-84F3-3E936E6FCCD1}
 		{DB788EB1-2607-4935-A414-9AEDFD0220E4} = {C26368F1-6CE3-4692-84F3-3E936E6FCCD1}
 		{9F942D13-67C4-447F-BF8C-8B245AE5F1D4} = {6D2DEF34-0211-49A7-B0CE-8AF7AE738D8A}
+		{D36AB841-A08A-403A-8930-F143BA7D86B8} = {233F86E3-D4A5-4F18-B422-6D81F342A46C}
+		{CC0E6F8A-201B-42BA-9EE2-E9481AA323D1} = {233F86E3-D4A5-4F18-B422-6D81F342A46C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}

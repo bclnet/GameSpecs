@@ -9,7 +9,7 @@ using System.Text;
 namespace GameSpec.Store
 {
     /// <summary>
-    /// StoreManager_Steam
+    /// Store_Steam
     /// </summary>
     internal static class Store_Steam
     {

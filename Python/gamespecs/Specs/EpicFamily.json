@@ -23,7 +23,13 @@
       "name": "Unreal",
       "url": "https://oldgamesdownload.com/unreal",
       "date": "1998-01-01",
-      "pakExt": [ ".unr", ".umx", ".uax", ".u", ".utx" ]
+      "pakExt": [
+        ".unr",
+        ".umx",
+        ".uax",
+        ".u",
+        ".utx"
+      ]
     },
     "TWoT": {
       "name": "The Wheel of Time",
@@ -88,7 +94,10 @@
       "name": "BioShock",
       "url": "https://store.steampowered.com/app/7670",
       "pak": "game:/*.(bsm:u)#BioShock",
-      "path": [ "Maps", "System" ]
+      "path": [
+        "Maps",
+        "System"
+      ]
     },
     "BioShockR": {
       "name": "BioShock Remastered",

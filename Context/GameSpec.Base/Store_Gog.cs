@@ -9,7 +9,7 @@ using static SQLitePCL.raw;
 namespace GameSpec.Store
 {
     /// <summary>
-    /// StoreManager_Gog
+    /// Store_Gog
     /// </summary>
     internal static class Store_Gog
     {

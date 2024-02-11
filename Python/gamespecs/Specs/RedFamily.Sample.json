@@ -3,7 +3,7 @@
     "name": "The Witcher Enhanced Edition",
     "files": [
       {
-        "path": ">main.key:2da00.bifs",
+        "path": "main.key:2da00.bifs",
         "size": 887368,
         "type": "Test"
       }
@@ -13,7 +13,7 @@
     "name": "The Witcher 2",
     "files": [
       {
-        "path": ">base_scripts.dzip:globals/ch_credits_main.csv",
+        "path": "base_scripts.dzip:globals/ch_credits_main.csv",
         "size": 6716,
         "type": "Test"
       }
@@ -23,27 +23,27 @@
     "name": "The Witcher 3: Wild Hunt",
     "files": [
       {
-        "path": ">content0/bundles/xml.bundle:engine/physics/apexclothmaterialpresets.xml",
+        "path": "content0/bundles/xml.bundle:engine/physics/apexclothmaterialpresets.xml",
         "size": 2512,
         "type": "Test"
       },
       {
-        "path": ">content0/collision.cache:engine/physics/apexclothmaterialpresets.xml",
+        "path": "content0/collision.cache:engine/physics/apexclothmaterialpresets.xml",
         "size": 2512,
         "type": "Test"
       },
       {
-        "path": ">content0/dep.cache:engine/physics/apexclothmaterialpresets.xml",
+        "path": "content0/dep.cache:engine/physics/apexclothmaterialpresets.xml",
         "size": 2512,
         "type": "Test"
       },
       {
-        "path": ">content0/texture.cache:environment/debug/debug-delete.xbm",
+        "path": "content0/texture.cache:environment/debug/debug-delete.xbm",
         "size": 2512,
         "type": "Test"
       },
       {
-        "path": ">content0/texture.cache:environment/skyboxes/textures/clouds_noise_m.xbm",
+        "path": "content0/texture.cache:environment/skyboxes/textures/clouds_noise_m.xbm",
         "size": 2512,
         "type": "Test"
       }
