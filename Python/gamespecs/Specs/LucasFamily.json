@@ -1424,7 +1424,8 @@
         "download": "https://www.myabandonware.com/download/ilz-indiana-jones-and-his-desktop-adventures",
         "key": "Abandon:Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
         "dir": "Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
-        "path": ":deflate:ida"
+        "path": "ida",
+        "pathType": "deflate"
       },
       "A": {
         "key": "GOG:1425308948",
@@ -1447,7 +1448,8 @@
         "key": "Abandon:Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
         "keyx": "Abandon:Star-Wars-Yoda-Stories_Win_EN_RIP-Version.zip",
         "dir": "Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
-        "path": ":iso:Star_Wars_Yoda_Stories_ISO/YODA.img"
+        "path": "Star_Wars_Yoda_Stories_ISO/YODA.img",
+        "pathType": "iso"
       },
       "O": {
         "key": "Steam:559620",
@@ -1468,7 +1470,8 @@
         "download": "https://www.myabandonware.com/download/zs7-star-wars-monopoly",
         "key": "Abandon:Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
-        "path": ":iso:MONOPOLY SW.ISO"
+        "path": "MONOPOLY SW.ISO",
+        "pathType": "iso"
       },
       "TCoMI": {
         "key": "Steam:730820",
@@ -1493,15 +1496,17 @@
         "key": "Abandon:BTM_CD1.iso",
         "dir": "BTM_CD1.iso",
         "path": [
-          ":iso:BTM_CD1.iso",
-          ":iso:BTM_CD2.iso"
-        ]
+          "BTM_CD1.iso",
+          "BTM_CD2.iso"
+        ],
+        "pathType": "iso"
       },
       "SW:DW": {
         "download": "https://www.myabandonware.com/download/p9i-star-wars-droidworks",
         "key": "Abandon:Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
-        "path": ":iso:Star Wars - DroidWorks/DroidWorks.bin"
+        "path": "Star Wars - DroidWorks/DroidWorks.bin",
+        "pathType": "iso"
       },
       "GF": {
         "key": "Steam:316790",
@@ -1523,7 +1528,8 @@
         "download": "https://www.myabandonware.com/download/17a6-star-wars-episode-i-the-phantom-menace",
         "key": "Abandon:Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
         "dir": "Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
-        "path": ":iso:LucasArts-StarWarsThePhantomMenace-Win95-Eng.iso"
+        "path": "LucasArts-StarWarsThePhantomMenace-Win95-Eng.iso",
+        "pathType": "iso"
       },
       "SW1:R": {
         "key": "Steam:808910",
@@ -1534,7 +1540,8 @@
         "download": "https://www.myabandonware.com/download/nx8-star-wars-episode-i-the-gungan-frontier",
         "key": "Abandon:Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
-        "path": ":iso:Star Wars The Gungan Frontier ISO/Star Wars The Gungan Frontier ISO.bin"
+        "path": "Star Wars The Gungan Frontier ISO/Star Wars The Gungan Frontier ISO.bin",
+        "pathType": "iso"
       },
       "SW:YCAC": {
         "download": "https://www.myabandonware.com/download/gmx-star-wars-yoda-s-challenge-activity-center",
@@ -1546,7 +1553,8 @@
         "download": "https://www.myabandonware.com/download/4jz-star-wars-pit-droids",
         "key": "Abandon:Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
-        "path": ":iso:Star Wars Pit Droids [Hybrid].ISO"
+        "path": "Star Wars Pit Droids [Hybrid].ISO",
+        "pathType": "iso"
       },
       "IJatIM": {
         "key": "Steam:904540",
@@ -1593,10 +1601,11 @@
         "key": "Abandon:Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
         "path": [
-          ":iso:star-wars-galaxies-an-empire-divided/SWG_Disc_1.iso",
-          ":iso:star-wars-galaxies-an-empire-divided/SWG_Disc_2.iso",
-          ":iso:star-wars-galaxies-an-empire-divided/SWG_Disc_3.iso"
-        ]
+          "star-wars-galaxies-an-empire-divided/SWG_Disc_1.iso",
+          "star-wars-galaxies-an-empire-divided/SWG_Disc_2.iso",
+          "star-wars-galaxies-an-empire-divided/SWG_Disc_3.iso"
+        ],
+        "pathType": "iso"
       },
       "SW:KotOR": {
         "key": [

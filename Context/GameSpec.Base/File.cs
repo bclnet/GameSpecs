@@ -28,12 +28,17 @@ namespace GameSpec
         {
             public string Root;
             public string[] Paths;
-            public PathItem Add(string root, string[] paths)
+            public string PathType;
+
+            public PathItem(string root, JsonElement elem = default)
             {
                 Root = root;
-                Paths = paths;
-                return this;
+                var paths = elem.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => x) : null;
+                var pathType = elem.TryGetProperty("pathType", out z) ? z.GetString() : null;
             }
+
+            public void Add(string root, JsonElement elem)
+                => throw new NotSupportedException();
         }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace GameSpec
                 foreach (var prop in z.EnumerateObject())
                     if (prop.Value.TryGetProperty("path", out z))
                         foreach (var path in z.GetStringOrArray())
-                            AddPath(prop.Name, prop.Value, path, false);
+                            AddPath(prop.Name, prop.Value, path);
             // ignores
             if (elem.TryGetProperty("ignores", out z))
                 foreach (var prop in z.EnumerateObject())
@@ -151,14 +156,13 @@ namespace GameSpec
             foreach (var v in paths) z2.Add(v);
         }
 
-        protected void AddPath(string id, JsonElement elem, string path, bool usePath = true)
+        protected void AddPath(string id, JsonElement elem, string path)
         {
             if (path == null) throw new ArgumentOutOfRangeException(nameof(path));
             path = Path.GetFullPath(GetPathWithSpecialFolders(path));
             if (!Directory.Exists(path) && !File.Exists(path)) return;
-            var paths = usePath && elem.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => x) : null;
-            if (!Paths.TryGetValue(id, out var z2)) Paths.Add(id, z2 = new PathItem());
-            z2.Add(path, paths);
+            if (!Paths.TryGetValue(id, out var z2)) Paths.Add(id, new PathItem(path, elem));
+            else z2.Add(path, elem);
         }
 
         protected static string GetPathWithSpecialFolders(string path, string rootPath = null) =>
