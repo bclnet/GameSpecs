@@ -42,7 +42,7 @@ def chat(content, reply, callout):
     if callout:
         completion = client.chat.completions.create(seed=seed, model='gpt-3.5-turbo-0125', messages=messages)
         reply = completion.choices[0].message.content
-        print(reply)
+        # print(reply)
     messages.append({'role': role, 'content': reply})
     # print(f'{role}: {reply}')
 
