@@ -10,14 +10,21 @@ class FileManager: pass
 
 # FileManager
 class FileManager:
+    class PathItem:
+        root: str
+        typex: str
+        paths: list[str]
+        def __init__(self, root: str, elem: dict[str, object]):
+            self.root = root
+            self.type = _value(elem, 'type') if 'type' in elem else None
+            self.paths = _list(elem, 'path') if 'path' in elem else None
+        def add(self, root: str, elem: dict[str, object]):
+            raise NotImplementedError()
+
     applicationPath = os.getcwd()
     filters: dict[str, object] = {}
     paths: dict[str, PathItem] = {}
     ignores: dict[str, object] = {}
-
-    class PathItem:
-        def add(path: str, paths: list[str]):
-            pass
 
     # get locale games
     gameRoots = [os.path.join(x.mountpoint, GAMESPATH) for x in psutil.disk_partitions()]
@@ -35,7 +42,7 @@ class FileManager:
             for k,v in elem['direct'].items():
                 if 'path' in v:
                     for path in _list(v, 'path'):
-                        self.addPath(k, elem, path, False)
+                        self.addPath(k, elem, path)
         # ignores
         if 'ignores' in elem:
             for k,v in elem['ignores'].items():
@@ -79,17 +86,12 @@ class FileManager:
         z2 = self.ignores[id]
         for v in paths: z2.add(v)
 
-    def addPath(self, id: str, elem: dict[str, object], path: str, usePath: bool = True) -> None:
-        if not path: raise Exception('Require Path');
+    def addPath(self, id: str, elem: dict[str, object], path: str) -> None:
+        if not path: raise Exception('Require Path')
         path = FileManager.getPathWithSpecialFolders(path, '')
         if not os.path.isdir(path) and not os.path.isfile(path): return
-        paths = _list(elem, 'path') if usePath and 'path' in elem else [path]
-        if not id in self.paths: self.paths[id] = PathItem()
-        self.paths[id].append(path, paths)
-        # for p in [os.path.join(path, x) for x in paths]:
-        #     if not os.path.isdir(p) and not os.path.isfile(p): continue
-        #     if not id in self.paths: self.paths[id] = []
-        #     self.paths[id].append(p)
+        if not id in self.paths: self.paths[id] = self.PathItem(path, elem)
+        else: self.paths[id].add(path, elem)
 
     @staticmethod
     def getPathWithSpecialFolders(path: str, rootPath: str = None) -> str:

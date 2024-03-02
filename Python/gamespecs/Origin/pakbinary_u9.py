@@ -1,5 +1,6 @@
 import os
 from io import BytesIO
+from typing import Callable
 from gamespecs.filesrc import FileSource
 from gamespecs.pak import PakBinaryT
 from gamespecs.util import _pathExtension
@@ -9,6 +10,7 @@ class Reader: pass
 class BinaryPakFile: pass
 class FamilyGame: pass
 class IFileSystem: pass
+class FileOption: pass
 
 # PakBinary_U9
 class PakBinary_U9(PakBinaryT):
@@ -18,7 +20,7 @@ class PakBinary_U9(PakBinaryT):
     @staticmethod
     def objectFactoryFactory(source: FileSource, game: FamilyGame) -> (FileOption, Callable):
         match source.path.lower():
-            pass
+            case _: pass
             # case 'animdata.mul': return (0, Binary_Animdata.factory)
             # case _:
             #     match _pathExtension(source.path).lower():

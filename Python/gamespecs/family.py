@@ -160,7 +160,7 @@ fileManager: {self.fileManager if self.fileManager else None}'''
         fileSystemType = game.fileSystemType
         fileSystem = \
             (createFileSystem(fileSystemType, paths[game.id]) if game.id in paths and paths[game.id] else None) if uri.scheme == 'game' else \
-            (createFileSystem(fileSystemType, uri.path) if uri.path else None) if uri.scheme == 'file' else \
+            (createFileSystem(fileSystemType, FileManager.PathItem(uri.path, None)) if uri.path else None) if uri.scheme == 'file' else \
             (createFileSystem(fileSystemType, None, uri) if uri.netloc else None) if uri.scheme.startswith('http') else None
         if not fileSystem:
             if throwOnError: raise Exception(f'Not located: {game.id}')

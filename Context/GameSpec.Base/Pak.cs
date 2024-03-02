@@ -733,7 +733,7 @@ namespace GameSpec
             {
                 Path = s.Replace('\\', '/'),
                 Pak = Game.IsPakFile(s) ? (BinaryPakFile)Game.CreatePakFileType(new PakState(FileSystem, Game, Edition, s)) : default,
-                FileSize = FileSystem.FileInfo(s).Length,
+                FileSize = FileSystem.FileInfo(s).length,
             }).ToArray();
             return Task.CompletedTask;
         }

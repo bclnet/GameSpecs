@@ -4,12 +4,16 @@ using Microsoft.Extensions.FileSystemGlobbing;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using static GameSpec.FileManager;
+using static GameSpec.Formats.Unknown.IUnknownFileObject;
 using static GameSpec.Util;
 using static Microsoft.Win32.Registry;
 
@@ -27,14 +31,14 @@ namespace GameSpec
         public class PathItem
         {
             public string Root;
+            public string Type;
             public string[] Paths;
-            public string PathType;
 
-            public PathItem(string root, JsonElement elem = default)
+            public PathItem(string root, JsonElement elem)
             {
                 Root = root;
-                var paths = elem.TryGetProperty("path", out var z) ? z.GetStringOrArray(x => x) : null;
-                var pathType = elem.TryGetProperty("pathType", out z) ? z.GetString() : null;
+                Type = elem.TryGetProperty("type", out var z) ? z.GetString() : null;
+                Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray(x => x) : null;
             }
 
             public void Add(string root, JsonElement elem)
@@ -243,12 +247,9 @@ namespace GameSpec
     /// </summary>
     public interface IFileSystem
     {
-        //string[] GetDirectories(string path, string searchPattern, bool recursive);
-        //string[] GetFiles(string path, string searchPattern);
         IEnumerable<string> Glob(string path, string searchPattern);
-        string GetFile(string path);
         bool FileExists(string path);
-        FileInfo FileInfo(string path);
+        (string path, long length) FileInfo(string path);
         BinaryReader OpenReader(string path);
         BinaryWriter OpenWriter(string path);
     }
@@ -264,20 +265,104 @@ namespace GameSpec
     {
         readonly string Root;
         readonly int Skip;
-        public StandardFileSystem(PathItem path) { Root = path.Root; Skip = path.Root.Length + 1; }
+        public StandardFileSystem(string root) { Root = root; Skip = Root.Length + 1; }
         public IEnumerable<string> Glob(string path, string searchPattern)
         {
             var matcher = new Matcher();
             matcher.AddIncludePatterns(new[] { searchPattern });
             return matcher.GetResultsInFullPath(Path.Combine(Root, path)).Select(x => x[Skip..]);
         }
-        //public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(Path.Combine(Root, path), searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(x => x[Skip..]).ToArray();
-        //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(Path.Combine(Root, path), searchPattern).Select(x => x[Skip..]).ToArray();
-        public string GetFile(string path) => File.Exists(path = Path.Combine(Root, path)) ? path[Skip..] : null;
         public bool FileExists(string path) => File.Exists(Path.Combine(Root, path));
-        public FileInfo FileInfo(string path) => new FileInfo(Path.Combine(Root, path));
+        public (string path, long length) FileInfo(string path) => File.Exists(path = Path.Combine(Root, path)) ? (path[Skip..], new FileInfo(Path.Combine(Root, path)).Length) : (null, 0);
         public BinaryReader OpenReader(string path) => new BinaryReader(File.Open(Path.Combine(Root, path), FileMode.Open, FileAccess.Read, FileShare.Read));
         public BinaryWriter OpenWriter(string path) => new BinaryWriter(File.Open(Path.Combine(Root, path), FileMode.Open, FileAccess.Write, FileShare.Write));
+
+        public static Func<string, bool> CreateMatcher(string searchPattern)
+        {
+            if (string.IsNullOrEmpty(searchPattern)) return x => true;
+            var wildcardCount = searchPattern.Count(x => x.Equals('*'));
+            if (wildcardCount <= 0) return x => x.Equals(searchPattern, StringComparison.CurrentCultureIgnoreCase);
+            else if (wildcardCount == 1)
+            {
+                var newPattern = searchPattern.Replace("*", "");
+                if (searchPattern.StartsWith("*")) return x => x.EndsWith(newPattern, StringComparison.CurrentCultureIgnoreCase);
+                else if (searchPattern.EndsWith("*")) return x => x.StartsWith(newPattern, StringComparison.CurrentCultureIgnoreCase);
+            }
+            var regexPattern = string.Concat("^", Regex.Escape(searchPattern).Replace("\\*", ".*"), "$");
+            return x =>
+            {
+                try { return Regex.IsMatch(x, regexPattern); }
+                catch { return false; }
+            };
+        }
+    }
+
+    #endregion
+
+    #region ZipFileSystem
+
+    /// <summary>
+    /// ZipFileSystem
+    /// </summary>
+    internal class ZipFileSystem : IFileSystem
+    {
+        readonly ZipArchive Pak;
+        readonly string Root;
+        public ZipFileSystem(string root, string path)
+        {
+            Pak = ZipFile.Open(root, ZipArchiveMode.Read);
+            Root = string.IsNullOrEmpty(path) ? string.Empty : $"{path}{Path.AltDirectorySeparatorChar}";
+        }
+        public IEnumerable<string> Glob(string path, string searchPattern)
+        {
+            var root = Path.Combine(Root, path);
+            var skip = root.Length;
+            var matcher = StandardFileSystem.CreateMatcher(searchPattern);
+            return Pak.Entries.Where(x =>
+            {
+                var fn = x.FullName;
+                return fn.Length > skip && fn.StartsWith(root) && matcher(fn[skip..]);
+            }).Select(x => x.FullName[skip..]);
+        }
+        public bool FileExists(string path) => Pak.GetEntry(path) != null;
+        public (string path, long length) FileInfo(string path) { var e = Pak.GetEntry(path); return e != null ? (e.Name, e.Length) : (null, 0); }
+        public BinaryReader OpenReader(string path) => new BinaryReader(Pak.GetEntry(path).Open());
+        public BinaryWriter OpenWriter(string path) => throw new NotSupportedException();
+    }
+
+    //public static Func<string, bool> CreateMatcher(string root, string searchPattern)
+    //{
+    //    if (string.IsNullOrEmpty(root)) return CreateMatcher(searchPattern);
+    //    var matcher = CreateMatcher(searchPattern);
+    //    var skip = root.Length;
+    //    return x => x.StartsWith(root) && matcher(x[skip..]);
+    //}
+
+    #endregion
+
+    #region ZipIsoFileSystem
+
+    /// <summary>
+    /// ZipIsoFileSystem
+    /// </summary>
+    internal class ZipIsoFileSystem : IFileSystem
+    {
+        readonly ZipArchive Pak;
+        readonly string Path;
+        public ZipIsoFileSystem(string root, string path)
+        {
+            Pak = ZipFile.Open(root, ZipArchiveMode.Read);
+            Path = path;
+        }
+        public IEnumerable<string> Glob(string path, string searchPattern)
+        {
+            var matcher = StandardFileSystem.CreateMatcher(searchPattern);
+            return Pak.Entries.Where(x => matcher(x.Name)).Select(x => x.Name);
+        }
+        public bool FileExists(string path) => Pak.GetEntry(path) != null;
+        public (string path, long length) FileInfo(string path) { var e = Pak.GetEntry(path); return e != null ? (e.Name, e.Length) : (null, 0); }
+        public BinaryReader OpenReader(string path) => new BinaryReader(Pak.GetEntry(path).Open());
+        public BinaryWriter OpenWriter(string path) => throw new NotSupportedException();
     }
 
     #endregion
@@ -317,11 +402,8 @@ namespace GameSpec
             matcher.AddIncludePatterns(new[] { searchPattern });
             return matcher.GetResultsInFullPath(searchPattern);
         }
-        //public string[] GetDirectories(string path, string searchPattern, bool recursive) => Directory.GetDirectories(path, searchPattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-        //public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
-        public string GetFile(string path) => File.Exists(path) ? path : null;
         public bool FileExists(string path) => File.Exists(path);
-        public FileInfo FileInfo(string path) => null;
+        public (string path, long length) FileInfo(string path) => File.Exists(path) ? (path, 0) : (null, 0);
         public BinaryReader OpenReader(string path) => null;
         public BinaryWriter OpenWriter(string path) => null;
     }

@@ -223,7 +223,13 @@ namespace GameSpec
         /// <returns></returns>
         internal static IFileSystem CreateFileSystem(Type fileSystemType, PathItem path, Uri host = null) => host != null ? new HostFileSystem(host)
             : fileSystemType != null ? (IFileSystem)Activator.CreateInstance(fileSystemType, path)
-            : new StandardFileSystem(path);
+            : path.Type switch
+            {
+                null => path.Paths.Length <= 1 ? new StandardFileSystem(Path.Combine(path.Root, path.Paths.SingleOrDefault() ?? string.Empty)) : throw new NotSupportedException(),
+                "zip" => path.Paths.Length <= 1 ? new ZipFileSystem(path.Root, path.Paths.SingleOrDefault()) : throw new NotSupportedException(),
+                "zip:iso" => path.Paths.Length <= 1 ? new ZipIsoFileSystem(path.Root, path.Paths.SingleOrDefault()) : throw new NotSupportedException(),
+                _ => throw new ArgumentOutOfRangeException(nameof(path.Type), $"Unknown {path.Type}")
+            };
 
         #endregion
     }
@@ -479,7 +485,7 @@ namespace GameSpec
             var fileSystemType = game.FileSystemType;
             var fileSystem =
                 string.Equals(uri.Scheme, "game", StringComparison.OrdinalIgnoreCase) ? paths.TryGetValue(game.Id, out var z) ? CreateFileSystem(fileSystemType, z) : default
-                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? CreateFileSystem(fileSystemType, new PathItem(uri.LocalPath)) : default
+                : uri.IsFile ? !string.IsNullOrEmpty(uri.LocalPath) ? CreateFileSystem(fileSystemType, new PathItem(uri.LocalPath, default)) : default
                 : uri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? !string.IsNullOrEmpty(uri.Host) ? CreateFileSystem(fileSystemType, null, uri) : default
                 : default;
             if (fileSystem == null)

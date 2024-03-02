@@ -1275,6 +1275,7 @@
     "application": {
       "PP": {
         "download": "https://www.myabandonware.com/download/hq-phm-pegasus",
+        "type": "zip",
         "key": "Abandon:PHM-Pegasus_DOS_EN.zip",
         "dir": "Abandon:PHM-Pegasus_DOS_EN.zip",
         "path": "p-h-m-pegasus"
@@ -1287,12 +1288,14 @@
       },
       "SF": {
         "download": "https://www.myabandonware.com/download/j1-strike-fleet",
+        "type": "zip",
         "key": "Abandon:Strike-Fleet_DOS_EN.zip",
         "dir": "Strike-Fleet_DOS_EN.zip",
         "path": "strike-fleet"
       },
       "B1942": {
         "download": "https://www.myabandonware.com/download/et-battlehawks-1942",
+        "type": "zip",
         "key": "Abandon:Battlehawks-1942_DOS_EN.zip",
         "dir": "Battlehawks-1942_DOS_EN.zip",
         "path": "battlehawks-1942"
@@ -1305,6 +1308,7 @@
       },
       "IJatLC:TAG": {
         "download": "https://www.myabandonware.com/download/2fa-indiana-jones-and-the-last-crusade-the-action-game",
+        "type": "zip",
         "key": "Abandon:Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
         "dir": "Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
         "path": "indy3act"
@@ -1320,12 +1324,14 @@
           "https://www.myabandonware.com/download/s9-their-finest-hour-the-battle-of-britain",
           "https://www.myabandonware.com/download/k18-their-finest-hour-the-battle-of-britain"
         ],
+        "type": "zip",
         "key": "Abandon:Their-Finest-Hour-The-Battle-of-Britain_DOS_EN.zip",
         "dir": "Their-Finest-Hour-The-Battle-of-Britain_DOS_EN.zip",
         "path": "their-finest-hour-the-battle-of-britain/Battle Of Britain"
       },
       "TFM:V1": {
         "download": "https://www.myabandonware.com/download/k1d-their-finest-missions-volume-one",
+        "type": "zip",
         "key": "Abandon:Their-Finest-Missions-Volume-One_DOS_EN_35-Disk-Image.zip",
         "dir": "Their-Finest-Missions-Volume-One_DOS_EN_35-Disk-Image.zip",
         "path": "Their Finest Missions - Volume One (USA, Europe) (3.5'') (Add-on)"
@@ -1337,18 +1343,21 @@
       },
       "M": {
         "download": "https://www.myabandonware.com/download/17b-masterblazer",
+        "type": "zip",
         "key": "Abandon:Masterblazer_DOS_EN.zip",
         "dir": "Masterblazer_DOS_EN.zip",
         "path": "masterblazer/Masterblazer"
       },
       "NS": {
         "download": "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Night+Shift&gid=1553#",
+        "type": "zip",
         "key": "Abandon:Night_Shift.zip",
         "dir": "Night_Shift.zip",
         "path": "Night_Shift"
       },
       "SWotL": {
         "download": "https://www.myabandonware.com/download/1xl-secret-weapons-of-the-luftwaffe",
+        "type": "zip",
         "key": "Abandon:Secret-Weapons-of-the-Luftwaffe_DOS_EN.zip",
         "dir": "Secret-Weapons-of-the-Luftwaffe_DOS_EN.zip"
       },
@@ -1384,6 +1393,7 @@
       },
       "SWC": {
         "download": "https://www.myabandonware.com/download/2dh-the-software-toolworks-star-wars-chess",
+        "type": "zip",
         "key": "Abandon:The-Software-Toolworks-Star-Wars-Chess_DOS_EN.zip",
         "dir": "The-Software-Toolworks-Star-Wars-Chess_DOS_EN.zip",
         "path": "SWCHESS"
@@ -1422,10 +1432,10 @@
       },
       "IJaHDA": {
         "download": "https://www.myabandonware.com/download/ilz-indiana-jones-and-his-desktop-adventures",
+        "type": "setup",
         "key": "Abandon:Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
         "dir": "Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
-        "path": "ida",
-        "pathType": "deflate"
+        "path": "ida"
       },
       "A": {
         "key": "GOG:1425308948",
@@ -1434,6 +1444,7 @@
       },
       "MatRotM": {
         "download": "https://www.myabandonware.com/download/g2k-mortimer-and-the-riddles-of-the-medallion",
+        "type": "zip:iso",
         "key": "Abandon:Mortimer-and-the-Riddles-of-the-Medallion_Win_EN_ISO-Version.zip",
         "dir": "Mortimer-and-the-Riddles-of-the-Medallion_Win_EN_ISO-Version.zip",
         "path": "Mortimer and the Riddles of the Medallion (1996)(LucasArts).iso"
@@ -1445,11 +1456,11 @@
       },
       "SW:YS": {
         "download": "https://www.myabandonware.com/download/k7i-star-wars-yoda-stories",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
         "keyx": "Abandon:Star-Wars-Yoda-Stories_Win_EN_RIP-Version.zip",
         "dir": "Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
-        "path": "Star_Wars_Yoda_Stories_ISO/YODA.img",
-        "pathType": "iso"
+        "path": "Star_Wars_Yoda_Stories_ISO/YODA.img"
       },
       "O": {
         "key": "Steam:559620",
@@ -1468,10 +1479,10 @@
       },
       "MSW": {
         "download": "https://www.myabandonware.com/download/zs7-star-wars-monopoly",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
-        "path": "MONOPOLY SW.ISO",
-        "pathType": "iso"
+        "path": "MONOPOLY SW.ISO"
       },
       "TCoMI": {
         "key": "Steam:730820",
@@ -1493,20 +1504,20 @@
           "https://archive.org/download/btm-cd-1/BTM_CD1.iso",
           "https://archive.org/download/btm-cd-1/BTM_CD2.iso"
         ],
+        "type": "iso",
         "key": "Abandon:BTM_CD1.iso",
         "dir": "BTM_CD1.iso",
         "path": [
           "BTM_CD1.iso",
           "BTM_CD2.iso"
-        ],
-        "pathType": "iso"
+        ]
       },
       "SW:DW": {
         "download": "https://www.myabandonware.com/download/p9i-star-wars-droidworks",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
-        "path": "Star Wars - DroidWorks/DroidWorks.bin",
-        "pathType": "iso"
+        "path": "Star Wars - DroidWorks/DroidWorks.bin"
       },
       "GF": {
         "key": "Steam:316790",
@@ -1526,10 +1537,10 @@
       },
       "SW1:TPM": {
         "download": "https://www.myabandonware.com/download/17a6-star-wars-episode-i-the-phantom-menace",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
         "dir": "Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
-        "path": "LucasArts-StarWarsThePhantomMenace-Win95-Eng.iso",
-        "pathType": "iso"
+        "path": "LucasArts-StarWarsThePhantomMenace-Win95-Eng.iso"
       },
       "SW1:R": {
         "key": "Steam:808910",
@@ -1538,23 +1549,24 @@
       },
       "SW1:TGF": {
         "download": "https://www.myabandonware.com/download/nx8-star-wars-episode-i-the-gungan-frontier",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
-        "path": "Star Wars The Gungan Frontier ISO/Star Wars The Gungan Frontier ISO.bin",
-        "pathType": "iso"
+        "path": "Star Wars The Gungan Frontier ISO/Star Wars The Gungan Frontier ISO.bin"
       },
       "SW:YCAC": {
         "download": "https://www.myabandonware.com/download/gmx-star-wars-yoda-s-challenge-activity-center",
+        "type": "zip",
         "key": "Abandon:Star-Wars-Yodas-Challenge---Activity-Center_Win_EN.zip",
         "dir": "Star-Wars-Yodas-Challenge---Activity-Center_Win_EN.zip",
         "path": "Yoda's Challenge"
       },
       "SW:PD": {
         "download": "https://www.myabandonware.com/download/4jz-star-wars-pit-droids",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
-        "path": "Star Wars Pit Droids [Hybrid].ISO",
-        "pathType": "iso"
+        "path": "Star Wars Pit Droids [Hybrid].ISO"
       },
       "IJatIM": {
         "key": "Steam:904540",
@@ -1562,8 +1574,7 @@
         "dir": "Indiana Jones and the Infernal Machine"
       },
       "SW:FC": {
-        "download": "",
-        "download2": "https://www.old-games.com/getfree/10472",
+        "download": "https://archive.org/download/star-wars-force-commander-windows-10-compatible/Star%20Wars%20-%20Force%20Commander%20Setup.exe",
         "key": "Abandon:XX",
         "dir": "."
       },
@@ -1598,14 +1609,14 @@
       },
       "SWG": {
         "download": "https://www.myabandonware.com/download/kc7-star-wars-galaxies-an-empire-divided",
+        "type": "zip:iso",
         "key": "Abandon:Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
         "dir": "Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
         "path": [
           "star-wars-galaxies-an-empire-divided/SWG_Disc_1.iso",
           "star-wars-galaxies-an-empire-divided/SWG_Disc_2.iso",
           "star-wars-galaxies-an-empire-divided/SWG_Disc_3.iso"
-        ],
-        "pathType": "iso"
+        ]
       },
       "SW:KotOR": {
         "key": [

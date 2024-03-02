@@ -17,16 +17,7 @@ namespace GameSpec.Blizzard
             return matcher.GetResultsInFullPath(searchPattern);
         }
 
-        //public string[] GetDirectories(string path, string searchPattern, bool recursive)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //public string[] GetFiles(string path, string searchPattern)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-        public string GetFile(string path)
+        public (string path, long length) FileInfo(string path)
         {
             throw new System.NotImplementedException();
         }
@@ -42,11 +33,6 @@ namespace GameSpec.Blizzard
         }
 
         public bool FileExists(string path)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public FileInfo FileInfo(string path)
         {
             throw new System.NotImplementedException();
         }

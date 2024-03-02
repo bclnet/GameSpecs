@@ -1,6 +1,7 @@
 import os, numpy as np
 from ctypes import c_ulong, c_ulonglong
 from io import BytesIO
+from typing import Callable
 from pathlib import Path
 from gamespecs.filesrc import FileSource
 from gamespecs.pak import PakBinaryT
@@ -11,6 +12,7 @@ class Reader: pass
 class BinaryPakFile: pass
 class FamilyGame: pass
 class IFileSystem: pass
+class FileOption: pass
 
 # PakBinary_UO
 class PakBinary_UO(PakBinaryT):
