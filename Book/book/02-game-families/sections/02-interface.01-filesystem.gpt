@@ -1,0 +1,9 @@
+Some games use a proprietary filesystem format instead of the normal filesystem.  And we support streamed assets over a network.
+
+The filesys module handles these situations with the createFileSystem() method. This method will return as FileSystem.
+
+* StandardFileSystem - the standard os filesystem
+* ZipFileSystem - the filesystem from a zip file
+* ZipIsoFileSystem - the filesystem from a zip file containing a single iso file
+* HostFileSystem - the network based filesystem
+* Custom FileSystem - the custom filesystem for instance BlizzardFileSystem

@@ -9,7 +9,8 @@ namespace :book do
     version_string = versions[0] + '.' + versions[1] + '.' + versions[2].to_i.next.to_s
   end
   date_string = Time.now.strftime('%Y-%m-%d')
-  params = "--attribute revnumber='#{version_string}' --attribute revdate='#{date_string}'"
+  # params = "-r asciidoctor-diagram --attribute revnumber='#{version_string}' --attribute revdate='#{date_string}'" #  --verbose
+  params = "-r asciidoctor-diagram"
   header_hash = `git rev-parse --short HEAD`.strip
   if Gem.win_platform?
     os_devnull = "nul"

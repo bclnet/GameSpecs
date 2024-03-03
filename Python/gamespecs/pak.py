@@ -36,7 +36,7 @@ class PakState:
         self.pakPath = path
         self.tag = tag
 
-# PakFile
+# tag::PakFile[]
 class PakFile:
     class FuncObjectFactoryFactory: pass
     class PakStatus(Enum):
@@ -95,6 +95,7 @@ class PakFile:
     def getMetaInfos(self, manager: MetaManager, item: MetaItem) -> list[MetaItem]: raise NotImplementedError()
     def getMetaItems(self, manager: MetaManager) -> list[MetaInfo]: raise NotImplementedError()
     #endregion
+# end::PakFile[]
 
 # BinaryPakFile
 class BinaryPakFile(PakFile):
@@ -318,6 +319,7 @@ class MultiPakFile(PakFile):
         return root
     #endregion
 
+# tag::PakBinary[]
 # PakBinary
 class PakBinary:
     def read(self, source: BinaryPakFile, r: Reader, tag: object = None) -> None: pass
@@ -347,4 +349,4 @@ class PakBinaryT(PakBinary):
             if self.useReader: super().read(r, tag); return
             with Reader(self.readData(self.source.getReader(), self.file)) as r2:
                 self.pakBinary.read(self, r2, tag)
-            
+# end::PakBinary[]

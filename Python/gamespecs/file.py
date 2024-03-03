@@ -1,4 +1,5 @@
 import os, pathlib, platform, psutil, winreg
+from zipfile import ZipFile
 from openstk.poly import Reader, findType
 from . import store
 from .util import _list
@@ -8,7 +9,7 @@ GAMESPATH = 'Games'
 # forwards
 class FileManager: pass
 
-# FileManager
+# tag::FileManager[]
 class FileManager:
     class PathItem:
         root: str
@@ -93,6 +94,7 @@ class FileManager:
         if not id in self.paths: self.paths[id] = self.PathItem(path, elem)
         else: self.paths[id].add(path, elem)
 
+    # tag::FileManager.getPathWithSpecialFolders[]
     @staticmethod
     def getPathWithSpecialFolders(path: str, rootPath: str = None) -> str:
         lowerPath = path.lower()
@@ -101,7 +103,9 @@ class FileManager:
         f'{os.getenv("APPDATA")}{path[9:]}' if lowerPath.startswith('%appdata%') else \
         f'{os.getenv("LOCALAPPDATA")}{path[14:]}' if lowerPath.startswith('%localappdata%') else \
         path
+    # end::FileManager.getPathWithSpecialFolders[]
 
+    # tag::FileManager.findRegistryPath[]
     @staticmethod
     def findRegistryPath(paths: list[str]) -> str:
         for p in paths:
@@ -130,6 +134,7 @@ class FileManager:
                 if path is not None: path = os.path.dirname(path)
             if path is not None and os.path.isdir(path): return path
         return None
+    # end::FileManager.findRegistryPath[]
 
     @staticmethod
     def getPathByRegistryKey(key: str, elem: dict[str, object]) -> str:
@@ -148,9 +153,16 @@ class FileManager:
             case 'xml': raise NotImplementedError() #return XDocument.Parse(content).XPathSelectElement(select)?.Value,
             case _: raise Exception(f'Unknown {ext}')
         return os.path.basename(value) if value else None
-    
+# end::FileManager[]
+
+# tag::FileSystem[]
+
 # IFileSystem
 class IFileSystem:
+    def glob(self, path: str, searchPattern: str) -> list[str]: pass
+    def fileExists(self, path: str) -> bool: pass
+    def fileInfo(self, path: str) -> (str, int): pass
+    def openReader(self, path: str, mode: str = 'rb') -> Reader: pass
     def findPaths(self, path: str, searchPattern: str) -> str:
         if (expandStartIdx := searchPattern.find('(')) != -1 and \
             (expandMidIdx := searchPattern.find(':', expandStartIdx)) != -1 and \
@@ -168,13 +180,41 @@ class StandardFileSystem(IFileSystem):
         g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern)
         return [str(x)[self.skip:] for x in g]
     def fileExists(self, path: str) -> bool: return os.path.exists(os.path.join(self.root, path))
-    def fileInfo(self, path: str) -> object: return os.stat(os.path.join(self.root, path))
+    def fileInfo(self, path: str) -> (str, int): return (path, os.stat(path)) if os.path.exists(path := os.path.join(self.root, path)) else (None, 0)
     def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(open(os.path.join(self.root, path), mode))
+
+# ZipFileSystem
+class ZipFileSystem(IFileSystem):
+    def __init__(self, root: str, path: str):
+        self.pak = ZipFile(root)
+        self.root = '' if not root else f'{root}/'
+    def glob(self, path: str, searchPattern: str) -> list[str]:
+        root = os.path.join(self.root, path)
+        skip = len(root)
+        return []
+    def fileExists(self, path: str) -> bool: return self.pak.read(path) != None
+    def fileInfo(self, path: str) -> (str, int): e = self.pak.read(path); return (e.name, e.length) if e else (None, 0)
+    def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(self.pak.read(path))
+
+# ZipIsoFileSystem
+class ZipIsoFileSystem(IFileSystem):
+    def __init__(self, root: str, path: str):
+        self.pak = ZipFile(root)
+        self.root = '' if not root else f'{root}/'
+    def glob(self, path: str, searchPattern: str) -> list[str]:
+        root = os.path.join(self.root, path)
+        skip = len(root)
+        return []
+    def fileExists(self, path: str) -> bool: return self.pak.read(path) != None
+    def fileInfo(self, path: str) -> (str, int): e = self.pak.read(path); return (e.name, e.length) if e else (None, 0)
+    def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(self.pak.read(path))
 
 # HostFileSystem
 class HostFileSystem(IFileSystem):
     def __init__(self, uri: str): self.uri = uri
     def glob(self, path: str, searchPattern: str) -> list[str]: raise NotImplementedError()
     def fileExists(self, path: str) -> bool: raise NotImplementedError()
-    def fileInfo(self, path: str) -> object: raise NotImplementedError()
+    def fileInfo(self, path: str) -> (str, int): raise NotImplementedError()
     def openReader(self, path: str, mode: str = 'rb') -> Reader: raise NotImplementedError()
+
+# end::FileSystem[]

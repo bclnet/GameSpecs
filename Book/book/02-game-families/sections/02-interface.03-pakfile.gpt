@@ -1,0 +1,1 @@
+PakFiles are the primary family objects, they are accessed from the `openPakFile()` method off of the `Family` object.

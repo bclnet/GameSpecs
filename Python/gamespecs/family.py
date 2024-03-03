@@ -22,6 +22,7 @@ class FamilySample: pass
 class Edition: pass
 class DownloadableContent: pass
 
+# tag::parseKey[]
 # parse key
 @staticmethod
 def parseKey(key: str) -> object:
@@ -30,6 +31,7 @@ def parseKey(key: str) -> object:
     elif key.startswith('hex:'): return bytes.fromhex(key[4:].replace('/x', ''))
     elif key.startswith('txt:'): return key[4:]
     else: raise Exception(f'Unknown key: {key}')
+# end::parseKey[]
 
 # create FamilySample
 @staticmethod
@@ -90,7 +92,7 @@ def createFileSystem(fileSystemType: str, root: str, host: str = None) -> IFileS
         findType(fileSystemType)(root) if fileSystemType else \
         StandardFileSystem(root)
 
-# Resource
+# tag::Resource[]
 class Resource:
     def __init__(self, fileSystem: IFileSystem, game: FamilyGame, edition: Edition, searchPattern: str):
         self.fileSystem = fileSystem
@@ -98,8 +100,9 @@ class Resource:
         self.edition = edition
         self.searchPattern = searchPattern
     def __repr__(self): return f'res:/{self.searchPattern}#{self.game}'
+# end::Resource[]
 
-# Family
+# tag::Family[]
 class Family:
     def __init__(self, elem: dict[str, object]):
         self.id = _value(elem, 'id')
@@ -150,6 +153,7 @@ fileManager: {self.fileManager if self.fileManager else None}'''
         edition = _value(self.games.editions, ids[1]) if len(ids) > 1 else None
         return (game, edition)
 
+    # tag::Family.parseResource[]
     # parse Resource
     def parseResource(self, uri: str, throwOnError: bool = True) -> Resource:
         if uri is None or not (uri := urlparse(uri)).fragment:
@@ -171,6 +175,7 @@ fileManager: {self.fileManager if self.fileManager else None}'''
             edition = edition,
             searchPattern = searchPattern
             )
+    # end::Family.parseResource[]            
 
     # open PakFile
     def openPakFile(self, res: Resource | str, throwOnError: bool = True) -> PakFile:
@@ -181,24 +186,27 @@ fileManager: {self.fileManager if self.fileManager else None}'''
             case _: raise Exception(f'Unknown: {res}')
         return (pak := r.game.createPakFile(r.fileSystem, r.edition, r.searchPattern, throwOnError)) and pak.open() if r.game else \
             _throw(f'Undefined Game')
+# end::Family[]
 
-# FamilyApp
+# tag::FamilyApp[]
 class FamilyApp:
     def __init__(self, family: Family, id: str, elem: dict[str, object]):
         self.family = family
         self.id = id
         self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
+# end::FamilyApp[]
 
-# FamilyEngine
+# tag::FamilyEngine[]
 class FamilyEngine:
     def __init__(self, family: Family, id: str, elem: dict[str, object]):
         self.family = family
         self.id = id
         self.name = _value(elem, 'name') or id
     def __repr__(self): return f'\n  {self.id}: {self.name}'
+# end::FamilyEngine[]
 
-# FamilySample
+# tag::FamilySample[]
 class FamilySample:
     samples: dict[str, list[object]] = {}
     class File:
@@ -212,8 +220,9 @@ class FamilySample:
         for k,v in elem.items():
             files = [FamilySample.File(x) for x in v['files']]
             self.samples[k] = files
+# end::FamilySample[]
 
-# FamilyGame
+# tag::FamilyGame[]
 class FamilyGame:
     class Edition:
         def __init__(self, id: str, elem: dict[str, object]):
@@ -363,6 +372,7 @@ class FamilyGame:
     # is a PakFile
     def isPakFile(self, path: str) -> bool:
         return any([x for x in self.pakExts if path.endswith(x)])
+# end::FamilyGame[]
 
 families = {}
 

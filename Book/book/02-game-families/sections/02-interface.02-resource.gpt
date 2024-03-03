@@ -1,0 +1,6 @@
+A uri can be parsed to a Resource object and represents an asset.
+
+* Family: parse resources from a family
+* Schema: game, file, http, and https are supported schemas.
+* Fragment: the fragment is used to determine the game
+* A filesystem object is created and associate with the resouce, either to a local or remote connection 

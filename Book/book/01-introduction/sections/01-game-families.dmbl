@@ -1,0 +1,61 @@
+Table users {
+    id integer
+    username varchar
+    role varchar
+    created_at timestamp
+}
+
+Table posts {
+    id integer [primary key]
+    title varchar
+    body text [note: 'Content of the post']
+    user_id integer
+    created_at timestamp
+}
+
+Table users1 {
+    id integer
+    username varchar
+    role varchar
+    created_at timestamp
+}
+
+Table posts1 {
+    id integer [primary key]
+    title varchar
+    body text [note: 'Content of the post']
+    user_id integer
+    created_at timestamp
+}
+
+Table users2 {
+    id integer
+    username varchar
+    role varchar
+    created_at timestamp
+}
+
+Table posts2 {
+    id integer [primary key]
+    title varchar
+    body text [note: 'Content of the post']
+    user_id integer
+    created_at timestamp
+}
+
+Table users3 {
+    id integer
+    username varchar
+    role varchar
+    created_at timestamp
+}
+
+Table posts3 {
+    id integer [primary key]
+    title varchar
+    body text [note: 'Content of the post']
+    user_id integer
+    created_at timestamp
+}
+
+Ref: posts.user_id > users.id
