@@ -118,7 +118,7 @@ namespace GameSpec
         /// <summary>
         /// An empty family.
         /// </summary>
-        public static PakFile Empty = new UnknownPakFile(new PakState(null, FamilyGame.Empty)) { Name = "Empty" };
+        public static PakFile Empty = new UnknownPakFile(new PakState(new StandardFileSystem(""), FamilyGame.Empty)) { Name = "Empty" };
 
         public enum PakStatus { Opening, Opened, Closing, Closed }
 

@@ -32,7 +32,7 @@ namespace GameSpec
         /// </summary>
         public enum SearchBy
         {
-            None,
+            Default,
             Pak,
             TopDir,
             TwoDir,
@@ -404,7 +404,7 @@ namespace GameSpec
                 FileManager = _method(elem, "fileManager", CreateFileManager);
                 var paths = FileManager?.Paths;
                 // related
-                var dgame = new FamilyGame { SearchBy = SearchBy.Pak, Paks = new[] { new Uri("game:/") } };
+                var dgame = new FamilyGame { SearchBy = SearchBy.Default, Paks = new[] { new Uri("game:/") } };
                 Samples = new Dictionary<string, List<FamilySample.File>>();
                 Engines = _related(elem, "engines", (k, v) => CreateFamilyEngine(this, k, v));
                 Games = _dictTrim(_related(elem, "games", (k, v) => CreateFamilyGame(this, k, v, ref dgame, paths)));
@@ -1003,7 +1003,6 @@ namespace GameSpec
         {
             if (fileSystem is HostFileSystem k) throw new NotImplementedException($"{k}"); //return new StreamPakFile(family.FileManager.HostFactory, game, path, fileSystem),
             searchPattern = CreateSearchPatterns(searchPattern);
-            if (searchPattern == null) return default;
             var pakFiles = new List<PakFile>();
             var dlcKeys = Dlcs.Where(x => !string.IsNullOrEmpty(x.Value.Path)).Select(x => x.Key).ToArray();
             var slash = '\\';
@@ -1097,7 +1096,7 @@ namespace GameSpec
             if (!string.IsNullOrEmpty(searchPattern)) return searchPattern;
             return SearchBy switch
             {
-                SearchBy.None => null,
+                SearchBy.Default => "",
                 SearchBy.Pak => PakExts == null || PakExts.Length == 0 ? ""
                     : PakExts.Length == 1 ? $"*{PakExts[0]}" : $"(*{string.Join(":*", PakExts)})",
                 SearchBy.TopDir => "*",

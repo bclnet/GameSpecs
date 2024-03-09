@@ -18,12 +18,19 @@ namespace GameSpec.Lucas
         /// Initializes a new instance of the <see cref="LucasPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public LucasPakFile(PakState state) : base(state, PakBinary_Hpl.Instance)
+        public LucasPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
 
         #region Factories
+
+        static PakBinary GetPakBinary(FamilyGame game, string extension)
+            => game.Engine switch
+            {
+                "SPUTM" => PakBinary_Lfl.Instance,
+                _ => null,
+            };
 
         static (FileOption, Func<BinaryReader, FileSource, PakFile, Task<object>>) ObjectFactoryFactory(FileSource source, FamilyGame game)
             => Path.GetExtension(source.Path).ToLowerInvariant() switch

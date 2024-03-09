@@ -13,13 +13,13 @@
 //#define Frontier
 //#define Id
 //#define IW
-#define Lucas
+//#define Lucas
 //#define Monolith
 //#define Origin
 //#define Red
 //#define Ubisoft
 //#define Unity
-//#define Valve
+#define Valve
 //#define WbB
 
 namespace GameSpec
@@ -65,7 +65,7 @@ namespace GameSpec
             ForceOpen = true,
             ForcePath = "sample:*",
             Family = "Bethesda",
-            Game = "Morrowind", // The Elder Scrolls III: Morrowind
+            //Game = "Morrowind", // The Elder Scrolls III: Morrowind
             //Game = "Oblivion", // The Elder Scrolls IV: Oblivion
             //Game = "Fallout3", // Fallout 3
             //Game = "FalloutNV", // Fallout New Vegas
@@ -332,8 +332,8 @@ namespace GameSpec
             ForceOpen = true,
             ForcePath = "sample:*",
             Family = "Lucas",
-            Game = "PP", // PHM Pegasus
-            //Game = "MM", // Maniac Mansion
+            //Game = "PP", // PHM Pegasus
+            Game = "MM", // Maniac Mansion
             //Game = "SF", // Strike Fleet
             //Game = "B1942", // Battlehawks 1942
             //Game = "ZMatAM", // Zak McKracken and the Alien Mindbenders

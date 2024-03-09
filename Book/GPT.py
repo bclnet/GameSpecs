@@ -48,13 +48,17 @@ def chat(content, reply, callout):
 
     return reply
 
+# read tags
+with open('GPT.txt', 'r') as f: tags = f.read().split('\n')
+allTag = len(tags) > 0 and tags[0] == 'all'
+
 # process .gpt files
-count = 0; maxcount = 100 #3 #14
+count = 0; maxcount = 100
 for path in yieldPaths('book', '.gpt'):
     count += 1
     if count > maxcount: break
     ascPath = f'{path[:-4]}.asc'
-    callout = False
+    callout = True if allTag else path in tags
 
     # print
     print(f'{count:02}:{"X" if callout else "O"} - {path}')

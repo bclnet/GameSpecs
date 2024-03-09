@@ -4,7 +4,6 @@ using Microsoft.Extensions.FileSystemGlobbing;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -12,8 +11,6 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using static GameSpec.FileManager;
-using static GameSpec.Formats.Unknown.IUnknownFileObject;
 using static GameSpec.Util;
 using static Microsoft.Win32.Registry;
 
@@ -269,7 +266,7 @@ namespace GameSpec
         public IEnumerable<string> Glob(string path, string searchPattern)
         {
             var matcher = new Matcher();
-            matcher.AddIncludePatterns(new[] { searchPattern });
+            matcher.AddIncludePatterns(new[] { string.IsNullOrEmpty(searchPattern) ? "**/*" : searchPattern });
             return matcher.GetResultsInFullPath(Path.Combine(Root, path)).Select(x => x[Skip..]);
         }
         public bool FileExists(string path) => File.Exists(Path.Combine(Root, path));
@@ -324,9 +321,9 @@ namespace GameSpec
                 return fn.Length > skip && fn.StartsWith(root) && matcher(fn[skip..]);
             }).Select(x => x.FullName[skip..]);
         }
-        public bool FileExists(string path) => Pak.GetEntry(path) != null;
-        public (string path, long length) FileInfo(string path) { var e = Pak.GetEntry(path); return e != null ? (e.Name, e.Length) : (null, 0); }
-        public BinaryReader OpenReader(string path) => new BinaryReader(Pak.GetEntry(path).Open());
+        public bool FileExists(string path) => Pak.GetEntry(Path.Combine(Root, path)) != null;
+        public (string path, long length) FileInfo(string path) { var e = Pak.GetEntry(Path.Combine(Root, path)); return e != null ? (e.Name, e.Length) : (null, 0); }
+        public BinaryReader OpenReader(string path) => new BinaryReader(Pak.GetEntry(Path.Combine(Root, path)).Open());
         public BinaryWriter OpenWriter(string path) => throw new NotSupportedException();
     }
 

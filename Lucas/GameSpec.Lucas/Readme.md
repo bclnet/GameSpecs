@@ -6,3 +6,6 @@ https://github.com/glampert/reverse-engineering-outlaws/blob/master/source/ol/la
 
 
 https://wiki.scummvm.org/index.php/SCUMM/Technical_Reference/SCUMM_6_resource_files#:~:text=Currently%20ScummVM%20supports%20MP3%2C%20Vorbis%20and%20FLAC.
+
+https://wiki.scummvm.org/index.php/SCUMM/Technical_Reference
+https://github.com/scemino/nscumm/tree/master

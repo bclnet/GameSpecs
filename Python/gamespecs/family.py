@@ -248,7 +248,7 @@ class FamilyGame:
         self.family = family
         self.id = id
         if not dgame:
-            self.ignore = False; self.searchBy = 'Pak'; self.paks = ['game:/']
+            self.ignore = False; self.searchBy = 'Default'; self.paks = ['game:/']
             self.gameType = self.engine = self.resource = \
             self.paths = self.key = self.fileSystemType = \
             self.pakFileType = self.pakExts = None
@@ -303,8 +303,7 @@ class FamilyGame:
     # create SearchPatterns
     def createSearchPatterns(self, searchPattern: str) -> str:
         if searchPattern: return searchPattern
-        elif not self.searchBy: return '*'
-        elif self.searchBy == 'None': return None
+        elif self.searchBy == 'Default': return ''
         elif self.searchBy == 'Pak': return '' if not self.pakExts else \
             f'*{self.pakExts[0]}' if len(self.pakExts) == 1 else f'(*{":*".join(self.pakExts)})'
         elif self.searchBy == 'TopDir': return '*'
@@ -317,7 +316,6 @@ class FamilyGame:
     def createPakFile(self, fileSystem: IFileSystem, edition: Edition, searchPattern: str, throwOnError: bool) -> PakFile:
         if isinstance(fileSystem, HostFileSystem): raise Exception('HostFileSystem not supported')
         searchPattern = self.createSearchPatterns(searchPattern)
-        if not searchPattern: return None
         pakFiles = []
         dlcKeys = [x[0] for x in self.dlcs.items() if x[1].path]
         slash = '\\'

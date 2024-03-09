@@ -177,7 +177,7 @@ class IFileSystem:
 class StandardFileSystem(IFileSystem):
     def __init__(self, root: str): self.root = root; self.skip = len(root) + 1
     def glob(self, path: str, searchPattern: str) -> list[str]:
-        g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern)
+        g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern if searchPattern else '**/*')
         return [str(x)[self.skip:] for x in g]
     def fileExists(self, path: str) -> bool: return os.path.exists(os.path.join(self.root, path))
     def fileInfo(self, path: str) -> (str, int): return (path, os.stat(path)) if os.path.exists(path := os.path.join(self.root, path)) else (None, 0)
@@ -192,9 +192,9 @@ class ZipFileSystem(IFileSystem):
         root = os.path.join(self.root, path)
         skip = len(root)
         return []
-    def fileExists(self, path: str) -> bool: return self.pak.read(path) != None
-    def fileInfo(self, path: str) -> (str, int): e = self.pak.read(path); return (e.name, e.length) if e else (None, 0)
-    def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(self.pak.read(path))
+    def fileExists(self, path: str) -> bool: return self.pak.read(os.path.join(self.root, path)) != None
+    def fileInfo(self, path: str) -> (str, int): e = self.pak.read(os.path.join(self.root, path)); return (e.name, e.length) if e else (None, 0)
+    def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(self.pak.read(os.path.join(self.root, path)))
 
 # ZipIsoFileSystem
 class ZipIsoFileSystem(IFileSystem):
