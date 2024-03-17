@@ -20,7 +20,7 @@ namespace GameSpec.Bethesda
         /// Initializes a new instance of the <see cref="BethesdaPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public BethesdaPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public BethesdaPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             PathFinders.Add(typeof(ITexture), FindTexture);

@@ -18,7 +18,7 @@ namespace GameSpec.Id
         /// Initializes a new instance of the <see cref="IdPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public IdPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
+        public IdPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.Path))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

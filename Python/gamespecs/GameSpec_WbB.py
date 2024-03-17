@@ -19,7 +19,7 @@ class WbBGame(FamilyGame):
 # WbBPakFile
 class WbBPakFile(BinaryPakFile):
     def __init__(self, state: PakState):
-        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.path).lower()))
 
     #region Factories
     @staticmethod

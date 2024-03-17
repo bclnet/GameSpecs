@@ -19,7 +19,7 @@ namespace GameSpec.Bioware
         /// Initializes a new instance of the <see cref="BiowarePakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public BiowarePakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public BiowarePakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
@@ -36,6 +36,7 @@ namespace GameSpec.Bioware
         static PakBinary PakBinaryFactory(FamilyGame game)
             => game.Engine switch
             {
+                //"Infinity" => PakBinary_Infinity.Instance,
                 "Aurora" => PakBinary_Aurora.Instance,
                 "HeroEngine" => PakBinary_Myp.Instance,
                 _ => throw new ArgumentOutOfRangeException(nameof(game.Engine))

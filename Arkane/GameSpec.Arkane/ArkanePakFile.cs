@@ -20,7 +20,7 @@ namespace GameSpec.Arkane
         /// Initializes a new instance of the <see cref="ArkanePakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public ArkanePakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public ArkanePakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = state.Game.Engine switch
             {

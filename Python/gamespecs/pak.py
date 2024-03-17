@@ -1,4 +1,4 @@
-import sys, os, re, time
+import sys, os, re, time, itertools
 from typing import Callable
 from enum import Enum, Flag
 from io import BytesIO
@@ -33,7 +33,7 @@ class PakState:
         self.fileSystem = fileSystem
         self.game = game
         self.edition = edition
-        self.pakPath = path
+        self.path = path or ''
         self.tag = tag
 
 # tag::PakFile[]
@@ -52,8 +52,8 @@ class PakFile:
         self.family = state.game.family
         self.game = state.game
         self.edition = state.edition
-        self.pakPath = state.pakPath
-        self.name = z if not state.pakPath or (z := os.path.basename(state.pakPath)) else os.path.basename(os.path.dirname(state.pakPath))
+        self.pakPath = state.path
+        self.name = z if not state.path or (z := os.path.basename(state.path)) else os.path.basename(os.path.dirname(state.path))
         self.tag = state.tag
         self.graphic = None
     def __enter__(self): return self
@@ -114,9 +114,9 @@ class BinaryPakFile(PakFile):
         self.metadataInfos = {}
         self.objectFactoryFactoryMethod = None
         # binary
-        self.files = {}
-        self.filesById = {}
-        self.filesByPath = {}
+        self.files = None
+        self.filesById = None
+        self.filesByPath = None
         self.pathSkip = 0
 
     def valid(self) -> bool: return self.files != None
@@ -140,23 +140,29 @@ class BinaryPakFile(PakFile):
             case None: raise Exception('Null')
             case s if isinstance(path, str):
                 pak, s2 = self._findPath(s)
-                return pak.contains(s2) if pak else \
-                    s.replace('\\', '/') in self.filesByPath if self.filesByPath else None
+                return pak.contains(s2) if pak else self.filesByPath and s.replace('\\', '/') in self.filesByPath
             case i if isinstance(path, int):
-                return i in self.filesById if self.filesById else None
+                return self.filesById and i in self.filesById
             case _: raise Exception(f'Unknown: {path}')
 
     def getFileSource(self, path: FileSource | str | int, throwOnError: bool = True) -> FileSource:
         match path:
             case None: raise Exception('Null')
-            case f if isinstance(path, FileSource):
-                return f
+            case f if isinstance(path, FileSource): return f
             case s if isinstance(path, str):
                 pak, s2 = self._findPath(s)
-                return pak.getFileSource(s2) if pak else \
-                    f if self.filesByPath and (s := s.replace('\\', '/')) in self.filesByPath and (f := self.filesByPath[s]) else None
+                if pak: return pak.getFileSource(s2)
+                files = self.filesByPath[s] if self.filesByPath and (s := s.replace('\\', '/')) in self.filesByPath else []
+                if len(files) == 1: return files[0]
+                print(f'ERROR.LoadFileData: {s} @ {len(files)}')
+                if throwOnError: raise Exception(s if len(files) == 0 else f'More then one file found for {s}')
+                return None
             case i if isinstance(path, int):
-                return f if self.filesById and i in self.filesById and (f := self.filesById[i]) else None
+                files = self.filesById[i] if self.filesById and i in self.filesById else []
+                if len(files) == 1: return files[0]
+                print(f'ERROR.LoadFileData: {i} @ {len(files)}')
+                if throwOnError: raise Exception(s if len(files) == 0 else f'More then one file found for {s}')
+                return None
             case _: raise Exception(f'Unknown: {path}')
 
     def loadFileData(self, path: FileSource | str | int, option: FileOption = FileOption.Default, throwOnError: bool = True) -> bytes:
@@ -189,16 +195,18 @@ class BinaryPakFile(PakFile):
         return file.cachedObjectFactory
 
     def process(self) -> None:
-        if self.files and self.useFileId: self.filesById = { x.id:x for x in self.files if x }
-        if self.files: self.filesByPath = { x.path:x for x in self.files if x }
+        if self.useFileId and self.files: self.filesById = { x.id:x for x in self.files if x }
+        if self.files: self.filesByPath = { k:list(g) for k,g in itertools.groupby(self.files, lambda x: x.path) }
         if self.pakBinary: self.pakBinary.process(self)
 
     def _findPath(self, path: str) -> (object, str):
         paths = path.split(':', 2)
         p = paths[0].replace('\\', '/')
-        pak = self.filesByPath[p].pak if len(paths) > 1 and p in self.filesByPath else None
-        # if pak: pak.open()
-        return pak, (paths[1] if pak else None)
+        files = self.filesByPath[p] if self.filesByPath and p in self.filesByPath else None
+        first = next(iter(files), None)
+        pak = first.pak if first else None
+        if pak: pak.open()
+        return pak, (paths[1] if pak and len(paths) > 1 else None)
 
     #region PakBinary
     def read(self, r: Reader, tag: object = None) -> None: return self.pakBinary.read(self, r, tag)
@@ -230,12 +238,11 @@ class ManyPakFile(BinaryPakFile):
         self.files = [FileSource(
             path = s.replace('\\', '/'),
             pak = self.game.createPakFileType(PakState(self.fileSystem, self.game, self.edition, s)) if self.game.isPakFile(s) else None,
-            fileSize = self.fileSystem.fileInfo(s).st_size
-            )
+            fileSize = self.fileSystem.fileInfo(s)[1])
             for s in self.paths]
 
     def readData(self, r: Reader, file: FileSource) -> BytesIO:
-        return None if file.pak else \
+        return file.pak.readData(r, file) if file.pak else \
             BytesIO(self.fileSystem.openReader(file.path).read(file.fileSize))
     #endregion
 
@@ -256,7 +263,7 @@ class MultiPakFile(PakFile):
         match path:
             case None: raise Exception('Null')
             case s if isinstance(path, str):
-                paks, s2 = self._filterPakFiles(s)
+                paks, s2 = self._findPakFiles(s)
                 return any(x.valid() and x.contains(s2) for x in paks)
             case i if isinstance(path, int): return any(x.valid() and x.contains(i) in self.pakFiles)
             case _: raise Exception(f'Unknown: {path}')

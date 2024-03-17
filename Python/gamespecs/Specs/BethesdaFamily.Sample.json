@@ -34,19 +34,69 @@
   },
   "Fallout3": {
     "name": "Fallout 3",
-    "files": []
+    "files": [
+      {
+        "path": "Fallout - Textures.bsa:textures/interface/main/main_background.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Fallout - Textures.bsa:textures/interface/loading/loading_screen01.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Fallout - Textures.bsa:textures/sky/wastelandcloudcloudyupper01.dds",
+        "type": "Texture"
+      }
+    ]
   },
   "FalloutNV": {
     "name": "Fallout New Vegas",
-    "files": []
+    "files": [
+      {
+        "path": "Fallout - Textures2.bsa:textures/interface/main/main_background.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Fallout - Textures2.bsa:textures/interface/loading/loading_screen01.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Fallout - Textures2.bsa:textures/sky/wastelandcloudcloudyupper01.dds",
+        "type": "Texture"
+      }
+    ]
   },
   "Skyrim": {
     "name": "The Elder Scrolls V: Skyrim",
-    "files": []
+    "files": [
+      {
+        "path": "Skyrim - Textures.bsa:textures/clutter/birthsignapprentice01.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Skyrim - Textures.bsa:textures/sky/skyrimcloudsupper01.dds",
+        "type": "Texture"
+      }
+    ]
   },
   "Fallout4": {
     "name": "Fallout 4",
-    "files": []
+    "files": [
+      {
+        "path": "Fallout4 - Textures7.ba2:Textures/Terrain/Commonwealth/Commonwealth.4.-56.16_msn.DDS",
+        "type": "Texture"
+      },
+      {
+        "path": "Fallout4 - Startup.ba2:Textures/Water/WaterRainRipples.dds",
+        "size": 349680,
+        "type": "Test"
+      },
+      {
+        "path": "Fallout4 - Textures8.ba2:Textures/Terrain/DiamondCity/DiamondCity.16.-2.-2.DDS",
+        "size": 174904,
+        "type": "Test"
+      }
+    ]
   },
   "SkyrimSE": {
     "name": "The Elder Scrolls V: Skyrim - Special Edition",
@@ -71,6 +121,10 @@
     "name": "Fallout 4 VR",
     "files": [
       {
+        "path": "Fallout4 - Textures7.ba2:Textures/Terrain/Commonwealth/Commonwealth.4.-56.16_msn.DDS",
+        "type": "Texture"
+      },
+      {
         "path": "Fallout4 - Startup.ba2:Textures/Water/WaterRainRipples.dds",
         "size": 349680,
         "type": "Test"
@@ -84,7 +138,16 @@
   },
   "SkyrimVR": {
     "name": "The Elder Scrolls V: Skyrim VR",
-    "files": []
+    "files": [
+      {
+        "path": "Skyrim - Textures.bsa:textures/clutter/birthsignapprentice01.dds",
+        "type": "Texture"
+      },
+      {
+        "path": "Skyrim - Textures.bsa:textures/sky/skyrimcloudsupper01.dds",
+        "type": "Texture"
+      }
+    ]
   },
   "Fallout76": {
     "name": "Fallout 76",

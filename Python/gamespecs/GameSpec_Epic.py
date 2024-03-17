@@ -13,7 +13,7 @@ class FileOption: pass
 # EpicPakFile
 class EpicPakFile(BinaryPakFile):
     def __init__(self, state: state):
-        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.path).lower()))
 
     #region Factories
     @staticmethod

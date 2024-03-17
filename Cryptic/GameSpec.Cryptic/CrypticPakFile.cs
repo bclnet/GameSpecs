@@ -18,7 +18,7 @@ namespace GameSpec.Cryptic
         /// Initializes a new instance of the <see cref="CrypticPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public CrypticPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public CrypticPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

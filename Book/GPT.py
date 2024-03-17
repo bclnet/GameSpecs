@@ -27,6 +27,8 @@ def yieldPaths(folder, extension):
 
 # openai chat
 messages = []
+# model = 'gpt-4'
+model = 'gpt-3.5-turbo-0125'
 def chat(content, reply, callout):
     content = content.strip()
 
@@ -40,7 +42,7 @@ def chat(content, reply, callout):
     # get assistant content
     role = 'assistant'
     if callout:
-        completion = client.chat.completions.create(seed=seed, model='gpt-3.5-turbo-0125', messages=messages)
+        completion = client.chat.completions.create(seed=seed, model=model, messages=messages)
         reply = completion.choices[0].message.content
         # print(reply)
     messages.append({'role': role, 'content': reply})

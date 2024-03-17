@@ -18,7 +18,7 @@ namespace GameSpec.Blizzard
         /// Initializes a new instance of the <see cref="BlizzardPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public BlizzardPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public BlizzardPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             UseReader = false;

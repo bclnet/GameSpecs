@@ -35,7 +35,7 @@ namespace GameSpec
             {
                 Root = root;
                 Type = elem.TryGetProperty("type", out var z) ? z.GetString() : null;
-                Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray(x => x) : null;
+                Paths = elem.TryGetProperty("path", out z) ? z.GetStringOrArray(x => x) : new string[0];
             }
 
             public void Add(string root, JsonElement elem)

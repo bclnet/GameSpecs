@@ -72,6 +72,8 @@ class PakBinary_Danae(PakBinaryT):
     # readData
     def readData(self, source: BinaryPakFile, r: Reader, file: FileSource) -> BytesIO:
         r.seek(file.offset)
+        print('here')
+        print(file.compressed & 1)
         return BytesIO(
             decompressBlast(r, file.packedSize, file.fileSize) if (file.compressed & 1) != 0 else \
             r.read(file.packedSize)

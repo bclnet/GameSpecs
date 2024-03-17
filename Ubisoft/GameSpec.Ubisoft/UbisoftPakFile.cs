@@ -18,7 +18,7 @@ namespace GameSpec.Ubisoft
         /// Initializes a new instance of the <see cref="UbisoftPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public UbisoftPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
+        public UbisoftPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.Path))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

@@ -17,7 +17,7 @@ class FileOption: pass
 # ArkanePakFile
 class ArkanePakFile(BinaryPakFile):
     def __init__(self, state: PakState):
-        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.path).lower()))
         match state.game.engine:
             # case 'CryEngine': self.objectFactoryFactoryMethod = Crytek.CrytekPakFile.ObjectFactoryFactory
             # case 'Unreal': self.objectFactoryFactoryMethod = Epic.EpicPakFile.ObjectFactoryFactory

@@ -26,7 +26,7 @@ class BethesdaGame(FamilyGame):
 # BethesdaPakFile
 class BethesdaPakFile(BinaryPakFile):
     def __init__(self, state: PakState):
-        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.pakPath).lower()))
+        super().__init__(state, self.getPakBinary(state.game, _pathExtension(state.path).lower()))
         self.objectFactoryFactoryMethod = self.objectFactoryFactory
 
     #region Factories

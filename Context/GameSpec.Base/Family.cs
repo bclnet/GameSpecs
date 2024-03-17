@@ -3,15 +3,19 @@ using GameSpec.Platforms;
 using GameSpec.Unknown;
 using OpenStack;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using static GameSpec.FamilyManager;
 using static GameSpec.FileManager;
+using static GameSpec.Formats.Unknown.IUnknownFileObject;
 using static GameSpec.Util;
 
 namespace GameSpec
@@ -92,12 +96,12 @@ namespace GameSpec
         #region Parse
 
         /// <summary>
-        /// Parse Key.
+        /// Create Key.
         /// </summary>
         /// <param name="elem"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal static object ParseKey(JsonElement elem)
+        internal static object CreateKey(JsonElement elem)
         {
             var str = elem.ToString();
             if (string.IsNullOrEmpty(str)) { return null; }
@@ -113,6 +117,19 @@ namespace GameSpec
             else if (str.StartsWith("txt:", StringComparison.OrdinalIgnoreCase))
                 return str[4..];
             else throw new ArgumentOutOfRangeException(nameof(str), str);
+        }
+
+        /// <summary>
+        /// Create Detector.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="elem"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal static Detector CreateDetector(FamilyGame game, JsonElement elem)
+        {
+            var detectorType = _value(elem, "detectorType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("detectorType", $"Unknown type: {z}"));
+            return detectorType != null ? (Detector)Activator.CreateInstance(detectorType, game, elem) : new Detector(game, elem);
         }
 
         /// <summary>
@@ -221,17 +238,92 @@ namespace GameSpec
         /// <param name="root">The root.</param>
         /// <param name="host">The host.</param>
         /// <returns></returns>
-        internal static IFileSystem CreateFileSystem(Type fileSystemType, PathItem path, Uri host = null) => host != null ? new HostFileSystem(host)
+        internal static IFileSystem CreateFileSystem(Type fileSystemType, PathItem path, Uri host = null)
+            => host != null ? new HostFileSystem(host)
             : fileSystemType != null ? (IFileSystem)Activator.CreateInstance(fileSystemType, path)
             : path.Type switch
             {
-                null => path.Paths.Length <= 1 ? new StandardFileSystem(Path.Combine(path.Root, path.Paths.SingleOrDefault() ?? string.Empty)) : throw new NotSupportedException(),
-                "zip" => path.Paths.Length <= 1 ? new ZipFileSystem(path.Root, path.Paths.SingleOrDefault()) : throw new NotSupportedException(),
-                "zip:iso" => path.Paths.Length <= 1 ? new ZipIsoFileSystem(path.Root, path.Paths.SingleOrDefault()) : throw new NotSupportedException(),
+                null => new StandardFileSystem(Path.Combine(path.Root, path.Paths.SingleOrDefault() ?? string.Empty)),
+                "zip" => new ZipFileSystem(path.Root, path.Paths.SingleOrDefault()),
+                "zip:iso" => new ZipIsoFileSystem(path.Root, path.Paths.SingleOrDefault()),
                 _ => throw new ArgumentOutOfRangeException(nameof(path.Type), $"Unknown {path.Type}")
             };
 
         #endregion
+
+    }
+
+    #endregion
+
+    #region Detector
+
+    /// <summary>
+    /// Detector
+    /// </summary>
+    public class Detector
+    {
+        protected ConcurrentDictionary<string, object> DetectCache = new ConcurrentDictionary<string, object>();
+        protected Dictionary<string, Dictionary<string, object>> Hashs;
+
+        /// <summary>
+        /// Gets or sets the Game.
+        /// </summary>
+        public FamilyGame Game { get; set; }
+
+        /// <summary>
+        /// Detector
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="elem"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public Detector(FamilyGame game, JsonElement elem)
+        {
+            Game = game;
+            ParseElem(game, elem);
+        }
+
+        public virtual void ParseElem(FamilyGame game, JsonElement elem)
+        {
+            Hashs = elem.TryGetProperty("hashs", out var z) ? z.EnumerateArray().ToDictionary(x => x.GetProperty("hash").GetString(), x => ParseHash(game, x)) : default;
+        }
+
+        public virtual Dictionary<string, object> ParseHash(FamilyGame game, JsonElement elem)
+            => elem.EnumerateObject().ToDictionary(x => x.Name, x => x.Name switch
+            {
+                "variant" => game.Editions.TryGetValue(x.Value.GetString(), out var a) ? a : default,
+                "locale" => game.Locales.TryGetValue(x.Value.GetString(), out var a) ? a : default,
+                _ => (object)(x.Value.ValueKind switch
+                {
+                    JsonValueKind.Number => x.Value.GetInt32(),
+                    JsonValueKind.String => x.Value.GetString(),
+                    JsonValueKind.Array => x.Value.EnumerateArray().Select(y => y.GetString()).ToArray(),
+                    _ => throw new ArgumentOutOfRangeException($"{x.Value}"),
+                })
+            });
+
+        public virtual string GetHash(BinaryReader r)
+        {
+            using var md5 = System.Security.Cryptography.MD5.Create();
+            var data = r.ReadBytes(1024 * 1024);
+            var h = md5.ComputeHash(data, 0, data.Length);
+            return $"{h[0]:x2}{h[1]:x2}{h[2]:x2}{h[3]:x2}{h[4]:x2}{h[5]:x2}{h[6]:x2}{h[7]:x2}{h[8]:x2}{h[9]:x2}{h[10]:x2}{h[11]:x2}{h[12]:x2}{h[13]:x2}{h[14]:x2}{h[15]:x2}";
+        }
+
+        public object Get(string key, object value) => DetectCache.GetOrAdd(key, Detect, value);
+
+        public virtual object Detect(string key, object value)
+        {
+            switch (value)
+            {
+                case null: throw new ArgumentNullException(nameof(value));
+                case BinaryReader r:
+                    {
+                        var hash = GetHash(r);
+                        return hash != null && Hashs.TryGetValue(hash, out var z) ? z : default;
+                    }
+                default: throw new ArgumentOutOfRangeException(nameof(value));
+            }
+        }
     }
 
     #endregion
@@ -742,7 +834,7 @@ namespace GameSpec
             {
                 Id = id;
                 Name = _value(elem, "name") ?? id;
-                Key = _method(elem, "key", ParseKey);
+                Key = _method(elem, "key", CreateKey);
             }
         }
 
@@ -873,6 +965,10 @@ namespace GameSpec
         /// </summary>
         public object Key { get; set; }
         /// <summary>
+        /// Gets or sets the detector.
+        /// </summary>
+        public Detector Detector { get; set; }
+        /// <summary>
         /// Gets or sets the Status.
         /// </summary>
         //public string[] Status { get; set; }
@@ -936,7 +1032,8 @@ namespace GameSpec
             Paks = _list(elem, "pak", x => new Uri(x), dgame.Paks);
             Dats = _list(elem, "dat", x => new Uri(x), dgame.Dats);
             Paths = _list(elem, "path", dgame.Paths);
-            Key = _method(elem, "key", ParseKey, dgame.Key);
+            Key = _method(elem, "key", CreateKey, dgame.Key);
+            Detector = _method(elem, "detector", v => CreateDetector(this, v), dgame.Detector);
             //Status = _value(elem, "status");
             Tags = _value(elem, "tags", string.Empty).Split(' ');
             // interface
@@ -957,6 +1054,11 @@ namespace GameSpec
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString() => Name;
+
+        /// <summary>
+        /// Detect
+        /// </summary>
+        public object Detect(string key, object value) => Detector?.Get(key, value);
 
         /// <summary>
         /// Ensures this instance.

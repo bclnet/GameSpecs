@@ -8,6 +8,7 @@
     "BiowareFamily.Sample.json"
   ],
   "engines": {
+    "Infinity": {},
     "HeroEngine": {},
     "Aurora": {},
     "Omen": {}
@@ -25,6 +26,7 @@
       "name": "Baldur's Gate",
       "url": "https://www.gog.com/en/game/baldurs_gate_enhanced_edition",
       "date": "2013-01-16",
+      "engine": "Infinity",
       "pakExt": ".key"
     },
     "MDK2": {

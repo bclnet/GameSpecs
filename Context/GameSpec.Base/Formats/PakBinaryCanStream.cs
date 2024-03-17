@@ -11,8 +11,6 @@ namespace GameSpec.Formats
     {
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
-            
-
             switch ((string)tag)
             {
                 case null: return Task.CompletedTask;

@@ -19,7 +19,7 @@ namespace GameSpec.Capcom
         /// Initializes a new instance of the <see cref="CapcomPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public CapcomPakFile(PakState state) : base(state, state.PakPath != null ? GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()) : null)
+        public CapcomPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = state.Game.Engine switch
             {

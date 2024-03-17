@@ -98,50 +98,52 @@
           "music": "PCSpeaker PCjr"
         }
       },
-      "detect": [
-        {
-          "signature": "7f45ddd6dbfbf8f80c0c0efea4c295bc",
-          "variant": "V1",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "624cdb93654667c869d204a64af7e57f",
-          "variant": "V2",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "183d7464902d40d00800e8ee1f04117c",
-          "variant": "V2",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "114acdc2659a273c220f86ee9edb24c1",
-          "variant": "V2",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "99a3699f80b8f776efae592b44b9b991",
-          "variant": "V2",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "87f6e8037b7cc996e13474b491a7a98e",
-          "variant": "V2",
-          "locale": "it",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "0d1b69471605201ef2fa9cec1f5f02d2",
-          "variant": "V2",
-          "locale": "es",
-          "features": "SixteenColors"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "7f45ddd6dbfbf8f80c0c0efea4c295bc",
+            "variant": "V1",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "624cdb93654667c869d204a64af7e57f",
+            "variant": "V2",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "183d7464902d40d00800e8ee1f04117c",
+            "variant": "V2",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "114acdc2659a273c220f86ee9edb24c1",
+            "variant": "V2",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "99a3699f80b8f776efae592b44b9b991",
+            "variant": "V2",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "87f6e8037b7cc996e13474b491a7a98e",
+            "variant": "V2",
+            "locale": "it",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "0d1b69471605201ef2fa9cec1f5f02d2",
+            "variant": "V2",
+            "locale": "es",
+            "features": "SixteenColors"
+          }
+        ]
+      }
     },
     "SF": {
       "name": "Strike Fleet",
@@ -183,63 +185,65 @@
           "version": "3"
         }
       },
-      "detect": [
-        {
-          "signature": "675d71151e9b5a968c8ce46d9fbf4cbf",
-          "variant": "V2",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "d55eff37c2100f5065cde9de428621fa",
-          "variant": "V2",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "cdd760228cf1010c2903f37e788ea31c",
-          "variant": "V2",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "d06fbe28818fef7bfc45c2cdf0c0849d",
-          "variant": "V2",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "52a4bae0746a11d7b1e8554e91a6645c",
-          "variant": "V2",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "c4787c3e8b5e2dfda90850ee800af00f",
-          "variant": "V2",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "1900e501a52fbf55bde6e4196f6d2aa6",
-          "variant": "V2",
-          "locale": "it",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "75ba23fff4fd63fa446c02864f2a5a4b",
-          "variant": "V2",
-          "locale": "it",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "2d4536a56e01da4b02eb021e7770afa2",
-          "variant": "FM-TOWNS",
-          "locale": "en",
-          "features": "Old256 AudioTracks",
-          "platform": "FMTowns"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "675d71151e9b5a968c8ce46d9fbf4cbf",
+            "variant": "V2",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "d55eff37c2100f5065cde9de428621fa",
+            "variant": "V2",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "cdd760228cf1010c2903f37e788ea31c",
+            "variant": "V2",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "d06fbe28818fef7bfc45c2cdf0c0849d",
+            "variant": "V2",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "52a4bae0746a11d7b1e8554e91a6645c",
+            "variant": "V2",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "c4787c3e8b5e2dfda90850ee800af00f",
+            "variant": "V2",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "1900e501a52fbf55bde6e4196f6d2aa6",
+            "variant": "V2",
+            "locale": "it",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "75ba23fff4fd63fa446c02864f2a5a4b",
+            "variant": "V2",
+            "locale": "it",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "2d4536a56e01da4b02eb021e7770afa2",
+            "variant": "FM-TOWNS",
+            "locale": "en",
+            "features": "Old256 AudioTracks",
+            "platform": "FMTowns"
+          }
+        ]
+      }
     },
     "IJatLC:TAG": {
       "name": "Indiana Jones and the Last Crusade: The Action Game",
@@ -279,87 +283,89 @@
           "music": "FMTowns"
         }
       },
-      "detect": [
-        {
-          "signature": "6b3ec67da214f558dc5ceaa2acd47453",
-          "variant": "EGA",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "6f6ef668c608c7f534fea6e6d3878dde",
-          "variant": "EGA",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "eb700bb73ca1cc44a1ad5e4b1a4bdeaf",
-          "variant": "EGA",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "66236cd1aec24e1d4aff4c4cc93b7e18",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "89cfc425566003ff74b7dc7b3e6fd469",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "d62d248c3df6ec177405e2cb23d923b2",
-          "variant": "EGA",
-          "locale": "it",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "86be8ada36371d4fdc35659d0e912a26",
-          "variant": "EGA",
-          "locale": "es",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "ce7fd0c382389a6791fc3e199c117ef4",
-          "variant": "EGA",
-          "locale": "es",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "b597e0403cc0002f69170e6caba7edd9",
-          "variant": "EGA",
-          "locale": "en",
-          "features": "SixteenColors Demo"
-        },
-        {
-          "signature": "1875b90fade138c9253a8e967007031a",
-          "variant": "VGA",
-          "locale": "en",
-          "features": "Old256 FewLocals"
-        },
-        {
-          "signature": "399b217b0c8d65d0398076da486363a9",
-          "variant": "VGA",
-          "locale": "de",
-          "features": "Old256 FewLocals"
-        },
-        {
-          "signature": "17b5d5e6af4ae89d62631641d66d5a05",
-          "variant": "VGA",
-          "locale": "it",
-          "features": "Old256 FewLocals"
-        },
-        {
-          "signature": "04687cdf7f975a89d2474929f7b80946",
-          "variant": "FM-TOWNS",
-          "locale": "en",
-          "features": "Old256 FewLocals AudioTracks",
-          "platform": "FMTowns"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "6b3ec67da214f558dc5ceaa2acd47453",
+            "variant": "EGA",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "6f6ef668c608c7f534fea6e6d3878dde",
+            "variant": "EGA",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "eb700bb73ca1cc44a1ad5e4b1a4bdeaf",
+            "variant": "EGA",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "66236cd1aec24e1d4aff4c4cc93b7e18",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "89cfc425566003ff74b7dc7b3e6fd469",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "d62d248c3df6ec177405e2cb23d923b2",
+            "variant": "EGA",
+            "locale": "it",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "86be8ada36371d4fdc35659d0e912a26",
+            "variant": "EGA",
+            "locale": "es",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "ce7fd0c382389a6791fc3e199c117ef4",
+            "variant": "EGA",
+            "locale": "es",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "b597e0403cc0002f69170e6caba7edd9",
+            "variant": "EGA",
+            "locale": "en",
+            "features": "SixteenColors Demo"
+          },
+          {
+            "hash": "1875b90fade138c9253a8e967007031a",
+            "variant": "VGA",
+            "locale": "en",
+            "features": "Old256 FewLocals"
+          },
+          {
+            "hash": "399b217b0c8d65d0398076da486363a9",
+            "variant": "VGA",
+            "locale": "de",
+            "features": "Old256 FewLocals"
+          },
+          {
+            "hash": "17b5d5e6af4ae89d62631641d66d5a05",
+            "variant": "VGA",
+            "locale": "it",
+            "features": "Old256 FewLocals"
+          },
+          {
+            "hash": "04687cdf7f975a89d2474929f7b80946",
+            "variant": "FM-TOWNS",
+            "locale": "en",
+            "features": "Old256 FewLocals AudioTracks",
+            "platform": "FMTowns"
+          }
+        ]
+      }
     },
     "TFH": {
       "name": "Their Finest Hour",
@@ -405,75 +411,77 @@
           "music": "PCSpeaker PCjr CMS AdLib"
         }
       },
-      "detect": [
-        {
-          "signature": "37f56ceb13e401a7ac7d9e6b37fecaf7",
-          "variant": "EGA",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "470c45b636139bb40716daa1c7edaad0",
-          "variant": "EGA",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "fa127d7c4bb47d05bb1c33ddcaa9f767",
-          "variant": "EGA",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "6f8a22bfa397be1f7ed4b74aba0e397e",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "b886b0a5d909c7158a914e1d7c1c6c65",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "c3df37df9d3b481b45f75283a9907c47",
-          "variant": "EGA",
-          "locale": "it",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "0be88565f734b1e9e77ccaaf3bb14b29",
-          "variant": "EGA",
-          "locale": "es",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "2a208ffbcd0e83e86f4356e6f64aa6e1",
-          "variant": "EGA",
-          "locale": "es",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "5d88b9d6a88e6f8e90cded9d01b7f082",
-          "variant": "VGA",
-          "locale": "en"
-        },
-        {
-          "signature": "6f0be328c64d689bb606d22a389e1b0f",
-          "variant": "No AdLib",
-          "locale": "en",
-          "features": "SixteenColors",
-          "platform": "Macintosh"
-        },
-        {
-          "signature": "c5d10e190d4b4d59114b824f2fdbd00e",
-          "variant": "FM-TOWNS",
-          "locale": "en",
-          "features": "Old256 AudioTracks",
-          "platform": "FMTowns"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "37f56ceb13e401a7ac7d9e6b37fecaf7",
+            "variant": "EGA",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "470c45b636139bb40716daa1c7edaad0",
+            "variant": "EGA",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "fa127d7c4bb47d05bb1c33ddcaa9f767",
+            "variant": "EGA",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "6f8a22bfa397be1f7ed4b74aba0e397e",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "b886b0a5d909c7158a914e1d7c1c6c65",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "c3df37df9d3b481b45f75283a9907c47",
+            "variant": "EGA",
+            "locale": "it",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "0be88565f734b1e9e77ccaaf3bb14b29",
+            "variant": "EGA",
+            "locale": "es",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "2a208ffbcd0e83e86f4356e6f64aa6e1",
+            "variant": "EGA",
+            "locale": "es",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "5d88b9d6a88e6f8e90cded9d01b7f082",
+            "variant": "VGA",
+            "locale": "en"
+          },
+          {
+            "hash": "6f0be328c64d689bb606d22a389e1b0f",
+            "variant": "No AdLib",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "Macintosh"
+          },
+          {
+            "hash": "c5d10e190d4b4d59114b824f2fdbd00e",
+            "variant": "FM-TOWNS",
+            "locale": "en",
+            "features": "Old256 AudioTracks",
+            "platform": "FMTowns"
+          }
+        ]
+      }
     },
     "M": {
       "name": "Masterblazer",
@@ -523,129 +531,126 @@
           "music": "FMTowns"
         }
       },
-      "detect": [
-        {
-          "signature": "1d05cd189e4908f79b57e78a4402f292",
-          "variant": "EGA",
-          "locale": "en",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "e98b982ceaf9d253d730bde8903233d6",
-          "variant": "EGA",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "fc6b6148e80d67939d9a18697c0f626a",
-          "variant": "EGA",
-          "locale": "de",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "1dd3c11ea4439adfe681e4e405b624e1",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "aa7a07d94ae853f6460be4ce0a1bf530",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "ce6a4cef315b20fef58a95bc40a2d8d3",
-          "variant": "EGA",
-          "locale": "fr",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "477dbafbd66a53c98416dc01aef019ad",
-          "variant": "EGA",
-          "locale": "it",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "910e31cffb28226bd68c569668a0d6b4",
-          "variant": "EGA",
-          "locale": "es",
-          "features": "SixteenColors"
-        },
-        {
-          "signature": "71523b539491527d9860f4407faf0411",
-          "variant": "EGA",
-          "locale": "en",
-          "features": "SixteenColors Demo"
-        },
-        {
-          "signature": "15e03ffbfeddb9c2aebc13dcb2a4a8f4",
-          "variant": "VGA",
-          "locale": "en"
-        },
-        {
-          "signature": "d0b531227a27c6662018d2bd05aac52a",
-          "variant": "VGA",
-          "locale": "de"
-        },
-        {
-          "signature": "a01fab4a64d47b96e2e58e6b0f825cc7",
-          "variant": "VGA",
-          "locale": "fr"
-        },
-        {
-          "signature": "66fd5ff9a810dfeb6d6bdada18221140",
-          "variant": "VGA",
-          "locale": "it"
-        },
-        {
-          "signature": "45152f7cf2ba8f43cf8a8ea2e740ae09",
-          "variant": "VGA",
-          "locale": "es"
-        },
-        {
-          "signature": "a01fab4a64d47b96e2e58e6b0f825cc7",
-          "variant": "VGA",
-          "locale": "fr"
-        },
-        {
-          "signature": "2d1e891fe52df707c30185e52c50cd92",
-          "variant": "CD",
-          "locale": "en"
-        },
-        {
-          "signature": "305d3dd57c96c65b017bc70c8c7cfb5e",
-          "variant": "CD",
-          "locale": "de"
-        },
-        {
-          "signature": "aa8a0cb65f3afbbe2c14c3f9f92775a3",
-          "variant": "CD",
-          "locale": "fr"
-        },
-        {
-          "signature": "da6269b18fcb08189c0aa9c95533cce2",
-          "variant": "CD",
-          "locale": "it"
-        },
-        {
-          "signature": "f049e38c1f8302b5db6170f1872af89a",
-          "variant": "CD",
-          "locale": "es"
-        },
-        {
-          "signature": "2ccd8891ce4d3f1a334d21bff6a88ca2",
-          "variant": "Mac",
-          "locale": "en",
-          "platform": "Macintosh"
-        },
-        {
-          "signature": "8eb84cee9b429314c7f0bdcf560723eb",
-          "variant": "FM-TOWNS",
-          "locale": "en",
-          "platform": "FMTowns"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "1d05cd189e4908f79b57e78a4402f292",
+            "variant": "EGA",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "e98b982ceaf9d253d730bde8903233d6",
+            "variant": "EGA",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "fc6b6148e80d67939d9a18697c0f626a",
+            "variant": "EGA",
+            "locale": "de",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "1dd3c11ea4439adfe681e4e405b624e1",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "aa7a07d94ae853f6460be4ce0a1bf530",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "ce6a4cef315b20fef58a95bc40a2d8d3",
+            "variant": "EGA",
+            "locale": "fr",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "477dbafbd66a53c98416dc01aef019ad",
+            "variant": "EGA",
+            "locale": "it",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "910e31cffb28226bd68c569668a0d6b4",
+            "variant": "EGA",
+            "locale": "es",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "71523b539491527d9860f4407faf0411",
+            "variant": "EGA",
+            "locale": "en",
+            "features": "SixteenColors Demo"
+          },
+          {
+            "hash": "15e03ffbfeddb9c2aebc13dcb2a4a8f4",
+            "variant": "VGA",
+            "locale": "en"
+          },
+          {
+            "hash": "d0b531227a27c6662018d2bd05aac52a",
+            "variant": "VGA",
+            "locale": "de"
+          },
+          {
+            "hash": "a01fab4a64d47b96e2e58e6b0f825cc7",
+            "variant": "VGA",
+            "locale": "fr"
+          },
+          {
+            "hash": "66fd5ff9a810dfeb6d6bdada18221140",
+            "variant": "VGA",
+            "locale": "it"
+          },
+          {
+            "hash": "45152f7cf2ba8f43cf8a8ea2e740ae09",
+            "variant": "VGA",
+            "locale": "es"
+          },
+          {
+            "hash": "2d1e891fe52df707c30185e52c50cd92",
+            "variant": "CD",
+            "locale": "en"
+          },
+          {
+            "hash": "305d3dd57c96c65b017bc70c8c7cfb5e",
+            "variant": "CD",
+            "locale": "de"
+          },
+          {
+            "hash": "aa8a0cb65f3afbbe2c14c3f9f92775a3",
+            "variant": "CD",
+            "locale": "fr"
+          },
+          {
+            "hash": "da6269b18fcb08189c0aa9c95533cce2",
+            "variant": "CD",
+            "locale": "it"
+          },
+          {
+            "hash": "f049e38c1f8302b5db6170f1872af89a",
+            "variant": "CD",
+            "locale": "es"
+          },
+          {
+            "hash": "2ccd8891ce4d3f1a334d21bff6a88ca2",
+            "variant": "Mac",
+            "locale": "en",
+            "platform": "Macintosh"
+          },
+          {
+            "hash": "8eb84cee9b429314c7f0bdcf560723eb",
+            "variant": "FM-TOWNS",
+            "locale": "en",
+            "platform": "FMTowns"
+          }
+        ]
+      }
     },
     "SWotL": {
       "name": "Secret Weapons of the Luftwaffe",
@@ -700,44 +705,46 @@
           "pattern": "MONKEY2.{0:000}"
         }
       },
-      "detect": [
-        {
-          "signature": "3686cf8f89e102ececf4366e1d2c8126",
-          "variant": "",
-          "locale": "en"
-        },
-        {
-          "signature": "6886e5d08cee329b1f2e743ae2e3ceed",
-          "variant": "",
-          "locale": "de"
-        },
-        {
-          "signature": "8e4ee4db46954bfe2912e259a16fad82",
-          "variant": "",
-          "locale": "fr"
-        },
-        {
-          "signature": "69ea626f1f87eecb78ea0d6c6b983a1d",
-          "variant": "",
-          "locale": "it"
-        },
-        {
-          "signature": "bd126753de619a495f9f22adc951c8d5",
-          "variant": "",
-          "locale": "it"
-        },
-        {
-          "signature": "7974365d3dc0f43a2748c975f91ff042",
-          "variant": "",
-          "locale": "es"
-        },
-        {
-          "signature": "da09e666fc8f5b78d7b0ac65d1a3b56e",
-          "variant": "FM-TOWNS",
-          "locale": "en",
-          "platform": "FMTowns"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "3686cf8f89e102ececf4366e1d2c8126",
+            "variant": "",
+            "locale": "en"
+          },
+          {
+            "hash": "6886e5d08cee329b1f2e743ae2e3ceed",
+            "variant": "",
+            "locale": "de"
+          },
+          {
+            "hash": "8e4ee4db46954bfe2912e259a16fad82",
+            "variant": "",
+            "locale": "fr"
+          },
+          {
+            "hash": "69ea626f1f87eecb78ea0d6c6b983a1d",
+            "variant": "",
+            "locale": "it"
+          },
+          {
+            "hash": "bd126753de619a495f9f22adc951c8d5",
+            "variant": "",
+            "locale": "it"
+          },
+          {
+            "hash": "7974365d3dc0f43a2748c975f91ff042",
+            "variant": "",
+            "locale": "es"
+          },
+          {
+            "hash": "da09e666fc8f5b78d7b0ac65d1a3b56e",
+            "variant": "FM-TOWNS",
+            "locale": "en",
+            "platform": "FMTowns"
+          }
+        ]
+      }
     },
     "IJatFoA": {
       "name": "Indiana Jones and the Fate of Atlantis",
@@ -769,55 +776,57 @@
           "pattern": "INDY4.{0:000}"
         }
       },
-      "detect": [
-        {
-          "signature": "c63ee46143ba65f9ce14cf539ca51bd7",
-          "variant": "",
-          "locale": "en"
-        },
-        {
-          "signature": "182344899c2e2998fca0bebcd82aa81a",
-          "variant": "CD",
-          "locale": "en"
-        },
-        {
-          "signature": "1fbebd7b2b692df5297870447a80cfed",
-          "variant": "",
-          "locale": "de"
-        },
-        {
-          "signature": "4f267a901719623de7dde83e47d5b474",
-          "variant": "",
-          "locale": "de"
-        },
-        {
-          "signature": "edfdb24a499d92c59f824c52987c0eec",
-          "variant": "",
-          "locale": "fr"
-        },
-        {
-          "signature": "8f3758ff98c9c5d78e5d635222cad026",
-          "variant": "",
-          "locale": "it"
-        },
-        {
-          "signature": "9bd2a8f72613e715c199246dd511e10f",
-          "variant": "",
-          "locale": "es"
-        },
-        {
-          "signature": "c7be10f775404fd9785a8b92a06d240c",
-          "variant": "FM-TOWNS",
-          "locale": "en",
-          "platform": "FMTowns"
-        },
-        {
-          "signature": "98744fe66ff730e8c2b3b1f58803ab0b",
-          "variant": "Demo",
-          "features": "Demo",
-          "locale": "en"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "c63ee46143ba65f9ce14cf539ca51bd7",
+            "variant": "",
+            "locale": "en"
+          },
+          {
+            "hash": "182344899c2e2998fca0bebcd82aa81a",
+            "variant": "CD",
+            "locale": "en"
+          },
+          {
+            "hash": "1fbebd7b2b692df5297870447a80cfed",
+            "variant": "",
+            "locale": "de"
+          },
+          {
+            "hash": "4f267a901719623de7dde83e47d5b474",
+            "variant": "",
+            "locale": "de"
+          },
+          {
+            "hash": "edfdb24a499d92c59f824c52987c0eec",
+            "variant": "",
+            "locale": "fr"
+          },
+          {
+            "hash": "8f3758ff98c9c5d78e5d635222cad026",
+            "variant": "",
+            "locale": "it"
+          },
+          {
+            "hash": "9bd2a8f72613e715c199246dd511e10f",
+            "variant": "",
+            "locale": "es"
+          },
+          {
+            "hash": "c7be10f775404fd9785a8b92a06d240c",
+            "variant": "FM-TOWNS",
+            "locale": "en",
+            "platform": "FMTowns"
+          },
+          {
+            "hash": "98744fe66ff730e8c2b3b1f58803ab0b",
+            "variant": "Demo",
+            "features": "Demo",
+            "locale": "en"
+          }
+        ]
+      }
     },
     "IJatFoA:TAG": {
       "n/a": true,
@@ -911,69 +920,71 @@
           "pattern": "DOTTDEMO.{0:000}"
         }
       },
-      "detect": [
-        {
-          "signature": "2723fea3dae0cb47768c424b145ae0e7",
-          "variant": "Floppy",
-          "locale": "en"
-        },
-        {
-          "signature": "57b0d89af79befe1cabce3bece869e7f",
-          "variant": "Floppy",
-          "locale": "de"
-        },
-        {
-          "signature": "92b078d9d6d9d751da9c26b8b3075779",
-          "variant": "Floppy",
-          "locale": "fr"
-        },
-        {
-          "signature": "94aaedbb8f26d71ed3ad6dd34490e29e",
-          "variant": "Floppy",
-          "locale": "fr"
-        },
-        {
-          "signature": "50fcdc982a25063b78ad46bf389b8e8d",
-          "variant": "Floppy",
-          "locale": "it"
-        },
-        {
-          "signature": "ae94f110a14ce71fc515d5b648827a8f",
-          "variant": "Floppy",
-          "locale": "es"
-        },
-        {
-          "signature": "c83079157ec765a28de445aec9768d60",
-          "variant": "Demo",
-          "locale": "en",
-          "features": "Demo"
-        },
-        {
-          "signature": "4167a92a1d46baa4f4127d918d561f88",
-          "variant": "CD",
-          "locale": "en"
-        },
-        {
-          "signature": "4fbbe9f64b8bc547503a379a301183ce",
-          "variant": "CD",
-          "locale": "it"
-        },
-        {
-          "signature": "6e959d65358eedf9b68b81e304b97fa4",
-          "variant": "CD",
-          "locale": "de"
-        },
-        {
-          "signature": "883af4b0af4f77a92f1dcf1d0a283140",
-          "variant": "CD",
-          "locale": "es"
-        },
-        {
-          "signature": "8aa05d3cdb0e795436043f0546af2da2",
-          "variant": "CD",
-          "locale": "fr"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "2723fea3dae0cb47768c424b145ae0e7",
+            "variant": "Floppy",
+            "locale": "en"
+          },
+          {
+            "hash": "57b0d89af79befe1cabce3bece869e7f",
+            "variant": "Floppy",
+            "locale": "de"
+          },
+          {
+            "hash": "92b078d9d6d9d751da9c26b8b3075779",
+            "variant": "Floppy",
+            "locale": "fr"
+          },
+          {
+            "hash": "94aaedbb8f26d71ed3ad6dd34490e29e",
+            "variant": "Floppy",
+            "locale": "fr"
+          },
+          {
+            "hash": "50fcdc982a25063b78ad46bf389b8e8d",
+            "variant": "Floppy",
+            "locale": "it"
+          },
+          {
+            "hash": "ae94f110a14ce71fc515d5b648827a8f",
+            "variant": "Floppy",
+            "locale": "es"
+          },
+          {
+            "hash": "c83079157ec765a28de445aec9768d60",
+            "variant": "Demo",
+            "locale": "en",
+            "features": "Demo"
+          },
+          {
+            "hash": "4167a92a1d46baa4f4127d918d561f88",
+            "variant": "CD",
+            "locale": "en"
+          },
+          {
+            "hash": "4fbbe9f64b8bc547503a379a301183ce",
+            "variant": "CD",
+            "locale": "it"
+          },
+          {
+            "hash": "6e959d65358eedf9b68b81e304b97fa4",
+            "variant": "CD",
+            "locale": "de"
+          },
+          {
+            "hash": "883af4b0af4f77a92f1dcf1d0a283140",
+            "variant": "CD",
+            "locale": "es"
+          },
+          {
+            "hash": "8aa05d3cdb0e795436043f0546af2da2",
+            "variant": "CD",
+            "locale": "fr"
+          }
+        ]
+      }
     },
     "SWA": {
       "n/a": true,
@@ -1013,69 +1024,71 @@
           "pattern": "SNMDEMO.SM{0}"
         }
       },
-      "detect": [
-        {
-          "signature": "3b301b7892f883ce42ab4be6a274fea6",
-          "variant": "Floppy",
-          "locale": "en"
-        },
-        {
-          "signature": "f27b1ba0eadaf2a6617b2b58192d1dbf",
-          "variant": "Floppy",
-          "locale": "de"
-        },
-        {
-          "signature": "ef347474f3c7be3b29584eaa133cca05",
-          "variant": "Floppy",
-          "locale": "fr"
-        },
-        {
-          "signature": "b289a2a8cbedbf45786e0b4ad2f510f1",
-          "variant": "Floppy",
-          "locale": "it"
-        },
-        {
-          "signature": "fc53ce0e5f6562b1c1e1b4b8203acafb",
-          "variant": "Floppy",
-          "locale": "es"
-        },
-        {
-          "signature": "c3196c5349e53e387aaff1533d95e53a",
-          "variant": "Demo",
-          "locale": "en",
-          "features": "Demo"
-        },
-        {
-          "signature": "d917f311a448e3cc7239c31bddb00dd2",
-          "variant": "CD",
-          "locale": "en"
-        },
-        {
-          "signature": "0f6f2e716ba896a44e5059bba1de7ca9",
-          "variant": "CD",
-          "locale": "it"
-        },
-        {
-          "signature": "0fb73eddfcf584c02ba097984df131ba",
-          "variant": "CD",
-          "locale": "de"
-        },
-        {
-          "signature": "3a5d13675e9a23aedac0bac7730f0ac1",
-          "variant": "CD",
-          "locale": "fr"
-        },
-        {
-          "signature": "7edd665bbede7ea8b7233f8e650be6f8",
-          "variant": "CD",
-          "locale": "fr"
-        },
-        {
-          "signature": "4ba7fb331296c283e73d8f5b2096e551",
-          "variant": "CD",
-          "locale": "es"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "3b301b7892f883ce42ab4be6a274fea6",
+            "variant": "Floppy",
+            "locale": "en"
+          },
+          {
+            "hash": "f27b1ba0eadaf2a6617b2b58192d1dbf",
+            "variant": "Floppy",
+            "locale": "de"
+          },
+          {
+            "hash": "ef347474f3c7be3b29584eaa133cca05",
+            "variant": "Floppy",
+            "locale": "fr"
+          },
+          {
+            "hash": "b289a2a8cbedbf45786e0b4ad2f510f1",
+            "variant": "Floppy",
+            "locale": "it"
+          },
+          {
+            "hash": "fc53ce0e5f6562b1c1e1b4b8203acafb",
+            "variant": "Floppy",
+            "locale": "es"
+          },
+          {
+            "hash": "c3196c5349e53e387aaff1533d95e53a",
+            "variant": "Demo",
+            "locale": "en",
+            "features": "Demo"
+          },
+          {
+            "hash": "d917f311a448e3cc7239c31bddb00dd2",
+            "variant": "CD",
+            "locale": "en"
+          },
+          {
+            "hash": "0f6f2e716ba896a44e5059bba1de7ca9",
+            "variant": "CD",
+            "locale": "it"
+          },
+          {
+            "hash": "0fb73eddfcf584c02ba097984df131ba",
+            "variant": "CD",
+            "locale": "de"
+          },
+          {
+            "hash": "3a5d13675e9a23aedac0bac7730f0ac1",
+            "variant": "CD",
+            "locale": "fr"
+          },
+          {
+            "hash": "7edd665bbede7ea8b7233f8e650be6f8",
+            "variant": "CD",
+            "locale": "fr"
+          },
+          {
+            "hash": "4ba7fb331296c283e73d8f5b2096e551",
+            "variant": "CD",
+            "locale": "es"
+          }
+        ]
+      }
     },
     "SWC": {
       "name": "Star Wars Chess",
@@ -1176,33 +1189,35 @@
           "pattern": "ft.{0:000}"
         }
       },
-      "detect": [
-        {
-          "signature": "4bedb49943df95a9c900a5a82ccbe9de",
-          "variant": "",
-          "locale": "fr"
-        },
-        {
-          "signature": "09820417db26687bb7fe0c83cc4c553b",
-          "variant": "",
-          "locale": "en"
-        },
-        {
-          "signature": "8bdb0bf87b5e303dd35693afb9351215",
-          "variant": "",
-          "locale": "de"
-        },
-        {
-          "signature": "55518cd73cf9c6d23ea29c51ee06bdfe",
-          "variant": "",
-          "locale": "it"
-        },
-        {
-          "signature": "e72bb4c2b613db2cf50f89ff6350e70a",
-          "variant": "",
-          "locale": "es"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "4bedb49943df95a9c900a5a82ccbe9de",
+            "variant": "",
+            "locale": "fr"
+          },
+          {
+            "hash": "09820417db26687bb7fe0c83cc4c553b",
+            "variant": "",
+            "locale": "en"
+          },
+          {
+            "hash": "8bdb0bf87b5e303dd35693afb9351215",
+            "variant": "",
+            "locale": "de"
+          },
+          {
+            "hash": "55518cd73cf9c6d23ea29c51ee06bdfe",
+            "variant": "",
+            "locale": "it"
+          },
+          {
+            "hash": "e72bb4c2b613db2cf50f89ff6350e70a",
+            "variant": "",
+            "locale": "es"
+          }
+        ]
+      }
     },
     "BST": {
       "n/a": true,
@@ -1225,13 +1240,15 @@
           "pattern": "dig.la{0}"
         }
       },
-      "detect": [
-        {
-          "signature": "d8323015ecb8b10bf53474f6e6b0ae33",
-          "variant": "",
-          "locale": "en"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "d8323015ecb8b10bf53474f6e6b0ae33",
+            "variant": "",
+            "locale": "en"
+          }
+        ]
+      }
     },
     "SW:RA2": {
       "name": "Star Wars: Rebel Assault II: The Hidden Empire",
@@ -1359,13 +1376,15 @@
           "pattern": "comi.la{0}"
         }
       },
-      "detect": [
-        {
-          "signature": "fe60d6b5ff51b0553ac59963123b5777",
-          "variant": "",
-          "locale": "en"
-        }
-      ]
+      "detector": {
+        "hashs": [
+          {
+            "hash": "fe60d6b5ff51b0553ac59963123b5777",
+            "variant": "",
+            "locale": "en"
+          }
+        ]
+      }
     },
     "SWJK:MotS": {
       "name": "Star Wars Jedi Knight: Mysteries of the Sith",

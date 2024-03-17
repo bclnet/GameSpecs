@@ -22,7 +22,7 @@ namespace GameSpec.Formats
         public StreamPakFile(Func<Uri, string, AbstractHost> factory, PakState state, Uri address = null) : base(state, new PakBinaryCanStream())
         {
             UseReader = false;
-            if (address != null) Host = factory(address, state.PakPath);
+            if (address != null) Host = factory(address, state.Path);
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="StreamPakFile" /> class.

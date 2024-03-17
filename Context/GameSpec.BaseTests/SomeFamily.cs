@@ -1,4 +1,3 @@
-using GameSpec.Formats;
 using System;
 using System.IO;
 using System.Threading.Tasks;

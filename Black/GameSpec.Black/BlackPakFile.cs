@@ -18,7 +18,7 @@ namespace GameSpec.Black
         /// Initializes a new instance of the <see cref="BlackPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public BlackPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public BlackPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

@@ -81,7 +81,7 @@ namespace GameSpec
         /// <summary>
         /// Gets the path.
         /// </summary>
-        public readonly string PakPath;
+        public readonly string Path;
 
         /// <summary>
         /// Gets the tag.
@@ -98,7 +98,7 @@ namespace GameSpec
             FileSystem = fileSystem;
             Game = game;
             Edition = edition;
-            PakPath = path;
+            Path = path ?? string.Empty;
             Tag = tag;
         }
     }
@@ -179,8 +179,8 @@ namespace GameSpec
             Family = state.Game.Family ?? throw new ArgumentNullException(nameof(state.Game.Family));
             Game = state.Game ?? throw new ArgumentNullException(nameof(state.Game));
             Edition = state.Edition;
-            PakPath = state.PakPath;
-            Name = state.PakPath == null || !string.IsNullOrEmpty(z = Path.GetFileName(state.PakPath)) ? z : Path.GetFileName(Path.GetDirectoryName(state.PakPath));
+            PakPath = state.Path;
+            Name = !string.IsNullOrEmpty(z = Path.GetFileName(state.Path)) ? z : Path.GetFileName(Path.GetDirectoryName(state.Path));
             Tag = state.Tag;
             Graphic = null;
         }
@@ -465,15 +465,21 @@ namespace GameSpec
         ///   <c>true</c> if the specified file path contains file; otherwise, <c>false</c>.
         /// </returns>
         public override bool Contains(object path)
-            => path switch
+        {
+            switch (path)
             {
-                null => throw new ArgumentNullException(nameof(path)),
-                string s => FindPath(s, out var pak, out var nextPath)
-                    ? pak.Contains(nextPath)
-                    : FilesByPath != null && FilesByPath.Contains(s.Replace('\\', '/')),
-                int i => FilesById != null && FilesById.Contains(i),
-                _ => throw new ArgumentOutOfRangeException(nameof(path))
-            };
+                case null: throw new ArgumentNullException(nameof(path));
+                case string s:
+                    {
+                        var (pak, s2) = FindPath(s);
+                        return pak != null
+                        ? pak.Contains(s2)
+                        : FilesByPath != null && FilesByPath.Contains(s.Replace('\\', '/'));
+                    }
+                case int i: return FilesById != null && FilesById.Contains(i);
+                default: throw new ArgumentOutOfRangeException(nameof(path));
+            }
+        }
 
         /// <summary>Gets the count.</summary>
         /// <value>The count.</value>
@@ -503,11 +509,13 @@ namespace GameSpec
                 case FileSource f: return f;
                 case string s:
                     {
-                        if (FindPath(s, out var pak, out var next)) return pak.GetFileSource(next);
+                        var (pak, s2) = FindPath(s);
+                        if (pak != null) return pak.GetFileSource(s2);
                         var files = FilesByPath[s.Replace('\\', '/')].ToArray();
                         if (files.Length == 1) return files[0];
                         Log($"ERROR.LoadFileData: {s} @ {files.Length}");
-                        throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
+                        if (throwOnError) throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
+                        return null;
                     }
                 case int i:
                     {
@@ -597,9 +605,17 @@ namespace GameSpec
         /// </summary>
         public virtual void Process()
         {
-            if (UseFileId) FilesById = Files?.Where(x => x != null).ToLookup(x => x.Id);
-            FilesByPath = Files?.Where(x => x != null).ToLookup(x => x.Path, StringComparer.OrdinalIgnoreCase);
+            if (UseFileId) FilesById = Files.Where(x => x != null).ToLookup(x => x.Id);
+            FilesByPath = Files.Where(x => x != null).ToLookup(x => x.Path, StringComparer.OrdinalIgnoreCase);
             PakBinary?.Process(this);
+        }
+
+        (PakFile pak, string next) FindPath(string path)
+        {
+            var paths = path.Split(new[] { ':' }, 2);
+            var p = paths[0].Replace('\\', '/');
+            var pak = FilesByPath[p]?.FirstOrDefault()?.Pak?.Open();
+            return (pak, pak != null && paths.Length > 1 ? paths[1] : null);
         }
 
         /// <summary>
@@ -607,25 +623,15 @@ namespace GameSpec
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="message">The message.</param>
-        public void AddRawFile(FileSource file, string message)
-        {
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            lock (this)
-            {
-                FilesRawSet ??= new HashSet<string>();
-                FilesRawSet.Add(file.Path);
-            }
-        }
-
-        bool FindPath(string path, out PakFile pak, out string next)
-        {
-            var paths = path.Split(new[] { ':' }, 2);
-            var p = paths[0].Replace('\\', '/');
-            pak = FilesByPath[p]?.FirstOrDefault()?.Pak?.Open();
-            if (pak != null && paths.Length > 1) { next = paths[1]; return true; }
-            next = null;
-            return false;
-        }
+        //public void AddRawFile(FileSource file, string message)
+        //{
+        //    if (file == null) throw new ArgumentNullException(nameof(file));
+        //    lock (this)
+        //    {
+        //        FilesRawSet ??= new HashSet<string>();
+        //        FilesRawSet.Add(file.Path);
+        //    }
+        //}
 
         #region PakBinary
 
@@ -739,9 +745,9 @@ namespace GameSpec
         }
 
         public override Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default)
-            => Task.FromResult(file.Pak == null
-                ? (Stream)new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize))
-                : default);
+            => file.Pak != null
+                ? file.Pak.ReadData(r, file, option)
+                : Task.FromResult<Stream>(new MemoryStream(FileSystem.OpenReader(file.Path).ReadBytes((int)file.FileSize)));
 
         #endregion
     }

@@ -13,13 +13,13 @@
 //#define Frontier
 //#define Id
 //#define IW
-//#define Lucas
+#define Lucas
 //#define Monolith
 //#define Origin
 //#define Red
 //#define Ubisoft
 //#define Unity
-#define Valve
+//#define Valve
 //#define WbB
 
 namespace GameSpec
@@ -52,8 +52,8 @@ namespace GameSpec
             //Game = "D2", // Dishonored 2 [open, read]
             //Game = "P", // Prey [open, read]
             //Game = "D:DOTO", // Dishonored: Death of the Outsider
-            //Game = "W:YB", // Wolfenstein: Youngblood
-            //Game = "W:CP", // Wolfenstein: Cyberpilot
+            //Game = "W:YB", // Wolfenstein: Youngblood [id]
+            //Game = "W:CP", // Wolfenstein: Cyberpilot [id]
             //Game = "DL", // Deathloop
             //Missing: Game = "RF", // Redfall (future)
         };
@@ -63,9 +63,9 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:*",
+            ForcePath = "sample:0",
             Family = "Bethesda",
-            //Game = "Morrowind", // The Elder Scrolls III: Morrowind
+            Game = "Morrowind", // The Elder Scrolls III: Morrowind
             //Game = "Oblivion", // The Elder Scrolls IV: Oblivion
             //Game = "Fallout3", // Fallout 3
             //Game = "FalloutNV", // Fallout New Vegas
@@ -76,7 +76,7 @@ namespace GameSpec
             //Game = "Fallout4VR", // Fallout 4 VR
             //Game = "SkyrimVR", // The Elder Scrolls V: Skyrim VR
             //Game = "Fallout76", // Fallout 76
-            //Game = "Starfield", // Starfield (future)
+            //Game = "Starfield", // Starfield
         };
 #elif Bioware
         static string[] FamilyKeys = new[] { "Bioware", "Unknown" };
@@ -84,11 +84,11 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:*",
+            ForcePath = "sample:0",
             Family = "Bioware",
-            //Game = "SS", // Shattered Steel
+            Game = "SS", // Shattered Steel
             //Game = "BG", // Baldur's Gate
-            Game = "MDK2", // MDK2
+            //Game = "MDK2", // MDK2
             //Game = "BG2", // Baldur's Gate II: Shadows of Amn
             //Game = "NWN", // Neverwinter Nights
             //Game = "KotOR", // Star Wars: Knights of the Old Republic

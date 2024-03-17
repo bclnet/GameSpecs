@@ -18,7 +18,7 @@ namespace GameSpec.Lucas
         /// Initializes a new instance of the <see cref="LucasPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public LucasPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.PakPath).ToLowerInvariant()))
+        public LucasPakFile(PakState state) : base(state, GetPakBinary(state.Game, Path.GetExtension(state.Path).ToLowerInvariant()))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }

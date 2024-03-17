@@ -1,10 +1,8 @@
 //#define HTTPTEST
 
-using GameSpec.Formats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using static GameSpec.FamilyManager;
-using static GameSpec.Resource;
 
 namespace GameSpec
 {
@@ -27,7 +25,7 @@ namespace GameSpec
             => Assert.ThrowsException<ArgumentOutOfRangeException>(() => FamilyManager.GetFamily(familyName).ParseResource(new Uri(uri)));
 
         [DataTestMethod]
-        [DataRow("Tes", $"game:/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
+        [DataRow("Tes", $"{GAME}/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
         [DataRow("Tes", $"{FILE_Oblivion}/Data/Oblivion*.bsa#Oblivion", "Oblivion", 0, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
         [DataRow("Tes", $"{FILE_Oblivion}/Data/Oblivion%20-%20Meshes.bsa#Oblivion", "Oblivion", 0, 1, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]
         //[DataRow("Tes", $"{DIR_Oblivion}/Oblivion*.bsa/#Oblivion", "Oblivion", PakOption.Stream, 6, "Oblivion - Meshes.bsa", "trees/treeginkgo.spt", 6865)]

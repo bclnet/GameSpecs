@@ -18,7 +18,7 @@ class FileManager:
         def __init__(self, root: str, elem: dict[str, object]):
             self.root = root
             self.type = _value(elem, 'type') if 'type' in elem else None
-            self.paths = _list(elem, 'path') if 'path' in elem else None
+            self.paths = _list(elem, 'path') if 'path' in elem else []
         def add(self, root: str, elem: dict[str, object]):
             raise NotImplementedError()
 
@@ -175,12 +175,12 @@ class IFileSystem:
 
 # StandardFileSystem
 class StandardFileSystem(IFileSystem):
-    def __init__(self, root: str): self.root = root; self.skip = len(root) + 1
+    def __init__(self, root: str): self.root = root; self.skip = len(root)
     def glob(self, path: str, searchPattern: str) -> list[str]:
         g = pathlib.Path(os.path.join(self.root, path)).glob(searchPattern if searchPattern else '**/*')
         return [str(x)[self.skip:] for x in g]
     def fileExists(self, path: str) -> bool: return os.path.exists(os.path.join(self.root, path))
-    def fileInfo(self, path: str) -> (str, int): return (path, os.stat(path)) if os.path.exists(path := os.path.join(self.root, path)) else (None, 0)
+    def fileInfo(self, path: str) -> (str, int): return (path, os.stat(path).st_size) if os.path.exists(path := os.path.join(self.root, path)) else (None, 0)
     def openReader(self, path: str, mode: str = 'rb') -> Reader: return Reader(open(os.path.join(self.root, path), mode))
 
 # ZipFileSystem

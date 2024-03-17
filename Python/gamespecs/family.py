@@ -14,6 +14,7 @@ class PakFile: pass
 class IFileSystem: pass
 
 # forwards
+class Detector: pass
 class Family: pass
 class FamilyApp: pass
 class FamilyEngine: pass
@@ -22,16 +23,22 @@ class FamilySample: pass
 class Edition: pass
 class DownloadableContent: pass
 
-# tag::parseKey[]
+# tag::createKey[]
 # parse key
 @staticmethod
-def parseKey(key: str) -> object:
-    if not key: return None
-    elif key.startswith('b64:'): return base64.b64decode(key[4:].encode('ascii')) 
-    elif key.startswith('hex:'): return bytes.fromhex(key[4:].replace('/x', ''))
-    elif key.startswith('txt:'): return key[4:]
-    else: raise Exception(f'Unknown key: {key}')
-# end::parseKey[]
+def createKey(value: str) -> object:
+    if not value: return None
+    elif value.startswith('b64:'): return base64.b64decode(value[4:].encode('ascii')) 
+    elif value.startswith('hex:'): return bytes.fromhex(value[4:].replace('/x', ''))
+    elif value.startswith('txt:'): return value[4:]
+    else: raise Exception(f'Unknown value: {value}')
+# end::createKey[]
+
+# create Detector
+@staticmethod
+def createDetector(game: FamilyGame, elem: dict[str, object]) -> Detector:
+    detectorType = _value(elem, 'detectorType')
+    return findType(detectorType)(game, elem) if detectorType else Detector(game, elem)
 
 # create FamilySample
 @staticmethod
@@ -58,9 +65,7 @@ def createFamily(any: str, loader: Callable = None, loadSamples: bool = False) -
 @staticmethod
 def createFamilyEngine(family: Family, id: str, elem: dict[str, object]) -> FamilyEngine:
     engineType = _value(elem, 'engineType')
-    engine = findType(engineType)(family, id, elem) if engineType else \
-        FamilyEngine(family, id, elem)
-    return engine
+    return findType(engineType)(family, id, elem) if engineType else FamilyEngine(family, id, elem)
 
 # create FamilyGame
 @staticmethod
@@ -76,9 +81,7 @@ def createFamilyGame(family: Family, id: str, elem: dict[str, object], dgame: Fa
 @staticmethod
 def createFamilyApp(family: Family, id: str, elem: dict[str, object]) -> FamilyApp:
     appType = _value(elem, 'appType')
-    app = findType(appType)(family, id, elem) if appType else \
-        FamilyApp(family, id, elem)
-    return app
+    return findType(appType)(family, id, elem) if appType else FamilyApp(family, id, elem)
 
 # create FileManager
 @staticmethod
@@ -87,10 +90,25 @@ def createFileManager(elem: dict[str, object]) -> FileManager:
 
 # create FileSystem
 @staticmethod
-def createFileSystem(fileSystemType: str, root: str, host: str = None) -> IFileSystem:
-    return HostFileSystem(host) if host else \
+def createFileSystem(fileSystemType: str, path: FileManager.PathItem, host: str = None) -> IFileSystem:
+    x = HostFileSystem(host) if host else \
         findType(fileSystemType)(root) if fileSystemType else \
-        StandardFileSystem(root)
+        None
+    if x: return x
+    firstPath = next(iter(path.paths), None)
+    match path.type:
+        case None: return StandardFileSystem(os.path.join(path.root, firstPath or ''))
+        case 'zip': return ZipFileSystem(path.root, firstPath)
+        case 'zip:iso': return ZipIsoFileSystem(path.root, firstPath)
+        case _: raise Exception(f'Unknown {path.type}')
+
+# tag::Detector[]
+class Detector:
+    def __init__(self, game: FamilyGame, elem: dict[str, object]):
+        self.game = game
+        self.elem = elem
+    def __repr__(self): return f'detector#{self.game}'
+# end::Detector[]
 
 # tag::Resource[]
 class Resource:
@@ -228,7 +246,7 @@ class FamilyGame:
         def __init__(self, id: str, elem: dict[str, object]):
             self.id = id
             self.name = _value(elem, 'name') or id
-            self.key = _method(elem, 'key', parseKey)
+            self.key = _method(elem, 'key', createKey)
         def __repr__(self): return f'{self.id}: {self.name}'
         
     class DownloadableContent:
@@ -250,7 +268,7 @@ class FamilyGame:
         if not dgame:
             self.ignore = False; self.searchBy = 'Default'; self.paks = ['game:/']
             self.gameType = self.engine = self.resource = \
-            self.paths = self.key = self.fileSystemType = \
+            self.paths = self.key = self.detector = self.fileSystemType = \
             self.pakFileType = self.pakExts = None
             return
         self.ignore = _value(elem, 'n/a', dgame.ignore)
@@ -263,7 +281,8 @@ class FamilyGame:
         self.paks = _list(elem, 'pak', dgame.paks)
         #self.dats = _list(elem, 'dats', dgame.dats)
         self.paths = _list(elem, 'path', dgame.paths)
-        self.key = _method(elem, 'key', parseKey, dgame.key)
+        self.key = _method(elem, 'key', createKey, dgame.key)
+        self.detector = _method(elem, 'detector', lambda v: createDetector(self, v), dgame.detector)
         # self.status = _value(elem, 'status')
         self.tags = _value(elem, 'tags', '').split(' ')
         # interface
@@ -327,8 +346,7 @@ class FamilyGame:
                             pakFiles.append(self.createPakFileObj(fileSystem, edition, path))
                 else:
                     pakFiles.append(self.createPakFileObj(fileSystem, edition,
-                        (p[0], [x for x in p[1] if x.find(slash) >= 0]) if self.searchBy == 'DirDown' else
-                        p))
+                        (p[0], [x for x in p[1] if x.find(slash) >= 0]) if self.searchBy == 'DirDown' else p))
         return FamilyGame.withPlatformGraphic(self.createPakFileObj(fileSystem, edition, pakFiles))
 
     # create createPakFileObj
@@ -343,8 +361,7 @@ class FamilyGame:
                         self.createPakFileType(PakState(fileSystem, self, edition, None, tag)),
                         PakState(fileSystem, self, edition, None, tag),
                         p if len(p) > 0 else 'Many', l,
-                        pathSkip = len(p) + 1 if len(p) > 0 else 0
-                        )
+                        pathSkip = len(p) + 1 if len(p) > 0 else 0)
             case s if isinstance(value, list):
                 return s[0] if len(s) == 1 else \
                     MultiPakFile(PakState(fileSystem, self, edition, None, tag), 'Multi', s)
@@ -369,7 +386,7 @@ class FamilyGame:
 
     # is a PakFile
     def isPakFile(self, path: str) -> bool:
-        return any([x for x in self.pakExts if path.endswith(x)])
+        return self.pakExts and any([x for x in self.pakExts if path.endswith(x)])
 # end::FamilyGame[]
 
 families = {}

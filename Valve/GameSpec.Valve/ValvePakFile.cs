@@ -22,7 +22,7 @@ namespace GameSpec.Valve
         /// Initializes a new instance of the <see cref="ValvePakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public ValvePakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
+        public ValvePakFile(PakState state) : base(state, GetPakBinary(state.Game, state.Path))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
             PathFinders.Add(typeof(object), FindBinary);

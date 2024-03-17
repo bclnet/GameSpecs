@@ -18,7 +18,7 @@ namespace GameSpec.Monolith
         /// Initializes a new instance of the <see cref="MonolithPakFile" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
-        public MonolithPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.PakPath))
+        public MonolithPakFile(PakState state) : base(state, GetPakBinary(state.Game, state.Path))
         {
             ObjectFactoryFactoryMethod = ObjectFactoryFactory;
         }
