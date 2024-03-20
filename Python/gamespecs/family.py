@@ -282,7 +282,6 @@ class FamilyGame:
         #self.dats = _list(elem, 'dats', dgame.dats)
         self.paths = _list(elem, 'path', dgame.paths)
         self.key = _method(elem, 'key', createKey, dgame.key)
-        self.detector = _method(elem, 'detector', lambda v: createDetector(self, v), dgame.detector)
         # self.status = _value(elem, 'status')
         self.tags = _value(elem, 'tags', '').split(' ')
         # interface
@@ -294,6 +293,8 @@ class FamilyGame:
         self.editions = _related(elem, 'editions', lambda k,v: FamilyGame.Edition(k, v))
         self.dlcs = _related(elem, 'dlcs', lambda k,v: FamilyGame.DownloadableContent(k, v))
         self.locales = _related(elem, 'locales', lambda k,v: FamilyGame.Locale(k, v))
+        # detector
+        self.detector = _method(elem, 'detector', lambda v: createDetector(self, v), dgame.detector)
     def __repr__(self): return f'''
    {self.id}: {self.name} - {self.found}'''
 #     def __repr__(self): return f'''

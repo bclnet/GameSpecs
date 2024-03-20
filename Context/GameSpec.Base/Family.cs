@@ -290,15 +290,16 @@ namespace GameSpec
         public virtual Dictionary<string, object> ParseHash(FamilyGame game, JsonElement elem)
             => elem.EnumerateObject().ToDictionary(x => x.Name, x => x.Name switch
             {
-                "variant" => game.Editions.TryGetValue(x.Value.GetString(), out var a) ? a : default,
-                "locale" => game.Locales.TryGetValue(x.Value.GetString(), out var a) ? a : default,
-                _ => (object)(x.Value.ValueKind switch
+                null => default,
+                "edition" => game.Editions != null && game.Editions.TryGetValue(x.Value.GetString(), out var a) ? a : (object)x.Value.GetString(),
+                "locale" => game.Locales != null && game.Locales.TryGetValue(x.Value.GetString(), out var a) ? a : (object)x.Value.GetString(),
+                _ => x.Value.ValueKind switch
                 {
                     JsonValueKind.Number => x.Value.GetInt32(),
                     JsonValueKind.String => x.Value.GetString(),
                     JsonValueKind.Array => x.Value.EnumerateArray().Select(y => y.GetString()).ToArray(),
                     _ => throw new ArgumentOutOfRangeException($"{x.Value}"),
-                })
+                }
             });
 
         public virtual string GetHash(BinaryReader r)
@@ -318,7 +319,9 @@ namespace GameSpec
                 case null: throw new ArgumentNullException(nameof(value));
                 case BinaryReader r:
                     {
+                        r.BaseStream.Position = 0;
                         var hash = GetHash(r);
+                        r.BaseStream.Position = 0;
                         return hash != null && Hashs.TryGetValue(hash, out var z) ? z : default;
                     }
                 default: throw new ArgumentOutOfRangeException(nameof(value));
@@ -1033,7 +1036,6 @@ namespace GameSpec
             Dats = _list(elem, "dat", x => new Uri(x), dgame.Dats);
             Paths = _list(elem, "path", dgame.Paths);
             Key = _method(elem, "key", CreateKey, dgame.Key);
-            Detector = _method(elem, "detector", v => CreateDetector(this, v), dgame.Detector);
             //Status = _value(elem, "status");
             Tags = _value(elem, "tags", string.Empty).Split(' ');
             // interface
@@ -1045,6 +1047,8 @@ namespace GameSpec
             Editions = _related(elem, "editions", (k, v) => new Edition(k, v));
             Dlcs = _related(elem, "dlcs", (k, v) => new DownloadableContent(k, v));
             Locales = _related(elem, "locals", (k, v) => new Locale(k, v));
+            // detector
+            Detector = _method(elem, "detector", v => CreateDetector(this, v), dgame.Detector);
         }
 
         /// <summary>
@@ -1058,7 +1062,7 @@ namespace GameSpec
         /// <summary>
         /// Detect
         /// </summary>
-        public object Detect(string key, object value) => Detector?.Get(key, value);
+        public T Detect<T>(string key, object value) => (T)Detector?.Get(key, value);
 
         /// <summary>
         /// Ensures this instance.
