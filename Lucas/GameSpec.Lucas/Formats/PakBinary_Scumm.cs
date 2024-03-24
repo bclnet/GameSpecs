@@ -8,7 +8,7 @@ using static OpenStack.Debug;
 
 namespace GameSpec.Lucas.Formats
 {
-    public unsafe class PakBinary_Lfl : PakBinary<PakBinary_Lfl>
+    public unsafe class PakBinary_Scumm : PakBinary<PakBinary_Scumm>
     {
         [Flags]
         public enum Features
@@ -570,6 +570,10 @@ namespace GameSpec.Lucas.Formats
             }
 
             #endregion
+        }
+
+        public class ResourceFile
+        {
         }
 
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)

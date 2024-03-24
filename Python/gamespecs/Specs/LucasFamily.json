@@ -12,6 +12,9 @@
     },
     "GrimE": {
       "url": "https://wiki.scummvm.org/index.php?title=GrimE"
+    },
+    "Jedi": {
+      "url": "https://en.wikipedia.org/wiki/Jedi_(game_engine)"
     }
   },
   "games": {
@@ -114,7 +117,7 @@
         "hashs": [
           {
             "hash": "b250d0f9cc83f80ced56fe11a4fb057c",
-            "edition": "V1",
+            "edition": "V2",
             "locale": "en",
             "features": "SixteenColors"
           },
@@ -1339,6 +1342,7 @@
     },
     "SW:DF": {
       "name": "Star Wars: Dark Forces",
+      "engine": "Jedi",
       "url": [
         "https://store.steampowered.com/app/32400",
         "https://en.wikipedia.org/wiki/Star_Wars:_Dark_Forces"
@@ -1484,11 +1488,13 @@
     },
     "O": {
       "name": "Outlaws",
+      "engine": "Jedi",
       "url": [
         "https://store.steampowered.com/app/559620",
         "https://en.wikipedia.org/wiki/Outlaws_(1997_video_game)"
       ],
-      "date": "April 7, 1997"
+      "date": "April 7, 1997",
+      "pakExt": ".lab"
     },
     "B:C": {
       "n/a": true,

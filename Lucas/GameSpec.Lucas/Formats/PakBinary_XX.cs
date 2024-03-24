@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameSpec.Lucas.Formats
 {
-    public unsafe class PakBinary_Hpl : PakBinary<PakBinary_Hpl>
+    public unsafe class PakBinary_XX : PakBinary<PakBinary_XX>
     {
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {

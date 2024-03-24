@@ -341,7 +341,7 @@ namespace GameSpec
             //Game = "IJatLC", // Indiana Jones and the Last Crusade: The Graphic Adventure
             //Game = "TFH", // Their Finest Hour
             //Game = "TFM:V1", // Their Finest Missions: Volume One
-            Game = "L", // Loom
+            //Game = "L", // Loom
             //Game = "M", // Masterblazer
             //Game = "NS", // Night Shift
             //Game = "SWotL", // Secret Weapons of the Luftwaffe
@@ -363,7 +363,7 @@ namespace GameSpec
             //Game = "MatRotM", // Mortimer and the Riddles of the Medallion
             //Game = "SW:SotE", // Star Wars: Shadows of the Empire
             //Game = "SW:YS", // Star Wars: Yoda Stories
-            //Game = "O", // Outlaws
+            Game = "O", // Outlaws
             //Game = "SW:XvT", // Star Wars: X-Wing vs. TIE Fighter
             //Game = "SWJK:DF2", // Star Wars Jedi Knight: Dark Forces II
             //Game = "MSW", // Monopoly Star Wars

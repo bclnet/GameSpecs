@@ -9,3 +9,7 @@ https://wiki.scummvm.org/index.php/SCUMM/Technical_Reference/SCUMM_6_resource_fi
 
 https://wiki.scummvm.org/index.php/SCUMM/Technical_Reference
 https://github.com/scemino/nscumm/tree/master
+
+
+OUTLAW
+https://github.com/glampert/reverse-engineering-outlaws
