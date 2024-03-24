@@ -18,8 +18,8 @@ namespace GameSpec.Bethesda.Formats.Records
             {
                 Version = r.ReadSingle();
                 FileType = r.ReadUInt32();
-                CompanyName = r.ReadZPaddedString(32);
-                FileDescription = r.ReadZPaddedString(256);
+                CompanyName = r.ReadZString(32);
+                FileDescription = r.ReadZString(256);
                 NumRecords = r.ReadUInt32();
             }
         }

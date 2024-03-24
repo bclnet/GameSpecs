@@ -103,7 +103,7 @@ namespace GameSpec.Bethesda.Formats.Records
             {
                 if (format == BethesdaFormat.TES3)
                 {
-                    Sound = new FormId<SOUNRecord>(r.ReadZPaddedString(32));
+                    Sound = new FormId<SOUNRecord>(r.ReadZString(32));
                     Flags = 0;
                     Chance = r.ReadByte();
                     return;

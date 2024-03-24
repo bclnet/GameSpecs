@@ -310,9 +310,13 @@ namespace GameSpec
             return $"{h[0]:x2}{h[1]:x2}{h[2]:x2}{h[3]:x2}{h[4]:x2}{h[5]:x2}{h[6]:x2}{h[7]:x2}{h[8]:x2}{h[9]:x2}{h[10]:x2}{h[11]:x2}{h[12]:x2}{h[13]:x2}{h[14]:x2}{h[15]:x2}";
         }
 
-        public object Get(string key, object value) => DetectCache.GetOrAdd(key, Detect, value);
+        public T Get<T>(string key, object value, Func<T, T> func) where T : class => DetectCache.GetOrAdd(key, (k, v) =>
+        {
+            var s = Detect<T>(k, v);
+            return s == null || func == null ? s : func(s);
+        }, value) as T;
 
-        public virtual object Detect(string key, object value)
+        public virtual T Detect<T>(string key, object value) where T : class
         {
             switch (value)
             {
@@ -322,7 +326,7 @@ namespace GameSpec
                         r.BaseStream.Position = 0;
                         var hash = GetHash(r);
                         r.BaseStream.Position = 0;
-                        return hash != null && Hashs.TryGetValue(hash, out var z) ? z : default;
+                        return hash != null && Hashs.TryGetValue(hash, out var z) ? z as T : default;
                     }
                 default: throw new ArgumentOutOfRangeException(nameof(value));
             }
@@ -826,6 +830,10 @@ namespace GameSpec
             /// The key
             /// </summary>
             public object Key { get; set; }
+            /// <summary>
+            /// The Data
+            /// </summary>
+            public Dictionary<string, object> Data { get; set; }
 
             /// <summary>
             /// Edition
@@ -838,7 +846,17 @@ namespace GameSpec
                 Id = id;
                 Name = _value(elem, "name") ?? id;
                 Key = _method(elem, "key", CreateKey);
+                Data = Parse(elem);
             }
+
+            public Dictionary<string, object> Parse(JsonElement elem)
+                => elem.EnumerateObject().Where(x => x.Name != "name" && x.Name != "key").ToDictionary(x => x.Name, x => x.Value.ValueKind switch
+                {
+                    JsonValueKind.Number => (object)x.Value.GetInt32(),
+                    JsonValueKind.String => x.Value.GetString(),
+                    JsonValueKind.Array => x.Value.EnumerateArray().Select(y => y.GetString()).ToArray(),
+                    _ => throw new ArgumentOutOfRangeException($"{x.Value}"),
+                });
         }
 
         /// <summary>
@@ -1062,7 +1080,7 @@ namespace GameSpec
         /// <summary>
         /// Detect
         /// </summary>
-        public T Detect<T>(string key, object value) => (T)Detector?.Get(key, value);
+        public T Detect<T>(string key, object value, Func<T, T> func = null) where T : class => Detector?.Get(key, value, func);
 
         /// <summary>
         /// Ensures this instance.

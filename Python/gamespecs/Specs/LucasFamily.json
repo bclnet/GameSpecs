@@ -89,6 +89,18 @@
       "date": "October 5, 1987",
       "pakExt": "00.lfl",
       "editions": {
+        "Apple II": {
+          "version": 0,
+          "pattern": "maniac{0}.dsk"
+        },
+        "C64": {
+          "version": 0,
+          "pattern": "maniac{0}.d64"
+        },
+        "C64 Demo": {
+          "version": 0,
+          "pattern": "maniacdemo.d64"
+        },
         "V1": {
           "version": 1,
           "music": "PCSpeaker PCjr"
@@ -100,6 +112,40 @@
       },
       "detector": {
         "hashs": [
+          {
+            "hash": "b250d0f9cc83f80ced56fe11a4fb057c",
+            "edition": "V1",
+            "locale": "en",
+            "features": "SixteenColors"
+          },
+          {
+            "hash": "e017630555f90e32d1b3a4c1c301ab77",
+            "edition": "Apple II",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "Apple2GS"
+          },
+          {
+            "hash": "8e31928d1d6a7ee6fba14f536cba59c2",
+            "edition": "C64",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "C64"
+          },
+          {
+            "hash": "61142d606e0e5724cf411cb4341ab012",
+            "edition": "C64",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "C64"
+          },
+          {
+            "hash": "942398bfac774bd3f0830ff614b46db9",
+            "edition": "C64 Demo",
+            "locale": "en",
+            "features": "SixteenColors Demo",
+            "platform": "C64"
+          },
           {
             "hash": "7f45ddd6dbfbf8f80c0c0efea4c295bc",
             "edition": "V1",
@@ -141,6 +187,55 @@
             "edition": "V2",
             "locale": "es",
             "features": "SixteenColors"
+          },
+          {
+            "hash": "e781230da44a44e2f0770edb2b3b3633",
+            "edition": "V2",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
+            "hash": "9bc548e179cdb0767009401c094d0895",
+            "edition": "V2",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
+            "hash": "ce7733f185b838e248927c7ba1a04204",
+            "edition": "V2",
+            "locale": "fr",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
+            "hash": "a570381b028972d891052ee1e51dc011",
+            "edition": "V2",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "be83e882b44f2767bc08d4f766ebc347",
+            "edition": "V2",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "dd30a53035393baa5a5e222e716559af",
+            "edition": "V2",
+            "locale": "fr",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "15240c59d3681ed53f714f8d925cb2d6",
+            "edition": "V2",
+            "locale": "es",
+            "features": "SixteenColors",
+            "platform": "AtariST"
           }
         ]
       }
@@ -171,6 +266,7 @@
         "https://en.wikipedia.org/wiki/Zak_McKracken_and_the_Alien_Mindbenders"
       ],
       "date": "October 1, 1988",
+      "pakExt": "00.lfl",
       "editions": {
         "V1": {
           "version": 1,
@@ -188,13 +284,69 @@
       "detector": {
         "hashs": [
           {
-            "hash": "675d71151e9b5a968c8ce46d9fbf4cbf",
+            "hash": "debe337f73d660e951ece7c1f1c81add",
             "edition": "V2",
             "locale": "en",
             "features": "SixteenColors"
           },
           {
+            "hash": "47d3e0b8b42e6ff340c7061fba9283d2",
+            "edition": "V1",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "C64"
+          },
+          {
+            "hash": "4973bbc3899e3826dbf316e1d7271ec7",
+            "edition": "V1",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "C64"
+          },
+          {
+            "hash": "e94c7cc3686fce406d3c91b5eae5a72d",
+            "edition": "V2",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
+            "hash": "6027e9ca9c35746d95dee2068cec17e5",
+            "edition": "V2",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
+            "hash": "91469353f7be1b122fa88d23480a1320",
+            "edition": "V2",
+            "locale": "fr",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
             "hash": "d55eff37c2100f5065cde9de428621fa",
+            "edition": "V2",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "ff05c07990061d97647f059c48c1d05a",
+            "edition": "V2",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "613f64f78ea26c7353b2a5940eb61d6a",
+            "edition": "V2",
+            "locale": "fr",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "675d71151e9b5a968c8ce46d9fbf4cbf",
             "edition": "V2",
             "locale": "en",
             "features": "SixteenColors"
@@ -261,7 +413,7 @@
       "date": "June 1, 1989",
       "tag": "TODO"
     },
-    "IJatLC:TGA": {
+    "IJatLC": {
       "name": "Indiana Jones and the Last Crusade: The Graphic Adventure",
       "engine": "SPUTM",
       "url": [
@@ -269,7 +421,8 @@
         "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Graphic_Adventure"
       ],
       "date": "July 1, 1989",
-      "editionsx": {
+      "pakExt": "01.lfl",
+      "editions": {
         "VGA": {
           "version": 3,
           "music": "PCSpeaker PCjr CMS AdLib"
@@ -465,6 +618,34 @@
             "hash": "5d88b9d6a88e6f8e90cded9d01b7f082",
             "edition": "VGA",
             "locale": "en"
+          },
+          {
+            "hash": "4dc780f1bc587a193ce8a97652791438",
+            "edition": "EGA",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "Amiga"
+          },
+          {
+            "hash": "a0a7dea72003933b8b3f8b99b9f7ddeb",
+            "edition": "No AdLib",
+            "locale": "en",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "c24c490373aeb48fbd54caa8e7ae376d",
+            "edition": "No AdLib",
+            "locale": "de",
+            "features": "SixteenColors",
+            "platform": "AtariST"
+          },
+          {
+            "hash": "0e9b01430e31d9fcd94071d433bbc6bf",
+            "edition": "No AdLib",
+            "locale": "fr",
+            "features": "SixteenColors",
+            "platform": "AtariST"
           },
           {
             "hash": "6f0be328c64d689bb606d22a389e1b0f",
@@ -2125,11 +2306,11 @@
         "dir": "Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
         "path": "indy3act"
       },
-      "IJatLC:TGA": {
+      "IJatLC": {
         "key": "Steam:32310",
         "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32310",
         "dir": "Indiana Jones and the Last Crusade",
-        "path": "ScummVM"
+        "path": "INDY3"
       },
       "TFH": {
         "download": [

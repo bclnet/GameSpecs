@@ -22,7 +22,7 @@ namespace GameSpec.Crytek.Formats.Core.Chunks
 
             // Post bone read setup. Parents, children, etc.
             // Add the ChildID to the parent bone. This will help with navigation.
-            var boneNames = r.ReadZStringArray(NumBones);
+            var boneNames = r.ReadCStringArray(NumBones);
             for (var i = 0; i < NumBones; i++)
             {
                 BoneList[i].boneName = boneNames[i];

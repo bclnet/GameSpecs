@@ -69,7 +69,7 @@ namespace GameSpec.Bethesda.Formats.Records
 
             public SCHDField(BinaryReader r, int dataSize)
             {
-                Name = r.ReadZPaddedString(32);
+                Name = r.ReadZString(32);
                 NumShorts = r.ReadInt32();
                 NumLongs = r.ReadInt32();
                 NumFloats = r.ReadInt32();

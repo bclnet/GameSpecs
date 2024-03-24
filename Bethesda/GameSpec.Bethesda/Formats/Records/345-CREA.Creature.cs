@@ -176,7 +176,7 @@ namespace GameSpec.Bethesda.Formats.Records
                 Y = r.ReadSingle();
                 Z = r.ReadSingle();
                 Duration = r.ReadInt16();
-                Id = r.ReadZPaddedString(32);
+                Id = r.ReadZString(32);
                 Unknown = r.ReadInt16();
             }
         }
@@ -188,7 +188,7 @@ namespace GameSpec.Bethesda.Formats.Records
 
             public AI_AField(BinaryReader r, int dataSize)
             {
-                Name = r.ReadZPaddedString(32);
+                Name = r.ReadZString(32);
                 Unknown = r.ReadByte();
             }
         }

@@ -77,7 +77,7 @@ namespace GameSpec.Bethesda.Formats
             };
         }
         public static STRVField ReadSTRV(this BinaryReader r, int length) => new STRVField { Value = r.ReadYEncoding(length) };
-        public static STRVField ReadSTRV_ZPad(this BinaryReader r, int length) => new STRVField { Value = r.ReadZPaddedString(length) };
+        public static STRVField ReadSTRV_ZPad(this BinaryReader r, int length) => new STRVField { Value = r.ReadZString(length) };
         public static FILEField ReadFILE(this BinaryReader r, int length) => new FILEField { Value = r.ReadYEncoding(length) };
         public static BYTVField ReadBYTV(this BinaryReader r, int length) => new BYTVField { Value = r.ReadBytes(length) };
         public static UNKNField ReadUNKN(this BinaryReader r, int length) => new UNKNField { Value = r.ReadBytes(length) };
@@ -101,7 +101,7 @@ namespace GameSpec.Bethesda.Formats
         {
             Value = dataSize == 4 ?
                 new FormId<TRecord>(r.ReadUInt32()) :
-                new FormId<TRecord>(r.ReadZPaddedString(dataSize));
+                new FormId<TRecord>(r.ReadZString(dataSize));
         }
         public void AddName(string name) => Value = Value.AddName(name);
     }
@@ -127,7 +127,7 @@ namespace GameSpec.Bethesda.Formats
             if (format == BethesdaFormat.TES3)
             {
                 ItemCount = r.ReadUInt32();
-                Item = new FormId<Record>(r.ReadZPaddedString(32));
+                Item = new FormId<Record>(r.ReadZString(32));
                 return;
             }
             Item = new FormId<Record>(r.ReadUInt32());

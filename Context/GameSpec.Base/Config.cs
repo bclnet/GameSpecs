@@ -330,17 +330,18 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:*",
+            ForcePath = "sample:1",
             Family = "Lucas",
             //Game = "PP", // PHM Pegasus
-            Game = "MM", // Maniac Mansion
+            //Game = "MM", // Maniac Mansion
             //Game = "SF", // Strike Fleet
             //Game = "B1942", // Battlehawks 1942
             //Game = "ZMatAM", // Zak McKracken and the Alien Mindbenders
             //Game = "IJatLC:TAG", // Indiana Jones and the Last Crusade: The Action Game
+            //Game = "IJatLC", // Indiana Jones and the Last Crusade: The Graphic Adventure
             //Game = "TFH", // Their Finest Hour
             //Game = "TFM:V1", // Their Finest Missions: Volume One
-            //Game = "L", // Loom
+            Game = "L", // Loom
             //Game = "M", // Masterblazer
             //Game = "NS", // Night Shift
             //Game = "SWotL", // Secret Weapons of the Luftwaffe

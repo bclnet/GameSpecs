@@ -1,4 +1,39 @@
 ﻿{
+  "MM": {
+    "name": "Maniac Mansion",
+    "files": [
+      {
+        "path": "original/00.LFL:rooms/room01.dat",
+        "type": "Test"
+      },
+      {
+        "path": "enhanced/00.LFL:rooms/room01.dat",
+        "type": "Test"
+      }
+    ]
+  },
+  "ZMatAM": {
+    "name": "Zak McKracken and the Alien Mindbenders",
+    "files": [
+      {
+        "path": "FDD/00.LFL:rooms/room01.dat",
+        "type": "Test"
+      },
+      {
+        "path": "enhanced/00.LFL:rooms/room01.dat",
+        "type": "Test"
+      }
+    ]
+  },
+  "IJatLC": {
+    "name": "Indiana Jones and the Last Crusade: The Graphic Adventure",
+    "files": [
+      {
+        "path": "INDY256.EXE:rooms/room01.dat",
+        "type": "Test"
+      }
+    ]
+  },
   "L": {
     "name": "Loom",
     "files": []
