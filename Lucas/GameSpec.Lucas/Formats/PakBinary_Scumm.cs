@@ -579,7 +579,7 @@ namespace GameSpec.Lucas.Formats
         public override Task Read(BinaryPakFile source, BinaryReader r, object tag)
         {
             var game = source.Game;
-            var detect = source.Game.Detect<Dictionary<string, object>>(source.PakPath, r, s =>
+            var detect = source.Game.Detect<Dictionary<string, object>>("scumm", source.PakPath, r, s =>
             {
                 s["features"] = ((string)s["features"]).Split(' ').Aggregate(Features.None, (a, f) => a |= (Features)Enum.Parse(typeof(Features), f, true));
                 s["platform"] = (Platform)Enum.Parse(typeof(Platform), s.TryGetValue("platform", out var z) ? (string)z : "None", true);

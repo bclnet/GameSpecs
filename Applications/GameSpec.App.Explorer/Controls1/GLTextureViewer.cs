@@ -63,6 +63,7 @@ namespace GameSpec.App.Explorer.Controls1
                 : Source is IRedirected<ITexture> y ? y.Value
                 : null;
             if (source == null) return;
+            source.Select(Id);
 
             HandleResize();
             Camera.SetLocation(new Vector3(200));
@@ -84,8 +85,9 @@ namespace GameSpec.App.Explorer.Controls1
             foreach (var renderer in Renderers) renderer.Render(e.Camera, RenderPass.Both);
         }
 
-        Key[] Keys = new[] { Key.A, Key.Z, Key.Space, Key.Q };
+        Key[] Keys = new[] { Key.Q, Key.W, Key.A, Key.Z, Key.Space, Key.Tilde };
         HashSet<Key> KeyDowns = new();
+        int Id = 0;
 
         public void HandleInput(KeyboardState keyboardState)
         {
@@ -97,15 +99,27 @@ namespace GameSpec.App.Explorer.Controls1
                     KeyDowns.Remove(key);
                     switch (key)
                     {
+                        case Key.W: Select(++Id); break;
+                        case Key.Q: Select(--Id); break;
                         case Key.A: MovePrev(); break;
                         case Key.Z: MoveNext(); ; break;
                         case Key.Space: MoveReset(); break;
-                        case Key.Q: ToggleBackground(); break;
+                        case Key.Tilde: ToggleBackground(); break;
                     }
                 }
         }
 
-        void MoveReset() { rng = 0..; OnProperty(); }
+        void Select(int id)
+        {
+            var source = Source is ITexture z ? z
+                : Source is IRedirected<ITexture> y ? y.Value
+                : null;
+            if (source == null) return;
+            source.Select(id);
+            OnProperty();
+            Views.FileExplorer.Instance.OnInfoUpdated();
+        }
+        void MoveReset() { Id = 0; rng = 0..; OnProperty(); }
         void MoveNext() { if (rng.Start.Value < 10) rng = new(rng.Start.Value + 1, rng.End); OnProperty(); }
         void MovePrev() { if (rng.Start.Value > 0) rng = new(rng.Start.Value - 1, rng.End); OnProperty(); }
         void ToggleBackground() { background = !background; OnProperty(); }

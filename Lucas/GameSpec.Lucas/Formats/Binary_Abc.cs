@@ -3,25 +3,20 @@ using GameSpec.Meta;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GameSpec.Lucas.Formats
 {
     public class Binary_Abc : IHaveMetaInfo
     {
-        public Binary_Abc() { }
-        public Binary_Abc(BinaryReader r) => Read(r);
+        public static Task<object> Factory(BinaryReader r, FileSource f, PakFile s) => Task.FromResult((object)new Binary_Abc(r, (int)f.FileSize));
 
-        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag)
-        {
-            var nodes = new List<MetaInfo> {
-                new MetaInfo("BinaryPak", items: new List<MetaInfo> {
-                    //new MetaInfo($"Type: {Type}"),
-                })
-            };
-            return nodes;
-        }
+        public Binary_Abc(BinaryReader r, int fileSize) => Data = r.ReadBytes(fileSize);
 
-        public unsafe void Read(BinaryReader r)
-            => throw new NotImplementedException();
+        public byte[] Data;
+
+        List<MetaInfo> IHaveMetaInfo.GetInfoNodes(MetaManager resource, FileSource file, object tag) => new List<MetaInfo> {
+            new MetaInfo(null, new MetaContent { Type = "Data", Name = Path.GetFileName(file.Path), Value = new MemoryStream(Data), Tag = Path.GetExtension(file.Path) }),
+        };
     }
 }

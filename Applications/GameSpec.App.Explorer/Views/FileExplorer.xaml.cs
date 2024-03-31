@@ -14,6 +14,11 @@ using GameSpec.Meta;
 using GameSpec.Formats;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
+using OpenStack.Graphics.OpenGL.Renderer1.Renderers;
+using OpenStack.Graphics;
+using OpenStack;
+using static GameSpec.Formats.Unknown.IUnknownFileObject;
+using System.Drawing;
 
 namespace GameSpec.App.Explorer.Views
 {
@@ -101,7 +106,7 @@ namespace GameSpec.App.Explorer.Views
             {
                 if (_selectedItem == value) return;
                 _selectedItem = value;
-                if (value == null) { OnInfo(); return; }
+                if (value == null) { OnInfo(null); return; }
                 try
                 {
                     var pak = (value.Source as FileSource)?.Pak;
@@ -123,7 +128,11 @@ namespace GameSpec.App.Explorer.Views
             }
         }
 
-        public void OnInfo(IEnumerable<MetaInfo> infos = null)
+        public void OnInfoUpdated()
+        {
+        }
+
+        public void OnInfo(IEnumerable<MetaInfo> infos)
         {
             FileContent.Instance.OnInfo(PakFile, infos?.Where(x => x.Name == null).ToList());
             Infos = infos?.Where(x => x.Name != null).ToList();

@@ -252,6 +252,7 @@ namespace GameSpec.IW.Formats
         public int MipMaps => Mips.Length;
         public TextureFlags Flags => (Header.Flags & FLAGS.CUBEMAP) != 0 ? TextureFlags.CUBE_TEXTURE : 0;
 
+        public void Select(int id) { }
         public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch

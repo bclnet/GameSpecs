@@ -114,133 +114,135 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "b250d0f9cc83f80ced56fe11a4fb057c",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "e017630555f90e32d1b3a4c1c301ab77",
-            "edition": "Apple II",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "Apple2GS"
-          },
-          {
-            "hash": "8e31928d1d6a7ee6fba14f536cba59c2",
-            "edition": "C64",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "C64"
-          },
-          {
-            "hash": "61142d606e0e5724cf411cb4341ab012",
-            "edition": "C64",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "C64"
-          },
-          {
-            "hash": "942398bfac774bd3f0830ff614b46db9",
-            "edition": "C64 Demo",
-            "locale": "en",
-            "features": "SixteenColors Demo",
-            "platform": "C64"
-          },
-          {
-            "hash": "7f45ddd6dbfbf8f80c0c0efea4c295bc",
-            "edition": "V1",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "624cdb93654667c869d204a64af7e57f",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "183d7464902d40d00800e8ee1f04117c",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "114acdc2659a273c220f86ee9edb24c1",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "99a3699f80b8f776efae592b44b9b991",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "87f6e8037b7cc996e13474b491a7a98e",
-            "edition": "V2",
-            "locale": "it",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "0d1b69471605201ef2fa9cec1f5f02d2",
-            "edition": "V2",
-            "locale": "es",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "e781230da44a44e2f0770edb2b3b3633",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "9bc548e179cdb0767009401c094d0895",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "ce7733f185b838e248927c7ba1a04204",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "a570381b028972d891052ee1e51dc011",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "be83e882b44f2767bc08d4f766ebc347",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "dd30a53035393baa5a5e222e716559af",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "15240c59d3681ed53f714f8d925cb2d6",
-            "edition": "V2",
-            "locale": "es",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "b250d0f9cc83f80ced56fe11a4fb057c",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "e017630555f90e32d1b3a4c1c301ab77",
+              "edition": "Apple II",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Apple2GS"
+            },
+            {
+              "hash": "8e31928d1d6a7ee6fba14f536cba59c2",
+              "edition": "C64",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "61142d606e0e5724cf411cb4341ab012",
+              "edition": "C64",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "942398bfac774bd3f0830ff614b46db9",
+              "edition": "C64 Demo",
+              "locale": "en",
+              "features": "SixteenColors Demo",
+              "platform": "C64"
+            },
+            {
+              "hash": "7f45ddd6dbfbf8f80c0c0efea4c295bc",
+              "edition": "V1",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "624cdb93654667c869d204a64af7e57f",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "183d7464902d40d00800e8ee1f04117c",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "114acdc2659a273c220f86ee9edb24c1",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "99a3699f80b8f776efae592b44b9b991",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "87f6e8037b7cc996e13474b491a7a98e",
+              "edition": "V2",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "0d1b69471605201ef2fa9cec1f5f02d2",
+              "edition": "V2",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "e781230da44a44e2f0770edb2b3b3633",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "9bc548e179cdb0767009401c094d0895",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "ce7733f185b838e248927c7ba1a04204",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "a570381b028972d891052ee1e51dc011",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "be83e882b44f2767bc08d4f766ebc347",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "dd30a53035393baa5a5e222e716559af",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "15240c59d3681ed53f714f8d925cb2d6",
+              "edition": "V2",
+              "locale": "es",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            }
+          ]
+        }
       }
     },
     "SF": {
@@ -285,119 +287,121 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "debe337f73d660e951ece7c1f1c81add",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "47d3e0b8b42e6ff340c7061fba9283d2",
-            "edition": "V1",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "C64"
-          },
-          {
-            "hash": "4973bbc3899e3826dbf316e1d7271ec7",
-            "edition": "V1",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "C64"
-          },
-          {
-            "hash": "e94c7cc3686fce406d3c91b5eae5a72d",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "6027e9ca9c35746d95dee2068cec17e5",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "91469353f7be1b122fa88d23480a1320",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "d55eff37c2100f5065cde9de428621fa",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "ff05c07990061d97647f059c48c1d05a",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "613f64f78ea26c7353b2a5940eb61d6a",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "675d71151e9b5a968c8ce46d9fbf4cbf",
-            "edition": "V2",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "cdd760228cf1010c2903f37e788ea31c",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "d06fbe28818fef7bfc45c2cdf0c0849d",
-            "edition": "V2",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "52a4bae0746a11d7b1e8554e91a6645c",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "c4787c3e8b5e2dfda90850ee800af00f",
-            "edition": "V2",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "1900e501a52fbf55bde6e4196f6d2aa6",
-            "edition": "V2",
-            "locale": "it",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "75ba23fff4fd63fa446c02864f2a5a4b",
-            "edition": "V2",
-            "locale": "it",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "2d4536a56e01da4b02eb021e7770afa2",
-            "edition": "FM-TOWNS",
-            "locale": "en",
-            "features": "Old256 AudioTracks",
-            "platform": "FMTowns"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "debe337f73d660e951ece7c1f1c81add",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "47d3e0b8b42e6ff340c7061fba9283d2",
+              "edition": "V1",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "4973bbc3899e3826dbf316e1d7271ec7",
+              "edition": "V1",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "e94c7cc3686fce406d3c91b5eae5a72d",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "6027e9ca9c35746d95dee2068cec17e5",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "91469353f7be1b122fa88d23480a1320",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "d55eff37c2100f5065cde9de428621fa",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "ff05c07990061d97647f059c48c1d05a",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "613f64f78ea26c7353b2a5940eb61d6a",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "675d71151e9b5a968c8ce46d9fbf4cbf",
+              "edition": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "cdd760228cf1010c2903f37e788ea31c",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "d06fbe28818fef7bfc45c2cdf0c0849d",
+              "edition": "V2",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "52a4bae0746a11d7b1e8554e91a6645c",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "c4787c3e8b5e2dfda90850ee800af00f",
+              "edition": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "1900e501a52fbf55bde6e4196f6d2aa6",
+              "edition": "V2",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "75ba23fff4fd63fa446c02864f2a5a4b",
+              "edition": "V2",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "2d4536a56e01da4b02eb021e7770afa2",
+              "edition": "FM-TOWNS",
+              "locale": "en",
+              "features": "Old256 AudioTracks",
+              "platform": "FMTowns"
+            }
+          ]
+        }
       }
     },
     "IJatLC:TAG": {
@@ -440,87 +444,89 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "6b3ec67da214f558dc5ceaa2acd47453",
-            "edition": "EGA",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "6f6ef668c608c7f534fea6e6d3878dde",
-            "edition": "EGA",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "eb700bb73ca1cc44a1ad5e4b1a4bdeaf",
-            "edition": "EGA",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "66236cd1aec24e1d4aff4c4cc93b7e18",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "89cfc425566003ff74b7dc7b3e6fd469",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "d62d248c3df6ec177405e2cb23d923b2",
-            "edition": "EGA",
-            "locale": "it",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "86be8ada36371d4fdc35659d0e912a26",
-            "edition": "EGA",
-            "locale": "es",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "ce7fd0c382389a6791fc3e199c117ef4",
-            "edition": "EGA",
-            "locale": "es",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "b597e0403cc0002f69170e6caba7edd9",
-            "edition": "EGA",
-            "locale": "en",
-            "features": "SixteenColors Demo"
-          },
-          {
-            "hash": "1875b90fade138c9253a8e967007031a",
-            "edition": "VGA",
-            "locale": "en",
-            "features": "Old256 FewLocals"
-          },
-          {
-            "hash": "399b217b0c8d65d0398076da486363a9",
-            "edition": "VGA",
-            "locale": "de",
-            "features": "Old256 FewLocals"
-          },
-          {
-            "hash": "17b5d5e6af4ae89d62631641d66d5a05",
-            "edition": "VGA",
-            "locale": "it",
-            "features": "Old256 FewLocals"
-          },
-          {
-            "hash": "04687cdf7f975a89d2474929f7b80946",
-            "edition": "FM-TOWNS",
-            "locale": "en",
-            "features": "Old256 FewLocals AudioTracks",
-            "platform": "FMTowns"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "6b3ec67da214f558dc5ceaa2acd47453",
+              "edition": "EGA",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "6f6ef668c608c7f534fea6e6d3878dde",
+              "edition": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "eb700bb73ca1cc44a1ad5e4b1a4bdeaf",
+              "edition": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "66236cd1aec24e1d4aff4c4cc93b7e18",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "89cfc425566003ff74b7dc7b3e6fd469",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "d62d248c3df6ec177405e2cb23d923b2",
+              "edition": "EGA",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "86be8ada36371d4fdc35659d0e912a26",
+              "edition": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "ce7fd0c382389a6791fc3e199c117ef4",
+              "edition": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "b597e0403cc0002f69170e6caba7edd9",
+              "edition": "EGA",
+              "locale": "en",
+              "features": "SixteenColors Demo"
+            },
+            {
+              "hash": "1875b90fade138c9253a8e967007031a",
+              "edition": "VGA",
+              "locale": "en",
+              "features": "Old256 FewLocals"
+            },
+            {
+              "hash": "399b217b0c8d65d0398076da486363a9",
+              "edition": "VGA",
+              "locale": "de",
+              "features": "Old256 FewLocals"
+            },
+            {
+              "hash": "17b5d5e6af4ae89d62631641d66d5a05",
+              "edition": "VGA",
+              "locale": "it",
+              "features": "Old256 FewLocals"
+            },
+            {
+              "hash": "04687cdf7f975a89d2474929f7b80946",
+              "edition": "FM-TOWNS",
+              "locale": "en",
+              "features": "Old256 FewLocals AudioTracks",
+              "platform": "FMTowns"
+            }
+          ]
+        }
       }
     },
     "TFH": {
@@ -568,103 +574,110 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "37f56ceb13e401a7ac7d9e6b37fecaf7",
-            "edition": "EGA",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "470c45b636139bb40716daa1c7edaad0",
-            "edition": "EGA",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "fa127d7c4bb47d05bb1c33ddcaa9f767",
-            "edition": "EGA",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "6f8a22bfa397be1f7ed4b74aba0e397e",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "b886b0a5d909c7158a914e1d7c1c6c65",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "c3df37df9d3b481b45f75283a9907c47",
-            "edition": "EGA",
-            "locale": "it",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "0be88565f734b1e9e77ccaaf3bb14b29",
-            "edition": "EGA",
-            "locale": "es",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "2a208ffbcd0e83e86f4356e6f64aa6e1",
-            "edition": "EGA",
-            "locale": "es",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "5d88b9d6a88e6f8e90cded9d01b7f082",
-            "edition": "VGA",
-            "locale": "en"
-          },
-          {
-            "hash": "4dc780f1bc587a193ce8a97652791438",
-            "edition": "EGA",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "Amiga"
-          },
-          {
-            "hash": "a0a7dea72003933b8b3f8b99b9f7ddeb",
-            "edition": "No AdLib",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "c24c490373aeb48fbd54caa8e7ae376d",
-            "edition": "No AdLib",
-            "locale": "de",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "0e9b01430e31d9fcd94071d433bbc6bf",
-            "edition": "No AdLib",
-            "locale": "fr",
-            "features": "SixteenColors",
-            "platform": "AtariST"
-          },
-          {
-            "hash": "6f0be328c64d689bb606d22a389e1b0f",
-            "edition": "No AdLib",
-            "locale": "en",
-            "features": "SixteenColors",
-            "platform": "Macintosh"
-          },
-          {
-            "hash": "c5d10e190d4b4d59114b824f2fdbd00e",
-            "edition": "FM-TOWNS",
-            "locale": "en",
-            "features": "Old256 AudioTracks",
-            "platform": "FMTowns"
-          }
-        ]
+        "iso": {
+          "type": "crc",
+          "seed": "hex:EDB88320",
+          "hashs": []
+        },
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "37f56ceb13e401a7ac7d9e6b37fecaf7",
+              "edition": "EGA",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "470c45b636139bb40716daa1c7edaad0",
+              "edition": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "fa127d7c4bb47d05bb1c33ddcaa9f767",
+              "edition": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "6f8a22bfa397be1f7ed4b74aba0e397e",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "b886b0a5d909c7158a914e1d7c1c6c65",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "c3df37df9d3b481b45f75283a9907c47",
+              "edition": "EGA",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "0be88565f734b1e9e77ccaaf3bb14b29",
+              "edition": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "2a208ffbcd0e83e86f4356e6f64aa6e1",
+              "edition": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "5d88b9d6a88e6f8e90cded9d01b7f082",
+              "edition": "VGA",
+              "locale": "en"
+            },
+            {
+              "hash": "4dc780f1bc587a193ce8a97652791438",
+              "edition": "EGA",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "a0a7dea72003933b8b3f8b99b9f7ddeb",
+              "edition": "No AdLib",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "c24c490373aeb48fbd54caa8e7ae376d",
+              "edition": "No AdLib",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "0e9b01430e31d9fcd94071d433bbc6bf",
+              "edition": "No AdLib",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "6f0be328c64d689bb606d22a389e1b0f",
+              "edition": "No AdLib",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Macintosh"
+            },
+            {
+              "hash": "c5d10e190d4b4d59114b824f2fdbd00e",
+              "edition": "FM-TOWNS",
+              "locale": "en",
+              "features": "Old256 AudioTracks",
+              "platform": "FMTowns"
+            }
+          ]
+        }
       }
     },
     "M": {
@@ -716,124 +729,126 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "1d05cd189e4908f79b57e78a4402f292",
-            "edition": "EGA",
-            "locale": "en",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "e98b982ceaf9d253d730bde8903233d6",
-            "edition": "EGA",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "fc6b6148e80d67939d9a18697c0f626a",
-            "edition": "EGA",
-            "locale": "de",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "1dd3c11ea4439adfe681e4e405b624e1",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "aa7a07d94ae853f6460be4ce0a1bf530",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "ce6a4cef315b20fef58a95bc40a2d8d3",
-            "edition": "EGA",
-            "locale": "fr",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "477dbafbd66a53c98416dc01aef019ad",
-            "edition": "EGA",
-            "locale": "it",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "910e31cffb28226bd68c569668a0d6b4",
-            "edition": "EGA",
-            "locale": "es",
-            "features": "SixteenColors"
-          },
-          {
-            "hash": "71523b539491527d9860f4407faf0411",
-            "edition": "EGA",
-            "locale": "en",
-            "features": "SixteenColors Demo"
-          },
-          {
-            "hash": "15e03ffbfeddb9c2aebc13dcb2a4a8f4",
-            "edition": "VGA",
-            "locale": "en"
-          },
-          {
-            "hash": "d0b531227a27c6662018d2bd05aac52a",
-            "edition": "VGA",
-            "locale": "de"
-          },
-          {
-            "hash": "a01fab4a64d47b96e2e58e6b0f825cc7",
-            "edition": "VGA",
-            "locale": "fr"
-          },
-          {
-            "hash": "66fd5ff9a810dfeb6d6bdada18221140",
-            "edition": "VGA",
-            "locale": "it"
-          },
-          {
-            "hash": "45152f7cf2ba8f43cf8a8ea2e740ae09",
-            "edition": "VGA",
-            "locale": "es"
-          },
-          {
-            "hash": "2d1e891fe52df707c30185e52c50cd92",
-            "edition": "CD",
-            "locale": "en"
-          },
-          {
-            "hash": "305d3dd57c96c65b017bc70c8c7cfb5e",
-            "edition": "CD",
-            "locale": "de"
-          },
-          {
-            "hash": "aa8a0cb65f3afbbe2c14c3f9f92775a3",
-            "edition": "CD",
-            "locale": "fr"
-          },
-          {
-            "hash": "da6269b18fcb08189c0aa9c95533cce2",
-            "edition": "CD",
-            "locale": "it"
-          },
-          {
-            "hash": "f049e38c1f8302b5db6170f1872af89a",
-            "edition": "CD",
-            "locale": "es"
-          },
-          {
-            "hash": "2ccd8891ce4d3f1a334d21bff6a88ca2",
-            "edition": "Mac",
-            "locale": "en",
-            "platform": "Macintosh"
-          },
-          {
-            "hash": "8eb84cee9b429314c7f0bdcf560723eb",
-            "edition": "FM-TOWNS",
-            "locale": "en",
-            "platform": "FMTowns"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "1d05cd189e4908f79b57e78a4402f292",
+              "edition": "EGA",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "e98b982ceaf9d253d730bde8903233d6",
+              "edition": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "fc6b6148e80d67939d9a18697c0f626a",
+              "edition": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "1dd3c11ea4439adfe681e4e405b624e1",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "aa7a07d94ae853f6460be4ce0a1bf530",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "ce6a4cef315b20fef58a95bc40a2d8d3",
+              "edition": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "477dbafbd66a53c98416dc01aef019ad",
+              "edition": "EGA",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "910e31cffb28226bd68c569668a0d6b4",
+              "edition": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "71523b539491527d9860f4407faf0411",
+              "edition": "EGA",
+              "locale": "en",
+              "features": "SixteenColors Demo"
+            },
+            {
+              "hash": "15e03ffbfeddb9c2aebc13dcb2a4a8f4",
+              "edition": "VGA",
+              "locale": "en"
+            },
+            {
+              "hash": "d0b531227a27c6662018d2bd05aac52a",
+              "edition": "VGA",
+              "locale": "de"
+            },
+            {
+              "hash": "a01fab4a64d47b96e2e58e6b0f825cc7",
+              "edition": "VGA",
+              "locale": "fr"
+            },
+            {
+              "hash": "66fd5ff9a810dfeb6d6bdada18221140",
+              "edition": "VGA",
+              "locale": "it"
+            },
+            {
+              "hash": "45152f7cf2ba8f43cf8a8ea2e740ae09",
+              "edition": "VGA",
+              "locale": "es"
+            },
+            {
+              "hash": "2d1e891fe52df707c30185e52c50cd92",
+              "edition": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "305d3dd57c96c65b017bc70c8c7cfb5e",
+              "edition": "CD",
+              "locale": "de"
+            },
+            {
+              "hash": "aa8a0cb65f3afbbe2c14c3f9f92775a3",
+              "edition": "CD",
+              "locale": "fr"
+            },
+            {
+              "hash": "da6269b18fcb08189c0aa9c95533cce2",
+              "edition": "CD",
+              "locale": "it"
+            },
+            {
+              "hash": "f049e38c1f8302b5db6170f1872af89a",
+              "edition": "CD",
+              "locale": "es"
+            },
+            {
+              "hash": "2ccd8891ce4d3f1a334d21bff6a88ca2",
+              "edition": "Mac",
+              "locale": "en",
+              "platform": "Macintosh"
+            },
+            {
+              "hash": "8eb84cee9b429314c7f0bdcf560723eb",
+              "edition": "FM-TOWNS",
+              "locale": "en",
+              "platform": "FMTowns"
+            }
+          ]
+        }
       }
     },
     "SWotL": {
@@ -890,44 +905,46 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "3686cf8f89e102ececf4366e1d2c8126",
-            "edition": "",
-            "locale": "en"
-          },
-          {
-            "hash": "6886e5d08cee329b1f2e743ae2e3ceed",
-            "edition": "",
-            "locale": "de"
-          },
-          {
-            "hash": "8e4ee4db46954bfe2912e259a16fad82",
-            "edition": "",
-            "locale": "fr"
-          },
-          {
-            "hash": "69ea626f1f87eecb78ea0d6c6b983a1d",
-            "edition": "",
-            "locale": "it"
-          },
-          {
-            "hash": "bd126753de619a495f9f22adc951c8d5",
-            "edition": "",
-            "locale": "it"
-          },
-          {
-            "hash": "7974365d3dc0f43a2748c975f91ff042",
-            "edition": "",
-            "locale": "es"
-          },
-          {
-            "hash": "da09e666fc8f5b78d7b0ac65d1a3b56e",
-            "edition": "FM-TOWNS",
-            "locale": "en",
-            "platform": "FMTowns"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "3686cf8f89e102ececf4366e1d2c8126",
+              "edition": "",
+              "locale": "en"
+            },
+            {
+              "hash": "6886e5d08cee329b1f2e743ae2e3ceed",
+              "edition": "",
+              "locale": "de"
+            },
+            {
+              "hash": "8e4ee4db46954bfe2912e259a16fad82",
+              "edition": "",
+              "locale": "fr"
+            },
+            {
+              "hash": "69ea626f1f87eecb78ea0d6c6b983a1d",
+              "edition": "",
+              "locale": "it"
+            },
+            {
+              "hash": "bd126753de619a495f9f22adc951c8d5",
+              "edition": "",
+              "locale": "it"
+            },
+            {
+              "hash": "7974365d3dc0f43a2748c975f91ff042",
+              "edition": "",
+              "locale": "es"
+            },
+            {
+              "hash": "da09e666fc8f5b78d7b0ac65d1a3b56e",
+              "edition": "FM-TOWNS",
+              "locale": "en",
+              "platform": "FMTowns"
+            }
+          ]
+        }
       }
     },
     "IJatFoA": {
@@ -961,55 +978,57 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "c63ee46143ba65f9ce14cf539ca51bd7",
-            "edition": "",
-            "locale": "en"
-          },
-          {
-            "hash": "182344899c2e2998fca0bebcd82aa81a",
-            "edition": "CD",
-            "locale": "en"
-          },
-          {
-            "hash": "1fbebd7b2b692df5297870447a80cfed",
-            "edition": "",
-            "locale": "de"
-          },
-          {
-            "hash": "4f267a901719623de7dde83e47d5b474",
-            "edition": "",
-            "locale": "de"
-          },
-          {
-            "hash": "edfdb24a499d92c59f824c52987c0eec",
-            "edition": "",
-            "locale": "fr"
-          },
-          {
-            "hash": "8f3758ff98c9c5d78e5d635222cad026",
-            "edition": "",
-            "locale": "it"
-          },
-          {
-            "hash": "9bd2a8f72613e715c199246dd511e10f",
-            "edition": "",
-            "locale": "es"
-          },
-          {
-            "hash": "c7be10f775404fd9785a8b92a06d240c",
-            "edition": "FM-TOWNS",
-            "locale": "en",
-            "platform": "FMTowns"
-          },
-          {
-            "hash": "98744fe66ff730e8c2b3b1f58803ab0b",
-            "edition": "Demo",
-            "features": "Demo",
-            "locale": "en"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "c63ee46143ba65f9ce14cf539ca51bd7",
+              "edition": "",
+              "locale": "en"
+            },
+            {
+              "hash": "182344899c2e2998fca0bebcd82aa81a",
+              "edition": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "1fbebd7b2b692df5297870447a80cfed",
+              "edition": "",
+              "locale": "de"
+            },
+            {
+              "hash": "4f267a901719623de7dde83e47d5b474",
+              "edition": "",
+              "locale": "de"
+            },
+            {
+              "hash": "edfdb24a499d92c59f824c52987c0eec",
+              "edition": "",
+              "locale": "fr"
+            },
+            {
+              "hash": "8f3758ff98c9c5d78e5d635222cad026",
+              "edition": "",
+              "locale": "it"
+            },
+            {
+              "hash": "9bd2a8f72613e715c199246dd511e10f",
+              "edition": "",
+              "locale": "es"
+            },
+            {
+              "hash": "c7be10f775404fd9785a8b92a06d240c",
+              "edition": "FM-TOWNS",
+              "locale": "en",
+              "platform": "FMTowns"
+            },
+            {
+              "hash": "98744fe66ff730e8c2b3b1f58803ab0b",
+              "edition": "Demo",
+              "features": "Demo",
+              "locale": "en"
+            }
+          ]
+        }
       }
     },
     "IJatFoA:TAG": {
@@ -1105,69 +1124,71 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "2723fea3dae0cb47768c424b145ae0e7",
-            "edition": "Floppy",
-            "locale": "en"
-          },
-          {
-            "hash": "57b0d89af79befe1cabce3bece869e7f",
-            "edition": "Floppy",
-            "locale": "de"
-          },
-          {
-            "hash": "92b078d9d6d9d751da9c26b8b3075779",
-            "edition": "Floppy",
-            "locale": "fr"
-          },
-          {
-            "hash": "94aaedbb8f26d71ed3ad6dd34490e29e",
-            "edition": "Floppy",
-            "locale": "fr"
-          },
-          {
-            "hash": "50fcdc982a25063b78ad46bf389b8e8d",
-            "edition": "Floppy",
-            "locale": "it"
-          },
-          {
-            "hash": "ae94f110a14ce71fc515d5b648827a8f",
-            "edition": "Floppy",
-            "locale": "es"
-          },
-          {
-            "hash": "c83079157ec765a28de445aec9768d60",
-            "edition": "Demo",
-            "locale": "en",
-            "features": "Demo"
-          },
-          {
-            "hash": "4167a92a1d46baa4f4127d918d561f88",
-            "edition": "CD",
-            "locale": "en"
-          },
-          {
-            "hash": "4fbbe9f64b8bc547503a379a301183ce",
-            "edition": "CD",
-            "locale": "it"
-          },
-          {
-            "hash": "6e959d65358eedf9b68b81e304b97fa4",
-            "edition": "CD",
-            "locale": "de"
-          },
-          {
-            "hash": "883af4b0af4f77a92f1dcf1d0a283140",
-            "edition": "CD",
-            "locale": "es"
-          },
-          {
-            "hash": "8aa05d3cdb0e795436043f0546af2da2",
-            "edition": "CD",
-            "locale": "fr"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "2723fea3dae0cb47768c424b145ae0e7",
+              "edition": "Floppy",
+              "locale": "en"
+            },
+            {
+              "hash": "57b0d89af79befe1cabce3bece869e7f",
+              "edition": "Floppy",
+              "locale": "de"
+            },
+            {
+              "hash": "92b078d9d6d9d751da9c26b8b3075779",
+              "edition": "Floppy",
+              "locale": "fr"
+            },
+            {
+              "hash": "94aaedbb8f26d71ed3ad6dd34490e29e",
+              "edition": "Floppy",
+              "locale": "fr"
+            },
+            {
+              "hash": "50fcdc982a25063b78ad46bf389b8e8d",
+              "edition": "Floppy",
+              "locale": "it"
+            },
+            {
+              "hash": "ae94f110a14ce71fc515d5b648827a8f",
+              "edition": "Floppy",
+              "locale": "es"
+            },
+            {
+              "hash": "c83079157ec765a28de445aec9768d60",
+              "edition": "Demo",
+              "locale": "en",
+              "features": "Demo"
+            },
+            {
+              "hash": "4167a92a1d46baa4f4127d918d561f88",
+              "edition": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "4fbbe9f64b8bc547503a379a301183ce",
+              "edition": "CD",
+              "locale": "it"
+            },
+            {
+              "hash": "6e959d65358eedf9b68b81e304b97fa4",
+              "edition": "CD",
+              "locale": "de"
+            },
+            {
+              "hash": "883af4b0af4f77a92f1dcf1d0a283140",
+              "edition": "CD",
+              "locale": "es"
+            },
+            {
+              "hash": "8aa05d3cdb0e795436043f0546af2da2",
+              "edition": "CD",
+              "locale": "fr"
+            }
+          ]
+        }
       }
     },
     "SWA": {
@@ -1209,69 +1230,71 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "3b301b7892f883ce42ab4be6a274fea6",
-            "edition": "Floppy",
-            "locale": "en"
-          },
-          {
-            "hash": "f27b1ba0eadaf2a6617b2b58192d1dbf",
-            "edition": "Floppy",
-            "locale": "de"
-          },
-          {
-            "hash": "ef347474f3c7be3b29584eaa133cca05",
-            "edition": "Floppy",
-            "locale": "fr"
-          },
-          {
-            "hash": "b289a2a8cbedbf45786e0b4ad2f510f1",
-            "edition": "Floppy",
-            "locale": "it"
-          },
-          {
-            "hash": "fc53ce0e5f6562b1c1e1b4b8203acafb",
-            "edition": "Floppy",
-            "locale": "es"
-          },
-          {
-            "hash": "c3196c5349e53e387aaff1533d95e53a",
-            "edition": "Demo",
-            "locale": "en",
-            "features": "Demo"
-          },
-          {
-            "hash": "d917f311a448e3cc7239c31bddb00dd2",
-            "edition": "CD",
-            "locale": "en"
-          },
-          {
-            "hash": "0f6f2e716ba896a44e5059bba1de7ca9",
-            "edition": "CD",
-            "locale": "it"
-          },
-          {
-            "hash": "0fb73eddfcf584c02ba097984df131ba",
-            "edition": "CD",
-            "locale": "de"
-          },
-          {
-            "hash": "3a5d13675e9a23aedac0bac7730f0ac1",
-            "edition": "CD",
-            "locale": "fr"
-          },
-          {
-            "hash": "7edd665bbede7ea8b7233f8e650be6f8",
-            "edition": "CD",
-            "locale": "fr"
-          },
-          {
-            "hash": "4ba7fb331296c283e73d8f5b2096e551",
-            "edition": "CD",
-            "locale": "es"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "3b301b7892f883ce42ab4be6a274fea6",
+              "edition": "Floppy",
+              "locale": "en"
+            },
+            {
+              "hash": "f27b1ba0eadaf2a6617b2b58192d1dbf",
+              "edition": "Floppy",
+              "locale": "de"
+            },
+            {
+              "hash": "ef347474f3c7be3b29584eaa133cca05",
+              "edition": "Floppy",
+              "locale": "fr"
+            },
+            {
+              "hash": "b289a2a8cbedbf45786e0b4ad2f510f1",
+              "edition": "Floppy",
+              "locale": "it"
+            },
+            {
+              "hash": "fc53ce0e5f6562b1c1e1b4b8203acafb",
+              "edition": "Floppy",
+              "locale": "es"
+            },
+            {
+              "hash": "c3196c5349e53e387aaff1533d95e53a",
+              "edition": "Demo",
+              "locale": "en",
+              "features": "Demo"
+            },
+            {
+              "hash": "d917f311a448e3cc7239c31bddb00dd2",
+              "edition": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "0f6f2e716ba896a44e5059bba1de7ca9",
+              "edition": "CD",
+              "locale": "it"
+            },
+            {
+              "hash": "0fb73eddfcf584c02ba097984df131ba",
+              "edition": "CD",
+              "locale": "de"
+            },
+            {
+              "hash": "3a5d13675e9a23aedac0bac7730f0ac1",
+              "edition": "CD",
+              "locale": "fr"
+            },
+            {
+              "hash": "7edd665bbede7ea8b7233f8e650be6f8",
+              "edition": "CD",
+              "locale": "fr"
+            },
+            {
+              "hash": "4ba7fb331296c283e73d8f5b2096e551",
+              "edition": "CD",
+              "locale": "es"
+            }
+          ]
+        }
       }
     },
     "SWC": {
@@ -1347,7 +1370,11 @@
         "https://store.steampowered.com/app/32400",
         "https://en.wikipedia.org/wiki/Star_Wars:_Dark_Forces"
       ],
-      "date": "February 28, 1995"
+      "date": "February 28, 1995",
+      "pakExt": [
+        ".gob",
+        ".lfd"
+      ]
     },
     "MW": {
       "n/a": true,
@@ -1375,33 +1402,35 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "4bedb49943df95a9c900a5a82ccbe9de",
-            "edition": "",
-            "locale": "fr"
-          },
-          {
-            "hash": "09820417db26687bb7fe0c83cc4c553b",
-            "edition": "",
-            "locale": "en"
-          },
-          {
-            "hash": "8bdb0bf87b5e303dd35693afb9351215",
-            "edition": "",
-            "locale": "de"
-          },
-          {
-            "hash": "55518cd73cf9c6d23ea29c51ee06bdfe",
-            "edition": "",
-            "locale": "it"
-          },
-          {
-            "hash": "e72bb4c2b613db2cf50f89ff6350e70a",
-            "edition": "",
-            "locale": "es"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "4bedb49943df95a9c900a5a82ccbe9de",
+              "edition": "",
+              "locale": "fr"
+            },
+            {
+              "hash": "09820417db26687bb7fe0c83cc4c553b",
+              "edition": "",
+              "locale": "en"
+            },
+            {
+              "hash": "8bdb0bf87b5e303dd35693afb9351215",
+              "edition": "",
+              "locale": "de"
+            },
+            {
+              "hash": "55518cd73cf9c6d23ea29c51ee06bdfe",
+              "edition": "",
+              "locale": "it"
+            },
+            {
+              "hash": "e72bb4c2b613db2cf50f89ff6350e70a",
+              "edition": "",
+              "locale": "es"
+            }
+          ]
+        }
       }
     },
     "BST": {
@@ -1426,13 +1455,15 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "d8323015ecb8b10bf53474f6e6b0ae33",
-            "edition": "",
-            "locale": "en"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "d8323015ecb8b10bf53474f6e6b0ae33",
+              "edition": "",
+              "locale": "en"
+            }
+          ]
+        }
       }
     },
     "SW:RA2": {
@@ -1564,13 +1595,15 @@
         }
       },
       "detector": {
-        "hashs": [
-          {
-            "hash": "fe60d6b5ff51b0553ac59963123b5777",
-            "edition": "",
-            "locale": "en"
-          }
-        ]
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "fe60d6b5ff51b0553ac59963123b5777",
+              "edition": "",
+              "locale": "en"
+            }
+          ]
+        }
       }
     },
     "SWJK:MotS": {

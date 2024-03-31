@@ -67,6 +67,7 @@ namespace GameSpec.WbB.Formats.FileTypes
         public int MipMaps => 1;
         public TextureFlags Flags => 0;
 
+        public void Select(int id) { }
         public byte[] Begin(int platform, out object format, out Range[] mips)
         {
             byte[] Expand()

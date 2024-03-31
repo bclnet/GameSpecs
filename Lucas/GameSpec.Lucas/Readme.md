@@ -11,5 +11,10 @@ https://wiki.scummvm.org/index.php/SCUMM/Technical_Reference
 https://github.com/scemino/nscumm/tree/master
 
 
-OUTLAW
+https://wiki.scummvm.org/index.php/LucasArts
+
+JEDI - OUTLAW
 https://github.com/glampert/reverse-engineering-outlaws
+https://github.com/Mindwerks/XLEngine/tree/20e105a95919d7eaaa1f57fb6b7c821b45acd9ab
+https://github.com/TheForceEngine/TheForceEngine.github.io
+https://github.com/df21-net/editor

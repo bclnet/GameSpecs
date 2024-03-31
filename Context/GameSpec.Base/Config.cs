@@ -330,7 +330,7 @@ namespace GameSpec
         public static DefaultOptions AppDefaultOptions = new DefaultOptions
         {
             ForceOpen = true,
-            ForcePath = "sample:1",
+            ForcePath = "sample:0",
             Family = "Lucas",
             //Game = "PP", // PHM Pegasus
             //Game = "MM", // Maniac Mansion

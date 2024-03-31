@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static GameSpec.FamilyManager;
 using static GameSpec.FileManager;
 using static GameSpec.Formats.Unknown.IUnknownFileObject;
@@ -123,13 +124,14 @@ namespace GameSpec
         /// Create Detector.
         /// </summary>
         /// <param name="game"></param>
+        /// <param name="id"></param>
         /// <param name="elem"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal static Detector CreateDetector(FamilyGame game, JsonElement elem)
+        internal static Detector CreateDetector(FamilyGame game, string id, JsonElement elem)
         {
             var detectorType = _value(elem, "detectorType", z => Type.GetType(z.GetString(), false) ?? throw new ArgumentOutOfRangeException("detectorType", $"Unknown type: {z}"));
-            return detectorType != null ? (Detector)Activator.CreateInstance(detectorType, game, elem) : new Detector(game, elem);
+            return detectorType != null ? (Detector)Activator.CreateInstance(detectorType, game, id, elem) : new Detector(game, id, elem);
         }
 
         /// <summary>
@@ -266,25 +268,41 @@ namespace GameSpec
         protected Dictionary<string, Dictionary<string, object>> Hashs;
 
         /// <summary>
+        /// The identifier
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
         /// Gets or sets the Game.
         /// </summary>
         public FamilyGame Game { get; set; }
+        /// <summary>
+        /// The Type
+        /// </summary>
+        public string Type { get; set; }
+        /// <summary>
+        /// The Seed
+        /// </summary>
+        public object Seed { get; set; }
 
         /// <summary>
         /// Detector
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="game"></param>
         /// <param name="elem"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Detector(FamilyGame game, JsonElement elem)
+        public Detector(FamilyGame game, string id, JsonElement elem)
         {
+            Id = id;
             Game = game;
             ParseElem(game, elem);
         }
 
         public virtual void ParseElem(FamilyGame game, JsonElement elem)
         {
-            Hashs = elem.TryGetProperty("hashs", out var z) ? z.EnumerateArray().ToDictionary(x => x.GetProperty("hash").GetString(), x => ParseHash(game, x)) : default;
+            Type = _value(elem, "type") ?? "md5";
+            Seed = _method(elem, "seed", CreateKey);
+            Hashs = _related(elem, "hashs", k => k.GetProperty("hash").GetString(), v => ParseHash(game, v));
         }
 
         public virtual Dictionary<string, object> ParseHash(FamilyGame game, JsonElement elem)
@@ -302,12 +320,40 @@ namespace GameSpec
                 }
             });
 
-        public virtual string GetHash(BinaryReader r)
+        public unsafe virtual string GetHash(BinaryReader r)
         {
-            using var md5 = System.Security.Cryptography.MD5.Create();
-            var data = r.ReadBytes(1024 * 1024);
-            var h = md5.ComputeHash(data, 0, data.Length);
-            return $"{h[0]:x2}{h[1]:x2}{h[2]:x2}{h[3]:x2}{h[4]:x2}{h[5]:x2}{h[6]:x2}{h[7]:x2}{h[8]:x2}{h[9]:x2}{h[10]:x2}{h[11]:x2}{h[12]:x2}{h[13]:x2}{h[14]:x2}{h[15]:x2}";
+            switch (Type)
+            {
+                case "crc":
+                    {
+                        // create table
+                        var seed = 0xEDB88320U;
+                        var table = stackalloc uint[256];
+                        uint j, n;
+                        for (var i = 0U; i < 256; i++)
+                        {
+                            n = i;
+                            for (j = 0; j < 8; j++) n = (n & 1) != 0 ? (n >> 1) ^ seed : n >> 1;
+                            table[i] = n;
+                        }
+
+                        // generate crc
+                        var crc = 0xFFFFFFFFU;
+                        var len = r.BaseStream.Length;
+                        for (var i = 0U; i < len; i++)
+                            crc = (crc >> 8) ^ table[(crc ^ r.ReadByte()) & 0xFF];
+                        crc ^= 0xFFFFFFFF;
+                        return $"{crc:x}";
+                    }
+                case "md5":
+                    {
+                        using var md5 = System.Security.Cryptography.MD5.Create();
+                        var data = r.ReadBytes(1024 * 1024);
+                        var h = md5.ComputeHash(data, 0, data.Length);
+                        return $"{h[0]:x2}{h[1]:x2}{h[2]:x2}{h[3]:x2}{h[4]:x2}{h[5]:x2}{h[6]:x2}{h[7]:x2}{h[8]:x2}{h[9]:x2}{h[10]:x2}{h[11]:x2}{h[12]:x2}{h[13]:x2}{h[14]:x2}{h[15]:x2}";
+                    }
+                default: throw new ArgumentOutOfRangeException(nameof(Type), $"Unknown Type {Type}");
+            }
         }
 
         public T Get<T>(string key, object value, Func<T, T> func) where T : class => DetectCache.GetOrAdd(key, (k, v) =>
@@ -986,10 +1032,6 @@ namespace GameSpec
         /// </summary>
         public object Key { get; set; }
         /// <summary>
-        /// Gets or sets the detector.
-        /// </summary>
-        public Detector Detector { get; set; }
-        /// <summary>
         /// Gets or sets the Status.
         /// </summary>
         //public string[] Status { get; set; }
@@ -1009,17 +1051,21 @@ namespace GameSpec
         /// </value>
         public Type FileSystemType { get; set; }
         /// <summary>
-        /// Gets the game editions.
+        /// Gets or sets the game editions.
         /// </summary>
         public IDictionary<string, Edition> Editions { get; set; }
         /// <summary>
-        /// Gets the game dlcs.
+        /// Gets or sets the game dlcs.
         /// </summary>
         public IDictionary<string, DownloadableContent> Dlcs { get; set; }
         /// <summary>
-        /// Gets the game locales.
+        /// Gets or sets the game locales.
         /// </summary>
         public IDictionary<string, Locale> Locales { get; set; }
+        /// <summary>
+        /// Gets or sets the detectorss.
+        /// </summary>
+        public IDictionary<string, Detector> Detectors { get; set; }
         /// <summary>
         /// Gets the displayed game name.
         /// </summary>
@@ -1066,7 +1112,7 @@ namespace GameSpec
             Dlcs = _related(elem, "dlcs", (k, v) => new DownloadableContent(k, v));
             Locales = _related(elem, "locals", (k, v) => new Locale(k, v));
             // detector
-            Detector = _method(elem, "detector", v => CreateDetector(this, v), dgame.Detector);
+            Detectors = _related(elem, "detectors", (k, v) => CreateDetector(this, k, v));
         }
 
         /// <summary>
@@ -1080,7 +1126,7 @@ namespace GameSpec
         /// <summary>
         /// Detect
         /// </summary>
-        public T Detect<T>(string key, object value, Func<T, T> func = null) where T : class => Detector?.Get(key, value, func);
+        public T Detect<T>(string id, string key, object value, Func<T, T> func = null) where T : class => Detectors.TryGetValue(id, out var z) ? z.Get(key, value, func) : default;
 
         /// <summary>
         /// Ensures this instance.

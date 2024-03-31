@@ -45,7 +45,7 @@ namespace GameSpec.App.Explorer
 
         public override object PackageIcon => _packageIcon;
 
-        public override object GetIcon(string name) => Icons.TryGetValue(name, out var z) ? z : _defaultIcon;
+        public override object GetIcon(string name) => Icons.TryGetValue(name?.ToLowerInvariant(), out var z) ? z : _defaultIcon;
 
         public override object GetImage(string name) => ImageCache.GetOrAdd(name, x =>
         {

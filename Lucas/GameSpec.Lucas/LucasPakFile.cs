@@ -37,6 +37,11 @@ namespace GameSpec.Lucas
             => Path.GetExtension(source.Path).ToLowerInvariant() switch
             {
                 var x when x == ".cfg" || x == ".csv" || x == ".txt" => (0, Binary_Txt.Factory),
+                var x when x == ".bmp" => (0, Binary_Img.Factory),
+                ".pcx" => (0, Binary_Pcx.Factory),
+                ".wav" => (0, Binary_Snd.Factory),
+                ".nwx" => (0, Binary_Nwx.Factory),
+                ".san" => (0, Binary_San.Factory),
                 _ => (0, null),
             };
 

@@ -841,7 +841,8 @@ namespace GameSpec.Origin.Formats.UO
         public int MipMaps { get; } = 1;
         public TextureFlags Flags { get; } = 0;
 
-        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
+        public void Select(int id) { }
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch
             {
@@ -1062,7 +1063,8 @@ namespace GameSpec.Origin.Formats.UO
         public int MipMaps { get; } = 1;
         public TextureFlags Flags { get; } = 0;
 
-        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
+        public void Select(int id) { }
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch
             {
@@ -1145,7 +1147,8 @@ namespace GameSpec.Origin.Formats.UO
         public int MipMaps { get; } = 1;
         public TextureFlags Flags { get; } = 0;
 
-        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
+        public void Select(int id) { }
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch
             {
@@ -1343,7 +1346,8 @@ namespace GameSpec.Origin.Formats.UO
         public int MipMaps { get; } = 1;
         public TextureFlags Flags { get; } = 0;
 
-        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
+        public void Select(int id) { }
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch
             {
@@ -1811,7 +1815,8 @@ namespace GameSpec.Origin.Formats.UO
         public int MipMaps { get; } = 1;
         public TextureFlags Flags { get; } = 0;
 
-        public unsafe byte[] Begin(int platform, out object format, out Range[] ranges)
+        public void Select(int id) { }
+        public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch
             {

@@ -71,6 +71,7 @@ namespace GameSpec.Black.Formats
         public int MipMaps => 1;
         public TextureFlags Flags => 0;
 
+        public void Select(int id) { }
         public byte[] Begin(int platform, out object format, out Range[] ranges)
         {
             format = (Platform.Type)platform switch

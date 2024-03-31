@@ -41,5 +41,47 @@
   "TD": {
     "name": "The Dig",
     "files": []
+  },
+  "SW:DF": {
+    "name": "Star Wars: Dark Forces",
+    "files": [
+      {
+        "path": "DARK.GOB:CUTSCENE.LST",
+        "type": "Cutscene"
+      },
+      {
+        "path": "DARK.GOB:TEXT.MSG",
+        "type": "Image"
+      }
+    ]
+  },
+  "O": {
+    "name": "Outlaws",
+    "files": [
+      {
+        "path": "CAE_SAB.SAN",
+        "type": "Video"
+      },
+      {
+        "path": "olobj.lab:MAN1.NWX",
+        "type": "Object"
+      },
+      {
+        "path": "OLGEO.LAB:CANYON.LVT",
+        "type": "Video"
+      },
+      {
+        "path": "outlaws.lab:hintro.pcx",
+        "type": "Image"
+      },
+      {
+        "path": "oltex.lab:hcsky1.PCX",
+        "type": "Image"
+      },
+      {
+        "path": "oltex.lab:BCSKY.PCX",
+        "type": "Image"
+      }
+    ]
   }
 }
