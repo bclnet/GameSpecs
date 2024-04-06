@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GameX.App.Explorer.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:GameX.App.Explorer.Views">
+
+    <ShellContent Title="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
+    <ShellContent Title="Open" ContentTemplate="{DataTemplate views:OpenPage}" />
+    <FlyoutItem Title="View">
+        <ShellContent Title="Options" ContentTemplate="{DataTemplate views:OptionsPage}" />
+        <ShellContent Title="World Map" ContentTemplate="{DataTemplate views:OptionsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Help">
+        <ShellContent Title="Help" ContentTemplate="{DataTemplate views:AboutPage}" />
+        <ShellContent Title="AboutMap" ContentTemplate="{DataTemplate views:AboutPage}" />
+    </FlyoutItem>
+</Shell>

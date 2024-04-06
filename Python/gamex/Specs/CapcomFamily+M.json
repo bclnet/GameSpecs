@@ -1,0 +1,722 @@
+﻿{
+  "id": "Capcom+M",
+  "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_M",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Capcom.CapcomPakFile, GameX.Capcom"
+    },
+    "MagicSword": {
+      "name": "Magic Sword",
+      "url": "https://en.wikipedia.org/wiki/Magic_Sword_(video_game)",
+      "date": "July 23, 1990"
+    },
+    "Tetris:MC": {
+      "name": "Magical Tetris Challenge",
+      "url": "https://en.wikipedia.org/wiki/Magical_Tetris_Challenge",
+      "date": "1998-01-01"
+    },
+    "Mahjong:G": {
+      "name": "Mahjong Gakuen",
+      "date": "1988-01-01"
+    },
+    "Makaimura:FW": {
+      "name": "Makaimura for WonderSwan",
+      "url": "https://en.wikipedia.org/wiki/Makaimura_for_WonderSwan",
+      "date": "July 22, 1999"
+    },
+    "MarsMatrix:HSS": {
+      "name": "Mars Matrix: Hyper Solid Shooting",
+      "url": "https://en.wikipedia.org/wiki/Mars_Matrix:_Hyper_Solid_Shooting",
+      "date": "April 01, 2000"
+    },
+    "Marusa:O": {
+      "name": "Marusa no Onna",
+      "url": "https://en.wikipedia.org/wiki/Marusa_no_Onna",
+      "date": "September 19, 1989"
+    },
+    "MSH": {
+      "name": "Marvel Super Heroes",
+      "url": "https://en.wikipedia.org/wiki/Marvel_Super_Heroes_(video_game)",
+      "date": "October 24, 1995"
+    },
+    "MSHVSF": {
+      "name": "Marvel Super Heroes vs. Street Fighter",
+      "url": "https://en.wikipedia.org/wiki/Marvel_Super_Heroes_vs._Street_Fighter",
+      "date": "July 01, 1997"
+    },
+    "MSHVSF:EX": {
+      "name": "Marvel Super Heroes vs. Street Fighter EX Edition",
+      "url": "https://en.wikipedia.org/wiki/Marvel_Super_Heroes_vs._Street_Fighter",
+      "date": "February 23, 1999"
+    },
+    "MSH:IWotG": {
+      "name": "Marvel Super Heroes In War of the Gems",
+      "url": "https://en.wikipedia.org/wiki/Marvel_Super_Heroes_In_War_of_the_Gems",
+      "date": "October 18, 1996"
+    },
+    "MVC": {
+      "name": "Marvel vs. Capcom",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom:_Clash_of_Super_Heroes",
+      "date": "March 25, 1999"
+    },
+    "MVC2": {
+      "name": "Marvel vs. Capcom 2",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom_2",
+      "date": "March 30, 2000"
+    },
+    "MVC2:NAoH": {
+      "name": "Marvel vs. Capcom 2: New Age of Heroes",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom_2:_New_Age_of_Heroes",
+      "date": "2000-01-01"
+    },
+    "MVC3:AFoTW": {
+      "name": "Marvel vs. Capcom 3: Fate of Two Worlds",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom_3:_Fate_of_Two_Worlds",
+      "date": "February 15, 2011",
+      "engine": "MT2"
+    },
+    "MVC:CoSH": {
+      "name": "Marvel vs. Capcom: Clash of Super Heroes",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom:_Clash_of_Super_Heroes",
+      "date": "January 23, 1998"
+    },
+    "MVC:CoSH:EX": {
+      "name": "Marvel vs. Capcom Clash of Super Heroes EX Edition",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom:_Clash_of_Super_Heroes",
+      "date": "November 11, 1999"
+    },
+    "MVC:I": {
+      "n/a": false,
+      "name": "Marvel vs. Capcom: Infinite",
+      "url": [
+        "https://store.steampowered.com/app/493840",
+        "https://en.wikipedia.org/wiki/Marvel_vs._Capcom:_Infinite"
+      ],
+      "date": "September 19, 2017",
+      "path": "Paks",
+      "pakExt": ".pak"
+    },
+    "MVC:O": {
+      "name": "Marvel vs. Capcom Origins",
+      "url": "https://en.wikipedia.org/wiki/Marvel_vs._Capcom_Origins",
+      "date": "September 25, 2012"
+    },
+    "Maximo:AoZ": {
+      "name": "Maximo vs. Army of Zin",
+      "url": "https://en.wikipedia.org/wiki/Maximo_vs._Army_of_Zin",
+      "date": "September 18, 2003"
+    },
+    "Maximo:GtG": {
+      "name": "Maximo: Ghosts to Glory",
+      "url": "https://en.wikipedia.org/wiki/Maximo:_Ghosts_to_Glory",
+      "date": "December 27, 2001"
+    },
+    "MaXplosion": {
+      "name": "MaXplosion",
+      "url": "https://en.wikipedia.org/wiki/%27Splosion_Man#Controversy",
+      "date": "2011-01-01"
+    },
+    "MM": {
+      "name": "Mega Man",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_(video_game)",
+      "date": "December 17, 1987"
+    },
+    "MM:B": {
+      "name": "Mega Man & Bass",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_%26_Bass",
+      "date": "April 24, 1998"
+    },
+    "MM2": {
+      "name": "Mega Man 2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_2",
+      "date": "December 24, 1988"
+    },
+    "MM2:TPF": {
+      "name": "Mega Man 2: The Power Fighters",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_2:_The_Power_Fighters",
+      "date": "July 9, 1996"
+    },
+    "MM3": {
+      "name": "Mega Man 3",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_3",
+      "date": "September 28, 1990"
+    },
+    "MM4": {
+      "name": "Mega Man 4",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_4",
+      "date": "December 6, 1991"
+    },
+    "MM5": {
+      "name": "Mega Man 5",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_5",
+      "date": "December 4, 1992"
+    },
+    "MM6": {
+      "name": "Mega Man 6",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_6",
+      "date": "November 5, 1993"
+    },
+    "MM:64": {
+      "name": "Mega Man 64",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_64",
+      "date": "November 22, 2000"
+    },
+    "MM7": {
+      "name": "Mega Man 7",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_7",
+      "date": "March 24, 1995"
+    },
+    "MM8": {
+      "name": "Mega Man 8",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_8",
+      "date": "December 17, 1996"
+    },
+    "MM9": {
+      "name": "Mega Man 9",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_9",
+      "date": "September 22, 2008"
+    },
+    "MM10": {
+      "name": "Mega Man 10",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_10",
+      "date": "March 1, 2010"
+    },
+    "MM11": {
+      "n/a": false,
+      "name": "Mega Man 11",
+      "url": [
+        "https://store.steampowered.com/app/742300",
+        "https://en.wikipedia.org/wiki/Mega_Man_11"
+      ],
+      "date": "October 2, 2018",
+      "engine": "MT2",
+      "path": "arc",
+      "pakExt": ".arc",
+      "pak": "game:/*/*.arc"
+    },
+    "MM:AC": {
+      "name": "Mega Man Anniversary Collection",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Anniversary_Collection",
+      "date": "June 23, 2004"
+    },
+    "MMB:C": {
+      "name": "Mega Man Battle & Chase",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_%26_Chase",
+      "date": "March 20, 1997"
+    },
+    "MMB:CC": {
+      "name": "Mega Man Battle Chip Challenge",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Chip_Challenge",
+      "date": "August 8, 2003"
+    },
+    "MMB:N": {
+      "name": "Mega Man Battle Network",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_(video_game)",
+      "date": "March 21, 2001"
+    },
+    "MMB:N2": {
+      "name": "Mega Man Battle Network 2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_2",
+      "date": "December 14, 2001"
+    },
+    "MMB:N3": {
+      "name": "Mega Man Battle Network 3",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_3",
+      "date": "December 6, 2002"
+    },
+    "MMB:N4": {
+      "name": "Mega Man Battle Network 4",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_4",
+      "date": "December 14, 2003"
+    },
+    "MMB:N5": {
+      "name": "Mega Man Battle Network 5",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_5",
+      "date": "December 9, 2004"
+    },
+    "MMB:N6": {
+      "name": "Mega Man Battle Network 6",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Battle_Network_6",
+      "date": "November 23, 2005"
+    },
+    "MM:DWR": {
+      "name": "Mega Man: Dr. Wily's Revenge",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man:_Dr._Wily%27s_Revenge",
+      "date": "July 26, 1991"
+    },
+    "MMII": {
+      "name": "Mega Man II",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_II_(Game_Boy)",
+      "date": "December 20, 1991"
+    },
+    "MMIII": {
+      "name": "Mega Man III",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_III_(Game_Boy)",
+      "date": "December 11, 1992"
+    },
+    "MMIV": {
+      "name": "Mega Man IV",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_IV_(Game_Boy)",
+      "date": "October 29, 1993"
+    },
+    "MML": {
+      "name": "Mega Man Legends",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Legends_(video_game)",
+      "date": "December 18, 1997"
+    },
+    "MML2": {
+      "name": "Mega Man Legends 2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Legends_2",
+      "date": "April 20, 2000"
+    },
+    "MML3": {
+      "name": "Mega Man Legends 3",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Legends_3",
+      "tags": "Cancelled"
+    },
+    "MM:M": {
+      "name": "Mega Man Mania",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Mania",
+      "tags": "Cancelled"
+    },
+    "MM:NT": {
+      "name": "Mega Man Network Transmission",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Network_Transmission",
+      "date": "March 6, 2003"
+    },
+    "MM:PU": {
+      "name": "Mega Man Powered Up",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Powered_Up",
+      "date": "March 2, 2006"
+    },
+    "MM:S": {
+      "name": "Mega Man Soccer",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Soccer",
+      "date": "February 17, 1994"
+    },
+    "MMSF": {
+      "name": "Mega Man Star Force",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Star_Force",
+      "date": "December 14, 2006"
+    },
+    "MMSF2": {
+      "name": "Mega Man Star Force 2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Star_Force_2",
+      "date": "November 22, 2007"
+    },
+    "MMSF3": {
+      "name": "Mega Man Star Force 3",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Star_Force_3",
+      "date": "November 13, 2008"
+    },
+    "MM:U": {
+      "name": "Mega Man Universe",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Universe",
+      "tags": "Cancelled"
+    },
+    "MMV": {
+      "name": "Mega Man V",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_V_(Game_Boy)",
+      "date": "July 22, 1994"
+    },
+    "MMX": {
+      "name": "Mega Man X",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X_(video_game)",
+      "date": "December 17, 1993"
+    },
+    "MMX:C": {
+      "name": "Mega Man X Collection",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X_Collection",
+      "date": "January 10, 2006"
+    },
+    "MMX:CM": {
+      "name": "Mega Man X: Command Mission",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X:_Command_Mission",
+      "date": "July 29, 2004"
+    },
+    "MMX:LC": {
+      "n/a": false,
+      "name": "Mega Man X Legacy Collection",
+      "url": [
+        "https://store.steampowered.com/app/743890",
+        "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection"
+      ],
+      "date": "July 24, 2018",
+      "engine": "MT2",
+      "path": [
+        "Common/romPC",
+        "RXC1/romPC",
+        "X4/romPC",
+        "XChallenge/romPC"
+      ],
+      "pakExt": ".arc",
+      "pak": "game:/**/*.arc"
+    },
+    "MMX:LC2": {
+      "n/a": false,
+      "name": "Mega Man X Legacy Collection 2",
+      "url": [
+        "https://store.steampowered.com/app/743900",
+        "https://en.wikipedia.org/wiki/Mega_Man_X_Legacy_Collection_2"
+      ],
+      "date": "July 24, 2018",
+      "engine": "MT2",
+      "path": [
+        "Common/romPC",
+        "RXC2/romPC",
+        "X5/romPC",
+        "X6/romPC",
+        "X7/romPC",
+        "X8/romPC",
+        "XChallenge/romPC"
+      ],
+      "pakExt": ".arc",
+      "pak": "game:/**/*.arc"
+    },
+    "MMX2": {
+      "name": "Mega Man X2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X2",
+      "date": "December 16, 1994"
+    },
+    "MMX3": {
+      "name": "Mega Man X3",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X3",
+      "date": "December 1, 1995"
+    },
+    "MMX4": {
+      "name": "Mega Man X4",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X4",
+      "date": "August 1, 1997"
+    },
+    "MMX5": {
+      "name": "Mega Man X5",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X5",
+      "date": "November 30, 2000"
+    },
+    "MMX6": {
+      "name": "Mega Man X6",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X6",
+      "date": "November 29, 2001"
+    },
+    "MMX7": {
+      "name": "Mega Man X7",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X7",
+      "date": "July 17, 2003"
+    },
+    "MMX8": {
+      "name": "Mega Man X8",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_X8",
+      "date": "December 7, 2004"
+    },
+    "MM:X": {
+      "name": "Mega Man Xtreme",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Xtreme",
+      "date": "October 20, 2000"
+    },
+    "MM:X2": {
+      "name": "Mega Man Xtreme 2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Xtreme_2",
+      "date": "July 19, 2001"
+    },
+    "MMZ": {
+      "name": "Mega Man Zero",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Zero_(video_game)",
+      "date": "October 22, 2014"
+    },
+    "MMZ2": {
+      "name": "Mega Man Zero 2",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Zero_2",
+      "date": "May 2, 2003"
+    },
+    "MMZ3": {
+      "name": "Mega Man Zero 3",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Zero_3",
+      "date": "April 23, 2004"
+    },
+    "MMZ4": {
+      "name": "Mega Man Zero 4",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Zero_4",
+      "date": "April 21, 2005"
+    },
+    "MMZ:C": {
+      "name": "Mega Man Zero Collection",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_Zero_Collection",
+      "date": "June 8, 2010"
+    },
+    "MMZX": {
+      "name": "Mega Man ZX",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_ZX",
+      "date": "July 6, 2006"
+    },
+    "MMZX:A": {
+      "name": "Mega Man ZX Advent",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man_ZX_Advent",
+      "date": "July 12, 2007"
+    },
+    "MM:MHX": {
+      "name": "Mega Man: Maverick Hunter X",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man:_Maverick_Hunter_X",
+      "date": "December 15, 2005"
+    },
+    "MM:TPB": {
+      "name": "Mega Man: The Power Battle",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man:_The_Power_Battle",
+      "date": "October 18, 1995"
+    },
+    "MM:TWW": {
+      "name": "Mega Man: The Wily Wars",
+      "url": "https://en.wikipedia.org/wiki/Mega_Man:_The_Wily_Wars",
+      "date": "October 21, 1994"
+    },
+    "MegaTwins": {
+      "name": "Mega Twins",
+      "url": "https://en.wikipedia.org/wiki/Mega_Twins",
+      "date": "1991-01-01"
+    },
+    "Mercs": {
+      "name": "Mercs",
+      "url": "https://en.wikipedia.org/wiki/Mercs",
+      "date": "April 01, 1990"
+    },
+    "MetalWalker": {
+      "name": "Metal Walker",
+      "url": "https://en.wikipedia.org/wiki/Metal_Walker",
+      "date": "December 24, 1999"
+    },
+    "Mickey:M": {
+      "name": "Mickey Mousecapade",
+      "url": "https://en.wikipedia.org/wiki/Mickey_Mousecapade",
+      "date": "March 6, 1987"
+    },
+    "Mickey:DC": {
+      "name": "Mickey's Dangerous Chase",
+      "url": "https://en.wikipedia.org/wiki/Mickey%27s_Dangerous_Chase",
+      "date": "May 15, 1991"
+    },
+    "MightyFinalFight": {
+      "name": "Mighty Final Fight",
+      "url": "https://en.wikipedia.org/wiki/Mighty_Final_Fight",
+      "date": "June 11, 1993"
+    },
+    "MTWI": {
+      "name": "Minute to Win It",
+      "url": "https://en.wikipedia.org/wiki/Minute_to_Win_It",
+      "date": "March 17, 2011"
+    },
+    "Mizushima:D": {
+      "name": "Mizushima Shinji no Daikoushien",
+      "date": "October 26, 1990"
+    },
+    "MSG:FVZA": {
+      "name": "Mobile Suit Gundam SEED: Federation vs ZAFT",
+      "url": "https://en.wikipedia.org/wiki/Gundam_Seed:_Rengou_vs._Z.A.F.T.",
+      "date": "September 2003"
+    },
+    "MSG:AVT": {
+      "name": "Mobile Suit Gundam: AEUG Vs Titans",
+      "date": "September 2003"
+    },
+    "MSG:FVZE": {
+      "name": "Mobile Suit Gundam: Federation vs. Zeon",
+      "url": "https://en.wikipedia.org/wiki/Mobile_Suit_Gundam:_Federation_vs._Zeon",
+      "date": "December 6, 2001"
+    },
+    "MSG:FVZE:DX": {
+      "name": "Mobile Suit Gundam: Federation vs. Zeon DX",
+      "url": "https://en.wikipedia.org/wiki/List_of_Gundam_video_games#Dreamcast",
+      "date": "December 6, 2001"
+    },
+    "MH": {
+      "name": "Monster Hunter",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_(video_game)",
+      "date": "March 11, 2004"
+    },
+    "MH2": {
+      "name": "Monster Hunter 2",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_2",
+      "date": "February 16, 2006"
+    },
+    "MH3": {
+      "name": "Monster Hunter 3 Ultimate",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Tri#Monster_Hunter_3_Ultimate",
+      "date": "December 10, 2011",
+      "engine": "MTFM"
+    },
+    "MH4": {
+      "name": "Monster Hunter 4",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_4",
+      "date": "September 14, 2013",
+      "engine": "MTFM"
+    },
+    "MH:F": {
+      "name": "Monster Hunter Freedom",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Freedom",
+      "date": "December 1, 2005"
+    },
+    "MH:F2": {
+      "name": "Monster Hunter Freedom 2",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Freedom_2",
+      "date": "February 22, 2007"
+    },
+    "MH:FU": {
+      "name": "Monster Hunter Freedom Unite",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Freedom_Unite",
+      "date": "March 27, 2008"
+    },
+    "MH:FG": {
+      "name": "Monster Hunter Frontier G",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Frontier_G",
+      "date": "April 17, 2013"
+    },
+    "MHF:FO": {
+      "name": "Monster Hunter Frontier Online",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Frontier_Online",
+      "date": "June 21, 2007"
+    },
+    "MH:G": {
+      "name": "Monster Hunter G",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_(video_game)#Monster_Hunter_G",
+      "date": "January 20, 2005"
+    },
+    "MH:GX": {
+      "name": "Monster Hunter Generations / Monster Hunter X",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Generations",
+      "date": "November 28, 2015"
+    },
+    "MH:GU": {
+      "name": "Monster Hunter Generations Ultimate",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Generations",
+      "date": "November 28, 2015",
+      "engine": "MT2"
+    },
+    "MH:P3": {
+      "name": "Monster Hunter Portable 3rd",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Portable_3rd",
+      "date": "December 1, 2010"
+    },
+    "MH:P3HD": {
+      "name": "Monster Hunter Portable 3rd HD ver.",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Portable_3rd",
+      "date": "August 25, 2011"
+    },
+    "MH:S": {
+      "name": "Monster Hunter Stories",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Stories",
+      "date": "October 8, 2016",
+      "engine": "MTFM"
+    },
+    "MH:T": {
+      "name": "Monster Hunter Tri",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Tri",
+      "date": "August 1, 2009"
+    },
+    "MH:W": {
+      "n/a": false,
+      "name": "Monster Hunter: World",
+      "url": [
+        "https://store.steampowered.com/app/582010",
+        "https://en.wikipedia.org/wiki/Monster_Hunter:_World"
+      ],
+      "date": "January 26, 2018",
+      "engine": "MT2",
+      "pakExt": ".bin"
+    },
+    "MHXX": {
+      "name": "Monster Hunter XX",
+      "url": "https://en.wikipedia.org/wiki/Monster_Hunter_Generations",
+      "date": "March 18, 2017",
+      "editions": {
+        "NS": {
+          "name": "Monster Hunter XX: Nintendo Switch Ver.",
+          "date": "August 25, 2017"
+        }
+      },
+      "engine": "MTFM"
+    },
+    "MotoGP": {
+      "name": "MotoGP",
+      "url": "https://en.wikipedia.org/wiki/MotoGP_08",
+      "date": "October 30, 2008"
+    },
+    "MotoGP07": {
+      "name": "MotoGP '07",
+      "url": "https://en.wikipedia.org/wiki/MotoGP_%2707_(PS2)",
+      "date": "October 1, 2007"
+    },
+    "MotoGP08": {
+      "name": "MotoGP '08",
+      "url": "https://en.wikipedia.org/wiki/MotoGP_%2708",
+      "date": "October 24, 2008"
+    },
+    "MotoGP09": {
+      "name": "MotoGP 09/10",
+      "url": "https://en.wikipedia.org/wiki/MotoGP_09/10",
+      "date": "March 18, 2010"
+    },
+    "MotoGP10": {
+      "name": "MotoGP 10/11",
+      "url": "https://en.wikipedia.org/wiki/MotoGP_10/11",
+      "date": "March 15, 2011"
+    },
+    "MrBill": {
+      "name": "Mr. Bill",
+      "url": "https://en.wikipedia.org/wiki/Mr._Bill",
+      "date": "September 24, 2010"
+    },
+    "MB": {
+      "name": "Muscle Bomber",
+      "url": "https://en.wikipedia.org/wiki/Muscle_Bomber",
+      "date": "July 13, 1993"
+    },
+    "MB2": {
+      "name": "Muscle Bomber 2",
+      "url": "https://en.wikipedia.org/wiki/Muscle_Bomber",
+      "date": "September 2, 1994\t"
+    },
+    "MB:D": {
+      "name": "Muscle Bomber Duo",
+      "url": "https://en.wikipedia.org/wiki/Muscle_Bomber_Duo",
+      "date": "December 6, 1993"
+    },
+    "MB:TBE": {
+      "name": "Muscle Bomber: The Body Explosion",
+      "url": "https://en.wikipedia.org/wiki/Muscle_Bomber:_The_Body_Explosion",
+      "date": "July 13, 1993"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "MVC:I": {
+        "key": "Steam:493840",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 493840",
+        "dir": "MARVEL VS. CAPCOM INFINITE",
+        "path": "MVCI/Content"
+      },
+      "MM11": {
+        "key": "Steam:742300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 742300",
+        "dir": "Mega Man 11",
+        "path": "nativeDX11x64"
+      },
+      "MMX:LC": {
+        "key": "Steam:743890",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 743890",
+        "dir": "Mega Man X Legacy Collection",
+        "path": "nativeDX10"
+      },
+      "MMX:LC2": {
+        "key": "Steam:743900",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 743900",
+        "dir": "Mega Man X Legacy Collection 2",
+        "path": "nativeDX10"
+      },
+      "MH:W": {
+        "key": "Steam:582010",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 582010",
+        "dir": "Monster Hunter World",
+        "path": "chunk"
+      }
+    }
+  }
+}

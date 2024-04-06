@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Shaders\**" />
+    <EmbeddedResource Remove="Shaders\**" />
+    <None Remove="Shaders\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Billboard.cs" />
+    <Compile Remove="Buffer.cs" />
+    <Compile Remove="Camera.cs" />
+    <Compile Remove="DirectBitmap.cs" />
+    <Compile Remove="EffectParameters.cs" />
+    <Compile Remove="GfxObjInstance_Shared.cs" />
+    <Compile Remove="GfxObjinstance_TextureFormat.cs" />
+    <Compile Remove="GfxObjTexturePalette.cs" />
+    <Compile Remove="InstanceBatch.cs" />
+    <Compile Remove="InstanceBatchDraw.cs" />
+    <Compile Remove="LinkNode.cs" />
+    <Compile Remove="ParticleBatch.cs" />
+    <Compile Remove="ParticleBatchDraw.cs" />
+    <Compile Remove="ParticleTextureFormat.cs" />
+    <Compile Remove="PerfTimer.cs" />
+    <Compile Remove="PixelFormatDesc.cs" />
+    <Compile Remove="Render.cs" />
+    <Compile Remove="RenderLinks.cs" />
+    <Compile Remove="R_CellStruct.cs" />
+    <Compile Remove="R_EnvCell.cs" />
+    <Compile Remove="R_Environment.cs" />
+    <Compile Remove="R_EnvironmentCache.cs" />
+    <Compile Remove="R_GfxObj.cs" />
+    <Compile Remove="R_Landblock.cs" />
+    <Compile Remove="R_PartArray.cs" />
+    <Compile Remove="R_PhysicsObj.cs" />
+    <Compile Remove="R_PhysicsPart.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK.NetStandard" Version="1.0.5.32" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenStack.Graphics\OpenStack.Graphics.csproj" />
+  </ItemGroup>
+
+</Project>

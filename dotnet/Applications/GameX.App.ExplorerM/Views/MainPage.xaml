@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:GameX.App.Explorer.Views"
+             x:Class="GameX.App.Explorer.Views.MainPage"
+             Title="Main">
+    <Grid RowDefinitions="*,63" ColumnDefinitions="250,20,.1*">
+        <Grid.Resources>
+            <ControlTemplate x:Key="TabTemplate">
+                <Grid RowDefinitions="20,4">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}"/>
+                                        <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource Primary}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black"/>
+                                        <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <Label Text="{TemplateBinding Content.Name}" x:Name="TextLabel" />
+                    <BoxView x:Name="Indicator" Grid.Row="1" Color="Transparent"/>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="FileExplorerTemplate" x:DataType="{x:Type views:ExplorerMainTab}">
+                <views:FileExplorer PakFile="{TemplateBinding BindingContext.PakFile}" />
+            </ControlTemplate>
+            <ControlTemplate x:Key="TextBlockTemplate" x:DataType="{x:Type views:ExplorerMainTab}">
+                <ScrollView>
+                    <Label Text="{TemplateBinding BindingContext.Text}" Margin="5,5,5,5" />
+                </ScrollView>
+            </ControlTemplate>
+        </Grid.Resources>
+
+        <Frame Grid.Row="0" Margin="5,5,0,0" Padding="5" BackgroundColor="{Binding CardColor}" BorderColor="DarkGray">
+            <Grid RowDefinitions="30,*">
+                <HorizontalStackLayout x:Name="MainTab" Grid.Row="0" BindableLayout.ItemsSource="{Binding MainTabs}" RadioButtonGroup.GroupName="Tabs">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type views:ExplorerMainTab}">
+                            <RadioButton Content="{Binding}" ControlTemplate="{StaticResource TabTemplate}" CheckedChanged="MainTab_Changed" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+                <ContentView x:Name="MainTabContent" Grid.Row="1">
+                    <ContentView.Style>
+                        <Style TargetType="ContentView">
+                            <Setter Property="ControlTemplate" Value="{StaticResource FileExplorerTemplate}" />
+                            <Style.Triggers>
+                                <DataTrigger TargetType="ContentView" Binding="{Binding PakFile}" Value="{x:Null}">
+                                    <Setter Property="ControlTemplate" Value="{StaticResource TextBlockTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentView.Style>
+                </ContentView>
+            </Grid>
+        </Frame>
+
+        <Frame Grid.Row="0" Grid.Column="2" Margin="0,5,0,0" Padding="5" BackgroundColor="{Binding CardColor}" BorderColor="DarkGrey">
+            <views:FileContent x:Name="FileContent" />
+        </Frame>
+
+        <Entry x:Name="Log" Grid.Row="1" Grid.ColumnSpan="3" Margin="5,0,5,5" BackgroundColor="LightGrey" />
+    </Grid>
+</ContentPage>

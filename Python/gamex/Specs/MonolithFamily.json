@@ -1,0 +1,72 @@
+﻿{
+  "id": "Monolith",
+  "name": "MonolithTech",
+  "studio": "Monolith",
+  "description": "MonolithTech is a game engine developed by Monolith Productions and comparable with the Quake and Unreal engines",
+  "url": [
+    "https://en.wikipedia.org/wiki/Monolith_Productions",
+    "https://en.wikipedia.org/wiki/LithTech"
+  ],
+  "samples": [
+    "MonolithFamily.Sample.json"
+  ],
+  "engines": {
+    "LithTech": {}
+  },
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Monolith.MonolithPakFile, GameX.Monolith",
+      "pakExt": ".Arch1"
+    },
+    "FEAR": {
+      "name": "F.E.A.R.",
+      "url": "https://store.steampowered.com/app/21090",
+      "pakEtx": ".Arch00"
+    },
+    "FEAR:EP": {
+      "name": "F.E.A.R.: Extraction Point",
+      "url": "https://store.steampowered.com/app/21110"
+    },
+    "FEAR:PM": {
+      "name": "F.E.A.R.: Perseus Mandate",
+      "url": "https://store.steampowered.com/app/21120"
+    },
+    "FEAR2": {
+      "name": "F.E.A.R. 2: Project Origin",
+      "url": "https://store.steampowered.com/app/16450"
+    },
+    "FEAR3": {
+      "name": "F.E.A.R. 3",
+      "url": "https://store.steampowered.com/app/21100"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "FEAR": {
+        "key": "Steam:21090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21090",
+        "dir": "FEAR Ultimate Shooter Edition"
+      },
+      "FEAR:EP": {
+        "key": "Steam:21110",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21110",
+        "dir": "FEAR Ultimate Shooter Edition"
+      },
+      "FEAR:PM": {
+        "key": "Steam:21120",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21120",
+        "dir": "FEAR Ultimate Shooter Edition"
+      },
+      "FEAR2": {
+        "key": "Steam:16450",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 16450",
+        "dir": "FEAR2"
+      },
+      "FEAR3": {
+        "key": "Steam:21100",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21100",
+        "dir": "F.E.A.R. 3"
+      }
+    }
+  }
+}

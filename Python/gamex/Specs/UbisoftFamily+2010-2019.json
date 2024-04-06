@@ -1,0 +1,1337 @@
+﻿{
+  "id": "Ubisoft+2010-2019",
+  "url": "https://en.wikipedia.org/wiki/List_of_Ubisoft_games:_2010%E2%80%932019",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Ubisoft.UbisoftPakFile, GameX.Ubisoft"
+    },
+    "SleepoverParty": {
+      "name": "Sleepover Party",
+      "date": "January 12, 2010"
+    },
+    "NoMoreHeroes2:DS": {
+      "name": "No More Heroes 2: Desperate Struggle",
+      "url": "https://en.wikipedia.org/wiki/No_More_Heroes_2:_Desperate_Struggle",
+      "date": "January 26, 2010"
+    },
+    "BattleofGiants:MI": {
+      "name": "Battle of Giants: Mutant Insects",
+      "date": "March 2, 2010"
+    },
+    "SH5:BotA": {
+      "name": "Silent Hunter 5: Battle of the Atlantic",
+      "url": "https://en.wikipedia.org/wiki/Silent_Hunter_5:_Battle_of_the_Atlantic",
+      "date": "March 4, 2010"
+    },
+    "RacquetSports": {
+      "name": "Racquet Sports",
+      "url": "https://en.wikipedia.org/wiki/Racket_Sports_Party",
+      "date": "March 9, 2010"
+    },
+    "BootCampAcademy": {
+      "name": "Boot Camp Academy",
+      "date": "March 11, 2010"
+    },
+    "BattleofGiants:DFfS": {
+      "name": "Battle of Giants: Dinosaurs - Fight for Survival",
+      "date": "March 15, 2010"
+    },
+    "Imagine:G": {
+      "name": "Imagine: Gymnast",
+      "url": "https://en.wikipedia.org/wiki/Imagine_(video_game_series)",
+      "date": "March 23, 2010"
+    },
+    "RedSteel2": {
+      "name": "Red Steel 2",
+      "url": "https://en.wikipedia.org/wiki/Red_Steel_2",
+      "date": "March 23, 2010"
+    },
+    "TS7:PtaK": {
+      "name": "The Settlers 7: Paths to a Kingdom",
+      "url": "https://en.wikipedia.org/wiki/The_Settlers_7:_Paths_to_a_Kingdom",
+      "date": "March 25, 2010"
+    },
+    "TCSC:C": {
+      "name": "Tom Clancy's Splinter Cell: Conviction",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell:_Conviction",
+      "date": "April 13, 2010"
+    },
+    "CastleCo": {
+      "name": "Castle & Co",
+      "date": "April 28, 2010"
+    },
+    "OK:PS": {
+      "name": "OK! Puzzle Stars",
+      "date": "April 30, 2010"
+    },
+    "PoP:TFS": {
+      "name": "Prince of Persia: The Forgotten Sands",
+      "url": "https://en.wikipedia.org/wiki/Prince_of_Persia:_The_Forgotten_Sands",
+      "date": "May 18, 2010"
+    },
+    "VoodooDice": {
+      "name": "Voodoo Dice",
+      "url": "https://en.wikipedia.org/wiki/Voodoo_Dice",
+      "date": "May 26, 2010"
+    },
+    "DanceonBroadway": {
+      "name": "Dance on Broadway",
+      "url": "https://en.wikipedia.org/wiki/Dance_on_Broadway",
+      "date": "June 15, 2010"
+    },
+    "BattleofGiants:MIR": {
+      "name": "Battle of Giants: Mutant Insects - Revenge",
+      "date": "June 28, 2010"
+    },
+    "PetzHamsterzFamily": {
+      "name": "Petz Hamsterz Family",
+      "date": "July 26, 2010"
+    },
+    "GalaxyRacers": {
+      "name": "Galaxy Racers",
+      "date": "July 1, 2010"
+    },
+    "SCVTW:TG": {
+      "name": "Scott Pilgrim vs. the World: The Game",
+      "url": "https://en.wikipedia.org/wiki/Scott_Pilgrim_vs._the_World:_The_Game",
+      "date": "August 10, 2010"
+    },
+    "GoldsGymDanceWorkout": {
+      "name": "Gold's Gym Dance Workout",
+      "date": "August 17, 2010"
+    },
+    "TCHAWX2": {
+      "name": "Tom Clancy's H.A.W.X 2",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_H.A.W.X_2",
+      "date": "September 3, 2010"
+    },
+    "RUSE": {
+      "name": "R.U.S.E.",
+      "url": "https://en.wikipedia.org/wiki/R.U.S.E.",
+      "date": "September 9, 2010"
+    },
+    "AATROM": {
+      "name": "Arthur and the Revenge of Maltazard",
+      "date": "September 24, 2010"
+    },
+    "SWSkateboarding": {
+      "name": "Shaun White Skateboarding",
+      "url": "https://en.wikipedia.org/wiki/Shaun_White_Skateboarding",
+      "date": "October 1, 2010"
+    },
+    "TheHollywoodSquares": {
+      "name": "The Hollywood Squares",
+      "date": "October 5, 2010"
+    },
+    "JustDance2": {
+      "name": "Just Dance 2",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2",
+      "date": "October 12, 2010"
+    },
+    "PuzzlerWorld2011": {
+      "name": "Puzzler World 2011",
+      "date": "October 15, 2010"
+    },
+    "TSOnline": {
+      "name": "The Settlers Online",
+      "url": "https://en.wikipedia.org/wiki/The_Settlers_Online",
+      "date": "October 22, 2010"
+    },
+    "CSI:FC": {
+      "name": "CSI: Fatal Conspiracy",
+      "url": "https://en.wikipedia.org/wiki/CSI:_Fatal_Conspiracy",
+      "date": "October 28, 2010"
+    },
+    "BloodyGoodTime": {
+      "name": "Bloody Good Time",
+      "url": "https://en.wikipedia.org/wiki/Bloody_Good_Time",
+      "date": "October 29, 2010"
+    },
+    "FightersUncaged": {
+      "name": "Fighters Uncaged",
+      "url": "https://en.wikipedia.org/wiki/Fighters_Uncaged",
+      "date": "November 4, 2010"
+    },
+    "JustDanceKids": {
+      "name": "Just Dance Kids",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_Kids_(2010_video_game)",
+      "date": "November 9, 2010"
+    },
+    "FamilyFeud:D": {
+      "name": "Family Feud: Decades",
+      "date": "November 10, 2010"
+    },
+    "MotionSports": {
+      "name": "MotionSports",
+      "url": "https://en.wikipedia.org/wiki/MotionSports",
+      "date": "November 10, 2010"
+    },
+    "AC:B2": {
+      "name": "Assassin's Creed: Brotherhood",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed:_Brotherhood",
+      "date": "November 16, 2010"
+    },
+    "TCGR": {
+      "name": "Tom Clancy's Ghost Recon",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_(2010_video_game)",
+      "date": "November 16, 2010"
+    },
+    "TCGRPredator": {
+      "name": "Tom Clancy's Ghost Recon Predator",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Predator",
+      "date": "November 16, 2010"
+    },
+    "RavingRabbids:TiT": {
+      "name": "Raving Rabbids: Travel in Time",
+      "url": "https://en.wikipedia.org/wiki/Raving_Rabbids:_Travel_in_Time",
+      "date": "November 21, 2010"
+    },
+    "CSI:U": {
+      "name": "CSI: Unsolved!",
+      "url": "https://en.wikipedia.org/wiki/CSI:_Unsolved",
+      "date": "November 23, 2010"
+    },
+    "MichaelJackson:TE": {
+      "name": "Michael Jackson: The Experience",
+      "url": "https://en.wikipedia.org/wiki/Michael_Jackson:_The_Experience",
+      "date": "November 23, 2010"
+    },
+    "SportsCollection:15StM": {
+      "name": "Sports Collection: 15 Sports to Master",
+      "date": "December 2, 2010"
+    },
+    "PoP:TSoTHD": {
+      "name": "Prince of Persia: The Sands of Time HD",
+      "date": "December 15, 2010"
+    },
+    "PoP:TTTHD": {
+      "name": "Prince of Persia: The Two Thrones HD",
+      "date": "December 15, 2010"
+    },
+    "PoP:WWHD": {
+      "name": "Prince of Persia: Warrior Within HD",
+      "date": "December 15, 2010"
+    },
+    "Petz:CF": {
+      "name": "Petz: Catz Family",
+      "date": "January 10, 2011"
+    },
+    "Zeit": {
+      "name": "Zeit",
+      "url": "https://en.wikipedia.org/wiki/Zeit%C2%B2",
+      "date": "January 12, 2011"
+    },
+    "BeyondGoodEvilHD": {
+      "name": "Beyond Good & Evil HD",
+      "date": "March 2, 2011"
+    },
+    "The1000000Pyramid": {
+      "name": "The $1,000,000 Pyramid",
+      "date": "March 8, 2011"
+    },
+    "WeDare": {
+      "name": "We Dare",
+      "url": "https://en.wikipedia.org/wiki/We_Dare",
+      "date": "March 14, 2011"
+    },
+    "FitinSix": {
+      "name": "Fit in Six",
+      "date": "March 15, 2011"
+    },
+    "RY3D": {
+      "name": "Rayman 3D",
+      "date": "March 22, 2011"
+    },
+    "Asphalt6:Adrenaline": {
+      "name": "Asphalt 6: Adrenaline",
+      "url": "https://en.wikipedia.org/wiki/Asphalt_6:_Adrenaline",
+      "date": "March 27, 2011"
+    },
+    "CombatofGiants:D3D": {
+      "name": "Combat of Giants: Dinosaurs 3D",
+      "url": "https://en.wikipedia.org/wiki/Combat_of_Giants:_Dinosaurs_3D",
+      "date": "March 27, 2011"
+    },
+    "TCGR:SW": {
+      "name": "Tom Clancy's Ghost Recon: Shadow Wars",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon:_Shadow_Wars",
+      "date": "March 27, 2011"
+    },
+    "IL2S:CoD": {
+      "name": "IL-2 Sturmovik: Cliffs of Dover",
+      "url": "https://en.wikipedia.org/wiki/IL-2_Sturmovik:_Cliffs_of_Dover",
+      "date": "March 30, 2011"
+    },
+    "Rabbids:TiT3D": {
+      "name": "Rabbids: Travel in Time 3D",
+      "date": "April 10, 2011"
+    },
+    "TCSC3D": {
+      "name": "Tom Clancy's Splinter Cell 3D",
+      "date": "April 10, 2011"
+    },
+    "ChildofEden": {
+      "name": "Child of Eden",
+      "url": "https://en.wikipedia.org/wiki/Child_of_Eden",
+      "date": "June 14, 2011"
+    },
+    "CubicNinja": {
+      "name": "Cubic Ninja",
+      "url": "https://en.wikipedia.org/wiki/Cubic_Ninja",
+      "date": "June 14, 2011"
+    },
+    "Outland": {
+      "name": "Outland",
+      "url": "https://en.wikipedia.org/wiki/Outland_(video_game)",
+      "date": "June 14, 2011"
+    },
+    "PetzFantasy3D": {
+      "name": "Petz Fantasy 3D",
+      "date": "2010-01-01"
+    },
+    "CoJ:TC": {
+      "name": "Call of Juarez: The Cartel",
+      "url": "https://en.wikipedia.org/wiki/Call_of_Juarez:_The_Cartel",
+      "date": "July 19, 2011"
+    },
+    "JustDance:SP": {
+      "name": "Just Dance: Summer Party",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance:_Summer_Party",
+      "date": "July 19, 2011"
+    },
+    "TheSmurfs": {
+      "name": "The Smurfs",
+      "date": "July 19, 2011"
+    },
+    "TheSmurfsDanceParty": {
+      "name": "The Smurfs Dance Party",
+      "url": "https://en.wikipedia.org/wiki/The_Smurfs_Dance_Party",
+      "date": "July 19, 2011"
+    },
+    "FromDust": {
+      "name": "From Dust",
+      "url": "https://en.wikipedia.org/wiki/From_Dust",
+      "date": "July 27, 2011"
+    },
+    "TheSmurfsCo": {
+      "name": "The Smurfs & Co",
+      "date": "July 29, 2011"
+    },
+    "TCSCClassicTrilogyHD": {
+      "name": "Tom Clancy's Splinter Cell Classic Trilogy HD",
+      "date": "August 2, 2011"
+    },
+    "Driver:R": {
+      "name": "Driver: Renegade",
+      "url": "https://en.wikipedia.org/wiki/Driver:_Renegade",
+      "date": "August 30, 2011"
+    },
+    "Driver:SF": {
+      "name": "Driver: San Francisco",
+      "url": "https://en.wikipedia.org/wiki/Driver:_San_Francisco",
+      "date": "September 6, 2011"
+    },
+    "PuzzlerMindGym3D": {
+      "name": "Puzzler Mind Gym 3D",
+      "date": "September 13, 2011"
+    },
+    "TrackMania2:Canyon": {
+      "name": "TrackMania 2: Canyon",
+      "date": "September 14, 2011"
+    },
+    "BattleofGiants:DS": {
+      "name": "Battle of Giants: Dinosaurs Strike",
+      "date": "October 9, 2011"
+    },
+    "MnMHeroesVI": {
+      "name": "Might & Magic Heroes VI",
+      "url": "https://en.wikipedia.org/wiki/Might_%26_Magic_Heroes_VI",
+      "date": "October 13, 2011"
+    },
+    "FamilyFeud:2012Edition": {
+      "name": "Family Feud: 2012 Edition",
+      "date": "October 18, 2011"
+    },
+    "PowerUpHeroes": {
+      "name": "PowerUp Heroes",
+      "date": "2010-01-01"
+    },
+    "ThePriceisRight:D": {
+      "name": "The Price is Right: Decades",
+      "date": "October 18, 2011"
+    },
+    "TheAdventuresofTintin:TSotU": {
+      "name": "The Adventures of Tintin: The Secret of the Unicorn",
+      "url": "https://en.wikipedia.org/wiki/The_Adventures_of_Tintin:_The_Secret_of_the_Unicorn_(video_game)",
+      "date": "October 21, 2011"
+    },
+    "JustDanceKids2": {
+      "name": "Just Dance Kids 2",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_Kids_2",
+      "date": "October 25, 2011"
+    },
+    "ZooMania3D": {
+      "name": "Zoo Mania 3D",
+      "date": "October 25, 2011"
+    },
+    "JNHC": {
+      "name": "James Noir's Hollywood Crimes",
+      "url": "https://en.wikipedia.org/wiki/James_Noir%27s_Hollywood_Crimes",
+      "date": "November 1, 2011"
+    },
+    "MotionSportsAdrenaline": {
+      "name": "MotionSports Adrenaline",
+      "date": "November 1, 2011"
+    },
+    "NCIS": {
+      "name": "NCIS",
+      "url": "https://en.wikipedia.org/wiki/NCIS_(video_game)",
+      "date": "November 1, 2011"
+    },
+    "RavingRabbids:AK": {
+      "name": "Raving Rabbids: Alive & Kicking",
+      "url": "https://en.wikipedia.org/wiki/Raving_Rabbids:_Alive_%26_Kicking",
+      "date": "November 4, 2011"
+    },
+    "MichaelJackson:TE3D": {
+      "name": "Michael Jackson: The Experience 3D",
+      "date": "November 8, 2011"
+    },
+    "Puppies3D": {
+      "name": "Puppies 3D",
+      "date": "November 8, 2011"
+    },
+    "TheBlackEyedPeasExperience": {
+      "name": "The Black Eyed Peas Experience",
+      "url": "https://en.wikipedia.org/wiki/The_Black_Eyed_Peas_Experience",
+      "date": "November 8, 2011"
+    },
+    "SelfDefenseTrainingCamp": {
+      "name": "Self-Defense Training Camp",
+      "url": "https://en.wikipedia.org/wiki/Self-Defense_Training_Camp",
+      "date": "November 8, 2011"
+    },
+    "YourShape:FE2012": {
+      "name": "Your Shape: Fitness Evolved 2012",
+      "date": "November 10, 2011"
+    },
+    "ABBA:YCD": {
+      "name": "ABBA: You Can Dance",
+      "url": "https://en.wikipedia.org/wiki/ABBA:_You_Can_Dance",
+      "date": "November 15, 2011"
+    },
+    "AC:R": {
+      "name": "Assassin's Creed: Revelations",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed:_Revelations",
+      "date": "November 15, 2011"
+    },
+    "RYOrigins": {
+      "name": "Rayman Origins",
+      "url": "https://en.wikipedia.org/wiki/Rayman_Origins",
+      "date": "November 15, 2011"
+    },
+    "Anno2070": {
+      "name": "Anno 2070",
+      "url": "https://en.wikipedia.org/wiki/Anno_2070",
+      "date": "November 17, 2011"
+    },
+    "JustDance3": {
+      "name": "Just Dance 3",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_3",
+      "date": "December 6, 2011"
+    },
+    "PuzzlerWorld2012": {
+      "name": "Puzzler World 2012",
+      "date": "December 16, 2011"
+    },
+    "TCSCHD": {
+      "name": "Tom Clancy's Splinter Cell HD",
+      "date": "December 27, 2011"
+    },
+    "TCSC:CTHD": {
+      "name": "Tom Clancy's Splinter Cell: Chaos Theory HD",
+      "date": "December 27, 2011"
+    },
+    "TCSC:PTHD": {
+      "name": "Tom Clancy's Splinter Cell: Pandora Tomorrow HD",
+      "date": "December 27, 2011"
+    },
+    "Asphalt:I": {
+      "name": "Asphalt: Injection",
+      "url": "https://en.wikipedia.org/wiki/Asphalt:_Injection",
+      "date": "February 14, 2012"
+    },
+    "DungeonHunter:A": {
+      "name": "Dungeon Hunter: Alliance",
+      "url": "https://en.wikipedia.org/wiki/Dungeon_Hunter:_Alliance",
+      "date": "February 14, 2012"
+    },
+    "Lumines:ES": {
+      "name": "Lumines: Electronic Symphony",
+      "url": "https://en.wikipedia.org/wiki/Lumines:_Electronic_Symphony",
+      "date": "February 14, 2012"
+    },
+    "IAmAlive": {
+      "name": "I Am Alive",
+      "url": "https://en.wikipedia.org/wiki/I_Am_Alive",
+      "date": "March 7, 2012"
+    },
+    "AC:R2": {
+      "name": "Assassin's Creed: Recollection",
+      "date": "March 8, 2012"
+    },
+    "ShootManyRobots": {
+      "name": "Shoot Many Robots",
+      "url": "https://en.wikipedia.org/wiki/Shoot_Many_Robots",
+      "date": "March 13, 2012"
+    },
+    "MotoHeroz": {
+      "name": "MotoHeroz",
+      "url": "https://en.wikipedia.org/wiki/MotoHeroz",
+      "date": "March 14, 2012"
+    },
+    "RY3HD": {
+      "name": "Rayman 3 HD",
+      "date": "March 21, 2012"
+    },
+    "FunkyBarn3D": {
+      "name": "Funky Barn 3D",
+      "date": "March 27, 2012"
+    },
+    "Horses3D": {
+      "name": "Horses 3D",
+      "date": "March 27, 2012"
+    },
+    "JustDance:BO": {
+      "name": "Just Dance: Best Of",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance:_Best_Of",
+      "date": "March 29, 2012"
+    },
+    "Trials Evolution": {
+      "name": "Trials Evolution",
+      "url": "https://en.wikipedia.org/wiki/Trials_Evolution",
+      "date": "April 18, 2012"
+    },
+    "TCGR:FS": {
+      "name": "Tom Clancy's Ghost Recon: Future Soldier",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon:_Future_Soldier",
+      "date": "May 22, 2012"
+    },
+    "MadRiders": {
+      "name": "Mad Riders",
+      "url": "https://en.wikipedia.org/wiki/Mad_Riders",
+      "date": "May 30, 2012"
+    },
+    "BabelRising": {
+      "name": "Babel Rising",
+      "url": "https://en.wikipedia.org/wiki/Babel_Rising",
+      "date": "June 11, 2012"
+    },
+    "BabelRising3D": {
+      "name": "Babel Rising 3D",
+      "url": "https://en.wikipedia.org/wiki/Babel_Rising",
+      "date": "June 13, 2012"
+    },
+    "JustDance:GH": {
+      "name": "Just Dance: Greatest Hits",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance:_Best_Of",
+      "date": "June 21, 2012"
+    },
+    "TheExpendables2:V": {
+      "name": "The Expendables 2: Videogame",
+      "date": "July 24, 2012"
+    },
+    "MnM:DoC": {
+      "name": "Might & Magic: Duel of Champions",
+      "date": "September 13, 2012"
+    },
+    "NCIS3D": {
+      "name": "NCIS 3D",
+      "date": "September 18, 2012"
+    },
+    "RYJungleRun": {
+      "name": "Rayman Jungle Run",
+      "date": "September 28, 2012"
+    },
+    "JustDance4": {
+      "name": "Just Dance 4",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_4",
+      "date": "October 9, 2012"
+    },
+    "Monster4x43D": {
+      "name": "Monster 4x4 3D",
+      "date": "October 9, 2012"
+    },
+    "Rocksmith": {
+      "name": "Rocksmith",
+      "url": "https://en.wikipedia.org/wiki/Rocksmith",
+      "date": "October 16, 2012"
+    },
+    "JustDance:DP": {
+      "name": "Just Dance: Disney Party",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance:_Disney_Party",
+      "date": "October 23, 2012"
+    },
+    "Imagine:FL": {
+      "name": "Imagine: Fashion Life",
+      "url": "https://en.wikipedia.org/wiki/Imagine_(video_game_series)",
+      "date": "October 23, 2012"
+    },
+    "ACIII": {
+      "name": "Assassin's Creed III",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_III",
+      "date": "October 30, 2012"
+    },
+    "ACIII:L": {
+      "name": "Assassin's Creed III: Liberation",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_III:_Liberation",
+      "date": "October 30, 2012"
+    },
+    "TheAvengers:BfE": {
+      "name": "The Avengers: Battle for Earth",
+      "url": "https://en.wikipedia.org/wiki/Marvel_Avengers:_Battle_for_Earth",
+      "date": "October 30, 2012"
+    },
+    "NuttyFluffiesRollercoaster": {
+      "name": "Nutty Fluffies Rollercoaster",
+      "url": "https://en.wikipedia.org/wiki/Nutty_Fluffies_Rollercoaster",
+      "date": "October 31, 2012"
+    },
+    "PoptropicaAdventures": {
+      "name": "Poptropica Adventures",
+      "date": "November 6, 2012"
+    },
+    "RabbidsRumble": {
+      "name": "Rabbids Rumble",
+      "url": "https://en.wikipedia.org/wiki/Rabbids_Rumble",
+      "date": "November 13, 2012"
+    },
+    "TheHipHopDanceExperience": {
+      "name": "The Hip Hop Dance Experience",
+      "url": "https://en.wikipedia.org/wiki/The_Hip_Hop_Dance_Experience",
+      "date": "November 13, 2012"
+    },
+    "ESPNSportsConnection": {
+      "name": "ESPN Sports Connection",
+      "date": "November 18, 2012"
+    },
+    "RabbidsLand": {
+      "name": "Rabbids Land",
+      "url": "https://en.wikipedia.org/wiki/Rabbids_Land",
+      "date": "November 18, 2012"
+    },
+    "YourShape:FE2013": {
+      "name": "Your Shape: Fitness Evolved 2013",
+      "date": "November 18, 2012"
+    },
+    "ZombiU": {
+      "name": "Zombi(U)",
+      "url": "https://en.wikipedia.org/wiki/ZombiU",
+      "date": "November 18, 2012"
+    },
+    "FC3": {
+      "name": "Far Cry 3",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_3",
+      "date": "December 4, 2012"
+    },
+    "TrackMania2:S": {
+      "name": "TrackMania 2: Stadium",
+      "date": "February 27, 2013"
+    },
+    "TrialsEvolution:GE": {
+      "name": "Trials Evolution: Gold Edition",
+      "date": "March 21, 2013"
+    },
+    "ShootManiaStorm": {
+      "name": "ShootMania Storm",
+      "url": "https://en.wikipedia.org/wiki/ShootMania_Storm",
+      "date": "April 10, 2013"
+    },
+    "FC3:BD": {
+      "name": "Far Cry 3: Blood Dragon",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_3:_Blood_Dragon",
+      "date": "May 1, 2013"
+    },
+    "CoJ:G": {
+      "name": "Call of Juarez: Gunslinger",
+      "url": "https://en.wikipedia.org/wiki/Call_of_Juarez:_Gunslinger",
+      "date": "May 21, 2013"
+    },
+    "SC:BSB": {
+      "name": "Splinter Cell: Blacklist - Spider-Bot",
+      "date": "June 10, 2013"
+    },
+    "TheSmurfs2": {
+      "name": "The Smurfs 2",
+      "date": "June 23, 2013"
+    },
+    "Spartacus Legends": {
+      "name": "Spartacus Legends",
+      "url": "https://en.wikipedia.org/wiki/Spartacus_Legends",
+      "date": "June 25, 2013"
+    },
+    "TheSmurfsCo:S": {
+      "name": "The Smurfs & Co: Spellbound",
+      "date": "July 3, 2013"
+    },
+    "TrackMania2:V": {
+      "name": "TrackMania 2: Valley",
+      "date": "July 4, 2013"
+    },
+    "PoP:TSatF": {
+      "name": "Prince of Persia: The Shadow and the Flame",
+      "date": "July 24, 2013"
+    },
+    "CloudberryKingdom": {
+      "name": "Cloudberry Kingdom",
+      "url": "https://en.wikipedia.org/wiki/Cloudberry_Kingdom",
+      "date": "August 2, 2013"
+    },
+    "TCSC:B": {
+      "name": "Tom Clancy's Splinter Cell: Blacklist",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Splinter_Cell:_Blacklist",
+      "date": "August 20, 2013"
+    },
+    "RYegends": {
+      "name": "Rayman Legends",
+      "url": "https://en.wikipedia.org/wiki/Rayman_Legends",
+      "date": "September 3, 2013"
+    },
+    "PanzerGeneralOnline": {
+      "name": "Panzer General Online",
+      "date": "September 13, 2013"
+    },
+    "AnnoOnline": {
+      "name": "Anno Online",
+      "url": "https://en.wikipedia.org/wiki/Anno_Online",
+      "date": "September 26, 2013"
+    },
+    "Flashback": {
+      "name": "Flashback",
+      "url": "https://en.wikipedia.org/wiki/Flashback_(2013_video_game)",
+      "date": "October 1, 2013"
+    },
+    "JustDance2014": {
+      "name": "Just Dance 2014",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2014",
+      "date": "October 8, 2013"
+    },
+    "RabbidsBigBang": {
+      "name": "Rabbids Big Bang",
+      "url": "https://en.wikipedia.org/wiki/Rabbids_Big_Bang",
+      "date": "October 17, 2013"
+    },
+    "JustDanceKids2014": {
+      "name": "Just Dance Kids 2014",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_Kids_2014",
+      "date": "October 22, 2013"
+    },
+    "Rocksmith:A2014E": {
+      "name": "Rocksmith: All-new 2014 Edition",
+      "date": "October 22, 2013"
+    },
+    "ACIV:BF": {
+      "name": "Assassin's Creed IV: Black Flag",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_IV:_Black_Flag",
+      "date": "October 29, 2013"
+    },
+    "RYFiestaRun": {
+      "name": "Rayman Fiesta Run",
+      "url": "https://en.wikipedia.org/wiki/Rayman_Fiesta_Run",
+      "date": "November 7, 2013"
+    },
+    "FighterWithin": {
+      "name": "Fighter Within",
+      "url": "https://en.wikipedia.org/wiki/Fighter_Within",
+      "date": "November 19, 2013"
+    },
+    "ACPirates": {
+      "name": "Assassin's Creed Pirates",
+      "date": "December 5, 2013"
+    },
+    "AC:LHD": {
+      "name": "Assassin's Creed: Liberation HD",
+      "date": "January 15, 2014"
+    },
+    "MnMX:L": {
+      "name": "Might & Magic X: Legacy",
+      "url": "https://en.wikipedia.org/wiki/Might_%26_Magic_X:_Legacy",
+      "date": "January 23, 2014"
+    },
+    "FCClassic": {
+      "name": "Far Cry Classic",
+      "date": "February 11, 2014"
+    },
+    "SouthPark:TSoT": {
+      "name": "South Park: The Stick of Truth",
+      "url": "https://en.wikipedia.org/wiki/South_Park:_The_Stick_of_Truth",
+      "date": "March 4, 2014"
+    },
+    "TCGRPhantoms": {
+      "name": "Tom Clancy's Ghost Recon Phantoms",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Phantoms",
+      "date": "April 10, 2014"
+    },
+    "TrialsFrontier": {
+      "name": "TrialsFrontier",
+      "url": "https://en.wikipedia.org/wiki/Trials_Frontier",
+      "date": "April 13, 2014"
+    },
+    "TrialsFusion": {
+      "name": "TrialsFusion",
+      "url": "https://en.wikipedia.org/wiki/Trials_Fusion",
+      "date": "April 13, 2014"
+    },
+    "ChildofLight": {
+      "name": "Child of Light",
+      "url": "https://en.wikipedia.org/wiki/Child_of_Light",
+      "date": "April 30, 2014"
+    },
+    "CSI:HC": {
+      "name": "CSI: Hidden Crimes",
+      "date": "May 1, 2014"
+    },
+    "WatchDogs": {
+      "name": "Watch Dogs",
+      "url": "https://en.wikipedia.org/wiki/Watch_Dogs_(video_game)",
+      "date": "May 27, 2014"
+    },
+    "ValiantHearts:TGW": {
+      "name": "Valiant Hearts: The Great War",
+      "url": "https://en.wikipedia.org/wiki/Valiant_Hearts:_The_Great_War",
+      "date": "June 26, 2014"
+    },
+    "AC:M": {
+      "name": "Assassin's Creed: Memories",
+      "date": "August 21, 2014"
+    },
+    "LittleRaiders:RR": {
+      "name": "Little Raiders: Robin's Revenge",
+      "date": "August 28, 2014"
+    },
+    "JustDanceNow": {
+      "name": "Just Dance Now",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_Now",
+      "date": "September 28, 2014"
+    },
+    "PetzBeach": {
+      "name": "Petz Beach",
+      "date": "October 14, 2014"
+    },
+    "PetzCountryside": {
+      "name": "Petz Countryside",
+      "date": "October 14, 2014"
+    },
+    "JustDance2015": {
+      "name": "Just Dance 2015",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2015",
+      "date": "October 21, 2014"
+    },
+    "ShapeUp:BR": {
+      "name": "Shape Up: Battle Run",
+      "date": "November 9, 2014"
+    },
+    "ACRogue": {
+      "name": "Assassin's Creed Rogue",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Rogue",
+      "date": "November 11, 2014"
+    },
+    "ACUnity": {
+      "name": "Assassin's Creed Unity",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Unity",
+      "date": "November 11, 2014"
+    },
+    "ShapeUp": {
+      "name": "Shape Up",
+      "url": "https://en.wikipedia.org/wiki/Shape_Up_(video_game)",
+      "date": "November 11, 2014"
+    },
+    "TetrisUltimate": {
+      "name": "Tetris Ultimate",
+      "url": "https://en.wikipedia.org/wiki/Tetris_Ultimate",
+      "date": "November 11, 2014"
+    },
+    "FC4": {
+      "name": "Far Cry 4",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_4",
+      "date": "November 18, 2014"
+    },
+    "FC4:AP": {
+      "name": "Far Cry 4: Arcade Poker",
+      "date": "November 18, 2014"
+    },
+    "FC4:AM": {
+      "name": "Far Cry 4: Arena Master",
+      "date": "November 18, 2014"
+    },
+    "RabbidsInvasion:TITVS": {
+      "name": "Rabbids Invasion: The Interactive TV Show",
+      "date": "November 18, 2014"
+    },
+    "Anno:BaE": {
+      "name": "Anno: Build an Empire",
+      "date": "November 20, 2014"
+    },
+    "MonopolyDeal": {
+      "name": "Monopoly Deal",
+      "date": "December 2, 2014"
+    },
+    "MonopolyPlus": {
+      "name": "Monopoly Plus",
+      "date": "December 2, 2014"
+    },
+    "TheCrew": {
+      "name": "The Crew",
+      "url": "https://en.wikipedia.org/wiki/The_Crew_(video_game)",
+      "date": "December 2, 2014"
+    },
+    "HorseHaven:WA": {
+      "name": "Horse Haven: World Adventures",
+      "date": "January 21, 2015"
+    },
+    "Risk": {
+      "name": "Risk",
+      "date": "February 3, 2015"
+    },
+    "GrowHome": {
+      "name": "Grow Home",
+      "url": "https://en.wikipedia.org/wiki/Grow_Home",
+      "date": "February 4, 2015"
+    },
+    "TMQfEL": {
+      "name": "The Mighty Quest for Epic Loot",
+      "url": "https://en.wikipedia.org/wiki/The_Mighty_Quest_for_Epic_Loot",
+      "date": "February 5, 2015"
+    },
+    "MonkeyKingEscape": {
+      "name": "Monkey King Escape",
+      "date": "February 17, 2015"
+    },
+    "TrivialPursuitLive": {
+      "name": "Trivial Pursuit Live!",
+      "date": "February 17, 2015"
+    },
+    "Driver:SP": {
+      "name": "Driver: Speedboat Paradise",
+      "date": "April 7, 2015"
+    },
+    "ACChronicles:C": {
+      "name": "Assassin's Creed Chronicles: China",
+      "date": "April 21, 2015"
+    },
+    "RabbidsAppisodes": {
+      "name": "Rabbids Appisodes",
+      "date": "June 18, 2015"
+    },
+    "Scrabble": {
+      "name": "Scrabble",
+      "date": "June 30, 2015"
+    },
+    "Boggle": {
+      "name": "Boggle",
+      "date": "August 4, 2015"
+    },
+    "ToySoldiers:WC": {
+      "name": "Toy Soldiers: War Chest",
+      "url": "https://en.wikipedia.org/wiki/Toy_Soldiers:_War_Chest",
+      "date": "August 11, 2015"
+    },
+    "MnMHeroesVII": {
+      "name": "Might & Magic Heroes VII",
+      "url": "https://en.wikipedia.org/wiki/Might_%26_Magic_Heroes_VII",
+      "date": "September 29, 2015"
+    },
+    "Care Bears: Belly Match": {
+      "name": "Care Bears: Belly Match",
+      "date": "October 9, 2015"
+    },
+    "TheSmurfs3D": {
+      "name": "The Smurfs 3D",
+      "date": "October 13, 2015"
+    },
+    "GravityFalls:LotGG": {
+      "name": "Gravity Falls: Legend of the Gnome Gemulets",
+      "url": "https://en.wikipedia.org/wiki/Gravity_Falls:_Legend_of_the_Gnome_Gemulets",
+      "date": "October 20, 2015"
+    },
+    "JustDance2016": {
+      "name": "Just Dance 2016",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2016",
+      "date": "October 20, 2015"
+    },
+    "JustDance:DP2": {
+      "name": "Just Dance: Disney Party 2",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance:_Disney_Party_2",
+      "date": "October 20, 2015"
+    },
+    "ACSyndicate": {
+      "name": "Assassin's Creed Syndicate",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Syndicate",
+      "date": "October 23, 2015"
+    },
+    "Anno2205:AM": {
+      "name": "Anno 2205: Asteroid Miner",
+      "date": "November 2, 2015"
+    },
+    "Anno2205": {
+      "name": "Anno 2205",
+      "url": "https://en.wikipedia.org/wiki/Anno_2205",
+      "date": "November 3, 2015"
+    },
+    "MnM:HO": {
+      "name": "Might & Magic: Heroes Online",
+      "url": "https://en.wikipedia.org/wiki/Might_and_Magic:_Heroes_Online",
+      "date": "November 24, 2015"
+    },
+    "TCRSSiege": {
+      "name": "Tom Clancy's Rainbow Six Siege",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Siege",
+      "date": "December 1, 2015"
+    },
+    "TCEOnline": {
+      "name": "Tom Clancy's EndWar Online",
+      "date": "December 3, 2015"
+    },
+    "RYAdventures": {
+      "name": "Rayman Adventures",
+      "date": "December 5, 2015"
+    },
+    "TheSmurfs:ER": {
+      "name": "The Smurfs: Epic Run",
+      "date": "January 12, 2016"
+    },
+    "ACChronicles:I": {
+      "name": "Assassin's Creed Chronicles: India",
+      "date": "January 13, 2016"
+    },
+    "Sandstorm: Pirate Wars": {
+      "name": "Sandstorm: Pirate Wars",
+      "url": "https://en.wikipedia.org/wiki/Sandstorm:_Pirate_Wars",
+      "date": "January 21, 2016"
+    },
+    "ACChronicles:R": {
+      "name": "Assassin's Creed Chronicles: Russia",
+      "date": "February 9, 2016"
+    },
+    "FarCryPrimal": {
+      "name": "Far Cry Primal",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_Primal",
+      "date": "February 23, 2016"
+    },
+    "ACIdentity": {
+      "name": "Assassin's Creed Identity",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Identity",
+      "date": "February 26, 2016"
+    },
+    "TCTD": {
+      "name": "Tom Clancy's The Division",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division",
+      "date": "March 8, 2016"
+    },
+    "TrackManiaTurbo": {
+      "name": "TrackMania Turbo",
+      "url": "https://en.wikipedia.org/wiki/TrackMania_Turbo",
+      "date": "March 22, 2016"
+    },
+    "HungryShark:W": {
+      "name": "Hungry Shark: World",
+      "date": "May 4, 2016"
+    },
+    "RockGods:TT": {
+      "name": "Rock Gods: Tap Tour",
+      "date": "May 16, 2016"
+    },
+    "TofBD": {
+      "name": "Trials of the Blood Dragon",
+      "url": "https://en.wikipedia.org/wiki/Trials_of_the_Blood_Dragon",
+      "date": "June 13, 2016"
+    },
+    "NCIS:HC": {
+      "name": "NCIS: Hidden Crimes",
+      "date": "July 11, 2016"
+    },
+    "Battleship": {
+      "name": "Battleship",
+      "date": "August 2, 2016"
+    },
+    "Risk:UA": {
+      "name": "Risk: Urban Assault",
+      "date": "August 2, 2016"
+    },
+    "Uno": {
+      "name": "Uno",
+      "date": "August 16, 2016"
+    },
+    "ChampionsofAnteria": {
+      "name": "Champions of Anteria",
+      "url": "https://en.wikipedia.org/wiki/Champions_of_Anteria",
+      "date": "August 30, 2016"
+    },
+    "JustSing": {
+      "name": "Just Sing",
+      "url": "https://en.wikipedia.org/wiki/Just_Sing",
+      "date": "September 8, 2016"
+    },
+    "RabbidsCrazyRush": {
+      "name": "Rabbids Crazy Rush",
+      "date": "September 12, 2016"
+    },
+    "FaceUp:TSG": {
+      "name": "Face Up: The Selfie Game",
+      "date": "September 28, 2016"
+    },
+    "Rocksmith:A2014ER": {
+      "name": "Rocksmith: All-new 2014 Edition - Remastered",
+      "date": "October 4, 2016"
+    },
+    "EagleFlight": {
+      "name": "Eagle Flight",
+      "url": "https://en.wikipedia.org/wiki/Eagle_Flight",
+      "date": "October 18, 2016"
+    },
+    "JustDance2017": {
+      "name": "Just Dance 2017",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2017",
+      "date": "October 25, 2016"
+    },
+    "AC:TEC": {
+      "name": "Assassin's Creed: The Ezio Collection",
+      "date": "November 15, 2016"
+    },
+    "WatchDogs2": {
+      "name": "Watch Dogs 2",
+      "url": "https://en.wikipedia.org/wiki/Watch_Dogs_2",
+      "date": "November 15, 2016"
+    },
+    "Steep": {
+      "name": "Steep",
+      "url": "https://en.wikipedia.org/wiki/Steep_(video_game)",
+      "date": "December 2, 2016"
+    },
+    "WerewolvesWithin": {
+      "name": "Werewolves Within",
+      "url": "https://en.wikipedia.org/wiki/Werewolves_Within",
+      "date": "December 6, 2016"
+    },
+    "CityofLove:P": {
+      "name": "City of Love: Paris",
+      "date": "January 18, 2017"
+    },
+    "ForHonor": {
+      "name": "For Honor",
+      "url": "https://en.wikipedia.org/wiki/For_Honor",
+      "date": "February 14, 2017"
+    },
+    "TCGRWildlands": {
+      "name": "Tom Clancy's Ghost Recon Wildlands",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Wildlands",
+      "date": "March 7, 2017"
+    },
+    "TrackMania2:L": {
+      "name": "TrackMania 2: Lagoon",
+      "date": "May 23, 2017"
+    },
+    "StarTrek:BC": {
+      "name": "Star Trek: Bridge Crew",
+      "url": "https://en.wikipedia.org/wiki/Star_Trek:_Bridge_Crew",
+      "date": "May 30, 2017"
+    },
+    "MarioRabbids:KB": {
+      "name": "Mario + Rabbids Kingdom Battle",
+      "url": "https://en.wikipedia.org/wiki/Mario_%2B_Rabbids_Kingdom_Battle",
+      "date": "August 29, 2017"
+    },
+    "RYLegends:DE": {
+      "name": "Rayman Legends: Definitive Edition",
+      "date": "September 17, 2017"
+    },
+    "Atomega": {
+      "name": "Atomega",
+      "url": "https://en.wikipedia.org/wiki/Atomega",
+      "date": "September 19, 2017"
+    },
+    "SouthPark:TFBW": {
+      "name": "South Park: The Fractured But Whole",
+      "url": "https://en.wikipedia.org/wiki/South_Park:_The_Fractured_but_Whole",
+      "date": "October 17, 2017"
+    },
+    "JustDance2018": {
+      "name": "Just Dance 2018",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2018",
+      "date": "October 24, 2017"
+    },
+    "ACOrigins": {
+      "name": "Assassin's Creed Origins",
+      "url": [
+        "https://store.steampowered.com/app/582160",
+        "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Origins"
+      ],
+      "date": "October 27, 2017"
+    },
+    "Monopoly": {
+      "name": "Monopoly",
+      "date": "October 31, 2017"
+    },
+    "Jeopardy": {
+      "name": "Jeopardy!",
+      "date": "November 7, 2017"
+    },
+    "WheelofFortune": {
+      "name": "Wheel of Fortune",
+      "date": "November 7, 2017"
+    },
+    "SouthPark:PD": {
+      "name": "South Park: Phone Destroyer",
+      "url": "https://en.wikipedia.org/wiki/South_Park:_Phone_Destroyer",
+      "date": "November 9, 2017"
+    },
+    "Ode": {
+      "name": "Ode",
+      "date": "November 27, 2017"
+    },
+    "DiscoveryTour:ACAE": {
+      "name": "Discovery Tour: Assassin's Creed - Ancient Egypt",
+      "date": "February 20, 2018"
+    },
+    "HungryDragon": {
+      "name": "Hungry Dragon",
+      "date": "February 22, 2018"
+    },
+    "ACRogue:R": {
+      "name": "Assassin's Creed Rogue Remastered",
+      "date": "March 20, 2018"
+    },
+    "FC5": {
+      "name": "Far Cry 5",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_5",
+      "date": "March 27, 2018"
+    },
+    "FC3:CE": {
+      "name": "Far Cry 3: Classic Edition",
+      "date": "May 29, 2018"
+    },
+    "TheCrew2": {
+      "name": "The Crew 2",
+      "url": "https://en.wikipedia.org/wiki/The_Crew_2",
+      "date": "June 29, 2018"
+    },
+    "TS:HE": {
+      "name": "The Settlers: History Edition",
+      "date": "August 21, 2018"
+    },
+    "LegendaryFishing": {
+      "name": "Legendary Fishing",
+      "date": "September 18, 2018"
+    },
+    "Transference": {
+      "name": "Transference",
+      "url": "https://en.wikipedia.org/wiki/Transference_(video_game)",
+      "date": "September 18, 2018"
+    },
+    "ACOdyssey": {
+      "name": "Assassin's Creed Odyssey",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Odyssey",
+      "date": "October 5, 2018"
+    },
+    "ChildofLight:UE": {
+      "name": "Child of Light: Ultimate Edition",
+      "date": "October 11, 2018"
+    },
+    "Starlink: Battle for Atlas": {
+      "name": "Starlink: Battle for Atlas",
+      "url": "https://en.wikipedia.org/wiki/Starlink:_Battle_for_Atlas",
+      "date": "October 16, 2018"
+    },
+    "JustDance2019": {
+      "name": "Just Dance 2019",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2019",
+      "date": "October 23, 2018"
+    },
+    "SportsParty": {
+      "name": "Sports Party",
+      "date": "October 30, 2018"
+    },
+    "Brawlhalla": {
+      "name": "Brawlhalla",
+      "url": "https://en.wikipedia.org/wiki/Brawlhalla",
+      "date": "November 6, 2018"
+    },
+    "Valiant Hearts: The Great War": {
+      "name": "Valiant Hearts: The Great War",
+      "url": "https://en.wikipedia.org/wiki/Valiant_Hearts:_The_Great_War",
+      "date": "November 8, 2018"
+    },
+    "AC:R3": {
+      "name": "Assassin's Creed: Rebellion",
+      "date": "November 20, 2018"
+    },
+    "FCNewDawn": {
+      "name": "Far Cry New Dawn",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_New_Dawn",
+      "date": "February 15, 2019"
+    },
+    "Anno1800": {
+      "name": "Anno 1800",
+      "url": "https://en.wikipedia.org/wiki/Anno_1800",
+      "date": "February 16, 2019"
+    },
+    "TrialsRising": {
+      "name": "Trials Rising",
+      "url": "https://en.wikipedia.org/wiki/Trials_Rising",
+      "date": "February 26, 2019"
+    },
+    "TCTD2": {
+      "name": "Tom Clancy's The Division 2",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division_2",
+      "date": "March 15, 2019"
+    },
+    "SpaceJunkies": {
+      "name": "Space Junkies",
+      "date": "March 26, 2019"
+    },
+    "Growtopia": {
+      "name": "Growtopia",
+      "url": "https://en.wikipedia.org/wiki/Growtopia",
+      "date": "March 28, 2019"
+    },
+    "ACIII:R": {
+      "name": "Assassin's Creed III Remastered",
+      "date": "March 29, 2019"
+    },
+    "DiscoveryTour:ACAG": {
+      "name": "Discovery Tour: Assassin's Creed - Ancient Greece",
+      "date": "September 10, 2019"
+    },
+    "RYMini": {
+      "name": "Rayman Mini",
+      "url": "https://en.wikipedia.org/wiki/Rayman_Mini",
+      "date": "September 19, 2019"
+    },
+    "TCGRBreakpoint": {
+      "name": "Tom Clancy's Ghost Recon Breakpoint",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Breakpoint",
+      "date": "October 4, 2019"
+    },
+    "Rabbids:C": {
+      "name": "Rabbids: Coding!",
+      "date": "October 8, 2019"
+    },
+    "JustDance2020": {
+      "name": "Just Dance 2020",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2020",
+      "date": "November 5, 2019"
+    },
+    "MnMHeroes:EoC": {
+      "name": "Might & Magic Heroes: Era of Chaos",
+      "date": "November 26, 2019"
+    },
+    "AC:TRC": {
+      "name": "Assassin's Creed: The Rebel Collection",
+      "date": "December 6, 2019"
+    }
+  },
+  "fileManager": {
+    "application": {}
+  }
+}

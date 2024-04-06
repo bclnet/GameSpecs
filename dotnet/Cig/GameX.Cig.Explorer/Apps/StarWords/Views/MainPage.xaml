@@ -1,0 +1,74 @@
+﻿<Window x:Class="GameX.Cig.Apps.StarWords.Views.MainPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:GameX.Cig.Apps.StarWords.Views"
+        mc:Ignorable="d"
+        Title="StarWords" Width="1342" Height="798">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="250" Width="250" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width=".1*" />
+            <ColumnDefinition MinWidth="250" Width="250" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height=".1*" />
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <DataTemplate x:Key="Document" DataType="{x:Type views:ContentTab}">
+                <views:DocumentView Document="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=Content.Document}" Margin="0,0,0,0" />
+            </DataTemplate>
+            <DataTemplate x:Key="Dashboard" DataType="{x:Type views:ContentTab}">
+                <views:DashboardView Margin="0,0,0,0" />
+            </DataTemplate>
+        </Grid.Resources>
+        
+        <Menu x:Name="MainMenu" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+            <MenuItem Header="_File">
+            </MenuItem>
+            <MenuItem Header="_Search">
+            </MenuItem>
+            <MenuItem Header="_Perforce">
+            </MenuItem>
+            <MenuItem Header="_Options">
+            </MenuItem>
+            <MenuItem Header="_Help">
+            </MenuItem>
+        </Menu>
+
+        <views:Navigator x:Name="Navigator" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10" />
+        
+        <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Center" />
+
+        <TabControl x:Name="Tabs" Grid.Column="2" Grid.Row="1" Margin="0,0,0,0" ItemsSource="{Binding ContentTabs}" VerticalAlignment="Stretch">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type views:ContentTab}" >
+                    <StackPanel Orientation="Horizontal" Height="21" Width="100" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding Name}" />
+                        <Image Source="pack://application:,,,/Resources/Icons/_default.png" Width="20" Height="20" MouseDown="OnContentTabClose"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type views:ContentTab}">
+                    <ContentControl Content="{Binding}">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="ContentTemplate" Value="{StaticResource Document}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Document}" Value="{x:Null}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Dashboard}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+    </Grid>
+</Window>

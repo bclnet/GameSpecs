@@ -1,0 +1,529 @@
+﻿{
+  "id": "Capcom+S",
+  "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_S",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Capcom.CapcomPakFile, GameX.Capcom"
+    },
+    "SamuraiSword": {
+      "name": "Samurai Sword",
+      "date": "November 15, 1988"
+    },
+    "SaturdayNightSlamMasters": {
+      "name": "Saturday Night Slam Masters",
+      "url": "https://en.wikipedia.org/wiki/Saturday_Night_Slam_Masters",
+      "date": "July 13, 1993"
+    },
+    "SectionZ": {
+      "name": "Section Z",
+      "url": "https://en.wikipedia.org/wiki/Section_Z",
+      "date": "December 1985"
+    },
+    "Sengoku": {
+      "name": "Sengoku Basara",
+      "url": "https://en.wikipedia.org/wiki/Devil_Kings",
+      "date": "July 21, 2005"
+    },
+    "Sengoku2": {
+      "name": "Sengoku Basara 2",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara_2",
+      "date": "2006-01-01"
+    },
+    "Sengoku:BH": {
+      "name": "Sengoku Basara Battle Heroes",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara_Battle_Heroes",
+      "date": "2009-01-01"
+    },
+    "Sengoku:CH": {
+      "name": "Sengoku Basara Chronicle Heroes",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara_Chronicle_Heroes",
+      "date": "July 21, 2011"
+    },
+    "Sengoku:X": {
+      "name": "Sengoku Basara X",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara_X",
+      "date": "2008-01-01"
+    },
+    "Sengoku:SH": {
+      "name": "Sengoku Basara: Samurai Heroes",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara:_Samurai_Heroes",
+      "date": "July 29, 2010",
+      "engine": "MTFL"
+    },
+    "Sengoku4": {
+      "name": "Sengoku Basara 4",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara_4",
+      "date": "January 23, 2014",
+      "engine": "MT2"
+    },
+    "Sengoku:SYD": {
+      "name": "Sengoku Basara: Sanada Yukimura-Den",
+      "url": "https://en.wikipedia.org/wiki/Sengoku_Basara",
+      "date": "August 25, 2016",
+      "engine": "MT2"
+    },
+    "Shadow of Rome": {
+      "name": "Shadow of Rome",
+      "url": "https://en.wikipedia.org/wiki/Shadow_of_Rome",
+      "date": "February 4, 2005"
+    },
+    "Shantae": {
+      "name": "Shantae",
+      "url": "https://en.wikipedia.org/wiki/Shantae_(video_game)",
+      "date": "June 2, 2002"
+    },
+    "ShichiseiToushin:G": {
+      "name": "Shichisei Toushin: Guyferd",
+      "url": "https://en.wikipedia.org/wiki/Seven_Star_Fighting_God_Guyferd",
+      "date": "1998-01-01"
+    },
+    "ShiritsuJusticeGakuen:NSN2": {
+      "name": "Shiritsu Justice Gakuen: Nekketsu Seisyun Nikki 2",
+      "url": "https://en.wikipedia.org/wiki/Rival_Schools:_United_By_Fate#Nekketsu_Seisyun_Nikki_2",
+      "date": "1999-01-01"
+    },
+    "SideArms": {
+      "name": "Side Arms",
+      "url": "https://en.wikipedia.org/wiki/Side_Arms_(video_game)",
+      "date": "1986-11-06"
+    },
+    "SideArms:HD": {
+      "name": "Side Arms Hyper Dyne",
+      "url": "https://en.wikipedia.org/wiki/Side_Arms_Hyper_Dyne",
+      "date": "1986-11-06"
+    },
+    "SideArms:S": {
+      "name": "Side Arms Special"
+    },
+    "Slipstream": {
+      "name": "Slipstream",
+      "date": "1995-01-01"
+    },
+    "SmurfsVillage": {
+      "name": "Smurfs' Village",
+      "url": "https://en.wikipedia.org/wiki/The_Smurfs",
+      "date": "2010-01-01"
+    },
+    "SmurfsGrabber": {
+      "name": "Smurfs' Grabber",
+      "url": "https://en.wikipedia.org/wiki/The_Smurfs",
+      "date": "September 7, 2011"
+    },
+    "SmurfLife": {
+      "name": "Smurf Life",
+      "url": "https://en.wikipedia.org/wiki/The_Smurfs",
+      "date": "2012-01-01"
+    },
+    "SnowBrothers": {
+      "name": "Snow Brothers",
+      "url": "https://en.wikipedia.org/wiki/Snow_Brothers",
+      "date": "1990-01-01"
+    },
+    "SonSon": {
+      "name": "SonSon",
+      "url": "https://en.wikipedia.org/wiki/SonSon",
+      "date": "July 1, 1984"
+    },
+    "SonSon2": {
+      "name": "SonSon 2",
+      "date": "1989-01-01"
+    },
+    "Spawn:ItDH": {
+      "name": "Spawn: In the Demon's Hand",
+      "url": "https://en.wikipedia.org/wiki/Spawn:_In_the_Demon%27s_Hand",
+      "date": "1999-01-01"
+    },
+    "Spyborgs": {
+      "name": "Spyborgs",
+      "url": "https://en.wikipedia.org/wiki/Spyborgs",
+      "date": "September 22, 2009"
+    },
+    "StarGladiator": {
+      "name": "Star Gladiator",
+      "url": "https://en.wikipedia.org/wiki/Star_Gladiator",
+      "date": "July 1, 1996"
+    },
+    "StartlingAdventures:K3": {
+      "name": "Startling Adventures Kuso 3 נDaiboken",
+      "date": "May 24, 2001"
+    },
+    "SteelBattalion": {
+      "name": "Steel Battalion",
+      "url": "https://en.wikipedia.org/wiki/Steel_Battalion",
+      "date": "September 12, 2002"
+    },
+    "SteelBattalion:HA": {
+      "name": "Steel Battalion: Heavy Armor",
+      "url": "https://en.wikipedia.org/wiki/Steel_Battalion:_Heavy_Armor",
+      "date": "June 19, 2012"
+    },
+    "SteelBattalion:LoC": {
+      "name": "Steel Battalion: Line of Contact",
+      "url": "https://en.wikipedia.org/wiki/Steel_Battalion:_Line_of_Contact",
+      "date": "February 26, 2004"
+    },
+    "SteelFang": {
+      "name": "Steel Fang",
+      "date": "1996-01-01"
+    },
+    "Stocker": {
+      "name": "Stocker",
+      "url": "https://en.wikipedia.org/wiki/Stocker_(video_game)",
+      "date": "1988-01-01"
+    },
+    "SF": {
+      "name": "Street Fighter",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_(video_game)",
+      "date": "August 30, 1987"
+    },
+    "SF:30AC": {
+      "n/a": false,
+      "name": "Street Fighter 30th Anniversary Collection",
+      "url": [
+        "https://store.steampowered.com/app/586200",
+        "https://en.wikipedia.org/wiki/Street_Fighter_30th_Anniversary_Collection"
+      ],
+      "date": "May 29, 2018",
+      "pakExt": ".?"
+    },
+    "SF2010:TFF": {
+      "name": "Street Fighter 2010: The Final Fight",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_2010:_The_Final_Fight",
+      "date": "August 8, 1990"
+    },
+    "SFA": {
+      "name": "Street Fighter Alpha",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha",
+      "date": "June 5, 1995"
+    },
+    "SFA2": {
+      "name": "Street Fighter Alpha 2",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha_2",
+      "date": "February 27, 1996"
+    },
+    "SFA3": {
+      "name": "Street Fighter Alpha 3",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha_3",
+      "date": "June 29, 1998"
+    },
+    "SFA3:M": {
+      "name": "Street Fighter Alpha 3 Max",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha_3",
+      "date": "January 19, 2006"
+    },
+    "SFA:A": {
+      "name": "Street Fighter Alpha Anthology",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha_Anthology",
+      "date": "May 25, 2006"
+    },
+    "SF:AC": {
+      "name": "Street Fighter Anniversary Collection",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Anniversary_Collection",
+      "date": "August 31, 2004"
+    },
+    "SF:C": {
+      "name": "Street Fighter Collection",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Collection",
+      "date": "September 18, 1997"
+    },
+    "SFX": {
+      "name": "Street Fighter EX",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_EX",
+      "date": "December 19, 1996"
+    },
+    "SFX2": {
+      "name": "Street Fighter EX2",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_EX2",
+      "date": "May 26, 1998"
+    },
+    "SFX2+": {
+      "name": "Street Fighter EX 2 Plus",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_EX2",
+      "date": "June 11, 1999"
+    },
+    "SFX3": {
+      "name": "Street Fighter EX3",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_EX3",
+      "date": "March 4, 2000"
+    },
+    "SFX:A": {
+      "name": "Street Fighter EX Alpha",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_EX",
+      "date": "July 17, 1997"
+    },
+    "SFX+": {
+      "name": "Street Fighter EX Plus",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_EX_Plus",
+      "date": "March 3, 1997"
+    },
+    "SF2:TWW": {
+      "name": "Street Fighter II: The World Warrior",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_II:_The_World_Warrior",
+      "date": "February 6, 1991"
+    },
+    "SF2:C": {
+      "name": "Street Fighter II Champion Edition",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_II_Champion_Edition",
+      "date": "March 13, 1992"
+    },
+    "SF2:M": {
+      "name": "Street Fighter II Movie",
+      "url": "https://en.wikipedia.org/wiki/List_of_Street_Fighter_games#Other_games",
+      "date": "December 12, 1995"
+    },
+    "SF2:SC": {
+      "name": "Street Fighter II: Special Champion Edition",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_II_Champion_Edition",
+      "date": "September 28, 1993"
+    },
+    "SF2:HF": {
+      "name": "Street Fighter II: Hyper Fighting",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_II:_Hyper_Fighting",
+      "date": "December 9, 1992"
+    },
+    "SF3:3S": {
+      "name": "Street Fighter III: 3rd Strike",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_III:_3rd_Strike",
+      "date": "May 12, 1999"
+    },
+    "SF3:3SO": {
+      "name": "Street Fighter III: 3rd Strike Online Edition",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_III:_3rd_Strike_Online_Edition",
+      "date": "August 23, 2011"
+    },
+    "SF3:DI": {
+      "name": "Street Fighter III: Double Impact",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_III:_Double_Impact",
+      "date": "December 16, 1999"
+    },
+    "SF3:NG": {
+      "name": "Street Fighter III: New Generation",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_III"
+    },
+    "SF3:2I": {
+      "name": "Street Fighter III: 2nd Impact",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_III:_2nd_Impact",
+      "date": "October 1, 1997"
+    },
+    "SF4": {
+      "name": "Street Fighter IV",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_IV",
+      "date": "July 18, 2008"
+    },
+    "SF4:V": {
+      "name": "Street Fighter IV: Volt",
+      "date": "June 30, 2011"
+    },
+    "SF5": {
+      "n/a": false,
+      "name": "Street Fighter V",
+      "url": [
+        "https://store.steampowered.com/app/310950",
+        "https://en.wikipedia.org/wiki/Street_Fighter_V"
+      ],
+      "date": "February 16, 2016",
+      "pakExt": ".?"
+    },
+    "SF5:AV": {
+      "name": "Street Fighter V: Arcade Version",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_V",
+      "date": "January 16, 2018"
+    },
+    "SF6": {
+      "name": "Street Fighter 6",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_6",
+      "date": "June 2, 2023"
+    },
+    "SFX:MM": {
+      "name": "Street Fighter X Mega Man",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_X_Mega_Man",
+      "date": "December 17, 2012"
+    },
+    "SFX:T": {
+      "name": "Street Fighter X Tekken",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_X_Tekken",
+      "date": "March 6, 2012"
+    },
+    "SFZ": {
+      "name": "Street Fighter Zero",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Zero",
+      "date": "1996-01-01"
+    },
+    "SFZ2:A": {
+      "name": "Street Fighter Zero 2 Alpha",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Zero_2_Alpha",
+      "date": "1996-01-01"
+    },
+    "SFZ2:D": {
+      "name": "Street Fighter Zero 2 Dash",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Alpha_2",
+      "date": "1996-01-01"
+    },
+    "SFZ3": {
+      "name": "Street Fighter Zero 3",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Zero_3",
+      "date": "August 6, 1999"
+    },
+    "SFZ3:U": {
+      "name": "Street Fighter Zero 3 Upper",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter_Zero_3_Upper",
+      "date": "2001-01-01"
+    },
+    "SF:TMa": {
+      "name": "Street Fighter: The Movie (arcade game)",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter:_The_Movie_(arcade_game)",
+      "date": "June 1, 1995"
+    },
+    "SF:TMc": {
+      "name": "Street Fighter: The Movie (console video game)",
+      "url": "https://en.wikipedia.org/wiki/Street_Fighter:_The_Movie_(console_video_game)",
+      "date": "August 11, 1995"
+    },
+    "Strider:A": {
+      "name": "Strider",
+      "date": "1989-01-01"
+    },
+    "Strider": {
+      "n/a": false,
+      "name": "Strider (2014 video game)",
+      "url": [
+        "https://store.steampowered.com/app/235210",
+        "https://en.wikipedia.org/wiki/Strider_(2014_video_game)"
+      ],
+      "date": "February 18, 2014",
+      "pakExt": ".?"
+    },
+    "Strider:NES": {
+      "name": "Strider (1989 NES video game)",
+      "url": "https://en.wikipedia.org/wiki/Strider_(1989_NES_video_game)",
+      "date": "July 1989"
+    },
+    "Strider:HD": {
+      "name": "Strider HD",
+      "url": "https://en.wikipedia.org/wiki/Strider_(2014_video_game)",
+      "date": "February 18, 2014"
+    },
+    "Strider2": {
+      "name": "Strider 2",
+      "url": "https://en.wikipedia.org/wiki/Strider_2_(1999_video_game)",
+      "date": "December 13, 1999"
+    },
+    "StriderII": {
+      "name": "Strider II",
+      "url": "https://en.wikipedia.org/wiki/Strider_2_(1999_video_game)",
+      "date": "1990-01-01"
+    },
+    "SuperAdventureRockman": {
+      "name": "Super Adventure Rockman",
+      "url": "https://en.wikipedia.org/wiki/Super_Adventure_Rockman",
+      "date": "June 25, 1998"
+    },
+    "SuperBusterBros": {
+      "name": "Super Buster Bros.",
+      "url": "https://en.wikipedia.org/wiki/Super_Buster_Bros.",
+      "date": "November 1, 1990"
+    },
+    "SuperGhoulsGhosts": {
+      "name": "Super Ghouls 'n Ghosts",
+      "url": "https://en.wikipedia.org/wiki/Super_Ghouls_%27n_Ghosts",
+      "date": "October 4, 1991"
+    },
+    "SuperPang": {
+      "name": "Super Pang",
+      "url": "https://en.wikipedia.org/wiki/Super_Pang",
+      "date": "October 1992"
+    },
+    "SPF2:T": {
+      "name": "Super Puzzle Fighter II Turbo",
+      "url": "https://en.wikipedia.org/wiki/Super_Puzzle_Fighter_II_Turbo",
+      "date": "May 31, 1996"
+    },
+    "SPF2:THD": {
+      "name": "Super Puzzle Fighter II Turbo HD Remix",
+      "url": "https://en.wikipedia.org/wiki/Super_Puzzle_Fighter_II_Turbo_HD_Remix",
+      "date": "August 29, 2007"
+    },
+    "SPF2:X": {
+      "name": "Super Puzzle Fighter II X for Matching Service",
+      "url": "https://en.wikipedia.org/wiki/Super_Puzzle_Fighter_II_Turbo",
+      "date": "July 5, 2001"
+    },
+    "SSF2": {
+      "name": "Super Street Fighter II",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_II",
+      "date": "September 10, 1993"
+    },
+    "SSF2:T": {
+      "name": "Super Street Fighter II Turbo",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_II_Turbo",
+      "date": "February 23, 1994"
+    },
+    "SSF2:THD": {
+      "name": "Super Street Fighter II Turbo HD Remix",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_II_Turbo_HD_Remix",
+      "date": "November 25, 2008"
+    },
+    "SSF2:XGM": {
+      "name": "Super Street Fighter II X Grand Master Challenge for Matching Service",
+      "date": "2000-01-01"
+    },
+    "SSF2:TR": {
+      "name": "Super Street Fighter II: Turbo Revival",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_II_Turbo#Game_Boy_Advance",
+      "date": "June 13, 2001"
+    },
+    "SSF4": {
+      "name": "Super Street Fighter IV",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_IV",
+      "date": "April 27, 2010"
+    },
+    "SSF4:3D": {
+      "name": "Super Street Fighter IV: 3D Edition",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_IV:_3D_Edition",
+      "date": "February 26, 2011",
+      "engine": "MTFM"
+    },
+    "SSF4:A": {
+      "name": "Super Street Fighter IV: Arcade Edition",
+      "url": "https://en.wikipedia.org/wiki/Super_Street_Fighter_IV:_Arcade_Edition",
+      "date": "December 16, 2010"
+    },
+    "SuzuMonogatari": {
+      "name": "Suzu Monogatari",
+      "date": "June 1, 2000"
+    },
+    "SweetHome": {
+      "name": "Sweet Home",
+      "url": "https://en.wikipedia.org/wiki/Sweet_Home_(video_game)",
+      "date": "December 15, 1989"
+    },
+    "Sydney2000": {
+      "name": "Sydney 2000",
+      "url": "https://en.wikipedia.org/wiki/Sydney_2000_(video_game)",
+      "date": "August 14, 2000"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "SF:30AC": {
+        "key": "Steam:586200",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 586200",
+        "dir": "Street Fighter 30th Anniversary Collection",
+        "path": "main"
+      },
+      "SF5": {
+        "key": "Steam:310950",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 310950",
+        "dir": "Street Fighter V",
+        "path": "main"
+      },
+      "Strider": {
+        "key": "Steam:235210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 235210",
+        "dir": "Strider",
+        "path": "main"
+      }
+    }
+  }
+}

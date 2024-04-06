@@ -1,4 +1,4 @@
-from gamespecs import family
+from gamex import family
 
 def test_haversine():
     # get Black family

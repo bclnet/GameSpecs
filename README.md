@@ -1,9 +1,9 @@
-Game Specs
+GameX
 ===
 
-Game Specs is an open-source, cross-platform solution for delivering game assets as a service.
+GameX is an open-source, cross-platform solution for delivering game assets as a service.
 
-### Game Specs Benefits:
+### GameX Benefits:
 * Portable (windows, apple, linux, mobile, intel, arm)
 * Loads textures, models, animations, sounds, and levels
 * Avaliable with streaming assets (cached)
@@ -21,19 +21,19 @@ Game Specs is an open-source, cross-platform solution for delivering game assets
 4. Application - a collection of application to interact with
 
 
-## [Applications](Documents/Applications/Readme.md)
-Multiple applications are included in GameSpecs to make it easier to work with the game assets.
+## [Applications](docs/Applications/Readme.md)
+Multiple applications are included in GameX to make it easier to work with the game assets.
 
 The following are the current applications:
 
 | ID                                               | Name
 | --                                               | --  
-| [Command Line Interface](Documents/Applications/Command%20Line%20Interface/Readme.md)| A CLI tool.
-| [Explorer](Documents/Applications/Explorer/Readme.md)                   | An application explorer.
-| [Unity Plugin](Documents/Applications/Unity%20Plugin/Readme.md)         | A Unity plugin.
-| [Unreal Plugin](Documents/Applications/Unreal%20Plugin/Readme.md)       | A Unreal plugin.
+| [Command Line Interface](docs/Applications/Command%20Line%20Interface/Readme.md)| A CLI tool.
+| [Explorer](docs/Applications/Explorer/Readme.md)                   | An application explorer.
+| [Unity Plugin](docs/Applications/Unity%20Plugin/Readme.md)         | A Unity plugin.
+| [Unreal Plugin](docs/Applications/Unreal%20Plugin/Readme.md)       | A Unreal plugin.
 
-## [Context](Documents/Context/Readme.md)
+## [Context](docs/Context/Readme.md)
 Context provides the interface for interacting with this service
 
 * Resource - a uri formated resource with a path and game component
@@ -65,30 +65,30 @@ The following are the current familes:
 
 | ID                                               | Name                      | Sample Game       | Status
 | --                                               | --                        | --                | --
-| [Arkane](Documents/Families/Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
-| [Bethesda](Documents/Families/Bethesda/Readme.md)| The Elder Scrolls         | Skyrim            | In Development
-| [Bioware](Documents/Families/Bioware/Readme.md)  | Bioware                   | Neverwinter Nights| In Development
-| [Black](Documents/Families/Black/Readme.md)      | Black Isle Studios        | Fallout 2         | In Development
-| [Blizzard](Documents/Families/Blizzard/Readme.md)| Blizzard                  | StarCraft         | In Development
-| [Capcom](Documents/Families/Capcom/Readme.md)    | Capcom                    | Resident Evil     | In Development
-| [Cig](Documents/Families/Cig/Readme.md)          | Cloud Imperium Games      | Star Citizen      | In Development
-| [Cryptic](Documents/Families/Cryptic/Readme.md)  | Cryptic                   | Star Trek Online  | In Development
-| [Crytek](Documents/Families/Cry/Readme.md)       | Crytek                    | MechWarrior Online| In Development
-| [Cyanide](Documents/Families/Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
-| [Epic](Documents/Families/Epic/Readme.md)        | Epic                      | BioShock          | In Development
-| [Frictional](Documents/Families/Frictional/Readme.md)| Frictional Games      | SOMA              | In Development
-| [Frontier](Documents/Families/Frontier/Readme.md)| Frontier Developments     | Elite: Dangerous  | In Development
-| [Id](Documents/Families/Id/Readme.md)            | id Software               | Doom              | In Development
-| [IW](Documents/Families/IW/Readme.md)            | Infinity Ward             | Call of Duty      | In Development
-| [Monolith](Documents/Families/Monolith/Readme.md)| Monolith                  | F.E.A.R.          | In Development
-| [Origin](Documents/Families/Origin/Readme.md)    | Origin Systems            | Ultima Online     | In Development
-| [Red](Documents/Families/Red/Readme.md)          | REDengine                 | The Witcher 3: Wild Hunt | In Development
-| [Unity](Documents/Families/Unity/Readme.md)      | Unity                     | AmongUs           | In Development
-| [Unknown](Documents/Families/Unknown/Readme.md)  | Unknown                   | N/A               | In Development
-| [Valve](Documents/Families/Valve/Readme.md)      | Valve                     | Dota 2            | In Development
-| [WbB](Documents/Families/WbB/Readme.md)          | Asheron's Call            | Asheron's Call    | In Development
+| [Arkane](docs/Families/Arkane/Readme.md)    | Arkane Studios            | Dishonored 2      | In Development
+| [Bethesda](docs/Families/Bethesda/Readme.md)| The Elder Scrolls         | Skyrim            | In Development
+| [Bioware](docs/Families/Bioware/Readme.md)  | Bioware                   | Neverwinter Nights| In Development
+| [Black](docs/Families/Black/Readme.md)      | Black Isle Studios        | Fallout 2         | In Development
+| [Blizzard](docs/Families/Blizzard/Readme.md)| Blizzard                  | StarCraft         | In Development
+| [Capcom](docs/Families/Capcom/Readme.md)    | Capcom                    | Resident Evil     | In Development
+| [Cig](docs/Families/Cig/Readme.md)          | Cloud Imperium Games      | Star Citizen      | In Development
+| [Cryptic](docs/Families/Cryptic/Readme.md)  | Cryptic                   | Star Trek Online  | In Development
+| [Crytek](docs/Families/Cry/Readme.md)       | Crytek                    | MechWarrior Online| In Development
+| [Cyanide](docs/Families/Cyanide/Readme.md)  | Cyanide Formats           | The Council       | In Development
+| [Epic](docs/Families/Epic/Readme.md)        | Epic                      | BioShock          | In Development
+| [Frictional](docs/Families/Frictional/Readme.md)| Frictional Games      | SOMA              | In Development
+| [Frontier](docs/Families/Frontier/Readme.md)| Frontier Developments     | Elite: Dangerous  | In Development
+| [Id](docs/Families/Id/Readme.md)            | id Software               | Doom              | In Development
+| [IW](docs/Families/IW/Readme.md)            | Infinity Ward             | Call of Duty      | In Development
+| [Monolith](docs/Families/Monolith/Readme.md)| Monolith                  | F.E.A.R.          | In Development
+| [Origin](docs/Families/Origin/Readme.md)    | Origin Systems            | Ultima Online     | In Development
+| [Red](docs/Families/Red/Readme.md)          | REDengine                 | The Witcher 3: Wild Hunt | In Development
+| [Unity](docs/Families/Unity/Readme.md)      | Unity                     | AmongUs           | In Development
+| [Unknown](docs/Families/Unknown/Readme.md)  | Unknown                   | N/A               | In Development
+| [Valve](docs/Families/Valve/Readme.md)      | Valve                     | Dota 2            | In Development
+| [WbB](docs/Families/WbB/Readme.md)          | Asheron's Call            | Asheron's Call    | In Development
 
-## [Platforms](Documents/Platforms/Readme.md)
+## [Platforms](docs/Platforms/Readme.md)
 Platforms provide the interface to each gaming platform.
 
 ## Games

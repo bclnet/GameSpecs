@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\agrp.png" Link="Resources\Icons\agrp.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\anim.png" Link="Resources\Icons\anim.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\bsp.png" Link="Resources\Icons\bsp.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\css.png" Link="Resources\Icons\css.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\dds.png" Link="Resources\Icons\dds.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\dmx.png" Link="Resources\Icons\dmx.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\ents.png" Link="Resources\Icons\ents.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\fbx.png" Link="Resources\Icons\fbx.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\gnv.png" Link="Resources\Icons\gnv.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\grass.png" Link="Resources\Icons\grass.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\hcg.png" Link="Resources\Icons\hcg.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\html.png" Link="Resources\Icons\html.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\jpg.png" Link="Resources\Icons\jpg.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\map.png" Link="Resources\Icons\map.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\mat.png" Link="Resources\Icons\mat.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\mdl.png" Link="Resources\Icons\mdl.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\mesh.png" Link="Resources\Icons\mesh.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\morf.png" Link="Resources\Icons\morf.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\mp3.png" Link="Resources\Icons\mp3.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\pcf.png" Link="Resources\Icons\pcf.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\pdf.png" Link="Resources\Icons\pdf.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\pdi.png" Link="Resources\Icons\pdi.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\phy.png" Link="Resources\Icons\phy.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\phys.png" Link="Resources\Icons\phys.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\png.png" Link="Resources\Icons\png.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\post.png" Link="Resources\Icons\post.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\psd.png" Link="Resources\Icons\psd.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\rman.png" Link="Resources\Icons\rman.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\snd.png" Link="Resources\Icons\snd.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\surf.png" Link="Resources\Icons\surf.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\tex.png" Link="Resources\Icons\tex.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\ttf.png" Link="Resources\Icons\ttf.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\txt.png" Link="Resources\Icons\txt.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\vis.png" Link="Resources\Icons\vis.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\vmt.png" Link="Resources\Icons\vmt.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\vtf.png" Link="Resources\Icons\vtf.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\vtx.png" Link="Resources\Icons\vtx.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\vvd.png" Link="Resources\Icons\vvd.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\wav.png" Link="Resources\Icons\wav.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\wnod.png" Link="Resources\Icons\wnod.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\wrld.png" Link="Resources\Icons\wrld.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\xml.png" Link="Resources\Icons\xml.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\_default.png" Link="Resources\Icons\_default.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\_folder.png" Link="Resources\Icons\_folder.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\_openFile.png" Link="Resources\Icons\_openFile.png" />
+    <EmbeddedResource Include="..\..\..\python\app\resources\icons\_package.png" Link="Resources\Icons\_package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\docs\Applications\Explorer\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
+    <PackageReference Include="WPFHexaEditor" Version="2.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.OpenGL\GameX.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics.GLControl\OpenStack.Graphics.GLControl.csproj" />
+    <ProjectReference Include="..\..\Cig\GameX.Cig.Explorer\GameX.Cig.Explorer.csproj" />
+    <ProjectReference Include="..\..\Base\GameX.All\GameX.All.csproj" />
+  </ItemGroup>
+
+</Project>

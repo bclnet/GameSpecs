@@ -1,0 +1,248 @@
+﻿{
+  "id": "Ubisoft+2020-present",
+  "url": "https://en.wikipedia.org/wiki/List_of_Ubisoft_games:_2020%E2%80%93present",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Ubisoft.UbisoftPakFile, GameX.Ubisoft"
+    },
+    "MnM:CR": {
+      "name": "Might & Magic: Chess Royale",
+      "date": "2020-01-29"
+    },
+    "Trackmania": {
+      "name": "Trackmania",
+      "url": "https://en.wikipedia.org/wiki/TrackMania_(2020_video_game)",
+      "date": "2020-07-01"
+    },
+    "HyperScape": {
+      "name": "Hyper Scape",
+      "url": "https://en.wikipedia.org/wiki/Hyper_Scape",
+      "date": "2020-08-11"
+    },
+    "TCES": {
+      "name": "Tom Clancy's Elite Squad",
+      "date": "2020-08-25"
+    },
+    "Rabbids:WR": {
+      "name": "Rabbids: Wild Race",
+      "date": "2020-10-12"
+    },
+    "AGOS:AGoS": {
+      "name": "AGOS: A Game of Space",
+      "date": "2020-10-28"
+    },
+    "WatchDogs:L": {
+      "name": "Watch Dogs: Legion",
+      "url": "https://en.wikipedia.org/wiki/Watch_Dogs:_Legion",
+      "date": "2020-10-29"
+    },
+    "ACValhalla": {
+      "name": "Assassin's Creed Valhalla",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Valhalla",
+      "date": "2020-11-10"
+    },
+    "FamilyFeud": {
+      "name": "Family Feud",
+      "date": "2020-11-12"
+    },
+    "JustDance2021": {
+      "name": "Just Dance 2021",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2021",
+      "date": "2020-11-12"
+    },
+    "IdleRestaurantTycoon": {
+      "name": "Idle Restaurant Tycoon",
+      "date": "2020-12-03"
+    },
+    "ImmortalsFenyxRising": {
+      "name": "Immortals Fenyx Rising",
+      "url": "https://en.wikipedia.org/wiki/Immortals_Fenyx_Rising",
+      "date": "2020-12-03"
+    },
+    "SPVTW:TGCE": {
+      "name": "Scott Pilgrim vs. The World: The Game - Complete Edition",
+      "url": "https://en.wikipedia.org/wiki/Scott_Pilgrim_vs._The_World:_The_Game_-_Complete_Edition",
+      "date": "2021-01-14"
+    },
+    "FC6": {
+      "name": "Far Cry 6",
+      "url": "https://en.wikipedia.org/wiki/Far_Cry_6",
+      "date": "2021-10-07"
+    },
+    "DiscoveryTour:VA": {
+      "name": "Discovery Tour: Viking Age",
+      "date": "2021-10-19"
+    },
+    "RidersRepublic": {
+      "name": "Riders Republic",
+      "url": "https://en.wikipedia.org/wiki/Riders_Republic",
+      "date": "2021-10-28"
+    },
+    "JustDance2022": {
+      "name": "Just Dance 2022",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2022",
+      "date": "2021-11-04"
+    },
+    "Monopoly:M": {
+      "name": "Monopoly: Madness",
+      "date": "2021-12-09"
+    },
+    "ClashofBeasts": {
+      "name": "Clash of Beasts",
+      "date": "2022-01-11"
+    },
+    "TCRSExtraction": {
+      "name": "Tom Clancy's Rainbow Six Extraction",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Extraction",
+      "date": "2022-01-20"
+    },
+    "TrivialPursuitLive:2": {
+      "name": "Trivial Pursuit Live! 2",
+      "date": "2022-03-17"
+    },
+    "RollerChampions": {
+      "name": "Roller Champions",
+      "url": "https://en.wikipedia.org/wiki/Roller_Champions",
+      "date": "2022-05-25"
+    },
+    "Rabbids:PoL": {
+      "name": "Rabbids: Party of Legends",
+      "date": "2022-06-30"
+    },
+    "WildArenaSurvivors": {
+      "name": "Wild Arena Survivors",
+      "date": "2022-08-30"
+    },
+    "Rocksmith:P": {
+      "name": "Rocksmith+",
+      "url": "https://en.wikipedia.org/wiki/Rocksmith%2B",
+      "date": "2022-09-06"
+    },
+    "MarioRabbidsSparksofHope": {
+      "name": "Mario + Rabbids Sparks of Hope",
+      "url": "https://en.wikipedia.org/wiki/Mario_%2B_Rabbids_Sparks_of_Hope",
+      "date": "2022-10-20"
+    },
+    "JustDance2023Edition": {
+      "name": "Just Dance 2023 Edition",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2023_Edition",
+      "date": "2022-11-22"
+    },
+    "OddBallers": {
+      "name": "OddBallers",
+      "url": "https://en.wikipedia.org/wiki/OddBallers",
+      "date": "2023-01-23"
+    },
+    "ValiantHearts:CH": {
+      "name": "Valiant Hearts: Coming Home",
+      "date": "2023-01-31"
+    },
+    "TS:NA": {
+      "name": "The Settlers: New Allies",
+      "url": "https://en.wikipedia.org/wiki/The_Settlers:_New_Allies",
+      "date": "2023-02-17"
+    },
+    "MightyQuestRoguePalace": {
+      "name": "Mighty Quest Rogue Palace",
+      "date": "2023-04-18"
+    },
+    "TheCrewMotorfest": {
+      "name": "The Crew Motorfest",
+      "url": "https://en.wikipedia.org/wiki/The_Crew_Motorfest",
+      "date": "2023-09-14"
+    },
+    "ACMirage": {
+      "name": "Assassin's Creed Mirage",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Mirage",
+      "date": "2023-10-05"
+    },
+    "JustDance2024Edition": {
+      "name": "Just Dance 2024 Edition",
+      "url": "https://en.wikipedia.org/wiki/Just_Dance_2024_Edition",
+      "date": "2023-10-24"
+    },
+    "ACNexusVR": {
+      "name": "Assassin's Creed Nexus VR",
+      "url": "https://en.wikipedia.org/wiki/Assassin%27s_Creed_Nexus_VR",
+      "date": "2023-11-16"
+    },
+    "Avatar:FoP": {
+      "name": "Avatar: Frontiers of Pandora",
+      "url": "https://en.wikipedia.org/wiki/Avatar:_Frontiers_of_Pandora",
+      "date": "2023-12-07"
+    },
+    "PoP:TLC": {
+      "name": "Prince of Persia: The Lost Crown",
+      "url": "https://en.wikipedia.org/wiki/Prince_of_Persia:_The_Lost_Crown",
+      "date": "2024-01-18"
+    },
+    "SkullandBones": {
+      "name": "Skull and Bones",
+      "url": "https://en.wikipedia.org/wiki/Skull_and_Bones_(video_game)",
+      "date": "2024-02-16"
+    },
+    "Invincible:GtG": {
+      "name": "Invincible: Guarding the Globe",
+      "date": "2024-01-01"
+    },
+    "TCRSMobile": {
+      "name": "Tom Clancy's Rainbow Six Mobile",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_Rainbow_Six_Mobile",
+      "date": "2024-04-01"
+    },
+    "TCTDResurgence": {
+      "name": "Tom Clancy's The Division Resurgence",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division_Resurgence",
+      "date": "2024-01-01"
+    },
+    "StarWarsOutlaws": {
+      "name": "Star Wars Outlaws",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Outlaws",
+      "date": "2024-01-01"
+    },
+    "XDefiant": {
+      "name": "XDefiant",
+      "url": "https://en.wikipedia.org/wiki/XDefiant",
+      "date": "2024-01-01"
+    },
+    "AC:CH": {
+      "name": "Assassin's Creed: Codename Hexe"
+    },
+    "AC:CI": {
+      "name": "Assassin's Creed: Codename Invictus"
+    },
+    "AC:CR": {
+      "name": "Assassin's Creed: Codename Red"
+    },
+    "ACJade": {
+      "name": "Assassin's Creed Jade"
+    },
+    "BeyondGoodandEvil2": {
+      "name": "Beyond Good and Evil 2",
+      "url": "https://en.wikipedia.org/wiki/Beyond_Good_and_Evil_2"
+    },
+    "PoP:TSoTR": {
+      "name": "Prince of Persia: The Sands of Time (remake)"
+    },
+    "ProjectU": {
+      "name": "Project U"
+    },
+    "TCTD3": {
+      "name": "Tom Clancy's The Division 3"
+    },
+    "TCTDHeartland": {
+      "name": "Tom Clancy's The Division Heartland",
+      "url": "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division_Heartland"
+    },
+    "TCSC:R": {
+      "name": "Tom Clancy's Splinter Cell (remake)"
+    },
+    "UntitledACmobilegame": {
+      "name": "Untitled Assassin's Creed mobile game"
+    }
+  },
+  "fileManager": {
+    "application": {}
+  }
+}

@@ -1,0 +1,31 @@
+﻿using System.Collections.Generic;
+using System.Numerics;
+
+namespace OpenStack.Graphics.OpenGL2
+{
+    public static class Billboard
+    {
+        public static List<VertexPositionTexture> Vertices { get; set; }
+        public static List<short> Indices { get; set; }
+
+        public static VertexBuffer VertexBuffer { get; set; }
+        public static IndexBuffer IndexBuffer { get; set; }
+
+        static Billboard()
+        {
+            Vertices = new List<VertexPositionTexture>();
+            Vertices.Add(new VertexPositionTexture(Vector3.Zero, new Vector2(0, 1)));
+            Vertices.Add(new VertexPositionTexture(Vector3.Zero, new Vector2(1, 1)));
+            Vertices.Add(new VertexPositionTexture(Vector3.Zero, new Vector2(0, 0)));
+            Vertices.Add(new VertexPositionTexture(Vector3.Zero, new Vector2(1, 0)));
+
+            Indices = new List<short>() { 0, 1, 2, 3 };
+
+            VertexBuffer = new VertexBuffer(GameView.Instance.GraphicsDevice, typeof(VertexPositionTexture), 4, BufferUsage.WriteOnly);
+            VertexBuffer.SetData(Vertices.ToArray());
+
+            IndexBuffer = new IndexBuffer(GameView.Instance.GraphicsDevice, typeof(short), 4, BufferUsage.WriteOnly);
+            IndexBuffer.SetData(Indices.ToArray());
+        }
+    }
+}

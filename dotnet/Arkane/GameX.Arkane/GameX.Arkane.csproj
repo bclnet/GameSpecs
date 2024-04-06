@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Base\GameX.Base\GameX.Base.csproj" />
+    <ProjectReference Include="..\..\Crytek\GameX.Crytek\GameX.Crytek.csproj" />
+    <ProjectReference Include="..\..\Id\GameX.Id\GameX.Id.csproj" />
+    <ProjectReference Include="..\..\Epic\GameX.Epic\GameX.Epic.csproj" />
+    <ProjectReference Include="..\..\Valve\GameX.Valve\GameX.Valve.csproj" />
+  </ItemGroup>
+
+</Project>

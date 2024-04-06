@@ -1,0 +1,346 @@
+﻿{
+  "id": "Frontier",
+  "name": "Frontier Developments",
+  "studio": "Frontier Developments",
+  "description": "Frontier Games file formats",
+  "url": "https://en.wikipedia.org/wiki/Frontier_Developments",
+  "samples": [
+    "FrontierFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Frontier.FrontierPakFile, GameX.Frontier",
+      "pakExt": ".ovl"
+    },
+    "FE": {
+      "n/a": true,
+      "name": "Frontier: First Encounters",
+      "url": "https://en.wikipedia.org/wiki/Frontier:_First_Encounters",
+      "date": "1995-05-01"
+    },
+    "DX": {
+      "n/a": true,
+      "name": "Darxide",
+      "url": "https://en.wikipedia.org/wiki/Darxide",
+      "date": "1996-01-01"
+    },
+    "V2K": {
+      "n/a": true,
+      "name": "V2000",
+      "url": "https://en.wikipedia.org/wiki/Zarch#V2000",
+      "date": "1998-01-01"
+    },
+    "IF": {
+      "n/a": true,
+      "name": "Infestation",
+      "date": "2000-01-01"
+    },
+    "DX:EMP": {
+      "n/a": true,
+      "name": "Darxide EMP",
+      "url": "https://en.wikipedia.org/wiki/Darxide",
+      "date": "2003-01-01"
+    },
+    "RTX": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon (Xbox port)",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_(video_game)",
+      "date": "2003-01-01"
+    },
+    "WG:PZ": {
+      "n/a": true,
+      "name": "Wallace & Gromit in Project Zoo",
+      "url": "https://en.wikipedia.org/wiki/Wallace_%26_Gromit_in_Project_Zoo",
+      "date": "2003-10-03"
+    },
+    "DL": {
+      "n/a": true,
+      "name": "Dog's Life",
+      "url": "https://en.wikipedia.org/wiki/Dog%27s_Life",
+      "date": "2003-10-31"
+    },
+    "RT2:WW": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 2: Wacky Worlds",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_2",
+      "date": "2003-01-01"
+    },
+    "RT2:TT": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 2: Time Twister",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_2",
+      "date": "2003-01-01"
+    },
+    "RT3": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 3",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
+      "date": "2004-01-01"
+    },
+    "RT3:S": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 3: Soaked!",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
+      "date": "2005-01-01"
+    },
+    "RT3:W": {
+      "n/a": true,
+      "name": "RollerCoaster Tycoon 3: Wild!",
+      "url": "https://en.wikipedia.org/wiki/RollerCoaster_Tycoon_3",
+      "date": "2005-01-01"
+    },
+    "WG:TCotWR": {
+      "n/a": true,
+      "name": "Wallace & Gromit: The Curse of the Were-Rabbit",
+      "url": "https://en.wikipedia.org/wiki/Wallace_%26_Gromit:_The_Curse_of_the_Were-Rabbit_(video_game)",
+      "date": "2005-10-07"
+    },
+    "TV": {
+      "n/a": true,
+      "name": "Thrillville",
+      "url": "https://en.wikipedia.org/wiki/Thrillville",
+      "date": "2006-11-21"
+    },
+    "TV:OtR": {
+      "n/a": true,
+      "name": "Thrillville: Off the Rails",
+      "url": "https://en.wikipedia.org/wiki/Thrillville:_Off_the_Rails",
+      "date": "2007-10-16"
+    },
+    "LW": {
+      "name": "LostWinds",
+      "url": [
+        "https://store.steampowered.com/app/447780",
+        "https://en.wikipedia.org/wiki/LostWinds"
+      ],
+      "date": "2008-05-12",
+      "pak": "game:/**/*.ovl"
+    },
+    "LW2": {
+      "name": "LostWinds 2: Winter of the Melodias",
+      "url": [
+        "https://store.steampowered.com/app/447800",
+        "https://en.wikipedia.org/wiki/LostWinds_2:_Winter_of_the_Melodias"
+      ],
+      "date": "2009-10-09",
+      "pak": "game:/**/*.ovl"
+    },
+    "KT": {
+      "n/a": true,
+      "name": "Kinectimals",
+      "url": "https://en.wikipedia.org/wiki/Kinectimals",
+      "date": "2010-11-04"
+    },
+    "KT:NwB": {
+      "n/a": true,
+      "name": "Kinectimals: Now with Bears!",
+      "url": "https://en.wikipedia.org/wiki/Kinectimals",
+      "date": "2011-10-11"
+    },
+    "KT:DA": {
+      "n/a": true,
+      "name": "Kinect: Disneyland Adventures",
+      "url": "https://en.wikipedia.org/wiki/Kinect:_Disneyland_Adventures",
+      "date": "2011-11-15"
+    },
+    "CC": {
+      "n/a": true,
+      "name": "Coaster Crazy",
+      "date": "2012-01-01"
+    },
+    "ZT": {
+      "n/a": true,
+      "name": "Zoo Tycoon",
+      "url": "https://en.wikipedia.org/wiki/Zoo_Tycoon_(2013_video_game)",
+      "date": "2013-11-22"
+    },
+    "CCD": {
+      "n/a": true,
+      "name": "Coaster Crazy Deluxe",
+      "date": "2013-01-01"
+    },
+    "TFDS": {
+      "n/a": true,
+      "name": "Tales from Deep Space",
+      "date": "2014-01-01"
+    },
+    "ED": {
+      "name": "Elite: Dangerous",
+      "url": [
+        "https://store.steampowered.com/app/359320",
+        "https://en.wikipedia.org/wiki/Elite_Dangerous"
+      ],
+      "date": "2014-12-16",
+      "pak": "game:/**/*.ovl",
+      "dlcs": {
+        "Odyssey": {
+          "name": "Elite Dangerous: Odyssey",
+          "url": [
+            "https://store.steampowered.com/app/1336350",
+            "https://en.wikipedia.org/wiki/Elite_Dangerous#Odyssey_expansion"
+          ],
+          "date": "2021-05-19",
+          "path": "elite-dangerous-odyssey-64"
+        }
+      }
+    },
+    "SR": {
+      "n/a": true,
+      "name": "Screamride",
+      "url": "https://en.wikipedia.org/wiki/Screamride",
+      "date": "2015-03-03"
+    },
+    "ED:H": {
+      "n/a": true,
+      "name": "Elite Dangerous: Horizons",
+      "url": "https://en.wikipedia.org/wiki/Elite_Dangerous#Horizons_season_of_expansions",
+      "date": "2015-12-15"
+    },
+    "ED:A": {
+      "n/a": true,
+      "name": "Elite Dangerous: Arena",
+      "url": "https://en.wikipedia.org/wiki/Elite_Dangerous#Elite_Dangerous:_Arena",
+      "date": "2016-02-16"
+    },
+    "PC": {
+      "name": "Planet Coaster",
+      "url": [
+        "https://store.steampowered.com/app/493340",
+        "https://en.wikipedia.org/wiki/Planet_Coaster"
+      ],
+      "date": "2016-11-17"
+    },
+    "JW": {
+      "name": "Jurassic World Evolution",
+      "url": [
+        "https://store.steampowered.com/app/648350",
+        "https://en.wikipedia.org/wiki/Jurassic_World_Evolution"
+      ],
+      "date": "2018-06-12"
+    },
+    "PZ": {
+      "name": "Planet Zoo",
+      "url": [
+        "https://store.steampowered.com/app/703080",
+        "https://en.wikipedia.org/wiki/Planet_Zoo"
+      ],
+      "date": "2019-11-05"
+    },
+    "JW2": {
+      "name": "Jurassic World Evolution 2",
+      "url": [
+        "https://store.steampowered.com/app/1244460",
+        "https://en.wikipedia.org/wiki/Jurassic_World_Evolution_2"
+      ],
+      "date": "2021-11-09"
+    },
+    "F1:22": {
+      "name": "F1 Manager 2022",
+      "url": [
+        "https://store.steampowered.com/app/1708520",
+        "https://en.wikipedia.org/wiki/F1_Manager_2022"
+      ],
+      "date": "2022-08-30"
+    },
+    "W4K:CG": {
+      "name": "Warhammer 40,000: Chaos Gate - Daemonhunters",
+      "url": [
+        "https://store.steampowered.com/app/1611910",
+        "https://en.wikipedia.org/wiki/Warhammer_40,000:_Chaos_Gate_-_Daemonhunters"
+      ],
+      "date": "2022-11-23",
+      "tag": "dev:complex games"
+    },
+    "F1:23": {
+      "name": "F1 Manager 2023",
+      "url": [
+        "https://store.steampowered.com/app/2287220",
+        "https://en.wikipedia.org/wiki/F1_Manager_2023"
+      ],
+      "date": "2023-07-31"
+    },
+    "W4K:AoS:RoR": {
+      "name": "Warhammer Age of Sigmar: Realms of Ruin",
+      "url": "https://en.wikipedia.org/wiki/Warhammer_Age_of_Sigmar",
+      "date": "2023-01-01"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "LW": {
+        "key": "Steam:447780",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 447780",
+        "dir": "LostWinds",
+        "path": "_Win32"
+      },
+      "LW2": {
+        "key": "Steam:447800",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 447800",
+        "dir": "LostWinds 2 Winter of the Melodias",
+        "path": "_Win32"
+      },
+      "ED": {
+        "key": "Steam:359320",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 359320",
+        "dir": "Elite Dangerous",
+        "path": "Products"
+      },
+      "PC": {
+        "key": "Steam:493340",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 493340",
+        "dir": "Planet Coaster",
+        "path": [
+          "Blueprints",
+          "Parks",
+          "Win64"
+        ]
+      },
+      "JW": {
+        "key": "Steam:648350",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 648350",
+        "dir": "Jurassic World Evolution",
+        "path": [
+          "Islands",
+          "Win64"
+        ]
+      },
+      "PZ": {
+        "key": "Steam:703080",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 703080",
+        "dir": "Planet Zoo",
+        "path": [
+          "Blueprints",
+          "win64",
+          "Zoos"
+        ]
+      },
+      "JW2": {
+        "key": "Steam:1244460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1244460",
+        "dir": "Jurassic World Evolution 2",
+        "path": [
+          "Islands",
+          "Win64"
+        ]
+      },
+      "F1:22": {
+        "key": "Steam:1708520",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1708520",
+        "dir": "F1Manager2022",
+        "path": "F1Manager22/Content/Paks"
+      },
+      "W4K:CG": {
+        "key": "Steam:1611910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1611910",
+        "dir": "",
+        "path": "main"
+      },
+      "F1:23": {
+        "key": "Steam:2287220",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2287220",
+        "dir": "F1Manager2023",
+        "path": "F1Manager22/Content/Paks"
+      }
+    }
+  }
+}

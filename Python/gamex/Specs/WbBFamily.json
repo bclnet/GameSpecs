@@ -1,0 +1,117 @@
+﻿{
+  "id": "WbB",
+  "name": "WB Games Boston",
+  "studio": "WB Games Boston",
+  "url": "https://en.wikipedia.org/wiki/WB_Games_Boston",
+  "description": "The file formats used in WB Games Boston games.",
+  "samples": [
+    "WbBFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "gameType": "GameX.WbB.WbBGame, GameX.WbB",
+      "pakFileType": "GameX.WbB.WbBPakFile, GameX.WbB"
+    },
+    "AC": {
+      "name": "Asheron's Call",
+      "url": [
+        "https://en.wikipedia.org/wiki/Asheron%27s_Call",
+        "https://emulator.ac/how-to-play/",
+        "http://content.turbine.com/sites/clientdl/ac1/ac1install.exe",
+        "http://www.thwargle.com/"
+      ],
+      "date": "1999-11-02",
+      "pakExt": ".dat",
+      "pakx": "game:/client_portal.dat",
+      "tags": "Shutdown",
+      "status": "open;read;texture:GL"
+    },
+    "AC2": {
+      "name": "Asheron's Call 2: Fallen Kings",
+      "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call_2:_Fallen_Kings",
+      "date": "2002-11-22",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "DDO": {
+      "name": "Dungeons & Dragons Online",
+      "url": "https://en.wikipedia.org/wiki/Dungeons_%26_Dragons_Online",
+      "date": "2006-02-28",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "LotRO": {
+      "name": "The Lord of the Rings Online",
+      "url": "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings_Online",
+      "date": "2007-04-24",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "IC": {
+      "name": "Infinite Crisis",
+      "url": "https://en.wikipedia.org/wiki/Infinite_Crisis_(video_game)",
+      "date": "2015-03-26",
+      "pakExt": ".x",
+      "tags": "Shutdown"
+    },
+    "B:AU": {
+      "n/a": true,
+      "name": "Batman: Arkham Underworld",
+      "url": "https://en.wikipedia.org/wiki/Asheron%27s_Call_2:_Fallen_Kings",
+      "date": "2002-11-22",
+      "tags": "mobile"
+    },
+    "GoT:C": {
+      "n/a": true,
+      "name": "Game of Thrones: Conquest",
+      "url": "https://warnerbrosgames.com/game/game-of-thrones-conquest",
+      "date": "2007-01-01",
+      "tags": "mobile"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "AC": {
+        "key": "Unknown:AC",
+        "reg": "Thwargle Games/ThwargLauncher",
+        "dir": "Asheron's Call",
+        "Thwargle Games/ThwargLauncher": {
+          "xml": "%LocalAppData%/Thwargle_Games/ThwargLauncher.exe_Url_211rsqwjx2ebkbzvsbzaeuk2kg5jvfdw/7.2.0.0/user.config",
+          "xmlPath": "//setting[@name='ACLocation']/value"
+        }
+      }
+    },
+    "filters": {
+      "AC": {
+        "Landblock": "0xFFFF",
+        "LandblockInfo": "0xFFFE",
+        "EnvCell": "0x100",
+        "GfxObj": "0x01",
+        "Setup": "0x02",
+        "Animation": "0x03",
+        "Palette": "0x04",
+        "SurfaceTexture": "0x05",
+        "Textures": "0x06",
+        "Surface": "0x08",
+        "MotionTable": "0x09",
+        "Sound": "0x0A",
+        "Environment": "0x0D",
+        "CharGen": "0xE000002",
+        "BadData": "0xE00001A",
+        "PaletteSet": "0x0F",
+        "Clothing": "0x10",
+        "DegradeInfo": "0x11",
+        "Scene": "0x12",
+        "SoundTable": "0x20",
+        "Enums": "0x22",
+        "StringTable": "0x23",
+        "DIDs": "0x25",
+        "DualDIDs": "0x27",
+        "CombatTable": "0x30",
+        "EmitterInfo": "0x32",
+        "PhysicsScript": "0x33",
+        "PhysicsScriptTable": "0x34"
+      }
+    }
+  }
+}

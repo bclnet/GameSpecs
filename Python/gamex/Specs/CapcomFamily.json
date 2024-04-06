@@ -1,0 +1,317 @@
+﻿{
+  "id": "Capcom",
+  "name": "Capcom",
+  "studio": "Capcom",
+  "description": "Capcom file formats",
+  "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games",
+  "samples": [
+    "CapcomFamily.Sample.json"
+  ],
+  "specs": [
+    "CapcomFamily+0-D.json",
+    "CapcomFamily+E-L.json",
+    "CapcomFamily+M.json",
+    "CapcomFamily+N-R.json",
+    "CapcomFamily+S.json",
+    "CapcomFamily+T-Z.json"
+  ],
+  "engines": {
+    "RE": {
+      "name": "RE Engine",
+      "url": "https://en.wikipedia.org/wiki/RE_Engine"
+    },
+    "MT1": {
+      "name": "MT Framework 1.x",
+      "url": "https://en.wikipedia.org/wiki/MT_Framework"
+    },
+    "MT2": {
+      "name": "MT Framework 2.x",
+      "url": "https://en.wikipedia.org/wiki/MT_Framework"
+    },
+    "MTFL": {
+      "name": "MT Framework Lite",
+      "url": "https://en.wikipedia.org/wiki/MT_Framework"
+    },
+    "MTFM": {
+      "name": "MT Framework Mobile",
+      "url": "https://en.wikipedia.org/wiki/MT_Framework"
+    }
+  },
+  "games+0-D": {
+    "BionicCommando": {},
+    "BionicCommando:R": {},
+    "CAS2": {},
+    "BEU:B": {},
+    "DV": {},
+    "DV:Z": {},
+    "DR": {},
+    "DR2": {},
+    "DR2:OtR": {},
+    "DR3": {},
+    "DR4": {},
+    "DMC3:S": {},
+    "DMC4:S": {},
+    "DMC5": {},
+    "DMC:HD": {},
+    "DMC:DMC": {},
+    "Dragon": {},
+    "DT:R": {}
+  },
+  "games+E-L": {
+    "Flock": {},
+    "LP:EC": {},
+    "LP3": {}
+  },
+  "games+M": {
+    "MVC:I": {},
+    "MM11": {},
+    "MMX:LC": {},
+    "MMX:LC2": {},
+    "MH:W": {}
+  },
+  "games+N-R": {
+    "Okami:HD": {},
+    "O:W": {},
+    "RememberMe": {},
+    "RE": {},
+    "REZ": {},
+    "RE2": {},
+    "RE3": {},
+    "RE4": {},
+    "RE5": {},
+    "RE6": {},
+    "RE7": {},
+    "RE:R": {},
+    "RE:R2": {},
+    "RE:V": {}
+  },
+  "games+S": {
+    "SF:30AC": {},
+    "SF5": {},
+    "Strider": {}
+  },
+  "games+T-Z": {
+    "UMVC3": {},
+    "UmbrellaCorps": {}
+  },
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Capcom.CapcomPakFile, GameX.Capcom"
+    },
+    "CAS": {
+      "name": "Capcom Arcade Stadium",
+      "url": "https://store.steampowered.com/app/1515950",
+      "date": "May 24, 2021",
+      "engine": "RE",
+      "resource": "CAS_PC_Release",
+      "pakExt": ".pak",
+      "pakx": "game:/re_chunk_000.pak.patch_001.pak",
+      "dlcs": {
+        "dlc": {
+          "path": "dlc"
+        }
+      }
+    },
+    "Fighting:C": {
+      "name": "Capcom Fighting Collection",
+      "url": "https://store.steampowered.com/app/1685750",
+      "date": "Jun 23, 2022",
+      "engine": "MT2",
+      "searchBy": "AllDir",
+      "pakExt": ".arc"
+    },
+    "GNG:R": {
+      "name": "Ghosts 'n Goblins Resurrection",
+      "url": "https://store.steampowered.com/app/1375400",
+      "date": "May 31, 2021",
+      "engine": "RE",
+      "resource": "GGR_PC_Release",
+      "pakExt": ".pak"
+    },
+    "MM:LC": {
+      "name": "Mega Man Legacy Collection",
+      "url": "https://store.steampowered.com/app/363440",
+      "date": "Aug 24, 2015",
+      "key": "txt:P091uWEdwe4lI6StDNMNlkodPGvJ38bL3HW6t3BCMYdFi83FXKu7k0NsHP8caDKS",
+      "engine": "Zip",
+      "pakExt": "data.pie"
+    },
+    "MM:LC2": {
+      "name": "Mega Man Legacy Collection 2",
+      "url": "https://store.steampowered.com/app/495050",
+      "date": "Aug 8, 2017",
+      "key": "txt:NEED",
+      "engine": "Zip",
+      "pakExt": "disc"
+    },
+    "MM:XD": {
+      "name": "Mega Man X DiVE",
+      "url": "https://store.steampowered.com/app/1582620",
+      "date": "Aug 8, 2017",
+      "engine": "Unity",
+      "pakExt": ".assets"
+    },
+    "MMZX:LC": {
+      "name": "Mega Man Zero/ZX Legacy Collection",
+      "url": "https://store.steampowered.com/app/999020",
+      "date": "Feb 25, 2020",
+      "engine": "MT2",
+      "searchBy": "AllDir",
+      "path": "RZZC/romPC",
+      "pakExt": ".arc"
+    },
+    "MHR": {
+      "name": "Monster Hunter Rise",
+      "url": "https://store.steampowered.com/app/1446780",
+      "date": "Jan 12, 2022",
+      "engine": "RE",
+      "resource": "MHR_PC_Release",
+      "pakExt": ".pak"
+    },
+    "MH:S2": {
+      "name": "Monster Hunter Stories 2: Wings of Ruin",
+      "url": "https://store.steampowered.com/app/1277400",
+      "date": "Jul 8, 2021",
+      "engine": "MT2",
+      "searchBy": "AllDir",
+      "pakExt": ".arc",
+      "pak": "game:/archive/**/*.arc"
+    },
+    "PWAA:T": {
+      "name": "Phoenix Wright: Ace Attorney Trilogy",
+      "url": "https://store.steampowered.com/app/787480",
+      "date": "Apr 9, 2019"
+    },
+    "RDR2": {
+      "name": "Red Dead Redemption 2",
+      "url": "https://store.steampowered.com/app/1174180",
+      "date": "Dec 5, 2019"
+    },
+    "RER": {
+      "name": "Resident Evil Resistance",
+      "url": "https://store.steampowered.com/app/952070"
+    },
+    "RE:RV": {
+      "name": "Resident Evil Re:Verse",
+      "url": "https://store.steampowered.com/app/1236300",
+      "date": "Oct 27, 2022"
+    },
+    "Disney:AC": {
+      "name": "The Disney Afternoon Collection",
+      "url": "https://store.steampowered.com/app/525040",
+      "date": "Apr 18, 2017",
+      "pakExt": [
+        ".pie",
+        ".mbundle"
+      ],
+      "status": "open;read;texture:GL"
+    },
+    "TGAA:C": {
+      "name": "The Great Ace Attorney Chronicles",
+      "url": "https://store.steampowered.com/app/1158850",
+      "date": "Jul 26, 2021",
+      "engine": "MT2",
+      "path": "archive",
+      "pakExt": ".arc"
+    },
+    "USF4": {
+      "name": "Ultra Street Fighter IV",
+      "url": "https://store.steampowered.com/app/45760",
+      "date": "Aug 7, 2014"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "CAS": {
+        "key": "Steam:1515950",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1515950",
+        "dir": "Capcom Arcade Stadium"
+      },
+      "Fighting:C": {
+        "key": "Steam:1685750",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1685750",
+        "dir": "CAPCOM FIGHTING COLLECTION",
+        "path": "nativeDX11x64"
+      },
+      "GNG:R": {
+        "key": "Steam:1375400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1375400",
+        "dir": "Makaimura_GG_RE"
+      },
+      "MM:LC": {
+        "key": "Steam:363440",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 363440",
+        "dir": "Suzy"
+      },
+      "MM:LC2": {
+        "key": "Steam:495050",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 495050",
+        "dir": "MegaMan2"
+      },
+      "MM:XD": {
+        "key": "Steam:1582620",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1582620",
+        "dir": "ROCKMAN X DiVE",
+        "path": "Game_Data"
+      },
+      "MMZX:LC": {
+        "key": "Steam:999020",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 999020",
+        "dir": "MZZXLC",
+        "path": "nativePCx64"
+      },
+      "MHR": {
+        "key": "Steam:1446780",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1446780",
+        "dir": "MonsterHunterRise"
+      },
+      "MH:S2": {
+        "key": "Steam:1277400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1277400",
+        "dir": "Monster Hunter Stories 2",
+        "path": "nativeDX11x64"
+      },
+      "PWAA:T": {
+        "key": "Steam:787480",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 787480",
+        "dir": "Phoenix Wright Ace Attorney Trilogy",
+        "path": "main"
+      },
+      "RDR2": {
+        "key": "Steam:1174180",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1174180",
+        "dir": "Red Dead Redemption 2",
+        "path": "main"
+      },
+      "RER": {
+        "key": "Steam:952070",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 952070",
+        "dir": "Resident Evil Resistance",
+        "path": "main"
+      },
+      "RE:RV": {
+        "key": "Steam:1236300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1236300",
+        "dir": "Resident Evil ReVerse",
+        "path": "main"
+      },
+      "Disney:AC": {
+        "key": "Steam:525040",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 525040",
+        "dir": "DisneyAfternoon"
+      },
+      "TGAA:C": {
+        "key": "Steam:1158850",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1158850",
+        "dir": "TGAAC",
+        "path": "nativeDX11x64"
+      },
+      "USF4": {
+        "key": "Steam:45760",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 45760",
+        "dir": "Ultra Street Fighter IV",
+        "path": "main"
+      }
+    }
+  }
+}

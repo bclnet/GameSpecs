@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Arkane\GameX.Arkane.Platform\GameX.Arkane.Platform.csproj" />
+    <ProjectReference Include="..\..\Arkane\GameX.Arkane\GameX.Arkane.csproj" />
+    <ProjectReference Include="..\..\Bethesda\GameX.Bethesda.Platform\GameX.Bethesda.Platform.csproj" />
+    <ProjectReference Include="..\..\Bethesda\GameX.Bethesda\GameX.Bethesda.csproj" />
+    <ProjectReference Include="..\..\Bioware\GameX.Bioware.Platform\GameX.Bioware.Platform.csproj" />
+    <ProjectReference Include="..\..\Bioware\GameX.Bioware\GameX.Bioware.csproj" />
+    <ProjectReference Include="..\..\Black\GameX.Black.Platform\GameX.Black.Platform.csproj" />
+    <ProjectReference Include="..\..\Black\GameX.Black\GameX.Black.csproj" />
+    <ProjectReference Include="..\..\Blizzard\GameX.Blizzard.Platform\GameX.Blizzard.Platform.csproj" />
+    <ProjectReference Include="..\..\Blizzard\GameX.Blizzard\GameX.Blizzard.csproj" />
+    <ProjectReference Include="..\..\Capcom\GameX.Capcom.Platform\GameX.Capcom.Platform.csproj" />
+    <ProjectReference Include="..\..\Capcom\GameX.Capcom\GameX.Capcom.csproj" />
+    <ProjectReference Include="..\..\Cig\GameX.Cig.Platform\GameX.Cig.Platform.csproj" />
+    <ProjectReference Include="..\..\Cig\GameX.Cig\GameX.Cig.csproj" />
+    <ProjectReference Include="..\..\Cryptic\GameX.Cryptic.Platform\GameX.Cryptic.Platform.csproj" />
+    <ProjectReference Include="..\..\Cryptic\GameX.Cryptic\GameX.Cryptic.csproj" />
+    <ProjectReference Include="..\..\Crytek\GameX.Crytek.Platform\GameX.Crytek.Platform.csproj" />
+    <ProjectReference Include="..\..\Crytek\GameX.Crytek\GameX.Crytek.csproj" />
+    <ProjectReference Include="..\..\Cyanide\GameX.Cyanide.Platform\GameX.Cyanide.Platform.csproj" />
+    <ProjectReference Include="..\..\Cyanide\GameX.Cyanide\GameX.Cyanide.csproj" />
+    <ProjectReference Include="..\..\Epic\GameX.Epic.Platform\GameX.Epic.Platform.csproj" />
+    <ProjectReference Include="..\..\Epic\GameX.Epic\GameX.Epic.csproj" />
+    <ProjectReference Include="..\..\Frictional\GameX.Frictional.Platform\GameX.Frictional.Platform.csproj" />
+    <ProjectReference Include="..\..\Frictional\GameX.Frictional\GameX.Frictional.csproj" />
+    <ProjectReference Include="..\..\Frontier\GameX.Frontier.Platform\GameX.Frontier.Platform.csproj" />
+    <ProjectReference Include="..\..\Frontier\GameX.Frontier\GameX.Frontier.csproj" />
+    <ProjectReference Include="..\..\Id\GameX.Id.Platform\GameX.Id.Platform.csproj" />
+    <ProjectReference Include="..\..\Id\GameX.Id\GameX.Id.csproj" />
+    <ProjectReference Include="..\..\IW\GameX.IW.Platform\GameX.IW.Platform.csproj" />
+    <ProjectReference Include="..\..\IW\GameX.IW\GameX.IW.csproj" />
+    <ProjectReference Include="..\..\Lucas\GameX.Lucas.Platform\GameX.Lucas.Platform.csproj" />
+    <ProjectReference Include="..\..\Lucas\GameX.Lucas\GameX.Lucas.csproj" />
+    <ProjectReference Include="..\..\Monolith\GameX.Monolith.Platform\GameX.Monolith.Platform.csproj" />
+    <ProjectReference Include="..\..\Monolith\GameX.Monolith\GameX.Monolith.csproj" />
+    <ProjectReference Include="..\..\Origin\GameX.Origin.Platform\GameX.Origin.Platform.csproj" />
+    <ProjectReference Include="..\..\Origin\GameX.Origin\GameX.Origin.csproj" />
+    <ProjectReference Include="..\..\Red\GameX.Red.Platform\GameX.Red.Platform.csproj" />
+    <ProjectReference Include="..\..\Red\GameX.Red\GameX.Red.csproj" />
+	<ProjectReference Include="..\..\Ubisoft\GameX.Ubisoft.Platform\GameX.Ubisoft.Platform.csproj" />
+	<ProjectReference Include="..\..\Ubisoft\GameX.Ubisoft\GameX.Ubisoft.csproj" />
+    <ProjectReference Include="..\..\Unity\GameX.Unity.Platform\GameX.Unity.Platform.csproj" />
+    <ProjectReference Include="..\..\Unity\GameX.Unity\GameX.Unity.csproj" />
+    <ProjectReference Include="..\..\Valve\GameX.Valve.Platform\GameX.Valve.Platform.csproj" />
+    <ProjectReference Include="..\..\Valve\GameX.Valve\GameX.Valve.csproj" />
+    <ProjectReference Include="..\..\WbB\GameX.WbB.Platform\GameX.WbB.Platform.csproj" />
+    <ProjectReference Include="..\..\WbB\GameX.WbB\GameX.WbB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="catalogs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Unknown\catalogs\main.yaml" Link="catalogs\main.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameX.App.Explorer.Views.AboutPage"
+             Title="About" Height="170" Width="280">
+    <Grid>
+        <Label
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            HorizontalOptions="Center">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Label>
+
+        <Button Width="75" Margin="0,100,0,0"
+            HorizontalOptions="Center"
+            Text="OK"
+            Clicked="OK_Click"/>
+    </Grid>
+</ContentPage>

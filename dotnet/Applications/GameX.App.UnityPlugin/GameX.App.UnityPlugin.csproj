@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\docs\Applications\Unity Plugin\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
+</Project>

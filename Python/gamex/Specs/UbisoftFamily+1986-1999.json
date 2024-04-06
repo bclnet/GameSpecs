@@ -1,0 +1,443 @@
+﻿{
+  "id": "Ubisoft+1986-1999",
+  "url": "https://en.wikipedia.org/wiki/List_of_Ubisoft_games:_1986%E2%80%931999",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Ubisoft.UbisoftPakFile, GameX.Ubisoft"
+    },
+    "Zombi86": {
+      "name": "Zombi '86",
+      "url": "https://en.wikipedia.org/wiki/Zombi_(1986_video_game)",
+      "date": "1986-01-01"
+    },
+    "TrivialPursuit": {
+      "name": "Trivial Pursuit",
+      "date": "1986-01-01"
+    },
+    "Asphalt": {
+      "name": "Asphalt",
+      "date": "1987-01-01"
+    },
+    "DefenderoftheCrown": {
+      "name": "Defender of the Crown",
+      "url": "https://en.wikipedia.org/wiki/Defender_of_the_Crown",
+      "date": "1987-01-01"
+    },
+    "LeMaitredesAmes": {
+      "name": "Le Maître des Âmes",
+      "date": "1987-01-01"
+    },
+    "LeNecromancien": {
+      "name": "Le Nécromancien",
+      "date": "1987-01-01"
+    },
+    "MangeCailloux": {
+      "name": "Mange Cailloux",
+      "date": "1987-01-01"
+    },
+    "STKrak": {
+      "name": "ST Krak",
+      "date": "1987-01-01"
+    },
+    "NightHunter": {
+      "name": "Night Hunter",
+      "date": "1988-01-01"
+    },
+    "BAT": {
+      "name": "B.A.T.",
+      "url": "https://en.wikipedia.org/wiki/B.A.T._(video_game)",
+      "date": "1989-01-01"
+    },
+    "FinalCommand": {
+      "name": "Final Command",
+      "date": "1989-01-01"
+    },
+    "Fred": {
+      "name": "Fred",
+      "date": "1989-01-01"
+    },
+    "Ilyad": {
+      "name": "Ilyad",
+      "date": "1989-01-01"
+    },
+    "Intruder": {
+      "name": "Intruder",
+      "date": "1989-01-01"
+    },
+    "IronLord": {
+      "name": "Iron Lord",
+      "url": "https://en.wikipedia.org/wiki/Iron_Lord",
+      "date": "1989-01-01"
+    },
+    "ProTennisTour": {
+      "name": "Pro Tennis Tour",
+      "url": "https://en.wikipedia.org/wiki/Pro_Tennis_Tour",
+      "date": "1989-01-01"
+    },
+    "OthelloKiller": {
+      "name": "Othello Killer",
+      "date": "1989-01-01"
+    },
+    "PuffysSaga": {
+      "name": "Puffy's Saga",
+      "url": "https://en.wikipedia.org/wiki/Puffy%27s_Saga",
+      "date": "1989-01-01"
+    },
+    "Skateball": {
+      "name": "Skateball",
+      "url": "https://en.wikipedia.org/wiki/Skateball",
+      "date": "1989-01-01"
+    },
+    "TwinWorld:LoV": {
+      "name": "TwinWorld: Land of Vision",
+      "url": "https://en.wikipedia.org/wiki/Twinworld",
+      "date": "1989-01-01"
+    },
+    "BrainBlasters": {
+      "name": "Brain Blasters",
+      "date": "1990-01-01"
+    },
+    "Hexsider": {
+      "name": "Hexsider",
+      "date": "1990-01-01"
+    },
+    "JupitersMasterdrive": {
+      "name": "Jupiter's Masterdrive",
+      "date": "1990-01-01"
+    },
+    "PicknPile": {
+      "name": "Pick 'n Pile",
+      "date": "1990-01-01"
+    },
+    "PoolofRadiance": {
+      "name": "Pool of Radiance",
+      "url": "https://en.wikipedia.org/wiki/Pool_of_Radiance",
+      "date": "1990-01-01"
+    },
+    "Ranx:TVG": {
+      "name": "Ranx: The Video Game",
+      "date": "1990-01-01"
+    },
+    "TomandtheGhost": {
+      "name": "Tom and the Ghost",
+      "date": "1990-01-01"
+    },
+    "Unreal": {
+      "name": "Unreal",
+      "url": "https://en.wikipedia.org/wiki/Unreal_(1990_video_game)",
+      "date": "1990-01-01"
+    },
+    "BattleIsle": {
+      "name": "Battle Isle",
+      "url": "https://en.wikipedia.org/wiki/Battle_Isle_(video_game)",
+      "date": "1991-01-01"
+    },
+    "Bomberman91": {
+      "name": "Bomberman '91",
+      "url": "https://en.wikipedia.org/wiki/Bomberman_(1990_video_game)",
+      "date": "1991-01-01"
+    },
+    "CelticLegends": {
+      "name": "Celtic Legends",
+      "url": "https://en.wikipedia.org/wiki/Celtic_Legends",
+      "date": "1991-01-01"
+    },
+    "ProTennisTour2": {
+      "name": "Pro Tennis Tour 2",
+      "url": "https://en.wikipedia.org/wiki/Pro_Tennis_Tour_2",
+      "date": "1991-01-01"
+    },
+    "MaupitiIsland": {
+      "name": "Maupiti Island",
+      "url": "https://en.wikipedia.org/wiki/Maupiti_Island_(video_game)",
+      "date": "1991-01-01"
+    },
+    "FirstSamurai": {
+      "name": "First Samurai",
+      "url": "https://en.wikipedia.org/wiki/First_Samurai",
+      "date": "1992-01-01"
+    },
+    "JimmyConnorsProTennisTour": {
+      "name": "Jimmy Connors Pro Tennis Tour",
+      "url": "https://en.wikipedia.org/wiki/Jimmy_Connors_Pro_Tennis_Tour",
+      "date": "1992-01-01"
+    },
+    "MegaLoMania": {
+      "name": "Mega-Lo-Mania",
+      "url": "https://en.wikipedia.org/wiki/Mega-Lo-Mania",
+      "date": "1992-01-01"
+    },
+    "Starush": {
+      "name": "Starush",
+      "date": "1992-01-01"
+    },
+    "StarWars": {
+      "name": "Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_(1991_video_game)",
+      "date": "1992-01-01"
+    },
+    "StarWars:TESB": {
+      "name": "Star Wars: The Empire Strikes Back",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Empire_Strikes_Back_(1992_video_game)",
+      "date": "1992-01-01"
+    },
+    "TheKoshanConspiracy": {
+      "name": "The Koshan Conspiracy",
+      "url": "https://en.wikipedia.org/wiki/B.A.T._II_%E2%80%93_The_Koshan_Conspiracy",
+      "date": "1992-01-01"
+    },
+    "ThePerfectGeneral": {
+      "name": "The Perfect General",
+      "url": "https://en.wikipedia.org/wiki/The_Perfect_General",
+      "date": "1992-01-01"
+    },
+    "Vroom": {
+      "name": "Vroom",
+      "date": "1992-01-01"
+    },
+    "JimmyConnorsTennis": {
+      "name": "Jimmy Connors Tennis",
+      "url": "https://en.wikipedia.org/wiki/Jimmy_Connors_Tennis",
+      "date": "1993-04-01"
+    },
+    "F1PolePosition": {
+      "name": "F1 Pole Position",
+      "url": "https://en.wikipedia.org/wiki/F1_Pole_Position_(video_game)",
+      "date": "1993-12-01"
+    },
+    "IJLC:TAG": {
+      "name": "Indiana Jones and the Last Crusade: The Action Game",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Action_Game",
+      "date": "1993-12-01"
+    },
+    "ChampionshipManager": {
+      "name": "Championship Manager",
+      "url": "https://en.wikipedia.org/wiki/Championship_Manager_(video_game)",
+      "date": "1993-01-01"
+    },
+    "StreetRacer": {
+      "name": "Street Racer",
+      "url": "https://en.wikipedia.org/wiki/Street_Racer_(1994_video_game)",
+      "date": "1994-11-01"
+    },
+    "F1PolePosition2": {
+      "name": "F1 Pole Position 2",
+      "url": "https://en.wikipedia.org/wiki/F1_Pole_Position_2",
+      "date": "1994-01-01"
+    },
+    "HyperVBall": {
+      "name": "Hyper V-Ball",
+      "date": "1993-01-01"
+    },
+    "SoulBlazer": {
+      "name": "Soul Blazer",
+      "url": "https://en.wikipedia.org/wiki/Soul_Blazer",
+      "date": "1994-01-01"
+    },
+    "RY95": {
+      "name": "Rayman (95)",
+      "url": "https://en.wikipedia.org/wiki/Rayman_(video_game)",
+      "date": "1995-09-01"
+    },
+    "ActionEuroSoccer96": {
+      "name": "Action Euro Soccer 96",
+      "date": "1995-01-01"
+    },
+    "ActionSoccer": {
+      "name": "Action Soccer",
+      "date": "1995-01-01"
+    },
+    "KatLN": {
+      "name": "Kiyeko and the Lost Night",
+      "date": "1995-01-01"
+    },
+    "PatIG": {
+      "name": "Payuta and the Ice God",
+      "date": "1996-01-01"
+    },
+    "AiMwtR": {
+      "name": "Adventures in Music with the Recorder",
+      "date": "1996-01-01"
+    },
+    "ALGwRY96": {
+      "name": "Amazing Learning Games with Rayman '96",
+      "date": "1996-01-01"
+    },
+    "MaEwRY:V2": {
+      "name": "Maths and English with Rayman: Volume 2",
+      "date": "1996-01-01"
+    },
+    "MaEwRY:V3": {
+      "name": "Maths and English with Rayman: Volume 3",
+      "date": "1996-01-01"
+    },
+    "SecretsoftheLuxor": {
+      "name": "Secrets of the Luxor",
+      "url": "https://en.wikipedia.org/wiki/Secrets_of_the_Luxor",
+      "date": "1996-01-01"
+    },
+    "TAoVM": {
+      "name": "The Adventures of Valdo & Marie",
+      "url": "https://en.wikipedia.org/wiki/The_Adventures_of_Valdo_%26_Marie",
+      "date": "1996-01-01"
+    },
+    "F1PolePosition64": {
+      "name": "F1 Pole Position 64",
+      "url": "https://en.wikipedia.org/wiki/F1_Pole_Position_64",
+      "date": "1997-10-15"
+    },
+    "SubCulture": {
+      "name": "Sub Culture",
+      "url": "https://en.wikipedia.org/wiki/Sub_Culture",
+      "date": "1997-11-11"
+    },
+    "Earth2140": {
+      "name": "Earth 2140",
+      "url": "https://en.wikipedia.org/wiki/Earth_2140",
+      "date": "1997-01-01"
+    },
+    "F1RacingSimulation": {
+      "name": "F1 Racing Simulation",
+      "url": "https://en.wikipedia.org/wiki/F1_Racing_Simulation",
+      "date": "1997-01-01"
+    },
+    "POD": {
+      "name": "POD",
+      "url": "https://en.wikipedia.org/wiki/POD_(video_game)",
+      "date": "1997-01-01"
+    },
+    "POD:BtH": {
+      "name": "POD: Back to Hell",
+      "date": "1997-01-01"
+    },
+    "ProPinball:T": {
+      "name": "Pro Pinball: Timeshock!",
+      "url": "https://en.wikipedia.org/wiki/Pro_Pinball:_Timeshock!",
+      "date": "1992-01-01"
+    },
+    "RYDesigner": {
+      "name": "Rayman Designer",
+      "url": "https://en.wikipedia.org/wiki/Rayman_Designer",
+      "date": "1997-01-01"
+    },
+    "SDWCFootball": {
+      "name": "Sean Dundee's World Club Football",
+      "date": "1997-01-01"
+    },
+    "SCARS": {
+      "name": "S.C.A.R.S.",
+      "url": "https://en.wikipedia.org/wiki/S.C.A.R.S._(video_game)",
+      "date": "1998-09-25"
+    },
+    "ShadowGunner:TRW": {
+      "name": "Shadow Gunner: The Robot Wars",
+      "date": "1998-01-01"
+    },
+    "SpeedBusters:AH": {
+      "name": "Speed Busters: American Highways",
+      "url": "https://en.wikipedia.org/wiki/Speed_Devils",
+      "date": "1998-01-01"
+    },
+    "TheFifthElement": {
+      "name": "The Fifth Element",
+      "url": "https://en.wikipedia.org/wiki/The_Fifth_Element_(video_game)",
+      "date": "1998-01-01"
+    },
+    "WorldFootball98": {
+      "name": "World Football 98",
+      "url": "https://en.wikipedia.org/wiki/Kiko_World_Football",
+      "date": "1998-01-01"
+    },
+    "AllStarTennis99": {
+      "name": "All Star Tennis '99",
+      "url": "https://en.wikipedia.org/wiki/All_Star_Tennis_%2799",
+      "date": "1999-01-26"
+    },
+    "StarWars:EIR": {
+      "name": "Star Wars: Episode I - Racer",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Racer",
+      "date": "1999-04-01"
+    },
+    "MGPRS2": {
+      "name": "Monaco Grand Prix Racing Simulation 2",
+      "date": "1999-06-01"
+    },
+    "TonicTrouble": {
+      "name": "Tonic Trouble",
+      "url": "https://en.wikipedia.org/wiki/Tonic_Trouble",
+      "date": "1999-09-07"
+    },
+    "WallStreetTycoon": {
+      "name": "Wall Street Tycoon",
+      "date": "1999-10-20"
+    },
+    "RY2:TGE": {
+      "name": "Rayman 2: The Great Escape",
+      "url": "https://en.wikipedia.org/wiki/Rayman_2:_The_Great_Escape",
+      "date": "1999-11-04"
+    },
+    "Rocket:RoW": {
+      "name": "Rocket: Robot on Wheels",
+      "url": "https://en.wikipedia.org/wiki/Rocket:_Robot_on_Wheels",
+      "date": "1999-11-17"
+    },
+    "M1RC": {
+      "name": "Mobil 1 Rally Championship",
+      "url": "https://en.wikipedia.org/wiki/Mobil_1_Rally_Championship",
+      "date": "1999-11-01"
+    },
+    "TheLongestJourney": {
+      "name": "The Longest Journey",
+      "url": "https://en.wikipedia.org/wiki/The_Longest_Journey",
+      "date": "1999-12-13"
+    },
+    "Evolution:TWoSD": {
+      "name": "Evolution: The World of Sacred Device",
+      "url": "https://en.wikipedia.org/wiki/Evolution:_The_World_of_Sacred_Device",
+      "date": "1999-12-16"
+    },
+    "AlexBuildsHisFarm": {
+      "name": "Alex Builds His Farm",
+      "date": "1999-01-01"
+    },
+    "LaurasHappyAdventures": {
+      "name": "Laura's Happy Adventures",
+      "url": "https://en.wikipedia.org/wiki/Laura%27s_Happy_Adventures",
+      "date": "1999-01-01"
+    },
+    "Requiem:AA": {
+      "name": "Requiem: Avenging Angel",
+      "url": "https://en.wikipedia.org/wiki/Requiem:_Avenging_Angel",
+      "date": "1999-01-01"
+    },
+    "Skullcaps": {
+      "name": "Skullcaps",
+      "url": "https://en.wikipedia.org/wiki/Skull_Caps",
+      "date": "1999-01-01"
+    },
+    "SevenKingdomsII:TFW": {
+      "name": "Seven Kingdoms II: The Fryhtan Wars",
+      "url": "https://en.wikipedia.org/wiki/Seven_Kingdoms_II:_The_Fryhtan_Wars",
+      "date": "1999-01-01"
+    },
+    "ShadowCompany:LfD": {
+      "name": "Shadow Company: Left for Dead",
+      "url": "https://en.wikipedia.org/wiki/Shadow_Company:_Left_For_Dead",
+      "date": "1999-01-01"
+    },
+    "Speed Devils": {
+      "name": "Speed Devils",
+      "url": "https://en.wikipedia.org/wiki/Speed_Devils",
+      "date": "1999-01-01"
+    },
+    "SAXR": {
+      "name": "Suzuki Alstare Extreme Racing",
+      "url": "https://en.wikipedia.org/wiki/Suzuki_Alstare_Extreme_Racing",
+      "date": "1999-01-01"
+    }
+  },
+  "fileManager": {
+    "application": {}
+  }
+}

@@ -1,0 +1,110 @@
+﻿{
+  "id": "Frictional",
+  "name": "HPL Engine",
+  "studio": "Frictional Games",
+  "description": "Frictional Games file formats",
+  "url": "https://en.wikipedia.org/wiki/Frictional_Games",
+  "samples": [
+    "FrictionalFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Frictional.FrictionalPakFile, GameX.Frictional",
+      "pakExt": ".iwd"
+    },
+    "P:O": {
+      "name": "Penumbra: Overture",
+      "url": "https://store.steampowered.com/app/22180",
+      "date": "2003-10-29",
+      "tags": "Penumbra"
+    },
+    "P:BP": {
+      "name": "Penumbra: Black Plague",
+      "url": "https://store.steampowered.com/app/22120",
+      "date": "2005-10-25",
+      "tags": "Penumbra"
+    },
+    "P:R": {
+      "name": "Penumbra: Requiem",
+      "url": "https://store.steampowered.com/app/22140",
+      "date": "2006-11-07",
+      "tags": "Penumbra"
+    },
+    "A:TDD": {
+      "name": "Amnesia: The Dark Descent",
+      "url": "https://store.steampowered.com/app/57300",
+      "date": "2007-11-07",
+      "tags": "Amnesia"
+    },
+    "A:J": {
+      "n/a": true,
+      "name": "Amnesia: Justine",
+      "date": "2008-11-11",
+      "tags": "Amnesia"
+    },
+    "A:AMFP": {
+      "name": "Amnesia: A Machine for Pigs",
+      "url": "https://store.steampowered.com/app/239200",
+      "date": "2009-11-11",
+      "tags": "Amnesia"
+    },
+    "SOMA": {
+      "name": "SOMA",
+      "url": "https://store.steampowered.com/app/282140",
+      "date": "2010-11-09",
+      "tags": "SOMA"
+    },
+    "A:R": {
+      "name": "Amnesia: Rebirth",
+      "url": "https://store.steampowered.com/app/999220",
+      "date": "2011-11-08",
+      "tags": "Amnesia"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "P:O": {
+        "key": "Steam:22180",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22180",
+        "dir": "Penumbra: Overture",
+        "path": "main"
+      },
+      "P:BP": {
+        "key": "Steam:22120",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22120",
+        "dir": "Penumbra: Black Plague",
+        "path": "main"
+      },
+      "P:R": {
+        "key": "Steam:22140",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 22140",
+        "dir": "Penumbra: Requiem",
+        "path": "main"
+      },
+      "A:TDD": {
+        "key": "Steam:57300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 57300",
+        "dir": "Amnesia: The Dark Descent",
+        "path": "main"
+      },
+      "A:AMFP": {
+        "key": "Steam:239200",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 239200",
+        "dir": "Amnesia: A Machine for Pigs",
+        "path": "main"
+      },
+      "SOMA": {
+        "key": "Steam:282140",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282140",
+        "dir": "SOMA",
+        "path": "main"
+      },
+      "A:R": {
+        "key": "Steam:999220",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 999220",
+        "dir": "Amnesia: Rebirth",
+        "path": "main"
+      }
+    }
+  }
+}

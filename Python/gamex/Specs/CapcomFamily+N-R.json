@@ -1,0 +1,726 @@
+﻿{
+  "id": "Capcom+N-R",
+  "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_N%E2%80%93R",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Capcom.CapcomPakFile, GameX.Capcom"
+    },
+    "NamcoxCapcom": {
+      "name": "Namco × Capcom",
+      "url": "https://en.wikipedia.org/wiki/Namco_%C3%97_Capcom",
+      "date": "May 26, 2005"
+    },
+    "NazoWakuYakata": {
+      "name": "Nazo Waku Yakata",
+      "date": "2011-01-01",
+      "engine": "MTFM"
+    },
+    "Nemo": {
+      "name": "Nemo",
+      "url": "https://en.wikipedia.org/wiki/Nemo_(arcade_game)",
+      "date": "November 20, 1990"
+    },
+    "Tennis:N": {
+      "name": "Netto de Tennis",
+      "date": "2000-01-01"
+    },
+    "SMBW:CW": {
+      "name": "New Super Mario Bros. Wii Coin World",
+      "url": "https://en.wikipedia.org/wiki/New_Super_Mario_Bros._Wii#New_Super_Mario_Bros._Wii_Coin_World",
+      "date": "2011-01-01"
+    },
+    "NightWarrior:DR": {
+      "name": "Night Warriors: Darkstalkers' Revenge",
+      "url": "https://en.wikipedia.org/wiki/Night_Warriors:_Darkstalkers%27_Revenge",
+      "date": "March 3, 1995"
+    },
+    "Okami": {
+      "name": "Ōkami",
+      "url": "https://en.wikipedia.org/wiki/%C5%8Ckami",
+      "date": "April 20, 2006"
+    },
+    "Okami:HD": {
+      "n/a": false,
+      "name": "Ōkami HD",
+      "url": [
+        "https://store.steampowered.com/app/587620",
+        "https://en.wikipedia.org/wiki/%C5%8Ckami_HD"
+      ],
+      "date": "October 30, 2012",
+      "pakExt": ".?"
+    },
+    "Okamiden": {
+      "name": "Ōkamiden",
+      "url": "https://en.wikipedia.org/wiki/%C5%8Ckamiden",
+      "date": "September 30, 2010"
+    },
+    "OnePieceMansion": {
+      "name": "One Piece Mansion",
+      "url": "https://en.wikipedia.org/wiki/One_Piece_Mansion",
+      "date": "June 21, 2001"
+    },
+    "O2:SD": {
+      "name": "Onimusha 2: Samurai's Destiny",
+      "url": "https://en.wikipedia.org/wiki/Onimusha_2:_Samurai%27s_Destiny",
+      "date": "March 7, 2002"
+    },
+    "O3:DS": {
+      "name": "Onimusha 3: Demon Siege",
+      "url": "https://en.wikipedia.org/wiki/Onimusha_3:_Demon_Siege",
+      "date": "February 26, 2004"
+    },
+    "O:BW": {
+      "name": "Onimusha Blade Warriors",
+      "url": "https://en.wikipedia.org/wiki/Onimusha_Blade_Warriors",
+      "date": "November 27, 2003"
+    },
+    "O:DoD": {
+      "name": "Onimusha: Dawn of Dreams",
+      "url": "https://en.wikipedia.org/wiki/Onimusha:_Dawn_of_Dreams",
+      "date": "January 26, 2006"
+    },
+    "O:S": {
+      "name": "Onimusha Soul",
+      "url": "https://en.wikipedia.org/wiki/Onimusha_Soul",
+      "date": "June 28, 2012"
+    },
+    "O:T": {
+      "name": "Onimusha Tactics",
+      "url": "https://en.wikipedia.org/wiki/Onimusha_Tactics",
+      "date": "July 25, 2003"
+    },
+    "O:W": {
+      "n/a": false,
+      "name": "Onimusha: Warlords",
+      "url": [
+        "https://store.steampowered.com/app/761600",
+        "https://en.wikipedia.org/wiki/Onimusha:_Warlords"
+      ],
+      "date": "January 25, 2001",
+      "pakExt": ".?"
+    },
+    "OshieteFighter": {
+      "name": "Oshiete Fighter",
+      "date": "1998-01-01"
+    },
+    "PN03": {
+      "name": "P.N.03",
+      "url": "https://en.wikipedia.org/wiki/P.N.03",
+      "date": "March 27, 2003"
+    },
+    "PanicShot:R": {
+      "name": "Panic Shot! Rockman",
+      "date": "1993-01-01"
+    },
+    "PWAA": {
+      "name": "Phoenix Wright: Ace Attorney",
+      "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney",
+      "date": "October 12, 2001"
+    },
+    "PWAA:DD": {
+      "name": "Phoenix Wright: Ace Attorney - Dual Destinies",
+      "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney_%E2%88%92_Dual_Destinies",
+      "date": "July 25, 2013",
+      "engine": "MTFM"
+    },
+    "PWAA:JfA": {
+      "name": "Phoenix Wright: Ace Attorney - Justice for All",
+      "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney_%E2%88%92_Justice_for_All",
+      "date": "October 22, 2002"
+    },
+    "PWAA:SoJ": {
+      "name": "Phoenix Wright: Ace Attorney - Spirit of Justice",
+      "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney_%E2%88%92_Spirit_of_Justice",
+      "date": "June 9, 2016",
+      "engine": "MTFM"
+    },
+    "PWAA:TaT": {
+      "name": "Phoenix Wright: Ace Attorney - Trials and Tribulations",
+      "url": "https://en.wikipedia.org/wiki/Phoenix_Wright:_Ace_Attorney_%E2%88%92_Trials_and_Tribulations",
+      "date": "January 23, 2004"
+    },
+    "Pinball:M": {
+      "name": "Pinball Magic",
+      "date": "1995-01-01"
+    },
+    "PirateShipHigemaru": {
+      "name": "Pirate Ship Higemaru",
+      "url": "https://en.wikipedia.org/wiki/Pirate_Ship_Higemaru",
+      "date": "September 1, 1984"
+    },
+    "PlanetWork": {
+      "name": "Planet Work",
+      "date": "March 9, 2011"
+    },
+    "PlasmaSword:NoB": {
+      "name": "Plasma Sword: Nightmare of Bilstein",
+      "url": "https://en.wikipedia.org/wiki/Plasma_Sword:_Nightmare_of_Bilstein",
+      "date": "April 1, 1998"
+    },
+    "PocketFighter": {
+      "name": "Pocket Fighter",
+      "url": "https://en.wikipedia.org/wiki/Pocket_Fighter",
+      "date": "September 4, 1997"
+    },
+    "PocketRockets": {
+      "name": "Pocket Rockets",
+      "date": "1988-01-01"
+    },
+    "PowerQuest": {
+      "name": "Power Quest",
+      "url": "https://en.wikipedia.org/wiki/Power_Quest_(video_game)",
+      "date": "November 27, 1998"
+    },
+    "PowerStone": {
+      "name": "Power Stone",
+      "url": "https://en.wikipedia.org/wiki/Power_Stone_(video_game)",
+      "date": "April 6, 2000"
+    },
+    "PowerStone2": {
+      "name": "Power Stone 2",
+      "url": "https://en.wikipedia.org/wiki/Power_Stone_2",
+      "date": "April 1, 2000"
+    },
+    "PowerStone:C": {
+      "name": "Power Stone Collection",
+      "url": "https://en.wikipedia.org/wiki/Power_Stone_(video_game)",
+      "date": "October 20, 2006"
+    },
+    "Pragmata": {
+      "name": "Pragmata",
+      "url": "https://en.wikipedia.org/wiki/Pragmata",
+      "tags": "Coming"
+    },
+    "Fishing:PCS": {
+      "name": "Pro Cast Sports Fishing",
+      "date": "August 27, 2003"
+    },
+    "PWAA:VPL": {
+      "name": "Professor Layton vs. Phoenix Wright: Ace Attorney",
+      "url": "https://en.wikipedia.org/wiki/Professor_Layton_vs._Phoenix_Wright:_Ace_Attorney",
+      "date": "November 29, 2012"
+    },
+    "ProYakyuu:SJ": {
+      "name": "Pro Yakyuu? Satsujin Jiken!",
+      "date": "December 24, 1988"
+    },
+    "Progear": {
+      "name": "Progear",
+      "url": "https://en.wikipedia.org/wiki/Progear",
+      "date": "January 17, 2001"
+    },
+    "ProjectJustice": {
+      "name": "Project Justice",
+      "url": "https://en.wikipedia.org/wiki/Project_Justice",
+      "date": "December 17, 2000"
+    },
+    "ProjectXZone": {
+      "name": "Project X Zone",
+      "url": "https://en.wikipedia.org/wiki/Project_X_Zone",
+      "date": "October 11, 2012"
+    },
+    "ProjectXZone2": {
+      "name": "Project X Zone 2",
+      "url": "https://en.wikipedia.org/wiki/Project_X_Zone_2",
+      "date": "November 12, 2015"
+    },
+    "PuzzLoop": {
+      "name": "Puzz Loop",
+      "url": "https://en.wikipedia.org/wiki/Puzz_Loop",
+      "date": "December 1998"
+    },
+    "PuzzLoop2": {
+      "name": "Puzz Loop 2",
+      "url": "https://en.wikipedia.org/wiki/Puzz_Loop_2",
+      "date": "2001-01-01"
+    },
+    "PuzzleFighter": {
+      "name": "Puzzle Fighter",
+      "url": "https://en.wikipedia.org/wiki/Puzzle_Fighter",
+      "date": "2017-01-01"
+    },
+    "Quiz:D": {
+      "name": "Quiz & Dragons: Capcom Quiz Game",
+      "url": "https://en.wikipedia.org/wiki/Quiz_%26_Dragons:_Capcom_Quiz_Game",
+      "date": "July 2, 1991"
+    },
+    "Quiz:ND": {
+      "name": "Quiz Nanairo Dreams",
+      "url": "https://en.wikipedia.org/wiki/Quiz_Nanairo_Dreams",
+      "date": "August 1996"
+    },
+    "Quiz:NDNK": {
+      "name": "Quiz Nanairo Dreams: Nijiiro-cho no Kiseki",
+      "url": "https://en.wikipedia.org/wiki/Quiz_Nanairo_Dreams",
+      "date": "June 27, 1997"
+    },
+    "Quiz:SGS": {
+      "name": "Quiz San Goku Shi",
+      "date": "June 01, 1991"
+    },
+    "Quiz:TY2": {
+      "name": "Quiz Tonosama no Yabou 2",
+      "date": "1995-01-01"
+    },
+    "RDR": {
+      "name": "Red Dead Revolver",
+      "url": "https://en.wikipedia.org/wiki/Red_Dead_Revolver",
+      "date": "May 25, 2005"
+    },
+    "RedEarth": {
+      "name": "Red Earth",
+      "url": "https://en.wikipedia.org/wiki/Red_Earth_(video_game)",
+      "date": "November 21, 1996"
+    },
+    "RememberMe": {
+      "n/a": false,
+      "name": "Remember Me",
+      "url": [
+        "https://store.steampowered.com/app/228300",
+        "https://en.wikipedia.org/wiki/Remember_Me_(video_game)"
+      ],
+      "date": "June 3, 2013",
+      "pakExt": ".?"
+    },
+    "RE": {
+      "n/a": false,
+      "name": "Resident Evil",
+      "url": [
+        "https://store.steampowered.com/app/304240",
+        "https://en.wikipedia.org/wiki/Resident_Evil_(1996_video_game)"
+      ],
+      "date": "March 22, 1996",
+      "editions": {
+        "+": {
+          "name": "Resident Evil HD Remaster",
+          "url": "https://en.wikipedia.org/wiki/Resident_Evil_(2002_video_game)",
+          "date": "March 22, 2002"
+        }
+      },
+      "engine": "MT2",
+      "pakExt": ".?"
+    },
+    "RE2": {
+      "n/a": false,
+      "name": "Resident Evil 2",
+      "url": [
+        "https://store.steampowered.com/app/883710",
+        "https://en.wikipedia.org/wiki/Resident_Evil_2"
+      ],
+      "date": "January 21, 1998",
+      "engine": "RE",
+      "pakExt": ".?"
+    },
+    "RE2+": {
+      "name": "Resident Evil 2 (remake)",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_2_(2019_video_game)",
+      "date": "January 25, 2019"
+    },
+    "RE2:SDV": {
+      "name": "Resident Evil 2: Dual Shock Version",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_2:_Dual_Shock_Version",
+      "date": "August 6, 1998"
+    },
+    "RE3:N": {
+      "name": "Resident Evil 3: Nemesis",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_3:_Nemesis",
+      "date": "September 22, 1999"
+    },
+    "RE3": {
+      "n/a": false,
+      "name": "Resident Evil 3",
+      "url": [
+        "https://store.steampowered.com/app/952060",
+        "https://en.wikipedia.org/wiki/Resident_Evil_3_(2020_video_game)"
+      ],
+      "date": "April 3, 2020",
+      "engine": "RE",
+      "resource": "RE3_PC_Release",
+      "pakExt": ".?"
+    },
+    "RE4": {
+      "n/a": false,
+      "name": "Resident Evil 4",
+      "url": [
+        "https://store.steampowered.com/app/254700",
+        "https://en.wikipedia.org/wiki/Resident_Evil_4"
+      ],
+      "date": "January 11, 2005",
+      "engine": "RE",
+      "resource": "RE4_PC_Release",
+      "pakExt": ".?"
+    },
+    "RE4+": {
+      "name": "Resident Evil 4 (remake)",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_4_(2023_video_game)",
+      "date": "March 24, 2023"
+    },
+    "RE4:HD": {
+      "name": "Resident Evil 4 HD",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_4",
+      "date": "September 20, 2011"
+    },
+    "RE4:UHD": {
+      "name": "Resident Evil 4: Ultimate HD Edition",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_4:_Ultimate_HD_Edition",
+      "date": "February 27, 2014"
+    },
+    "RE4:W": {
+      "name": "Resident Evil 4: Wii Edition",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_4",
+      "date": "May 31, 2007"
+    },
+    "RE5": {
+      "n/a": false,
+      "name": "Resident Evil 5",
+      "url": [
+        "https://store.steampowered.com/app/21690",
+        "https://en.wikipedia.org/wiki/Resident_Evil_5"
+      ],
+      "date": "March 5, 2009",
+      "editions": {
+        "G": {
+          "name": "Resident Evil 5: Gold Edition",
+          "date": "February 18, 2010"
+        }
+      },
+      "engine": "MT1",
+      "pakExt": ".?"
+    },
+    "RE6": {
+      "n/a": false,
+      "name": "Resident Evil 6",
+      "url": [
+        "https://store.steampowered.com/app/221040",
+        "https://en.wikipedia.org/wiki/Resident_Evil_6"
+      ],
+      "date": "October 2, 2012",
+      "engine": "MT2",
+      "pakExt": ".?"
+    },
+    "RE7": {
+      "n/a": false,
+      "name": "Resident Evil 7: Biohazard",
+      "url": [
+        "https://store.steampowered.com/app/418370",
+        "https://en.wikipedia.org/wiki/Resident_Evil_7:_Biohazard"
+      ],
+      "date": "January 24, 2017",
+      "pakExt": ".?"
+    },
+    "REA:RE": {
+      "name": "Resident Evil Archives: Resident Evil",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_(2002_video_game)",
+      "date": "June 23, 2009"
+    },
+    "REA:REZ": {
+      "name": "Resident Evil Archives: Resident Evil Zero",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Zero",
+      "date": "December 1, 2009"
+    },
+    "REC:V": {
+      "name": "Resident Evil - Code: Veronica",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_%E2%80%93_Code:_Veronica",
+      "date": "February 3, 2000"
+    },
+    "REC:VX": {
+      "name": "Resident Evil - Code: Veronica X",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_%E2%80%93_Code:_Veronica_X",
+      "date": "March 22, 2001"
+    },
+    "REC:VXHD": {
+      "name": "Resident Evil - Code: Veronica X HD",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_%E2%80%93_Code:_Veronica",
+      "date": "September 27, 2011",
+      "engine": "MT2"
+    },
+    "RE:DA": {
+      "name": "Resident Evil: Dead Aim",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_Dead_Aim",
+      "date": "February 13, 2003"
+    },
+    "RE:DS": {
+      "name": "Resident Evil: Deadly Silence",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_Deadly_Silence",
+      "date": "January 19, 2006"
+    },
+    "RE:D": {
+      "name": "Resident Evil: Degeneration",
+      "date": "2008-01-01"
+    },
+    "RE:DC": {
+      "name": "Resident Evil: Director's Cut",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_Director%27s_Cut",
+      "date": "September 25, 1997"
+    },
+    "RE:DCDSV": {
+      "name": "Resident Evil: Director's Cut Dual Shock Version",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_Director%27s_Cut",
+      "date": "August 6, 1998"
+    },
+    "RE:G": {
+      "name": "Resident Evil Gaiden",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Gaiden",
+      "date": "December 14, 2001"
+    },
+    "RE:ORC": {
+      "name": "Resident Evil: Operation Raccoon City",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_Operation_Raccoon_City",
+      "date": "March 20, 2012"
+    },
+    "RE:O": {
+      "name": "Resident Evil Outbreak",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Outbreak",
+      "date": "December 11, 2003"
+    },
+    "RE:OF2": {
+      "name": "Resident Evil Outbreak File #2",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Outbreak:_File_2",
+      "date": "September 9, 2004"
+    },
+    "RE:P": {
+      "name": "Resident Evil Portable",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Portable",
+      "tags": "Cancelled"
+    },
+    "RE:R": {
+      "n/a": false,
+      "name": "Resident Evil: Revelations",
+      "url": [
+        "https://store.steampowered.com/app/222480",
+        "https://en.wikipedia.org/wiki/Resident_Evil:_Revelations"
+      ],
+      "date": "January 26, 2012",
+      "engine": "MT2",
+      "pakExt": ".?"
+    },
+    "RE:R2": {
+      "n/a": false,
+      "name": "Resident Evil: Revelations 2",
+      "url": [
+        "https://store.steampowered.com/app/287290",
+        "https://en.wikipedia.org/wiki/Resident_Evil:_Revelations_2"
+      ],
+      "date": "February 24, 2015",
+      "engine": "MT2",
+      "pakExt": ".?"
+    },
+    "RE:RU": {
+      "name": "Resident Evil: Revelations Unveiled Edition",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_Revelations",
+      "date": "May 21, 2013"
+    },
+    "RES": {
+      "name": "Resident Evil Survivor",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Survivor",
+      "date": "January 27, 2000"
+    },
+    "RES2C:V": {
+      "name": "Resident Evil Survivor 2 Code: Veronica",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil_Survivor_2_Code:_Veronica",
+      "date": "November 8, 2001"
+    },
+    "RE:TDC": {
+      "name": "Resident Evil: The Darkside Chronicles",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_The_Darkside_Chronicles",
+      "date": "November 17, 2009",
+      "engine": "MTFL"
+    },
+    "RE:TM3D": {
+      "name": "Resident Evil: The Mercenaries 3D",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_The_Mercenaries_3D",
+      "date": "June 2, 2011",
+      "engine": "MTFM"
+    },
+    "RE:TUC": {
+      "name": "Resident Evil: The Umbrella Chronicles",
+      "url": "https://en.wikipedia.org/wiki/Resident_Evil:_The_Umbrella_Chronicles",
+      "date": "November 13, 2007"
+    },
+    "RE:V": {
+      "n/a": false,
+      "name": "Resident Evil Village",
+      "url": [
+        "https://store.steampowered.com/app/1196590",
+        "https://en.wikipedia.org/wiki/Resident_Evil_Village"
+      ],
+      "date": "May 7, 2021",
+      "pakExt": ".?"
+    },
+    "REZ": {
+      "n/a": false,
+      "name": "Resident Evil Zero",
+      "url": [
+        "https://store.steampowered.com/app/339340",
+        "https://en.wikipedia.org/wiki/Resident_Evil_Zero"
+      ],
+      "date": "November 12, 2002",
+      "editions": {
+        "+": {
+          "name": "Resident Evil Zero HD Remaster",
+          "date": "January 19, 2016"
+        }
+      },
+      "engine": "MT2",
+      "pakExt": ".?"
+    },
+    "RivalSchools:UBF": {
+      "name": "Rival Schools: United By Fate",
+      "url": "https://en.wikipedia.org/wiki/Rival_Schools:_United_By_Fate",
+      "date": "November 01, 1997"
+    },
+    "Rocketmen: Axis of Evil": {
+      "name": "Rocketmen: Axis of Evil",
+      "url": "https://en.wikipedia.org/wiki/Rocketmen:_Axis_of_Evil",
+      "date": "March 6, 2008"
+    },
+    "Rockman:FMKC": {
+      "name": "Rockman & Forte Mirai kara no Chosensha",
+      "url": "https://en.wikipedia.org/wiki/Rockman_%26_Forte_Mirai_kara_no_Chosensha",
+      "date": "October 21, 1999"
+    },
+    "Rockman:BF": {
+      "name": "Rockman Battle & Fighters",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Battle_%26_Fighters",
+      "date": "July 26, 2000"
+    },
+    "RockmanCW:R": {
+      "name": "Rockman Complete Works: Rockman",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Complete_Works",
+      "date": "August 4, 1999"
+    },
+    "RockmanCW:R2": {
+      "name": "Rockman Complete Works: Rockman 2 Dr. Wily no Nazo!!",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Complete_Works",
+      "date": "August 4, 1999"
+    },
+    "RockmanCW:R3": {
+      "name": "Rockman Complete Works: Rockman 3 Dr. Wily no Saigo!?",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Complete_Works",
+      "date": "August 4, 1999"
+    },
+    "RockmanCW:R4": {
+      "name": "Rockman Complete Works: Rockman 4 Aratanaru Yabou!!",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Complete_Works",
+      "date": "August 4, 1999"
+    },
+    "RockmanCW:R5": {
+      "name": "Rockman Complete Works: Rockman 5 Blues no Wana!",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Complete_Works",
+      "date": "August 4, 1999"
+    },
+    "RockmanCW:R6": {
+      "name": "Rockman Complete Works: Rockman 6 Shijou Saidai no Tatakai!!",
+      "url": "https://en.wikipedia.org/wiki/Rockman_Complete_Works",
+      "date": "August 4, 1999"
+    },
+    "RockmanEX:N1B": {
+      "name": "Rockman EXE N1 Battle",
+      "url": "https://en.wikipedia.org/wiki/Rockman_EXE_N1_Battle",
+      "date": "August 8, 2003"
+    },
+    "RockmanEX:OSS": {
+      "name": "Rockman EXE Operate Shooting Star",
+      "url": "https://en.wikipedia.org/wiki/Rockman_EXE_Operate_Shooting_Star",
+      "date": "November 12, 2009"
+    },
+    "RockmanEX:WS": {
+      "name": "Rockman EXE WS",
+      "url": "https://en.wikipedia.org/wiki/Rockman_EXE_WS",
+      "date": "February 8, 2003"
+    },
+    "RockmanIQ:C": {
+      "name": "Rockman IQ Challenge",
+      "date": "1998-01-01"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "Okami:HD": {
+        "key": "Steam:587620",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 587620",
+        "dir": "Okami",
+        "path": "data_pc"
+      },
+      "O:W": {
+        "key": "Steam:761600",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 761600",
+        "dir": "Onimusha",
+        "path": "IMAGE"
+      },
+      "RememberMe": {
+        "key": "Steam:228300",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 228300",
+        "dir": "Remember Me",
+        "path": "main"
+      },
+      "RE": {
+        "key": "Steam:304240",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 304240",
+        "dir": "Resident Evil",
+        "path": "main"
+      },
+      "REZ": {
+        "key": "Steam:339340",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 339340",
+        "dir": "Resident Evil Zero",
+        "path": "main"
+      },
+      "RE2": {
+        "key": "Steam:883710",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 883710",
+        "dir": "Resident Evil 2",
+        "path": "main"
+      },
+      "RE3": {
+        "key": "Steam:952060",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 952060",
+        "dir": "Resident Evil 3",
+        "path": "main"
+      },
+      "RE4": {
+        "key": "Steam:254700",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 254700",
+        "dir": "Resident Evil 4",
+        "path": "main"
+      },
+      "RE5": {
+        "key": "Steam:21690",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21690",
+        "dir": "Resident Evil 5",
+        "path": "main"
+      },
+      "RE6": {
+        "key": "Steam:221040",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 221040",
+        "dir": "Resident Evil 6",
+        "path": "main"
+      },
+      "RE7": {
+        "key": "Steam:418370",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 418370",
+        "dir": "Resident Evil 7 Biohazard",
+        "path": "main"
+      },
+      "RE:R": {
+        "key": "Steam:222480",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 222480",
+        "dir": "Resident Evil Revelations",
+        "path": "main"
+      },
+      "RE:R2": {
+        "key": "Steam:287290",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287290",
+        "dir": "Resident Evil Revelations 2",
+        "path": "main"
+      },
+      "RE:V": {
+        "key": "Steam:1196590",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1196590",
+        "dir": "Resident Evil Village BIOHAZARD VILLAGE",
+        "path": "main"
+      }
+    }
+  }
+}

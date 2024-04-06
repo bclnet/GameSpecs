@@ -8,7 +8,7 @@ from PyQt6 import QtCore, QtMultimedia
 from widgets.HexViewWidget import HexViewWidget
 from widgets.OpenWidget import OpenWidget
 from widgets.SaveFileWidget import SaveFileWidget
-from gamespecs import Family, PakFile, util
+from gamex import Family, PakFile, util
 
 # https://doc.qt.io/qt-6/qtreeview.html
 

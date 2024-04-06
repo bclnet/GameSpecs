@@ -5,7 +5,7 @@
         "commandLine": "ExplorerApp.py",
         "environment": [
         ],
-        "executable": "C:\\Users\\smorey2\\AppData\\Local\\Programs\\Python\\Launcher\\py.exe",
+        "executable": "C:\\Users\\smorey2\\AppData\\Local\\Programs\\python\\Launcher\\py.exe",
         "inject": false,
         "numQueuedFrames": 0,
         "options": {
@@ -23,6 +23,6 @@
             "verifyBufferAccess": false
         },
         "queuedFrameCap": 0,
-        "workingDir": "C:/_GITHUB/bclnet/GameSpecs/Python/app"
+        "workingDir": "C:/_GITHUB/bclnet/GameX/python/app"
     }
 }

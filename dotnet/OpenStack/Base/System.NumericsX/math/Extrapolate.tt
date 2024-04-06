@@ -1,0 +1,23 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+<# String type = null; #>
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace System.NumericsX
+{
+    public enum EXTRAPOLATION
+    {
+        NONE = 0x01,    // no extrapolation, covered distance = duration * 0.001 * ( baseSpeed )
+        LINEAR = 0x02,  // linear extrapolation, covered distance = duration * 0.001 * ( baseSpeed + speed )
+        ACCELLINEAR = 0x04, // linear acceleration, covered distance = duration * 0.001 * ( baseSpeed + 0.5 * speed )
+        DECELLINEAR = 0x08, // linear deceleration, covered distance = duration * 0.001 * ( baseSpeed + 0.5 * speed )
+        ACCELSINE = 0x10,   // sinusoidal acceleration, covered distance = duration * 0.001 * ( baseSpeed + sqrt( 0.5 ) * speed )
+        DECELSINE = 0x20,   // sinusoidal deceleration, covered distance = duration * 0.001 * ( baseSpeed + sqrt( 0.5 ) * speed )
+        NOSTOP = 0x40   // do not stop at startTime + duration
+    }
+
+<# type = "Vector4"; #>
+<#@ include file="Extrapolate.t4" #>
+}

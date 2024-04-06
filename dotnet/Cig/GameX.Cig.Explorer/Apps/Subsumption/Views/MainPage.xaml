@@ -1,0 +1,49 @@
+﻿<Window x:Class="GameX.Cig.Apps.Subsumption.Views.MainPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:GameX.Cig.Apps.Subsumption.Views"
+        mc:Ignorable="d"
+        Title="Subsumption" Width="1342" Height="798">
+    <Grid>
+        <TabControl Name="MainTabs" SelectedIndex="9">
+            <TabItem Header="Setup">
+                <views:SetupPage />
+            </TabItem>
+            <TabItem Header="Variable Types">
+                <views:VariableTypesPage />
+            </TabItem>
+            <TabItem Header="Global Variables" >
+                <views:GlobalVariablesPage />
+            </TabItem>
+            <TabItem Header="Persistant Entites" >
+                <views:PersistantEntitesPage />
+            </TabItem>
+            <TabItem Header="Commercial Products" >
+                <views:CommercialProductsPage />
+            </TabItem>
+            <TabItem Header="Events" >
+                <views:EventsPage />
+            </TabItem>
+            <TabItem Header="Task Archetypes" >
+                <views:TaskArchetypesPage />
+            </TabItem>
+            <TabItem Header="Platforms" >
+                <views:PlatformsPage />
+            </TabItem>
+            <TabItem Header="Activites" >
+                <views:ActivitesPage />
+            </TabItem>
+            <TabItem Header="Missions">
+                <views:MissionsPage />
+            </TabItem>
+            <TabItem Header="Jurisdictions" >
+                <views:JurisdictionsPage />
+            </TabItem>
+            <TabItem Header="Star Systems" >
+                <views:StarSystemsPage />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

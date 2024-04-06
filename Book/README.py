@@ -119,7 +119,7 @@ def GameFamily(f):
         b.append(f'\n')
     return ''.join(b)
 
-for f in base.init('../Python').values():
+for f in base.init('../python').values():
     print(f.id)
     body = GameFamily(f)
     # print(body)

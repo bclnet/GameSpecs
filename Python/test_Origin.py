@@ -1,4 +1,4 @@
-from gamespecs import family
+from gamex import family
 
 # get family
 family = family.getFamily('Origin')

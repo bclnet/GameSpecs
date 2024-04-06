@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.OpenGL\GameX.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.StereoKit\GameX.Platform.StereoKit.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.Unity\GameX.Platform.Unity.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.Unreal\GameX.Platform.Unreal.csproj" />
+    <ProjectReference Include="..\GameX.Valve\GameX.Valve.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+	   <HintPath>..\..\Platforms\Unity\2023.2.0b3\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Exec Command="xcopy /Y &quot;$(TargetDir)GameX.Valve*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)GameX.Valve*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unreal\Simple\Managed\&quot;" />
+  </Target>
+
+</Project>

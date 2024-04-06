@@ -1,0 +1,101 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;ID_DEDICATED_</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Model\**" />
+    <EmbeddedResource Remove="Model\**" />
+    <None Remove="Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="GameBearShootWindow.cs" />
+    <Compile Remove="GameBustOutWindow.cs" />
+    <Compile Remove="GameSSDWindow.cs" />
+    <Compile Remove="Model+Load.cs" />
+    <Compile Remove="Model+Trail.cs" />
+    <Compile Remove="TR\TR_Local.cs" />
+    <Compile Remove="TR\TR_RenderTools.cs" />
+    <Compile Remove="TR\TR_ShadowBounds.cs" />
+    <Compile Remove="TR\TR_StencilShadow.cs" />
+    <Compile Remove="TR\TR_TriSurf.cs" />
+    <Compile Remove="TR_Backend.cs" />
+    <Compile Remove="TR_Deform.cs" />
+    <Compile Remove="TR_GuiSurf.cs" />
+    <Compile Remove="TR_Light.cs" />
+    <Compile Remove="TR_LightRun.cs" />
+    <Compile Remove="TR_OrderIndexes.cs" />
+    <Compile Remove="TR_Polytope.cs" />
+    <Compile Remove="TR_Render.cs" />
+    <Compile Remove="TR_RenderTools.cs" />
+    <Compile Remove="TR_ShadowBounds.cs" />
+    <Compile Remove="TR_StencilShadow.cs" />
+    <Compile Remove="TR_SubView.cs" />
+    <Compile Remove="TR_Trace.cs" />
+    <Compile Remove="TR_TriSurf.cs" />
+    <Compile Remove="TR_TurboShadow.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="GlslShaders\blendLightShaderVP.glsl" />
+    <None Remove="GlslShaders\cubeMapShaderFP.glsl" />
+    <None Remove="GlslShaders\diffuseCubeShaderVP.glsl" />
+    <None Remove="GlslShaders\diffuseMapShaderFP.glsl" />
+    <None Remove="GlslShaders\diffuseMapShaderVP.glsl" />
+    <None Remove="GlslShaders\fogShaderFP.glsl" />
+    <None Remove="GlslShaders\fogShaderVP.glsl" />
+    <None Remove="GlslShaders\interactionPhongShaderFP.glsl" />
+    <None Remove="GlslShaders\interactionPhongShaderVP.glsl" />
+    <None Remove="GlslShaders\interactionShaderFP.glsl" />
+    <None Remove="GlslShaders\interactionShaderVP.glsl" />
+    <None Remove="GlslShaders\reflectionCubeShaderVP.glsl" />
+    <None Remove="GlslShaders\skyboxCubeShaderVP.glsl" />
+    <None Remove="GlslShaders\stencilShadowShaderFP.glsl" />
+    <None Remove="GlslShaders\stencilShadowShaderVP.glsl" />
+    <None Remove="GlslShaders\zfillClipShaderFP.glsl" />
+    <None Remove="GlslShaders\zfillClipShaderVP.glsl" />
+    <None Remove="GlslShaders\zfillShaderFP.glsl" />
+    <None Remove="GlslShaders\zfillShaderVP.glsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="GlslShaders\blendLightShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\cubeMapShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\diffuseCubeShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\diffuseMapShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\diffuseMapShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\fogShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\fogShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\interactionPhongShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\interactionPhongShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\interactionShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\interactionShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\reflectionCubeShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\skyboxCubeShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\stencilShadowShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\stencilShadowShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\zfillClipShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\zfillClipShaderVP.glsl" />
+    <EmbeddedResource Include="GlslShaders\zfillShaderFP.glsl" />
+    <EmbeddedResource Include="GlslShaders\zfillShaderVP.glsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenStack.XGngine\OpenStack.XGngine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>

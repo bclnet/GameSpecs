@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameX.App.Explorer.Views.OpenPage"
+             Title="Open">
+    <Grid Margin="10" ColumnDefinitions="Auto,*,50" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+        <Label Grid.Row="0">Family:</Label>
+        <Picker x:Name="Family" Grid.Row="0" Grid.Column="1" Margin="0,0,0,5"
+            ItemsSource="{Binding Families}"
+            ItemDisplayBinding="{Binding Name}"
+            SelectedIndexChanged="Family_SelectionChanged" />
+
+        <Label Grid.Row="1">Game:</Label>
+        <Picker x:Name="Game" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"
+            ItemsSource="{Binding Games}"
+            ItemDisplayBinding="{Binding DisplayedName}"
+            SelectedIndexChanged="Game_SelectionChanged" />
+
+        <Label Grid.Row="2">Game Edition:</Label>
+        <Picker x:Name="Edition" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"
+            ItemsSource="{Binding Editions}"
+            ItemDisplayBinding="{Binding Name}"
+            SelectedIndexChanged="Edition_SelectionChanged" />
+
+        <Label Grid.Row="3">Resource Uri:</Label>
+        <Editor Grid.Row="3" Grid.Column="1" Margin="0,0,0,5"
+                Text="{Binding PakUri1}" />
+        <Button Grid.Row="3" Grid.Column="2" Margin="2,0,0,5" HorizontalOptions="End"
+                Text="*"
+                Clicked="Pak1Uri_Click" />
+
+        <Label Grid.Row="4">Resource Uri:</Label>
+        <Editor Grid.Row="4" Grid.Column="1" Margin="0,0,0,5"
+                 Text="{Binding Pak2Uri}" />
+        <Button Grid.Row="4" Grid.Column="2" Margin="2,0,0,5" HorizontalOptions="End"
+                Text="*"
+                Clicked="Pak2Uri_Click" />
+
+        <Label Grid.Row="5">Resource Uri:</Label>
+        <Editor Grid.Row="5" Grid.Column="1" Margin="0,0,0,5"
+                 Text="{Binding Pak3Uri}" />
+        <Button Grid.Row="5" Grid.Column="2" Margin="2,0,0,5" HorizontalOptions="End"
+                Text="*"
+                Clicked="Pak3Uri_Click" />
+
+        <HorizontalStackLayout Grid.Row="6" Grid.Column="1" HorizontalOptions="End">
+            <Button Margin="0,0,0,5" Text=" Cancel " Clicked="Cancel_Click" />
+            <Button Margin="5,0,0,5" Text=" Open " Clicked="Open_Click" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

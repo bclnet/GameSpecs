@@ -1,0 +1,326 @@
+﻿{
+  "id": "Id",
+  "name": "Id",
+  "studio": "id Software",
+  "url": "https://en.wikipedia.org/wiki/List_of_id_Software_games",
+  "samples": [
+    "IdFamily.Sample.json"
+  ],
+  "engines": {
+    "idTech0": { "name": "id Tech 0" },
+    "idTech1": { "name": "id Tech 1" },
+    "idTech2": { "name": "id Tech 2" },
+    "idTech2.5": { "name": "id Tech 2.5" },
+    "idTech3": { "name": "id Tech 3" },
+    "idTech3.5": { "name": "id Tech 3.5" },
+    "idTech4": { "name": "id Tech 4" },
+    "idTech4.5": { "name": "id Tech 4.5" },
+    "idTech5": { "name": "id Tech 5" },
+    "idTech6": { "name": "id Tech 6" },
+    "idTech7": { "name": "id Tech 7" }
+  },
+  "games": {
+    "*": {
+      "gameType": "GameX.Id.IdGame, GameX.Id",
+      "pakFileType": "GameX.Id.IdPakFile, GameX.Id",
+      "pakExt": ".pak"
+    },
+    "CK:IOTV": {
+      "n/a": true,
+      "name": "Commander Keen in Invasion of the Vorticons",
+      "url": "https://en.wikipedia.org/wiki/Commander_Keen_in_Invasion_of_the_Vorticons",
+      "date": "1990-12-14",
+      "tag": "DOS"
+    },
+    "SK": {
+      "n/a": true,
+      "name": "Shadow Knights",
+      "url": "https://en.wikipedia.org/wiki/Shadow_Knights",
+      "date": "1991-01-31",
+      "tag": "DOS"
+    },
+    "HT3D": {
+      "n/a": true,
+      "name": "Hovertank 3D",
+      "url": "https://en.wikipedia.org/wiki/Hovertank_3D",
+      "date": "1991-04-01",
+      "tag": "DOS"
+    },
+    "DD:THM": {
+      "n/a": true,
+      "name": "Dangerous Dave in the Haunted Mansion",
+      "url": "https://en.wikipedia.org/wiki/Dangerous_Dave_in_the_Haunted_Mansion",
+      "date": "1991-01-01",
+      "tag": "DOS"
+    },
+    "RR": {
+      "n/a": true,
+      "name": "Rescue Rover",
+      "url": "https://en.wikipedia.org/wiki/Rescue_Rover",
+      "date": "1991-01-01",
+      "tag": "DOS"
+    },
+    "CK:KD": {
+      "n/a": true,
+      "name": "Commander Keen in Keen Dreams",
+      "url": "https://en.wikipedia.org/wiki/Commander_Keen_in_Keen_Dreams",
+      "date": "1991-01-01",
+      "tag": "DOS"
+    },
+    "RR2": {
+      "n/a": true,
+      "name": "Rescue Rover 2",
+      "date": "1991-01-01",
+      "tag": "DOS"
+    },
+    "C3D": {
+      "n/a": true,
+      "name": "Catacomb 3-D",
+      "url": "https://en.wikipedia.org/wiki/Catacomb_3-D",
+      "date": "1991-11-01",
+      "tag": "DOS"
+    },
+    "CK:GG": {
+      "n/a": true,
+      "name": "Commander Keen in Goodbye, Galaxy",
+      "url": "https://en.wikipedia.org/wiki/Commander_Keen_in_Goodbye,_Galaxy",
+      "date": "1991-12-15",
+      "tag": "DOS"
+    },
+    "CK:AAMB": {
+      "n/a": true,
+      "name": "Commander Keen in Aliens Ate My Babysitter",
+      "url": "https://en.wikipedia.org/wiki/Commander_Keen_in_Aliens_Ate_My_Babysitter",
+      "date": "1991-12-01",
+      "tag": "DOS"
+    },
+    "W3D": {
+      "n/a": true,
+      "name": "Wolfenstein 3D",
+      "engine": "idTech0",
+      "url": "https://en.wikipedia.org/wiki/Wolfenstein_3D",
+      "date": "1992-05-05",
+      "tag": "DOS"
+    },
+    "TOTD": {
+      "n/a": true,
+      "name": "Tiles of the Dragon",
+      "url": "https://en.wikipedia.org/wiki/Tiles_of_the_Dragon",
+      "date": "1993-01-01",
+      "tag": "DOS"
+    },
+    "D1": {
+      "n/a": true,
+      "name": "Doom",
+      "engine": "idTech1",
+      "url": "https://en.wikipedia.org/wiki/Doom_(1993_video_game)",
+      "date": "1993-12-10",
+      "tag": "DOS"
+    },
+    "D2": {
+      "n/a": true,
+      "name": "Doom II",
+      "engine": "idTech1",
+      "url": "https://en.wikipedia.org/wiki/Doom_II",
+      "date": "1994-10-10",
+      "tag": "DOS"
+    },
+    "Q": {
+      "name": "Quake",
+      "engine": "idTech2",
+      "url": [ "https://store.steampowered.com/app/2310", "https://en.wikipedia.org/wiki/Quake_(video_game)" ],
+      "date": "1996-06-22",
+      "editions": {
+        "q": { "name": "original" },
+        "qr": { "name": "rerelease", "path": "rerelease" }
+      },
+      "searchBy": "Pak",
+      "pakExt": [".pak", ".wad"],
+      "path": "id1",
+      "dlcs": {
+        "hipnotic": {
+          "name": "Quake Mission Pack 1: Scourge of Armagon",
+          "url": "https://quake.fandom.com/wiki/Quake_Mission_Pack_1:_Scourge_of_Armagon",
+          "date": "March 5, 1997",
+          "path": "hipnotic"
+        },
+        "rogue": {
+          "name": "Quake Mission Pack 2: Dissolution of Eternity",
+          "url": "https://quake.fandom.com/wiki/Quake_Mission_Pack_2:_Dissolution_of_Eternity",
+          "date": "March 19, 1997",
+          "path": "rogue"
+        },
+        "ctf": {
+          "name": "Capture the Flag",
+          "path": "ctf"
+        },
+        "dopa": {
+          "name": "DOPA",
+          "path": "dopa"
+        },
+        "mg1": {
+          "name": "Dimension of the Machine",
+          "path": "mg1"
+        }
+      }
+    },
+    "Q2": {
+      "name": "Quake II",
+      "engine": "idTech2.5",
+      "url": [ "https://store.steampowered.com/app/2320", "https://en.wikipedia.org/wiki/Quake_II" ],
+      "date": "1997-12-09"
+    },
+    "Q3:A": {
+      "name": "Quake III Arena",
+      "engine": "idTech3",
+      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Quake_III_Arena" ],
+      "date": "1999-12-05"
+    },
+    "D3": {
+      "name": "Doom 3",
+      "engine": "idTech4",
+      "url": [ "https://store.steampowered.com/app/9050", "https://en.wikipedia.org/wiki/Doom_3" ],
+      "date": "2004-08-09"
+    },
+    "D:RPG": {
+      "n/a": true,
+      "name": "Doom RPG",
+      "url": "https://en.wikipedia.org/wiki/Doom_RPG",
+      "date": "2005-09-13",
+      "tag": "Mobile"
+    },
+    "OE": {
+      "n/a": true,
+      "name": "Orcs & Elves",
+      "url": "https://en.wikipedia.org/wiki/Orcs_%26_Elves",
+      "date": "2006-05-01",
+      "tag": "Mobile"
+    },
+    "QE2": {
+      "n/a": true,
+      "name": "Orcs & Elves II",
+      "url": "https://doomwiki.org/wiki/Orcs_%26_Elves_II",
+      "date": "2007-12-03",
+      "tag": "Mobile"
+    },
+    "W:RPG": {
+      "n/a": true,
+      "name": "Wolfenstein RPG",
+      "url": "https://en.wikipedia.org/wiki/Wolfenstein_RPG",
+      "date": "2008-09-30",
+      "tag": "Mobile"
+    },
+    "D2:RPG": {
+      "n/a": true,
+      "name": "Doom II RPG",
+      "url": "https://en.wikipedia.org/wiki/Doom_II_RPG",
+      "date": "2009-11-23",
+      "tag": "Mobile"
+    },
+    "Q:L": {
+      "name": "Quake Live",
+      "engine": "idTech3",
+      "url": [ "https://store.steampowered.com/app/282440", "https://en.wikipedia.org/wiki/Quake_Live" ],
+      "date": "2010-08-06"
+    },
+    "R:MBT": {
+      "n/a": true,
+      "name": "Rage: Mutant Bash TV",
+      "url": "https://en.wikipedia.org/wiki/Rage:_Mutant_Bash_TV",
+      "date": "2010-11-18",
+      "tag": "Mobile"
+    },
+    "R": {
+      "name": "Rage",
+      "engine": "idTech5",
+      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Rage_(video_game)" ],
+      "date": "2011-10-04"
+    },
+    "D": {
+      "name": "Doom (2016)",
+      "engine": "T6",
+      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Doom_(2016_video_game)" ],
+      "date": "2016-05-13"
+    },
+    "D:VFR": {
+      "name": "Doom VFR",
+      "url": [ "https://store.steampowered.com/app/650000", "https://en.wikipedia.org/wiki/Doom_VFR" ],
+      "date": "2017-12-01"
+    },
+    "R2": {
+      "name": "Rage 2",
+      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Rage_2" ],
+      "date": "2019-05-14"
+    },
+    "D:E": {
+      "name": "Doom Eternal",
+      "engine": "T7",
+      "url": [ "https://store.steampowered.com/app/0", "https://en.wikipedia.org/wiki/Doom_Eternal" ],
+      "date": "2020-05-20"
+    },
+    "Q:C": {
+      "name": "Quake Champions",
+      "url": [ "https://store.steampowered.com/app/611500", "https://en.wikipedia.org/wiki/Quake_Champions" ],
+      "date": "2022-08-18"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "Q": {
+        "key": "Steam:2310",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2310",
+        "dir": "Quake"
+      },
+      "Q2": {
+        "key": "Steam:2320",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2320",
+        "dir": "Quake 2"
+      },
+      "Q3:A": {
+        "key": [ "Steam:2200", "GOG:1441704920" ],
+        "reg": [ "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2200", "GOG.com/Games/1441704920" ],
+        "dir": "Quake III"
+      },
+      "D3": {
+        "key": "Steam:9050",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9050",
+        "dir": "Doom 3"
+      },
+      "Q:L": {
+        "key": "Steam:282440",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 282440",
+        "dir": "Quake Live"
+      },
+      "R": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "Rage"
+      },
+      "D": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "Doom"
+      },
+      "D:VFR": {
+        "key": "Steam:650000",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 650000",
+        "dir": "DOOM VFR"
+      },
+      "R2": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "Rage 2"
+      },
+      "D:E": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "Doom Eternal"
+      },
+      "Q:C": {
+        "key": "Steam:611500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 611500",
+        "dir": "Quake Champions"
+      }
+    }
+  }
+}

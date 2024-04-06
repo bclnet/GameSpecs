@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GameX.App.Explorer.Views"
+             xmlns:control1="clr-namespace:GameX.App.Explorer.Controls1"
+             xmlns:model="clr-namespace:GameX.Metadata;assembly=GameX.Base"
+             x:Name="this"
+             x:Class="GameX.App.Explorer.Views.FileContent">
+    <Grid RowDefinitions="30,*">
+        <Grid.Resources>
+            <ControlTemplate x:Key="TabTemplate">
+                <Grid RowDefinitions="30,4">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}"/>
+                                        <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource Primary}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black"/>
+                                        <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <Label Text="{TemplateBinding Content.Name}" x:Name="TextLabel" />
+                    <BoxView x:Name="Indicator" Grid.Row="1" Color="Transparent"/>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="NullTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="Null" Margin="5,5,5,5" FontFamily="GenericMonospace" />
+            </ControlTemplate>
+            <ControlTemplate x:Key="HexTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="Hex" />
+                <!--<control:HexEditor Margin="5,5,5,5" Stream="{Binding Value}"/>-->
+            </ControlTemplate>
+            <ControlTemplate x:Key="TextTemplate" x:DataType="{x:Type model:MetaContent}">
+                <ScrollView>
+                    <Label Text="{Binding Value}" Margin="5,5,5,5" FontFamily="Courier New" />
+                </ScrollView>
+            </ControlTemplate>
+            <ControlTemplate x:Key="DataGridTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="DataGrid" />
+                <!--<DataGrid VerticalAlignment="Top" ItemsSource="{Binding Value}" Margin="5,5,5,5" />-->
+            </ControlTemplate>
+            <ControlTemplate x:Key="AudioPlayerTemplate" x:DataType="{x:Type model:MetaContent}">
+                <local:AudioPlayer Stream="{Binding Value}" Format="{Binding Tag}" />
+            </ControlTemplate>
+            <ControlTemplate x:Key="ImageTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Image MaximumWidthRequest="{Binding MaxWidth}" MaximumHeightRequest="{Binding MaxHeight}" Margin="5,5,5,5" />
+            </ControlTemplate>
+            <ControlTemplate x:Key="MaterialTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="Material" />
+                <!--<control1:GLMaterialViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </ControlTemplate>
+            <ControlTemplate x:Key="ParticleTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="Particle" />
+                <!--<control1:GLParticleViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </ControlTemplate>
+            <ControlTemplate x:Key="TextureTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="Texture" />
+                <!--<control1:GLTextureViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </ControlTemplate>
+            <ControlTemplate x:Key="ModelTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="Model" />
+                <!--<control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </ControlTemplate>
+            <ControlTemplate x:Key="WorldTemplate" x:DataType="{x:Type model:MetaContent}">
+                <Label Text="World" />
+                <!--<control1:GLModelViewer Source="{Binding Value}" Graphic="{Binding Graphic, RelativeSource={RelativeSource AncestorType={x:Type local:FileContent}}}" Margin="3,3,3,3" />-->
+            </ControlTemplate>
+        </Grid.Resources>
+        <HorizontalStackLayout x:Name="ContentTab" Grid.Row="0" BindableLayout.ItemsSource="{Binding ContentTabs}" VerticalOptions="StartAndExpand" RadioButtonGroup.GroupName="Tabs" BackgroundColor="LightGrey">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:MetaContent}">
+                    <RadioButton Content="{Binding}" ControlTemplate="{StaticResource TabTemplate}" CheckedChanged="ContentTab_Changed" />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </HorizontalStackLayout>
+        <ContentView x:Name="ContentTabContent" Grid.Row="1" BackgroundColor="DarkGrey">
+            <ContentView.Style>
+                <Style TargetType="ContentView">
+                    <Setter Property="ControlTemplate" Value="{StaticResource TextTemplate}" />
+                    <Style.Triggers>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Hex">
+                            <Setter Property="ControlTemplate" Value="{StaticResource HexTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Text">
+                            <Setter Property="ControlTemplate" Value="{StaticResource TextTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="DataGrid">
+                            <Setter Property="ControlTemplate" Value="{StaticResource DataGridTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="AudioPlayer">
+                            <Setter Property="ControlTemplate" Value="{StaticResource AudioPlayerTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Image">
+                            <Setter Property="ControlTemplate" Value="{StaticResource ImageTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Material">
+                            <Setter Property="ControlTemplate" Value="{StaticResource MaterialTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Particle">
+                            <Setter Property="ControlTemplate" Value="{StaticResource ParticleTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Texture">
+                            <Setter Property="ControlTemplate" Value="{StaticResource TextureTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="Model">
+                            <Setter Property="ControlTemplate" Value="{StaticResource ModelTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Type}" Value="World">
+                            <Setter Property="ControlTemplate" Value="{StaticResource WorldTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="ContentView" Binding="{Binding Value}" Value="{x:Null}">
+                            <Setter Property="ControlTemplate" Value="{StaticResource NullTemplate}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentView.Style>
+        </ContentView>
+    </Grid>
+</ContentView>

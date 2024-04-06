@@ -1,0 +1,70 @@
+﻿{
+  "id": "Cryptic",
+  "name": "Cryptic",
+  "studio": "Cryptic Studios",
+  "description": "Cryptic Studios is an American video game developer specializing in massively multiplayer online role-playing games. It is headquartered in Los Gatos, California and was a wholly owned Perfect World subsidiary,[2] and is now owned by Embracer Group through its subsidiary Gearbox Entertainment.",
+  "url": "https://en.wikipedia.org/wiki/Cryptic_Studios",
+  "samples": [
+    "CrypticFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Cryptic.CrypticPakFile, GameX.Cryptic"
+    },
+    "COH": {
+      "n/a": true,
+      "name": "City of Heroes",
+      "url": "https://en.wikipedia.org/wiki/City_of_Heroes",
+      "date": "2004-05-28"
+    },
+    "CO": {
+      "name": "Champions Online",
+      "date": "2009-09-01",
+      "url": "https://store.steampowered.com/app/9880",
+      "pakExt": ".hogg",
+      "status": "open;read"
+    },
+    "STO": {
+      "name": "Star Trek Online",
+      "date": "2010-02-02",
+      "url": "https://store.steampowered.com/app/9900",
+      "pakExt": ".hogg",
+      "status": "open;read"
+    },
+    "NVW": {
+      "name": "Neverwinter",
+      "date": "2013-12-05",
+      "url": "https://store.steampowered.com/app/109600",
+      "pakExt": ".hogg",
+      "status": "open;read"
+    },
+    "MTG": {
+      "n/a": true,
+      "name": "Magic: The Gathering",
+      "url": "https://en.wikipedia.org/wiki/Magic:_Legends",
+      "date": "2017-06-07"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "CO": {
+        "key": "Steam:9880",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9880",
+        "dir": "Champions Online",
+        "path": "Champions Online/Live/piggs"
+      },
+      "STO": {
+        "key": "Steam:9900",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 9900",
+        "dir": "Star Trek Online",
+        "path": "Star Trek Online/Live/piggs"
+      },
+      "NVW": {
+        "key": "Steam:109600",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 109600",
+        "dir": "Cryptic Studios",
+        "path": "Neverwinter/Live/piggs"
+      }
+    }
+  }
+}

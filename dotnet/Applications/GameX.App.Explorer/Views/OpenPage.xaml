@@ -1,0 +1,69 @@
+﻿<Window x:Class="GameX.App.Explorer.Views.OpenPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:GameX.App.Explorer.Views"
+        mc:Ignorable="d"
+        Title="File Open" Height="240" Width="380">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="15" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0">Family:</Label>
+        <ComboBox Name="Family" Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" Padding="5,0"
+                  ItemsSource="{Binding Families}"
+                  DisplayMemberPath="Name"
+                  SelectionChanged="Family_SelectionChanged" />
+
+        <Label Grid.Row="1">Game:</Label>
+        <ComboBox Name="Game" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5" Padding="5,0"
+                  ItemsSource="{Binding Games}"
+                  DisplayMemberPath="DisplayedName"
+                  SelectionChanged="Game_SelectionChanged" />
+
+        <Label Grid.Row="2">Game Edition:</Label>
+        <ComboBox Name="Edition" Grid.Row="2" Grid.Column="1" Margin="0,0,0,5" Padding="5,0"
+                  ItemsSource="{Binding Editions}"
+                  DisplayMemberPath="Name"
+                  SelectionChanged="Edition_SelectionChanged" />
+
+        <Label Grid.Row="3">Resource Uri:</Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,5"
+                 Text="{Binding Pak1Uri}" />
+        <Button Grid.Row="3" Grid.Column="2" Margin="2,0,0,5"
+                Content="*"
+                Click="Pak1Uri_Click" />
+
+        <Label Grid.Row="4">Resource Uri:</Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,5"
+                 Text="{Binding Pak2Uri}" />
+        <Button Grid.Row="4" Grid.Column="2" Margin="2,0,0,5"
+                Content="*"
+                Click="Pak2Uri_Click" />
+
+        <Label Grid.Row="5">Resource Uri:</Label>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="0,0,0,5"
+                 Text="{Binding Pak3Uri}" />
+        <Button Grid.Row="5" Grid.Column="2" Margin="2,0,0,5"
+                Content="*"
+                Click="Pak3Uri_Click" />
+
+        <WrapPanel Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right">
+            <Button Margin="0,0,0,5" Content=" Cancel " Click="Cancel_Click" />
+            <Button Margin="5,0,0,5" Content=" Open " Click="Open_Click" />
+        </WrapPanel>
+    </Grid>
+</Window>

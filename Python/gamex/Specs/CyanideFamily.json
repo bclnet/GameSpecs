@@ -1,0 +1,56 @@
+﻿{
+  "id": "Cyanide",
+  "name": "Cyanide",
+  "studio": "Cyanide",
+  "description": "Cyanide Formats",
+  "url": "https://en.wikipedia.org/wiki/Cyanide_(company)",
+  "samples": [
+    "CyanideFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Cyanide.CyanidePakFile, GameX.Cyanide"
+    },
+    "TC": {
+      "name": "The Council",
+      "url": [
+        "https://store.steampowered.com/app/287630",
+        "https://www.gog.com/en/game/the_council"
+      ],
+      "date": "2018-03-13",
+      "tags": "",
+      "pakExt": ".cpk",
+      "pak2": "game:/*.bsa"
+    },
+    "Werewolf:TA": {
+      "name": "Werewolf: The Apocalypse - Earthblood",
+      "url": "https://store.steampowered.com/app/679110",
+      "date": "2022-02-07",
+      "pakExt": ".pak"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "TC": {
+        "key": [
+          "Steam:287630",
+          "GOG:1261705611",
+          "GOG:1207658930"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 287630",
+          "GOG.com/Games/1261705611",
+          "GOG.com/Games/1207658930"
+        ],
+        "dir": "The Council",
+        "path": "Data/Packages"
+      },
+      "Werewolf:TA": {
+        "key": "Steam:679110",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 679110",
+        "dir": "WerewolfTheApocalypseEarthblood",
+        "path": "WW/Content/Paks"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import sys, os, glob
 from PyQt6.QtGui import QIcon
-from gamespecs.meta import MetaManager
+from gamex.meta import MetaManager
 
 # ResourceManager
 class ResourceManager(MetaManager):

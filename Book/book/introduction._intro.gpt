@@ -13,7 +13,7 @@ Include the following chapters inline:
 
 *Chapter 5: Decoding Assets* will cover the individual game asset formats which is where the value comes from.
 
-*Chapter 6: Using Game Specs* will go using the game assets in modern development platforms.
+*Chapter 6: Using GameX* will go using the game assets in modern development platforms.
 Platform providers and applications are provided to work with or browse game assets.
 
 End with the following:

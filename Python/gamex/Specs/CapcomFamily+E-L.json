@@ -1,0 +1,539 @@
+﻿{
+  "id": "Capcom+E-L",
+  "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_E%E2%80%93L",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Capcom.CapcomPakFile, GameX.Capcom"
+    },
+    "EXTroopers": {
+      "name": "E.X. Troopers",
+      "url": "https://en.wikipedia.org/wiki/E.X._Troopers",
+      "date": "2012-11-21",
+      "engine": "MT2"
+    },
+    "EcoFighters": {
+      "name": "Eco Fighters",
+      "url": "https://en.wikipedia.org/wiki/Eco_Fighters",
+      "date": "1994-04-01"
+    },
+    "EDG:V1": {
+      "name": "El Dorado Gate Volume 1",
+      "url": "https://en.wikipedia.org/wiki/El_Dorado_Gate",
+      "date": "2000-10-10"
+    },
+    "EDG:V2": {
+      "name": "El Dorado Gate Volume 2",
+      "url": "https://en.wikipedia.org/wiki/El_Dorado_Gate",
+      "date": "2000-12-12"
+    },
+    "EDG:V3": {
+      "name": "El Dorado Gate Volume 3",
+      "url": "https://en.wikipedia.org/wiki/El_Dorado_Gate",
+      "date": "2001-02-02"
+    },
+    "EDG:V4": {
+      "name": "El Dorado Gate Volume 4",
+      "url": "https://en.wikipedia.org/wiki/El_Dorado_Gate",
+      "date": "2001-04-12"
+    },
+    "EDG:V5": {
+      "name": "El Dorado Gate Volume 5",
+      "url": "https://en.wikipedia.org/wiki/19XX:_The_War_Against_Destiny",
+      "date": "2001-06-06"
+    },
+    "EDG:V6": {
+      "name": "El Dorado Gate Volume 6",
+      "url": "https://en.wikipedia.org/wiki/El_Dorado_Gate",
+      "date": "2001-08-08"
+    },
+    "EDG:V7": {
+      "name": "El Dorado Gate Volume 7",
+      "url": "https://en.wikipedia.org/wiki/El_Dorado_Gate",
+      "date": "2001-10-10"
+    },
+    "EtherVapor:R": {
+      "name": "Ether Vapor Remaster",
+      "date": "2012-09-27"
+    },
+    "Everblue": {
+      "name": "Everblue",
+      "url": "https://en.wikipedia.org/wiki/Everblue",
+      "date": "2001-08-09"
+    },
+    "Everblue2": {
+      "name": "Everblue 2",
+      "url": "https://en.wikipedia.org/wiki/Everblue_2",
+      "date": "2002-08-08"
+    },
+    "ExedExes": {
+      "name": "Exed Exes",
+      "url": "https://en.wikipedia.org/wiki/Exed_Exes",
+      "date": "1985-02-01"
+    },
+    "Exoprimal": {
+      "name": "Exoprimal",
+      "url": "https://en.wikipedia.org/wiki/Exoprimal",
+      "date": "2023-07-23"
+    },
+    "EOTB": {
+      "name": "Eye of the Beholder",
+      "url": "https://en.wikipedia.org/wiki/Eye_of_the_Beholder_(video_game)",
+      "date": "1994-01-01"
+    },
+    "F1Dream": {
+      "name": "F-1 Dream",
+      "url": "https://en.wikipedia.org/wiki/F-1_Dream",
+      "date": "1988-04-01"
+    },
+    "FairyBloomFreesia": {
+      "name": "Fairy Bloom Freesia",
+      "date": "2012-10-17"
+    },
+    "Fate:TC": {
+      "name": "Fate/tiger colosseum",
+      "url": "https://en.wikipedia.org/wiki/Fate/tiger_colosseum",
+      "date": "2007-09-13"
+    },
+    "Fate:UC": {
+      "name": "Fate/unlimited codes",
+      "url": "https://en.wikipedia.org/wiki/Fate/unlimited_codes",
+      "date": "2008-06-11"
+    },
+    "FeverChance": {
+      "name": "Fever Chance",
+      "date": "1983-08-01"
+    },
+    "FightingStreet": {
+      "name": "Fighting Street",
+      "url": "https://en.wikipedia.org/wiki/Fighting_Street",
+      "date": "2009-10-06"
+    },
+    "FF": {
+      "name": "Final Fight",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight_(video_game)",
+      "date": "1989-11-25"
+    },
+    "FF2": {
+      "name": "Final Fight 2",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight_2",
+      "date": "1993-05-22"
+    },
+    "FF3": {
+      "name": "Final Fight 3",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight_3",
+      "date": "1995-12-21"
+    },
+    "FF:G": {
+      "name": "Final Fight Guy",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight_(video_game)#Super_NES_(Final_Fight_and_Final_Fight_Guy)",
+      "date": "1992-01-01"
+    },
+    "FF:O": {
+      "name": "Final Fight One",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight_(video_game)#Game_Boy_Advance_(Final_Fight_One)",
+      "date": "2001-01-01"
+    },
+    "FF:R": {
+      "name": "Final Fight Revenge",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight_Revenge",
+      "date": "1999-07-01"
+    },
+    "FF:DI": {
+      "name": "Final Fight: Double Impact",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight:_Double_Impact",
+      "date": "2010-04-15"
+    },
+    "FF:S": {
+      "name": "Final Fight: Streetwise",
+      "url": "https://en.wikipedia.org/wiki/Final_Fight:_Streetwise",
+      "date": "2006-02-28"
+    },
+    "FinderLove": {
+      "name": "Finder Love",
+      "url": "https://en.wikipedia.org/wiki/Finder_Love",
+      "date": "2006-06-29"
+    },
+    "FlipperFootball": {
+      "name": "Flipper Football",
+      "date": "1996-10-01"
+    },
+    "Flock": {
+      "n/a": false,
+      "name": "Flock!",
+      "url": [
+        "https://store.steampowered.com/app/21640",
+        "https://en.wikipedia.org/wiki/Flock!"
+      ],
+      "date": "2009-04-09",
+      "pakExt": ".fpk"
+    },
+    "ForgottenWorlds": {
+      "name": "Forgotten Worlds",
+      "url": "https://en.wikipedia.org/wiki/Forgotten_Worlds",
+      "date": "1988-07-01"
+    },
+    "FoxHunt": {
+      "name": "Fox Hunt",
+      "url": "https://en.wikipedia.org/wiki/Fox_Hunt_(video_game)",
+      "date": "1996-01-01"
+    },
+    "FushigiDeka": {
+      "name": "Fushigi Deka",
+      "date": "2000-01-01"
+    },
+    "GIJ:TAF": {
+      "name": "G.I. Joe: The Atlantis Factor",
+      "url": "https://en.wikipedia.org/wiki/G.I._Joe:_The_Atlantis_Factor",
+      "date": "1992-03-01"
+    },
+    "Gaia:SD": {
+      "name": "Gaia Master Kessen!: Seikiou Densetsu",
+      "date": "2001-01-01"
+    },
+    "Gaia:KBG": {
+      "name": "Gaia Master: Kami no Board Game",
+      "date": "2000-04-20"
+    },
+    "GaistCrusher": {
+      "name": "Gaist Crusher",
+      "url": "https://en.wikipedia.org/wiki/Gaist_Crusher",
+      "date": "2013-12-05"
+    },
+    "Gakkou:HGK": {
+      "name": "Gakkou no Kowai Uwasa: Hanako-san ga Kita!!",
+      "date": "1995-01-01"
+    },
+    "GargoyleQuest": {
+      "name": "Gargoyle's Quest",
+      "url": "https://en.wikipedia.org/wiki/Gargoyle%27s_Quest",
+      "date": "1990-05-02"
+    },
+    "GargoyleQuest2": {
+      "name": "Gargoyle's Quest II",
+      "url": "https://en.wikipedia.org/wiki/Gargoyle%27s_Quest_II",
+      "date": "1992-07-17"
+    },
+    "GenmaOnimusha": {
+      "name": "Genma Onimusha",
+      "url": "https://en.wikipedia.org/wiki/Genma_Onimusha",
+      "date": "2002-01-28"
+    },
+    "GNG": {
+      "name": "Ghosts 'n Goblins",
+      "url": "https://en.wikipedia.org/wiki/Ghosts_%27n_Goblins_(video_game)",
+      "date": "1985-01-01"
+    },
+    "GNG:GK": {
+      "name": "Ghosts 'n Goblins: Gold Knights",
+      "url": "https://en.wikipedia.org/wiki/Ghosts_%27n_Goblins:_Gold_Knights",
+      "date": "2009-11-11"
+    },
+    "GNG:GK2": {
+      "name": "Ghosts 'n Goblins: Gold Knights II",
+      "url": "https://en.wikipedia.org/wiki/Ghosts_%27n_Goblins:_Gold_Knights",
+      "date": "2010-08-12"
+    },
+    "GhoulsGhosts": {
+      "name": "Ghouls 'n Ghosts",
+      "url": "https://en.wikipedia.org/wiki/Ghouls_%27n_Ghosts",
+      "date": "1988-12-01"
+    },
+    "GigaWing": {
+      "name": "Giga Wing",
+      "url": "https://en.wikipedia.org/wiki/Giga_Wing",
+      "date": "1999-03-01"
+    },
+    "GigaWing2": {
+      "name": "Giga Wing 2",
+      "url": "https://en.wikipedia.org/wiki/Giga_Wing_2",
+      "date": "2000-01-01"
+    },
+    "GioGio:BA": {
+      "name": "GioGio's Bizarre Adventure",
+      "url": "https://en.wikipedia.org/wiki/GioGio%27s_Bizarre_Adventure",
+      "date": "2002-07-25"
+    },
+    "GlassRose": {
+      "name": "Glass Rose",
+      "url": "https://en.wikipedia.org/wiki/Glass_Rose",
+      "date": "2003-11-06"
+    },
+    "GodHand": {
+      "name": "God Hand",
+      "url": "https://en.wikipedia.org/wiki/God_Hand",
+      "date": "2006-09-14"
+    },
+    "GOW": {
+      "name": "God of War",
+      "url": "https://en.wikipedia.org/wiki/God_of_War_(2005_video_game)",
+      "date": "2005-11-17"
+    },
+    "GOW2": {
+      "name": "God of War II",
+      "url": "https://en.wikipedia.org/wiki/God_of_War_II",
+      "date": "2007-10-25"
+    },
+    "GOW:C": {
+      "name": "God of War Collection",
+      "url": "https://en.wikipedia.org/wiki/God_of_War_Collection",
+      "date": "2010-03-18"
+    },
+    "GoldMedalChallenge": {
+      "name": "Gold Medal Challenge",
+      "url": "https://en.wikipedia.org/wiki/Gold_Medal_Challenge",
+      "date": "1992-06-05"
+    },
+    "GoofTroop": {
+      "name": "Goof Troop",
+      "url": "https://en.wikipedia.org/wiki/Goof_Troop_(video_game)",
+      "date": "1993-07-11"
+    },
+    "GotchaForce": {
+      "name": "Gotcha Force",
+      "url": "https://en.wikipedia.org/wiki/Gotcha_Force",
+      "date": "2003-11-27"
+    },
+    "GTA3": {
+      "name": "Grand Theft Auto III",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto_III",
+      "date": "2003-09-25"
+    },
+    "GTA:VC": {
+      "name": "Grand Theft Auto: Vice City",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City",
+      "date": "2003-09-25"
+    },
+    "GTA:SA": {
+      "name": "Grand Theft Auto: San Andreas",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto:_San_Andreas",
+      "date": "2007-01-25"
+    },
+    "GTA4": {
+      "name": "Grand Theft Auto IV",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV",
+      "date": "2008-10-30"
+    },
+    "GTA:LCS": {
+      "name": "Grand Theft Auto: Liberty City Stories",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Liberty_City_Stories",
+      "date": "2009-05-28"
+    },
+    "GTA:VCS": {
+      "name": "Grand Theft Auto: Vice City Stories",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City_Stories",
+      "date": "2009-05-28"
+    },
+    "GregoryHorrorShow": {
+      "name": "Gregory Horror Show",
+      "url": "https://en.wikipedia.org/wiki/Gregory_Horror_Show_(video_game)",
+      "date": "2003-08-07"
+    },
+    "Group S Challenge": {
+      "name": "Group S Challenge",
+      "url": "https://en.wikipedia.org/wiki/Group_S_Challenge",
+      "date": "2003-08-28"
+    },
+    "GunSmoke": {
+      "name": "Gun.Smoke",
+      "url": "https://en.wikipedia.org/wiki/Gun.Smoke",
+      "date": "1988-01-27"
+    },
+    "GyakutenKenji2": {
+      "name": "Gyakuten Kenji 2",
+      "url": "https://en.wikipedia.org/wiki/Gyakuten_Kenji_2",
+      "date": "2011-02-03"
+    },
+    "HarveyBirdman:AaL": {
+      "name": "Harvey Birdman: Attorney at Law",
+      "url": "https://en.wikipedia.org/wiki/Capcom_Generations#Capcom_Generations_3:_The_First_Generation",
+      "date": "2008-01-08"
+    },
+    "HatTrick": {
+      "name": "Hat Trick",
+      "url": "https://en.wikipedia.org/wiki/Hat_Trick_(arcade_game)",
+      "date": "1984-01-01"
+    },
+    "Haunting Ground": {
+      "name": "Haunting Ground",
+      "url": "https://en.wikipedia.org/wiki/Haunting_Ground",
+      "date": "2005-04-21"
+    },
+    "HeavyMetal:G": {
+      "name": "Heavy Metal: Geomatrix",
+      "url": "https://en.wikipedia.org/wiki/Heavy_Metal:_Geomatrix",
+      "date": "2001-01-01"
+    },
+    "HigemaruMakaijima:NSD": {
+      "name": "Higemaru Makaijima - Nanatsu no Shima Daibōken",
+      "url": "https://en.wikipedia.org/wiki/Higemaru_Makaijima_-_Nanatsu_no_Shima_Daib%C5%8Dken",
+      "date": "1987-04-14"
+    },
+    "HSF2:TA": {
+      "name": "Hyper Street Fighter II: The Anniversary Edition",
+      "url": "https://en.wikipedia.org/wiki/Hyper_Street_Fighter_II:_The_Anniversary_Edition",
+      "date": "2003-12-01"
+    },
+    "Mahjong:IYJ": {
+      "name": "Ide no Yosuke no Jissen Mahjong",
+      "date": "1987-09-24, "
+    },
+    "Mahjong2:IYJ": {
+      "name": "Ide no Yosuke no Jissen Mahjong II",
+      "date": "1996-01-01"
+    },
+    "Mahjong:IYMSJ": {
+      "name": "Ide Yousuke Meijin no Shinmi Jissen Mahjong",
+      "date": "1991-02-22"
+    },
+    "JoJo": {
+      "name": "JoJo's Venture",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(video_game)",
+      "date": "1998-12-01"
+    },
+    "JoJo:HD": {
+      "name": "JoJo's Bizarre Adventure HD",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(video_game)",
+      "date": "2012-08-21",
+      "engine": "MT2"
+    },
+    "JoJo:HftF": {
+      "name": "JoJo's Bizarre Adventure: Heritage for the Future",
+      "url": "https://en.wikipedia.org/wiki/Capcom_vs._SNK_2",
+      "date": "1999-01-01"
+    },
+    "KabuTraderShun": {
+      "name": "Kabu Trader Shun",
+      "url": "https://en.wikipedia.org/wiki/Kabu_Trader_Shun",
+      "date": "2007-06-07"
+    },
+    "KenKen:TYB": {
+      "name": "KenKen: Train Your Brain",
+      "date": "2009-06-10"
+    },
+    "Killer7": {
+      "name": "killer7",
+      "url": "https://en.wikipedia.org/wiki/Killer7",
+      "date": "2005-06-09"
+    },
+    "Kingpin": {
+      "name": "Kingpin",
+      "date": "1996-01-01"
+    },
+    "Knights of the Round": {
+      "name": "Knights of the Round",
+      "url": "https://en.wikipedia.org/wiki/Knights_of_the_Round_(video_game)",
+      "date": "1991-11-27"
+    },
+    "Kunitsu:PotG": {
+      "name": "Kunitsu-Gami: Path of the Goddess",
+      "tags": "Coming"
+    },
+    "Kyojin:H": {
+      "name": "Kyojin no Hoshi",
+      "url": "https://en.wikipedia.org/wiki/Kyojin_no_Hoshi",
+      "date": "2002-06-20"
+    },
+    "LastDuel:IPW": {
+      "name": "Last Duel: Inter Planet War 2012",
+      "url": "https://en.wikipedia.org/wiki/Last_Duel_(video_game)",
+      "date": "1988-07-01"
+    },
+    "LastRanker": {
+      "name": "Last Ranker",
+      "url": "https://en.wikipedia.org/wiki/Last_Ranker",
+      "date": "2010-07-15"
+    },
+    "LaytonVGyakuten": {
+      "name": "Layton-kyoju VS Gyakuten Saiban",
+      "url": "https://en.wikipedia.org/wiki/Layton-kyoju_VS_Gyakuten_Saiban",
+      "date": "2012-12-29"
+    },
+    "LEDStorm": {
+      "name": "LED Storm",
+      "date": "1989-01-01"
+    },
+    "LegendKay": {
+      "name": "Legend of Kay",
+      "url": "https://en.wikipedia.org/wiki/Legend_of_Kay",
+      "date": "2005-03-04"
+    },
+    "LegendaryWings": {
+      "name": "Legendary Wings",
+      "url": "https://en.wikipedia.org/wiki/Legendary_Wings",
+      "date": "1988-07-01"
+    },
+    "LilPirates": {
+      "name": "Lil' Pirates",
+      "date": "2010-11-04"
+    },
+    "LittleLeague": {
+      "name": "Little League",
+      "url": "https://en.wikipedia.org/wiki/Little_League",
+      "date": "1983-07-01"
+    },
+    "LittleNemo:TDM": {
+      "name": "Little Nemo: The Dream Master",
+      "url": "https://en.wikipedia.org/wiki/Little_Nemo:_The_Dream_Master",
+      "date": "1990-09-01"
+    },
+    "LP:EC": {
+      "n/a": false,
+      "name": "Lost Planet: Extreme Condition",
+      "url": [
+        "https://store.steampowered.com/app/6510",
+        "https://en.wikipedia.org/wiki/Lost_Planet:_Extreme_Condition"
+      ],
+      "date": "2008-02-21",
+      "engine": "MT1",
+      "path": [
+        "ZZPack1",
+        "ZZPack2"
+      ],
+      "pakExt": ".arc"
+    },
+    "LP:C": {
+      "name": "Lost Planet: Colonies",
+      "url": "https://en.wikipedia.org/wiki/Lost_Planet:_Extreme_Condition#Collector.27s_and_Colonies_Edition",
+      "date": "2007-01-12"
+    },
+    "LP2": {
+      "name": "Lost Planet 2",
+      "url": "https://en.wikipedia.org/wiki/Lost_Planet_2",
+      "date": "2010-03-11",
+      "engine": "MT2"
+    },
+    "LP3": {
+      "n/a": false,
+      "name": "Lost Planet 3",
+      "url": [
+        "https://store.steampowered.com/app/226720",
+        "https://en.wikipedia.org/wiki/Lost_Planet_3"
+      ],
+      "date": "2013-08-27",
+      "pakExt": ".txt",
+      "pak": "game:/PCConsoleTOC.txt"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "Flock": {
+        "key": "Steam:21640",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 21640",
+        "dir": "FLOCK"
+      },
+      "LP:EC": {
+        "key": "Steam:6510",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6510",
+        "dir": "lost planet extreme condition",
+        "path": "nativePC"
+      },
+      "LP3": {
+        "key": "Steam:226720",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 226720",
+        "dir": "Lost Planet 3",
+        "path": "LostPlanetGame"
+      }
+    }
+  }
+}

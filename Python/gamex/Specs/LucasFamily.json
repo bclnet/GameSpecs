@@ -1,0 +1,2808 @@
+﻿{
+  "id": "Lucas",
+  "name": "Lucas Arts",
+  "studio": "Lucas Arts",
+  "url": "https://en.wikipedia.org/wiki/List_of_LucasArts_games",
+  "samples": [
+    "LucasFamily.Sample.json"
+  ],
+  "engines": {
+    "SPUTM": {
+      "url": "https://wiki.scummvm.org/index.php?title=SCUMM"
+    },
+    "GrimE": {
+      "url": "https://wiki.scummvm.org/index.php?title=GrimE"
+    },
+    "Jedi": {
+      "url": "https://en.wikipedia.org/wiki/Jedi_(game_engine)"
+    }
+  },
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Lucas.LucasPakFile, GameX.Lucas"
+    },
+    "B": {
+      "n/a": true,
+      "name": "Ballblazer",
+      "url": "https://en.wikipedia.org/wiki/Ballblazer",
+      "date": "1985-01-01"
+    },
+    "RoF": {
+      "n/a": true,
+      "name": "Rescue on Fractalus!",
+      "url": [
+        "https://www.myabandonware.com/game/rescue-on-fractalus-528",
+        "https://en.wikipedia.org/wiki/Rescue_on_Fractalus!"
+      ],
+      "date": "1985-01-01",
+      "tag": "Abandon"
+    },
+    "TE": {
+      "n/a": true,
+      "name": "The Eidolon",
+      "url": [
+        "https://www.myabandonware.com/game/the-eidolon-5ia",
+        "https://en.wikipedia.org/wiki/The_Eidolon"
+      ],
+      "date": "1985-01-01",
+      "tag": "Abandon"
+    },
+    "H": {
+      "n/a": true,
+      "name": "Habitat",
+      "url": "https://en.wikipedia.org/wiki/Habitat_(video_game)",
+      "date": "1985-01-01"
+    },
+    "KR": {
+      "n/a": true,
+      "name": "Koronis Rift",
+      "url": [
+        "https://www.myabandonware.com/game/koronis-rift-5y0",
+        "https://en.wikipedia.org/wiki/Koronis_Rift"
+      ],
+      "date": "1985-12-01",
+      "tag": "Abandon"
+    },
+    "L:TCG": {
+      "n/a": true,
+      "name": "Labyrinth: The Computer Game",
+      "url": [
+        "https://www.myabandonware.com/game/labyrinth-601",
+        "https://en.wikipedia.org/wiki/Labyrinth:_The_Computer_Game"
+      ],
+      "date": "1986-01-01",
+      "tag": "Abandon"
+    },
+    "PP": {
+      "name": "PHM Pegasus",
+      "url": [
+        "https://www.myabandonware.com/game/phm-pegasus-hr",
+        "https://en.wikipedia.org/wiki/PHM_Pegasus"
+      ],
+      "date": "1986-01-01",
+      "tag": "Abandon"
+    },
+    "MM": {
+      "name": "Maniac Mansion",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/529890",
+        "https://en.wikipedia.org/wiki/Maniac_Mansion"
+      ],
+      "date": "October 5, 1987",
+      "pakExt": "00.lfl",
+      "editions": {
+        "original": {
+          "name": "Original",
+          "path": "original"
+        },
+        "enhanced": {
+          "name": "Enhanced",
+          "path": "enhanced"
+        }
+      },
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "Apple II": {
+              "version": 0,
+              "pattern": "maniac{0}.dsk"
+            },
+            "C64": {
+              "version": 0,
+              "pattern": "maniac{0}.d64"
+            },
+            "C64 Demo": {
+              "version": 0,
+              "pattern": "maniacdemo.d64"
+            },
+            "V1": {
+              "version": 1,
+              "music": "PCSpeaker PCjr"
+            },
+            "V2": {
+              "version": 2,
+              "music": "PCSpeaker PCjr"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "b250d0f9cc83f80ced56fe11a4fb057c",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "e017630555f90e32d1b3a4c1c301ab77",
+              "variant": "Apple II",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Apple2GS"
+            },
+            {
+              "hash": "8e31928d1d6a7ee6fba14f536cba59c2",
+              "variant": "C64",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "61142d606e0e5724cf411cb4341ab012",
+              "variant": "C64",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "942398bfac774bd3f0830ff614b46db9",
+              "variant": "C64 Demo",
+              "locale": "en",
+              "features": "SixteenColors Demo",
+              "platform": "C64"
+            },
+            {
+              "hash": "7f45ddd6dbfbf8f80c0c0efea4c295bc",
+              "variant": "V1",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "624cdb93654667c869d204a64af7e57f",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "183d7464902d40d00800e8ee1f04117c",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "114acdc2659a273c220f86ee9edb24c1",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "99a3699f80b8f776efae592b44b9b991",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "87f6e8037b7cc996e13474b491a7a98e",
+              "variant": "V2",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "0d1b69471605201ef2fa9cec1f5f02d2",
+              "variant": "V2",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "e781230da44a44e2f0770edb2b3b3633",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "9bc548e179cdb0767009401c094d0895",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "ce7733f185b838e248927c7ba1a04204",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "a570381b028972d891052ee1e51dc011",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "be83e882b44f2767bc08d4f766ebc347",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "dd30a53035393baa5a5e222e716559af",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "15240c59d3681ed53f714f8d925cb2d6",
+              "variant": "V2",
+              "locale": "es",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            }
+          ]
+        }
+      }
+    },
+    "SF": {
+      "name": "Strike Fleet",
+      "url": [
+        "https://www.myabandonware.com/game/strike-fleet-j2",
+        "https://en.wikipedia.org/wiki/Strike_Fleet"
+      ],
+      "date": "1988-01-01",
+      "tag": "Abandon"
+    },
+    "B1942": {
+      "name": "Battlehawks 1942",
+      "url": [
+        "https://www.myabandonware.com/game/battlehawks-1942-eu",
+        "https://en.wikipedia.org/wiki/Battlehawks_1942"
+      ],
+      "date": "October 1, 1988",
+      "tag": "Abandon"
+    },
+    "ZMatAM": {
+      "name": "Zak McKracken and the Alien Mindbenders",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/559070",
+        "https://en.wikipedia.org/wiki/Zak_McKracken_and_the_Alien_Mindbenders"
+      ],
+      "date": "October 1, 1988",
+      "pakExt": "00.lfl",
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "V1": {
+              "version": 1,
+              "music": "PCSpeaker PCjr",
+              "pattern": "ZAK{0}.d64"
+            },
+            "V2": {
+              "version": 2,
+              "music": "PCSpeaker PCjr"
+            },
+            "FM-TOWNS": {
+              "version": 3
+            }
+          },
+          "hashs": [
+            {
+              "hash": "debe337f73d660e951ece7c1f1c81add",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "47d3e0b8b42e6ff340c7061fba9283d2",
+              "variant": "V1",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "4973bbc3899e3826dbf316e1d7271ec7",
+              "variant": "V1",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "C64"
+            },
+            {
+              "hash": "e94c7cc3686fce406d3c91b5eae5a72d",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "6027e9ca9c35746d95dee2068cec17e5",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "91469353f7be1b122fa88d23480a1320",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "d55eff37c2100f5065cde9de428621fa",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "ff05c07990061d97647f059c48c1d05a",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "613f64f78ea26c7353b2a5940eb61d6a",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "675d71151e9b5a968c8ce46d9fbf4cbf",
+              "variant": "V2",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "cdd760228cf1010c2903f37e788ea31c",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "d06fbe28818fef7bfc45c2cdf0c0849d",
+              "variant": "V2",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "52a4bae0746a11d7b1e8554e91a6645c",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "c4787c3e8b5e2dfda90850ee800af00f",
+              "variant": "V2",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "1900e501a52fbf55bde6e4196f6d2aa6",
+              "variant": "V2",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "75ba23fff4fd63fa446c02864f2a5a4b",
+              "variant": "V2",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "2d4536a56e01da4b02eb021e7770afa2",
+              "variant": "FM-TOWNS",
+              "locale": "en",
+              "features": "Old256 AudioTracks",
+              "platform": "FMTowns"
+            }
+          ]
+        }
+      }
+    },
+    "IJatLC:TAG": {
+      "name": "Indiana Jones and the Last Crusade: The Action Game",
+      "url": [
+        "https://www.myabandonware.com/game/indiana-jones-and-the-last-crusade-the-action-game-2fd",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Action_Game"
+      ],
+      "date": "1989-01-01",
+      "tag": "Abandon"
+    },
+    "PD": {
+      "n/a": true,
+      "name": "Pipe Dream",
+      "url": "https://en.wikipedia.org/wiki/Pipe_Mania",
+      "date": "June 1, 1989",
+      "tag": "TODO"
+    },
+    "IJatLC": {
+      "name": "Indiana Jones and the Last Crusade: The Graphic Adventure",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/32310",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Last_Crusade:_The_Graphic_Adventure"
+      ],
+      "date": "July 1, 1989",
+      "pakExt": "01.lfl",
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "VGA": {
+              "version": 3,
+              "music": "PCSpeaker PCjr CMS AdLib"
+            },
+            "EGA": {
+              "version": 3,
+              "music": "PCSpeaker PCjr CMS AdLib"
+            },
+            "FM-TOWNS": {
+              "version": 3,
+              "music": "FMTowns"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "6b3ec67da214f558dc5ceaa2acd47453",
+              "variant": "EGA",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "6f6ef668c608c7f534fea6e6d3878dde",
+              "variant": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "eb700bb73ca1cc44a1ad5e4b1a4bdeaf",
+              "variant": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "66236cd1aec24e1d4aff4c4cc93b7e18",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "89cfc425566003ff74b7dc7b3e6fd469",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "d62d248c3df6ec177405e2cb23d923b2",
+              "variant": "EGA",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "86be8ada36371d4fdc35659d0e912a26",
+              "variant": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "ce7fd0c382389a6791fc3e199c117ef4",
+              "variant": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "b597e0403cc0002f69170e6caba7edd9",
+              "variant": "EGA",
+              "locale": "en",
+              "features": "SixteenColors Demo"
+            },
+            {
+              "hash": "1875b90fade138c9253a8e967007031a",
+              "variant": "VGA",
+              "locale": "en",
+              "features": "Old256 FewLocals"
+            },
+            {
+              "hash": "399b217b0c8d65d0398076da486363a9",
+              "variant": "VGA",
+              "locale": "de",
+              "features": "Old256 FewLocals"
+            },
+            {
+              "hash": "17b5d5e6af4ae89d62631641d66d5a05",
+              "variant": "VGA",
+              "locale": "it",
+              "features": "Old256 FewLocals"
+            },
+            {
+              "hash": "04687cdf7f975a89d2474929f7b80946",
+              "variant": "FM-TOWNS",
+              "locale": "en",
+              "features": "Old256 FewLocals AudioTracks",
+              "platform": "FMTowns"
+            }
+          ]
+        }
+      }
+    },
+    "TFH": {
+      "name": "Their Finest Hour",
+      "url": [
+        "https://www.myabandonware.com/game/their-finest-hour-the-battle-of-britain-sb",
+        "https://en.wikipedia.org/wiki/Their_Finest_Hour_(video_game)"
+      ],
+      "date": "October 1, 1989",
+      "tag": "Abandon"
+    },
+    "TFM:V1": {
+      "name": "Their Finest Missions: Volume One",
+      "url": [
+        "https://www.myabandonware.com/game/their-finest-missions-volume-one-7i9",
+        "https://en.wikipedia.org/wiki/Their_Finest_Hour_(video_game)"
+      ],
+      "date": "October 1, 1989",
+      "tag": "Abandon"
+    },
+    "L": {
+      "name": "Loom",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/32340",
+        "https://en.wikipedia.org/wiki/Loom_(video_game)"
+      ],
+      "date": "January 1, 1990",
+      "detectors": {
+        "iso": {
+          "type": "crc",
+          "seed": "hex:EDB88320",
+          "hashs": []
+        },
+        "scumm": {
+          "variants": {
+            "EGA": {
+              "version": 3,
+              "music": "PCSpeaker PCjr CMS AdLib"
+            },
+            "No AdLib": {
+              "version": 3,
+              "music": "PCSpeaker PCjr CMS"
+            },
+            "FM-TOWNS": {
+              "version": 3,
+              "music": "FMTowns"
+            },
+            "VGA": {
+              "version": 4,
+              "music": "PCSpeaker PCjr CMS AdLib"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "37f56ceb13e401a7ac7d9e6b37fecaf7",
+              "variant": "EGA",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "470c45b636139bb40716daa1c7edaad0",
+              "variant": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "fa127d7c4bb47d05bb1c33ddcaa9f767",
+              "variant": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "6f8a22bfa397be1f7ed4b74aba0e397e",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "b886b0a5d909c7158a914e1d7c1c6c65",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "c3df37df9d3b481b45f75283a9907c47",
+              "variant": "EGA",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "0be88565f734b1e9e77ccaaf3bb14b29",
+              "variant": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "2a208ffbcd0e83e86f4356e6f64aa6e1",
+              "variant": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "5d88b9d6a88e6f8e90cded9d01b7f082",
+              "variant": "VGA",
+              "locale": "en"
+            },
+            {
+              "hash": "4dc780f1bc587a193ce8a97652791438",
+              "variant": "EGA",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Amiga"
+            },
+            {
+              "hash": "a0a7dea72003933b8b3f8b99b9f7ddeb",
+              "variant": "No AdLib",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "c24c490373aeb48fbd54caa8e7ae376d",
+              "variant": "No AdLib",
+              "locale": "de",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "0e9b01430e31d9fcd94071d433bbc6bf",
+              "variant": "No AdLib",
+              "locale": "fr",
+              "features": "SixteenColors",
+              "platform": "AtariST"
+            },
+            {
+              "hash": "6f0be328c64d689bb606d22a389e1b0f",
+              "variant": "No AdLib",
+              "locale": "en",
+              "features": "SixteenColors",
+              "platform": "Macintosh"
+            },
+            {
+              "hash": "c5d10e190d4b4d59114b824f2fdbd00e",
+              "variant": "FM-TOWNS",
+              "locale": "en",
+              "features": "Old256 AudioTracks",
+              "platform": "FMTowns"
+            }
+          ]
+        }
+      }
+    },
+    "M": {
+      "name": "Masterblazer",
+      "url": [
+        "https://www.myabandonware.com/game/masterblazer-17d",
+        "https://en.wikipedia.org/wiki/Masterblazer"
+      ],
+      "date": "1990-01-01",
+      "tag": "Abandon"
+    },
+    "NS": {
+      "name": "Night Shift",
+      "url": [
+        "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Night+Shift&gid=1553",
+        "https://en.wikipedia.org/wiki/Night_Shift_(video_game)"
+      ],
+      "date": "October 1, 1990",
+      "tag": "Abandon"
+    },
+    "TSoMI": {
+      "name": "The Secret of Monkey Island",
+      "engine": "SPUTM",
+      "url": "https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island",
+      "date": "October 1, 1990",
+      "tag": "Replaced",
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "EGA": {
+              "version": 4,
+              "music": "PCSpeaker PCjr CMS AdLib"
+            },
+            "VGA": {
+              "version": 4,
+              "music": "PCSpeaker PCjr CMS AdLib"
+            },
+            "CD": {
+              "version": 5,
+              "music": "AdLib",
+              "pattern": "MONKEY.{0:000}"
+            },
+            "Mac": {
+              "version": 5,
+              "music": "AdLib",
+              "pattern": "MONKEY1.{0:000}"
+            },
+            "FM-TOWNS": {
+              "version": 5,
+              "music": "FMTowns"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "1d05cd189e4908f79b57e78a4402f292",
+              "variant": "EGA",
+              "locale": "en",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "e98b982ceaf9d253d730bde8903233d6",
+              "variant": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "fc6b6148e80d67939d9a18697c0f626a",
+              "variant": "EGA",
+              "locale": "de",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "1dd3c11ea4439adfe681e4e405b624e1",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "aa7a07d94ae853f6460be4ce0a1bf530",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "ce6a4cef315b20fef58a95bc40a2d8d3",
+              "variant": "EGA",
+              "locale": "fr",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "477dbafbd66a53c98416dc01aef019ad",
+              "variant": "EGA",
+              "locale": "it",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "910e31cffb28226bd68c569668a0d6b4",
+              "variant": "EGA",
+              "locale": "es",
+              "features": "SixteenColors"
+            },
+            {
+              "hash": "71523b539491527d9860f4407faf0411",
+              "variant": "EGA",
+              "locale": "en",
+              "features": "SixteenColors Demo"
+            },
+            {
+              "hash": "15e03ffbfeddb9c2aebc13dcb2a4a8f4",
+              "variant": "VGA",
+              "locale": "en"
+            },
+            {
+              "hash": "d0b531227a27c6662018d2bd05aac52a",
+              "variant": "VGA",
+              "locale": "de"
+            },
+            {
+              "hash": "a01fab4a64d47b96e2e58e6b0f825cc7",
+              "variant": "VGA",
+              "locale": "fr"
+            },
+            {
+              "hash": "66fd5ff9a810dfeb6d6bdada18221140",
+              "variant": "VGA",
+              "locale": "it"
+            },
+            {
+              "hash": "45152f7cf2ba8f43cf8a8ea2e740ae09",
+              "variant": "VGA",
+              "locale": "es"
+            },
+            {
+              "hash": "2d1e891fe52df707c30185e52c50cd92",
+              "variant": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "305d3dd57c96c65b017bc70c8c7cfb5e",
+              "variant": "CD",
+              "locale": "de"
+            },
+            {
+              "hash": "aa8a0cb65f3afbbe2c14c3f9f92775a3",
+              "variant": "CD",
+              "locale": "fr"
+            },
+            {
+              "hash": "da6269b18fcb08189c0aa9c95533cce2",
+              "variant": "CD",
+              "locale": "it"
+            },
+            {
+              "hash": "f049e38c1f8302b5db6170f1872af89a",
+              "variant": "CD",
+              "locale": "es"
+            },
+            {
+              "hash": "2ccd8891ce4d3f1a334d21bff6a88ca2",
+              "variant": "Mac",
+              "locale": "en",
+              "platform": "Macintosh"
+            },
+            {
+              "hash": "8eb84cee9b429314c7f0bdcf560723eb",
+              "variant": "FM-TOWNS",
+              "locale": "en",
+              "platform": "FMTowns"
+            }
+          ]
+        }
+      }
+    },
+    "SWotL": {
+      "name": "Secret Weapons of the Luftwaffe",
+      "url": [
+        "https://www.myabandonware.com/game/secret-weapons-of-the-luftwaffe-1xo",
+        "https://en.wikipedia.org/wiki/Secret_Weapons_of_the_Luftwaffe"
+      ],
+      "date": "August 1, 1991",
+      "tag": "Abandon",
+      "dlcs": {
+        "P38": {
+          "name": "P-38: Lightning",
+          "date": "1991-01-01"
+        },
+        "P80": {
+          "name": "P-80: Shooting Star",
+          "date": "1991-01-01"
+        },
+        "H162V": {
+          "name": "He162 Volksjager",
+          "date": "1992-01-01"
+        },
+        "D335P": {
+          "name": "Do335 Pfeil",
+          "date": "1992-01-01"
+        }
+      }
+    },
+    "SW": {
+      "n/a": true,
+      "name": "Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_(1991_video_game)",
+      "date": "November 15, 1991",
+      "tag": "Console"
+    },
+    "MI2:LR": {
+      "name": "Monkey Island 2: LeChuck's Revenge",
+      "url": [
+        "https://store.steampowered.com/app/32460",
+        "https://en.wikipedia.org/wiki/Monkey_Island_2:_LeChuck%27s_Revenge"
+      ],
+      "date": "December 1, 1991",
+      "editionsx": {
+        "": {
+          "version": 5,
+          "music": "PCSpeaker AdLib",
+          "pattern": "MONKEY2.{0:000}"
+        },
+        "FM-TOWNS": {
+          "version": 5,
+          "music": "PCSpeaker FMTowns AdLib",
+          "pattern": "MONKEY2.{0:000}"
+        }
+      },
+      "detector": {
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "3686cf8f89e102ececf4366e1d2c8126",
+              "variant": "",
+              "locale": "en"
+            },
+            {
+              "hash": "6886e5d08cee329b1f2e743ae2e3ceed",
+              "variant": "",
+              "locale": "de"
+            },
+            {
+              "hash": "8e4ee4db46954bfe2912e259a16fad82",
+              "variant": "",
+              "locale": "fr"
+            },
+            {
+              "hash": "69ea626f1f87eecb78ea0d6c6b983a1d",
+              "variant": "",
+              "locale": "it"
+            },
+            {
+              "hash": "bd126753de619a495f9f22adc951c8d5",
+              "variant": "",
+              "locale": "it"
+            },
+            {
+              "hash": "7974365d3dc0f43a2748c975f91ff042",
+              "variant": "",
+              "locale": "es"
+            },
+            {
+              "hash": "da09e666fc8f5b78d7b0ac65d1a3b56e",
+              "variant": "FM-TOWNS",
+              "locale": "en",
+              "platform": "FMTowns"
+            }
+          ]
+        }
+      }
+    },
+    "IJatFoA": {
+      "name": "Indiana Jones and the Fate of Atlantis",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/6010",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Fate_of_Atlantis"
+      ],
+      "date": "June 1, 1992",
+      "editionsx": {
+        "": {
+          "version": 5,
+          "music": "PCSpeaker PCjr AdLib",
+          "pattern": "ATLANTIS.{0:000}"
+        },
+        "CD": {
+          "version": 5,
+          "music": "PCSpeaker PCjr AdLib",
+          "pattern": "ATLANTIS.{0:000}"
+        },
+        "Demo": {
+          "version": 5,
+          "music": "PCSpeaker PCjr AdLib",
+          "pattern": "PLAYFATE.{0:000}"
+        },
+        "FM-TOWNS": {
+          "version": 5,
+          "music": "FMTowns AdLib",
+          "pattern": "INDY4.{0:000}"
+        }
+      },
+      "detector": {
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "c63ee46143ba65f9ce14cf539ca51bd7",
+              "variant": "",
+              "locale": "en"
+            },
+            {
+              "hash": "182344899c2e2998fca0bebcd82aa81a",
+              "variant": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "1fbebd7b2b692df5297870447a80cfed",
+              "variant": "",
+              "locale": "de"
+            },
+            {
+              "hash": "4f267a901719623de7dde83e47d5b474",
+              "variant": "",
+              "locale": "de"
+            },
+            {
+              "hash": "edfdb24a499d92c59f824c52987c0eec",
+              "variant": "",
+              "locale": "fr"
+            },
+            {
+              "hash": "8f3758ff98c9c5d78e5d635222cad026",
+              "variant": "",
+              "locale": "it"
+            },
+            {
+              "hash": "9bd2a8f72613e715c199246dd511e10f",
+              "variant": "",
+              "locale": "es"
+            },
+            {
+              "hash": "c7be10f775404fd9785a8b92a06d240c",
+              "variant": "FM-TOWNS",
+              "locale": "en",
+              "platform": "FMTowns"
+            },
+            {
+              "hash": "98744fe66ff730e8c2b3b1f58803ab0b",
+              "variant": "Demo",
+              "features": "Demo",
+              "locale": "en"
+            }
+          ]
+        }
+      }
+    },
+    "IJatFoA:TAG": {
+      "n/a": true,
+      "name": "Indiana Jones and the Fate of Atlantis: The Action Game",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Fate_of_Atlantis#Development",
+      "date": "2016-05-13"
+    },
+    "LCA": {
+      "n/a": true,
+      "name": "LucasArts Classic Adventures (bundle)",
+      "url": [
+        "https://www.myabandonware.com/game/lucasarts-classic-adventures-2x4",
+        "https://en.wikipedia.org/wiki/LucasArts#Adventure_games"
+      ],
+      "date": "1992-01-01",
+      "tag": "Bundle, Abandon"
+    },
+    "SW:TESB": {
+      "n/a": true,
+      "name": "Star Wars: The Empire Strikes Back",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Empire_Strikes_Back_(1992_video_game)",
+      "date": "March 12, 1992",
+      "tag": "Console"
+    },
+    "DoDC": {
+      "n/a": true,
+      "name": "Defenders of Dynatron City",
+      "url": "https://en.wikipedia.org/wiki/Defenders_of_Dynatron_City",
+      "date": "July 1, 1992",
+      "tag": "Console"
+    },
+    "SSW": {
+      "n/a": true,
+      "name": "Super Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Super_Star_Wars",
+      "date": "November 1, 1992",
+      "tag": "Console"
+    },
+    "TYIJC": {
+      "n/a": true,
+      "name": "The Young Indiana Jones Chronicles",
+      "url": "https://en.wikipedia.org/wiki/The_Young_Indiana_Jones_Chronicles_(video_game)",
+      "date": "January 1, 1993",
+      "tag": "Console"
+    },
+    "SW:XW": {
+      "name": "Star Wars: X-Wing",
+      "url": [
+        "https://store.steampowered.com/app/354430",
+        "https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_(video_game)"
+      ],
+      "date": "February 1, 1993",
+      "dlcs": {
+        "IP": {
+          "name": "Imperial Pursuit",
+          "date": "1993-01-01"
+        },
+        "BW": {
+          "name": "B-Wing",
+          "date": "1993-01-01"
+        }
+      }
+    },
+    "SSW:TESB": {
+      "n/a": true,
+      "name": "Super Star Wars: The Empire Strikes Back",
+      "url": "https://en.wikipedia.org/wiki/Super_Star_Wars:_The_Empire_Strikes_Back",
+      "date": "June 1, 1993",
+      "tag": "Console"
+    },
+    "DotT": {
+      "name": "Day of the Tentacle",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/388210",
+        "https://en.wikipedia.org/wiki/Day_of_the_Tentacle"
+      ],
+      "date": "June 25, 1993",
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "Floppy": {
+              "version": 6,
+              "music": "AdLib"
+            },
+            "CD": {
+              "version": 6,
+              "music": "AdLib"
+            },
+            "Demo": {
+              "version": 6,
+              "music": "AdLib",
+              "pattern": "DOTTDEMO.{0:000}"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "2723fea3dae0cb47768c424b145ae0e7",
+              "variant": "Floppy",
+              "locale": "en"
+            },
+            {
+              "hash": "57b0d89af79befe1cabce3bece869e7f",
+              "variant": "Floppy",
+              "locale": "de"
+            },
+            {
+              "hash": "92b078d9d6d9d751da9c26b8b3075779",
+              "variant": "Floppy",
+              "locale": "fr"
+            },
+            {
+              "hash": "94aaedbb8f26d71ed3ad6dd34490e29e",
+              "variant": "Floppy",
+              "locale": "fr"
+            },
+            {
+              "hash": "50fcdc982a25063b78ad46bf389b8e8d",
+              "variant": "Floppy",
+              "locale": "it"
+            },
+            {
+              "hash": "ae94f110a14ce71fc515d5b648827a8f",
+              "variant": "Floppy",
+              "locale": "es"
+            },
+            {
+              "hash": "c83079157ec765a28de445aec9768d60",
+              "variant": "Demo",
+              "locale": "en",
+              "features": "Demo"
+            },
+            {
+              "hash": "4167a92a1d46baa4f4127d918d561f88",
+              "variant": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "4fbbe9f64b8bc547503a379a301183ce",
+              "variant": "CD",
+              "locale": "it"
+            },
+            {
+              "hash": "6e959d65358eedf9b68b81e304b97fa4",
+              "variant": "CD",
+              "locale": "de"
+            },
+            {
+              "hash": "883af4b0af4f77a92f1dcf1d0a283140",
+              "variant": "CD",
+              "locale": "es"
+            },
+            {
+              "hash": "8aa05d3cdb0e795436043f0546af2da2",
+              "variant": "CD",
+              "locale": "fr"
+            }
+          ]
+        }
+      }
+    },
+    "SWA": {
+      "n/a": true,
+      "name": "Star Wars Arcade",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Arcade",
+      "date": "August 1, 1993",
+      "tag": "Arcade Console"
+    },
+    "ZAMN": {
+      "name": "Zombies Ate My Neighbors",
+      "url": [
+        "https://store.steampowered.com/app/1137970",
+        "https://en.wikipedia.org/wiki/Zombies_Ate_My_Neighbors"
+      ],
+      "date": "September 1, 1993"
+    },
+    "SaMHtR": {
+      "name": "Sam & Max Hit the Road",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/355170",
+        "https://en.wikipedia.org/wiki/Sam_%26_Max_Hit_the_Road"
+      ],
+      "date": "November 1, 1993",
+      "editionsx": {
+        "Floppy": {
+          "version": 6,
+          "music": "AdLib"
+        },
+        "CD": {
+          "version": 6,
+          "music": "AdLib"
+        },
+        "Demo": {
+          "version": 6,
+          "music": "AdLib",
+          "pattern": "SNMDEMO.SM{0}"
+        }
+      },
+      "detector": {
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "3b301b7892f883ce42ab4be6a274fea6",
+              "variant": "Floppy",
+              "locale": "en"
+            },
+            {
+              "hash": "f27b1ba0eadaf2a6617b2b58192d1dbf",
+              "variant": "Floppy",
+              "locale": "de"
+            },
+            {
+              "hash": "ef347474f3c7be3b29584eaa133cca05",
+              "variant": "Floppy",
+              "locale": "fr"
+            },
+            {
+              "hash": "b289a2a8cbedbf45786e0b4ad2f510f1",
+              "variant": "Floppy",
+              "locale": "it"
+            },
+            {
+              "hash": "fc53ce0e5f6562b1c1e1b4b8203acafb",
+              "variant": "Floppy",
+              "locale": "es"
+            },
+            {
+              "hash": "c3196c5349e53e387aaff1533d95e53a",
+              "variant": "Demo",
+              "locale": "en",
+              "features": "Demo"
+            },
+            {
+              "hash": "d917f311a448e3cc7239c31bddb00dd2",
+              "variant": "CD",
+              "locale": "en"
+            },
+            {
+              "hash": "0f6f2e716ba896a44e5059bba1de7ca9",
+              "variant": "CD",
+              "locale": "it"
+            },
+            {
+              "hash": "0fb73eddfcf584c02ba097984df131ba",
+              "variant": "CD",
+              "locale": "de"
+            },
+            {
+              "hash": "3a5d13675e9a23aedac0bac7730f0ac1",
+              "variant": "CD",
+              "locale": "fr"
+            },
+            {
+              "hash": "7edd665bbede7ea8b7233f8e650be6f8",
+              "variant": "CD",
+              "locale": "fr"
+            },
+            {
+              "hash": "4ba7fb331296c283e73d8f5b2096e551",
+              "variant": "CD",
+              "locale": "es"
+            }
+          ]
+        }
+      }
+    },
+    "SWC": {
+      "name": "Star Wars Chess",
+      "url": [
+        "https://www.myabandonware.com/game/the-software-toolworks-star-wars-chess-2dk",
+        "https://en.wikipedia.org/wiki/Star_Wars_Chess"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "ACC": {
+      "n/a": true,
+      "name": "Air Combat Classics (bundle)",
+      "url": [
+        "https://archive.org/details/air_combat_classics_kfx",
+        "https://en.wikipedia.org/wiki/LucasArts#Simulation_games"
+      ],
+      "date": "1994-01-01",
+      "tag": "Bundle Abandon"
+    },
+    "IoCsYIJ": {
+      "n/a": true,
+      "name": "Instruments of Chaos starring Young Indiana Jones",
+      "url": "https://en.wikipedia.org/wiki/Instruments_of_Chaos_starring_Young_Indiana_Jones",
+      "date": "June 1, 1994",
+      "tag": "Console"
+    },
+    "SSW:RotJ": {
+      "n/a": true,
+      "name": "Super Star Wars: Return of the Jedi",
+      "url": "https://en.wikipedia.org/wiki/Super_Star_Wars:_Return_of_the_Jedi",
+      "date": "June 22, 1994",
+      "tag": "Console"
+    },
+    "SW:TF": {
+      "name": "Star Wars: TIE Fighter",
+      "url": [
+        "https://store.steampowered.com/app/355250",
+        "https://en.wikipedia.org/wiki/Star_Wars:_TIE_Fighter"
+      ],
+      "date": "July 1, 1994",
+      "dlcs": {
+        "DotE": {
+          "name": "Defender of the Empire",
+          "date": "1994-01-01"
+        },
+        "EotE": {
+          "name": "Enemies of the Empire",
+          "date": "1995-01-01"
+        }
+      }
+    },
+    "IJGA": {
+      "n/a": true,
+      "name": "Indiana Jones' Greatest Adventures",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones%27_Greatest_Adventures",
+      "date": "October 11, 1994",
+      "tag": "Console"
+    },
+    "GP": {
+      "name": "Ghoul Patrol",
+      "url": [
+        "https://store.steampowered.com/app/1137970",
+        "https://en.wikipedia.org/wiki/Ghoul_Patrol"
+      ],
+      "date": "November 1, 1994"
+    },
+    "SW:DF": {
+      "name": "Star Wars: Dark Forces",
+      "engine": "Jedi",
+      "url": [
+        "https://store.steampowered.com/app/32400",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Dark_Forces"
+      ],
+      "date": "February 28, 1995",
+      "pakExt": [
+        ".gob",
+        ".lfd"
+      ]
+    },
+    "MW": {
+      "n/a": true,
+      "name": "Metal Warriors",
+      "url": "https://en.wikipedia.org/wiki/Metal_Warriors",
+      "date": "April 1, 1995",
+      "tag": "Console"
+    },
+    "FT": {
+      "name": "Full Throttle",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/228360",
+        "https://en.wikipedia.org/wiki/Full_Throttle_(1995_video_game)"
+      ],
+      "date": "April 30, 1995",
+      "editionsx": {
+        "": {
+          "version": 7,
+          "pattern": "ft.la{0}"
+        },
+        "Demo": {
+          "version": 7,
+          "pattern": "ft.{0:000}"
+        }
+      },
+      "detector": {
+        "scumm": {
+          "hashs": [
+            {
+              "hash": "4bedb49943df95a9c900a5a82ccbe9de",
+              "variant": "",
+              "locale": "fr"
+            },
+            {
+              "hash": "09820417db26687bb7fe0c83cc4c553b",
+              "variant": "",
+              "locale": "en"
+            },
+            {
+              "hash": "8bdb0bf87b5e303dd35693afb9351215",
+              "variant": "",
+              "locale": "de"
+            },
+            {
+              "hash": "55518cd73cf9c6d23ea29c51ee06bdfe",
+              "variant": "",
+              "locale": "it"
+            },
+            {
+              "hash": "e72bb4c2b613db2cf50f89ff6350e70a",
+              "variant": "",
+              "locale": "es"
+            }
+          ]
+        }
+      }
+    },
+    "BST": {
+      "n/a": true,
+      "name": "Big Sky Trooper",
+      "url": "https://en.wikipedia.org/wiki/Big_Sky_Trooper",
+      "date": "October 1, 1995",
+      "tag": "Console"
+    },
+    "TD": {
+      "name": "The Dig",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/6040",
+        "https://en.wikipedia.org/wiki/The_Dig_(video_game)"
+      ],
+      "date": "November 30, 1995",
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "": {
+              "version": 7,
+              "pattern": "dig.la{0}"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "d8323015ecb8b10bf53474f6e6b0ae33",
+              "variant": "",
+              "locale": "en"
+            }
+          ]
+        }
+      }
+    },
+    "SW:RA2": {
+      "name": "Star Wars: Rebel Assault II: The Hidden Empire",
+      "url": [
+        "https://store.steampowered.com/app/456540",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Rebel_Assault_II:_The_Hidden_Empire"
+      ],
+      "date": "November 1, 1995"
+    },
+    "IJaHDA": {
+      "name": "Indiana Jones and His Desktop Adventures",
+      "url": [
+        "https://www.myabandonware.com/game/indiana-jones-and-his-desktop-adventures-3lf",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_His_Desktop_Adventures"
+      ],
+      "date": "April 1, 1996",
+      "tag": "Abandon"
+    },
+    "A": {
+      "name": "Afterlife",
+      "url": [
+        "https://www.gog.com/en/game/afterlife",
+        "https://en.wikipedia.org/wiki/Afterlife_(video_game)"
+      ],
+      "date": "July 1, 1996"
+    },
+    "MatRotM": {
+      "name": "Mortimer and the Riddles of the Medallion",
+      "url": [
+        "https://www.myabandonware.com/game/mortimer-and-the-riddles-of-the-medallion-3na",
+        "https://en.wikipedia.org/wiki/Mortimer_and_the_Riddles_of_the_Medallion"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "SW:SotE": {
+      "name": "Star Wars: Shadows of the Empire",
+      "url": [
+        "https://store.steampowered.com/app/560170",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Shadows_of_the_Empire_(video_game)"
+      ],
+      "date": "December 3, 1996"
+    },
+    "SW:YS": {
+      "name": "Star Wars: Yoda Stories",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-yoda-stories-bcn",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Yoda_Stories"
+      ],
+      "date": "March 12, 1997",
+      "tag": "Abandon"
+    },
+    "O": {
+      "name": "Outlaws",
+      "engine": "Jedi",
+      "url": [
+        "https://store.steampowered.com/app/559620",
+        "https://en.wikipedia.org/wiki/Outlaws_(1997_video_game)"
+      ],
+      "date": "April 7, 1997",
+      "pakExt": ".lab"
+    },
+    "B:C": {
+      "n/a": true,
+      "name": "Ballblazer Champions",
+      "url": "https://en.wikipedia.org/wiki/Ballblazer_Champions",
+      "date": "April 1, 1997",
+      "tag": "Console"
+    },
+    "SW:XvT": {
+      "name": "Star Wars: X-Wing vs. TIE Fighter",
+      "url": [
+        "https://store.steampowered.com/app/361690",
+        "https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_vs._TIE_Fighter"
+      ],
+      "date": "April 30, 1997",
+      "dlcs": {
+        "BoPC": {
+          "name": "Balance of Power Campaigns",
+          "date": "1993-01-01",
+          "path": "BalanceOfPower"
+        }
+      }
+    },
+    "H:A": {
+      "n/a": true,
+      "name": "Herc's Adventures",
+      "url": "https://en.wikipedia.org/wiki/Herc%27s_Adventures",
+      "date": "July 31, 1997",
+      "tag": "Console"
+    },
+    "SWJK:DF2": {
+      "name": "Star Wars Jedi Knight: Dark Forces II",
+      "url": [
+        "https://store.steampowered.com/app/32380",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Dark_Forces_II"
+      ],
+      "date": "October 10, 1997"
+    },
+    "MSW": {
+      "name": "Monopoly Star Wars",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-monopoly-jal",
+        "https://en.wikipedia.org/wiki/Monopoly_Star_Wars"
+      ],
+      "date": "October 31, 1997",
+      "tag": "Abandon"
+    },
+    "SW:MoTK": {
+      "n/a": true,
+      "name": "Star Wars: Masters of Teras Kasi",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Masters_of_Ter%C3%A4s_K%C3%A4si",
+      "date": "October 31, 1997",
+      "tag": "Console"
+    },
+    "TCoMI": {
+      "name": "The Curse of Monkey Island",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/730820",
+        "https://en.wikipedia.org/wiki/The_Curse_of_Monkey_Island"
+      ],
+      "date": "November 11, 1997",
+      "detectors": {
+        "scumm": {
+          "variants": {
+            "": {
+              "version": 8,
+              "pattern": "comi.la{0}"
+            }
+          },
+          "hashs": [
+            {
+              "hash": "fe60d6b5ff51b0553ac59963123b5777",
+              "variant": "",
+              "locale": "en"
+            }
+          ]
+        }
+      }
+    },
+    "SWJK:MotS": {
+      "name": "Star Wars Jedi Knight: Mysteries of the Sith",
+      "url": [
+        "https://store.steampowered.com/app/32390",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Mysteries_of_the_Sith"
+      ],
+      "date": "February 17, 1998"
+    },
+    "SW:R": {
+      "name": "Star Wars: Rebellion",
+      "url": [
+        "https://store.steampowered.com/app/441550",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Rebellion_(video_game)"
+      ],
+      "date": "March 25, 1998"
+    },
+    "SW:BtM": {
+      "name": "Star Wars: Behind the Magic",
+      "url": [
+        "https://archive.org/details/btm-cd-1",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Behind_the_Magic"
+      ],
+      "date": "September 1998",
+      "tag": "Abandon"
+    },
+    "SW:DW": {
+      "name": "Star Wars: DroidWorks",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-droidworks-3qo",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Droid_Works"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "GF": {
+      "name": "Grim Fandango",
+      "engine": "GrimE",
+      "url": [
+        "https://store.steampowered.com/app/316790",
+        "https://en.wikipedia.org/wiki/Grim_Fandango"
+      ],
+      "date": "October 30, 1998"
+    },
+    "SWTA": {
+      "n/a": true,
+      "name": "Star Wars Trilogy Arcade",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Trilogy_Arcade",
+      "date": "November 1, 1998",
+      "tag": "Arcade"
+    },
+    "SW:RS": {
+      "name": "Star Wars: Rogue Squadron",
+      "url": [
+        "https://store.steampowered.com/app/455910",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Rogue_Squadron"
+      ],
+      "date": "December 3, 1998"
+    },
+    "SW:XA": {
+      "name": "Star Wars: X-Wing Alliance",
+      "url": [
+        "https://store.steampowered.com/app/361670",
+        "https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_Alliance"
+      ],
+      "date": "March 15, 1999"
+    },
+    "SW1:TPM": {
+      "name": "Star Wars Episode I: The Phantom Menace",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-episode-i-the-phantom-menace-lv8",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Episode_I_%E2%80%93_The_Phantom_Menace_(video_game)"
+      ],
+      "date": "May 18, 1999",
+      "tag": "Abandon"
+    },
+    "SW1:R": {
+      "name": "Star Wars Episode I: Racer",
+      "url": [
+        "https://store.steampowered.com/app/808910",
+        "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Racer"
+      ],
+      "date": "May 18, 1999"
+    },
+    "SW1:TGF": {
+      "name": "Star Wars Episode I: The Gungan Frontier",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-episode-i-the-gungan-frontier-3qq",
+        "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_The_Gungan_Frontier"
+      ],
+      "date": "May 24, 1999",
+      "tag": "Abandon"
+    },
+    "SW1:IG": {
+      "n/a": true,
+      "name": "Star Wars: Episode I Insider's Guide",
+      "date": "June 23, 1999"
+    },
+    "SW:YCAC": {
+      "name": "Star Wars: Yoda's Challenge Activity Center",
+      "url": "https://www.myabandonware.com/game/star-wars-yoda-s-challenge-activity-center-3qt",
+      "date": "August 17, 1999",
+      "tag": "Abandon"
+    },
+    "SW:PD": {
+      "name": "Star Wars: Pit Droids",
+      "url": [
+        "https://www.myabandonware.com/game/star-wars-pit-droids-403",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Pit_Droids"
+      ],
+      "date": "1993-01-01",
+      "tag": "Abandon"
+    },
+    "IJatIM": {
+      "name": "Indiana Jones and the Infernal Machine",
+      "url": [
+        "https://store.steampowered.com/app/904540",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Infernal_Machine"
+      ],
+      "date": "September 13, 1999"
+    },
+    "SW:FC": {
+      "name": "Star Wars: Force Commander",
+      "url": [
+        "https://archive.org/details/star-wars-force-commander-windows-10-compatible",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Force_Commander"
+      ],
+      "date": "March 17, 2000",
+      "tag": "Abandon"
+    },
+    "SW:AS": {
+      "n/a": true,
+      "name": "Star Wars: Anakin's Speedway",
+      "date": "March 20, 2000"
+    },
+    "SW1:JPB": {
+      "n/a": true,
+      "name": "Star Wars Episode I: Jedi Power Battles",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Jedi_Power_Battles",
+      "date": "April 4, 2000",
+      "tag": "Console"
+    },
+    "SW:RA": {
+      "n/a": true,
+      "name": "Star Wars: Racer Arcade",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Racer_Arcade",
+      "date": "May 1, 2000"
+    },
+    "SW:ELAC": {
+      "n/a": true,
+      "name": "Star Wars: Early Learning Activity Center",
+      "date": "August 15, 2000"
+    },
+    "SW:MJGG": {
+      "n/a": true,
+      "name": "Star Wars: Math - Jabba's Game Galaxy",
+      "date": "September 1, 2000"
+    },
+    "EfMI": {
+      "name": "Escape from Monkey Island",
+      "engine": "GrimE",
+      "url": [
+        "https://store.steampowered.com/app/730830",
+        "https://en.wikipedia.org/wiki/Escape_from_Monkey_Island"
+      ],
+      "date": "November 8, 2000"
+    },
+    "SW:D": {
+      "n/a": true,
+      "name": "Star Wars: Demolition",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Demolition",
+      "date": "November 12, 2000",
+      "tag": "Console"
+    },
+    "SW:JJJ": {
+      "n/a": true,
+      "name": "Star Wars: Jar Jar's Journey",
+      "date": "November 15, 2000"
+    },
+    "SW1:OA": {
+      "n/a": true,
+      "name": "Star Wars Episode I: Obi-Wan's Adventures",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Episode_I:_Obi-Wan%27s_Adventures",
+      "date": "November 27, 2000",
+      "tag": "Console"
+    },
+    "SW1:BfN": {
+      "n/a": true,
+      "name": "Star Wars: Episode I: Battle for Naboo",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_I:_Battle_for_Naboo",
+      "date": "December 18, 2000",
+      "tag": "TODO"
+    },
+    "SW:S": {
+      "name": "Star Wars: Starfighter",
+      "url": [
+        "https://store.steampowered.com/app/32350",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Starfighter"
+      ],
+      "date": "February 19, 2001"
+    },
+    "SW:SBR": {
+      "n/a": true,
+      "name": "Star Wars: Super Bombad Racing",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Super_Bombad_Racing",
+      "date": "April 23, 2001",
+      "tag": "Console"
+    },
+    "SWGB": {
+      "name": "Star Wars: Galactic Battlegrounds",
+      "url": [
+        "https://store.steampowered.com/app/356500",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Galactic_Battlegrounds"
+      ],
+      "date": "November 9, 2001",
+      "dlcs": {
+        "CC": {
+          "name": "Clone Campaigns",
+          "date": "May 14, 2002"
+        }
+      }
+    },
+    "SW:RS2:RL": {
+      "n/a": true,
+      "name": "Star Wars Rogue Squadron II: Rogue Leader",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Rogue_Squadron_II:_Rogue_Leader",
+      "date": "November 18, 2001",
+      "tag": "Console"
+    },
+    "SW:O": {
+      "n/a": true,
+      "name": "Star Wars: Obi-Wan",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Obi-Wan",
+      "date": "December 19, 2001",
+      "tag": "Console"
+    },
+    "SW:RR": {
+      "n/a": true,
+      "name": "Star Wars Racer Revenge",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Racer_Revenge",
+      "date": "February 11, 2002",
+      "tag": "Console"
+    },
+    "SW:JS": {
+      "n/a": true,
+      "name": "Star Wars: Jedi Starfighter",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Jedi_Starfighter",
+      "date": "March 10, 2002",
+      "tag": "Console"
+    },
+    "SWJK2:JO": {
+      "name": "Star Wars Jedi Knight II: Jedi Outcast",
+      "url": [
+        "https://store.steampowered.com/app/6030",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight_II:_Jedi_Outcast"
+      ],
+      "date": "March 26, 2002"
+    },
+    "SW2:AotC": {
+      "n/a": true,
+      "name": "Star Wars: Episode II - Attack of the Clones",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_II_%E2%80%93_Attack_of_the_Clones_(video_game)",
+      "date": "May 30, 2002",
+      "tag": "Console"
+    },
+    "SW:TCW": {
+      "n/a": true,
+      "name": "Star Wars: The Clone Wars",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_(2002_video_game)",
+      "date": "October 28, 2002",
+      "tag": "Console"
+    },
+    "SW:TNDA": {
+      "n/a": true,
+      "name": "Star Wars: The New Droid Army",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_New_Droid_Army",
+      "date": "November 14, 2002",
+      "tag": "Console"
+    },
+    "SW:BH": {
+      "n/a": true,
+      "name": "Star Wars: Bounty Hunter",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Bounty_Hunter",
+      "date": "November 19, 2002",
+      "tag": "Console"
+    },
+    "IJatET": {
+      "name": "Indiana Jones and the Emperor's Tomb",
+      "url": [
+        "https://store.steampowered.com/app/560430",
+        "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Emperor%27s_Tomb"
+      ],
+      "date": "February 24, 2003"
+    },
+    "RRR": {
+      "n/a": true,
+      "name": "RTX Red Rock",
+      "url": "https://en.wikipedia.org/wiki/RTX_Red_Rock",
+      "date": "June 17, 2003",
+      "tag": "Console"
+    },
+    "SWG": {
+      "name": "Star Wars Galaxies (closed)",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies",
+      "date": "June 26, 2003",
+      "tag": "Abandon MMO Closed",
+      "dlcs": {
+        "JtL": {
+          "name": "Jump to Lightspeed",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies:_Jump_to_Lightspeed",
+          "date": "October 27, 2004"
+        },
+        "RotW": {
+          "name": "Rage of the Wookiees",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies#Rage_of_the_Wookiees",
+          "date": "May 5, 2005"
+        },
+        "ToO": {
+          "name": "Trials of Obi-Wan",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies#Trials_of_Obi-Wan",
+          "date": "November 1, 2005"
+        },
+        "TCG": {
+          "name": "Trading Card Game",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars_Galaxies#Trading_Card_Game",
+          "date": "August 27, 2008"
+        }
+      }
+    },
+    "SW:KotOR": {
+      "name": "Star Wars: Knights of the Old Republic",
+      "url": [
+        "https://store.steampowered.com/app/32370",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Knights_of_the_Old_Republic_(video_game)"
+      ],
+      "date": "July 15, 2003"
+    },
+    "SWJK:JA": {
+      "name": "Star Wars Jedi Knight: Jedi Academy",
+      "url": [
+        "https://store.steampowered.com/app/6020",
+        "https://en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Jedi_Academy"
+      ],
+      "date": "September 17, 2003"
+    },
+    "SW:RS3:RS": {
+      "n/a": true,
+      "name": "Star Wars Rogue Squadron III: Rebel Strike",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Rogue_Squadron_III:_Rebel_Strike",
+      "date": "October 15, 2003",
+      "tag": "Console"
+    },
+    "G": {
+      "n/a": true,
+      "name": "Gladius",
+      "url": "https://en.wikipedia.org/wiki/Gladius_(video_game)",
+      "date": "October 28, 2003",
+      "tag": "Console"
+    },
+    "SWON": {
+      "n/a": true,
+      "name": "Secret Weapons Over Normandy",
+      "url": "https://en.wikipedia.org/wiki/Secret_Weapons_Over_Normandy",
+      "date": "November 18, 2003",
+      "tag": "TODO"
+    },
+    "SW:FotF": {
+      "n/a": true,
+      "name": "Star Wars: Flight of the Falcon",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Flight_of_the_Falcon",
+      "date": "November 18, 2003",
+      "tag": "Console"
+    },
+    "AaD": {
+      "name": "Armed and Dangerous",
+      "url": [
+        "https://store.steampowered.com/app/6090",
+        "https://en.wikipedia.org/wiki/Armed_and_Dangerous_(video_game)"
+      ],
+      "date": "December 2, 2003"
+    },
+    "WU": {
+      "n/a": true,
+      "name": "Wrath Unleashed",
+      "url": "https://en.wikipedia.org/wiki/Wrath_Unleashed",
+      "date": "February 10, 2004",
+      "tag": "Console"
+    },
+    "SW:B": {
+      "name": "Star Wars: Battlefront",
+      "url": [
+        "https://store.steampowered.com/app/1237980",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Battlefront_(2004_video_game)"
+      ],
+      "date": "September 21, 2004"
+    },
+    "SWT:AotF": {
+      "n/a": true,
+      "name": "Star Wars Trilogy: Apprentice of the Force",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Trilogy:_Apprentice_of_the_Force",
+      "date": "September 21, 2004",
+      "tag": "Console"
+    },
+    "SW:KotOR2": {
+      "name": "Star Wars Knights of the Old Republic II: The Sith Lords",
+      "url": [
+        "https://store.steampowered.com/app/208580",
+        "https://en.wikipedia.org/wiki/Star_Wars_Knights_of_the_Old_Republic_II:_The_Sith_Lords"
+      ],
+      "date": "December 6, 2004"
+    },
+    "M:PoD": {
+      "n/a": true,
+      "name": "Mercenaries: Playground of Destruction",
+      "url": "https://en.wikipedia.org/wiki/Mercenaries:_Playground_of_Destruction",
+      "date": "January 11, 2005",
+      "tag": "Console"
+    },
+    "SW:RC": {
+      "name": "Star Wars: Republic Commando",
+      "url": [
+        "https://store.steampowered.com/app/6000",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Republic_Commando"
+      ],
+      "date": "February 17, 2005"
+    },
+    "LSW:TVG": {
+      "n/a": true,
+      "name": "Lego Star Wars: The Video Game",
+      "url": "https://en.wikipedia.org/wiki/Lego_Star_Wars:_The_Video_Game",
+      "date": "April 2, 2005",
+      "tag": "TODO"
+    },
+    "SW3:RotS": {
+      "n/a": true,
+      "name": "Star Wars: Episode III: Revenge of the Sith",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Episode_III_%E2%80%93_Revenge_of_the_Sith_(video_game)",
+      "date": "May 4, 2005",
+      "tag": "Console"
+    },
+    "SW:B2": {
+      "name": "Star Wars: Battlefront II",
+      "url": [
+        "https://store.steampowered.com/app/6060",
+        "https://store.steampowered.com/app/1237950",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Battlefront_II_(2005_video_game)"
+      ],
+      "date": "November 1, 2005"
+    },
+    "SW:EaW": {
+      "name": "Star Wars: Empire at War",
+      "url": [
+        "https://store.steampowered.com/app/32470",
+        "https://en.wikipedia.org/wiki/Star_Wars:_Empire_at_War"
+      ],
+      "date": "February 16, 2006",
+      "dlcs": {
+        "FoC": {
+          "name": "Forces of Corruption",
+          "url": "https://en.wikipedia.org/wiki/Star_Wars:_Empire_at_War:_Forces_of_Corruption",
+          "date": "October 24, 2006"
+        }
+      }
+    },
+    "LSW2:TOT": {
+      "n/a": true,
+      "name": "Lego Star Wars II: The Original Trilogy",
+      "url": "https://en.wikipedia.org/wiki/Lego_Star_Wars_II:_The_Original_Trilogy",
+      "date": "September 12, 2006",
+      "tag": "Console"
+    },
+    "SW:TBoP": {
+      "n/a": true,
+      "name": "Star Wars: The Best of PC (bundle)",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Best_of_PC",
+      "date": "November 21, 2006",
+      "tag": "Bundle"
+    },
+    "T": {
+      "n/a": true,
+      "name": "Thrillville",
+      "url": "https://en.wikipedia.org/wiki/Thrillville",
+      "date": "November 21, 2006",
+      "tag": "Console"
+    },
+    "SW:LA": {
+      "n/a": true,
+      "name": "Star Wars: Lethal Alliance",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Lethal_Alliance",
+      "date": "December 7, 2006",
+      "tag": "Console"
+    },
+    "SW:IA": {
+      "n/a": true,
+      "name": "Star Wars: Imperial Ace",
+      "date": "2006-01-01",
+      "tag": "Mobile"
+    },
+    "SWB:RS": {
+      "n/a": true,
+      "name": "Star Wars Battlefront: Renegade Squadron",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Battlefront:_Renegade_Squadron",
+      "date": "October 9, 2007",
+      "tag": "Console"
+    },
+    "T:OtR": {
+      "name": "Thrillville: Off the Rails",
+      "url": [
+        "https://store.steampowered.com/app/6080",
+        "https://en.wikipedia.org/wiki/Thrillville:_Off_the_Rails"
+      ],
+      "date": "October 9, 2007"
+    },
+    "LSW:TCS": {
+      "name": "Lego Star Wars: The Complete Saga",
+      "url": [
+        "https://store.steampowered.com/app/32440",
+        "https://en.wikipedia.org/wiki/Lego_Star_Wars:_The_Complete_Saga"
+      ],
+      "date": "November 6, 2007"
+    },
+    "LIJ:TOA": {
+      "name": "Lego Indiana Jones: The Original Adventures",
+      "url": [
+        "https://store.steampowered.com/app/32330",
+        "https://en.wikipedia.org/wiki/Lego_Indiana_Jones:_The_Original_Adventures"
+      ],
+      "date": "June 3, 2008"
+    },
+    "SW:TFU": {
+      "name": "Star Wars: The Force Unleashed",
+      "url": [
+        "https://store.steampowered.com/app/32430",
+        "https://www.gog.com/en/game/star_wars_the_force_unleashed_ultimate_sith_edition",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Unleashed"
+      ],
+      "date": "September 16, 2008"
+    },
+    "F": {
+      "n/a": true,
+      "name": "Fracture",
+      "url": "https://en.wikipedia.org/wiki/Fracture_(video_game)",
+      "date": "October 7, 2008",
+      "tag": "Console"
+    },
+    "SWTCW:JA": {
+      "n/a": true,
+      "name": "Star Wars: The Clone Wars - Jedi Alliance",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_%E2%80%93_Jedi_Alliance",
+      "date": "November 11, 2008",
+      "tag": "Console"
+    },
+    "SWTCW:LD": {
+      "n/a": true,
+      "name": "Star Wars: The Clone Wars - Lightsaber Duels",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_%E2%80%93_Lightsaber_Duels",
+      "date": "November 11, 2008",
+      "tag": "Console"
+    },
+    "SWB:MS": {
+      "n/a": true,
+      "name": "Star Wars Battlefront: Mobile Squadrons",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Battlefront_(series)#Star_Wars_Battlefront:_Mobile_Squadrons",
+      "date": "April 2, 2009",
+      "tag": "Mobile"
+    },
+    "IJatSK": {
+      "n/a": true,
+      "name": "Indiana Jones and the Staff of Kings",
+      "url": "https://en.wikipedia.org/wiki/Indiana_Jones_and_the_Staff_of_Kings",
+      "date": "June 9, 2009",
+      "tag": "Console"
+    },
+    "ToMI": {
+      "name": "Tales of Monkey Island",
+      "url": [
+        "https://store.steampowered.com/app/31170",
+        "https://www.gog.com/en/game/tales_of_monkey_island",
+        "https://en.wikipedia.org/wiki/Tales_of_Monkey_Island"
+      ],
+      "date": "July 7, 2009"
+    },
+    "TSoMI:SE": {
+      "name": "The Secret of Monkey Island: Special Edition",
+      "url": [
+        "https://store.steampowered.com/app/32360",
+        "https://www.gog.com/en/game/the_secret_of_monkey_island_special_edition",
+        "https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island:_Special_Edition"
+      ],
+      "date": "July 15, 2009"
+    },
+    "SWTCW:RH": {
+      "name": "Star Wars: The Clone Wars - Republic Heroes",
+      "url": [
+        "https://store.steampowered.com/app/32420",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Clone_Wars_%E2%80%93_Republic_Heroes"
+      ],
+      "date": "October 6, 2009"
+    },
+    "LU": {
+      "name": "Lucidity",
+      "url": [
+        "https://store.steampowered.com/app/32410",
+        "https://en.wikipedia.org/wiki/Lucidity_(video_game)"
+      ],
+      "date": "October 7, 2009"
+    },
+    "SWB:ES": {
+      "n/a": true,
+      "name": "Star Wars Battlefront: Elite Squadron",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_Battlefront:_Elite_Squadron",
+      "date": "November 3, 2009",
+      "tag": "Console"
+    },
+    "LIJ2:TAC": {
+      "name": "Lego Indiana Jones 2: The Adventure Continues",
+      "url": [
+        "https://store.steampowered.com/app/32450",
+        "https://en.wikipedia.org/wiki/Lego_Indiana_Jones_2:_The_Adventure_Continues"
+      ],
+      "date": "November 17, 2009"
+    },
+    "MI2SE:LCR": {
+      "name": "Monkey Island 2 Special Edition: LeChuck's Revenge",
+      "engine": "SPUTM",
+      "url": [
+        "https://store.steampowered.com/app/32460",
+        "https://en.wikipedia.org/wiki/Monkey_Island_2:_LeChuck%27s_Revenge#Special_Edition"
+      ],
+      "date": "July 7, 2010"
+    },
+    "CWA": {
+      "n/a": true,
+      "name": "Clone Wars Adventures (closed)",
+      "url": "https://en.wikipedia.org/wiki/Clone_Wars_Adventures",
+      "date": "September 15, 2010",
+      "tag": "MMO Closed"
+    },
+    "SW:TFU2": {
+      "name": "Star Wars: The Force Unleashed II",
+      "url": [
+        "https://store.steampowered.com/app/32500",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Unleashed_II"
+      ],
+      "date": "October 26, 2010"
+    },
+    "LS3:TCW": {
+      "name": "Lego Star Wars III: The Clone Wars",
+      "url": [
+        "https://store.steampowered.com/app/32510",
+        "https://en.wikipedia.org/wiki/Lego_Star_Wars_III:_The_Clone_Wars"
+      ],
+      "date": "March 22, 2011"
+    },
+    "SW:TOR": {
+      "name": "Star Wars: The Old Republic",
+      "url": [
+        "https://store.steampowered.com/app/1286830",
+        "https://en.wikipedia.org/wiki/Star_Wars:_The_Old_Republic"
+      ],
+      "date": "December 20, 2011"
+    },
+    "KSW": {
+      "n/a": true,
+      "name": "Kinect Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Kinect_Star_Wars",
+      "date": "April 3, 2012",
+      "tag": "Console"
+    },
+    "AB:SW": {
+      "n/a": true,
+      "name": "Angry Birds Star Wars",
+      "url": "https://en.wikipedia.org/wiki/Angry_Birds_Star_Wars",
+      "date": "November 8, 2012",
+      "tag": "Mobile"
+    },
+    "AB:SW2": {
+      "n/a": true,
+      "name": "Angry Birds Star Wars II",
+      "url": "https://en.wikipedia.org/wiki/Angry_Birds_Star_Wars_II",
+      "date": "September 18, 2013",
+      "tag": "Mobile"
+    },
+    "SW:TDS": {
+      "n/a": true,
+      "name": "Star Wars: Tiny Death Star",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars:_Tiny_Death_Star",
+      "date": "October 11, 2013",
+      "tag": "Mobile"
+    },
+    "SW:1313": {
+      "n/a": true,
+      "name": "Star Wars 1313 (canceled)",
+      "url": "https://en.wikipedia.org/wiki/Star_Wars_1313",
+      "date": "2013-01-01",
+      "tag": "Canceled"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "PP": {
+        "download": "https://www.myabandonware.com/download/hq-phm-pegasus",
+        "type": "zip",
+        "key": "Abandon:PHM-Pegasus_DOS_EN.zip",
+        "dir": "Abandon:PHM-Pegasus_DOS_EN.zip",
+        "path": "p-h-m-pegasus"
+      },
+      "MM": {
+        "key": "Steam:529890",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 529890",
+        "dir": "Maniac Mansion",
+        "path": "ScummVM"
+      },
+      "SF": {
+        "download": "https://www.myabandonware.com/download/j1-strike-fleet",
+        "type": "zip",
+        "key": "Abandon:Strike-Fleet_DOS_EN.zip",
+        "dir": "Strike-Fleet_DOS_EN.zip",
+        "path": "strike-fleet"
+      },
+      "B1942": {
+        "download": "https://www.myabandonware.com/download/et-battlehawks-1942",
+        "type": "zip",
+        "key": "Abandon:Battlehawks-1942_DOS_EN.zip",
+        "dir": "Battlehawks-1942_DOS_EN.zip",
+        "path": "battlehawks-1942"
+      },
+      "ZMatAM": {
+        "key": "Steam:559070",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559070",
+        "dir": "Zak Mckracken",
+        "path": "ScummVM"
+      },
+      "IJatLC:TAG": {
+        "download": "https://www.myabandonware.com/download/2fa-indiana-jones-and-the-last-crusade-the-action-game",
+        "type": "zip",
+        "key": "Abandon:Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
+        "dir": "Indiana-Jones-and-The-Last-Crusade-The-Action-Game_DOS_EN.zip",
+        "path": "indy3act"
+      },
+      "IJatLC": {
+        "key": "Steam:32310",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32310",
+        "dir": "Indiana Jones and the Last Crusade",
+        "path": "INDY3"
+      },
+      "TFH": {
+        "download": [
+          "https://www.myabandonware.com/download/s9-their-finest-hour-the-battle-of-britain",
+          "https://www.myabandonware.com/download/k18-their-finest-hour-the-battle-of-britain"
+        ],
+        "type": "zip",
+        "key": "Abandon:Their-Finest-Hour-The-Battle-of-Britain_DOS_EN.zip",
+        "dir": "Their-Finest-Hour-The-Battle-of-Britain_DOS_EN.zip",
+        "path": "their-finest-hour-the-battle-of-britain/Battle Of Britain"
+      },
+      "TFM:V1": {
+        "download": "https://www.myabandonware.com/download/k1d-their-finest-missions-volume-one",
+        "type": "zip",
+        "key": "Abandon:Their-Finest-Missions-Volume-One_DOS_EN_35-Disk-Image.zip",
+        "dir": "Their-Finest-Missions-Volume-One_DOS_EN_35-Disk-Image.zip",
+        "path": "Their Finest Missions - Volume One (USA, Europe) (3.5'') (Add-on)"
+      },
+      "L": {
+        "key": "Steam:32340",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32340",
+        "dir": "LOOM"
+      },
+      "M": {
+        "download": "https://www.myabandonware.com/download/17b-masterblazer",
+        "type": "zip",
+        "key": "Abandon:Masterblazer_DOS_EN.zip",
+        "dir": "Masterblazer_DOS_EN.zip",
+        "path": "masterblazer/Masterblazer"
+      },
+      "NS": {
+        "download": "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Night+Shift&gid=1553#",
+        "type": "zip",
+        "key": "Abandon:Night_Shift.zip",
+        "dir": "Night_Shift.zip",
+        "path": "Night_Shift"
+      },
+      "SWotL": {
+        "download": "https://www.myabandonware.com/download/1xl-secret-weapons-of-the-luftwaffe",
+        "type": "zip",
+        "key": "Abandon:Secret-Weapons-of-the-Luftwaffe_DOS_EN.zip",
+        "dir": "Secret-Weapons-of-the-Luftwaffe_DOS_EN.zip"
+      },
+      "MI2:LR": {
+        "key": "Steam:32460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32460",
+        "dir": "Monkey2"
+      },
+      "IJatFoA": {
+        "key": "Steam:6010",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6010",
+        "dir": "Indiana Jones and the Fate of Atlantis"
+      },
+      "SW:XW": {
+        "key": "Steam:354430",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 354430",
+        "dir": "STAR WARS X-Wing"
+      },
+      "DotT": {
+        "key": "Steam:388210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 388210",
+        "dir": "xxx"
+      },
+      "ZAMN": {
+        "key": "Steam:1137970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
+        "dir": "Zombies Ate My Neighbors and Ghoul Patrol"
+      },
+      "SaMHtR": {
+        "key": "Steam:355170",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355170",
+        "dir": "Sam and Max Hit the Road"
+      },
+      "SWC": {
+        "download": "https://www.myabandonware.com/download/2dh-the-software-toolworks-star-wars-chess",
+        "type": "zip",
+        "key": "Abandon:The-Software-Toolworks-Star-Wars-Chess_DOS_EN.zip",
+        "dir": "The-Software-Toolworks-Star-Wars-Chess_DOS_EN.zip",
+        "path": "SWCHESS"
+      },
+      "SW:TF": {
+        "key": "Steam:355250",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 355250",
+        "dir": "STAR WARS Tie Fighter"
+      },
+      "GP": {
+        "key": "Steam:1137970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1137970",
+        "dir": "Zombies Ate My Neighbors and Ghoul Patrol"
+      },
+      "SW:DF": {
+        "key": "Steam:32400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32400",
+        "dir": "Dark Forces",
+        "path": "Game"
+      },
+      "FT": {
+        "key": "Steam:228360",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 228360",
+        "dir": "xxx"
+      },
+      "TD": {
+        "key": "Steam:6040",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6040",
+        "dir": "The Dig"
+      },
+      "SW:RA2": {
+        "key": "Steam:456540",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 456540",
+        "dir": "Star Wars - Rebel Assault 1 and 2",
+        "path": "REBEL2"
+      },
+      "IJaHDA": {
+        "download": "https://www.myabandonware.com/download/ilz-indiana-jones-and-his-desktop-adventures",
+        "type": "setup",
+        "key": "Abandon:Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
+        "dir": "Indiana-Jones-and-his-Desktop-Adventures_Win-3x_EN.zip",
+        "path": "ida"
+      },
+      "A": {
+        "key": "GOG:1425308948",
+        "reg": "GOG.com/Games/1425308948",
+        "dir": "Afterlife"
+      },
+      "MatRotM": {
+        "download": "https://www.myabandonware.com/download/g2k-mortimer-and-the-riddles-of-the-medallion",
+        "type": "zip:iso",
+        "key": "Abandon:Mortimer-and-the-Riddles-of-the-Medallion_Win_EN_ISO-Version.zip",
+        "dir": "Mortimer-and-the-Riddles-of-the-Medallion_Win_EN_ISO-Version.zip",
+        "path": "Mortimer and the Riddles of the Medallion (1996)(LucasArts).iso"
+      },
+      "SW:SotE": {
+        "key": "Steam:560170",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560170",
+        "dir": "Star Wars Shadows of the Empire"
+      },
+      "SW:YS": {
+        "download": "https://www.myabandonware.com/download/k7i-star-wars-yoda-stories",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
+        "keyx": "Abandon:Star-Wars-Yoda-Stories_Win_EN_RIP-Version.zip",
+        "dir": "Star-Wars-Yoda-Stories_Win_EN_ISO-Version.zip",
+        "path": "Star_Wars_Yoda_Stories_ISO/YODA.img"
+      },
+      "O": {
+        "key": "Steam:559620",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 559620",
+        "dir": "Outlaws"
+      },
+      "SW:XvT": {
+        "key": "Steam:361690",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361690",
+        "dir": "STAR WARS X-Wing vs TIE Fighter"
+      },
+      "SWJK:DF2": {
+        "key": "Steam:32380",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32380",
+        "dir": "Star Wars Jedi Knight"
+      },
+      "MSW": {
+        "download": "https://www.myabandonware.com/download/zs7-star-wars-monopoly",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Monopoly_Win_EN_ISO-Version.zip",
+        "path": "MONOPOLY SW.ISO"
+      },
+      "TCoMI": {
+        "key": "Steam:730820",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730820",
+        "dir": "The Curse of Monkey Island/ScummVM"
+      },
+      "SWJK:MotS": {
+        "key": "Steam:32390",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32390",
+        "dir": "Jedi Knight Mysteries of the Sith"
+      },
+      "SW:R": {
+        "key": "Steam:441550",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 441550",
+        "dir": "Star Wars - Rebellion"
+      },
+      "SW:BtM": {
+        "download": [
+          "https://archive.org/download/btm-cd-1/BTM_CD1.iso",
+          "https://archive.org/download/btm-cd-1/BTM_CD2.iso"
+        ],
+        "type": "iso",
+        "key": "Abandon:BTM_CD1.iso",
+        "dir": "BTM_CD1.iso",
+        "path": [
+          "BTM_CD1.iso",
+          "BTM_CD2.iso"
+        ]
+      },
+      "SW:DW": {
+        "download": "https://www.myabandonware.com/download/p9i-star-wars-droidworks",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-DroidWorks_Win_EN_ISO-Version.zip",
+        "path": "Star Wars - DroidWorks/DroidWorks.bin"
+      },
+      "GF": {
+        "key": "Steam:316790",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 316790",
+        "dir": "xxx"
+      },
+      "SW:RS": {
+        "key": "Steam:455910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 455910",
+        "dir": "RogueSquadron",
+        "path": "ROGUE"
+      },
+      "SW:XA": {
+        "key": "Steam:361670",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 361670",
+        "dir": "Star Wars X-Wing Alliance"
+      },
+      "SW1:TPM": {
+        "download": "https://www.myabandonware.com/download/17a6-star-wars-episode-i-the-phantom-menace",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
+        "dir": "Star-Wars-Episode-I-The-Phantom-Menace_Win_EN_ISO.zip",
+        "path": "LucasArts-StarWarsThePhantomMenace-Win95-Eng.iso"
+      },
+      "SW1:R": {
+        "key": "Steam:808910",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 808910",
+        "dir": "Star Wars Episode I Racer"
+      },
+      "SW1:TGF": {
+        "download": "https://www.myabandonware.com/download/nx8-star-wars-episode-i-the-gungan-frontier",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Episode-I-The-Gungan-Frontier_Win_EN_ISO-Version.zip",
+        "path": "Star Wars The Gungan Frontier ISO/Star Wars The Gungan Frontier ISO.bin"
+      },
+      "SW:YCAC": {
+        "download": "https://www.myabandonware.com/download/gmx-star-wars-yoda-s-challenge-activity-center",
+        "type": "zip",
+        "key": "Abandon:Star-Wars-Yodas-Challenge---Activity-Center_Win_EN.zip",
+        "dir": "Star-Wars-Yodas-Challenge---Activity-Center_Win_EN.zip",
+        "path": "Yoda's Challenge"
+      },
+      "SW:PD": {
+        "download": "https://www.myabandonware.com/download/4jz-star-wars-pit-droids",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Pit-Droids_Win_EN_ISO-Version.zip",
+        "path": "Star Wars Pit Droids [Hybrid].ISO"
+      },
+      "IJatIM": {
+        "key": "Steam:904540",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 904540",
+        "dir": "Indiana Jones and the Infernal Machine"
+      },
+      "SW:FC": {
+        "download": "https://archive.org/download/star-wars-force-commander-windows-10-compatible/Star%20Wars%20-%20Force%20Commander%20Setup.exe",
+        "key": "Abandon:XX",
+        "dir": "."
+      },
+      "EfMI": {
+        "key": "Steam:730830",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 730830",
+        "dir": "Escape from Monkey Island"
+      },
+      "SW:S": {
+        "key": "Steam:32350",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32350",
+        "dir": "Star Wars Starfighter",
+        "path": "Game"
+      },
+      "SWGB": {
+        "key": "Steam:356500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 356500",
+        "dir": "STAR WARS - Galactic Battlegrounds Saga",
+        "path": "Game"
+      },
+      "SWJK2:JO": {
+        "key": "Steam:6030",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6030",
+        "dir": "Jedi Outcast",
+        "path": "GameData"
+      },
+      "IJatET": {
+        "key": "Steam:560430",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 560430",
+        "dir": "Indiana Jones and the Emperors Tomb",
+        "path": "GameData"
+      },
+      "SWG": {
+        "download": "https://www.myabandonware.com/download/kc7-star-wars-galaxies-an-empire-divided",
+        "type": "zip:iso",
+        "key": "Abandon:Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
+        "dir": "Star-Wars-Galaxies---An-Empire-Divided_Win_EN_ISO-Version.zip",
+        "path": [
+          "star-wars-galaxies-an-empire-divided/SWG_Disc_1.iso",
+          "star-wars-galaxies-an-empire-divided/SWG_Disc_2.iso",
+          "star-wars-galaxies-an-empire-divided/SWG_Disc_3.iso"
+        ]
+      },
+      "SW:KotOR": {
+        "key": [
+          "Steam:32370",
+          "GOG:1207666283",
+          "GOG:111"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32370",
+          "GOG.com/Games/1207666283",
+          "GOG.com/Games/111"
+        ],
+        "dir": [
+          "swkotor",
+          "Star Wars - KotOR"
+        ]
+      },
+      "SWJK:JA": {
+        "key": "Steam:6020",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6020",
+        "dir": "Jedi Academy"
+      },
+      "AaD": {
+        "key": "Steam:6090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6090",
+        "dir": "Armed and Dangerous"
+      },
+      "SW:B": {
+        "key": "Steam:1237980",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237980",
+        "dir": "STAR WARS Battlefront"
+      },
+      "SW:KotOR2": {
+        "key": "Steam:208580",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 208580",
+        "dir": "Knights of the Old Republic II"
+      },
+      "SW:RC": {
+        "key": "Steam:6000",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6000",
+        "dir": "Star Wars Republic Commando"
+      },
+      "SW:B2": {
+        "key": [
+          "Steam:6060",
+          "Steam:1237950"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6060",
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1237950"
+        ],
+        "dir": "STAR WARS Battlefront II"
+      },
+      "SW:EaW": {
+        "key": "Steam:32470",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32470",
+        "dir": "Star Wars Empire at War"
+      },
+      "T:OtR": {
+        "key": "Steam:6080",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 6080",
+        "dir": "Thrillville Off the Rails"
+      },
+      "LSW:TCS": {
+        "key": "Steam:32440",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32440",
+        "dir": "Lego Star Wars Saga"
+      },
+      "LIJ:TOA": {
+        "key": "Steam:32330",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32330",
+        "dir": "LEGO Indiana Jones The Original Adventures"
+      },
+      "SW:TFU": {
+        // https://www.gog.com/en/game/star_wars_the_force_unleashed_ultimate_sith_edition
+        "key": [
+          "Steam:32430",
+          "GOG:0"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32430",
+          "GOG"
+        ],
+        "dir": "Star Wars The Force Unleashed"
+      },
+      "ToMI": {
+        // https://www.gog.com/en/game/tales_of_monkey_island
+        "key": [
+          "Steam:31170",
+          "GOG:0"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 31170",
+          "GOG"
+        ],
+        "dir": "."
+      },
+      "TSoMI:SE": {
+        // https://www.gog.com/en/game/the_secret_of_monkey_island_special_edition
+        "key": [
+          "Steam:32360",
+          "GOG:0"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32360",
+          "GOG"
+        ],
+        "dir": "."
+      },
+      "SWTCW:RH": {
+        "key": "Steam:32420",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32420",
+        "dir": "."
+      },
+      "LU": {
+        "key": "Steam:32410",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32410",
+        "dir": "Lucidity"
+      },
+      "LIJ2:TAC": {
+        "key": "Steam:32450",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 324500",
+        "dir": "."
+      },
+      "MI2SE:LCR": {
+        "key": "Steam:32460",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32460",
+        "dir": "."
+      },
+      "SW:TFU2": {
+        "key": "Steam:32500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32500",
+        "dir": "."
+      },
+      "LS3:TCW": {
+        "key": "Steam:32510",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 32510",
+        "dir": "."
+      },
+      "SW:TOR": {
+        "key": "Steam:1286830",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1286830",
+        "dir": "."
+      }
+    }
+  }
+}

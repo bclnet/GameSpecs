@@ -1,0 +1,142 @@
+﻿{
+  "id": "Crytek",
+  "name": "Crytek",
+  "studio": "Crytek",
+  "description": "The file formats used in Cry and Lumberyard",
+  "url": "https://en.wikipedia.org/wiki/Crytek",
+  "samples": [
+    "CrytekFamily.Sample.json"
+  ],
+  "engines": {
+    "CryEngine": {}
+  },
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Crytek.CryPakFile, GameX.Crytek",
+      "pakExt": ".pak"
+    },
+    "ArcheAge": {
+      "name": "ArcheAge",
+      "engine": "ArcheAge",
+      "url": "https://store.steampowered.com/app/304030",
+      "key": "hex:321F2AEEAA584AB49A6C9E09D59E9C6F",
+      "pakExt": "",
+      "pak": "game:/game_pak"
+    },
+    "Hunt": {
+      "name": "Hunt: Showdown",
+      "description": "Hunt: Showdown is a competitive first-person PvP bounty hunting game with heavy PvE elements, from the makers of Crysis. Set in the darkest corners of the world, it packs the thrill of survival games into a match-based format.",
+      "url": "https://store.steampowered.com/app/594650",
+      "key": "hex:30818902818100affd71ca741c1aa5895becf596e8732d290453d275cf6ff0bb214324ebab7eedd7f39deebc2708d88b6d536a58da5683137fafec478e41e6f8b0882e5eba236b9d2a150ee513ae562ce56b6aaf982c27a8c317281afa0f84f546ecb825ccf2217519c84ed0ceab179ee5ccdab0cb40a95d5442120f25a61e7da79d30c7d7d8a70203010001"
+    },
+    "MWO": {
+      "name": "MechWarrior Online",
+      "url": "https://store.steampowered.com/app/342200"
+    },
+    "Warface": {
+      "name": "Warface",
+      "url": "https://store.steampowered.com/app/291480",
+      "key": "hex:308189028181009B606931DCF7027A4DC0E5263B4AD0D8F4A492A16E4B5EC0850F074B4C3DA627FF96676D2379F89062DE6C917F268CBD822404D26D9D79BCB0182D4C96EEAF2B918A0300BFB81619622D1556B4E02D16FE0C7ED72C01EE429C4C849C6A786BCEC44D6C50CB914648BB662D0BA235680002D4605058D1C30DA11237822A01F2EF0203010001"
+    },
+    "Wolcen": {
+      "name": "Wolcen: Lords of Mayhem",
+      "url": "https://store.steampowered.com/app/424370"
+    },
+    "Crysis": {
+      "name": "Crysis Remastered",
+      "description": "The classic first person shooter from Crytek is back with the action-packed gameplay, sandbox world, and thrilling epic battles you loved the first time around now with remastered graphics optimized for a new generation of hardware.",
+      "url": "https://store.steampowered.com/app/1715130"
+    },
+    "Ryse": {
+      "name": "Ryse: Son of Rome",
+      "description": "“Ryse: Son of Rome” tells the story of Marius Titus, a young Roman soldier who witnesses the murder of his family at the hands of barbarian bandits, then travels with the Roman army to Britannia to seek revenge.",
+      "url": "https://store.steampowered.com/app/302510"
+    },
+    "Robinson": {
+      "name": "Robinson: The Journey",
+      "description": "When the Esmeralda crashes on Tyson III, Robin is left stranded. He must rely on his wits and HIGS, an AI unit from the ship to survive. As he searches for the lost crew and comes face-to-face with dinosaurs, Robin discovers that Tyson III is not the paradise once promised.",
+      "url": "https://store.steampowered.com/app/579820"
+    },
+    "Snow": {
+      "name": "SNOW - The Ultimate Edition",
+      "description": "SNOW - The Ultimate Edition is the only open world, winter sports game. Explore a massive mountain, customize your character with clothing and equipment, compete in events to be the best. Access to all mountains, tracks, events as well including all cosmetics, ski, snowboard, drone, and snowmobile.",
+      "url": "https://store.steampowered.com/app/244930",
+      "key": "hex:30818902818100D51E1D3810C4A112B2F2504B83E2F124009C0AC9CD1661913421D4E94623AD7014599DAFB0DC9F8366D164AD072B3DC5AA3D4CD24542D5F684E6A4F7473102DE2ACA11F6524015ECBD564248FC712B3A69B15B78EFAA06748259DDE77A75757E513F7AC21A0151F53C78FF45ABCC45C3F54BC6305F420981F7119AF03E6438D70203010001"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "ArcheAge": {
+        "key": "Steam:304030",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 304030",
+        "dir": "ArcheAge"
+      },
+      "Hunt": {
+        "key": "Steam:594650",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 594650",
+        "dir": "Hunt Showdown",
+        "path": [
+          "engine",
+          "game_hunt"
+        ]
+      },
+      "MWO": {
+        "key": "Steam:342200",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 342200",
+        "dir": "MechWarrior Online",
+        "path": "Game"
+      },
+      "Warface": {
+        "key": "Steam:291480",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 291480",
+        "dir": "Warface",
+        "path": [
+          "13_2000076/Engine",
+          "13_2000076/Game"
+        ]
+      },
+      "Wolcen": {
+        "key": "Steam:424370",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 424370",
+        "dir": "Wolcen",
+        "path": [
+          "Engine",
+          "Game"
+        ]
+      },
+      "Crysis": {
+        "key": "Steam:1715130",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1715130",
+        "dir": "Crysis Remastered",
+        "path": [
+          "Engine",
+          "Game"
+        ]
+      },
+      "Ryse": {
+        "key": "Steam:302510",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 302510",
+        "dir": "Ryse Son of Rome",
+        "path": [
+          "Engine",
+          "GameRyse"
+        ]
+      },
+      "Robinson": {
+        "key": "Steam:579820",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 579820",
+        "dir": "Robinson The Journey",
+        "path": [
+          "engine",
+          "game_robinson"
+        ]
+      },
+      "Snow": {
+        "key": "Steam:244930",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 244930",
+        "dir": "SNOW",
+        "path": "Assets"
+      }
+    }
+  }
+}

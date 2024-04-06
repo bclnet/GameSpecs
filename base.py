@@ -154,7 +154,7 @@ def createFamily(path: str, loader: Any) -> Family:
 
 @staticmethod
 def init(root):
-    rootPath = f'{root}/gamespecs/Specs'
+    rootPath = f'{root}/gamex/Specs'
     def commentRemover(text):
         def replacer(match): self = match.group(0); return ' ' if self.startswith('/') else self
         pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)

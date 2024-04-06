@@ -5,10 +5,10 @@ from PyQt6.QtCore import Qt, QObject, QBuffer, QByteArray, QUrl, QMimeData, pyqt
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import config
-from gamespecs.pak import PakFile
-# from gamespecs.util import x
-from gamespecs.meta import MetaItem, MetaInfo
+from gamex import config
+from gamex.pak import PakFile
+# from gamex.util import x
+from gamex.meta import MetaItem, MetaInfo
 
 # https://doc.qt.io/qt-6/qtreeview.html
 # https://gist.github.com/skriticos/5415869

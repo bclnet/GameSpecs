@@ -1,0 +1,31 @@
+﻿{
+  "id": "Unknown",
+  "name": "Unknown",
+  "studio": "",
+  "description": "Unknown formats",
+  "familyType": "GameX.Unknown.UnknownFamily, GameX.Base",
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Unknown.UnknownPakFile, GameX.Base"
+    },
+    "APP": {
+      "name": "Application",
+      "searchByx": "None"
+    },
+    "CAT": {
+      "name": "Catalog",
+      "pak": "game:/main.yaml"
+    }
+  },
+  "fileManager": {
+    "direct": {
+      "APP": {
+        "path": "%AppPath%"
+      },
+      "CAT": {
+        "path": "%AppPath%/catalogs"
+      }
+    },
+    "application": {}
+  }
+}

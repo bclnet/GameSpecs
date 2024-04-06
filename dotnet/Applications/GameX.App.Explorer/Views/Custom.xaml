@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="GameX.App.Explorer.Views.Custom"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:model="clr-namespace:GameX.Meta;assembly=GameX.Base"
+             xmlns:cigDataForge="clr-namespace:GameX.Cig.Apps.DataForge;assembly=GameX.Cig.Explorer"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="200">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="NullTemplate" DataType="{x:Type model:MetaContent}">
+                <TextBlock Text="Null" Margin="5,5,5,5" FontFamily="GenericMonospace" />
+            </DataTemplate>
+            <DataTemplate x:Key="TextTemplate" DataType="{x:Type model:MetaContent}">
+                <ScrollViewer>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Value}" Margin="5,5,5,5" FontFamily="Courier New" />
+                </ScrollViewer>
+            </DataTemplate>
+            <DataTemplate x:Key="DataForgeTemplate" DataType="{x:Type model:MetaContent}">
+                <cigDataForge:NoteControl Margin="5,5,5,5" />
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding}">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="ContentTemplate" Value="{StaticResource TextTemplate}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="DataForge">
+                            <Setter Property="ContentTemplate" Value="{StaticResource DataForgeTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource NullTemplate}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+</UserControl>

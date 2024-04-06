@@ -6,7 +6,7 @@ from PyQt6.QtCore import Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs import Family, config
+from gamex import Family, config
 from .HexViewWidget import HexViewWidget
 from .SaveFileWidget import SaveFileWidget
 from .OpenWidget import OpenWidget

@@ -1,0 +1,166 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>GameX.App.Explorer</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>GameX.App.Explorer2</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.contoso.gamex.app.explorer2</ApplicationId>
+		<ApplicationIdGuid>1b5191df-e453-4abe-a64b-73a693de1131</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\agrp.png" Link="Resources\Icons\agrp.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\anim.png" Link="Resources\Icons\anim.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\bsp.png" Link="Resources\Icons\bsp.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\css.png" Link="Resources\Icons\css.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\dds.png" Link="Resources\Icons\dds.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\dmx.png" Link="Resources\Icons\dmx.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\ents.png" Link="Resources\Icons\ents.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\fbx.png" Link="Resources\Icons\fbx.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\gnv.png" Link="Resources\Icons\gnv.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\grass.png" Link="Resources\Icons\grass.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\hcg.png" Link="Resources\Icons\hcg.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\html.png" Link="Resources\Icons\html.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\jpg.png" Link="Resources\Icons\jpg.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\map.png" Link="Resources\Icons\map.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\mat.png" Link="Resources\Icons\mat.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\mdl.png" Link="Resources\Icons\mdl.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\mesh.png" Link="Resources\Icons\mesh.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\morf.png" Link="Resources\Icons\morf.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\mp3.png" Link="Resources\Icons\mp3.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\pcf.png" Link="Resources\Icons\pcf.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\pdf.png" Link="Resources\Icons\pdf.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\pdi.png" Link="Resources\Icons\pdi.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\phy.png" Link="Resources\Icons\phy.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\phys.png" Link="Resources\Icons\phys.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\png.png" Link="Resources\Icons\png.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\post.png" Link="Resources\Icons\post.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\psd.png" Link="Resources\Icons\psd.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\rman.png" Link="Resources\Icons\rman.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\snd.png" Link="Resources\Icons\snd.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\surf.png" Link="Resources\Icons\surf.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\tex.png" Link="Resources\Icons\tex.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\ttf.png" Link="Resources\Icons\ttf.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\txt.png" Link="Resources\Icons\txt.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\vis.png" Link="Resources\Icons\vis.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\vmt.png" Link="Resources\Icons\vmt.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\vtf.png" Link="Resources\Icons\vtf.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\vtx.png" Link="Resources\Icons\vtx.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\vvd.png" Link="Resources\Icons\vvd.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\wav.png" Link="Resources\Icons\wav.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\wnod.png" Link="Resources\Icons\wnod.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\wrld.png" Link="Resources\Icons\wrld.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\xml.png" Link="Resources\Icons\xml.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\_default.png" Link="Resources\Icons\_default.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\_folder.png" Link="Resources\Icons\_folder.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\_openFile.png" Link="Resources\Icons\_openFile.png" />
+	  <EmbeddedResource Include="..\..\..\python\app\resources\icons\_package.png" Link="Resources\Icons\_package.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\docs\Applications\Explorer\Readme.md" Link="Readme.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="NLayer.NAudioSupport" Version="1.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="TreeView.Maui" Version="1.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Base\GameX.All\GameX.All.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="App+Permissions.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AboutPage.xaml.cs">
+	    <DependentUpon>AboutPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AudioPlayer.xaml.cs">
+	    <DependentUpon>AudioPlayer.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\FileContent.xaml.cs">
+	    <DependentUpon>FileContent.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\FileExplorer.xaml.cs">
+	    <DependentUpon>FileExplorer.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\OpenPage.xaml.cs">
+	    <DependentUpon>OpenPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\OptionsPage.xaml.cs">
+	    <DependentUpon>OptionsPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AudioPlayer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\FileContent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\FileExplorer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OpenPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OptionsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\Icons\" />
+	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionGameSpecAppExplorer2HideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
+</Project>

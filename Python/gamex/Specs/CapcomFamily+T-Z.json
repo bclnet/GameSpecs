@@ -1,0 +1,373 @@
+﻿{
+  "id": "Capcom+T-Z",
+  "url": "https://en.wikipedia.org/wiki/List_of_Capcom_games:_T%E2%80%93Z",
+  "games": {
+    "*": {
+      "n/a": true,
+      "pakFileType": "GameX.Capcom.CapcomPakFile, GameX.Capcom"
+    },
+    "TNGCP:AS": {
+      "name": "Taisen Net Gimmick Capcom & Psikyo All Stars",
+      "date": "2000-01-01"
+    },
+    "TaleSpin": {
+      "name": "TaleSpin",
+      "url": "https://en.wikipedia.org/wiki/TaleSpin_(Capcom_video_game)",
+      "date": "December 1, 1991"
+    },
+    "Talisman": {
+      "name": "Talisman",
+      "url": "https://en.wikipedia.org/wiki/Talisman_(video_game)",
+      "tags": "Cancelled"
+    },
+    "TVC:UAS": {
+      "name": "Tatsunoko vs. Capcom: Ultimate All-Stars",
+      "url": "https://en.wikipedia.org/wiki/Tatsunoko_vs._Capcom:_Ultimate_All-Stars",
+      "date": "December 1, 2008"
+    },
+    "TechRomancer": {
+      "name": "Tech Romancer",
+      "url": "https://en.wikipedia.org/wiki/Tech_Romancer",
+      "date": "March 31, 2000"
+    },
+    "TGAA:A": {
+      "name": "The Great Ace Attorney: Adventures",
+      "url": "https://en.wikipedia.org/wiki/The_Great_Ace_Attorney:_Adventures",
+      "date": "July 9, 2015",
+      "engine": "MTFM "
+    },
+    "TGAA2:R": {
+      "name": "The Great Ace Attorney 2: Resolve",
+      "url": "https://en.wikipedia.org/wiki/The_Great_Ace_Attorney_2:_Resolve",
+      "date": "August 3, 2017"
+    },
+    "TheKingofDragons": {
+      "name": "The King of Dragons",
+      "url": "https://en.wikipedia.org/wiki/The_King_of_Dragons",
+      "date": "July 11, 1991"
+    },
+    "Zelda:LTP": {
+      "name": "The Legend of Zelda: A Link to the Past and Four Swords",
+      "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_A_Link_to_the_Past_and_Four_Swords",
+      "date": "December 2, 2002"
+    },
+    "Zelda:OoA": {
+      "name": "The Legend of Zelda: Oracle of Ages",
+      "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Oracle_of_Seasons_and_Oracle_of_Ages",
+      "date": "February 27, 2001"
+    },
+    "Zelda:OoS": {
+      "name": "The Legend of Zelda: Oracle of Seasons",
+      "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Oracle_of_Seasons_and_Oracle_of_Ages",
+      "date": "February 27, 2001"
+    },
+    "Zelda:TMC": {
+      "name": "The Legend of Zelda: The Minish Cap",
+      "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_The_Minish_Cap",
+      "date": "November 4, 2004"
+    },
+    "TheLittleMermaid": {
+      "name": "The Little Mermaid",
+      "url": "https://en.wikipedia.org/wiki/The_Little_Mermaid_(video_game)",
+      "date": "July 19, 1991"
+    },
+    "TheMagicalNinja:JK": {
+      "name": "The Magical Ninja: Jiraiya Kenzan!",
+      "tags": "Cancelled"
+    },
+    "TMOTB": {
+      "name": "The Misadventures of Tron Bonne",
+      "url": "https://en.wikipedia.org/wiki/The_Misadventures_of_Tron_Bonne",
+      "date": "July 22, 1999"
+    },
+    "TheMaw": {
+      "name": "The Maw",
+      "url": "https://en.wikipedia.org/wiki/The_Maw_(video_game)",
+      "date": "December 31, 2009"
+    },
+    "TNBC:OR": {
+      "name": "The Nightmare Before Christmas: Oogie's Revenge",
+      "url": "https://en.wikipedia.org/wiki/The_Nightmare_Before_Christmas:_Oogie%27s_Revenge",
+      "date": "October 21, 2004"
+    },
+    "ThePunisher": {
+      "name": "The Punisher",
+      "url": "https://en.wikipedia.org/wiki/The_Punisher_(1993_video_game)",
+      "date": "April 22, 1993"
+    },
+    "TheSpeedRumbler": {
+      "name": "The Speed Rumbler",
+      "url": "https://en.wikipedia.org/wiki/The_Speed_Rumbler",
+      "date": "September 1, 1986"
+    },
+    "ThreeWonders": {
+      "name": "Three Wonders",
+      "url": "https://en.wikipedia.org/wiki/Three_Wonders",
+      "date": "May 20, 1991"
+    },
+    "TigerRoad": {
+      "name": "Tiger Road",
+      "url": "https://en.wikipedia.org/wiki/Tiger_Road",
+      "date": "November 1, 1987"
+    },
+    "TokiTori": {
+      "name": "Toki Tori",
+      "url": "https://en.wikipedia.org/wiki/Toki_Tori",
+      "date": "September 21, 2001"
+    },
+    "TombRaider:TLR": {
+      "name": "Tomb Raider: The Last Revelation",
+      "url": "https://en.wikipedia.org/wiki/Tomb_Raider:_The_Last_Revelation",
+      "date": "March 24, 2000"
+    },
+    "ToyStory": {
+      "name": "Toy Story",
+      "url": "https://en.wikipedia.org/wiki/Toy_Story_(video_game)",
+      "date": "December 1, 1995"
+    },
+    "Snowboard:T": {
+      "name": "Trick'N Snowboarder",
+      "url": "https://en.wikipedia.org/wiki/Trick%27N_Snowboarder",
+      "date": "February 1, 1999"
+    },
+    "Trojan": {
+      "name": "Trojan",
+      "url": "https://en.wikipedia.org/wiki/Trojan_(video_game)",
+      "date": "April 1, 1986"
+    },
+    "Trouballs": {
+      "name": "Trouballs",
+      "url": "https://en.wikipedia.org/wiki/Trouballs",
+      "date": "October 5, 2001"
+    },
+    "Turok": {
+      "name": "Turok",
+      "url": "https://en.wikipedia.org/wiki/Turok_(video_game)",
+      "date": "February 5, 2008"
+    },
+    "UNSquadron": {
+      "name": "U.N. Squadron",
+      "url": "https://en.wikipedia.org/wiki/U.N._Squadron",
+      "date": "August 1, 1989"
+    },
+    "UFC": {
+      "name": "Ultimate Fighting Championship",
+      "url": "https://en.wikipedia.org/wiki/Ultimate_Fighting_Championship_(video_game)",
+      "date": "August 29, 2000"
+    },
+    "UGhostsGoblins": {
+      "name": "Ultimate Ghosts 'n Goblins",
+      "url": "https://en.wikipedia.org/wiki/Ultimate_Ghosts_%27n_Goblins",
+      "date": "August 13, 2006"
+    },
+    "UMVC3": {
+      "n/a": false,
+      "name": "Ultimate Marvel vs. Capcom 3",
+      "url": [
+        "https://store.steampowered.com/app/357190",
+        "https://en.wikipedia.org/wiki/Ultimate_Marvel_vs._Capcom_3"
+      ],
+      "date": "November 15, 2011",
+      "engine": "MT2",
+      "pakExt": ".?"
+    },
+    "UmbrellaCorps": {
+      "n/a": false,
+      "name": "Umbrella Corps",
+      "url": [
+        "https://store.steampowered.com/app/390340",
+        "https://en.wikipedia.org/wiki/Umbrella_Corps"
+      ],
+      "date": "June 21, 2016",
+      "pakExt": ".?"
+    },
+    "UnderTheSkin": {
+      "name": "Under the Skin",
+      "url": "https://en.wikipedia.org/wiki/Under_the_Skin_(video_game)",
+      "date": "August 5, 2004"
+    },
+    "Vampire:C": {
+      "name": "Vampire Chronicles for Matching Service",
+      "url": "https://en.wikipedia.org/wiki/Darkstalkers_Chronicle:_The_Chaos_Tower",
+      "date": "August 10, 2000"
+    },
+    "Vampire:H2": {
+      "name": "Vampire Hunter 2",
+      "url": "https://en.wikipedia.org/wiki/Darkstalkers_3#Updates",
+      "date": "1997-01-01"
+    },
+    "Vampire:S": {
+      "name": "Vampire Savior",
+      "url": "https://en.wikipedia.org/wiki/Darkstalkers_3",
+      "date": "May 1, 1997"
+    },
+    "Vampire:S2": {
+      "name": "Vampire Savior 2",
+      "url": "https://en.wikipedia.org/wiki/Darkstalkers_3#Updates",
+      "date": "1997-01-01"
+    },
+    "Vampire:DC": {
+      "name": "Vampire: Darkstalkers Collection",
+      "url": "https://en.wikipedia.org/wiki/Vampire:_Darkstalkers_Collection",
+      "date": "May 19, 2005"
+    },
+    "Varth:OT": {
+      "name": "Varth: Operation Thunderstorm",
+      "url": "https://en.wikipedia.org/wiki/Varth:_Operation_Thunderstorm",
+      "date": "June 12, 1992"
+    },
+    "ViewtifulJoe": {
+      "name": "Viewtiful Joe",
+      "url": "https://en.wikipedia.org/wiki/Viewtiful_Joe_(video_game)",
+      "date": "June 26, 2003"
+    },
+    "ViewtifulJoe2": {
+      "name": "Viewtiful Joe 2",
+      "url": "https://en.wikipedia.org/wiki/Viewtiful_Joe_2",
+      "date": "November 18, 2004"
+    },
+    "ViewtifulJoe:DT": {
+      "name": "Viewtiful Joe: Double Trouble!",
+      "url": "https://en.wikipedia.org/wiki/Viewtiful_Joe:_Double_Trouble!",
+      "date": "November 2, 2005"
+    },
+    "ViewtifulJoe:RHR": {
+      "name": "Viewtiful Joe: Red Hot Rumble",
+      "url": "https://en.wikipedia.org/wiki/Viewtiful_Joe:_Red_Hot_Rumble",
+      "date": "September 29, 2005"
+    },
+    "Vulgus": {
+      "name": "Vulgus",
+      "url": "https://en.wikipedia.org/wiki/Vulgus",
+      "date": "May 1, 1984"
+    },
+    "Wantame:DDS": {
+      "name": "Wantame Music Channel: Doko Demo Style",
+      "date": "2007-01-01"
+    },
+    "WOTF": {
+      "name": "War of the Grail",
+      "url": "https://en.wikipedia.org/wiki/War_of_the_Grail",
+      "tags": "Cancelled"
+    },
+    "Warauinu:SGL": {
+      "name": "Warauinu no Bouken GB: Silly Go Lucky!",
+      "date": "2001-01-01"
+    },
+    "WOF": {
+      "name": "Warriors of Fate",
+      "url": "https://en.wikipedia.org/wiki/Warriors_of_Fate",
+      "date": "October 2, 1992"
+    },
+    "WOF2": {
+      "name": "Warriors of Fate II",
+      "url": "https://en.wikipedia.org/wiki/Warriors_of_Fate",
+      "date": "November 1, 1992"
+    },
+    "WOTS2": {
+      "name": "Way of the Samurai 2",
+      "url": "https://en.wikipedia.org/wiki/Way_of_the_Samurai_2",
+      "date": "May 21, 2004"
+    },
+    "Golf:WL": {
+      "name": "We Love Golf!",
+      "url": "https://en.wikipedia.org/wiki/We_Love_Golf!",
+      "date": "December 13, 2007"
+    },
+    "WFRR": {
+      "name": "Who Framed Roger Rabbit",
+      "url": "https://en.wikipedia.org/wiki/Who_Framed_Roger_Rabbit_(1991_video_game)",
+      "date": "November 1, 1991"
+    },
+    "WWTBAM?": {
+      "name": "Who Wants to Be a Millionaire?",
+      "date": "January 14, 2009"
+    },
+    "Willow": {
+      "name": "Willow",
+      "url": "https://en.wikipedia.org/wiki/Willow_(video_game)",
+      "date": "June 1, 1989"
+    },
+    "WilyRight:NRTP": {
+      "name": "Wily & Right no RockBoard: That's Paradise",
+      "url": "https://en.wikipedia.org/wiki/Wily_%26_Right_no_RockBoard:_That%27s_Paradise",
+      "date": "January 15, 1993"
+    },
+    "WithoutWarning": {
+      "name": "Without Warning",
+      "url": "https://en.wikipedia.org/wiki/Without_Warning_(video_game)",
+      "date": "October 28, 2005"
+    },
+    "WizardryV": {
+      "name": "Wizardry V",
+      "url": "https://en.wikipedia.org/wiki/Wizardry",
+      "date": "1988-01-01"
+    },
+    "WOTB:C3": {
+      "name": "Wolf of the Battlefield: Commando 3",
+      "url": "https://en.wikipedia.org/wiki/Wolf_of_the_Battlefield:_Commando_3",
+      "date": "June 5, 2008"
+    },
+    "WorldGoneSour": {
+      "name": "World Gone Sour",
+      "url": "https://en.wikipedia.org/wiki/World_Gone_Sour",
+      "date": "2011-01-01"
+    },
+    "X-Men:VSF": {
+      "name": "X-Men vs. Street Fighter",
+      "url": "https://en.wikipedia.org/wiki/X-Men_vs._Street_Fighter",
+      "date": "September 1996"
+    },
+    "X-Men:VSFEX": {
+      "name": "X-Men vs. Street Fighter EX Edition",
+      "url": "https://en.wikipedia.org/wiki/X-Men_vs._Street_Fighter",
+      "date": "February 26, 1998"
+    },
+    "XMen:CotA": {
+      "name": "X-Men: Children of the Atom",
+      "url": "https://en.wikipedia.org/wiki/X-Men:_Children_of_the_Atom_(video_game)",
+      "date": "December 1, 1994"
+    },
+    "XMen:MA": {
+      "name": "X-Men: Mutant Apocalypse",
+      "url": "https://en.wikipedia.org/wiki/X-Men:_Mutant_Apocalypse",
+      "date": "November 1, 1994"
+    },
+    "X2:NR": {
+      "name": "X2: No Relief",
+      "url": "https://en.wikipedia.org/wiki/X2_(video_game)",
+      "date": "August 1, 1997"
+    },
+    "YoNoid": {
+      "name": "Yo! Noid",
+      "url": "https://en.wikipedia.org/wiki/Yo!_Noid",
+      "date": "March 16, 1990"
+    },
+    "ZackWiki:QfBT": {
+      "name": "Zack & Wiki: Quest for Barbaros' Treasure",
+      "url": "https://en.wikipedia.org/wiki/Zack_%26_Wiki:_Quest_for_Barbaros%27_Treasure",
+      "date": "October 23, 2007"
+    },
+    "ZombieCafe": {
+      "name": "Zombie Cafe",
+      "url": "https://en.wikipedia.org/wiki/Zombie_Cafe",
+      "date": "May 20, 2013"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "UMVC3": {
+        "key": "Steam:357190",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 357190",
+        "dir": "Ultimate Marvel vs Capcom 3",
+        "path": "main"
+      },
+      "UmbrellaCorps": {
+        "key": "Steam:390340",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 390340",
+        "dir": "Umbrella Corps",
+        "path": "main"
+      }
+    }
+  }
+}

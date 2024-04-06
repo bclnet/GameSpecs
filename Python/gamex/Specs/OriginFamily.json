@@ -1,0 +1,510 @@
+﻿{
+  "id": "Origin",
+  "name": "Origin Systems",
+  "studio": "Origin Systems",
+  "description": "Origin Systems file formats",
+  "url": "https://en.wikipedia.org/wiki/Origin_Systems",
+  "samples": [
+    "OriginFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "gameType": "GameX.Origin.OriginGame, GameX.Origin",
+      "pakFileType": "GameX.Origin.OriginPakFile, GameX.Origin"
+    },
+    "CoC": {
+      "n/a": true,
+      "name": "Caverns of Callisto",
+      "date": "1983-01-01"
+    },
+    "U3": {
+      "n/a": true,
+      "name": "Ultima III: Exodus",
+      "url": "https://en.wikipedia.org/wiki/Ultima_III:_Exodus",
+      "date": "August 23, 1983"
+    },
+    "Moebius": {
+      "n/a": true,
+      "name": "Moebius: The Orb of Celestial Harmony",
+      "url": "https://en.wikipedia.org/wiki/Moebius:_The_Orb_of_Celestial_Harmony",
+      "date": "1985-01-01"
+    },
+    "U4": {
+      "n/a": true,
+      "name": "Ultima IV: Quest of the Avatar",
+      "url": "https://en.wikipedia.org/wiki/Ultima_IV:_Quest_of_the_Avatar",
+      "date": "November 1, 1985"
+    },
+    "AutoDuel": {
+      "n/a": true,
+      "name": "AutoDuel",
+      "url": "https://en.wikipedia.org/wiki/Autoduel",
+      "date": "1985-01-01"
+    },
+    "Ogre": {
+      "n/a": true,
+      "name": "Ogre",
+      "url": "https://en.wikipedia.org/wiki/Ogre_(video_game)",
+      "date": "1986-01-01"
+    },
+    "RingQuest": {
+      "n/a": true,
+      "name": "Ring Quest",
+      "date": "1986-01-01"
+    },
+    "U1": {
+      "n/a": true,
+      "name": "Ultima I: The First Age of Darkness",
+      "url": "https://en.wikipedia.org/wiki/Ultima_I:_The_First_Age_of_Darkness",
+      "date": "June 1, 1981"
+    },
+    "2400AD": {
+      "n/a": true,
+      "name": "2400 A.D.",
+      "url": "https://en.wikipedia.org/wiki/2400_A.D.",
+      "date": "1988-01-01"
+    },
+    "ToL": {
+      "n/a": true,
+      "name": "Times of Lore",
+      "url": "https://en.wikipedia.org/wiki/Times_of_Lore",
+      "date": "October 1, 1988"
+    },
+    "U5": {
+      "n/a": true,
+      "name": "Ultima V: Warriors of Destiny",
+      "url": "https://en.wikipedia.org/wiki/Ultima_V:_Warriors_of_Destiny",
+      "date": "March 1, 1988"
+    },
+    "KoL": {
+      "n/a": true,
+      "name": "Knights of Legend",
+      "url": "https://en.wikipedia.org/wiki/Knights_of_Legend",
+      "date": "October 1, 1989"
+    },
+    "Omega": {
+      "n/a": true,
+      "name": "Omega",
+      "url": "https://en.wikipedia.org/wiki/Omega_(video_game)",
+      "date": "1989-01-01"
+    },
+    "TangledTales:TMoaWA": {
+      "n/a": true,
+      "name": "Tangled Tales: The Misadventures of a Wizard's Apprentice",
+      "url": "https://en.wikipedia.org/wiki/Tangled_Tales:_The_Misadventures_of_a_Wizard%27s_Apprentice",
+      "date": "1989-01-01"
+    },
+    "Windwalker": {
+      "n/a": true,
+      "name": "Windwalker",
+      "url": "https://en.wikipedia.org/wiki/Windwalker_(video_game)",
+      "date": "December 1, 1989"
+    },
+    "BadBlood": {
+      "n/a": true,
+      "name": "Bad Blood",
+      "url": "https://en.wikipedia.org/wiki/Bad_Blood_(video_game)",
+      "date": "1990-01-01"
+    },
+    "U6": {
+      "n/a": true,
+      "name": "Ultima VI: The False Prophet",
+      "url": "https://en.wikipedia.org/wiki/Ultima_VI:_The_False_Prophet",
+      "date": "April 1, 1990"
+    },
+    "WC": {
+      "n/a": true,
+      "name": "Wing Commander",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander_(video_game)",
+      "date": "September 26, 1990",
+      "dlcs": {
+        "dlc1": {
+          "name": "Wing Commander: The Secret Missions",
+          "date": "1990-01-01"
+        },
+        "dlc2": {
+          "name": "Wing Commander: The Secret Missions 2 - Crusade",
+          "date": "1991-01-01"
+        }
+      }
+    },
+    "U:TSE": {
+      "n/a": true,
+      "name": "Worlds of Ultima: The Savage Empire",
+      "url": "https://en.wikipedia.org/wiki/Omega_(video_game)",
+      "date": "December 29, 1990"
+    },
+    "U:WoA2": {
+      "n/a": true,
+      "name": "Ultima: Worlds of Adventure 2: Martian Dreams",
+      "url": "https://en.wikipedia.org/wiki/Ultima:_Worlds_of_Adventure_2:_Martian_Dreams",
+      "date": "April 4, 1991"
+    },
+    "WC2:VotK": {
+      "n/a": true,
+      "name": "Wing Commander II: Vengeance of the Kilrathi",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander_II:_Vengeance_of_the_Kilrathi",
+      "date": "September 7, 1991",
+      "dlcs": {
+        "dlc1": {
+          "name": "Wing Commander II: Vengeance of the Kilrathi - Speech Accessory Pack",
+          "date": "1991-01-01"
+        },
+        "dlc2": {
+          "name": "Wing Commander II: Vengeance of the Kilrathi - Special Operations 1",
+          "date": "1991-01-01"
+        },
+        "dlc3": {
+          "name": "Wing Commander II: Vengeance of the Kilrathi - Special Operations 2",
+          "date": "1992-01-01"
+        }
+      }
+    },
+    "U:RoV": {
+      "n/a": true,
+      "name": "Ultima: Runes of Virtue",
+      "url": "https://en.wikipedia.org/wiki/Ultima:_Runes_of_Virtue",
+      "date": "December 14, 1991"
+    },
+    "U7:FoV": {
+      "n/a": true,
+      "name": "Ultima VII: Forge of Virtue",
+      "date": "1992-01-01"
+    },
+    "U7": {
+      "n/a": true,
+      "name": "Ultima VII: The Black Gate",
+      "url": "https://en.wikipedia.org/wiki/Ultima_VII:_The_Black_Gate",
+      "date": "April 16, 1992"
+    },
+    "UU:TSA": {
+      "n/a": true,
+      "name": "Ultima Underworld: The Stygian Abyss",
+      "url": "https://en.wikipedia.org/wiki/Ultima_Underworld:_The_Stygian_Abyss",
+      "date": "March 21, 1992"
+    },
+    "ShadowCaster": {
+      "n/a": true,
+      "name": "ShadowCaster",
+      "url": "https://en.wikipedia.org/wiki/ShadowCaster",
+      "date": "September 1, 1993"
+    },
+    "SC": {
+      "n/a": true,
+      "name": "Strike Commander",
+      "url": "https://en.wikipedia.org/wiki/Strike_Commander",
+      "date": "April 1, 1993"
+    },
+    "U7:SI": {
+      "n/a": true,
+      "name": "Ultima VII Part Two: Serpent Isle",
+      "url": "https://en.wikipedia.org/wiki/Ultima_VII_Part_Two:_Serpent_Isle",
+      "date": "March 25, 1993",
+      "dlcs": {
+        "dlc1": {
+          "name": "Ultima VII: Part Two - The Silver Seed"
+        }
+      }
+    },
+    "UU:LoW": {
+      "n/a": true,
+      "name": "Ultima Underworld II: Labyrinth of Worlds",
+      "url": "https://en.wikipedia.org/wiki/Ultima_Underworld_II:_Labyrinth_of_Worlds",
+      "date": "January 10, 1993"
+    },
+    "WCA": {
+      "n/a": true,
+      "name": "Wing Commander Academy",
+      "url": "https://www.gog.com/en/game/wing_commander_academy",
+      "date": "August 27, 1993"
+    },
+    "WC:P": {
+      "n/a": true,
+      "name": "Wing Commander: Privateer",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander:_Privateer",
+      "date": "September 1, 1993",
+      "dlcs": {
+        "dlc1": {
+          "name": "Wing Commander: Privateer - Speech Pack",
+          "date": "1993-01-01"
+        },
+        "dlc2": {
+          "name": "Privateer: Righteous Fire",
+          "date": "1994-01-01"
+        }
+      }
+    },
+    "U:RoV2": {
+      "n/a": true,
+      "name": "Ultima: Runes of Virtue II",
+      "url": "https://en.wikipedia.org/wiki/Ultima:_Runes_of_Virtue",
+      "date": "December 14, 1991"
+    },
+    "MetalMorph": {
+      "n/a": true,
+      "name": "Metal Morph",
+      "url": "https://en.wikipedia.org/wiki/Metal_Morph",
+      "date": "December 1, 1994"
+    },
+    "Pacific Strike": {
+      "n/a": true,
+      "name": "Pacific Strike",
+      "url": "https://en.wikipedia.org/wiki/Pacific_Strike",
+      "date": "1994-01-01"
+    },
+    "U8": {
+      "name": "Pagan: Ultima VIII",
+      "url": [
+        "https://en.wikipedia.org/wiki/Ultima_VIII:_Pagan",
+        "https://www.gog.com/en/game/ultima_8_gold_edition"
+      ],
+      "date": "September 1, 1993",
+      "dlcs": {
+        "dlc1": {
+          "name": "Pagan: Ultima VIII - Speech Pack"
+        }
+      },
+      "searchBy": "AllDir",
+      "pakExt": [
+        ".flx",
+        ".dat",
+        ".skf"
+      ]
+    },
+    "WC:S": {
+      "n/a": true,
+      "name": "Super Wing Commander",
+      "date": "1994-01-01"
+    },
+    "SS": {
+      "n/a": true,
+      "name": "System Shock",
+      "url": "https://en.wikipedia.org/wiki/System_Shock",
+      "date": "September 23, 1994"
+    },
+    "WC:A": {
+      "n/a": true,
+      "name": "Wing Commander: Armada",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander:_Armada",
+      "date": "September 1, 1994"
+    },
+    "WC3": {
+      "n/a": true,
+      "name": "Wing Commander III: Heart of the Tiger",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander_III:_Heart_of_the_Tiger",
+      "date": "December 12, 1994"
+    },
+    "BioForge": {
+      "n/a": true,
+      "name": "BioForge",
+      "url": "https://en.wikipedia.org/wiki/BioForge",
+      "date": "March 29, 1995"
+    },
+    "C:NR": {
+      "n/a": true,
+      "name": "Crusader: No Remorse",
+      "url": "https://en.wikipedia.org/wiki/Crusader:_No_Remorse",
+      "date": "August 31, 1995"
+    },
+    "CyberMage": {
+      "n/a": true,
+      "name": "CyberMage: Darklight Awakening",
+      "url": "https://en.wikipedia.org/wiki/CyberMage:_Darklight_Awakening",
+      "date": "June 15, 1995"
+    },
+    "WoG": {
+      "n/a": true,
+      "name": "Wings of Glory",
+      "url": "https://en.wikipedia.org/wiki/Wings_of_Glory",
+      "date": "1995-01-01"
+    },
+    "Abuse": {
+      "n/a": true,
+      "name": "Abuse",
+      "url": "https://en.wikipedia.org/wiki/Abuse_(video_game)",
+      "date": "March 1, 1996"
+    },
+    "C:NR2": {
+      "n/a": true,
+      "name": "Crusader: No Regret",
+      "url": "https://en.wikipedia.org/wiki/Crusader:_No_Regret",
+      "date": "September 12, 1996"
+    },
+    "J:L": {
+      "n/a": true,
+      "name": "Jane's AH-64D Longbow",
+      "url": "https://en.wikipedia.org/wiki/Jane%27s_AH-64D_Longbow",
+      "date": "June 3, 1996"
+    },
+    "Transland": {
+      "n/a": true,
+      "name": "Transland",
+      "date": "1996-01-01"
+    },
+    "WC4": {
+      "n/a": true,
+      "name": "Wing Commander IV: The Price of Freedom",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander_IV:_The_Price_of_Freedom",
+      "date": "February 12, 1996"
+    },
+    "J:L2": {
+      "n/a": true,
+      "name": "Jane's Combat Simulations: Longbow 2",
+      "date": "1997-01-01"
+    },
+    "UO": {
+      "name": "Ultima Online",
+      "url": [
+        "https://en.wikipedia.org/wiki/Ultima_Online",
+        "https://uo.com/client-download/"
+      ],
+      "date": "September 24, 1997",
+      "searchBy": "AllDir",
+      "pakExt": [
+        ".idx",
+        "idx.mul",
+        ".uop"
+      ],
+      "dlcs": {
+        "tsA": {
+          "name": "Ultima Online: The Second Age",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online:_The_Second_Age",
+          "date": "October 31, 1998"
+        },
+        "r": {
+          "name": "Ultima Online: Renaissance",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Renaissance",
+          "date": "May 4, 2000"
+        },
+        "td": {
+          "name": "Ultima Online: Third Dawn",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Third_Dawn",
+          "date": "March 26, 2001"
+        },
+        "lbr": {
+          "name": "Ultima Online: Lord Blackthorn's Revenge",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Lord_Blackthorn's_Revenge",
+          "date": "February 24, 2002"
+        },
+        "aos": {
+          "name": "Ultima Online: Age of Shadows",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Age_of_Shadows",
+          "date": "February 11, 2003"
+        },
+        "se": {
+          "name": "Ultima Online: Samurai Empire",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Samurai_Empire",
+          "date": "November 2, 2004"
+        },
+        "ml": {
+          "name": "Ultima Online: Mondain's Legacy",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Mondain's_Legacy",
+          "date": "August 30, 2005"
+        },
+        "ss": {
+          "name": "Ultima Online: Stygian Abyss",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Stygian_Abyss",
+          "date": "September 8, 2009"
+        },
+        "hs": {
+          "name": "Ultima Online: High Seas",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#High_Seas",
+          "date": "October 12, 2010"
+        },
+        "tol": {
+          "name": "Ultima Online: Time of Legends",
+          "url": "https://en.wikipedia.org/wiki/Ultima_Online_expansions#Time_of_Legends",
+          "date": "2015-01-01"
+        }
+      }
+    },
+    "WC:P2": {
+      "n/a": true,
+      "name": "Wing Commander: Prophecy",
+      "url": "https://en.wikipedia.org/wiki/Wing_Commander:_Prophecy",
+      "date": "December 11, 1997",
+      "dlcs": {
+        "dlc1": {
+          "name": "Wing Commander: Secret Ops",
+          "url": "https://www.wcnews.com/background/wing-commander-secret-ops.shtml",
+          "date": "August 1, 1998"
+        }
+      }
+    },
+    "U9": {
+      "name": "Ultima IX: Ascension",
+      "url": [
+        "https://en.wikipedia.org/wiki/Ultima_IX:_Ascension",
+        "https://www.gog.com/en/game/ultima_9_ascension"
+      ],
+      "date": "November 23, 1999",
+      "searchBy": "DirDown",
+      "pakExt": [
+        ".flx",
+        "Texture8.9",
+        "Texture8.14",
+        "texture16.9",
+        "texture16.14"
+      ]
+    }
+  },
+  "fileManager": {
+    "application": {
+      "U8": {
+        "key": "GOG:1207659015",
+        "reg": "GOG.com/Games/1207659015",
+        "dir": "Ultima 8",
+        "path": "ENGLISH"
+      },
+      "UO": {
+        "key": "Unknown:UltimaOnline",
+        "reg": [
+          "Origin Worlds Online/Ultima Online/KR Legacy Beta",
+          "EA Games/Ultima Online: Mondain's Legacy/1.00.0000",
+          "Origin Worlds Online/Ultima Online/1.0",
+          "Origin Worlds Online/Ultima Online Third Dawn/1.0",
+          "EA GAMES/Ultima Online Samurai Empire",
+          "EA Games/Ultima Online: Mondain's Legacy",
+          "EA GAMES/Ultima Online Samurai Empire/1.0",
+          "EA GAMES/Ultima Online Samurai Empire/1.00.0000",
+          "EA GAMES/Ultima Online: Samurai Empire/1.0",
+          "EA GAMES/Ultima Online: Samurai Empire/1.00.0000",
+          "EA Games/Ultima Online: Mondain's Legacy/1.0",
+          "EA Games/Ultima Online: Mondain's Legacy/1.00.0000",
+          "Origin Worlds Online/Ultima Online Samurai Empire BETA/2d/1.0",
+          "Origin Worlds Online/Ultima Online Samurai Empire BETA/3d/1.0",
+          "Origin Worlds Online/Ultima Online Samurai Empire/2d/1.0",
+          "Origin Worlds Online/Ultima Online Samurai Empire/3d/1.0",
+          "Electronic Arts/EA Games/Ultima Online Stygian Abyss Classic",
+          "Electronic Arts/EA Games/Ultima Online Classic"
+        ],
+        "dir": [
+          "Ultima Online Classic",
+          "Ultima Online Enhanced"
+        ]
+      },
+      "U9": {
+        "key": "GOG:1207659093",
+        "reg": [
+          "GOG.com/GOGULTIMA9",
+          "GOG.com/Games/1207659093"
+        ],
+        "dir": "Ultima 9"
+      }
+    },
+    "filters": {
+      "UO": {
+        "Animation": "",
+        "Artwork": "",
+        "Fonts": "",
+        "Gumps": "",
+        "Hues": "",
+        "Map": "",
+        "Multi": "",
+        "Skills": "",
+        "Sound": "",
+        "Texure Maps": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+﻿{
+  "id": "Epic",
+  "name": "Epic",
+  "studio": "Epic Games",
+  "description": "Epic formats",
+  "url": "https://wiki.beyondunreal.com/List_of_Unreal_Engine_games",
+  "samples": [
+    "EpicFamily.Sample.json"
+  ],
+  "engines": {
+    "Unreal": {
+      "name": "Unreal Engine"
+    }
+  },
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Epic.EpicPakFile, GameX.Epic",
+      "engine": "Unreal",
+      "searchBy": "TopDir"
+      //"paths": [ "Animations", "Maps", "Sounds", "StaticMeshes", "System", "Systextures", "XboxTextures", "XboxAnimations", "Textures" ],
+    },
+    "UE1": {
+      "name": "Unreal",
+      "url": "https://oldgamesdownload.com/unreal",
+      "date": "1998-01-01",
+      "pakExt": [
+        ".unr",
+        ".umx",
+        ".uax",
+        ".u",
+        ".utx"
+      ]
+    },
+    "TWoT": {
+      "name": "The Wheel of Time",
+      "url": "https://www.gog.com/en/game/the_wheel_of_time",
+      "date": "1999-11-15",
+      "pakExt": ".upk"
+    },
+    "DeusEx": {
+      "name": "Deus Ex™ GOTY Edition",
+      "url": "https://www.gog.com/en/game/deus_ex",
+      "date": "2000-06-22",
+      "pakExt": ".upk"
+    },
+    "DeusEx:MD": {
+      "name": "Deus Ex: Mankind Divided",
+      "url": "https://www.gog.com/en/game/deus_ex_mankind_divided",
+      "date": "2016-08-23",
+      "pakExt": ".upk"
+    },
+    "DeusEx2:IW": {
+      "name": "Deus Ex 2: Invisible War",
+      "url": "https://www.gog.com/en/game/deus_ex_invisible_war",
+      "date": "2003-12-02",
+      "pakExt": ".upk"
+    },
+    "DeusEx:HR": {
+      "name": "Deus Ex: Human Revolution - Director's Cut",
+      "url": "https://www.gog.com/en/game/deus_ex_human_revolution_directors_cut",
+      "date": "2013-10-25",
+      "pakExt": ".upk"
+    },
+    "Rune": {
+      "name": "Rune",
+      "url": "https://www.gog.com/en/game/rune_classic",
+      "date": "2000-11-18",
+      "pakExt": ".upk"
+    },
+    "Undying": {
+      "name": "Clive Barker's Undying",
+      "url": "https://www.gog.com/en/game/clive_barkers_undying",
+      "date": "2001-02-19",
+      "pakExt": ".upk"
+    },
+    "*2": {
+      "pak": "game:/"
+    },
+    "UT2K": {
+      "name": "Unreal Tournament 2003",
+      "url": "https://oldgamesdownload.com/unreal-tournament-2003/",
+      "pakExt": ".upk"
+    },
+    "UE2": {
+      "name": "Unreal II: The Awakening",
+      "url": "https://store.steampowered.com/app/13200/Unreal_2_The_Awakening/",
+      "date": "2003-02-03",
+      "pakExt": ".upk"
+    },
+    "*3": {
+      "pak": "game:/"
+    },
+    "BioShock": {
+      "name": "BioShock",
+      "url": "https://store.steampowered.com/app/7670",
+      "pak": "game:/*.(bsm:u)#BioShock",
+      "path": [
+        "Maps",
+        "System"
+      ]
+    },
+    "BioShockR": {
+      "name": "BioShock Remastered",
+      "url": "https://store.steampowered.com/app/409710",
+      "pakExt": ".upk"
+    },
+    "BioShock2": {
+      "name": "BioShock 2",
+      "url": "https://store.steampowered.com/app/8850",
+      "pakExt": ".upk"
+    },
+    "BioShock2R": {
+      "name": "BioShock 2 Remastered",
+      "url": "https://store.steampowered.com/app/409720",
+      "pakExt": ".upk"
+    },
+    "BioShock:Inf": {
+      "name": "BioShock Infinite",
+      "url": "https://store.steampowered.com/app/8870",
+      "pakExt": ".upk"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "UE1": {
+        "key": "Unknown:UE1",
+        "reg": "1234",
+        "dir": "Unreal",
+        "path": "",
+        "1234": {
+          "path": "G:/OldGamesLibrary/Unreal"
+        }
+      },
+      "TWoT": {
+        "key": "GOG:1584652180",
+        "reg": "GOG.com/Games/1584652180",
+        "dir": "The Wheel of Time",
+        "path": ""
+      },
+      "DeusEx": {
+        "key": "GOG:1207658995",
+        "reg": "GOG.com/Games/1207658995",
+        "dir": "Deus Ex GOTY",
+        "path": ""
+      },
+      "DeusEx2:IW": {
+        "key": "GOG:1207659068",
+        "reg": "GOG.com/Games/1207659068",
+        "dir": "Deus Ex - Invisible War",
+        "path": ""
+      },
+      "DeusEx:MD": {
+        "key": "GOG:1296690054",
+        "reg": "GOG.com/Games/1296690054",
+        "dir": "Deus Ex Mankind Divided",
+        "path": ""
+      },
+      "DeusEx:HR": {
+        "key": "GOG:1370227705",
+        "reg": "GOG.com/Games/1370227705",
+        "dir": "Deus Ex HRDC",
+        "path": ""
+      },
+      "Rune": {
+        "key": "GOG:0",
+        "reg": "GOG.com/Games/0",
+        "dir": "Bioshock",
+        "path": ""
+      },
+      "Undying": {
+        "key": "GOG:1207659191",
+        "reg": "GOG.com/Games/1207659191",
+        "dir": "Clive Barkers Undying",
+        "path": ""
+      },
+      "BioShock": {
+        "key": "Steam:7670",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7670",
+        "dir": "Bioshock",
+        "path": "Content"
+      },
+      "BioShockR": {
+        "key": "Steam:409710",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409710",
+        "dir": "BioShock Remastered",
+        "path": "ContentBaked/pc"
+      },
+      "BioShock2": {
+        "key": "Steam:8850",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8850",
+        "dir": "BioShock 2",
+        "path": "SP/Content"
+      },
+      "BioShock2R": {
+        "key": "Steam:409720",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 409720",
+        "dir": "BioShock 2 Remastered",
+        "path": "ContentBaked/pc"
+      },
+      "BioShock:Inf": {
+        "key": "Steam:8870",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 8870",
+        "dir": "BioShock Infinite",
+        "path": "XGame/CookedPCConsole_FR"
+      }
+    }
+  }
+}

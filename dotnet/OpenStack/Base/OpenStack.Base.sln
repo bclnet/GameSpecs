@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyIO", "OpenStack.PolyIO\OpenStack.PolyIO.csproj", "{D3EE0D03-5857-41AA-B6A9-F34560F8E474}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyIOTests", "OpenStack.PolyIOTests\OpenStack.PolyIOTests.csproj", "{EF5B0E78-576E-4431-91F8-231F28F307B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.Polyfills", "OpenStack.Polyfills\OpenStack.Polyfills.csproj", "{CA29A9CF-1B2D-4EA8-934C-FCDEB74F9FF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.PolyfillsTests", "OpenStack.PolyfillsTests\OpenStack.PolyfillsTests.csproj", "{6BD5A4A7-921F-4E97-919B-02B685B8CCE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.NumericsX", "System.NumericsX\System.NumericsX.csproj", "{B5D2D18B-23E2-408D-A0F3-D5CAA9AFDA93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenStack.Configuration", "OpenStack.Configuration\OpenStack.Configuration.csproj", "{8C67655F-1A22-4EF0-AC3C-231AAF70D13B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3EE0D03-5857-41AA-B6A9-F34560F8E474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3EE0D03-5857-41AA-B6A9-F34560F8E474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3EE0D03-5857-41AA-B6A9-F34560F8E474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3EE0D03-5857-41AA-B6A9-F34560F8E474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF5B0E78-576E-4431-91F8-231F28F307B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF5B0E78-576E-4431-91F8-231F28F307B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF5B0E78-576E-4431-91F8-231F28F307B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF5B0E78-576E-4431-91F8-231F28F307B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA29A9CF-1B2D-4EA8-934C-FCDEB74F9FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA29A9CF-1B2D-4EA8-934C-FCDEB74F9FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA29A9CF-1B2D-4EA8-934C-FCDEB74F9FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA29A9CF-1B2D-4EA8-934C-FCDEB74F9FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD5A4A7-921F-4E97-919B-02B685B8CCE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD5A4A7-921F-4E97-919B-02B685B8CCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD5A4A7-921F-4E97-919B-02B685B8CCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD5A4A7-921F-4E97-919B-02B685B8CCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D2D18B-23E2-408D-A0F3-D5CAA9AFDA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D2D18B-23E2-408D-A0F3-D5CAA9AFDA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D2D18B-23E2-408D-A0F3-D5CAA9AFDA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D2D18B-23E2-408D-A0F3-D5CAA9AFDA93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C67655F-1A22-4EF0-AC3C-231AAF70D13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C67655F-1A22-4EF0-AC3C-231AAF70D13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C67655F-1A22-4EF0-AC3C-231AAF70D13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C67655F-1A22-4EF0-AC3C-231AAF70D13B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9F1BB93-CFBC-4E41-A865-325B22465054}
+	EndGlobalSection
+EndGlobal

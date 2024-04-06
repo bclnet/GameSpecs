@@ -5,8 +5,8 @@ from PyQt6.QtCore import Qt, QBuffer, QByteArray, QUrl, QMimeData, pyqtSignal
 from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6 import QtCore, QtMultimedia
-from gamespecs.pak import PakFile
-from gamespecs.meta import MetaContent
+from gamex.pak import PakFile
+from gamex.meta import MetaContent
 from .HexView import HexView
 from .TextureView import TextureView
 

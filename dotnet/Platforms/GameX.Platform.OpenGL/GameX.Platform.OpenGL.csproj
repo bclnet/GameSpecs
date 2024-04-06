@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\docs\Platforms\OpenGL\Readme.md" Link="Readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics.OpenGL\OpenStack.Graphics.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Base\GameX.Base\GameX.Base.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y &quot;$(TargetDir)GameX.*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)OpenStack.*.dll&quot; &quot;$(ProjectDir)..\..\Examples\Unity\Simple\Assets\Plugins\&quot;" />
+  </Target>
+
+</Project>

@@ -1,0 +1,341 @@
+﻿{
+  "id": "IW",
+  "name": "Infinity Ward",
+  "studio": "Infinity Ward",
+  "description": "Infinity Ward file formats",
+  "url": "https://en.wikipedia.org/wiki/IW_(game_engine)",
+  "samples": [
+    "IWFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.IW.IWPakFile, GameX.IW",
+      "pakExt": ".iwd"
+    },
+    "COD": {
+      "name": "Call of Duty",
+      "url": [
+        "https://store.steampowered.com/app/2620",
+        "https://store.steampowered.com/app/2640"
+      ],
+      "date": "2003-10-29",
+      "tags": "WorldWarII COD"
+    },
+    "COD2": {
+      "name": "Call of Duty 2",
+      "url": "https://store.steampowered.com/app/2630",
+      "date": "2005-10-25",
+      "tags": "WorldWarII COD2"
+    },
+    "COD3": {
+      "n/a": true,
+      "name": "Call of Duty 3",
+      "date": "2006-11-07",
+      "tags": "WorldWarII COD3 XBox"
+    },
+    "COD4": {
+      "name": "Call of Duty 4: Modern Warfare",
+      "url": "https://store.steampowered.com/app/7940",
+      "date": "2007-11-07",
+      "tags": "ModernWarfare COD4",
+      "pak": "game:/*.iwd",
+      "pakx": "game:/mp_backlot_load.ff",
+      "paky": "game:/*.(iwd:ff)"
+    },
+    "007:QoS": {
+      "n/a": true,
+      "name": "007: Quantum of Solace",
+      "date": "2008-10-31"
+    },
+    "WaW": {
+      "name": "Call of Duty: World at War",
+      "url": "https://store.steampowered.com/app/10090",
+      "date": "2008-11-11",
+      "tags": "BlackOps COD:WaW",
+      "pak": "game:/mp_makin_day_load.ff",
+      "pakx": "game:/ber3.ff",
+      "pak_": "game:/*.ff",
+      "paky": "game:/*.(iwd:ff)"
+    },
+    "MW2": {
+      "name": "Call of Duty: Modern Warfare 2",
+      "url": "https://store.steampowered.com/app/10180",
+      "date": "2009-11-11",
+      "tags": "ModernWarfare MW2",
+      "pakx": "game:/*.(iwd:ff)",
+      "pak": "game:/*.(iwd:ff)"
+    },
+    "BO": {
+      "name": "Call of Duty: Black Ops",
+      "url": "https://store.steampowered.com/app/42700",
+      "date": "2010-11-09",
+      "tags": "BlackOps COD:BO",
+      "key": "hex:1ac1d12d527c59b40eca619120ff8217ccff09cd16896f81b829c7f52793405d",
+      "pak": "game:/*.(iwd:ff)"
+    },
+    "MW3": {
+      "name": "Call of Duty: Modern Warfare 3",
+      "url": "https://store.steampowered.com/app/42680",
+      "date": "2011-11-08",
+      "tags": "ModernWarfare MW3",
+      "pak": "game:/*.(iwd:ff)"
+    },
+    "BO2": {
+      "name": "Call of Duty: Black Ops II",
+      "url": "https://store.steampowered.com/app/202970",
+      "date": "2012-05-01",
+      "tags": "BlackOps COD:BO2",
+      "key": "hex:641D8A2FE31D3AA63622BBC9CE8587229D42B0F8ED9B924130BF88B65EDC50BE",
+      "pak": "game:/*.ff",
+      "pakx": "game:/karma_gump_checkin.ff"
+    },
+    "Ghosts": {
+      "name": "Call of Duty: Ghosts",
+      "url": "https://store.steampowered.com/app/209160",
+      "date": "2013-11-05",
+      "tags": "Standalone Ghosts"
+    },
+    "AW": {
+      "name": "Call of Duty: Advanced Warfare",
+      "url": "https://store.steampowered.com/app/209650",
+      "date": "2014-11-04",
+      "tags": "Standalone COD:AW",
+      "pak": "game:/*.(iwd:ff)"
+    },
+    "BO3": {
+      "name": "Call of Duty: Black Ops III",
+      "url": "https://store.steampowered.com/app/311210",
+      "date": "2015-11-06",
+      "tags": "BlackOps COD:BO3",
+      "pak_": "game:/*.(xpak,ff)",
+      "pak": "game:/*.xpak"
+    },
+    "IW": {
+      "name": "Call of Duty: Infinite Warfare",
+      "url": "https://store.steampowered.com/app/292730",
+      "date": "2016-11-04",
+      "tags": "Standalone COD:IW"
+    },
+    "WWII": {
+      "name": "Call of Duty: WWII",
+      "url": "https://store.steampowered.com/app/476600",
+      "date": "2017-11-03",
+      "tags": "WorldWarII WWII",
+      "pak": "game:/ui.ff",
+      "pakx": "game:/xpakfile1.pak",
+      "pak_": "game:/*.(pak:ff)"
+    },
+    "BO4": {
+      "fileSystemType": "GameX.Blizzard.BlizzardFileSystem, GameX.Blizzard",
+      "name": "Call of Duty: Black Ops 4",
+      "url": "https://us.shop.battle.net/en-us/product/call-of-duty-black-ops-4",
+      "date": "2018-10-12",
+      "tags": "BlackOps COD:BO4",
+      "pak": "game:/*.ff",
+      "editions": {
+        "viper": {
+          "name": "Call of Duty: Black Ops 4"
+        }
+      }
+    },
+    "MW": {
+      "name": "Call of Duty: Modern Warfare",
+      "url": "https://store.steampowered.com/app/393080",
+      "date": "2019-10-25",
+      "tags": "ModernWarfare MW"
+    },
+    "BOCW": {
+      "fileSystemType": "GameX.Blizzard.BlizzardFileSystem, GameX.Blizzard",
+      "name": "Call of Duty: Black Ops Cold War",
+      "url": "https://us.shop.battle.net/en-us/product/call-of-duty-black-ops-cold-war",
+      "date": "2020-11-13",
+      "tags": "BlackOps BOCW",
+      "editions": {
+        "zeus": {
+          "name": "Call of Duty: Black Ops Cold War"
+        }
+      }
+    },
+    "Vanguard": {
+      "fileSystemType": "GameX.Blizzard.BlizzardFileSystem, GameX.Blizzard",
+      "name": "Call of Duty: Vanguard",
+      "url": "https://us.shop.battle.net/en-us/product/call-of-duty-vanguard",
+      "date": "2021-11-05",
+      "tags": "WorldWarII Vanguard",
+      "editions": {
+        "fore": {
+          "name": "Call of Duty: Vanguard"
+        }
+      }
+    },
+    "COD:MW2": {
+      "name": "Call of Duty: Modern Warfare II",
+      "url": "https://store.steampowered.com/app/1938090",
+      "date": "2022-10-28",
+      "tags": "ModernWarfare COD:MW2",
+      "pak": "game:/*.ff",
+      "pak_": [
+        "game:/*.xpak",
+        "game:/*.ff"
+      ]
+    }
+  },
+  "fileManager": {
+    "application": {
+      "COD": {
+        "key": [
+          "Steam:2620",
+          "Steam:2640"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2620",
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2640"
+        ],
+        "dir": "Call of Duty",
+        "path": [
+          "Main",
+          "uo"
+        ]
+      },
+      "COD2": {
+        "key": "Steam:2630",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 2630",
+        "dir": "Call of Duty 2",
+        "path": "main"
+      },
+      "COD4": {
+        "key": "Steam:7940",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 7940",
+        "dir": "Call of Duty 4",
+        "path": [
+          "main",
+          "zone/english"
+        ]
+      },
+      "WaW": {
+        "key": "Steam:10090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10090",
+        "dir": "Call of Duty World at War",
+        "path": [
+          "main",
+          "zone/english"
+        ]
+      },
+      "MW2": {
+        "key": "Steam:10180",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 10180",
+        "dir": "Call of Duty Modern Warfare 2",
+        "path": [
+          "main",
+          "zone/english"
+        ]
+      },
+      "BO": {
+        "key": "Steam:42700",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42700",
+        "dir": "Call of Duty Black Ops",
+        "path": [
+          "main",
+          "zone/Common",
+          "zone/English"
+        ]
+      },
+      "MW3": {
+        "key": "Steam:42680",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 42680",
+        "dir": "Call of Duty Modern Warfare 3",
+        "path": [
+          "main",
+          "zone/english"
+        ]
+      },
+      "BO2": {
+        "key": "Steam:202970",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 202970",
+        "dir": "Call of Duty Black Ops II",
+        "path": [
+          "sound",
+          "zone/all",
+          "zone/english"
+        ]
+      },
+      "Ghosts": {
+        "key": "Steam:209160",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209160",
+        "dir": "Call of Duty Ghosts",
+        "path": [
+          ".",
+          "english"
+        ]
+      },
+      "AW": {
+        "key": "Steam:209650",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 209650",
+        "dir": "Call of Duty Advanced Warfare",
+        "path": [
+          ".",
+          "english"
+        ]
+      },
+      "BO3": {
+        "key": "Steam:311210",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 311210",
+        "dir": "Call of Duty Black Ops III",
+        "path": [
+          "zone"
+        ]
+      },
+      "IW": {
+        "key": "Steam:292730",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 292730",
+        "dir": "Call of Duty - Infinite Warfare",
+        "path": [
+          ".",
+          "english"
+        ]
+      },
+      "WWII": {
+        "key": "Steam:476600",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 476600",
+        "dir": "Call of Duty WWII",
+        "path": [
+          ".",
+          "english"
+        ]
+      },
+      "BO4": {
+        "key": "Blizzard:Call of Duty Black Ops 4",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops 4",
+        "dir": "Call of Duty Black Ops 4"
+      },
+      "MW": {
+        "key": "Steam:393080",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 393080",
+        "dir": "Call of Duty Modern Warfare Remastered",
+        "path": [
+          ".",
+          "english"
+        ]
+      },
+      "BOCW": {
+        "key": "Blizzard:Call of Duty Black Ops Cold War",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Black Ops Cold War",
+        "dir": "Call of Duty Black Ops Cold War"
+      },
+      "Vanguard": {
+        "key": "Blizzard:Call of Duty Vanguard",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Call of Duty Vanguard",
+        "dir": "Call of Duty Vanguard"
+      },
+      "COD:MW2": {
+        "key": "Steam:1938090",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1938090",
+        "dir": "Call of Duty HQ",
+        "path": [
+          ".",
+          "sp22"
+        ]
+      }
+    }
+  }
+}

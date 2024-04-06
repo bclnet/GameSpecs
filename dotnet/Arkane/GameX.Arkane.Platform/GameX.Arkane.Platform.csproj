@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.OpenGL\GameX.Platform.OpenGL.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.StereoKit\GameX.Platform.StereoKit.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.Unity\GameX.Platform.Unity.csproj" />
+    <ProjectReference Include="..\..\Platforms\GameX.Platform.Unreal\GameX.Platform.Unreal.csproj" />
+    <ProjectReference Include="..\GameX.Arkane\GameX.Arkane.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+	  <HintPath>..\..\Base\Native\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

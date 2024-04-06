@@ -1,10 +1,10 @@
-from gamespecs import family
+from gamex import family
 
 # get family
 family = family.getFamily('Arkane')
 print(f'studio: {family.studio}')
 
-file = ('game:/#AF', 'sample:1')
+file = ('game:/#AF', 'sample:0')
 # file = ('game:/master.index#D2', 'strings/english_m.lang')
 
 # get pak with game:/uri

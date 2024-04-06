@@ -1,0 +1,107 @@
+﻿{
+  // Project RED, REDKit
+  // https://witcher.fandom.com/wiki/File_format
+  // http://jlouisb.users.sourceforge.net/
+  "id": "Red",
+  "name": "REDengine",
+  "studio": "CD Projekt Red",
+  "description": "REDengine file formats including the Witcher Series",
+  "url": "https://en.wikipedia.org/wiki/CD_Projekt",
+  "samples": [
+    "RedFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Red.RedPakFile, GameX.Red"
+    },
+    "Witcher": {
+      "name": "The Witcher Enhanced Edition",
+      "engine": "Aurora",
+      "url": "https://www.gog.com/en/game/the_witcher",
+      "pakExt": ".key",
+      //"pak": "game:/*.key"
+      "pak": "game:/main.key"
+      //"pakZ": "game:/attackeffects.2da",
+      //"pak": "game:/dialog_3.tlk",
+    },
+    "Witcher2": {
+      "name": "The Witcher 2",
+      "engine": "REDengine",
+      "url": "https://www.gog.com/en/game/the_witcher_2",
+      "pak": "game:/*",
+      "pak_": "game:/base_scripts.dzip",
+      "pak2": "game:/br0.w2strings"
+    },
+    "Witcher3": {
+      "name": "The Witcher 3: Wild Hunt",
+      "engine": "REDengine",
+      "url": [
+        "https://www.gog.com/en/game/the_witcher_3_wild_hunt",
+        "https://www.gog.com/en/game/the_witcher_3_wild_hunt_game_of_the_year_edition"
+      ],
+      "pak": "game:/content0/texture.cache",
+      "pak0": "game:/content0/bundles/xml.bundle",
+      "pak1": "game:/content0/ar.w3strings"
+    },
+    "CP77": {
+      "name": "Cyberpunk 2077",
+      "url": "https://store.steampowered.com/app/1091500",
+      "pakExt": ".archive",
+      "pak": "game:/basegame_2_mainmenu.archive",
+      "pak1": "game:/lang_en_text.archive"
+      //"pak": "game:/lang_en_voice.archive"
+      //"pak": "game:/*.archive"
+    },
+    "Witcher4": {
+      "name": "The Witcher 4 Polaris (future)",
+      "url": "https://en.wikipedia.org/wiki/The_Witcher_(video_game_series)",
+      "engine": "Unreal"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "Witcher": {
+        "key": "GOG:1207658924",
+        "reg": [
+          "CD Projekt RED/The Witcher",
+          "GOG.com/Games/1207658924"
+        ],
+        "dir": "The Witcher Enhanced Edition",
+        "path": "Data"
+      },
+      "Witcher2": {
+        "key": "GOG:1207658930",
+        "reg": [
+          "CD Projekt RED/The Witcher 2",
+          "GOG.com/Games/1207658930"
+        ],
+        "dir": "The Witcher 2",
+        "path": "CookedPC"
+      },
+      "Witcher3": {
+        "key": [
+          "GOG:1207664643",
+          "GOG:1495134320"
+        ],
+        "reg": [
+          "GOG.com/Games/1207664643",
+          //"GOG.com/Games/1430742867",
+          "GOG.com/Games/1495134320"
+        ],
+        "dir": "The Witcher 3 Wild Hunt",
+        "path": "content"
+      },
+      "CP77": {
+        "key": "Steam:1091500",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 1091500",
+        "dir": "Cyberpunk 2077",
+        "path": "archive/pc/content"
+      },
+      "Witcher4": {
+        "key": "Steam:0",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 0",
+        "dir": "Witcher4"
+      }
+    }
+  }
+}

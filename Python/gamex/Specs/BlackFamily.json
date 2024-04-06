@@ -1,0 +1,90 @@
+﻿{
+  "id": "Black",
+  "name": "Black Isle Studios",
+  "studio": "Black Isle Studios",
+  "description": "",
+  "url": "https://en.wikipedia.org/wiki/Black_Isle_Studios",
+  "samples": [
+    "BlackFamily.Sample.json"
+  ],
+  "games": {
+    "*": {
+      "pakFileType": "GameX.Black.BlackPakFile, GameX.Black"
+    },
+    "Fallout": {
+      "name": "Fallout",
+      "url": "https://store.steampowered.com/app/38400",
+      "date": "1997-09-30",
+      "searchBy": "AllDir",
+      "pakExt": ".dat"
+    },
+    "Fallout2": {
+      "name": "Fallout 2",
+      "url": "https://store.steampowered.com/app/38410",
+      "date": "1998-12-01",
+      "searchBy": "AllDir",
+      "pakExt": ".dat"
+    },
+    "P:T": {
+      "name": "Planescape: Torment",
+      "url": [
+        "https://en.wikipedia.org/wiki/Planescape:_Torment",
+        "https://store.steampowered.com/app/466300"
+      ],
+      "date": "1999-12-10",
+      "pakExt": ".x"
+    },
+    "ID": {
+      "name": "Icewind Dale",
+      "url": [
+        "https://en.wikipedia.org/wiki/Icewind_Dale",
+        "https://store.steampowered.com/app/321800"
+      ],
+      "date": "2000-06-29",
+      "pakExt": ".x"
+    },
+    "ID:HoW": {
+      "name": "Icewind Dale: Heart of Winter",
+      "url": "https://en.wikipedia.org/wiki/Icewind_Dale:_Heart_of_Winter",
+      "date": "2001-02-21",
+      "pakExt": ".x"
+    },
+    "ID2": {
+      "name": "Icewind Dale II",
+      "url": "https://en.wikipedia.org/wiki/Icewind_Dale_II",
+      "date": "2002-08-27",
+      "pakExt": ".x"
+    },
+    "BG:DA2": {
+      "name": "Baldur's Gate: Dark Alliance II",
+      "url": "https://en.wikipedia.org/wiki/Baldur%27s_Gate:_Dark_Alliance_II",
+      "date": "2004-01-20",
+      "pakExt": ".x"
+    }
+  },
+  "fileManager": {
+    "application": {
+      "Fallout": {
+        "key": "Steam:38400",
+        "reg": "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38400",
+        "dir": "Fallout"
+      },
+      "Fallout2": {
+        "key": [
+          "Steam:38410",
+          "GOG:1440151285"
+        ],
+        "reg": [
+          "Microsoft/Windows/CurrentVersion/Uninstall/Steam App 38410",
+          "GOG.com/Games/1440151285"
+        ],
+        "dir": "Fallout 2"
+      }
+    },
+    "ignores": {
+      "Fallout2": {
+        "path": "unins000.dat"
+      }
+    }
+  }
+}

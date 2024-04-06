@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="FileManager+Last.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\ArkaneFamily.json" Link="Specs\ArkaneFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\ArkaneFamily.Sample.json" Link="Specs\ArkaneFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BethesdaFamily.json" Link="Specs\BethesdaFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BethesdaFamily.Sample.json" Link="Specs\BethesdaFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BiowareFamily.json" Link="Specs\BiowareFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BiowareFamily.Sample.json" Link="Specs\BiowareFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BlackFamily.json" Link="Specs\BlackFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BlackFamily.Sample.json" Link="Specs\BlackFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\BlizzardFamily.json" Link="Specs\BlizzardFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily.json" Link="Specs\CapcomFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily.Sample.json" Link="Specs\CapcomFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily+0-D.json" Link="Specs\CapcomFamily+0-D.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily+E-L.json" Link="Specs\CapcomFamily+E-L.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily+M.json" Link="Specs\CapcomFamily+M.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily+N-R.json" Link="Specs\CapcomFamily+N-R.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily+S.json" Link="Specs\CapcomFamily+S.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\CapcomFamily+T-Z.json" Link="Specs\CapcomFamily+T-Z.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CigFamily.json" Link="Specs\CigFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CigFamily.Sample.json" Link="Specs\CigFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CrypticFamily.json" Link="Specs\CrypticFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CrypticFamily.Sample.json" Link="Specs\CrypticFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CrytekFamily.json" Link="Specs\CrytekFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CrytekFamily.Sample.json" Link="Specs\CrytekFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CyanideFamily.json" Link="Specs\CyanideFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\CyanideFamily.Sample.json" Link="Specs\CyanideFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\EpicFamily.json" Link="Specs\EpicFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\EpicFamily.Sample.json" Link="Specs\EpicFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\FrictionalFamily.json" Link="Specs\FrictionalFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\FrictionalFamily.Sample.json" Link="Specs\FrictionalFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\FrontierFamily.json" Link="Specs\FrontierFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\FrontierFamily.Sample.json" Link="Specs\FrontierFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\IdFamily.json" Link="Specs\IdFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\IdFamily.Sample.json" Link="Specs\IdFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\IWFamily.json" Link="Specs\IWFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\IWFamily.Sample.json" Link="Specs\IWFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\LucasFamily.json" Link="Specs\LucasFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\LucasFamily.Sample.json" Link="Specs\LucasFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\MonolithFamily.json" Link="Specs\MonolithFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\MonolithFamily.Sample.json" Link="Specs\MonolithFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\OriginFamily.json" Link="Specs\OriginFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\OriginFamily.Sample.json" Link="Specs\OriginFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\RedFamily.json" Link="Specs\RedFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\RedFamily.Sample.json" Link="Specs\RedFamily.Sample.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\UbisoftFamily.json" Link="Specs\UbisoftFamily.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\UbisoftFamily.Sample.json" Link="Specs\UbisoftFamily.Sample.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\UbisoftFamily+1986-1999.json" Link="Specs\UbisoftFamily+1986-1999.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\UbisoftFamily+2000-2009.json" Link="Specs\UbisoftFamily+2000-2009.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\UbisoftFamily+2010-2019.json" Link="Specs\UbisoftFamily+2010-2019.json" />
+	<EmbeddedResource Include="..\..\..\python\gamex\Specs\UbisoftFamily+2020-present.json" Link="Specs\UbisoftFamily+2020-present.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\UnityFamily.json" Link="Specs\UnityFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\UnityFamily.Sample.json" Link="Specs\UnityFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\UnknownFamily.json" Link="Specs\UnknownFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\ValveFamily.json" Link="Specs\ValveFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\ValveFamily.Sample.json" Link="Specs\ValveFamily.Sample.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\WbBFamily.json" Link="Specs\WbBFamily.json" />
+    <EmbeddedResource Include="..\..\..\python\gamex\Specs\WbBFamily.Sample.json" Link="Specs\WbBFamily.Sample.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Platforms\Native\x64\oo2ext_7_win64.dll" Link="oo2ext_7_win64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.3.6" />
+    <PackageReference Include="lzo.net" Version="0.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+    <PackageReference Include="ZstdNet" Version="1.4.5" />
+	<PackageReference Include="Google.Protobuf" Version="3.23.4" />
+	<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+	<PackageReference Include="SQLitePCLRaw.core" Version="2.1.5" />
+	<PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.5" />
+	<PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.osx" Version="1.1.14" />
+	<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenStack\Base\OpenStack.Polyfills\OpenStack.Polyfills.csproj" />
+    <ProjectReference Include="..\..\OpenStack\Graphics\OpenStack.Graphics\OpenStack.Graphics.csproj" />
+  </ItemGroup>
+
+</Project>
