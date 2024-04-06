@@ -317,45 +317,6 @@ namespace GameX
                 _ => throw new ArgumentOutOfRangeException(nameof(res)),
             };
 
-        #region PakBinary
-
-        /// <summary>
-        /// Reads the asynchronous.
-        /// </summary>
-        /// <param name="r">The r.</param>
-        /// <param name="tag">The tag.</param>
-        /// <returns></returns>
-        public virtual Task Read(BinaryReader r, object tag = default) => throw new NotImplementedException();
-
-        /// <summary>
-        /// Reads the file data asynchronous.
-        /// </summary>
-        /// <param name="r">The r.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="option">The option.</param>
-        /// <returns></returns>
-        public virtual Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default) => throw new NotImplementedException();
-
-        /// <summary>
-        /// Writes the asynchronous.
-        /// </summary>
-        /// <param name="w">The w.</param>
-        /// <param name="tag">The tag.</param>
-        /// <returns></returns>
-        public virtual Task Write(BinaryWriter w, object tag = default) => throw new NotImplementedException();
-
-        /// <summary>
-        /// Writes the file data asynchronous.
-        /// </summary>
-        /// <param name="w">The w.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="data">The data.</param>
-        /// <param name="option">The option.</param>
-        /// <returns></returns>
-        public virtual Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => throw new NotImplementedException();
-
-        #endregion
-
         #region Transform
 
         /// <summary>
@@ -554,14 +515,15 @@ namespace GameX
                         if (files.Length == 1) return (this, files[0]);
                         Log($"ERROR.LoadFileData: {s} @ {files.Length}");
                         if (throwOnError) throw new FileNotFoundException(files.Length == 0 ? s : $"More then one file found for {s}");
-                        return (this, null);
+                        return (null, null);
                     }
                 case int i:
                     {
                         var files = FilesById[i].ToArray();
                         if (files.Length == 1) return (this, files[0]);
                         Log($"ERROR.LoadFileData: {i} @ {files.Length}");
-                        throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
+                        if (throwOnError) throw new FileNotFoundException(files.Length == 0 ? $"{i}" : $"More then one file found for {i}");
+                        return (null, null);
                     }
                 default: throw new ArgumentOutOfRangeException(nameof(path));
             }
@@ -578,11 +540,16 @@ namespace GameX
         /// <exception cref="InvalidOperationException"></exception>
         public override Task<Stream> LoadFileData(object path, FileOption option = default, bool throwOnError = true)
         {
-            var (p, f) = GetFileSource(path, throwOnError);
-            if (f == null) return default;
+            if (path == null) return default;
+            else if (!(path is FileSource))
+            {
+                var (p, f2) = GetFileSource(path, throwOnError);
+                return p?.LoadFileData(f2, option, throwOnError);
+            }
+            var f = (FileSource)path;
             return UseReader
-                ? GetReader().Func(r => p.ReadData(r, f, option))
-                : p.ReadData(null, f, option);
+                ? GetReader().Func(r => ReadData(r, f, option))
+                : ReadData(null, f, option);
         }
 
         /// <summary>
@@ -595,10 +562,15 @@ namespace GameX
         /// <returns></returns>
         public override async Task<T> LoadFileObject<T>(object path, FileOption option = default, bool throwOnError = true)
         {
-            var (p, f) = GetFileSource(path, throwOnError);
-            if (f == null) return default;
+            if (path == null) return default;
+            else if (!(path is FileSource))
+            {
+                var (p, f2) = GetFileSource(path, throwOnError);
+                return await p.LoadFileObject<T>(f2, option, throwOnError);
+            }
+            var f = (FileSource)path;
             var type = typeof(T);
-            var data = await p.LoadFileData(f, option);
+            var data = await LoadFileData(f, option, throwOnError);
             if (data == null) return default;
             var objectFactory = EnsureCachedObjectFactory(f);
             if (objectFactory != FileSource.EmptyObjectFactory)
@@ -680,7 +652,7 @@ namespace GameX
         /// <param name="r">The r.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public override Task Read(BinaryReader r, object tag = default) => PakBinary.Read(this, r, tag);
+        public virtual Task Read(BinaryReader r, object tag = default) => PakBinary.Read(this, r, tag);
 
         /// <summary>
         /// Reads the file data asynchronous.
@@ -689,7 +661,7 @@ namespace GameX
         /// <param name="file">The file.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public override Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadData(this, r, file, option);
+        public virtual Task<Stream> ReadData(BinaryReader r, FileSource file, FileOption option = default) => PakBinary.ReadData(this, r, file, option);
 
         /// <summary>
         /// Writes the asynchronous.
@@ -697,7 +669,7 @@ namespace GameX
         /// <param name="w">The w.</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        public override Task Write(BinaryWriter w, object tag = default) => PakBinary.Write(this, w, tag);
+        public virtual Task Write(BinaryWriter w, object tag = default) => PakBinary.Write(this, w, tag);
 
         /// <summary>
         /// Writes the file data asynchronous.
@@ -707,7 +679,7 @@ namespace GameX
         /// <param name="data">The data.</param>
         /// <param name="option">The option.</param>
         /// <returns></returns>
-        public override Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteData(this, w, file, data, option);
+        public virtual Task WriteData(BinaryWriter w, FileSource file, Stream data, FileOption option = default) => PakBinary.WriteData(this, w, file, data, option);
 
         #endregion
 
